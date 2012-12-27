@@ -55,6 +55,7 @@ $LNG['tn_delete_mode']						= 'The account at %s will be automatically deleted!'
 
 //----------------------------------------------------------------------------//
 // Menu
+$LNG['lm_changelog']						= 'Changelog';
 $LNG['lm_overview']							= 'Overview';
 $LNG['lm_galaxy']							= 'Galaxy';
 $LNG['lm_empire']							= 'Empire';
@@ -605,6 +606,8 @@ $LNG['al_ok']								= 'OK';
 $LNG['al_num']								= 'ID';
 $LNG['al_member']							= 'Name';
 $LNG['al_request_from_user']                = 'The requests of players';
+$LNG['al_request_register_time']            = 'Registered at';
+$LNG['al_request_last_onlinetime']          = 'Last activity';
 $LNG['al_message']							= 'Message';
 $LNG['al_position']							= 'Position';
 $LNG['al_points']							= 'Points';
@@ -657,6 +660,8 @@ $LNG['al_manage_ranks']						= 'Configure rights';
 $LNG['al_manage_members']					= 'Manage members';
 $LNG['al_manage_change_tag']				= 'Change Tag of Alliance';
 $LNG['al_manage_change_name']				= 'Change name of Alliance';
+$LNG['al_set_max_members']					= 'Maximum number of members';
+$LNG['al_manage_request_min_points']        = 'Minimum Points';
 $LNG['al_texts']							= 'Options of text';
 $LNG['al_manage_options']					= 'Options';
 $LNG['al_manage_image']						= 'Image of Alliance';
@@ -664,6 +669,7 @@ $LNG['al_manage_requests']					= 'Applications';
 $LNG['al_manage_diplo']                    	= 'Diplomacy of Alliance';
 $LNG['al_requests_not_allowed']			    = 'Impossible (Alliance closed)';
 $LNG['al_requests_allowed']				    = 'Possible (Alliance open)';
+$LNG['al_requests_min_points']              = ' %s points';
 $LNG['al_manage_founder_rank']				= 'Position of the founder';
 $LNG['al_configura_ranks']					= 'Setting rights';
 $LNG['al_create_new_rank']					= 'Create new rank';
@@ -687,10 +693,14 @@ $LNG['al_tfmetall']     					= 'Debris of Metal';
 $LNG['al_tfkristall']   					= 'Debris of Crystal';
 $LNG['al_view_stats']						= 'Statistics of battle public?';
 $LNG['al_view_diplo']						= 'Diplomacy is public?';
+$LNG['al_view_events']						= 'Viewing events';
 $LNG['al_memberlist_min']					= 'min';
 $LNG['al_memberlist_on']					= 'Online';
 $LNG['al_memberlist_off']					= 'Offline';
 $LNG['al_diplo']							= 'Diplomacy';
+$LNG['al_no_diplo']							= '-';
+$LNG['al_events']							= 'Events';
+$LNG['al_no_events']						= 'There are currently no events';
 $LNG['al_diplo_level'][1]                   = 'Wing';
 $LNG['al_diplo_level'][2]                   = 'Alliance';
 $LNG['al_diplo_level'][3]                   = 'Trade Pact';
@@ -700,6 +710,7 @@ $LNG['al_diplo_level'][6]					= 'Secret Alliance';
 $LNG['al_diplo_no_entry']                   = '- There is no Pact -';
 $LNG['al_diplo_no_accept']                  = '- Without applications available -';
 $LNG['al_diplo_accept']                     = 'Applications';
+
 $LNG['al_diplo_accept_send']                = 'Output requests';
 $LNG['al_diplo_create']                     = 'Create new Pact.';
 $LNG['al_diplo_create_done']                = 'The Pact created successfully.';
@@ -738,6 +749,7 @@ $LNG['al_rank_desc']['KICK']				= 'Can deleting members';
 $LNG['al_rank_desc']['DIPLOMATIC']			= 'Can manage the Diplomacy';
 $LNG['al_rank_desc']['RANKS']				= 'Can configure the Ranks';
 $LNG['al_rank_desc']['MANAGEUSERS']			= 'Can manage members';
+$LNG['al_rank_desc']['EVENTS']			= 'Can see events';
 
 //----------------------------------------------------------------------------//
 // Lista de Amigos

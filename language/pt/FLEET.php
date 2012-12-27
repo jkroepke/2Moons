@@ -42,7 +42,8 @@ $LNG['sys_stealed_ressources'] 			= "Ele roubou";
 $LNG['sys_and']						    = "e";
 $LNG['sys_mess_tower'] 					= "Torre de controle";
 $LNG['sys_mess_attack_report'] 			= "Relatório de Combate";
-
+$LNG['sys_expe_found_ships_nothing']		= 'Não foi possivel encontrar naves';
+$LNG['sys_raport_lost_contact']				= 'Perdeu-se o contato com a frota  (ou seja, foi abatido na primeira rodada.)';
 $LNG['sys_spy_fleet'] 					= "Frota";
 $LNG['sys_spy_defenses'] 				= "Defesas";
 $LNG['sys_mess_qg'] 					= "Central de Operações";

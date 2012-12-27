@@ -37,20 +37,24 @@ $LNG['shortNames'] = array (
 );
 
 $LNG['bonus'] = array(
-	'Attack'			=> '+%f%% Ataque',
-	'Defensive'			=> '+%f%% Defesa',
-	'Shield'			=> '+%f%% Escudo',
-	'BuildTime'			=> '-%f%% Tempo de Construção',
-	'ResearchTime'		=> '-%f%% Tempo de Pesquisa',
-	'ShipTime'			=> '-%f%% Tempo de Construção de Naves',
-	'DefensiveTime'		=> '-%f%% Tempo de Construção de Defesas',
-	'Resource'			=> '+%f%% Produção de Recursos',
-	'Energy'			=> '+%f%% Produção de Energia',
-	'ResourceStorage'	=> '+%f%% Armazenamento de Recursos',
-	'ShipStorage'		=> '+%f%% Armazenamento de Naves',
-	'FlyTime'			=> '+%f%% Tempo de Voo',
-	'FleetSlots'		=> '+%f%% Slots de Fleet',
-	'Planets'			=> '+%f%% Planetas',
+	'Attack'			=> 'Ataque',
+	'Defensive'			=> 'Defesa',
+	'Shield'			=> 'Escudo',
+	'BuildTime'			=> 'Tempo de Construção',
+	'ResearchTime'		=> 'Tempo de Pesquisa',
+	'ShipTime'			=> 'Tempo de Construção de Naves',
+	'DefensiveTime'		=> 'Tempo de Construção de Defesas',
+	'Resource'			=> 'Produção de Recursos',
+	'Energy'			=> 'Produção de Energia',
+	'ResourceStorage'	=> 'Armazenamento de Recursos',
+	'ShipStorage'		=> 'Armazenamento de Naves',
+	'FlyTime'			=> 'Tempo de Voo',
+	'FleetSlots'		=> 'Slots de Fleet',
+	'Planets'			=> 'Planetas',
+	'SpyPower'			=> 'Poder de espionagem',
+	'Expedition'		=> 'Expedições',
+	'GateCoolTime'		=> 'Tempo de salto reduzido',
+	'MoreFound'			=> 'Possibilidade de Expedição',
 );
 
 

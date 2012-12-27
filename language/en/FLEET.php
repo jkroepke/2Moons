@@ -67,6 +67,7 @@ $LNG['sys_colo_notfree'] 					= "One of your fleets reaches the coordinates %s. 
 
 $LNG['sys_expe_report'] 					= "Expedition report";
 $LNG['sys_recy_report'] 					= "Recycling Report";
+$LNG['sys_expe_found_ships_nothing']		= 'No ships could be found.';
 $LNG['sys_expe_blackholl_1'] 				= "Your fleet encountered a black hole and was partly destroyed! ";
 $LNG['sys_expe_blackholl_2'] 				= "Your fleet encountered a black hole and was destroyed completely! ";
 $LNG['sys_expe_found_goods'] 				= "Your researchers have found a planet rich in raw materials! <br>It has %s %s, %s %s and %s %s mined";
@@ -165,6 +166,7 @@ $LNG['sys_destruc_title']       		   	= 'The following fleets face each other fo
 $LNG['sys_mess_destruc_report']  		  	= 'Report: Moon destruction';
 $LNG['sys_raport_not_found']				= 'Invalid Battle Report ID';
 
+$LNG['sys_raport_lost_contact']				= 'The contact to the attacking fleet was lost (that is, it was shot down in the first round.)';
 $LNG['sys_destruc_lune']          		 	= 'The probability of a moon destruction is: %d%% ';
 $LNG['sys_destruc_rip']          			= 'The probability of a self-destruction of the fleet is: %d%%';
 $LNG['sys_destruc_stop']      			 	= 'The defender has blocked the moon destruction successfully.';

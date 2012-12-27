@@ -54,6 +54,7 @@ $LNG['tn_delete_mode']						= 'A conta às %s será automaticamente apagada!';
 
 //----------------------------------------------------------------------------//
 // Menu
+$LNG['lm_changelog']						= 'Changelog';
 $LNG['lm_overview']							= 'Vista Geral';
 $LNG['lm_galaxy']							= 'Galáxia';
 $LNG['lm_empire']							= 'Império';
@@ -338,25 +339,25 @@ $LNG['fl_acs_change_name']					= 'Escreve o novo nome';
 $LNG['fl_error_not_avalible']				= 'Estas coordenadas não possui qualquer planeta';
 $LNG['fl_error_empty_derbis']				= 'Não possui qualquer campo de destroços!';
 $LNG['fl_error_no_moon']					= 'Não possui qualquer lua nestas coordenadas!';
-$LNG['fl_send_error'][3]					= 'A partida e o destino é do mesmo planeta';
-$LNG['fl_send_error'][4]					= 'O alvo não é valido';
-$LNG['fl_send_error'][5]					= 'Sem recursos para transporte';
-$LNG['fl_send_error'][6]					= 'Sem slots disponivéis!';
-$LNG['fl_send_error'][7]					= 'O planeta para destino, não existe';
-$LNG['fl_send_error'][8]					= 'As naves não estão todas presentes';
-$LNG['fl_send_error'][9]					= 'Não podes fazer mais expedições';
-$LNG['fl_send_error'][10]					= 'Não possuis o nivel necessário na Tecnologia de Expedição';
-$LNG['fl_send_error'][12]					= 'O jogador encontra se em modo de férias!';
-$LNG['fl_send_error'][13]					= 'Proteção de bash';
-$LNG['fl_send_error'][14]					= 'Não podes atacar administradores';
-$LNG['fl_send_error'][15]					= 'O jogador atualmente é fraco!';
-$LNG['fl_send_error'][16]					= 'O jogador é forte!';
-$LNG['fl_send_error'][17]					= 'Não existe depósito de Aliança';
-$LNG['fl_send_error'][18]					= 'O jogador encontra-se na tua aliança ou na tua lista de amigos!';
-$LNG['fl_send_error'][19]					= 'Não possuis Deutério suficiente, tens %s. Falta-te %s %s!';
-$LNG['fl_send_error'][20]					= 'Não tens capacidade de carga disponivel. Disponivel:';
-$LNG['fl_send_error'][21]					= 'Os destroços não existem!';
-$LNG['fl_send_error'][22]					= 'Não existe missões (Planeta disponivel?)';
+$LNG['fl_error_same_planet']				= 'Início e o destino do planeta são idênticos!';
+$LNG['fl_invalid_target']					= 'Nenhum destino válido';
+$LNG['fl_no_noresource']					= 'Nenhum recurso na nave!';
+$LNG['fl_no_target']						= 'Nenhum planeta de destino disponíveis';
+$LNG['fl_not_all_ship_avalible']			= 'Nem todos os navios presentes.';
+$LNG['fl_no_expedition_slot']				= 'Não pode começar mais expedições!';
+$LNG['fl_invalid_mission']					= 'Missão inválida';
+$LNG['fl_bash_protection']					= 'Bash Rule';
+$LNG['fl_admin_attack']						= 'Não podes atacar os administradores';
+$LNG['fl_target_exists']					= 'Planeta de destino';
+$LNG['fl_target_not_exists']				= 'Planeta de destino não existe!';
+$LNG['fl_only_planets_colonizable']			= 'Apenas planetas podem ser colonizados.';
+$LNG['fl_player_is_noob']					= 'Jogador está na proteção Noob!';
+$LNG['fl_player_is_strong']					= 'Jogador é muito forte!';
+$LNG['fl_tech_for_position_required']		= 'Precisas de nível %s % d, a fim de ocupar esta posição!';
+$LNG['fl_no_hold_depot']					= 'Nenhum depósito Aliança situa-se no alvo.';
+$LNG['fl_not_enough_deuterium']				= 'Sem deutério disponível.';
+$LNG['fl_not_enough_space']					= 'Não tens carga suficiente';
+$LNG['fl_hold_time_not_exists']				= 'Tempo de retenção inválido.';
 
 //----------------------------------------------------------------------------//
 // Edificios
@@ -488,6 +489,7 @@ $LNG['in_dest_durati'] 			            = 'Tempo para destruição';
 $LNG['in_missilestype']   					= 'Tipo de Misseis';
 $LNG['in_missilesamount']    				= 'Numero de Misseis Disponivéis';
 $LNG['in_engine'] 							= 'Motor';
+$LNG['in_bonus'] 							= 'Bonus:';
 
 //----------------------------------------------------------------------------//
 // Mensagens
@@ -724,6 +726,15 @@ $LNG['al_diplo_no_alliance']				= 'Não existe aliança com o nome de %s!';
 $LNG['al_diplo_info']						= '<p>Aqui é exibido os diferentes tipos de Aliança e poderás ver os teus pactos [TODO: FAQ]</p>';
 $LNG['al_leave_ally']						= 'Será que queres mesmo deixar a Aliança?';
 $LNG['al_default_leader_name']				= 'Leader';
+$LNG['al_request_register_time']            = 'Juntou se em';
+$LNG['al_request_last_onlinetime']          = 'Última atividade';
+$LNG['al_set_max_members']					= 'Número máximo de membros';
+$LNG['al_manage_request_min_points']        = 'Mínimo de pontos';
+$LNG['al_requests_min_points']              = ' %s pontos';
+$LNG['al_view_events']						= 'Exibir eventos';
+$LNG['al_no_diplo']							= '-';
+$LNG['al_events']							= 'Eventos';
+$LNG['al_no_events']						= 'De momento não há eventos';
 $LNG['al_rank_name']						= 'Nome';
 $LNG['al_rank_desc']['MEMBERLIST']			= 'Pode ver os membros';
 $LNG['al_rank_desc']['ONLINESTATE']			= 'Pode ver quem está online';
@@ -736,6 +747,7 @@ $LNG['al_rank_desc']['KICK']				= 'Pode excluir membros';
 $LNG['al_rank_desc']['DIPLOMATIC']			= 'Pode gerenciar a Diplomacia';
 $LNG['al_rank_desc']['RANKS']				= 'Pode configurar os Ranks';
 $LNG['al_rank_desc']['MANAGEUSERS']			= 'Pode gerenciar os membros';
+$LNG['al_rank_desc']['EVENTS']			= 'Pode ver eventos';
 
 //----------------------------------------------------------------------------//
 // Lista de Amigos
@@ -833,6 +845,7 @@ $LNG['sh_planet']					        = 'Planeta';
 $LNG['sh_coords']					        = 'Coordenadas';
 $LNG['sh_position']					        = 'Posição';
 $LNG['sh_write_message']                    = 'Mensagem Privada';
+$LNG['sh_loading']							= '(A ler ...)';
 
 //----------------------------------------------------------------------------//
 //OPTIONS
@@ -950,6 +963,7 @@ $LNG['cff_mission_target_mip']				= 'Ataque de mísseis (%d) do Jogador %s do %s
 //----------------------------------------------------------------------------//
 // Funções Extras
 $LNG['fcm_universe']						= 'Universo';
+$LNG['fcm_mainplanet']						= 'Planeta inicial';
 $LNG['fcm_planet']							= 'Planeta';
 $LNG['fcm_moon']							= 'Lua';
 $LNG['fcm_info']							= 'Informação';
@@ -961,6 +975,8 @@ $LNG['sys_refferal_from']        	 		= 'Sistema';
 $LNG['sys_refferal_title']        	 		= 'Bonus de Jogador %s';
 $LNG['sys_refferal_text']        	 		= 'O jogador %s recrutado por ti atingiu %s pontos.<br><br>Tu convidas um jogador ativo, ganharás %s %s';
 $LNG['sys_closed_game']        	 			= 'O jogo atualmente não está disponível:';
+$LNG['spec_mail_inactive_title']  			= '%s - Relembrar';
+
 
 //----------------------------------------------------------------------------//
 // Relatório de Combate

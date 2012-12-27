@@ -5,6 +5,9 @@
 
 // 2Moons - Copyright (C) 2012  Jan Kröpke
 
+
+
+
 //---------------	Geral	------------------------// 
 $LNG['adm_login']			= 'Login';
 $LNG['adm_username']		= 'Username';
@@ -40,6 +43,16 @@ $LNG['time_seconds']	= 'Segundos';
 //###########################################################//
 
 $LNG['info_information']	= 'Enviar ou reportar bugs no forum <a href="%s" target="tracker">2Moons</a><br>De outro modo não haverá suporte!';
+$LNG['uni_reg']				= 'Universo';
+$LNG['user_reg']			= 'Nome';
+$LNG['pass_reg']			= 'Senha';
+$LNG['pass2_reg']			= 'Senha (2a vez)';
+$LNG['email_reg']			= 'Email';
+$LNG['email2_reg']			= 'Email (2a vez)';
+$LNG['lang_reg']			= 'Língua';
+$LNG['uvs_reload']						= 'Recarregar';
+$LNG['uvs_back']						= 'Voltar';
+$LNG['log_disclamersettings']			= 'Contatos';
 
 //---------------	Sim ou não	------------------------// 
 $LNG['one_is_yes'][1]	= 'Sim';
@@ -271,15 +284,13 @@ $LNG['er_data']			= 'Data';
 $LNG['ml_message_list']					= 'Lista Mensagens';
 $LNG['ml_page']							= 'Página';
 $LNG['ml_type']							= 'Tipo';
-$LNG['ml_dlte_selection']				= 'Apagar seleção';
-$LNG['ml_dlte_since']					= 'Apagar a partir de';
-$LNG['ml_dlte_since_button']			= 'Apagar a partir de';
 $LNG['ml_date']							= 'Data';
-$LNG['ml_from']							= 'De';
-$LNG['ml_to']							= 'Para';
 $LNG['ml_subject']						= 'Assunto';
-$LNG['ml_content']						= 'Conteudo';
-$LNG['ml_see_all_messages']				= 'Ver todas as mensagens';
+$LNG['ml_type_submit']			= 'Enviar';
+$LNG['ml_id']					= '#ID';
+$LNG['ml_sender']				= 'Remetente';
+$LNG['ml_receiver']				= 'Receptor';
+$LNG['ml_date_range']			= 'Periodo';
 //###########################################################//
 
 
@@ -495,6 +506,11 @@ $LNG['se_dst_sel'][0]                                   = 'Sim';
 $LNG['se_dst_sel'][1]                                   = 'Não';
 $LNG['se_dst_sel'][2]                                   = 'Automático';
 $LNG['se_max_dm_missions']				= 'Máximo de missões paralelas de DM';
+$LNG['se_alliance_create_min_points']   = 'Número mínimo de pontos, para formar uma aliança';
+$LNG['se_disclamerAddress']				= 'Endereço';
+$LNG['se_disclamerPhone']				= 'Número de telefone';
+$LNG['se_disclamerMail']				= 'Endereço de e-mail';
+$LNG['se_disclamerNotice']				= 'Mais informações';
 
 //###########################################################//
 
@@ -595,7 +611,6 @@ $LNG['mu_user_logs']				    = 'Log de Registo';
 $LNG['mu_support']                      = 'Tickets de Suporte';
 $LNG['mu_chat']                         = 'Configurações de Chat';
 $LNG['mu_module']                       = 'Modulos';
-$LNG['mu_update']                       = 'Atualizar o Jogo';
 $LNG['mu_mod_update']              		= 'Controlo de Versão do MOD';
 $LNG['mu_fb_options'] 					= 'Registo pelo Facebook';
 $LNG['mu_ts_options']                   = 'Opções Teamspeak';
@@ -607,6 +622,8 @@ $LNG['mu_clear_cache']					= 'Limpar Cache';
 $LNG['mu_vertify']				     	= 'Verificar Conteúdo do Jogo'; 
 $LNG['mu_logs']				     		= 'Atividade de Administrador'; 
 $LNG['mu_giveaway']				     	= 'Sistema Giveaway'; 
+$LNG['mu_cronjob']					= 'Cronjobs'; 
+$LNG['mu_disclamer']				= 'Configurações de contato';
 
 $LNG['vt_error']					= 'Hashfile não está disponível! - Executar Atualização!';
 $LNG['vt_fail']						= 'Arquivos Alterados';
@@ -1224,3 +1241,49 @@ $LNG['supp_open'] 							= 'Aberto';
 $LNG['supp_admin_answer'] 					= 'Resposta do Administrador';
 $LNG['supp_player_write'] 					= '%s escrito em %s';
 $LNG['supp_player_answer'] 					= 'Resposta de Jogador';
+
+//Cronjobs
+$LNG['cronName']['referral']		= 'Referral Bonus';
+$LNG['cronName']['statistic']		= 'Estatísticas';
+$LNG['cronName']['daily']			= 'Tarefas diárias';
+$LNG['cronName']['cleaner']			= 'Excluir dados antigos';
+$LNG['cronName']['inactive']		= 'Excluir inativo';
+$LNG['cronName']['teamspeak']		= 'Teamspeak data';
+
+
+$LNG['cronjob_id']					= 'ID';
+$LNG['cronjob_name']				= 'Nome';
+$LNG['cronjob_min']					= 'Minutos';
+$LNG['cronjob_hours']				= 'Hora';
+$LNG['cronjob_dom']					= 'Dia';
+$LNG['cronjob_month']				= 'Mês';
+$LNG['cronjob_dow']					= 'Dia da semana';
+$LNG['cronjob_class']				= 'class';
+$LNG['cronjob_nextTime']			= 'Da próxima vez';
+$LNG['cronjob_inActive']			= 'Ativo';
+$LNG['cronjob_lock']				= 'Bloqueado';
+$LNG['cronjob_edit']				= 'Editar';
+$LNG['cronjob_delete']				= 'Excluir';
+$LNG['cronjob_headline']			= 'Cronjob ID';
+$LNG['cronjob_new']					= 'Criar cronjob';
+
+$LNG['cronjob_desc']				= 'Aqui segue a entrada dos tempos para as Cronjobs. As condições são conectados e, o que significa que o cronjob será executado somente se todas as condições existirem.';
+$LNG['cronjob_desc_name']			= 'Nome livremente selecionável para identificar as tarefas agendadas (Cronjobs).';
+$LNG['cronjob_desc_class']			= 'Entrada da classe a ser invocado. "Includes/classes/cronjobs/foo.class.php" "foo" deve ser inserido.';
+
+$LNG['cronjob_error_name']			= 'Sem nome escolhido!';
+$LNG['cronjob_error_min']			= 'Sem minutos escolhido!';
+$LNG['cronjob_error_hours']			= 'Sem horas escolhido!';
+$LNG['cronjob_error_month']			= 'Sem meses escolhido!';
+$LNG['cronjob_error_dow']			= 'Sem dia de semana escolhido!';
+$LNG['cronjob_error_dom']			= 'Sem dias escolhido!';
+$LNG['cronjob_error_class']			= 'Dem classe escolhido!';
+$LNG['cronjob_error_filenotfound']	= 'O arquivo especificado não foi encontrado: ';
+$LNG['cronjob_selectall']			= 'Todos';
+
+$LNG['cronjob_lock']				= 'Fechado';
+$LNG['cronjob_is_lock']				= 'Sim';
+$LNG['cronjob_is_unlock']			= 'Não';
+
+$LNG['cronjob_inactive']			= 'Yes';
+$LNG['cronjob_active']				= 'No';
