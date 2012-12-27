@@ -211,17 +211,19 @@ class ShowBuildingsPage extends AbstractPage
 		global $LNG, $CONF, $PLANET, $USER;
 		
 		$scriptData		= array();
-		$buildLevels	= array();
+		$quickinfo		= array();
 		
 		if ($PLANET['b_building'] == 0 || $PLANET['b_building_id'] == "")
-			return array();
+			return array('queue' => $scriptData, 'quickinfo' => $quickinfo);
 		
 		$buildQueue		= unserialize($PLANET['b_building_id']);
 		
 		foreach($buildQueue as $BuildArray) {
 			if ($BuildArray[3] < TIMESTAMP)
 				continue;
-
+			
+			$quickinfo[$BuildArray[0]]	= $BuildArray[1];
+			
 			$scriptData[] = array(
 				'element'	=> $BuildArray[0], 
 				'level' 	=> $BuildArray[1], 
@@ -233,7 +235,7 @@ class ShowBuildingsPage extends AbstractPage
 			);
 		}
 		
-		return $scriptData;
+		return array('queue' => $scriptData, 'quickinfo' => $quickinfo);
 	}
 
 	public function show()
@@ -266,7 +268,8 @@ class ShowBuildingsPage extends AbstractPage
 			$this->redirectTo('game.php?page=buildings');
 		}
 		
-		$Queue	 			= $this->getQueueData();
+		$queueData	 		= $this->getQueueData();
+		$Queue	 			= $queueData['queue'];
 		$QueueCount			= count($Queue);
 		$CanBuildElement 	= isVacationMode($USER) || Config::get('max_elements_build') == 0 || $QueueCount < Config::get('max_elements_build');
 		$CurrentMaxFields   = CalculateMaxPlanetFields($PLANET);
@@ -288,12 +291,21 @@ class ShowBuildingsPage extends AbstractPage
 
 			$infoEnergy	= "";
 			
+			if(isset($queueData['quickinfo'][$Element]))
+			{
+				$levelToBuild	= $queueData['quickinfo'][$Element];
+			}
+			else
+			{
+				$levelToBuild	= $PLANET[$resource[$Element]];
+			}
+			
 			if(in_array($Element, $reslist['prod']))
 			{
 				$BuildLevel	= $PLANET[$resource[$Element]];
 				$Need		= round(eval(ResourceUpdate::getProd($ProdGrid[$Element]['production'][911])));
 									
-				$BuildLevel	+= 1;
+				$BuildLevel	= $levelToBuild + 1;
 				$Prod		= round(eval(ResourceUpdate::getProd($ProdGrid[$Element]['production'][911])));
 					
 				$requireEnergy	= $Prod - $Need;
@@ -305,7 +317,7 @@ class ShowBuildingsPage extends AbstractPage
 				}
 			}
 			
-			$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+			$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element, false, $levelToBuild);
 			$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costRessources);
 			$elementTime    	= BuildFunctions::getBuildingTime($USER, $PLANET, $Element, $costRessources);
 			$destroyRessources	= BuildFunctions::getElementPrice($USER, $PLANET, $Element, true);
@@ -324,6 +336,7 @@ class ShowBuildingsPage extends AbstractPage
 				'destroyTime'		=> $destroyTime,
 				'destroyOverflow'	=> $destroyOverflow,
 				'buyable'			=> $buyable,
+				'levelToBuild'		=> $levelToBuild,
 			);
 		}
 

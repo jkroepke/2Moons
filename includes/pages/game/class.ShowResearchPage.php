@@ -130,7 +130,6 @@ class ShowResearchPage extends AbstractPage
 			} else {
 				$USER['b_tech']    			= 0;
 				$USER['b_tech_queue'] 		= '';
-
 			}
 		}
 	}
@@ -179,8 +178,6 @@ class ShowResearchPage extends AbstractPage
 			$USER['b_tech_queue'] = serialize($NewCurrentQueue);
 		else
 			$USER['b_tech_queue'] = "";
-			
-
 	}
 
 	private function AddBuildingToQueue($Element, $AddMode = true)
@@ -252,27 +249,30 @@ class ShowResearchPage extends AbstractPage
 
 	}
 
-	private function ShowTechQueue()
+	private function getQueueData()
 	{
 		global $LNG, $CONF, $PLANET, $USER;
+
+		$scriptData		= array();
+		$quickinfo		= array();
 		
 		if ($USER['b_tech'] == 0)
-			return array();
+		return array('queue' => $scriptData, 'quickinfo' => $quickinfo);
 		
 		$CurrentQueue   = unserialize($USER['b_tech_queue']);
-
-		$ScriptData		= array();
 		
 		foreach($CurrentQueue as $BuildArray) {
 			if ($BuildArray[3] < TIMESTAMP)
 				continue;
 			
 			$PlanetName	= '';
+		
+			$quickinfo[$BuildArray[0]]	= $BuildArray[1];
 			
 			if($BuildArray[4] != $PLANET['id'])
 				$PlanetName		= $USER['PLANETS'][$BuildArray[4]]['name'];
 				
-			$ScriptData[] = array(
+			$scriptData[] = array(
 				'element'	=> $BuildArray[0], 
 				'level' 	=> $BuildArray[1], 
 				'time' 		=> $BuildArray[2], 
@@ -284,7 +284,7 @@ class ShowResearchPage extends AbstractPage
 			);
 		}
 		
-		return $ScriptData;
+		return array('queue' => $scriptData, 'quickinfo' => $quickinfo);
 	}
 
 	public function show()
@@ -325,7 +325,8 @@ class ShowResearchPage extends AbstractPage
 		
 		$bContinue		= $this->CheckLabSettingsInQueue($PLANET);
 		
-		$TechQueue		= $this->ShowTechQueue();
+		$queueData		= $this->getQueueData();
+		$TechQueue		= $queueData['queue'];
 		$QueueCount		= count($TechQueue);
 		$ResearchList	= array();
 
@@ -333,8 +334,17 @@ class ShowResearchPage extends AbstractPage
 		{
 			if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element))
 				continue;
+				
+			if(isset($queueData['quickinfo'][$Element]))
+			{
+				$levelToBuild	= $queueData['quickinfo'][$Element];
+			}
+			else
+			{
+				$levelToBuild	= $USER[$resource[$Element]];
+			}
 			
-			$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+			$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element, false, $levelToBuild);
 			$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costRessources);
 			$elementTime    	= BuildFunctions::getBuildingTime($USER, $PLANET, $Element, $costRessources);
 			$buyable			= $QueueCount != 0 || BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources);
@@ -347,6 +357,7 @@ class ShowResearchPage extends AbstractPage
 				'costOverflow'		=> $costOverflow,
 				'elementTime'    	=> $elementTime,
 				'buyable'			=> $buyable,
+				'levelToBuild'		=> $levelToBuild,
 			);
 		}
 		

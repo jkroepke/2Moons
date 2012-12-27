@@ -61,7 +61,7 @@
 					{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>
 					{/foreach}</p></td>
 					<td class="transparent" style="vertical-align:middle;width:100px">
-					{if $Element.maxLevel == $Element.level}
+					{if $Element.maxLevel == $Element.levelToBuild}
 						<span style="color:red">{$LNG.bd_maxlevel}</span>
 					{elseif ($isBusy.research && ($ID == 6 || $ID == 31)) || ($isBusy.shipyard && ($ID == 15 || $ID == 21))}
 						<span style="color:red">{$LNG.bd_working}</span>
@@ -71,10 +71,10 @@
 							<form action="game.php?page=buildings" method="post" class="build_form">
 								<input type="hidden" name="cmd" value="insert">
 								<input type="hidden" name="building" value="{$ID}">
-								<button type="submit" class="build_submit">{if $Element.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$Element.level + 1}{/if}</button>
+								<button type="submit" class="build_submit">{if $Element.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$Element.levelToBuild + 1}{/if}</button>
 							</form>
 							{else}
-							<span style="color:red">{if $Element.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$Element.level + 1}{/if}</span>
+							<span style="color:red">{if $Element.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$Element.levelToBuild + 1}{/if}</span>
 							{/if}
 						{else}
 						<span style="color:red">{$LNG.bd_no_more_fields}</span>
