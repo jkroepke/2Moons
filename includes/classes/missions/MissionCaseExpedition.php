@@ -385,7 +385,7 @@ HTML;
 				$raportData	= GenerateReport($combatResult, $raportInfo);
 			
 				$raportID	= md5(uniqid('', true).TIMESTAMP);
-				$sqlQuery	= "INSERT INTO ".RW." SET rid = '".$raportID."', raport = '".serialize($raportData)."', time = '".$this->_fleet['fleet_start_time']."';";
+				$sqlQuery	= "INSERT INTO ".RW." SET rid = '".$raportID."', raport = '".serialize($raportData)."', time = '".$this->_fleet['fleet_start_time']."', attacker = '".$this->_fleet['fleet_owner']."';";
 				$GLOBALS['DATABASE']->query($sqlQuery);
 			
 				switch($combatResult['won'])
