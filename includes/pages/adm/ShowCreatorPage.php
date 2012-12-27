@@ -165,7 +165,7 @@ function ShowCreatorPage()
 				'email2_reg'			=> $LNG['email2_reg'],
 				'new_coord'				=> $LNG['new_coord'],
 				'new_range'				=> $LNG['new_range'],
-				'lang'					=> $LNG['op_lang'],		
+				'lang_reg'				=> $LNG['lang_reg'],		
 				'new_title'				=> $LNG['new_title'],
 				'Selector'				=> array('auth' => $AUTH, 'lang' => $LANG->getAllowedLangs(false)),  
 			));
