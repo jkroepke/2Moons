@@ -57,7 +57,9 @@
 	{else}
 		{$LNG.al_no_diplo}
 	{/if}
-	</td><tr>
+	</td>
+</tr>
+<tr>
 	<th colspan="2">{$LNG.pl_fightstats}</th>
 </tr>
 <tr>

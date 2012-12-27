@@ -88,9 +88,13 @@
 			{if !empty($DiploInfo.4)}<b><u>{$LNG.al_diplo_level.4}</u></b><br><br>{foreach item=PaktInfo from=$DiploInfo.4}<a href="?page=alliance&mode=info&amp;id={$PaktInfo.1}">{$PaktInfo.0}</a><br>{/foreach}<br>{/if}
 		{else}
 			{$LNG.al_no_diplo}
-	{/if}
+		{/if}
 		</td>
-	</tr>	<tr>
+	</tr>
+	<tr>
+		<th colspan="2">{$LNG.pl_fightstats}</th>
+	</tr>
+	<tr>
 		<td>{$LNG.pl_totalfight}</td><td>{$totalfight|number}</td>
 	</tr>
 	<tr>
