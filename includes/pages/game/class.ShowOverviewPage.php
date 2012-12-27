@@ -138,19 +138,56 @@ class ShowOverviewPage extends AbstractPage
 			);
 		}
 		
-		if ($PLANET['id_luna'] != 0)
+		if ($PLANET['id_luna'] != 0) {
 			$Moon		= $GLOBALS['DATABASE']->getFirstRow("SELECT id, name FROM ".PLANETS." WHERE id = '".$PLANET['id_luna']."';");
-
+		}
+			
 		if ($PLANET['b_building'] - TIMESTAMP > 0) {
-			$Queue		= unserialize($PLANET['b_building_id']);
-			$Build		= $LNG['tech'][$Queue[0][0]].' ('.$Queue[0][1].')<br><div id="blc">'.pretty_time($PLANET['b_building'] - TIMESTAMP).'</div>';
-			$Buildtime	= $PLANET['b_building'] - TIMESTAMP;
-			$this->tplObj->execscript('buildTimeTicker();');
+			$Queue			= unserialize($PLANET['b_building_id']);
+			$buildInfo['buildings']	= array(
+				'id'		=> $Queue[0][0],
+				'level'		=> $Queue[0][1],
+				'timeleft'	=> $PLANET['b_building'] - TIMESTAMP,
+				'time'		=> $PLANET['b_building'],
+				'starttime'	=> pretty_time($PLANET['b_building'] - TIMESTAMP),
+			);
 		}
-		else
-		{
-			$Build 		= $LNG['ov_free'];
+		else {
+			$buildInfo['buildings']	= false;
 		}
+		
+		/* As FR#206 (http://tracker.2moons.cc/view.php?id=206), i added the shipyard and research status here, but i add not them the template. */
+		
+		if (!empty($PLANET['b_hangar_id'])) {
+			$Queue	= unserialize($PLANET['b_hangar_id']);
+			$time	= BuildFunctions::getBuildingTime($USER, $PLANET, $Queue[0][0]) * $Queue[0][1];
+			$buildInfo['fleet']	= array(
+				'id'		=> $Queue[0][0],
+				'level'		=> $Queue[0][1],
+				'timeleft'	=> $time - $PLANET['b_hangar'],
+				'time'		=> $time,
+				'starttime'	=> pretty_time($time - $PLANET['b_hangar']),
+			);
+		}
+		else {
+			$buildInfo['fleet']	= false;
+		}
+		
+		if ($USER['b_tech'] - TIMESTAMP > 0) {
+			$Queue			= unserialize($USER['b_tech_queue']);
+			$buildInfo['tech']	= array(
+				'id'		=> $Queue[0][0],
+				'level'		=> $Queue[0][1],
+				'timeleft'	=> $USER['b_tech'] - TIMESTAMP,
+				'time'		=> $USER['b_tech'],
+				'starttime'	=> pretty_time($USER['b_tech'] - TIMESTAMP),
+			);
+		}
+		else {
+			$buildInfo['tech']	= false;
+		}
+		
+		
 		
 		$OnlineAdmins 	= $GLOBALS['DATABASE']->query("SELECT id,username FROM ".USERS." WHERE universe = ".$UNI." AND onlinetime >= ".(TIMESTAMP-10*60)." AND authlevel > '".AUTH_USR."';");
 		while ($AdminRow = $GLOBALS['DATABASE']->fetch_array($OnlineAdmins)) {
@@ -199,10 +236,9 @@ class ShowOverviewPage extends AbstractPage
 			'system'					=> $PLANET['system'],
 			'planet'					=> $PLANET['planet'],
 			'planet_type'				=> $PLANET['planet_type'],
-			'buildtime'					=> $Buildtime,
 			'username'					=> $USER['username'],
 			'userid'					=> $USER['id'],
-			'build'						=> $Build,
+			'buildInfo'					=> $buildInfo,
 			'Moon'						=> $Moon,
 			'fleets'					=> $this->GetFleets(),
 			'AllPlanets'				=> $AllPlanets,
