@@ -162,7 +162,7 @@ class ShowFleetStep3Page extends AbstractPage
 		
 		if ($targetMission == 11)
 		{
-			$activeExpedition	= FleetFunctions::GetCurrentFleets($USER['userID'], 11);
+			$activeExpedition	= FleetFunctions::GetCurrentFleets($USER['id'], 11);
 			$maxExpedition		= FleetFunctions::getDMMissionLimit($USER);
 
 			if ($activeExpedition >= $maxExpedition) {
@@ -171,7 +171,7 @@ class ShowFleetStep3Page extends AbstractPage
 		}
 		elseif ($targetMission == 15)
 		{		
-			$activeExpedition	= FleetFunctions::GetCurrentFleets($USER['userID'], 15);
+			$activeExpedition	= FleetFunctions::GetCurrentFleets($USER['id'], 15);
 			$maxExpedition		= FleetFunctions::getExpeditionLimit($USER);
 			
 			if ($activeExpedition >= $maxExpedition) {
