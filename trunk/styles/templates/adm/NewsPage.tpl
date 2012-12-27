@@ -1,5 +1,5 @@
 {include file="overall_header.tpl"}
-{if isset($mode)}
+{nocache}{if isset($mode)}
 <form method="POST" action="?page=news&amp;action=send&amp;mode={$mode}">
 {if $news_id}<input name="id" type="hidden" value="{$news_id}">{/if}
 <table>
@@ -18,7 +18,7 @@
 </tr>
 </table>
 </form>
-{/if}
+{/if}{/nocache}
 <table width="450">
 <tr>
 	<th colspan="5">{$nws_news}</thd>
@@ -30,7 +30,7 @@
 	<td>{$nws_from}</td>
 	<td>{$nws_del}</td>
 </tr>
-{foreach name=NewsList item=NewsRow from=$NewsList}<tr>"
+{foreach name=NewsList item=NewsRow from=$NewsList}<tr>
 <td><a href="?page=news&amp;action=edit&amp;id={$NewsRow.id}">{$NewsRow.id}</a></td>
 <td><a href="?page=news&amp;action=edit&amp;id={$NewsRow.id}">{$NewsRow.title}</a></td>
 <td><a href="?page=news&amp;action=edit&amp;id={$NewsRow.id}">{$NewsRow.date}</a></td>
