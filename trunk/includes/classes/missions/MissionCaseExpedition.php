@@ -125,7 +125,7 @@ class MissionCaseExpedition extends MissionFunctions
 					$Message	= $LNG['sys_expe_found_dm_1_'.mt_rand(1,5)];
 				} elseif(0 < $FindSize && 10 >= $FindSize) {
 					$Size		= mt_rand(301, 600);
-					$Message	= $LNG['sys_expe_found_dm_2_'.mt_rand(1,4)];
+					$Message	= $LNG['sys_expe_found_dm_2_'.mt_rand(1,3)];
 				} elseif(0 == $FindSize) {
 					$Size	 	= mt_rand(601, 3000);
 					$Message	= $LNG['sys_expe_found_dm_3_'.mt_rand(1,2)];
