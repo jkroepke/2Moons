@@ -46,12 +46,12 @@
         {foreach $messageList as $messageID => $messageRow}
 		<tr>
 			<td><input type="checkbox" name="messageID[{$messageID}]" value="1"></td>
-			<td><a href="javascript:$('#contentID{$messageID}').toggle()">{$messageID}</a></td>
-			{if $Selected == 100}<td><a href="javascript:$('#contentID{$messageID}').toggle()">{$LNG.mg_type[$messageRow.type]}</a></td>{/if}
-			<td><a href="javascript:$('#contentID{$messageID}').toggle()">{$messageRow.sender}</a></td>
-			<td><a href="javascript:$('#contentID{$messageID}').toggle()">{$messageRow.time}</a></td>
-			<td><a href="javascript:$('#contentID{$messageID}').toggle()">{$messageRow.receiver}</a></td>
-			<td><a href="javascript:$('#contentID{$messageID}').toggle()">{$messageRow.subject}</a></td>
+			<td><a href="#" onclick="$('#contentID{$messageID}').toggle();return false;">{$messageID}</a></td>
+			{if $Selected == 100}<td><a href="#" onclick="$('#contentID{$messageID}').toggle();return false;">{$LNG.mg_type[$messageRow.type]}</a></td>{/if}
+			<td><a href="#" onclick="$('#contentID{$messageID}').toggle();return false;">{$messageRow.sender}</a></td>
+			<td><a href="#" onclick="$('#contentID{$messageID}').toggle();return false;">{$messageRow.time}</a></td>
+			<td><a href="#" onclick="$('#contentID{$messageID}').toggle();return false;">{$messageRow.receiver}</a></td>
+			<td><a href="#" onclick="$('#contentID{$messageID}').toggle();return false;">{$messageRow.subject}</a></td>
 		</tr>
 		<tr id="contentID{$messageID}" style="display:none;">
 			<td class="left" colspan="{if $Selected == 100}7{else}6{/if}" style="padding:5px 8px;">{$messageRow.text}</td>
