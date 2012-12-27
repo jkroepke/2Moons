@@ -13,7 +13,7 @@
 <input type="text" name="planet" size="2" maxlength="2"></td></tr>
 <tr><td>{$new_range}</td>
 <td>{html_options name=authlevel options=$Selector.auth}</td></tr>
-<tr><td>{$lang}</td>
+<tr><td>{$lang_reg}</td>
 <td>{html_options name=lang options=$Selector.lang}</td></tr>
 <tr><td colspan="2"><input type="submit" value="{$new_add_user}"></td></tr>
 <tr>

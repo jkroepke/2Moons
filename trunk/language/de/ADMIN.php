@@ -917,6 +917,13 @@ $LNG['new_creator_title_l']	= 'Erstelle Monde';
 $LNG['new_creator_coor']	= 'Koordinaten';
 $LNG['new_creator_go_back']	= '[ Zurück zum Menü ]';
 $LNG['new_creator_refresh']	= '[ Neu Laden ]';
+$LNG['uni_reg']				= 'Universum';
+$LNG['user_reg']			= 'Spielername';
+$LNG['pass_reg']			= 'Passwort';
+$LNG['pass2_reg']			= 'Passwort wiederholen';
+$LNG['email_reg']			= 'E-Mail Adresse';
+$LNG['email2_reg']			= 'E-Mail Adresse wiederholen';
+$LNG['lang_reg']			= 'Sprache';
 
 //	CREADOR DE USUARIOS - USERS MAKER
 $LNG['new_title']			= 'Erstelle neuen Spieler';
