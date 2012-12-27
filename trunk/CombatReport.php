@@ -39,9 +39,10 @@ if($SESSION->IsUserLogin()) {
 } else {
 
 	// Simluate User
-	// It isn't clean, but i haven't others solutions at this time.
+	// Hello, i'm a hack.
 	
 	$USER	= array(
+		'id'	=> 0,
 		'lang'	=> $LANG->GetLangFromBrowser(),
 		'timezone'	=> Config::get('timezone'),
 		'urlaubs_modus'	=> 0,
