@@ -65,7 +65,7 @@ BODY;
 $LNG['questions'][2]['category']	= 'Informacje zaawansowane';
 $LNG['questions'][2][1]['title']	= 'Rajdy';
 $LNG['questions'][2][1]['body']		= <<<BODY
-<h3>Raiden:</h3>
+<h3>Ataki:</h3>
 <p>Termin którego możemy użyć opisując ataki na innych graczy
 Rajdy można podzielić na kilka typów:</p>
 <ul>

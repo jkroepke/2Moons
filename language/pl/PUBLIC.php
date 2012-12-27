@@ -1,121 +1,170 @@
 <?php
 
-//general
-$LNG['index']				= 'Index';
-$LNG['register']			= 'Rejstracja';
-$LNG['forum']				= 'Forum';
-$LNG['send']				= 'Wyślij';
-$LNG['menu_index']			= 'IndeX';
-$LNG['menu_news']			= 'News';
-$LNG['menu_rules']			= 'Regulamin';
-$LNG['menu_pranger']		= 'Zbanowani';
-$LNG['menu_top100']			= 'Hala Sław';
-$LNG['menu_disclamer']		= 'Impressum';
-$LNG['uni_closed']			= ' (closed)';
+/**
+ *  2Moons
+ *  Copyright (C) 2012 Jan Kröpke
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.7.0 (2012-12-31)
+ * @info $Id$
+ * @link http://2moons.cc/
+ */
 
-//index.php
-//case lostpassword
+// Site Title
+$LNG['siteTitleIndex']				= 'Index';
+$LNG['siteTitleRegister']			= 'Rejestracja';
+$LNG['siteTitleScreens']			= 'Screenshots';
+$LNG['siteTitleBanList']			= 'Prengierz';
+$LNG['siteTitleBattleHall']			= 'Hala sław';
+$LNG['siteTitleRules']				= 'Regulamin';
+$LNG['siteTitleNews']				= 'News';
+$LNG['siteTitleDisclamer']			= 'Impressum';
+$LNG['siteTitleLostPassword']		= 'Zapomniałem hasło?';
 
-$LNG['lost_empty']			= 'Musisz wypełnić wszystkie pola';
-$LNG['lost_not_exists']		= 'Brak użytkownika z takim adresem email';
-$LNG['lost_mail_title']		= 'Nowe hasło';
-$LNG['mail_sended']			= 'Twoje hasło zostało wysłane na %s ';
+// Menu
+$LNG['forum']						= 'Forum';
+$LNG['menu_index']					= 'IndeX';
+$LNG['menu_news']					= 'News';
+$LNG['menu_rules']					= 'Regulamin';
+$LNG['menu_banlist']				= 'Prengierz';
+$LNG['menu_battlehall']				= 'Hala sław';
+$LNG['menu_disclamer']				= 'Impressum';
+$LNG['menu_register']				= 'Rejestracja';
+
+// Universe select
+$LNG['chose_a_uni']					= 'Wybór Universum';
+$LNG['universe']					= 'Universum';
+$LNG['uni_closed']					= ' (Zamknięte)';
+
+// Button
+$LNG['buttonRegister']				= 'Zarejestruj Się!';
+$LNG['buttonScreenshot']			= 'Screenshots';
+$LNG['buttonLostPassword']			= 'Zapomniałem hasło?';
+
+// Start
+$LNG['gameInformations']			= array(
+	'Gra online strategiczno-ekonomiczna czasu rzeczywistego w kosmosie.',
+	'Graj przeciwko innym graczom.',
+	'Nic nie musisz sciągać, grasz w przeglądarce !.',
+	'Darmowa rejestracja',
+);
+
+// Login
+$LNG['loginHeader']					= 'Zaloguj';
+$LNG['loginUsername']				= 'Nazwa Użytkownika';
+$LNG['loginPassword']				= 'Hasło';
+$LNG['loginButton']					= 'Login';
+$LNG['loginInfo']					= 'Logując się akceptujesz %s.';
+$LNG['loginWelcome']				= 'Witaj na %s';
+$LNG['loginServerDesc']				= '%s to gra online gdzie stajesz przeciwko innym graczom <strong>jednocześnie</strong> prubując zostać najlepszym . Wszystko co potrzebujesz do gry to zwykła przeglądarka.';
+
+// Register
+$LNG['registerFacebookAccount']		= 'Konto na Facebook';
+$LNG['registerUsername']			= 'Nazwa użytkownika';
+$LNG['registerUsernameDesc']		= 'Nazwa użytkownika musi składać się min. z 3 i max. z 25 znaków.';
+$LNG['registerPassword']			= 'Hasło';
+$LNG['registerPasswordDesc']		= 'Hasło musi mieć min 8 znaków.';
+$LNG['registerPasswordReplay']		= 'Ponowanie hasło';
+$LNG['registerPasswordReplayDesc']	= 'Powtórz hasło dla bezpieczeństwa!';
+$LNG['registerEmail']				= 'E-Mail';
+$LNG['registerEmailDesc']			= 'Podaj twój prawdziwy! E-Mail !';
+$LNG['registerEmailReplay']			= 'Powtórz E-Mail';
+$LNG['registerEmailReplayDesc']		= 'Powtórz email dla bezpieczeństwa!';
+$LNG['registerLanguage']			= 'Język';
+$LNG['registerReferral']			= 'Zwerbowany przez:';
+$LNG['registerCaptcha']				= 'Kod';
+$LNG['registerCaptchaDesc']			= 'Podaj kod widoczny na obrazku';
+$LNG['registerCaptchaReload']		= 'Załaduj ponownie Captcha.';
+$LNG['registerRules']				= 'Regulamin';
+$LNG['registerRulesDesc']			= 'Potwierdzam że zrozumiałem %s.';
+
+$LNG['registerBack']				= 'Wróć';
+$LNG['registerNext']				= 'Dalej';
+
+$LNG['registerErrorUniClosed']		= 'Rejestracja na tym universum zamknięta!';
+$LNG['registerErrorUsernameEmpty']	= 'Nie podałeś nazwy użytkownika!';
+$LNG['registerErrorUsernameChar']	= 'W nazwie użytkownika dozwolone są tylko litery, liczby, puste znaki i podkreślenia!';
+$LNG['registerErrorUsernameExist']	= 'Ta nazwa użytkownika jest już zajęta!';
+$LNG['registerErrorPasswordLength']	= 'Hasło musi mieć najmniej 6 znaków!';
+$LNG['registerErrorPasswordSame']	= 'Podałeś dwa różne znaki!';
+$LNG['registerErrorMailEmpty']		= 'Musisz podać adres prawidłowy adres email!';
+$LNG['registerErrorMailInvalid']	= 'Nie prawidłowy adres email!';
+$LNG['registerErrorMailSame']		= 'Podałeś 2 różne adresy email!';
+$LNG['registerErrorMailExist']		= 'Taki email jest już używany!';
+$LNG['registerErrorRules']			= 'Musisz zaakceptować regulamin!';
+$LNG['registerErrorCaptcha']		= 'Podałeś zły kod!';
+
+$LNG['registerMailVertifyTitle']	= 'Musisz potwierdzić rejestracje: %s';
+$LNG['registerMailVertifyError']	= 'Bład przy wysyłaniu emaila: %s';
+
+$LNG['registerMailCompleteTitle']	= 'Witaj na %s!';
+
+$LNG['registerSendComplete']		= 'Dziękujemy za rejestrację. Wkrótce otrzymasz email z dalszymi krokami.';
+
+$LNG['registerWelcomePMSenderName']	= 'Administrator';
+$LNG['registerWelcomePMSubject']	= 'Witaj';
+$LNG['registerWelcomePMText']		= 'Witaj na %s! Jako pierwszy budnek zbuduj elektrownie słoneczną, energia jest konieczna do pracy kopalń i wydobywania zasobów!. By zbudować kliknij na zakładkę "Budynki" w Menu. Potem zbuduj 4. budynek od góry. Po zbudowaniu masz już energię, zatem czas zbudować kopalnie metalu i kryształu. Jeśli chcesz coś zbudować a nie możesz, skorzystaj z zakładki Technologia, tam dowiesz się co jest wymagane do budowy czy też badania!';
+
+//Vertify
+
+$LNG['vertifyNoUserFound']			= 'Niepoprawne zapytanie!';
+$LNG['vertifyAdminMessage']			= 'Użytkownik "%s" został aktywowany!';
+
+
+//lostpassword
+$LNG['passwordInfo']				= 'Jeśli zapomniałeś hasła musisz podać nazwę użytkownika i adres email użyty podczas rejestracji lub aktywny w profilu.';
+$LNG['passwordUsername']			= 'Nazwa użytkownika';
+$LNG['passwordMail']				= 'E-Mail';
+$LNG['passwordCaptcha']				= 'Kod';
+$LNG['passwordSubmit']				= 'Wyślij';
+$LNG['passwordErrorUsernameEmpty']	= 'Nie podałeś nazwy użytkownika!';
+$LNG['passwordErrorMailEmpty']		= 'Nie podałeś adresu email!';
+$LNG['passwordErrorUnknown']		= 'Nie można znaleźć użytkownika o takim adresie email lub nazwie użytkownika.';
+$LNG['passwordErrorOnePerDay']		= 'W ciągu ostatnich 24h zostało zmienione hasło użytkownika. Pamiętaj!, że hasło możesz zmienić raz na dobę';
+
+$LNG['passwordValidMailTitle']		= 'Przypomnienie hasła dla strony: %s';
+$LNG['passwordValidMailSend']		= 'Otrzymasz maila z informacjami co dalej.';
+
+$LNG['passwordValidInValid']		= 'Niepoprawne zapytanie!';
+$LNG['passwordChangedMailSend']		= 'Wkrótce otrzymasz emaila z nowym hasłem.';
+$LNG['passwordChangedMailTitle']	= 'Nowe hasło: %s';
+
+$LNG['passwordBack']				= 'Wróć';
+$LNG['passwordNext']				= 'Dalej';
 
 //case default
 
-$LNG['server_infos']			= array(
-	"<h1>2Moon to prywatny serwer</h1> klon ogame oparty o 2moons. Gra online strategiczno-ekonomiczna czasu rzeczywistego w kosmosie. <br />",
-	"Graj przeciwko innym graczom ! Nic nie musisz sciągać, grasz w przeglądarce ! W grze twoje postępy zależą tylko od Ciebie !.",
-);
-
-$LNG['login_error_1']		= 'Zła nazwa użytkownika albo hasło';
-$LNG['login_error_2']		= 'Ktoś się zalogował na to konto z innego komputera!';
-$LNG['login_error_3']		= 'Twoja sesja wygasła';
-$LNG['login_error_4']		= 'Wystąpiło błędne logowanie. Szczególy na email';
-$LNG['screenshots']			= 'Screenshots';
-$LNG['universe']			= 'Universum';
-$LNG['chose_a_uni']			= 'Wybierz universum';
-
-/* ------------------------------------------------------------------------------------------ */
-
-//lostpassword.tpl
-$LNG['lost_pass_title']			= 'Przypomnienie hasła';
-
-//index_body.tpl
-$LNG['user']					= 'Użytkownik';
-$LNG['pass']					= 'Hasło';
-$LNG['remember_pass']			= 'Automatyczne logowanie';
-$LNG['lostpassword']			= 'Zapomniałem hasło ?';
-$LNG['welcome_to']				= 'Witaj na';
-$LNG['server_description']		= 'prywatnym serwerze opartym o 2moons. Wszystko czego potrzebujesz by się dobrze bawić to przeglądarka (Polecamy FireFox  lub Chrome).';
-$LNG['server_register']			= 'Zarejstruj się!';
-$LNG['server_message']			= 'Zarejstruj się teraz by odkryć nowy świat i stać się jego częścią';
-$LNG['login']					= 'Login';
-$LNG['disclamer']				= 'Impressum';
-$LNG['login_info']				= 'Logując się akceptujesz <a href="index.php?page=rules">Regulamin</a>';
-
-/* ------------------------------------------------------------------------------------------ */
-
-//reg.php - Registrierung
-$LNG['register_closed']				= 'Rejstracja zamknięta!';
-$LNG['register_at']					= 'Rejstracja na';
-$LNG['reg_mail_message_pass']		= 'Jeszcze jeden krok do aktywacji twojego konta';
-$LNG['reg_mail_reg_done']			= 'Witaj na %s!';
-$LNG['invalid_mail_adress']			= 'Błędny adres email!';
-$LNG['empty_user_field']			= 'Musisz podać nazwę użytkownika';
-$LNG['password_lenght_error']		= 'Hasło musi mieć conajmniej 6 znaków';
-$LNG['user_field_specialchar']		= 'W nazwie użytkownika są dozwolone tylko liczby, litery i puste znaki, ewentualnie , _, - .';
-$LNG['planet_field_no']				= 'Musisz podać nazwę planety';
-$LNG['planet_field_specialchar']	= 'W nazwie planety są dozwolone tylko liczby, litery i puste znaki, ewentualnie , _, - .';
-$LNG['terms_and_conditions']		= 'Musisz zaakceptować regulamin';
-$LNG['user_already_exists']			= 'Ta nazwa użytkownika jest już używana!';
-$LNG['mail_already_exists']			= 'Ten adres został już użyty';
-$LNG['wrong_captcha']				= 'Błędny kod';
-$LNG['different_passwords']			= 'Podałeś dwa różne hasła';
-$LNG['different_mails']				= 'Podałeś dwa różne adresy email';
-$LNG['welcome_message_from']		= 'Administrator';
-$LNG['welcome_message_sender']		= 'Administrator';
-$LNG['welcome_message_subject']		= 'Witaj';
-$LNG['welcome_message_content']		= 'Witaj na %s!<br>Pierwsze to zbuduj elektorwnie słoneczną, energia jest wymagana by móc wydobywać zasoby. By zacząć budowe wejdź w menu budynki . I zbuduj 4 budynek od góry. Teraz możesz zacząc budować kopalnie. Wróć do menu budynków i zacznij budować kopalnie metalu, potem kryształu. By budować okręty musisz najpierw zbudować stocznie. Co jest wymagane, informacje znajdziesz w menu technologie. Administracja życzy dużo przyjemności z odkrywania uniwersum :)!';
-$LNG['reg_completed']				= 'Dziękujemy za zarejstrowanie się. Na pocztę został wysłany email z linkiem aktywacyjnym';
-$LNG['planet_already_exists']		= 'Ta pozycja planety jest już zajęta';
-
-//registry_form.tpl
-$LNG['server_message_reg']			= 'Zarejstruj się teraz i zostań częscią ';
-$LNG['register_at_reg']				= 'Zarejstrowany na';
-$LNG['uni_reg']						= 'Universum';
-$LNG['user_reg']					= 'Użytkownik';
-$LNG['pass_reg']					= 'Hasło';
-$LNG['pass2_reg']					= 'Potwierdź hasło';
-$LNG['email_reg']					= 'E-Mail Adres';
-$LNG['email2_reg']					= 'Potwierdź E-mail Adres';
-$LNG['planet_reg']					= 'Nazwa planety matki';
-$LNG['ref_reg']						= 'Zaproszony przez ';
-$LNG['lang_reg']					= 'Język';
-$LNG['register_now']				= 'Zarejstruj!';
-$LNG['captcha_reg']					= 'Pytanie pomocniczne';
-$LNG['accept_terms_and_conditions']	= 'Zrozumiałem <a href="index.php?page=rules">Regulamin</a>.';
-$LNG['captcha_help']				= 'Pomoc';
-$LNG['captcha_get_image']			= 'Załaduj Bild-CAPTCHA';
-$LNG['captcha_reload']				= 'Przeładuj CAPTCHA';
-$LNG['captcha_get_audio']			= 'Załaduj Sound-CAPTCHA';
-$LNG['user_active']					= 'Użytkownik %s został aktywowany';
+$LNG['login_error_1']				= 'Błąd nazwy użytkownika, lub hasło!';
+$LNG['login_error_2']				= 'Ktoś zalogował się na twoje konto z innego komputera!';
+$LNG['login_error_3']				= 'Sesja wygasła!';
+$LNG['login_error_4']				= 'Wystąpił błąd, sprubuj potem!';
 
 //Rules
-$LNG['rules_overview']				= "Regulamin";
-$LNG['rules_info1']					= "Regulamin znajdziesz na <a href=\"%s\" target=\"_blank\">Forum</a> na stronie startowej jak i w samej grze!";
-
+$LNG['rulesHeader']					= 'Regulamin';
 
 //NEWS
-
-$LNG['news_overview']				= "Nowości";
-$LNG['news_from']					= "Od %s do %s";
-$LNG['news_does_not_exist']			= "Brak nowych wiadomości";
+$LNG['news_overview']				= 'News';
+$LNG['news_from']					= 'Od %s do %s';
+$LNG['news_does_not_exist']			= 'Brak postów!';
 
 //Impressum
-
-$LNG['disclamer']					= "Haftungsausschluss";
-$LNG['disclamer_name']				= "Nazwa:";
-$LNG['disclamer_adress']			= "Adres:";
-$LNG['disclamer_tel']				= "Telefon Nr.:";
-$LNG['disclamer_email']				= "E-Mail Adress:";
+$LNG['disclamerLabelAddress']		= 'Adres:';
+$LNG['disclamerLabelPhone']			= 'Telefon Nr.:';
+$LNG['disclamerLabelMail']			= 'E-Mail Adres:';
+$LNG['disclamerLabelNotice']		= 'Więcej informacji';
