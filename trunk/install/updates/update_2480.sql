@@ -1,0 +1,1 @@
+UPDATE prefix_vars SET `bonusFlyTime` =  '-0.10' WHERE elementID = 613;
