@@ -1,5 +1,5 @@
 {include file="overall_header.tpl"}
-{if $name}
+{nocache}{if isset($name)}
 <form action="" method="post" name="countt">
 <table width="50%">
 <tr>
@@ -46,7 +46,7 @@
 </tr>
 </table>
 </form>
-{/if}
+{/if}{/nocache}
 <form action="" method="POST" name="users">
 <table width="100%" border="0px">
 <td style="border:0px;width:50%" class="transparent">
