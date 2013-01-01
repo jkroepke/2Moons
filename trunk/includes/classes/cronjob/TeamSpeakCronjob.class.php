@@ -31,7 +31,7 @@ class TeamSpeakCronjob
 {
 	function run()
 	{
-		global $CONF, $db, $LNG, $LANG;
+		global $CONF, $db, $LNG;
 		
 		if ($CONF['ts_modon'] != 1)
 			return;

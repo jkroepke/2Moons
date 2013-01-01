@@ -162,7 +162,7 @@ abstract class AbstractPage
 	
 	protected function getPageData() 
     {
-		global $USER, $LANG, $THEME;
+		global $USER, $THEME;
 		
 		if($this->getWindow() === 'full') {
 			$this->getNavigationData();
@@ -222,7 +222,7 @@ abstract class AbstractPage
 	}
 	
 	protected function display($file) {
-		global $LANG, $THEME, $LNG;
+		global $THEME, $LNG;
 		
 		$this->save();
 		
@@ -231,7 +231,7 @@ abstract class AbstractPage
 		}
 		
 		$this->tplObj->assign_vars(array(
-            'lang'    		=> $LANG->getUser(),
+            'lang'    		=> $LNG->getLanguage(),
             'dpath'			=> $THEME->getTheme(),
 			'scripts'		=> $this->tplObj->jsscript,
 			'execscript'	=> implode("\n", $this->tplObj->script),

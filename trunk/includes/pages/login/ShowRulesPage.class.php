@@ -40,10 +40,11 @@ class ShowRulesPage extends AbstractPage
 	
 	function show() 
 	{
-		global $LANG;
+		global $LNG;
 		$this->assign(array(
-			'rules'				=> $LANG->getExtra('rules'),
+			'rules'		=> $LNG->getTemplate('rules'),
 		));
+		
 		$this->render('page.rules.default.tpl');
 	}
 }

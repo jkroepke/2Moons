@@ -79,7 +79,7 @@ abstract class AbstractPage
 	
 	protected function getPageData() 
     {		
-		global $USER, $CONF, $LNG, $LANG, $UNI;
+		global $USER, $CONF, $LNG, $UNI;
 		
 		$dateTimeServer	= new DateTime("now");
 		$dateTimeUser	= $dateTimeServer;
@@ -95,7 +95,7 @@ abstract class AbstractPage
 			'referralEnable'		=> Config::get('ref_active'),
 			'analyticsEnable'		=> Config::get('ga_active'),
 			'analyticsUID'			=> Config::get('ga_key'),
-			'lang'					=> $LANG->getUser(),
+			'lang'					=> $LNG->getLanguage(),
 			'UNI'					=> $UNI,
 			'VERSION'				=> Config::get('VERSION'),
 			'REV'					=> substr(Config::get('VERSION'), -4),
@@ -130,7 +130,7 @@ abstract class AbstractPage
 	}
 	
 	protected function render($file) {
-		global $LNG, $LANG, $CONFIG;
+		global $LNG, $CONFIG;
 		
 		$this->save();
 		
@@ -139,7 +139,7 @@ abstract class AbstractPage
 		}
 		
 		$this->assign(array(
-            'lang'    			=> $LANG->getUser(),
+            'lang'    			=> $LNG->getLanguage(),
 			'scripts'			=> $this->tplObj->jsscript,
 			'execscript'		=> implode("\n", $this->tplObj->script),
 			'bodyclass'			=> $this->getWindow(),

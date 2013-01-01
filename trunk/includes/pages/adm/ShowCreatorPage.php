@@ -31,7 +31,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowCreatorPage()
 {
-	global $LNG, $USER, $UNI, $LANG, $CONF;
+	global $LNG, $USER, $UNI, $CONF;
 
 	$template	= new template();
 
@@ -39,7 +39,7 @@ function ShowCreatorPage()
 	switch ($_GET['mode'])
 	{
 		case 'user':
-			$LANG->includeLang(array('PUBLIC'));
+			$LNG->includeData(array('PUBLIC'));
 			if ($_POST)
 			{
 				$UserName 	= HTTP::_GP('name', '', UTF8_SUPPORT);
@@ -167,7 +167,7 @@ function ShowCreatorPage()
 				'new_range'				=> $LNG['new_range'],
 				'lang_reg'				=> $LNG['lang_reg'],		
 				'new_title'				=> $LNG['new_title'],
-				'Selector'				=> array('auth' => $AUTH, 'lang' => $LANG->getAllowedLangs(false)),  
+				'Selector'				=> array('auth' => $AUTH, 'lang' => $LNG->getAllowedLangs(false)),  
 			));
 			$template->show('CreatePageUser.tpl');
 		break;

@@ -35,13 +35,13 @@ class MissionCaseColonisation extends MissionFunctions
 	
 	function TargetEvent()
 	{	
-		global $resource, $LANG;
+		global $resource;
 		$iPlanetCount 	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".PLANETS." WHERE `id_owner` = '". $this->_fleet['fleet_owner'] ."' AND `planet_type` = '1' AND `destruyed` = '0';");
 		$iGalaxyPlace 	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
 		$senderUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
 		$senderPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_start_id']."';");
 		$senderUser['factor']	= getFactors($senderUser, 'basic', $this->_fleet['fleet_start_time']);
-		$LNG			= $LANG->GetUserLang($senderUser['lang']);
+		$LNG			= $this->getLanguage($senderUser['lang']);
 		
 		$MaxPlanets		= PlayerUtil::maxPlanetCount($senderUser, $senderPlanet);
 		

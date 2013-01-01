@@ -37,18 +37,18 @@ class ShowQuestionsPage extends AbstractPage
 	
 	function show()
 	{
-		global $LNG, $LANG;
+		global $LNG;
 		
-		$LANG->includeLang(array('FAQ'));
+		$LNG->includeData(array('FAQ'));
 		
 		$this->display('page.questions.default.tpl');
 	}
 	
 	function single()
 	{
-		global $LNG, $LANG;
+		global $LNG;
 		
-		$LANG->includeLang(array('FAQ'));
+		$LNG->includeData(array('FAQ'));
 		
 		$categoryID	= HTTP::_GP('categoryID', 0);
 		$questionID	= HTTP::_GP('questionID', 0);

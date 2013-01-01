@@ -56,7 +56,7 @@ class ShowVertifyPage extends AbstractPage
 		if(Config::get('mail_active', $userData['universe']) == 1) {
 			require(ROOT_PATH.'includes/classes/Mail.class.php');
 			$MailSubject	= t('registerMailCompleteTitle', Config::get('game_name', $userData['universe']));	
-			$MailRAW		= $GLOBALS['LANG']->getMail('email_reg_done');
+			$MailRAW		= $GLOBALS['LNG']->getTemplate('email_reg_done');
 			$MailContent	= str_replace(array(
 				'{USERNAME}',
 				'{GAMENAME}',

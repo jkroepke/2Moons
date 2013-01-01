@@ -67,12 +67,12 @@ set_error_handler('errorHandler');
 
 require(ROOT_PATH . 'includes/classes/class.Cache.php');
 require(ROOT_PATH . 'includes/classes/class.Database.php');
-require(ROOT_PATH . 'includes/classes/class.Lang.php');
 require(ROOT_PATH . 'includes/classes/class.theme.php');
 require(ROOT_PATH . 'includes/classes/class.Session.php');
 require(ROOT_PATH . 'includes/classes/class.template.php');
 require(ROOT_PATH . 'includes/classes/Config.class.php');
 require(ROOT_PATH . 'includes/classes/ArrayUtil.class.php');
+require(ROOT_PATH . 'includes/classes/Language.class.php');
 require(ROOT_PATH . 'includes/classes/HTTP.class.php');
 require(ROOT_PATH . 'includes/classes/PlayerUtil.class.php');
 
@@ -81,8 +81,8 @@ HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HI
 define('AJAX_REQUEST', HTTP::_GP('ajax', 0));
 
 $THEME		= new Theme();	
-$LANG		= new Language();
 $CACHE		= new Cache();
+
 if (MODE === 'INSTALL')
 {
 	return;
@@ -104,8 +104,6 @@ $UNI		= getUniverse();
 Config::setGlobals();
 
 date_default_timezone_set(Config::get('timezone'));
-
-$LANG->setDefault(Config::get('lang'));
 
 require(ROOT_PATH.'includes/vars.php');
 
@@ -139,8 +137,8 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 		exit(header('Location: index.php'));
 	}
 	
-	$LANG->setUser($USER['lang']);	
-	$LANG->includeLang(array('L18N', 'INGAME', 'TECH', 'CUSTOM'));
+	$LNG	= new Language($USER['lang']);
+	$LNG->includeData(array('L18N', 'INGAME', 'TECH', 'CUSTOM'));
 	$THEME->setUserTheme($USER['dpath']);
 	
 	if(Config::get('game_disable') == 0 && $USER['authlevel'] == AUTH_USR) {
@@ -172,15 +170,16 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 		
 		$USER['factor']		= getFactors($USER);
 		$USER['PLANETS']	= getPlanets($USER);
-	} else {
+	} elseif (MODE === 'ADMIN') {
 		error_reporting(E_ERROR | E_WARNING | E_PARSE);
 		
 		$USER['rights']		= unserialize($USER['rights']);
-		$LANG->includeLang(array('ADMIN', 'CUSTOM'));
+		$LNG->includeData(array('ADMIN', 'CUSTOM'));
 	}
 }
 elseif(MODE === 'LOGIN')
 {
-	$LANG->GetLangFromBrowser();
-	$LANG->includeLang(array('L18N', 'INGAME', 'PUBLIC', 'CUSTOM'));
+	$LNG	= new Language();
+	$LNG->getUserAgentLanguage();
+	$LNG->includeData(array('L18N', 'INGAME', 'PUBLIC', 'CUSTOM'));
 }

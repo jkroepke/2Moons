@@ -35,7 +35,7 @@ class MissionCaseRecycling extends MissionFunctions
 	
 	function TargetEvent()
 	{	
-		global $pricelist, $LANG, $reslist, $resource;
+		global $pricelist, $reslist, $resource;
 		
 		$resourceIDs	= array(901, 902, 903, 921);
 		$debrisIDs		= array(901, 902);
@@ -104,11 +104,11 @@ class MissionCaseRecycling extends MissionFunctions
 			$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(',', $collectQuery)." WHERE id = ".$this->_fleet['fleet_end_id'].";");
 		}
 		
-		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
+		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
 		
-		$Message 		= sprintf($LNG['sys_recy_gotten'], 
-								  pretty_number($collectedGoods[901]), $LNG['tech'][901], 
-								  pretty_number($collectedGoods[902]), $LNG['tech'][902]
+		$Message 	= sprintf($LNG['sys_recy_gotten'], 
+							  pretty_number($collectedGoods[901]), $LNG['tech'][901], 
+							  pretty_number($collectedGoods[902]), $LNG['tech'][902]
 		);
 						
 		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_recy_report'], $Message);
@@ -123,9 +123,7 @@ class MissionCaseRecycling extends MissionFunctions
 	
 	function ReturnEvent()
 	{
-		global $LANG;
-		$LNG		= $LANG->GetUserLang($this->_fleet['fleet_owner']);
-		
+		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
 		$TargetName	= $GLOBALS['DATABASE']->getFirstCell("SELECT name FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_start_id'].";");
 	
 		$Message	= sprintf($LNG['sys_tran_mess_owner'], $TargetName, GetStartAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903] );

@@ -35,9 +35,7 @@ class MissionCaseStay extends MissionFunctions
 	
 	function TargetEvent()
 	{	
-		global $LANG;
-		$LNG				= $LANG->GetUserLang($this->_fleet['fleet_owner']);
-		
+		$LNG				= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
 		$TargetUserID       = $this->_fleet['fleet_target_owner'];
 		$TargetMessage      = sprintf($LNG['sys_stat_mess'], GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]);
 		SendSimpleMessage($TargetUserID, 0, $this->_fleet['fleet_start_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_stat_mess_stay'], $TargetMessage);
@@ -51,10 +49,7 @@ class MissionCaseStay extends MissionFunctions
 	}
 	
 	function ReturnEvent()
-	{
-		global $LANG;
-		$LNG				= $LANG->GetUserLang($this->_fleet['fleet_owner']);
-	
+		$LNG				= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);	
 		$TargetUserID       = $this->_fleet['fleet_target_owner'];
 		$TargetMessage      = sprintf($LNG['sys_stat_mess'], GetStartAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]);
 		SendSimpleMessage($TargetUserID, 0, $this->_fleet['fleet_end_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_stat_mess_stay'], $TargetMessage);

@@ -30,7 +30,7 @@ define('MODE', 'LOGIN');
 define('ROOT_PATH'	, str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require(ROOT_PATH . 'includes/common.php');
-$LANG->includeLang(array('L18N', 'INGAME', 'ADMIN'));
+$LNG->includeData(array('L18N', 'INGAME', 'ADMIN'));
 
 if(isset($_REQUEST['admin_pw']))
 {
@@ -48,7 +48,7 @@ $template	= new template();
 $tplDir	= $template->getTemplateDir();
 $template->setTemplateDir($tplDir[0].'adm/');
 $template->assign_vars(array(	
-	'lang' 		=> $LANG->getUser(),
+	'lang' 		=> $LNG->getLanguage(),
 	'title'		=> Config::get('game_name').' - '.$LNG['adm_cp_title'],
 	'REV'		=> substr(Config::get('VERSION'), -4),
 	'date'		=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),

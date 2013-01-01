@@ -36,13 +36,13 @@ class MissionCaseSpy extends MissionFunctions
 	
 	function TargetEvent()
 	{
-		global $pricelist, $reslist, $resource, $LANG;		
+		global $pricelist, $reslist, $resource;		
 		$senderUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
 		$senderPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT galaxy, system, planet, name FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_start_id'].";");
 		$senderUser['factor']	= getFactors($senderUser, 'basic', $this->_fleet['fleet_start_time']);
 		$ownSpyLvl		= max($senderUser['spy_tech'], 1);
 		
-		$LNG			= $LANG->GetUserLang($senderUser['lang']);
+		$LNG			= $this->getLanguage($senderUser['lang']);
 		
 		$targetUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = ".$this->_fleet['fleet_target_owner'].";");
 		$targetPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_end_id'].";");
@@ -155,7 +155,7 @@ class MissionCaseSpy extends MissionFunctions
 
 		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $spyRaport);
 		
-		$LNG		    = $LANG->GetUserLang($targetUser['lang']);
+		$LNG			= $this->getLanguage($targetUser['lang']);
 		$targetMessage  = $LNG['sys_mess_spy_ennemyfleet'] ." ". $senderPlanet['name'];
 
 		if($this->_fleet['fleet_start_type'] == 3)

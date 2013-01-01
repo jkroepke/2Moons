@@ -48,7 +48,7 @@ class StatBanner {
 	}
 	
 	public function CreateUTF8Banner($data) {
-		global $LNG, $LANG;
+		global $LNG;
 		$image  	= imagecreatefromjpeg($this->source);
 		$date  		= _date($LNG['php_dateformat'], TIMESTAMP);
 
