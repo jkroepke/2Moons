@@ -38,7 +38,10 @@ class CacheFile {
 		return file_get_contents(CACHE_PATH.'cache.'.$Key.'.php');
 	}
 	
-	function flush() {
+	function flush($Key) {
+		if(!file_exists(CACHE_PATH.'cache.'.$Key.'.php'))
+			return false;
 		
+		unlink(CACHE_PATH.'cache.'.$Key.'.php');
 	}
 }

@@ -48,6 +48,14 @@ class Cache {
 		return $this->cacheObj[$Key];
 	}
 	
+	function flush($Key) {
+		if(!isset($this->cacheObj[$Key]) && !$this->load($Key))
+			$this->buildCache($Key);
+		
+		$this->cacheRessource->flush($Key);
+		return $this->buildCache($Key);
+	}
+	
 	function load($Key) {
 		$cacheData	= $this->cacheRessource->open($Key);
 		

@@ -30,7 +30,6 @@ class VarsBuildCache
 {
 	function buildCache()
 	{
-		
 		$resource		= array();
 		$requeriments	= array();
 		$pricelist		= array();
