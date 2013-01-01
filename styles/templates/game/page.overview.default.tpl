@@ -29,9 +29,10 @@
 		<td colspan="2">{foreach $chatOnline as $Name}{if !$Name@first},&nbsp;{/if}<a href="?page=chat">{$Name}</a>{/foreach}</td>
 	</tr>
 	{/if}
-	{if $Teamspeak}
+	{if $teamspeakData !== false}
 	<tr>
-		<td>{$LNG.ov_teamspeak}</td><td colspan="3">{$Teamspeak}</td>
+		<td>{$LNG.ov_teamspeak}</td>
+		<td colspan="3">{if $teamspeakData.error}{$teamspeakData.error}{else}<a href="{$teamspeakData.url}">{$LNG.ov_teamspeak_connect}</a> &bull; {$LNG.ov_teamspeak_online}: {$teamspeakData.current}/{$teamspeakData.max}{/if}</td>
 	</tr>
 	{/if}
 	<tr>

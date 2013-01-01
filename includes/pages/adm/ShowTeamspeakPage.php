@@ -70,6 +70,8 @@ function ShowTeamspeakPage() {
 		);
 		
 		Config::update($config_after);
+		
+		$GLOBALS['DATABASE']->query("UPDATE ".CRONJOBS." SET isActive = ".$ts_modon.", `lock` = NULL, nextTime = 0 WHERE name = 'teamspeak';");
 		$CONF	= Config::getAll(NULL, $_SESSION['adminuni']);
 		
 		$LOG = new Log(3);

@@ -31,33 +31,7 @@ class TeamSpeakCronjob
 {
 	function run()
 	{
-		global $CONF, $db, $LNG;
-		
-		if ($CONF['ts_modon'] != 1)
-			return;
-		
-		switch($CONF['ts_version'])
-		{
-			case 2:
-				include_once(GAMEDIR.'includes/libs/teamspeak/class.teamspeak2.php');
-				$ts = new cyts();
-				
-				if($ts->connect($CONF['ts_server'], $CONF['ts_tcpport'], $CONF['ts_udpport'], $CONF['ts_timeout'])) {
-					file_put_contents(GAMEDIR.'cache/teamspeak_cache.php', serialize(array($ts->info_serverInfo(), $ts->info_globalInfo())));
-					$ts->disconnect();
-				}
-			break;
-			case 3:
-				require_once(GAMEDIR . "includes/libs/teamspeak/class.teamspeak3.php");
-				$tsAdmin 	= new ts3admin($CONF['ts_server'], $CONF['ts_udpport'], $CONF['ts_timeout']);
-				$Active		= $tsAdmin->connect();
-				if($Active['success']) {
-					$tsAdmin->selectServer($CONF['ts_tcpport'], 'port', true);
-					$tsAdmin->login($CONF['ts_login'], $CONF['ts_password']);
-					file_put_contents(GAMEDIR.'cache/teamspeak_cache.php', serialize($tsAdmin->serverInfo()));
-					$tsAdmin->logout();
-				}
-			break;
-		}
+		$GLOBALS['CACHE']->add('teamspeak', 'TeamspeakBuildCache');
+		$GLOBALS['CACHE']->flush('teamspeak');
 	}
 }

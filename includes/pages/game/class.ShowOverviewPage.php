@@ -39,24 +39,36 @@ class ShowOverviewPage extends AbstractPage
 	{
 		global $CONF, $USER, $LNG;
 		if (Config::get('ts_modon') == 0)
+		{
 			return false;
-		elseif(!file_exists(ROOT_PATH.'cache/teamspeak_cache.php'))
-			return $LNG['ov_teamspeak_not_online'];
-		
-		$Data		= unserialize(file_get_contents(ROOT_PATH.'cache/teamspeak_cache.php'));
-		if(!is_array($Data))
-			return $LNG['ov_teamspeak_not_online'];
-			
-		$Teamspeak 	= '';			
-
-		if(Config::get('ts_version') == 2) {
-			$trafges 	= pretty_number($Data[1]['total_bytessend'] / 1048576 + $Data[1]['total_bytesreceived'] / 1048576);
-			$Teamspeak	= sprintf($LNG['ov_teamspeak_v2'], Config::get('ts_server'), Config::get('ts_udpport'), $USER['username'], $Data[0]["server_currentusers"], $Data[0]["server_maxusers"], $Data[0]["server_currentchannels"], $trafges);
-		} elseif(Config::get('ts_version') == 3){
-			$trafges 	= pretty_number($Data['data']['connection_bytes_received_total'] / 1048576 + $Data['data']['connection_bytes_sent_total'] / 1048576);
-			$Teamspeak	= sprintf($LNG['ov_teamspeak_v3'], Config::get('ts_server'), Config::get('ts_tcpport'), $USER['username'], $Data['data']['virtualserver_password'], ($Data['data']['virtualserver_clientsonline'] - 1), $Data['data']['virtualserver_maxclients'], $Data['data']['virtualserver_channelsonline'], $trafges);
 		}
-		return $Teamspeak;
+		
+		$GLOBALS['CACHE']->add('teamspeak', 'TeamspeakBuildCache');
+		$tsInfo	= $GLOBALS['CACHE']->get('teamspeak');
+		
+		if(empty($tsInfo))
+		{
+			return array(
+				'error'	=> $LNG['ov_teamspeak_not_online']
+			);
+		}
+		
+		switch(Config::get('ts_version'))
+		{
+			case 2:
+				$url = 'teamspeak://%s:%s?nickname=%s';
+			break;
+			case 3:
+				$url = 'ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s';
+			break;
+		}
+		
+		return array(
+			'url'		=> sprintf($url, Config::get('ts_server'), Config::get('ts_tcpport'), $USER['username'], $tsInfo['password']),
+			'current'	=> $tsInfo['current'],
+			'max'		=> $tsInfo['maxuser'],
+			'error'		=> false,
+		);
 	}
 
 	private function GetFleets() {
@@ -243,7 +255,7 @@ class ShowOverviewPage extends AbstractPage
 			'fleets'					=> $this->GetFleets(),
 			'AllPlanets'				=> $AllPlanets,
 			'AdminsOnline'				=> $AdminsOnline,
-			'Teamspeak'					=> $this->GetTeamspeakData(),
+			'teamspeakData'				=> $this->GetTeamspeakData(),
 			'messages'					=> ($Messages > 0) ? (($Messages == 1) ? $LNG['ov_have_new_message'] : sprintf($LNG['ov_have_new_messages'], pretty_number($Messages))): false,
 			'planet_diameter'			=> pretty_number($PLANET['diameter']),
 			'planet_field_current' 		=> $PLANET['field_current'],

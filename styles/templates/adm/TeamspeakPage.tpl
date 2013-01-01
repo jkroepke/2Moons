@@ -35,10 +35,10 @@ function change3(){
 	<td><input name="ts_udp" maxlength="5" size="10" value="{$ts_udp}" type="text"></td>
 </tr><tr class="v3only">
 	<td>{$ts_sq_login}:</td>
-	<td><input name="ts_login" size="10" value="{$ts_login}" type="text"></td>
+	<td><input name="ts_login" size="20" value="{$ts_login}" type="text"></td>
 </tr><tr class="v3only">
 	<td>{$ts_sq_pass}:</td>
-	<td><input name="ts_password" size="10" value="{$ts_password}" type="password"></td>
+	<td><input name="ts_password" size="20" value="{$ts_password}" type="password"></td>
 </tr><tr>
 	<td>{$ts_timeout}:</td>
 	<td><input name="ts_to" maxlength="2" size="10" value="{$ts_to}" type="text"></td>
