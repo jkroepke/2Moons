@@ -28,36 +28,34 @@
 
 function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $missiles, $targetDefensive, $firstTarget, $defenseMissles)
 {
-	global $pricelist, $reslist, $CombatCaps;
-	/* Interplanetarraketen haben eine Grundangriffskraft von 12.000 und richten damit bei 
-	ausgeglichenem Technologielevel zwischen Angreifer und Verteidiger immer einen 
-	Schaden von Metall+Kristall = 120.000 an. Wieviel davon Metall bzw. Kristall ist 
-	fließt nicht in die Berechnung mit ein. Ebenso wenig, wie das Deuterium. */
-	
-	// unset Missiles
-	unset($targetDefensive[503]);
+	global $pricelist, $CombatCaps;
 	
 	$destroyShips		= array();
+	$countMissles 		= $missiles - $defenseMissles;
 	
-	// kill destroyed missiles
-	$totalAttack		= ($missiles - $defenseMissles) * $CombatCaps[503]['attack'] * (1 + $OwnerAttTech / 10);
-	
+	if($countMissles == 0)
+	{
+		return $destroyShips;
+	}
+
+	$totalAttack 		= $countMissles * $CombatCaps[503]['attack'] * (1 +  0.1 * $OwnerAttTech);
 	$firstTargetData	= array($firstTarget => $targetDefensive[$firstTarget]);
 	unset($targetDefensive[$firstTarget]);
-	
 	$targetDefensive	= ($firstTargetData + array_diff_key($targetDefensive, $firstTargetData));
-	
+
 	foreach($targetDefensive as $element => $count)
 	{
-		$elementDefensive		= ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]) * (1 + $TargetDefTech / 10);
-		$destroyCount			= floor($totalAttack / $elementDefensive);
-		$destroyCount			= min($destroyCount, $count);
-		
-		$totalAttack			-= $destroyCount * $elementDefensive;
+		$elementStructurePoints = ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]) * (1 + 0.1 * $TargetDefTech) / 10;
+		$destroyCount           = floor($totalAttack / $elementStructurePoints);
+		$destroyCount           = min($destroyCount, $count);
+		$totalAttack  	       -= $destroyCount * $elementStructurePoints;
 		
 		$destroyShips[$element]	= $destroyCount;
+		if($totalAttack <= 0)
+		{
+			return $destroyShips;
+		}
 	}
 		
 	return $destroyShips;
 }
-	

@@ -42,7 +42,7 @@ class MissionCaseMIP extends MissionFunctions
 			$SQL	.= PLANETS.".".$resource[$Element].", ";
 		}
 			
-		$QryTarget		 	= "SELECT ".USERS.".lang, ".USERS.".defence_tech, ".PLANETS.".id, ".PLANETS.".name, ".PLANETS.".id_owner, ".substr($SQL, 0, -2)."
+		$QryTarget		 	= "SELECT ".USERS.".lang, ".USERS.".shield_tech, ".PLANETS.".id, ".PLANETS.".name, ".PLANETS.".id_owner, ".substr($SQL, 0, -2)."
 							   FROM ".PLANETS.", ".USERS."
 							   WHERE ".PLANETS.".id = '".$this->_fleet['fleet_end_id']."' AND 
 							   ".PLANETS.".id_owner = ".USERS.".id;";
@@ -70,7 +70,6 @@ class MissionCaseMIP extends MissionFunctions
 			
 		$LNG		= $this->getLanguage($GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['lang'], array('L18N', 'FLEET', 'TECH'));
 				
-		require_once('calculateMIPAttack.php');	
 		if ($TargetInfo[$resource[502]] >= $this->_fleet['fleet_amount'])
 		{
 			$message 	= $LNG['sys_irak_no_att'];
@@ -89,23 +88,28 @@ class MissionCaseMIP extends MissionFunctions
 					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$resource[502]." = 0 WHERE id = " . $TargetInfo['id'].";");
 			}
 			
-			$irak 	= calculateMIPAttack($TargetInfo["defence_tech"], $OwnerInfo["military_tech"], $this->_fleet['fleet_amount'], $TargetDefensive, $Target, $TargetInfo[$resource[502]]);
-			ksort($irak, SORT_NUMERIC);
-
-            foreach ($irak as $Element => $destroy)
+			$TargetDefensive = array_filter($TargetDefensive);
+			
+			if(!empty($TargetDefensive))
 			{
-				if(empty($Element))
-					continue;
-				
-				$message .= $LNG['tech'][$Element]." (- ".$destroy.")<br>";
-				
-				if ($destroy == 0)
-					continue;
+				require_once 'calculateMIPAttack.php';
+				$irak   = calculateMIPAttack($TargetInfo["shield_tech"], $OwnerInfo["military_tech"], $this->_fleet['fleet_amount'], $TargetDefensive, $Target, $TargetInfo[$resource[502]]);
+				$irak	= array_filter($irak);
+				ksort($irak, SORT_NUMERIC);
+
+				foreach ($irak as $Element => $destroy)
+				{
+					$message .= $LNG['tech'][$Element]." (- ".$destroy.")<br>";
 					
-				if(in_array($Element, $reslist['one']))
-					$SQL .= "UPDATE ".PLANETS." SET ".$resource[$Element]." = '0' WHERE id = ".$TargetInfo['id'].";";
-				else
-					$SQL .= "UPDATE ".PLANETS." SET ".$resource[$Element]." = ".$resource[$Element]." - ".$destroy." WHERE id = ".$TargetInfo['id'].";";
+					if(in_array($Element, $reslist['one']))
+						$SQL .= "UPDATE ".PLANETS." SET ".$resource[$Element]." = '0' WHERE id = ".$TargetInfo['id'].";";
+					else
+						$SQL .= "UPDATE ".PLANETS." SET ".$resource[$Element]." = ".$resource[$Element]." - ".$destroy." WHERE id = ".$TargetInfo['id'].";";
+				}
+			}
+			else
+			{
+				$message .= $LNG['sys_irak_no_def'];
 			}
 		}
 				

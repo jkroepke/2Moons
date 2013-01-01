@@ -81,10 +81,9 @@ class ShowFleetMissilePage extends AbstractPage
 		elseif($targetUser['urlaubs_modus'])
 			$error = $LNG['fl_in_vacation_player'];
 			
-		$UserPoints   	= $USER;
 		$User2Points  	= $GLOBALS['DATABASE']->getFirstRow("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$target['id_owner']."';");
 		
-		$IsNoobProtec	= CheckNoobProtec($UserPoints, $User2Points, $targetUser);
+		$IsNoobProtec	= CheckNoobProtec($USER, $User2Points, $targetUser);
 			
 		if ($IsNoobProtec['NoobPlayer'])
 			$error = $LNG['fl_week_player'];
@@ -96,9 +95,7 @@ class ShowFleetMissilePage extends AbstractPage
 			$this->printMessage($error);
 		}
 		
-		$SpeedFactor	= FleetFunctions::GetGameSpeedFactor();
-		$Distance		= FleetFunctions::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetGalaxy, $targetSystem, $targetPlanet));
-		$Duration		= max(round((30 + (60 * $Distance) / $SpeedFactor)),30);
+		$Duration		= FleetFunctions::GetMIPDuration($PLANET['system'], $targetSystem);
 
 		$DefenseLabel 	= ($pziel == 0) ? $LNG['ma_all'] : $LNG['tech'][$pziel];
 		
@@ -119,6 +116,6 @@ class ShowFleetMissilePage extends AbstractPage
 		
 		FleetFunctions::sendFleet($fleetArray, 10, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $target['id_owner'], $target['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, 0, $pziel);
 
-		$this->printMessage("<b>".$anz."</b>". $LNG['ma_missiles_sended'] .$DefenseLabel, "game.php?page=overview", 3);
+		$this->printMessage("<b>".$anz."</b>". $LNG['ma_missiles_sended'].$DefenseLabel);
 	}
 }
