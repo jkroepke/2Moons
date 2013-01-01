@@ -84,6 +84,7 @@ class ShowSettingsPage extends AbstractPage
 				'galaxyBuddyList' 	=> $USER['settings_bud'],
 				'galaxyMissle' 		=> $USER['settings_mis'],
 				'galaxyMessage' 	=> $USER['settings_wri'],
+				'blockPM' 			=> $USER['settings_blockPM'],
 				'userid'		 	=> $USER['id'],
 				'ref_active'		=> Config::get('ref_active'),
 			));
@@ -201,6 +202,7 @@ class ShowSettingsPage extends AbstractPage
 		$galaxyMessage		= HTTP::_GP('galaxyMessage', 0);	
 		$galaxyBuddyList	= HTTP::_GP('galaxyBuddyList', 0);	
 		$galaxyMissle		= HTTP::_GP('galaxyMissle', 0);
+		$blockPM			= HTTP::_GP('blockPM', 0);
 		
 		$vacation			= HTTP::_GP('vacation', 0);	
 		$delete				= HTTP::_GP('delete', 0);
@@ -305,6 +307,7 @@ class ShowSettingsPage extends AbstractPage
 					settings_wri = ".$galaxyMessage.",
 					settings_bud = ".$galaxyBuddyList.",
 					settings_mis = ".$galaxyMissle.",
+					settings_blockPM = ".$blockPM.",
 					authattack = ".$adminprotection.",
 					lang = '".$language."',
 					hof = ".$queueMessages.",

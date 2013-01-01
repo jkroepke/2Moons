@@ -708,6 +708,7 @@ CREATE TABLE `%PREFIX%users` (
   `settings_wri` tinyint(1) NOT NULL DEFAULT '1',
   `settings_bud` tinyint(1) NOT NULL DEFAULT '1',
   `settings_mis` tinyint(1) NOT NULL DEFAULT '1',
+  `settings_blockPM` tinyint(1) NOT NULL DEFAULT '0',
   `urlaubs_modus` tinyint(1) NOT NULL DEFAULT '0',
   `urlaubs_until` int(11) NOT NULL DEFAULT '0',
   `db_deaktjava` int(11) NOT NULL DEFAULT '0',

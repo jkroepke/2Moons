@@ -196,20 +196,22 @@ class ShowMessagesPage extends AbstractPage
 	function send() 
 	{
 		global $USER, $LNG;
-		$OwnerID	= HTTP::_GP('id', 0);
+		$receiverID	= HTTP::_GP('id', 0);
 		$Subject 	= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
 		$Message 	= makebr(HTTP::_GP('text', '', true));
 		$From    	= $USER['username'].' ['.$USER['galaxy'].':'.$USER['system'].':'.$USER['planet'].']';
 
-		if (empty($OwnerID) || empty($Message) || !isset($_SESSION['messtoken']) || $_SESSION['messtoken'] != md5($USER['id'].'|'.$OwnerID))
+		if (empty($receiverID) || empty($Message) || !isset($_SESSION['messtoken']) || $_SESSION['messtoken'] != md5($USER['id'].'|'.$receiverID))
+		{
 			exit($LNG['mg_error']);
+		}
 		
 		unset($_SESSION['messtoken']);
 		
 		if (empty($Subject))
 			$Subject	= $LNG['mg_no_subject'];
 			
-		SendSimpleMessage($OwnerID, $USER['id'], TIMESTAMP, 1, $From, $Subject, $Message);
+		SendSimpleMessage($receiverID, $USER['id'], TIMESTAMP, 1, $From, $Subject, $Message);
 		exit($LNG['mg_message_send']);
 	}
 	
@@ -218,18 +220,25 @@ class ShowMessagesPage extends AbstractPage
 		global $LNG, $USER;
 		$this->setWindow('popup');
 		$this->initTemplate();
-		$OwnerID       	= HTTP::_GP('id', 0);
+		$receiverID       	= HTTP::_GP('id', 0);
 		$Subject 		= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
-		$OwnerRecord 	= $GLOBALS['DATABASE']->getFirstRow("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$OwnerID."' AND a.id = b.id_planet;");
+		$receiverRecord 	= $GLOBALS['DATABASE']->getFirstRow("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet, b.settings_blockPM FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$receiverID."' AND a.id = b.id_planet;");
 
-		if (!$OwnerRecord)
-			exit($LNG['mg_error']);
+		if (!$receiverRecord)
+		{
+			$this->printMessage($LNG['mg_error']);
+		}
+		
+		if ($receiverRecord['settings_blockPM'] == 1)
+		{
+			$this->printMessage($LNG['mg_receiver_block_pm']);
+		}
 			
-		$_SESSION['messtoken'] = md5($USER['id'].'|'.$OwnerID);
+		$_SESSION['messtoken'] = md5($USER['id'].'|'.$receiverID);
 		
 		$this->tplObj->assign_vars(array(	
 			'subject'		=> $Subject,
-			'id'			=> $OwnerID,
+			'id'			=> $receiverID,
 			'OwnerRecord'	=> $OwnerRecord,
 		));
 		
