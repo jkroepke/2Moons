@@ -1,0 +1,12 @@
+<div class="left">
+<h2>Informação de Suporte para mais universos</h2>
+<p>2Moons pode suportar multi universos sem problemas, em que deves configurar o servidor Web de acordo com o solicitado.</p>
+<p>Podes descobrir qual servidor podes suportar em "Informação" nas "Configurações". Se não tens a certeza, melhor será perguntar a amigos à cerca do hoster que possuis (Empresa de hospedagem).</p>
+<h3>Apache</h3>
+<p>Se executas um servidor Apache, deves retirar fora apenas as linhas 48-51 no arquivo .htacces os caracteres principais de transporte (remover a route).<br>
+Além disso, o mod_rewrite será necessário.</p>
+<h3>nginx</h3>
+<p>Se ele será executado em um servidor nginx, a configuração de vhost é direta para reescrever a regra:</p>
+<p><code>{NGINX-CODE}</code></p>
+<p>Basta colocar o texto de código abaixo da linha com o "server_name".</p>
+</div>

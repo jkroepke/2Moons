@@ -139,7 +139,7 @@ $LNG['ov_teamspeak_v2']						= '<a href="teamspeak://%s:%s?nickname=%s" title="T
 $LNG['ov_teamspeak_v3']						= '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
 $LNG['ov_closed']							= 'The universe is currently disabled';
 $LNG['ov_reflink']							= 'Recruits';
-$LNG['ov_noreflink']						= 'At the moment, not recrutaste some player.';
+$LNG['ov_noreflink']						= 'At the moment, you did not recruited any player.';
 $LNG['ov_chat_online']						= 'Players in chat:';
 
 //----------------------------------------------------------------------------//
@@ -539,6 +539,8 @@ $LNG['mg_read_marked']						= 'Mark selected messages as read';
 $LNG['mg_read_type_all']					= 'Mark all messages of this type as read';
 $LNG['mg_read_all']							= 'Mark all messages as read';
 $LNG['mg_confirm']							= 'Confirm';
+$LNG['mg_receiver_block_pm']				= 'The receiver block private messages.';
+
 
 //----------------------------------------------------------------------------//
 // Aliança
@@ -914,6 +916,7 @@ $LNG['op_dst_mode_sel'][0]					= 'Yes';
 $LNG['op_dst_mode_sel'][1]					= 'No';
 $LNG['op_dst_mode_sel'][2]					= 'Automatic';
 $LNG['op_timezone']							= 'Time zone';
+$LNG['op_block_pm']							= 'Block private messages';
 
 //----------------------------------------------------------------------------//
 // Lista de Jogadores Banidos

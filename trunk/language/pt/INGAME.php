@@ -538,6 +538,7 @@ $LNG['mg_read_marked']						= 'Marcar mensagens selecionadas como lidas';
 $LNG['mg_read_type_all']					= 'Marcar todas as mensagens deste tipo como lidas';
 $LNG['mg_read_all']							= 'Marcar todas as mensagens como lidas';
 $LNG['mg_confirm']							= 'Confirmar';
+$LNG['mg_receiver_block_pm']				= 'O receptor bloqueou a recepção de mensagens';
 
 //----------------------------------------------------------------------------//
 // Aliança
@@ -912,6 +913,7 @@ $LNG['op_dst_mode_sel'][0]					= 'Sim';
 $LNG['op_dst_mode_sel'][1]					= 'Não';
 $LNG['op_dst_mode_sel'][2]					= 'Automático';
 $LNG['op_timezone']							= 'Fuso horário';
+$LNG['op_block_pm']							= 'Bloquear mensagens privadas';
 
 //----------------------------------------------------------------------------//
 // Lista de Jogadores Banidos
