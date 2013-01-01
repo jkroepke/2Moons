@@ -33,7 +33,13 @@ class CleanerCronjob
 	{
 		$CONF	= Config::getAll(NULL, ROOT_UNI);
 		
-		$GLOBALS['DATABASE']->query("LOCK TABLES ".ALLIANCE." WRITE, ".BUDDY." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".NOTES." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, ".RW." WRITE, ".SESSION." WRITE, ".STATPOINTS." WRITE, ".TOPKB." WRITE, ".TOPKB_USERS." WRITE, ".USERS." WRITE;");
+		$unis	= array_keys(Config::getAll(NULL));
+		
+		$GLOBALS['DATABASE']->query("LOCK TABLES ".ALLIANCE." WRITE, ".ALLIANCE_REQUEST." WRITE,
+									".BUDDY." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, 
+									".NOTES." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, 
+									".RW." WRITE, ".SESSION." WRITE, ".STATPOINTS." WRITE, 
+									".TOPKB." WRITE, ".TOPKB_USERS." WRITE, ".USERS." WRITE;");
 	
 		//Delete old messages
 		$del_before 	= TIMESTAMP - ($CONF['del_oldstuff'] * 86400);
@@ -59,11 +65,13 @@ class CleanerCronjob
 		
 		$GLOBALS['DATABASE']->free_result($ChooseToDelete);
 		
-		foreach($this->Unis as $Uni)
+		foreach($unis as $uni)
 		{
-			$TopKBLow		= $GLOBALS['DATABASE']->countquery("SELECT units FROM ".TOPKB." WHERE `universe` = ".$Uni." ORDER BY units DESC LIMIT 99,1;");
-			if(isset($TopKBLow))
-				$GLOBALS['DATABASE']->query("DELETE ".TOPKB.", ".TOPKB_USERS." FROM ".TOPKB." INNER JOIN ".TOPKB_USERS." USING (rid) WHERE `universe` = ".$Uni." AND `units` < ".$TopKBLow.";");
+			$battleHallLowest	= $GLOBALS['DATABASE']->getFirstRow("SELECT units FROM ".TOPKB." WHERE `universe` = ".$uni." ORDER BY units DESC LIMIT 99,1;");
+			if(isset($battleHallLowest))
+			{
+				$GLOBALS['DATABASE']->query("DELETE ".TOPKB.", ".TOPKB_USERS." FROM ".TOPKB." INNER JOIN ".TOPKB_USERS." USING (rid) WHERE `universe` = ".$uni." AND `units` < ".$battleHallLowest.";");
+			}
 		}
 
 		$GLOBALS['DATABASE']->query("DELETE FROM ".RW." WHERE `time` < ". $del_before ." AND `rid` NOT IN (SELECT `rid` FROM ".TOPKB.");");
