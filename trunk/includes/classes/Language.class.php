@@ -71,12 +71,12 @@ class Language implements ArrayAccess {
 				if($quality < ((float) $matches[2]))
 				{
 					$quality	= (float) $matches[2];
-					$deflang	= $matches[1];
+					$deflang	= substr($matches[1], 0, 2);
 				}
 			}
 			else
 			{
-				$deflang = $val;
+				$deflang = substr($val, 0, 2);
 				break;
 			}
 		}
