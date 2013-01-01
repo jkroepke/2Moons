@@ -96,9 +96,6 @@
 						{/foreach}
 						<br>
 					</td>
-					<td class="transparent right">
-						{$LNG.fgf_time}
-					</td>
 				</tr>
 				<tr>		
 					<td class="transparent left" style="width:68%">
@@ -141,7 +138,7 @@
 						{/if}
 					</td>
 					<td class="transparent right" style="white-space:nowrap;">
-						{$Element.elementTime|time}
+						{$LNG.fgf_time}:<br>{$Element.elementTime|time}
 					</td>
 				</tr>	
 			</table>
