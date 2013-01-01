@@ -116,6 +116,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 	
 	$SESSION->UpdateSession();
 
+	require(ROOT_PATH.'includes/classes/class.BuildFunctions.php');
 	require(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');
 	
 	if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS)) {
