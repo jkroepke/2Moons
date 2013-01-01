@@ -224,7 +224,7 @@ class MissionCaseExpedition extends MissionFunctions
 <div class="raportMessage">
 <table>
 <tr>
-<td colspan="2"><a href="CombatReport.php?raport=%s" target="_blank"><span class="%s">%s %s</span></a></td>
+<td colspan="2"><a href="CombatReport.php?raport=%s" target="_blank"><span class="%s">%s %s (%s)</span></a></td>
 </tr>
 <tr>
 <td>%s</td><td><span class="%s">%s: %s</span>&nbsp;<span class="%s">%s: %s</span></td>
@@ -412,6 +412,7 @@ HTML;
 						$this->_fleet['fleet_end_system'],
 						$this->_fleet['fleet_end_planet']
 					),
+					$LNG['type_planet_short'][$this->_fleet['fleet_end_type']],
 					$LNG['sys_lost'],
 					$attackClass,
 					$LNG['sys_attack_attacker_pos'],

@@ -60,7 +60,7 @@ class MissionCaseAttack extends MissionFunctions
 <div class="raportMessage">
 	<table>
 		<tr>
-			<td colspan="2"><a href="CombatReport.php?raport=%s" target="_blank"><span class="%s">%s %s</span></a></td>
+			<td colspan="2"><a href="CombatReport.php?raport=%s" target="_blank"><span class="%s">%s %s (%s)</span></a></td>
 		</tr>
 		<tr>
 			<td>%s</td><td><span class="%s">%s: %s</span>&nbsp;<span class="%s">%s: %s</span></td>
@@ -133,6 +133,7 @@ HTML;
 			'fleet_start_galaxy'	=> $targetPlanet['galaxy'], 
 			'fleet_start_system'	=> $targetPlanet['system'], 
 			'fleet_start_planet'	=> $targetPlanet['planet'], 
+			'fleet_start_type'		=> $targetPlanet['planet_type'], 
 		);
 		
 		$fleetDefend[0]['unit']				= array();
@@ -294,7 +295,7 @@ HTML;
 		{		
 			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
 			
-			$LNG					= $LNG->GetUserLang($targetUser['id'], array('FLEET', 'INGAME'));
+			$LNG					= $this->getLanguage(NULL, $userID);
 			$raportInfo['moonName']	= $LNG['type_planet'][3];
 			
 			CreateOneMoonRecord(
@@ -367,6 +368,7 @@ HTML;
 					$this->_fleet['fleet_end_system'],
 					$this->_fleet['fleet_end_planet']
 				),
+				$LNG['type_planet_short'][$this->_fleet['fleet_end_type']],
 				$LNG['sys_lost'],
 				$attackClass,
 				$LNG['sys_attack_attacker_pos'],
@@ -412,6 +414,7 @@ HTML;
 					$this->_fleet['fleet_end_system'],
 					$this->_fleet['fleet_end_planet']
 				),
+				$LNG['type_planet_short'][$this->_fleet['fleet_end_type']],
 				$LNG['sys_lost'],
 				$defendClass,
 				$LNG['sys_attack_attacker_pos'],

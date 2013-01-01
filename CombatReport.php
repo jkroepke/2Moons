@@ -26,39 +26,9 @@
  * @link http://2moons.cc/
  */
 
-define('MODE', 'INDEX');
+define('MODE', 'INGAME');
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require(ROOT_PATH.'includes/common.php');
-require(ROOT_PATH.'includes/pages/game/class.AbstractPage.php');
-require(ROOT_PATH.'includes/pages/game/class.ShowErrorPage.php');
-
-if($SESSION->IsUserLogin()) {
-	HTTP::redirectTo('index.php');
-} 
-
-$USER	= $GLOBALS['DATABASE']->getFirstRow("SELECT id, authlevel, timezone, lang, urlaubs_modus FROM ".USERS." WHERE id = ".$_SESSION['id'].";");
-
-$LNG	= new Language($USER['lang']);
-$LNG->includeData(array('L18N', 'INGAME', 'TECH'));
-$THEME->setUserTheme($USER['dpath']);
-require(ROOT_PATH.'includes/pages/game/class.ShowRaportPage.php');
-
-$pageObj	= new ShowRaportPage;
-$mode		= HTTP::_GP('mode', 'show');
-
-// PHP 5.2 FIX
-// can't use $pageObj::$requireModule
-$pageProps	= get_class_vars(get_class($pageObj));
-
-if(!is_callable(array($pageObj, $mode))) {	
-	if(!isset($pageProps['defaultController']) || !is_callable(array($pageObj, $pageProps['defaultController']))) {
-		ShowErrorPage::printError($LNG['page_doesnt_exist']);
-	}
-	
-	$mode	= $pageProps['defaultController'];
-}
-
-$pageObj->{$mode}();
-
+HTTP::redirectTo('game.php?page=raport&raport='.HTTP::_GP('raport', ''));

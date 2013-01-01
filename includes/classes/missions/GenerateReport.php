@@ -60,7 +60,7 @@ function GenerateReport($combatResult, $raportInfo)
 	{
 		$DATA['players'][$player['player']['id']]	= array(
 			'name'		=> $player['player']['username'],
-			'koords'	=> array($player['fleetDetail']['fleet_start_galaxy'], $player['fleetDetail']['fleet_start_system'], $player['fleetDetail']['fleet_start_planet']),
+			'koords'	=> array($player['fleetDetail']['fleet_start_galaxy'], $player['fleetDetail']['fleet_start_system'], $player['fleetDetail']['fleet_start_planet'], $player['fleetDetail']['fleet_start_type']),
 			'tech'		=> array($player['techs'][0] * 100, $player['techs'][1] * 100, $player['techs'][2] * 100),
 		);
 	}
@@ -68,7 +68,7 @@ function GenerateReport($combatResult, $raportInfo)
 	{
 		$DATA['players'][$player['player']['id']]	= array(
 			'name'		=> $player['player']['username'],
-			'koords'	=> array($player['fleetDetail']['fleet_start_galaxy'], $player['fleetDetail']['fleet_start_system'], $player['fleetDetail']['fleet_start_planet']),
+			'koords'	=> array($player['fleetDetail']['fleet_start_galaxy'], $player['fleetDetail']['fleet_start_system'], $player['fleetDetail']['fleet_start_planet'], $player['fleetDetail']['fleet_start_type']),
 			'tech'		=> array($player['techs'][0] * 100, $player['techs'][1] * 100, $player['techs'][2] * 100),
 		);
 	}

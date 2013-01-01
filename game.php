@@ -31,7 +31,6 @@ define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require(ROOT_PATH.'includes/pages/game/class.AbstractPage.php');
 require(ROOT_PATH.'includes/pages/game/class.ShowErrorPage.php');
-require(ROOT_PATH.'includes/classes/class.BuildFunctions.php');
 require(ROOT_PATH.'includes/common.php');
 
 $page 		= HTTP::_GP('page', 'overview');

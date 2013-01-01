@@ -79,6 +79,7 @@ class ShowRaportPage extends AbstractPage
 	{
 		global $LNG, $USER;
 		
+		$LNG->includeData(array('FLEET'));
 		$this->setWindow('popup');
 		
 		$RID		= HTTP::_GP('raport', '');
@@ -114,6 +115,7 @@ class ShowRaportPage extends AbstractPage
 		$this->tplObj->assign_vars(array(
 			'Raport'	=> $CombatRaport,
 			'Info'		=> $Info,
+			'pageTitle'	=> $LNG['lm_topkb']
 		));
 		
 		$this->display('shared.mission.raport.tpl');
@@ -123,6 +125,7 @@ class ShowRaportPage extends AbstractPage
 	{
 		global $LNG, $USER;
 		
+		$LNG->includeData(array('FLEET'));		
 		$this->setWindow('popup');
 		
 		$RID		= HTTP::_GP('raport', '');
@@ -152,6 +155,7 @@ class ShowRaportPage extends AbstractPage
 		
 		$this->tplObj->assign_vars(array(
 			'Raport'	=> $CombatRaport,
+			'pageTitle'	=> $LNG['sys_mess_attack_report']
 		));
 		
 		$this->display('shared.mission.raport.tpl');
