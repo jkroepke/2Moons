@@ -129,7 +129,7 @@ class MissionFunctions
 	{
 		if(is_null($language) && !is_null($userID))
 		{
-			$language = $GLOBALS['DATABASE']->getFirstRow("SELECT lang FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
+			$language = $GLOBALS['DATABASE']->getFirstCell("SELECT lang FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
 		}
 		
 		$LNG		= new Language($language);
