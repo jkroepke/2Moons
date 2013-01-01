@@ -123,6 +123,14 @@ class FleetFunctions
 		
 		return max($SpeedFactor, MIN_FLEET_TIME);
 	}
+ 
+	public static function GetMIPDuration($startSystem, $targetSystem)
+	{
+		$Distance = abs($startSystem - $targetSystem);
+		$Duration = max(round((30 + 60 * $Distance) / self::GetGameSpeedFactor()), MIN_FLEET_TIME);
+		
+		return $Duration;
+	}
 
 	public static function GetGameSpeedFactor()
 	{
