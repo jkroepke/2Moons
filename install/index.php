@@ -40,19 +40,19 @@ require(ROOT_PATH . 'includes/common.php');
 
 $THEME->setUserTheme('gow');
 
-$LNG->GetLangFromBrowser();
+$LNG = new Language;
 $LNG->includeData(array('L18N', 'INGAME', 'INSTALL'));
 
 $template = new template();
 $template->assign(array(
-	'lang'			=> $LNG->GetUser(),
+	'lang'			=> $LNG->getLanguage(),
 	'Selector'		=> $LNG->getAllowedLangs(false),
 	'intro_lang'	=> $LNG['intro_lang'],
 	'title'			=> $LNG['title_install'].' &bull; 2Moons',
 	'menu_intro'	=> $LNG['menu_intro'],
 	'menu_install'	=> $LNG['menu_install'],
 	'menu_license'	=> $LNG['menu_license'],
-	'canUpgrade'	=> file_exists(ROOT_PATH."includes/config.php") && filesize(ROOT_PATH."includes/config.php") !== 0,
+	'canUpgrade'	=> false,#file_exists(ROOT_PATH."includes/config.php") && filesize(ROOT_PATH."includes/config.php") !== 0,
 ));
 
 $enableInstallToolFile	= ROOT_PATH.'includes/ENABLE_INSTALL_TOOL';

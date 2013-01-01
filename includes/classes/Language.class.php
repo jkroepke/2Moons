@@ -91,13 +91,17 @@ class Language implements ArrayAccess {
 	
     public function setLanguage($langauge)
 	{
-		if(is_null($langauge) || !in_array($langauge, self::getAllowedLangs()))
+		if(!is_null($langauge) && !in_array($langauge, self::getAllowedLangs()))
+		{
+			$this->langauge = $langauge;
+		}
+		elseif(MODE !== 'INSTALL')
 		{
 			$this->langauge	= Config::get('lang');
 		}
 		else
 		{
-			$this->langauge = $langauge;
+			$this->langauge	= DEFAULT_LANG;
 		}
     }
 	
