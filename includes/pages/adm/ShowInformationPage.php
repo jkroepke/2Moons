@@ -39,16 +39,20 @@ function ShowInformationPage()
 	
 	try {
 		$dateTimeZoneServer = new DateTimeZone(Config::get('timezone'));
+	} catch (Exception $e) {
+		$dateTimeZoneServer	= new DateTimeZone(date_default_timezone_get());
+	}
+	
+	try {
 		$dateTimeZoneUser	= new DateTimeZone($USER['timezone']);
 	} catch (Exception $e) {
-		$dateTimeZoneServer	= null;
-		$dateTimeZoneUser	= null;
+		$dateTimeZoneUser	= new DateTimeZone(date_default_timezone_get());
 	}
 	
 	try {
 		$dateTimeZonePHP	= new DateTimeZone(ini_get('date.timezone'));
 	} catch (Exception $e) {
-		$dateTimeZonePHP	= null;
+		$dateTimeZonePHP	= new DateTimeZone(date_default_timezone_get());
 	}
 	
 	$dateTimeServer		= new DateTime("now", $dateTimeZoneServer);
