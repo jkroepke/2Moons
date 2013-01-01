@@ -26,8 +26,7 @@
  * @link http://2moons.cc/
  */
 
-define('MODE', 'CRON');
-
+define('MODE', 'BANNER');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 if(!extension_loaded('gd')) {
@@ -41,7 +40,8 @@ if(!isModulAvalible(MODULE_BANNER) || $id == 0) {
 	clearGIF();
 }
 
-$LNG->GetLangFromBrowser();
+$LNG = new Language;
+$LNG->getUserAgentLanguage();
 $LNG->includeData(array('L18N', 'BANNER', 'CUSTOM'));
 
 require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
