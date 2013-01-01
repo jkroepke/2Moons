@@ -44,7 +44,7 @@ class ShowOverviewPage extends AbstractPage
 		}
 		
 		$GLOBALS['CACHE']->add('teamspeak', 'TeamspeakBuildCache');
-		$tsInfo	= $GLOBALS['CACHE']->get('teamspeak');
+		$tsInfo	= $GLOBALS['CACHE']->get('teamspeak', false);
 		
 		if(empty($tsInfo))
 		{

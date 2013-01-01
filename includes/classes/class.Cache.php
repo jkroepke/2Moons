@@ -41,10 +41,18 @@ class Cache {
 		$this->cacheBuilder[$Key]	= $ClassName;
 	}
 	
-	function get($Key) {
+	function get($Key, $rebuild = true) {
 		if(!isset($this->cacheObj[$Key]) && !$this->load($Key))
-			$this->buildCache($Key);
-		
+		{
+			if($rebuild)
+			{
+				$this->buildCache($Key);
+			}
+			else
+			{
+				return array();
+			}
+		}
 		return $this->cacheObj[$Key];
 	}
 	
