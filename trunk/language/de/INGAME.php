@@ -558,6 +558,7 @@ $LNG['mg_empty_text']						= 'Gebe ein Text ein!';
 $LNG['mg_answer_to']						= 'Antwort an:';
 $LNG['mg_write_mail_to_ops']				= 'Schreibe eine E-Mail an';
 $LNG['mg_page']								= 'Seite';
+$LNG['mg_receiver_block_pm']				= 'Der Empfänger blockiert Private Nachrichten.';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE
@@ -932,6 +933,7 @@ $LNG['op_dst_mode_sel'][0]					= 'Nein';
 $LNG['op_dst_mode_sel'][1]					= 'Ja';
 $LNG['op_dst_mode_sel'][2]					= 'Automatisch';
 $LNG['op_timezone']							= 'Zeitzone';
+$LNG['op_block_pm']							= 'Private Nachrichten blockieren';
 
 //----------------------------------------------------------------------------//
 //BANNED

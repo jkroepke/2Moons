@@ -78,6 +78,10 @@
 			<td><input name="spyMessagesMode" type="checkbox" value="1" {if $spyMessagesMode == 1}checked="checked"{/if}></td>
 		</tr>
 		<tr>
+			<td>{$LNG.op_block_pm}</td>
+			<td><input name="blockPM" type="checkbox" value="1" {if $blockPM == 1}checked="checked"{/if}></td>
+		</tr>
+		<tr>
 			<th colspan="2">{$LNG.op_galaxy_settings}</th>
 		</tr>
 		<tr>
