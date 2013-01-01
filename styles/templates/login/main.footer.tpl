@@ -9,7 +9,6 @@ var LoginConfig = {
 	'referralEnable' : {$referralEnable|json},
 	'basePath' : {$basepath|json}
 };
-{if isset($code)}alert({$code|json});{/if}
 </script>
 {if $analyticsEnable}
 <script type="text/javascript" src="http://www.google-analytics.com/ga.js"></script>

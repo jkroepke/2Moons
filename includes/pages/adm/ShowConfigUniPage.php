@@ -30,7 +30,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowConfigUniPage()
 {
-	global $LNG, $USER, $LANG;
+	global $LNG, $USER;
 	
 	$CONF	= Config::getAll(NULL, $_SESSION['adminuni']);
 	
@@ -424,7 +424,7 @@ function ShowConfigUniPage()
 		'trade_allowed_ships'        	=> $CONF['trade_allowed_ships'],
 		'trade_charge'		        	=> $CONF['trade_charge'],
 		'Selector'						=> array(
-			'langs' => $LANG->getAllowedLangs(false), 
+			'langs' => $LNG->getAllowedLangs(false), 
 			'mail' => $LNG['se_mail_sel'], 
 			'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])
 		),

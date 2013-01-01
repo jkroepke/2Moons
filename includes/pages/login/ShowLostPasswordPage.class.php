@@ -74,7 +74,7 @@ class ShowLostPasswordPage extends AbstractPage
 
 		$userData		= $GLOBALS['DATABASE']->getFirstRow("SELECT username, email_2 as mail FROM ".USERS." WHERE id = ".$userID.";");
 
-		$MailRAW		= $GLOBALS['LANG']->getMail('email_lost_password_changed');
+		$MailRAW		= $GLOBALS['LNG']->getTemplate('email_lost_password_changed');
 		$MailContent	= sprintf($MailRAW, $userData['username'], $newPassword, Config::get('game_name'));
 		
 		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET password = '".PlayerUtil::cryptPassword($newPassword)."' WHERE id = ".$userID.";");
@@ -149,7 +149,7 @@ class ShowLostPasswordPage extends AbstractPage
 		
 		$validationKey	= md5(uniqid());
 						
-		$MailRAW		= $GLOBALS['LANG']->getMail('email_lost_password_validation');
+		$MailRAW		= $GLOBALS['LNG']->getTemplate('email_lost_password_validation');
 		$MailContent	= sprintf($MailRAW, $username, HTTP_PATH.'index.php?page=lostPassword&mode=newPassword&u='.$userID.'&k='.$validationKey, Config::get('game_name'));
 		
 		require ROOT_PATH.'includes/classes/Mail.class.php';		

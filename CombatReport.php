@@ -35,24 +35,14 @@ require(ROOT_PATH.'includes/pages/game/class.AbstractPage.php');
 require(ROOT_PATH.'includes/pages/game/class.ShowErrorPage.php');
 
 if($SESSION->IsUserLogin()) {
-	$USER	= $GLOBALS['DATABASE']->getFirstRow("SELECT id, authlevel, timezone, lang, urlaubs_modus FROM ".USERS." WHERE id = ".$_SESSION['id'].";");
-} else {
+	HTTP::redirectTo('index.php');
+} 
 
-	// Simluate User
-	// Hello, i'm a hack.
-	
-	$USER	= array(
-		'id'	=> 0,
-		'lang'	=> $LANG->GetLangFromBrowser(),
-		'timezone'	=> Config::get('timezone'),
-		'urlaubs_modus'	=> 0,
-		'authlevel'	=> 0
-	);
-}
+$USER	= $GLOBALS['DATABASE']->getFirstRow("SELECT id, authlevel, timezone, lang, urlaubs_modus FROM ".USERS." WHERE id = ".$_SESSION['id'].";");
 
-$LANG->setUser($USER['lang']);
-$LANG->includeLang(array('L18N', 'INGAME', 'TECH', 'FLEET', 'CUSTOM'));
-
+$LNG	= new Language($USER['lang']);
+$LNG->includeData(array('L18N', 'INGAME', 'TECH'));
+$THEME->setUserTheme($USER['dpath']);
 require(ROOT_PATH.'includes/pages/game/class.ShowRaportPage.php');
 
 $pageObj	= new ShowRaportPage;

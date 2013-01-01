@@ -41,8 +41,8 @@ if(!isModulAvalible(MODULE_BANNER) || $id == 0) {
 	clearGIF();
 }
 
-$LANG->GetLangFromBrowser();
-$LANG->includeLang(array('L18N', 'BANNER', 'CUSTOM'));
+$LNG->GetLangFromBrowser();
+$LNG->includeData(array('L18N', 'BANNER', 'CUSTOM'));
 
 require_once(ROOT_PATH."includes/classes/class.StatBanner.php");
 

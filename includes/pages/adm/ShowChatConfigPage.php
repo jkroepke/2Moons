@@ -30,7 +30,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowChatConfigPage()
 {
-	global $LNG, $USER, $LANG;
+	global $LNG, $USER;
 	
 	$CONF	= Config::getAll(NULL, $_SESSION['adminuni']);
 	if (!empty($_POST))

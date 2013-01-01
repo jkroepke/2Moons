@@ -35,7 +35,7 @@ class MissionCaseMIP extends MissionFunctions
 	
 	function TargetEvent()
 	{
-		global $resource, $reslist, $LANG;
+		global $resource, $reslist;
 		$SQL = "";
 		foreach($reslist['defense'] as $Element)
 		{
@@ -65,10 +65,10 @@ class MissionCaseMIP extends MissionFunctions
 		
 		unset($TargetDefensive[502]);
 		
-		$message 			= "";
-		$SQL 				= "";
+		$message 	= "";
+		$SQL 		= "";
 			
-		$LNG				= $LANG->GetUserLang($GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['lang'], array('L18N', 'FLEET', 'TECH'));
+		$LNG		= $this->getLanguage($GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['lang'], array('L18N', 'FLEET', 'TECH'));
 				
 		require_once('calculateMIPAttack.php');	
 		if ($TargetInfo[$resource[502]] >= $this->_fleet['fleet_amount'])

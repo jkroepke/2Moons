@@ -31,16 +31,23 @@ class InactiveMailCronjob
 {
 	function run()
 	{
-		global $LNG, $LANG;
+		global $LNG;
 		
 		$CONFIG	= Config::getAll(NULL);
 		$CONF	= $CONFIG[ROOT_UNI];
-		
+		$langObjects	= array();
 		if($CONF['mail_active'] == 1) {
 			$Users	= $GLOBALS['DATABASE']->query("SELECT `id`, `username`, `lang`, `email`, `onlinetime`, `universe` FROM ".USERS." WHERE `inactive_mail` = '0' AND `onlinetime` < '".(TIMESTAMP - $CONF['del_user_sendmail'])."';");
 			while($User	= $GLOBALS['DATABASE']->fetch_array($Users)) {
-				$LANG->setUser($User['lang']);	
-				$LANG->includeLang(array('L18N', 'INGAME', 'PUBLIC'));
+				if(!isset($langObjects[$User['lang']]))
+				{
+					$LNG->setUser($User['lang']);	
+					$langObjects[$User['lang']]	= new Language();
+					$langObjects[$User['lang']]->includeData(array('L18N', 'INGAME', 'PUBLIC', 'CUSTOM'));
+				}
+				
+				$LNG			= $langObjects[$User['lang']];
+				
 				$MailSubject	= sprintf($LNG['spec_mail_inactive_title'], $CONF['game_name'].' - '.$CONFIG[$User['universe']]['uni_name']);
 				$MailRAW		= file_get_contents("./language/".$User['lang']."/email/email_inactive.txt");
 				$MailContent	= sprintf($MailRAW, $User['username'], $CONF['game_name'].' - '.$CONFIG[$User['universe']]['uni_name'], _date($LNG['php_tdformat'], $User['onlinetime']), PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT);	

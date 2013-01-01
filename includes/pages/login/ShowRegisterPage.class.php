@@ -277,7 +277,7 @@ class ShowRegisterPage extends AbstractPage
 		{
 			require(ROOT_PATH.'includes/classes/Mail.class.php');
 			$MailSubject 	= t('registerMailVertifyTitle');
-			$MailRAW		= $GLOBALS['LANG']->getMail('email_vaild_reg');
+			$MailRAW		= $GLOBALS['LNG']->getTemplate('email_vaild_reg');
 			$MailContent	= str_replace(array(
 				'{USERNAME}',
 				'{PASSWORD}',

@@ -31,7 +31,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 
 function ShowSendMessagesPage() {
-	global $USER, $LNG, $CONF, $LANG;
+	global $USER, $LNG, $CONF;
 	
 	$ACTION	= HTTP::_GP('action', '');
 	if ($ACTION == 'send')
@@ -92,7 +92,7 @@ function ShowSendMessagesPage() {
 	
 	$template	= new template();
 	$template->assign_vars(array(
-		'langSelector' => array_merge(array('' => $LNG['ma_all']), $LANG->getAllowedLangs(false)),
+		'langSelector' => array_merge(array('' => $LNG['ma_all']), $LNG->getAllowedLangs(false)),
 		'modes' => $LNG['ma_modes'],
 	));
 	$template->show('SendMessagesPage.tpl');

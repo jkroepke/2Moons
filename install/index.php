@@ -40,13 +40,13 @@ require(ROOT_PATH . 'includes/common.php');
 
 $THEME->setUserTheme('gow');
 
-$LANG->GetLangFromBrowser();
-$LANG->includeLang(array('L18N', 'INGAME', 'INSTALL'));
+$LNG->GetLangFromBrowser();
+$LNG->includeData(array('L18N', 'INGAME', 'INSTALL'));
 
 $template = new template();
 $template->assign(array(
-	'lang'			=> $LANG->GetUser(),
-	'Selector'		=> $LANG->getAllowedLangs(false),
+	'lang'			=> $LNG->GetUser(),
+	'Selector'		=> $LNG->getAllowedLangs(false),
 	'intro_lang'	=> $LNG['intro_lang'],
 	'title'			=> $LNG['title_install'].' &bull; 2Moons',
 	'menu_intro'	=> $LNG['menu_intro'],
@@ -75,13 +75,13 @@ if (is_file($enableInstallToolFile) && (time() - filemtime($enableInstallToolFil
 }
 
 if (!is_file($enableInstallToolFile)) {
-	$template->message($LANG->getExtra('locked_install'), false, 0, true);
+	$template->message($LNG->getTemplate('locked_install'), false, 0, true);
 	exit;
 }
 
 $language	= HTTP::_GP('lang', '');
 
-if(!empty($language) && in_array($language, $LANG->getAllowedLangs()))
+if(!empty($language) && in_array($language, $LNG->getAllowedLangs()))
 {
 	setcookie('lang', $language);
 }
@@ -92,7 +92,7 @@ switch($mode)
 	case 'ajax':
 		require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.php');
 		require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.php');
-		$LANG->includeLang(array('ADMIN'));
+		$LNG->includeData(array('ADMIN'));
 		$CONFIG = array("host" => $_GET['host'], "username" => $_GET['user'], "password" => $_GET['pass'], "port" => 21); 
 		try
 		{
@@ -363,7 +363,7 @@ switch($mode)
 					Config::init();
 					Config::update(array(
 						'timezone'			=> @date_default_timezone_get(),
-						'lang'				=> $LANG->GetUser(),
+						'lang'				=> $LNG->GetUser(),
 						'OverviewNewsText'	=> $LNG['sql_welcome'].'1.7',
 						'uni_name'			=> $LNG['fcm_universe'].' 1',
 						'close_reason'		=> $LNG['sql_close_reason'],
@@ -427,7 +427,7 @@ switch($mode)
 				$SQL .= "email			= '".$DATABASE->sql_escape($AdminMail)."', ";
 				$SQL .= "email_2		= '".$DATABASE->sql_escape($AdminMail)."', ";
 				$SQL .= "ip_at_reg		= '".$_SERVER['REMOTE_ADDR']."', ";
-				$SQL .= "lang			= '".$LANG->GetUser(). "', ";
+				$SQL .= "lang			= '".$LNG->GetUser(). "', ";
 				$SQL .= "authlevel		= ".AUTH_ADM.", ";
 				$SQL .= "dpath 			= '".DEFAULT_THEME."', ";
 				$SQL .= "rights			= '', ";

@@ -986,8 +986,8 @@ $LNG['fcm_planet']							= 'Planet';
 $LNG['fcm_moon']							= 'Mond';
 $LNG['fcm_info']							= 'Information';
 $LNG['fcp_colony']							= 'Kolonie';
-$LNG['fgp_require']							= 'Benötigt: ';
-$LNG['fgf_time']							= 'Bauzeit: ';
+$LNG['fgp_require']							= 'Benötigt';
+$LNG['fgf_time']							= 'Bauzeit';
 $LNG['sys_module_inactive']        	 		= 'Modul inaktiv';
 $LNG['sys_refferal_from']        	 		= 'System';
 $LNG['sys_refferal_title']        	 		= 'Bonus für Spieler %s';
@@ -1172,3 +1172,4 @@ $LNG['lo_continue']							= 'Klicken Sie hier, um nicht zu warten';
 
 
 // Translated into German by Jan . All rights reversed (C) 2011
+

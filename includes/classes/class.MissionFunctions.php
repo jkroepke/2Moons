@@ -123,5 +123,18 @@ class MissionFunctions
 		$this->kill	= 1;
 		$GLOBALS['DATABASE']->multi_query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ".$this->_fleet['fleet_id'].";
 		DELETE FROM ".FLEETS_EVENT." WHERE `fleetID` = ".$this->_fleet['fleet_id'].";");
-	}	
+	}
+	
+	function getLanguage($language = NULL, $userID = NULL)
+	{
+		if(is_null($language) && !is_null($userID))
+		{
+			$language = $GLOBALS['DATABASE']->setFirstRow("SELECT lang FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
+		}
+		
+		$LNG		= new Language($language);
+		$LNG->includeData('L18N', 'FLEET', 'TECH', 'CUSTOM');
+		
+		return $LNG;
+	}
 }

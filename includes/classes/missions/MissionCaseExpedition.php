@@ -41,8 +41,8 @@ class MissionCaseExpedition extends MissionFunctions
 	
 	function EndStayEvent()
 	{
-		global $pricelist, $reslist, $LANG;
-		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
+		global $pricelist, $reslist;
+		$LNG	= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
 
         $expeditionPoints       = array();
 
@@ -159,7 +159,7 @@ class MissionCaseExpedition extends MissionFunctions
 				$FoundShipMess	= "";	
 				$NewFleetArray 	= "";
 
-				$LNG			+= $LANG->GetUserLang($this->_fleet['fleet_owner'], array('TECH'));
+				$LNG			+= $LNG->GetUserLang($this->_fleet['fleet_owner'], array('TECH'));
 				$Found			= array();
 				foreach($reslist['fleet'] as $ID) 
 				{
@@ -219,8 +219,6 @@ class MissionCaseExpedition extends MissionFunctions
 					$Rand	= array(4,3,2);
 					$DefenderFleetArray	= "205,5;215,3;213,2;";
 				}
-
-				$LNG        += $LANG->GetUserLang($this->_fleet['fleet_owner'], array('L18N'));
 			
 				$messageHTML	= <<<HTML
 <div class="raportMessage">
@@ -473,9 +471,8 @@ HTML;
 	
 	function ReturnEvent()
 	{
-		global $LANG;
-		$LNG			= $LANG->GetUserLang($this->_fleet['fleet_owner']);
-		$Message 		= sprintf($LNG['sys_expe_back_home'], $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_crystal']),  $LNG['tech'][903], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][921], pretty_number($this->_fleet['fleet_resource_darkmatter']));
+		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
+		$Message 	= sprintf($LNG['sys_expe_back_home'], $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_crystal']),  $LNG['tech'][903], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][921], pretty_number($this->_fleet['fleet_resource_darkmatter']));
 		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
 		$this->RestoreFleet();
 	}

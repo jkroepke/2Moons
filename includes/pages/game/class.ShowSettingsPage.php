@@ -37,7 +37,7 @@ class ShowSettingsPage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $LNG, $LANG, $CONF;
+		global $USER, $LNG, $CONF;
 		if($USER['urlaubs_modus'] == 1)
 		{
 			$this->tplObj->assign_vars(array(	
@@ -62,7 +62,7 @@ class ShowSettingsPage extends AbstractPage
 						1 => $LNG['op_sort_down']
 					), 
 					'Skins' => Theme::getAvalibleSkins(), 
-					'lang' => $LANG->getAllowedLangs(false)
+					'lang' => $LNG->getAllowedLangs(false)
 					),
 				'adminProtection'	=> $USER['authattack'],	
 				'userAuthlevel'		=> $USER['authlevel'],
@@ -171,7 +171,7 @@ class ShowSettingsPage extends AbstractPage
 	
 	private function sendDefault()
 	{
-		global $USER, $PLANET, $CONF, $LNG, $LANG, $UNI, $SESSION, $THEME;
+		global $USER, $PLANET, $CONF, $LNG, $UNI, $SESSION, $THEME;
 		
 		$adminprotection	= HTTP::_GP('adminprotection', 0);
 		
@@ -209,7 +209,7 @@ class ShowSettingsPage extends AbstractPage
 		
 		$adminprotection	= ($adminprotection == 1 && $USER['authlevel'] != AUTH_USR) ? $USER['authlevel'] : 0;
 		$spycount			= max($spycount, 1);
-		$language			= array_key_exists($language, $LANG->getAllowedLangs(false)) ? $language : $LANG->getUser();		
+		$language			= array_key_exists($language, $LNG->getAllowedLangs(false)) ? $language : $LNG->getLanguage();		
 		$theme				= array_key_exists($theme, Theme::getAvalibleSkins()) ? $theme : $THEME->getThemeName();
 		
 		$SQL				= "";

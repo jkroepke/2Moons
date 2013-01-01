@@ -31,7 +31,7 @@ class ReferralCronJob
 {
 	function run()
 	{
-		global $LNG, $LANG;
+		global $LNG;
 		
 		$CONF	= Config::getAll(NULL, ROOT_UNI);
 		
@@ -46,11 +46,11 @@ class ReferralCronJob
 							  ON stats.`id_owner` = user.`id` AND stats.`stat_type` = '1' AND stats.`total_points` >= ".$CONF['ref_minpoints']."
 							  WHERE user.`ref_bonus` = 1;");
 							  
-		$LANG->setDefault($CONF['lang']);
+		$LNG->setDefault($CONF['lang']);
 		while($User	= $GLOBALS['DATABASE']->fetch_array($Users))
 		{
-			$LANG->setUser($User['lang']);	
-			$LANG->includeLang(array('L18N', 'INGAME', 'TECH'));
+			$LNG->setUser($User['lang']);	
+			$LNG->includeData(array('L18N', 'INGAME', 'TECH'));
 			$GLOBALS['DATABASE']->multi_query("UPDATE ".USERS." SET `darkmatter` = `darkmatter` + ".$CONF['ref_bonus']." WHERE `id` = ".$User['ref_id'].";UPDATE ".USERS." SET `ref_bonus` = `ref_bonus` = '0' WHERE `id` = ".$User['id'].";");
 			$Message	= sprintf($LNG['sys_refferal_text'], $User['username'], pretty_number($CONF['ref_minpoints']), pretty_number($CONF['ref_bonus']), $LNG['tech'][921]);
 			SendSimpleMessage($User['ref_id'], '', TIMESTAMP, 4, $LNG['sys_refferal_from'], sprintf($LNG['sys_refferal_title'], $User['username']), $Message);

@@ -37,7 +37,7 @@ class ShowBattleSimulatorPage extends AbstractPage
 
 	function send()
 	{
-		global $USER, $PLANET, $reslist, $pricelist, $LNG, $LANG, $CONF;
+		global $USER, $PLANET, $reslist, $pricelist, $LNG, $CONF;
 		
 		if(!isset($_REQUEST['battleinput'])) {
 			$this->sendJSON(0);
@@ -131,7 +131,7 @@ class ShowBattleSimulatorPage extends AbstractPage
 			}
 		}
 		
-		$LANG->includeLang(array('FLEET'));
+		$LNG->includeData(array('FLEET'));
 		
 		require_once(ROOT_PATH.'includes/classes/missions/calculateAttack.php');
 		require_once(ROOT_PATH.'includes/classes/missions/calculateSteal.php');
@@ -244,7 +244,7 @@ class ShowBattleSimulatorPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $PLANET, $reslist, $pricelist, $resource, $LNG, $LANG, $CONF;
+		global $USER, $PLANET, $reslist, $pricelist, $resource, $LNG, $CONF;
 		
 		require_once(ROOT_PATH.'includes/classes/class.FleetFunctions.php');
 		

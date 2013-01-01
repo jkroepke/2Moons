@@ -32,7 +32,7 @@ if ($USER['authlevel'] != AUTH_ADM || $_GET['sid'] != session_id())
 }
 
 function ShowUniversePage() {
-	global $LANG, $LNG, $UNI, $USER;
+	global $LNG, $UNI, $USER;
 	$template	= new template();
 	
 	$action		= HTTP::_GP('action', '');
@@ -135,7 +135,7 @@ function ShowUniversePage() {
 						#'rewrite '.HTTP_ROOT.'uni[0-9]+/?(.*)?$ '.HTTP_ROOT.'$2 break;'
 						'rewrite /(.*)/?uni[0-9]+/?(.*) /$1/$2 break;'
 					),
-					$LANG->getExtra('createUniverseInfo')
+					$LNG->getTemplate('createUniverseInfo')
 				)
 				.'<a href="javascript:window.history.back();"><button>'.$LNG['uvs_back'].'</button></a>'
 				.'<a href="javascript:window.location.reload();"><button>'.$LNG['uvs_reload'].'</button></a>');

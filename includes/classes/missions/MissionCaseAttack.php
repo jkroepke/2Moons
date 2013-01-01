@@ -35,7 +35,7 @@ class MissionCaseAttack extends MissionFunctions
 	
 	function TargetEvent()
 	{	
-		global $resource, $reslist, $LANG;
+		global $resource, $reslist;
 		
 		$fleetAttack	= array();
 		$fleetDefend	= array();
@@ -294,7 +294,7 @@ HTML;
 		{		
 			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
 			
-			$LNG					= $LANG->GetUserLang($targetUser['id'], array('FLEET', 'INGAME'));
+			$LNG					= $LNG->GetUserLang($targetUser['id'], array('FLEET', 'INGAME'));
 			$raportInfo['moonName']	= $LNG['type_planet'][3];
 			
 			CreateOneMoonRecord(
@@ -355,7 +355,7 @@ HTML;
 		$sqlQuery		= "";
 		foreach($userAttack as $userID => $userName)
 		{
-			$LNG		= $LANG->GetUserLang($userID);
+			$LNG		= $this->getLanguage(NULL, $userID);
 			
 			$message	= sprintf($messageHTML,
 				$raportID,
@@ -400,7 +400,7 @@ HTML;
 		
 		foreach($userDefend as $userID => $userName)
 		{
-			$LNG		= $LANG->GetUserLang($userID);
+			$LNG		= $this->getLanguage(NULL, $userID);
 			
 			$message	= sprintf($messageHTML,
 				$raportID,
@@ -498,8 +498,7 @@ HTML;
 	
 	function ReturnEvent()
 	{
-		global $LANG;
-		$LNG		= $LANG->GetUserLang($this->_fleet['fleet_owner']);
+		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
 		$TargetName	= $GLOBALS['DATABASE']->getFirstCell("SELECT name FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_start_id'].";");
 		$Message	= sprintf( $LNG['sys_fleet_won'], $TargetName, GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]);
 

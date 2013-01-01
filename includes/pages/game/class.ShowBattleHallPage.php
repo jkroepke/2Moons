@@ -36,7 +36,7 @@ class ShowBattleHallPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $PLANET, $LNG, $UNI, $LANG;
+		global $USER, $PLANET, $LNG, $UNI;
 		$mode = HTTP::_GP('mode','');
 		$order = HTTP::_GP('order', 'units');
 		$sort = HTTP::_GP('sort', 'desc');
