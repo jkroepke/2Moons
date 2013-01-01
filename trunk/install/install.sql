@@ -577,7 +577,7 @@ CREATE TABLE `%PREFIX%raports` (
   `raport` text NOT NULL,
   `time` int(11) NOT NULL,
   `attacker` varchar(255) NOT NULL DEFAULT '',
-  `defender` varchar(255) NOT NULL DEFAULT ''
+  `defender` varchar(255) NOT NULL DEFAULT '',
   PRIMARY KEY (`rid`),
   KEY `time` (`time`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
