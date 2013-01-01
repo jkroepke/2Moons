@@ -197,4 +197,10 @@ $LNG['type_mission'][9]  				= 'Destruir';
 $LNG['type_mission'][11] 				= 'Exploração M.N.';
 $LNG['type_mission'][15] 				= 'Exploração Espacial';
 
+$LNG['type_planet_short'][1]  				= 'P';
+$LNG['type_planet_short'][2]  				= 'D';
+$LNG['type_planet_short'][3]  				= 'L';
 
+$LNG['type_planet'][1]  					= 'Planeta';
+$LNG['type_planet'][2]  					= 'Campo de Destroços';
+$LNG['type_planet'][3]  					= 'Lua';
