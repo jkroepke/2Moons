@@ -58,14 +58,14 @@ class FlyingFleetsTable
 		global $USER, $resource;
 		
 		if($this->IsPhalanx) {
-			$SQLWhere	= "fleet_start_id = ".$this->PlanetID." OR (fleet_end_id = ".$this->PlanetID." AND fleet_mess IN (0, 2))";
+			$SQLWhere	= "(fleet_start_id = ".$this->PlanetID." AND fleet_mission != 4) OR (fleet_end_id = ".$this->PlanetID." AND fleet_mess IN (0, 2))";
 		} elseif(!empty($acsID)) {
 			$SQLWhere	= "fleet_group = ".$acsID;
 		} elseif($this->missions) {
-			$SQLWhere = "(fleet_owner = ". $this->UserID ." OR fleet_target_owner = ". $this->UserID .") AND fleet_mission IN (". $this->missions .")";
+			$SQLWhere	= "(fleet_owner = ". $this->UserID ." OR fleet_target_owner = ". $this->UserID .") AND fleet_mission IN (". $this->missions .")";
 		} else {
 			$SQLWhere	= "fleet_owner = ".$this->UserID." OR (fleet_target_owner = ".$this->UserID." AND fleet_mission != 8)";
-			}
+		}
 
 		return $GLOBALS['DATABASE']->query("SELECT DISTINCT fleet.*, ownuser.username as own_username, targetuser.username as target_username, ownplanet.name as own_planetname, targetplanet.name as target_planetname 
 		FROM ".FLEETS." fleet
@@ -76,8 +76,9 @@ class FlyingFleetsTable
 		WHERE ".$SQLWhere.";");
 	}
 	
-	function renderTable() {
-				$fleetResult	= $this->getFleets();
+	function renderTable()
+	{
+		$fleetResult	= $this->getFleets();
 		$ACSDone		= array();
 		$FleetData		= array();
 		
@@ -85,15 +86,14 @@ class FlyingFleetsTable
 		{
 			if ($fleetRow['fleet_mess'] == 0 && $fleetRow['fleet_start_time'] > TIMESTAMP && ($fleetRow['fleet_group'] == 0 || !isset($ACSDone[$fleetRow['fleet_group']])))
 			{
-				$ACSDone[$fleetRow['fleet_group']]		= 1;
-				
+				$ACSDone[$fleetRow['fleet_group']]		= true;
 				$FleetData[$fleetRow['fleet_start_time'].$fleetRow['fleet_id']] = $this->BuildFleetEventTable($fleetRow, 0);
 			}
 				
 			if ($fleetRow['fleet_mission'] == 10 || ($fleetRow['fleet_mission'] == 4 && $fleetRow['fleet_mess'] == 0))
 				continue;
 				
-			if ($fleetRow['fleet_end_stay'] != $fleetRow['fleet_start_time'] && $fleetRow['fleet_end_stay'] > TIMESTAMP)
+			if ($fleetRow['fleet_end_stay'] != $fleetRow['fleet_start_time'] && $fleetRow['fleet_end_stay'] > TIMESTAMP && ($this->IsPhalanx && $fleetRow['fleet_end_id'] == $this->PlanetID))
 				$FleetData[$fleetRow['fleet_end_stay'].$fleetRow['fleet_id']] = $this->BuildFleetEventTable($fleetRow, 2);
 		
 			if ($fleetRow['fleet_owner'] != $this->UserID)
