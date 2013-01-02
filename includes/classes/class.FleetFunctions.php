@@ -373,6 +373,7 @@ class FleetFunctions
 		}
 		
 		$SQL	= "LOCK TABLE ".LOG_FLEETS." WRITE, ".FLEETS_EVENT." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE;
+				   UPDATE ".PLANETS." SET ".implode(", ", $planetQuery)." WHERE id = ".$fleetStartPlanetID.";
 				   INSERT INTO ".FLEETS." SET
 				   fleet_owner              = ".$fleetStartOwner.",
 				   fleet_target_owner       = ".$fleetTargetOwner.",
@@ -430,7 +431,6 @@ class FleetFunctions
 				   fleet_group              = ".$fleetGroup.",
 				   fleet_target_obj         = ".$missleTarget.",
 				   start_time               = ".TIMESTAMP.";
-				   UPDATE ".PLANETS." SET ".implode(", ", $planetQuery)." WHERE id = ".$fleetStartPlanetID.";
 				   UNLOCK TABLES;";
 		$GLOBALS['DATABASE']->multi_query($SQL);
 	}
