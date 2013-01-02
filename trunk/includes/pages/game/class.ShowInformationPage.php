@@ -186,6 +186,7 @@ class ShowInformationPage extends AbstractPage
 		$productionTable	= array();
 		$FleetInfo			= array();
 		$MissileList		= array();
+		$gateData			= array();
 
 		$CurrentLevel		= 0;
 		
@@ -301,13 +302,13 @@ class ShowInformationPage extends AbstractPage
 		{
 			$this->tplObj->loadscript('gate.js');
 			$nextTime	= self::getNextJumpWaitTime($PLANET['last_jump_time']);
-			$this->tplObj->assign_vars(array(
+			$gateData	= array(
 				'nextTime'	=> _date($LNG['php_tdformat'], $nextTime, $USER['timezone']),
 				'restTime'	=> max(0, $nextTime - TIMESTAMP),
 				'startLink'	=> $PLANET['name'].' '.strip_tags(BuildPlanetAdressLink($PLANET)),
 				'gateList' 	=> $this->getTargetGates(),
 				'fleetList'	=> $this->getAvalibleFleets(),
-			));
+			);
 		}
 		elseif($elementID == 44 && $PLANET[$resource[44]] > 0)
 		{								
@@ -324,6 +325,7 @@ class ShowInformationPage extends AbstractPage
 			'MissileList'		=> $MissileList,
 			'Bonus'				=> BuildFunctions::getAvalibleBonus($elementID),
 			'FleetInfo'			=> $FleetInfo,
+			'gateData'			=> $gateData,
 		));
 		
 		$this->display('page.infomation.default.tpl');

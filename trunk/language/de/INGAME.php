@@ -503,6 +503,7 @@ $LNG['in_jump_gate_finish_moon']			= 'Reiseziel Mond';
 $LNG['in_jump_gate_select_ships']			= 'Verwenden des Sprungtores: Anzahl der Schiffe';
 $LNG['in_jump_gate_wait_time']				= 'Nächst mögliche Nutzung:';
 $LNG['in_jump_gate_jump']					= 'Aufladen';
+$LNG['in_jump_gate_no_target']				= 'Kein Ziel Sprungtor vorhanden.';
 $LNG['in_destroy']     						= 'Abreißen';
 $LNG['in_needed']      						= 'Benötigt';
 $LNG['in_dest_durati'] 						= 'Dauer';
