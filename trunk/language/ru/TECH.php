@@ -1,6 +1,7 @@
 <?php
 
-// Translated into Russian by InquisitorEA (SporeEA@yandex.ru). All rights reserved © 2010-2012
+// 2Moons - Copyright © 2012 Jan Kröpke <info@2moons.cc>
+// Translation into Russian - Copyright © 2012 InquisitorEA <support@moon-hunt.ru>
 
 $LNG['shortNames'] = array (
 	202 => 'М. трансп.',
@@ -37,20 +38,24 @@ $LNG['shortNames'] = array (
 );
 
 $LNG['bonus'] = array(
-	'Attack'			=> '+%f%% к вооружению.',
-	'Defensive'			=> '+%f%% к броне космических кораблей.',
-	'Shield'			=> '+%f%% к щитам.',
-	'BuildTime'			=> '-%f%% времени строительства.',
-	'ResearchTime'		=> '-%f%% времени проведения исследований.',
-	'ShipTime'			=> '-%f%% времени постройки кораблей.',
-	'DefensiveTime'		=> '-%f%% времени постройки обороны.',
-	'Resource'			=> '+%f%% к добыче сырья.',
-	'Energy'			=> '+%f%% к выработке энергии.',
-	'ResourceStorage'	=> '+%f%% к вместимости хранилищ.',
-	'ShipStorage'		=> '+%f%% к вместимости кораблей.',
-	'FlyTime'			=> '-%f%% времени полёта кораблей.',
-	'FleetSlots'		=> '+%f%% к слотам флотов.',
-	'Planets'			=> '+%f%% к планетам.',
+	'Attack'			=> 'вооружения.',
+	'Defensive'			=> 'брони космических кораблей.',
+	'Shield'			=> 'мощности щитов.',
+	'BuildTime'			=> 'времени строительства.',
+	'ResearchTime'		=> 'времени проведения исследований.',
+	'ShipTime'			=> 'времени постройки кораблей.',
+	'DefensiveTime'		=> 'времени постройки обороны.',
+	'Resource'			=> 'добычи ресурсов.',
+	'Energy'			=> 'выработки энергии.',
+	'ResourceStorage'	=> 'вместимости хранилищ.',
+	'ShipStorage'		=> 'вместимости кораблей.',
+	'FlyTime'			=> 'времени полёта кораблей.',
+	'FleetSlots'		=> 'слота для полётов кораблей.',
+	'Planets'			=> 'планеты.',
+	'SpyPower'			=> 'мощности шпионажа.',
+	'Expedition'		=> 'одновременных экспедиций.',
+	'GateCoolTime'		=> 'времени остывания телепорта.',
+	'MoreFound'			=> 'одновременных полётов поиска тёмной материи.',
 );
 
 $LNG['tech'] = array(

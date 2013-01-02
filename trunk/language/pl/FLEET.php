@@ -188,6 +188,7 @@ $LNG['sys_debris'] 							= 'Wielkośc pola zniszczeń';
 $LNG['sys_destruc_title']       		   	= 'Następujące floty z misją zniszcz księżyc:';
 $LNG['sys_mess_destruc_report']  		  	= 'Raport: Zniszczenie księżyca';
 $LNG['sys_raport_not_found']				= 'Nieprawidłowy id bitwy';
+$LNG['sys_raport_lost_contact']				= 'Kontakt z atakującą flotą utracony (To znaczy że flota została zniszczona w 1 rundzie!)';
 $LNG['sys_destruc_lune']          		 	= 'Szansa na zniszczenie księżyca to: %d%% ';
 $LNG['sys_destruc_rip']          			= 'Prawdopodobieństwo samozniszczenia floty to: %d%%';
 $LNG['sys_destruc_stop']      			 	= 'Obrońca zablokował zniszczenie księżyca.';
@@ -197,14 +198,15 @@ $LNG['sys_destruc_echec']       		   	= 'Trzęsienia ziemi przetaczają się po 
 $LNG['sys_destruc_reussi']      		   	= 'Potężne dziła giazd śmierci rozniosły kśiężyc na kawałki <br>Księżyc został zniszczony.';
 $LNG['sys_destruc_null']        		   	= 'Atak się nie powiódł.<br> Księżyc nie został zniszczony.';
 
-
-
-
 $LNG['fcp_colony']							= 'Kolonia';
 $LNG['fl_simulate']							= 'Symulacja';
 
 $LNG['type_mission'][1]  					= 'Atak';
 $LNG['type_mission'][2]  					= 'Atak łączony';
+
+
+
+
 $LNG['type_mission'][3]  					= 'Transport';
 $LNG['type_mission'][4]  					= 'Stacjonuj';
 $LNG['type_mission'][5]  					= 'Zostań';
@@ -215,6 +217,13 @@ $LNG['type_mission'][9]  					= 'Zniszcz';
 $LNG['type_mission'][11]  					= 'DM Investigation';
 $LNG['type_mission'][15] 					= 'Ekspedycja';
 
+$LNG['type_planet_short'][1]  				= 'P';
+$LNG['type_planet_short'][2]  				= 'Pz';
+$LNG['type_planet_short'][3]  				= 'M';
+
+$LNG['type_planet'][1]  					= 'Planeta';
+$LNG['type_planet'][2]  					= 'Pole zniszczeń';
+$LNG['type_planet'][3]  					= 'Księżyc';
 
 
 
