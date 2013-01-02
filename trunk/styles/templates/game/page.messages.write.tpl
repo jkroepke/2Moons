@@ -31,7 +31,7 @@ function check(){
 			alert(data);
 			parent.$.fancybox.close();
 			return true;
-		});
+		}, 'json');
 	}
 }
 </script>
