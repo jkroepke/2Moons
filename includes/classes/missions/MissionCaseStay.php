@@ -49,6 +49,7 @@ class MissionCaseStay extends MissionFunctions
 	}
 	
 	function ReturnEvent()
+	{
 		$LNG				= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);	
 		$TargetUserID       = $this->_fleet['fleet_target_owner'];
 		$TargetMessage      = sprintf($LNG['sys_stat_mess'], GetStartAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]);
