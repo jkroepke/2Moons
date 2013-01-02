@@ -368,8 +368,8 @@ class FleetFunctions
 		$fleetData		= array();
 		$planetQuery	= "";
 		foreach($fleetArray as $ShipID => $ShipCount) {
-			$fleetData[]	= $ShipID.','.$ShipCount;
-			$planetQuery[]	= $resource[$ShipID]." = ".$resource[$ShipID]." - ".$ShipCount;
+			$fleetData[]	= $ShipID.','.floattostring($ShipCount);
+			$planetQuery[]	= $resource[$ShipID]." = ".$resource[$ShipID]." - ".floattostring($ShipCount);
 		}
 		
 		$SQL	= "LOCK TABLE ".LOG_FLEETS." WRITE, ".FLEETS_EVENT." WRITE, ".FLEETS." WRITE, ".PLANETS." WRITE;
@@ -432,6 +432,7 @@ class FleetFunctions
 				   fleet_target_obj         = ".$missleTarget.",
 				   start_time               = ".TIMESTAMP.";
 				   UNLOCK TABLES;";
+				   
 		$GLOBALS['DATABASE']->multi_query($SQL);
 	}
 }

@@ -654,9 +654,9 @@ class ResourceUpdate
 				if(in_array($Element, $reslist['one'])) {
 					$Qry	.= "p.".$resource[$Element]." = '1', ";					
 				} elseif(isset($PLANET[$resource[$Element]])) {
-					$Qry	.= "p.".$resource[$Element]." = p.".$resource[$Element]." + ".$Count.", ";
+					$Qry	.= "p.".$resource[$Element]." = p.".$resource[$Element]." + ".floattostring($Count).", ";
 				} elseif(isset($USER[$resource[$Element]])) {
-					$Qry	.= "u.".$resource[$Element]." = u.".$resource[$Element]." + ".$Count.", ";
+					$Qry	.= "u.".$resource[$Element]." = u.".$resource[$Element]." + ".floattostring($Count).", ";
 				}
 			}
 		}
