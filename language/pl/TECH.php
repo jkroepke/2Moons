@@ -149,6 +149,56 @@ $LNG['tech'] = array(
 219 => 'Giga-Recycler',
 220 => 'Inter. DM-Collector',
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 400 => 'Obrona Planetarna',
 401 => 'Wyrzutnia Rakiet',
 402 => 'Lekki Laser',
@@ -194,11 +244,6 @@ $LNG['tech'] = array(
 	900 => 'Zasoby',
 	901 => 'Metal',
 	902 => 'Kryształ',
-
-
-
-
-
 	903 => 'Deuterium',
 	911 => 'Energia',
 	921 => 'Dark Metter',

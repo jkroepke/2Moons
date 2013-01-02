@@ -28,17 +28,20 @@
 
 $LNG['Messages']							= 'Wiadomości';
 $LNG['write_message']						= 'Napisz wiadomość';
+
+
 $LNG['PM']									= '[PW]';
 $LNG['ready']								= 'Gotowe';
 
 $LNG['loading']								= 'Ładuję';
 
+
+
+
 $LNG['invalid_action']						= 'Niedozwolona akcja';
 
 $LNG['type_mission'][1]  					= 'Atak';
 $LNG['type_mission'][2]  					= 'ACS Atak';
-
-
 $LNG['type_mission'][3]  					= 'Transport';
 $LNG['type_mission'][4]  					= 'Stacjonuj';
 $LNG['type_mission'][5]  					= 'Zostań';
@@ -695,6 +698,8 @@ $LNG['al_texts']							= 'Zarządzaj sojuszami';
 $LNG['al_manage_options']					= 'Opcje';
 $LNG['al_manage_image']						= 'Logo sojuszu';
 $LNG['al_manage_requests']					= 'Podania';
+$LNG['al_set_max_members']					= 'Maksymalna ilość sojuszników';
+$LNG['al_manage_request_min_points']        = 'Minimalnie punktów';
 $LNG['al_manage_diplo']                    	= 'Dyplomacja sojuszu';
 $LNG['al_requests_not_allowed']				= 'Niemożliwe (sojusz zamknięty)';
 $LNG['al_requests_allowed']					= 'możliwe (sojusz otarty)';
@@ -722,7 +727,7 @@ $LNG['al_tfmetall']     					= 'Łączny zlom metal';
 $LNG['al_tfkristall']   					= 'Łączny zlom kryształ';
 $LNG['al_view_stats']						= 'Statystyki bitew?';
 $LNG['al_view_diplo']                      	= 'Dyplomacja?';
-
+$LNG['al_view_events']						= 'Aktualności';
 
 
 
@@ -734,6 +739,9 @@ $LNG['al_memberlist_min']					= 'min';
 $LNG['al_memberlist_on']					= 'Online';
 $LNG['al_memberlist_off']					= 'Offline';
 $LNG['al_diplo']                            = 'Dyplomacja';
+$LNG['al_no_diplo']							= '-';
+$LNG['al_events']							= 'Wydarzenia';
+$LNG['al_no_events']						= 'Obecnie brak zdarzeń';
 $LNG['al_diplo_level'][1]                   = 'Skrzydło';
 $LNG['al_diplo_level'][2]                   = 'Sojusz ';
 $LNG['al_diplo_level'][3]                   = 'Handel z sojuszem';
@@ -775,17 +783,17 @@ $LNG['al_rank_desc']['ONLINESTATE']			= 'Kto jest online';
 $LNG['al_rank_desc']['TRANSFER']			= 'Może zotać liderem';
 $LNG['al_rank_desc']['SEEAPPLY']			= 'Zobacz zgłoszenia do sojuszu'; 
 $LNG['al_rank_desc']['MANAGEAPPLY']			= 'Praca ze zgłoszeniami';
-$LNG['al_rank_desc']['ROUNDMAIL']			= 'Rundnachricht versicken';
+$LNG['al_rank_desc']['ROUNDMAIL']			= 'Wiadomość wysłano';
 $LNG['al_rank_desc']['ADMIN']				= 'Może edytować sojusz';
 $LNG['al_rank_desc']['KICK']				= 'Może wyrzucić sojusznika z sojuszu';
 $LNG['al_rank_desc']['DIPLOMATIC']			= 'Może zmieniać dyplomację sojuszu';
 $LNG['al_rank_desc']['RANKS']				= 'Rangi';
 $LNG['al_rank_desc']['MANAGEUSERS']			= 'Może zarządzać członkami';
 $LNG['al_rank_desc']['EVENTS']				= 'Kann Ereignisse im internen Bereich sehen';
-$LNG['bu_request_exists']					= 'Gracz jest już na liście znajomych!';
+
 //----------------------------------------------------------------------------//
 //BUDDY
-$LNG['bu_request_exists']					= 'Już wysłałeś pytanie do tego gracza!';
+$LNG['bu_request_exists']					= 'Gracz jest już na liście znajomych!';
 $LNG['bu_cannot_request_yourself']			= 'Nie możesz pytać samego siebie';
 $LNG['bu_request_message']					= 'Wiadomość';
 $LNG['bu_player']							= 'Gracz';
@@ -946,6 +954,7 @@ $LNG['op_dst_mode_sel'][0]					= 'Nie';
 $LNG['op_dst_mode_sel'][1]					= 'Tak';
 $LNG['op_dst_mode_sel'][2]					= 'Automatycznie';
 $LNG['op_timezone']							= 'Strefa czasowa';
+$LNG['op_block_pm']							= 'Zablokuj prywatne wiadomości od tego użytkownika';
 
 //----------------------------------------------------------------------------//
 //BANNED
