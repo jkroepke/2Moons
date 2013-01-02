@@ -203,16 +203,18 @@ class ShowMessagesPage extends AbstractPage
 
 		if (empty($receiverID) || empty($Message) || !isset($_SESSION['messtoken']) || $_SESSION['messtoken'] != md5($USER['id'].'|'.$receiverID))
 		{
-			exit($LNG['mg_error']);
+			$this->sendJSON($LNG['mg_error']);
 		}
 		
 		unset($_SESSION['messtoken']);
 		
 		if (empty($Subject))
+		{
 			$Subject	= $LNG['mg_no_subject'];
-			
+		}
+		
 		SendSimpleMessage($receiverID, $USER['id'], TIMESTAMP, 1, $From, $Subject, $Message);
-		exit($LNG['mg_message_send']);
+		$this->sendJSON($LNG['mg_message_send']);
 	}
 	
 	function write() 
@@ -221,7 +223,7 @@ class ShowMessagesPage extends AbstractPage
 		$this->setWindow('popup');
 		$this->initTemplate();
 		$receiverID       	= HTTP::_GP('id', 0);
-		$Subject 		= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
+		$Subject 			= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
 		$receiverRecord 	= $GLOBALS['DATABASE']->getFirstRow("SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet, b.settings_blockPM FROM ".PLANETS." as a, ".USERS." as b WHERE b.id = '".$receiverID."' AND a.id = b.id_planet;");
 
 		if (!$receiverRecord)
@@ -239,7 +241,7 @@ class ShowMessagesPage extends AbstractPage
 		$this->tplObj->assign_vars(array(	
 			'subject'		=> $Subject,
 			'id'			=> $receiverID,
-			'OwnerRecord'	=> $OwnerRecord,
+			'OwnerRecord'	=> $receiverRecord,
 		));
 		
 		$this->display('page.messages.write.tpl');
