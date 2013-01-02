@@ -427,7 +427,7 @@ switch($mode)
 				$SQL .= "email			= '".$DATABASE->sql_escape($AdminMail)."', ";
 				$SQL .= "email_2		= '".$DATABASE->sql_escape($AdminMail)."', ";
 				$SQL .= "ip_at_reg		= '".$_SERVER['REMOTE_ADDR']."', ";
-				$SQL .= "lang			= '".$LNG->GetUser(). "', ";
+				$SQL .= "lang			= '".$LNG->getLanguage(). "', ";
 				$SQL .= "authlevel		= ".AUTH_ADM.", ";
 				$SQL .= "dpath 			= '".DEFAULT_THEME."', ";
 				$SQL .= "rights			= '', ";
