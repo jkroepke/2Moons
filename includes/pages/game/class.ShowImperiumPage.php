@@ -64,8 +64,6 @@ class ShowImperiumPage extends AbstractPage
 			unset($CPLANET);
 		}
 
-		$this->tplObj->loadscript("trader.js");
-
         $planetList	= array();
 
 		foreach($PLANETS as $Planet)
@@ -106,7 +104,7 @@ class ShowImperiumPage extends AbstractPage
 		}
 		
 		$this->tplObj->assign_vars(array(
-			'colspan'		=> count($planetList) + 3,
+			'colspan'		=> count($PLANETS) + 2,
 			'planetList'	=> $planetList,
 		));
 
