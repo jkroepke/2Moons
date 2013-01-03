@@ -46,6 +46,11 @@ class HTTP {
 		header($name.(!is_null($value) ? ': '.$value : ''));
 	}
 	
+	static public function sendCookie($name, $value = "", $toTime = NULL)
+	{
+		setcookie($name, $value, $toTime);
+	}
+	
 	static public function _GP($name, $default, $multibyte = false, $highnum = false)
 	{
 		if(!isset($_REQUEST[$name]))
@@ -85,45 +90,6 @@ class HTTP {
 		if(is_array($default))
 		{
 			return (array) $_REQUEST[$name];
-			
-			/* $varArray		= array();
-			$requestData	= $_REQUEST[$name];
-			foreach($default as $key => $subdefault)
-			{
-				if(!isset($requestData[$key])) {
-					continue;
-				}
-				
-				if(is_int($subdefault)) {
-					$varArray[$key]	= (int) $requestData[$key];
-					continue;
-				}
-				
-				if(is_float($subdefault)) {
-					$varArray[$key]	= (float) $requestData[$key];	
-					continue;		
-				}
-				
-				if(is_string($subdefault)) {
-					$var = trim(htmlspecialchars(str_replace(array("\r\n", "\r", "\0"), array("\n", "\n", ''), $requestData[$key]), ENT_QUOTES, 'UTF-8'));
-					
-					if (empty($var)) {
-						return $subdefault;				
-					}
-					
-					if ($multibyte) {
-						if (!preg_match('/^./u', $var)) {
-							$var = '';
-						}
-					} else {
-						$var = preg_replace('/[\x80-\xFF]/', '?', $var); // no multibyte, allow only ASCII (0-127)
-					}
-					
-					$varArray[$key]	= $var;	
-				}
-			}
-			
-			return $varArray; */
 		}
 		
 		return $default;

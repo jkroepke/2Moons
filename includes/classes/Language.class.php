@@ -28,7 +28,7 @@
 
 class Language implements ArrayAccess {
     private $container = array();
-    private $langauge = array();
+    private $language = array();
     static private $allLangauges = array();
 	
 	static function getAllowedLangs($OnlyKey = true)
@@ -48,13 +48,16 @@ class Language implements ArrayAccess {
 	
 	public function getUserAgentLanguage()
 	{
-   		if(MODE === 'INDEX' && isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], self::getAllowedLangs())) {
-			$this->setLanguage($_COOKIE['lang']);
+   		if (isset($_REQUEST['lang']) && in_array($_REQUEST['lang'], self::getAllowedLangs()))
+		{
+			HTTP::sendCookie('lang', $_REQUEST['lang'], 2147483647);
+			$this->setLanguage($_REQUEST['lang']);
 			return true;
 		}
 		
-   		if(isset($_REQUEST['lang']) && in_array($_REQUEST['lang'], self::getAllowedLangs())) {
-			$this->setLanguage($_REQUEST['lang']);
+   		if ((MODE === 'INDEX' || MODE === 'INSTALL') && isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], self::getAllowedLangs()))
+		{
+			$this->setLanguage($_COOKIE['lang']);
 			return true;
 		}
 		
@@ -63,45 +66,56 @@ class Language implements ArrayAccess {
         }
 
 		$quality = 0;
-		
-		$x = explode(",", $_SERVER['HTTP_ACCEPT_LANGUAGE']);
-		foreach ($x as $val) {
-			if(preg_match("/(.*);q=([0-1]{0,1}\.\d{0,4})/i", $val, $matches))
+
+
+        $accepted_languages = preg_split('/,\s*/', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
+
+        $language = $this->getLanguage();
+        $current_q = 0;
+
+        foreach ($accepted_languages as $accepted_language)
+		{
+			$isValid = preg_match('/^([a-z]{1,8}(?:-[a-z]{1,8})*)'.'(?:;\s*q=(0(?:\.[0-9]{1,3})?|1(?:\.0{1,3})?))?$/i', $accepted_language, $matches);
+
+			if ($isValid !== 1)
 			{
-				if($quality < ((float) $matches[2]))
-				{
-					$quality	= (float) $matches[2];
-					$deflang	= substr($matches[1], 0, 2);
-				}
+				continue;
 			}
-			else
+
+            $code		= explode ('-', $matches[1]);
+            $code		= strtolower($code[1]);
+			$quality	= isset($matches[2]) ? (float)$matches[2] : 1.0;
+
+			if($quality > $current_q && in_array($code, self::getAllowedLangs()))
 			{
-				$deflang = substr($val, 0, 2);
+				$language	= $code;
+				$current_q	= $quality;
 				break;
 			}
-		}
+        }
 		
-		$this->setLanguage($deflang);
+		HTTP::sendCookie('lang', $language, 2147483647);
+		$this->setLanguage($language);
 	}
 	
-    public function __construct($langauge = NULL)
+    public function __construct($language = NULL)
 	{
-		$this->setLanguage($langauge);
+		$this->setLanguage($language);
     }
 	
-    public function setLanguage($langauge)
+    public function setLanguage($language)
 	{
-		if(!is_null($langauge) && !in_array($langauge, self::getAllowedLangs()))
+		if(!is_null($language) && in_array($language, self::getAllowedLangs()))
 		{
-			$this->langauge = $langauge;
+			$this->language = $language;
 		}
 		elseif(MODE !== 'INSTALL')
 		{
-			$this->langauge	= Config::get('lang');
+			$this->language	= Config::get('lang');
 		}
 		else
 		{
-			$this->langauge	= DEFAULT_LANG;
+			$this->language	= DEFAULT_LANG;
 		}
     }
 	
@@ -111,7 +125,7 @@ class Language implements ArrayAccess {
 	
 	public function getLanguage()
 	{
-		return $this->langauge;
+		return $this->language;
 	}
 	
 	public function getTemplate($templateName)
