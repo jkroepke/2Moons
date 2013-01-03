@@ -10,7 +10,7 @@
 		{else}
 			<tr style="height:20px;">
 				<td>{$LNG.in_jump_gate_start_moon}</td>
-				<td colspan="2">{$startLink}</td>
+				<td colspan="2">{$gateData.startLink}</td>
 			</tr>
 			{if !empty($gateData.gateList)}
 				<tr style="height:20px;">

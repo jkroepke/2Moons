@@ -43,7 +43,7 @@
 {if !empty($FleetInfo)}
 {include file="shared.information.shipInfo.tpl"}
 {/if}
-{if !empty($fleetList)}
+{if !empty($gateData)}
 {include file="shared.information.gate.tpl"}
 {/if}
 {if !empty($MissileList)}
