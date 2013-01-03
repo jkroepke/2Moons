@@ -30,9 +30,7 @@
 class ReferralCronJob
 {
 	function run()
-	{
-		global $LNG;
-		
+	{		
 		$CONF	= Config::getAll(NULL, ROOT_UNI);
 		
 		if($CONF['ref_active'] != 1)
@@ -46,12 +44,20 @@ class ReferralCronJob
 							  ON stats.`id_owner` = user.`id` AND stats.`stat_type` = '1' AND stats.`total_points` >= ".$CONF['ref_minpoints']."
 							  WHERE user.`ref_bonus` = 1;");
 							  
-		$LNG->setDefault($CONF['lang']);
+		$langObjects	= array();
+		
 		while($User	= $GLOBALS['DATABASE']->fetch_array($Users))
 		{
-			$LNG->setUser($User['lang']);	
-			$LNG->includeData(array('L18N', 'INGAME', 'TECH'));
-			$GLOBALS['DATABASE']->multi_query("UPDATE ".USERS." SET `darkmatter` = `darkmatter` + ".$CONF['ref_bonus']." WHERE `id` = ".$User['ref_id'].";UPDATE ".USERS." SET `ref_bonus` = `ref_bonus` = '0' WHERE `id` = ".$User['id'].";");
+			if(!isset($langObjects[$User['lang']]))
+			{
+				$langObjects[$User['lang']]	= new Language($User['lang']);
+				$langObjects[$User['lang']]->includeData(array('L18N', 'INGAME', 'TECH', 'CUSTOM'));
+			}
+			
+			$LNG			= $langObjects[$User['lang']];
+			$GLOBALS['DATABASE']->multi_query("UPDATE ".USERS." SET `darkmatter` = `darkmatter` + ".$CONF['ref_bonus']." WHERE `id` = ".$User['ref_id'].";
+											   UPDATE ".USERS." SET `ref_bonus` = `ref_bonus` = '0' WHERE `id` = ".$User['id'].";");
+
 			$Message	= sprintf($LNG['sys_refferal_text'], $User['username'], pretty_number($CONF['ref_minpoints']), pretty_number($CONF['ref_bonus']), $LNG['tech'][921]);
 			SendSimpleMessage($User['ref_id'], '', TIMESTAMP, 4, $LNG['sys_refferal_from'], sprintf($LNG['sys_refferal_title'], $User['username']), $Message);
 		}
