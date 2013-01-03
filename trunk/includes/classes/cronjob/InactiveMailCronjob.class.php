@@ -38,11 +38,11 @@ class InactiveMailCronjob
 		$langObjects	= array();
 		if($CONF['mail_active'] == 1) {
 			$Users	= $GLOBALS['DATABASE']->query("SELECT `id`, `username`, `lang`, `email`, `onlinetime`, `universe` FROM ".USERS." WHERE `inactive_mail` = '0' AND `onlinetime` < '".(TIMESTAMP - $CONF['del_user_sendmail'])."';");
-			while($User	= $GLOBALS['DATABASE']->fetch_array($Users)) {
+			while($User	= $GLOBALS['DATABASE']->fetch_array($Users))
+			{
 				if(!isset($langObjects[$User['lang']]))
 				{
-					$LNG->setUser($User['lang']);	
-					$langObjects[$User['lang']]	= new Language();
+					$langObjects[$User['lang']]	= new Language($User['lang']);
 					$langObjects[$User['lang']]->includeData(array('L18N', 'INGAME', 'PUBLIC', 'CUSTOM'));
 				}
 				
