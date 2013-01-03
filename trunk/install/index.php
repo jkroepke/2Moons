@@ -41,6 +41,7 @@ require(ROOT_PATH . 'includes/common.php');
 $THEME->setUserTheme('gow');
 
 $LNG = new Language;
+$LNG->getUserAgentLanguage();
 $LNG->includeData(array('L18N', 'INGAME', 'INSTALL'));
 
 $template = new template();
@@ -363,7 +364,7 @@ switch($mode)
 					Config::init();
 					Config::update(array(
 						'timezone'			=> @date_default_timezone_get(),
-						'lang'				=> $LNG->GetUser(),
+						'lang'				=> $LNG->getLanguage(),
 						'OverviewNewsText'	=> $LNG['sql_welcome'].'1.7',
 						'uni_name'			=> $LNG['fcm_universe'].' 1',
 						'close_reason'		=> $LNG['sql_close_reason'],
