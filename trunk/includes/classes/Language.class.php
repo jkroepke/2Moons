@@ -82,8 +82,7 @@ class Language implements ArrayAccess {
 				continue;
 			}
 
-            $code		= explode ('-', $matches[1]);
-            $code		= strtolower($code[1]);
+            list($code)	= explode('-', strtolower($matches[1]));
 			$quality	= isset($matches[2]) ? (float)$matches[2] : 1.0;
 
 			if($quality > $current_q && in_array($code, self::getAllowedLangs()))
