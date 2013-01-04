@@ -635,6 +635,7 @@ $LNG['mu_cronjob']					= 'Cronjobs';
 $LNG['mu_logs']						= 'Admin-Log';
 $LNG['mu_giveaway']					= 'Giveaways';
 $LNG['mu_disclamer']				= 'Impressum-Einstellungen';
+$LNG['mu_dump']						= 'Datenbank-Backup';
 
 
 $LNG['vt_error']					= 'HashFile ist nicht verfügbar! - Update durchführen!';
@@ -1278,7 +1279,6 @@ $LNG['ga_homecoordinates']				= 'Nur Heimatkoordinaten';
 $LNG['ga_no_inactives']					= 'Inaktive Spieler ausschließen';
 
 // Old SupportTicket Keys
-
 $LNG['supp_header'] 						= 'Support-System';
 $LNG['supp_header_g'] 						= 'Geschlossende Tickets';
 $LNG['ticket_id'] 							= '#Ticket-ID';
@@ -1307,3 +1307,12 @@ $LNG['supp_open'] 							= 'Offen';
 $LNG['supp_admin_answer'] 					= 'Admin-Antwort';
 $LNG['supp_player_write'] 					= '%s schreib am %s';
 $LNG['supp_player_answer'] 					= 'Spieler-Antwort';
+
+// SQL-Dumper
+
+$LNG['du_header']					= 'Datenbank-Backup erstellen';
+$LNG['du_submit']					= 'Absenden';
+$LNG['du_select_all_tables']		= 'Alle Tabellen';
+$LNG['du_choose_tables']			= 'Tabellen auswählen';
+$LNG['du_success']					= 'Backup erfolgreich erstellt! Datei: %s';
+$LNG['du_not_tables_selected']		= 'Du hast keine Tabellen zum sichern ausgewählt!';

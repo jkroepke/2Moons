@@ -75,6 +75,10 @@ class TeamspeakBuildCache
 				}
 				
 				$serverInfo = $tsAdmin->serverInfo();
+				if(!$serverInfo['success'])
+				{
+					throw new Exception('Teamspeak-Error: '.implode("<br>\r\n", $serverInfo['errors']));
+				}
 				
 				$teamspeakData	= array(
 					'password'	=> $serverInfo['data']['virtualserver_password'],
