@@ -52,6 +52,9 @@ if (function_exists('mb_internal_encoding')) {
 ignore_user_abort(true);
 error_reporting(E_ALL & ~E_STRICT);
 
+// If the guy forgot to set date.timezone on php.ini
+
+date_default_timezone_set(@date_default_timezone_get());
 ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	time());
