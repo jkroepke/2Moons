@@ -356,7 +356,7 @@ HTML;
 		$sqlQuery		= "";
 		foreach($userAttack as $userID => $userName)
 		{
-			$LNG		= $this->getLanguage(NULL, $userID);
+			$LNG		= $this->getLanguage($targetUser['lang']);
 			
 			$message	= sprintf($messageHTML,
 				$raportID,
