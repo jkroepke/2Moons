@@ -64,6 +64,7 @@ class ResourceUpdate
 		$Hash[]	= $this->CONF['resource_multiplier'];
 		$Hash[]	= $this->CONF['energySpeed'];
 		$Hash[]	= $this->USER['factor']['Resource'];
+		$Hash[]	= $this->USER['factor']['Energy'];
 		$Hash[]	= $this->PLANET[$resource[22]];
 		$Hash[]	= $this->PLANET[$resource[23]];
 		$Hash[]	= $this->PLANET[$resource[24]];
