@@ -72,10 +72,10 @@ class MissionCaseSpy extends MissionFunctions
 		
 		$GLOBALS['DATABASE']->free_result($targetStayFleets);
 		
-		$fleetAmount	= $this->_fleet['fleet_amount'];
+		$fleetAmount	= $this->_fleet['fleet_amount'] * (1 + $senderUser['factor']['SpyPower']);
 		
 		$Diffence		= abs($ownSpyLvl - $targetSpyLvl);
-		$MinAmount		= ($ownSpyLvl > $targetSpyLvl ? -1 * pow($Diffence, 2) : pow($Diffence, 2)) - (100 * $senderUser['factor']['SpyPower']);
+		$MinAmount		= ($ownSpyLvl > $targetSpyLvl ? -1 * pow($Diffence, 2) : pow($Diffence, 2));
 		$SpyFleet		= $fleetAmount >= $MinAmount;
 		$SpyDef			= $fleetAmount >= $MinAmount + 1 * SPY_VIEW_FACTOR;
 		$SpyBuild		= $fleetAmount >= $MinAmount + 3 * SPY_VIEW_FACTOR;
