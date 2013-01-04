@@ -204,6 +204,10 @@ switch($page)
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowAutoCompletePage.php');
 		ShowAutoCompletePage();
 	break;
+	case 'dump':
+		include_once(ROOT_PATH . 'includes/pages/adm/ShowDumpPage.php');
+		ShowDumpPage();
+	break;
 	default:
 		include_once(ROOT_PATH . 'includes/pages/adm/ShowIndexPage.php');
 		ShowIndexPage();

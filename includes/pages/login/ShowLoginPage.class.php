@@ -50,11 +50,12 @@ class ShowLoginPage extends AbstractPage
 		$loginData = $GLOBALS['DATABASE']->getFirstRow("SELECT id, password FROM ".USERS." WHERE universe = ".$GLOBALS['UNI']." AND username = '".$GLOBALS['DATABASE']->escape($username)."';");
 		if (isset($loginData))
 		{
-			if($loginData['password'] != PlayerUtil::cryptPassword($password))
+			$hashedPassword = PlayerUtil::cryptPassword($password);
+			if($loginData['password'] != $hashedPassword)
 			{
 				// Fallback pre 1.7
 				if($loginData['password'] == md5($password)) {
-					$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET password = '".PlayerUtil::cryptPassword($password)."' WHERE id = ".$loginData['id'].";");
+					$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET password = '".$hashedPassword."' WHERE id = ".$loginData['id'].";");
 				} else {
 					HTTP::redirectTo('index.php?code=1');	
 				}
