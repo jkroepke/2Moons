@@ -295,7 +295,7 @@ HTML;
 		{		
 			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
 			
-			$LNG					= $this->getLanguage(NULL, $userID);
+			$LNG					= $this->getLanguage($targetUser['lang']);
 			$raportInfo['moonName']	= $LNG['type_planet'][3];
 			
 			CreateOneMoonRecord(
@@ -356,7 +356,7 @@ HTML;
 		$sqlQuery		= "";
 		foreach($userAttack as $userID => $userName)
 		{
-			$LNG		= $this->getLanguage($targetUser['lang']);
+			$LNG		= $this->getLanguage(NULL, $userID);
 			
 			$message	= sprintf($messageHTML,
 				$raportID,
