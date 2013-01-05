@@ -238,16 +238,26 @@ class ShowFleetStep1Page extends AbstractPage
 			$Data	= $GLOBALS['DATABASE']->getFirstRow("SELECT u.id, u.urlaubs_modus, u.user_lastip, u.authattack, p.destruyed, p.der_metal, p.der_crystal, p.destruyed FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = ".$UNI." AND p.galaxy = ".$TargetGalaxy." AND p.system = ".$TargetSystem." AND p.planet = ".$TargetPlanet."  AND p.planet_type = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND u.id = p.id_owner;");
 
 			if ($TargetPlanettype == 3 && !isset($Data))
+			{
 				$this->sendJSON($LNG['fl_error_no_moon']);
+			}
 			elseif ($TargetPlanettype != 2 && $Data['urlaubs_modus'])
+			{
 				$this->sendJSON($LNG['fl_in_vacation_player']);
+			}
 			elseif ($Data['id'] != $USER['id'] && Config::get('adm_attack') == 1 && $Data['authattack'] > $USER['authlevel'])
-				$this->sendJSON($LNG['fl_admins_cannot_be_attacked']);
+			{
+				$this->sendJSON($LNG['fl_admin_attack']);
+			}
 			elseif ($Data['destruyed'] != 0)
+			{
 				$this->sendJSON($LNG['fl_error_not_avalible']);
+			}
 			elseif($TargetPlanettype == 2 && $Data['der_metal'] == 0 && $Data['der_crystal'] == 0)
+			{
 				$this->sendJSON($LNG['fl_error_empty_derbis']);
-			elseif(ENABLE_MULTIALERT && $USER['id'] != $Data['id'] && $USER['authlevel'] == AUTH_ADM && $USER['user_lastip'] == $Data['user_lastip'] && $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$USER['id'].") + (SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$Data['id'].")") != 2)
+			}
+			elseif(ENABLE_MULTIALERT && $USER['id'] != $Data['id'] && $USER['authlevel'] != AUTH_ADM && $USER['user_lastip'] == $Data['user_lastip'] && $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$USER['id'].") + (SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$Data['id'].")") != 2)
 			{
 				$this->sendJSON($LNG['fl_multi_alarm']);
 			}
