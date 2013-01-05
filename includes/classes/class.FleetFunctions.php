@@ -269,6 +269,7 @@ class FleetFunctions
 						  fleet_end_stay = ".TIMESTAMP.",
 						  fleet_end_time = ".$fleetEndTime.", 
 						  fleet_mess = 1,
+						  hasCanceled = 1,
 						  time = ".$fleetEndTime."
 						  WHERE ".$sqlWhere." = ".$FleetID." AND fleet_id = fleetID;
 						  UPDATE ".LOG_FLEETS." SET

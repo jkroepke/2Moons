@@ -35,7 +35,26 @@ class MissionCaseStay extends MissionFunctions
 	
 	function TargetEvent()
 	{	
-		$LNG				= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
+		$senderUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
+		$senderUser['factor']	= getFactors($senderUser, 'basic', $this->_fleet['fleet_start_time']);
+		
+		$fleetArray			= fleetAmountToArray($this->_fleet['fleet_array']);
+		$duration			= $this->_fleet['fleet_start_time'] - $this->_fleet['start_time'];
+		
+		require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
+		
+		$fleetMaxSpeed 		= FleetFunctions::GetFleetMaxSpeed($fleetArray, $senderUser);
+		$SpeedFactor    	= FleetFunctions::GetGameSpeedFactor();
+		$distance			= FleetFunctions::GetTargetDistance(
+			array($this->_fleet['fleet_start_galaxy'], $this->_fleet['fleet_start_system'], $this->_fleet['fleet_start_planet']),
+			array($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'])
+		);
+		
+		$consumption   		= FleetFunctions::GetFleetConsumption($fleetArray, $duration, $distance, $fleetMaxSpeed, $senderUser, $SpeedFactor);
+		
+		$this->UpdateFleet('fleet_resource_deuterium', $this->_fleet['fleet_resource_deuterium'] + $consumption / 2);
+		
+		$LNG				= $this->getLanguage($senderUser['lang']);
 		$TargetUserID       = $this->_fleet['fleet_target_owner'];
 		$TargetMessage      = sprintf($LNG['sys_stat_mess'], GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]);
 		SendSimpleMessage($TargetUserID, 0, $this->_fleet['fleet_start_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_stat_mess_stay'], $TargetMessage);
