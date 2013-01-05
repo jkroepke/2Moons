@@ -333,6 +333,39 @@ function pretty_time($seconds)
 	return $time;
 }
 
+function pretty_fly_time($seconds)
+{
+	$hour	= floor($seconds / 3600);
+	$minute	= floor($seconds / 60 % 60);
+	$second	= floor($seconds % 60);
+	
+	$time  = '';
+	
+	if($hour >= 10) {
+		$time .= $hour;
+	} else {
+		$time .= '0'.$hour;
+	}
+	
+	$time .= ':';
+	
+	if($minute >= 10) {
+		$time .= $minute;
+	} else {
+		$time .= '0'.$minute;
+	}
+	
+	$time .= ':';
+	
+	if($second >= 10) {
+		$time .= $second;
+	} else {
+		$time .= '0'.$second;
+	}
+
+	return $time;
+}
+
 function GetStartAdressLink($FleetRow, $FleetType)
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$FleetRow['fleet_start_galaxy'].'&amp;system='.$FleetRow['fleet_start_system'].'" class="'. $FleetType .'">['.$FleetRow['fleet_start_galaxy'].':'.$FleetRow['fleet_start_system'].':'.$FleetRow['fleet_start_planet'].']</a>';
