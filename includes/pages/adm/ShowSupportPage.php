@@ -75,22 +75,32 @@ class ShowSupportPage
 		$ticketID	= HTTP::_GP('id', 0);
 		$category	= HTTP::_GP('category', 0);
 		$message	= HTTP::_GP('message', '', true);
-		$change		= HTTP::_GP('change_status', '', true);
+		$change		= HTTP::_GP('change_status', 0);
 		
 		$ticketDetail	= $GLOBALS['DATABASE']->getFirstRow("SELECT ownerID, subject, status FROM ".TICKETS." WHERE ticketID = ".$ticketID.";");
-		$status = ($change ? ($ticketDetail['status'] <= 1 ? 2 : 1) : ($ticketDetail['status'] == 0 ? 1 : 1));
-		if(empty($message)) {
-			if ($status == 2 && $change) {
-				$message = $LNG['ti_admin_close'];
-			} elseif ($status == 1 && $change) {
-				$message = $LNG['ti_admin_open'];
-			} else {
-				HTTP::redirectTo('admin.php?page=support&mode=view&id='.$ticketID);
-			}
-		}
-		$subject		= "RE: ".$ticketDetail['subject'];
 		
-		$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $message, $status);
+		$status = ($change ? ($ticketDetail['status'] <= 1 ? 2 : 1) : 1);
+		
+		
+		if(!$change && empty($message))
+		{
+			HTTP::redirectTo('admin.php?page=support&mode=view&id='.$ticketID);
+		}
+		
+		if($change && $status == 1) {
+			$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $LNG['ti_admin_open'], $status);
+		}
+		
+		if(!empty($message))
+		{
+			$subject		= "RE: ".$ticketDetail['subject'];
+			$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $message, $status);
+		}
+		
+		if($change && $status == 2) {
+			$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $LNG['ti_admin_close'], $status);
+		}
+				
 		
 		SendSimpleMessage($ticketDetail['ownerID'], $USER['id'], TIMESTAMP, 4, $USER['username'], sprintf($LNG['sp_answer_message_title'], $ticketID), sprintf($LNG['sp_answer_message'], $ticketID)); 
 		HTTP::redirectTo('admin.php?page=support');

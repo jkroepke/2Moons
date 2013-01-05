@@ -38,7 +38,7 @@
 	</tr>
 	<tr>
 		<td style="width:30%">{if $ticket_status < 2}{$LNG.ti_close}{else}{$LNG.ti_open}{/if}</td>
-		<td style="width:70%"><input type="checkbox" name="change_status"></td>
+		<td style="width:70%"><input type="checkbox" name="change_status" value="1"></td>
 	</tr>	
 	<tr>
 		<td colspan="2"><input type="submit" value="{$LNG.ti_submit}" onclick="parent.rightFrame.document.location.reload();"></td>
