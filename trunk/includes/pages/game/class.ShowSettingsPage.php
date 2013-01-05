@@ -195,7 +195,7 @@ class ShowSettingsPage extends AbstractPage
 		$queueMessages		= HTTP::_GP('queueMessages', 0);	
 		$spyMessagesMode	= HTTP::_GP('spyMessagesMode', 0);
 
-		$spycount			= HTTP::_GP('spycount', 1);	
+		$spycount			= HTTP::_GP('spycount', 1.0);	
 		$fleetactions		= HTTP::_GP('fleetactions', 5);	
 		
 		$galaxySpy			= HTTP::_GP('galaxySpy', 0);	
@@ -210,7 +210,10 @@ class ShowSettingsPage extends AbstractPage
 		// Vertify
 		
 		$adminprotection	= ($adminprotection == 1 && $USER['authlevel'] != AUTH_USR) ? $USER['authlevel'] : 0;
-		$spycount			= max($spycount, 1);
+		
+		$spycount			= min(max(round($spycount), 1), 4294967295);
+		$fleetactions		= min(max($fleetactions, 1), 99);
+		
 		$language			= array_key_exists($language, $LNG->getAllowedLangs(false)) ? $language : $LNG->getLanguage();		
 		$theme				= array_key_exists($theme, Theme::getAvalibleSkins()) ? $theme : $THEME->getThemeName();
 		
