@@ -86,11 +86,11 @@
 		</tr>
 		<tr>
 			<td><a title="{$LNG.op_spy_probes_number_descrip}">{$LNG.op_spy_probes_number}</a></td>
-			<td><input name="spycount" maxlength="2" size="2" value="{$spycount}" type="text"></td>
+			<td><input name="spycount" size="{$spycount|count_characters + 3}" value="{$spycount}" type="int"></td>
 		</tr>
 		<tr>
 			<td>{$LNG.op_max_fleets_messages}</td>
-			<td><input name="fleetactions" maxlength="2" size="2" value="{$fleetActions}" type="text"></td>
+			<td><input name="fleetactions" maxlength="2" size="{$fleetActions|count_characters + 2}" value="{$fleetActions}" type="int"></td>
 		</tr>
 		<tr>
 			<th>{$LNG.op_shortcut}</th>

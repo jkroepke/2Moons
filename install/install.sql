@@ -702,7 +702,7 @@ CREATE TABLE `%PREFIX%users` (
   `timezone` varchar(32) NOT NULL DEFAULT 'Europe/London',
   `planet_sort` tinyint(1) NOT NULL DEFAULT '0',
   `planet_sort_order` tinyint(1) NOT NULL DEFAULT '0',
-  `spio_anz` tinyint(2) NOT NULL DEFAULT '1',
+  `spio_anz` int(10) unsigned NOT NULL DEFAULT '1',
   `settings_fleetactions` tinyint(2) unsigned NOT NULL DEFAULT '3',
   `settings_esp` tinyint(1) NOT NULL DEFAULT '1',
   `settings_wri` tinyint(1) NOT NULL DEFAULT '1',
