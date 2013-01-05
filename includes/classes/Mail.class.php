@@ -33,7 +33,7 @@ class Mail
 {	
 	function send($MailTarget, $MailTargetName, $MailSubject, $MailContent)
 	{		
-		$transport	= self::getSwiftTranspor();
+		$transport	= self::getSwiftTransport();
 		$mailer 	= Swift_Mailer::newInstance($transport);
 		
 		$mailFrom	= Config::get('smtp_sendmail');
@@ -50,7 +50,7 @@ class Mail
 	
 	function multiSend($MailTargets, $MailSubject, $MailContent = NULL)
 	{
-		$transport	= self::getSwiftTranspor();
+		$transport	= self::getSwiftTransport();
 		$mailer 	= Swift_Mailer::newInstance($transport);
 		
 		$mailFrom	= Config::get('smtp_sendmail');
@@ -71,7 +71,7 @@ class Mail
 		}
 	}
 	
-	function getSwiftTranspor()
+	function getSwiftTransport()
 	{
 		require_once(ROOT_PATH.'includes/libs/swift/swift_required.php');
 		
