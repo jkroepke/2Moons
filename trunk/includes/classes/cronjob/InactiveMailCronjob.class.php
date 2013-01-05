@@ -49,7 +49,7 @@ class InactiveMailCronjob
 				$LNG			= $langObjects[$User['lang']];
 				
 				$MailSubject	= sprintf($LNG['spec_mail_inactive_title'], $CONF['game_name'].' - '.$CONFIG[$User['universe']]['uni_name']);
-				$MailRAW		= file_get_contents("./language/".$User['lang']."/email/email_inactive.txt");
+				$MailRAW		= $LNG->getTemplate('email_inactive');
 				$MailContent	= sprintf($MailRAW, $User['username'], $CONF['game_name'].' - '.$CONFIG[$User['universe']]['uni_name'], _date($LNG['php_tdformat'], $User['onlinetime']), PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT);	
 				
 				require ROOT_PATH.'includes/classes/Mail.class.php';		
