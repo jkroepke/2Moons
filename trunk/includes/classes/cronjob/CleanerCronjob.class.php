@@ -67,7 +67,7 @@ class CleanerCronjob
 		
 		foreach($unis as $uni)
 		{
-			$battleHallLowest	= $GLOBALS['DATABASE']->getFirstRow("SELECT units FROM ".TOPKB." WHERE `universe` = ".$uni." ORDER BY units DESC LIMIT 99,1;");
+			$battleHallLowest	= $GLOBALS['DATABASE']->getFirstCell("SELECT units FROM ".TOPKB." WHERE `universe` = ".$uni." ORDER BY units DESC LIMIT 99,1;");
 			if(isset($battleHallLowest))
 			{
 				$GLOBALS['DATABASE']->query("DELETE ".TOPKB.", ".TOPKB_USERS." FROM ".TOPKB." INNER JOIN ".TOPKB_USERS." USING (rid) WHERE `universe` = ".$uni." AND `units` < ".$battleHallLowest.";");
