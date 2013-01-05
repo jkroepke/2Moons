@@ -115,6 +115,16 @@ define('UTF8_SUPPORT'				, true);
 
 // Define, how its more hard to spy all inforation
 /*
+	if [Spy tech level of sender] > [Spy tech level of target]
+		min amount of spies = -1 * (abs([Spy tech level of sender] - [Spy tech level of target]) * SPY_DIFFENCE_FACTOR) ^ 2;
+	else
+		min amount of spies = -1 * (abs([Spy tech level of sender] - [Spy tech level of target]) * SPY_DIFFENCE_FACTOR) ^ 2;
+	
+*/
+define('SPY_DIFFENCE_FACTOR'		, 1);
+
+// Define, how its more hard to spy all inforation
+/*
 	min amount of spies = see MissionCaseSpy.php#78
 
 	To see Fleet		= {min amount of spies}
@@ -136,13 +146,6 @@ define('BASH_WAR'					, 0);
 
 // MINIMUM FLEET TIME MUST HIGHER THEN BASH_TIME
 define('FLEETLOG_AGE'				, 86400);	
-
-// EXPERIMENAL FUNCTION: DATABASE UPDATE
-define('ENABLE_DATABASE_BACKUP'		, false);
-// IT'S REQUIRED TO CHANGE TO DIR.
-// ADDIONALLY, ITS REQUIRED, PHP CAN WRITE INTO THIS DIR.
-// ALSO, ITS HIGHLY RECOMMEND TO FORBIDDEN THE DIR FOR HTTP USERS (.htaccess Protection)	
-define('STORAGE_BACKUP_TO_DIR'		, '/tmp/');
 
 // Root IDs
 define('ROOT_UNI'					, 1);	
