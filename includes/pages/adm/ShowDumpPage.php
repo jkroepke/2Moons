@@ -45,13 +45,12 @@ function ShowDumpPage()
 			}
 			$fileName	= '2MoonsBackup_'.date('d_m_Y_H_i_s', TIMESTAMP).'.sql';
 			$filePath	= ROOT_PATH.'includes/backups/'.$fileName;
+			require ROOT_PATH.'includes/config.php';
 			if(function_exists('shell_exec') && function_exists('escapeshellarg') && shell_exec('mysqldump') !== NULL)
 			{
 				$dbTables	= array_map('escapeshellarg', $dbTables);
 				
-				require ROOT_PATH.'includes/config.php';
-				
-				$sqlDump	= shell_exec("mysqldump --host='".escapeshellarg($database['host'])."' --port=".((int) $database['port'])." --user='".escapeshellarg($database['user'])."' --password='".escapeshellarg($database['userpw'])."' --no-create-db --order-by-primary --add-drop-table --comments --complete-insert --hex-blob '".escapeshellarg($database['databasename'])."' '".implode(' ', $dbTables)."' 2>&1 1> ".$filePath);
+				$sqlDump	= shell_exec("mysqldump --host='".escapeshellarg($database['host'])."' --port=".((int) $database['port'])." --user='".escapeshellarg($database['user'])."' --password='".escapeshellarg($database['userpw'])."' --no-create-db --order-by-primary --add-drop-table --comments --complete-insert --hex-blob '".escapeshellarg($database['databasename'])."' ".implode(' ', $dbTables)." 2>&1 1> ".$filePath);
 				if(strlen($sqlDump) !== 0) #mysqldump error
 				{
 					throw new Exception($sqlDump);
@@ -68,7 +67,7 @@ function ShowDumpPage()
 --
 -- Host: {$database['host']}    Database: {$database['databasename']}
 -- ------------------------------------------------------
--- Server version       5.5.28-0ubuntu0.12.04.3-log
+-- Server version       {$serverVersion}
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -124,7 +123,7 @@ LOCK TABLES `{$dbTable}` WRITE;
 /*!40000 ALTER TABLE `{$dbTable}` DISABLE KEYS */;
 
 ");
-					$columsData	= $GLOBALS['DATABASE']->query("SHOW COLUMNS FROM ".$dbTable);
+					$columsData	= $GLOBALS['DATABASE']->query("SHOW COLUMNS FROM `".$dbTable."`");
 
 					$columNames	= array();
 					while($columData = $GLOBALS['DATABASE']->fetchArray($columsData))
@@ -203,7 +202,7 @@ UNLOCK TABLES;
 			$prefixCounts	= strlen(DB_PREFIX);
 
 			$dumpData['sqlTables']	= array();
-			$sqlTableRaw			= $GLOBALS['DATABASE']->query("SHOW TABLE STATUS FROM ".DB_NAME.";");
+			$sqlTableRaw			= $GLOBALS['DATABASE']->query("SHOW TABLE STATUS FROM `".DB_NAME."`;");
 
 			while($table = $GLOBALS['DATABASE']->fetchArray($sqlTableRaw))
 			{
