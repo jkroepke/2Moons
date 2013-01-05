@@ -77,7 +77,7 @@ class ShowFleetMissilePage extends AbstractPage
 		$targetUser	   	= GetUserByID($target['id_owner'], array('onlinetime', 'banaday', 'urlaubs_modus', 'authattack'));
 		
 		if (Config::get('adm_attack') == 1 && $targetUser['authattack'] > $USER['authlevel'])
-			$error = $LNG['fl_admins_cannot_be_attacked'];	
+			$error = $LNG['fl_admin_attack'];	
 		elseif($targetUser['urlaubs_modus'])
 			$error = $LNG['fl_in_vacation_player'];
 			

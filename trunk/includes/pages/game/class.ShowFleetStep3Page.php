@@ -229,7 +229,7 @@ class ShowFleetStep3Page extends AbstractPage
 		}
 		
 		if($targetMission == 1 || $targetMission == 2 || $targetMission == 5 || $targetMission == 6 || $targetMission == 9) {
-			if(Config::get('adm_attack') == 1 && $usedPlanet['authattack'] > $USER['authlevel']) {
+			if(Config::get('adm_attack') == 1 && $targetPlayerData['authattack'] > $USER['authlevel']) {
 				$this->printMessage($LNG['fl_admin_attack']);
 			}
 		
