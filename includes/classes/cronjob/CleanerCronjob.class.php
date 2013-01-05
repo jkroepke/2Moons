@@ -50,7 +50,7 @@ class CleanerCronjob
 						  DELETE FROM ".ALLIANCE." WHERE `ally_members` = '0';
 						  DELETE FROM ".PLANETS." WHERE `destruyed` < ".TIMESTAMP." AND `destruyed` != 0;
 						  DELETE FROM ".SESSION." WHERE `lastonline` < '".(TIMESTAMP - SESSION_LIFETIME)."';
-						  DELETE FROM ".FLEETS_EVENT." WHERE fleetID NOT IN (SELECT fleet_id FORM ".FLEETS.");
+						  DELETE FROM ".FLEETS_EVENT." WHERE fleetID NOT IN (SELECT fleet_id FROM ".FLEETS.");
 						  UPDATE ".USERS." SET `email_2` = `email` WHERE `setmail` < '".TIMESTAMP."';");
 
 		$ChooseToDelete = $GLOBALS['DATABASE']->query("SELECT `id` FROM `".USERS."` WHERE `authlevel` = '".AUTH_USR."' AND ((`db_deaktjava` != 0 AND `db_deaktjava` < '".$del_deleted."')".($del_inactive == TIMESTAMP ? "" : " OR `onlinetime` < '".$del_inactive."'").");");
