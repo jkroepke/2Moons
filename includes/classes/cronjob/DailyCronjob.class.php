@@ -63,6 +63,6 @@ class DailyCronJob
 	
 	function clearEcoCache()
 	{
-		$GLOBALS['DATABASE']->query("UPDATE uni1_planets SET eco_hash = '';");
+		$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET eco_hash = '';");
 	}
 }
