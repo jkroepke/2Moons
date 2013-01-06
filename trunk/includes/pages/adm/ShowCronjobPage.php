@@ -91,15 +91,15 @@ function ShowCronjobEdit()
 	
 	if ($post_name == '')
 		$error_msg[] = $LNG['cronjob_error_name'];
-	if (!$post_min)
+	if ($post_min === false)
 		$error_msg[] = $LNG['cronjob_error_min'];
-	if (!$post_hours)
+	if ($post_hours === false)
 		$error_msg[] = $LNG['cronjob_error_hours'];
-	if (!$post_month)
+	if ($post_month === false)
 		$error_msg[] = $LNG['cronjob_error_month'];
-	if (!$post_dow)
+	if ($post_dow === false)
 		$error_msg[] = $LNG['cronjob_error_dow'];
-	if (!$post_dom)
+	if ($post_dom === false)
 		$error_msg[] = $LNG['cronjob_error_dom'];
 	if ($post_class == '')
 		$error_msg[] = $LNG['cronjob_error_class'];
