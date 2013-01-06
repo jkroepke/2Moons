@@ -95,7 +95,10 @@ class ShowTicketPage extends AbstractPage
 			$ticketID	= $this->ticketObj->createTicket($USER['id'], $categoryID, $subject);
 		}
 		
-		$ticketDetail	= $GLOBALS['DATABASE']->getFirstCell("SELECT subject, ownerID FROM ".TICKETS." WHERE ticketID = ".$ticketID.";");
+		$ticketDetail	= $GLOBALS['DATABASE']->getFirstCell("SELECT status FROM ".TICKETS." WHERE ticketID = ".$ticketID.";");
+		if ($ticketDetail['status'] == 2)
+			$this->printMessage($LNG['ti_error_closed']);
+			
 		$subject		= "RE: ".$subject;
 		
 		$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $message, 0);

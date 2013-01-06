@@ -1109,6 +1109,7 @@ $LNG['ti_new'] 								= 'Neues Ticket erstellen';
 $LNG['ti_status_open'] 						= 'Offen';
 $LNG['ti_status_closed'] 					= 'Geschlossen';
 $LNG['ti_status_answer'] 					= 'Beantwortet';
+$LNG['ti_error_closed'] 					= 'Auf dieses Ticket kann keine Antwort erstellt werden, da es bereits geschlossen wurde!';
 $LNG['ti_admin_open'] 						= 'Ticket wurde geöffnet!';
 $LNG['ti_admin_close'] 						= 'Ticket wurde geschlossen!';
 
