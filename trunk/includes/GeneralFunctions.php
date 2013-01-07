@@ -708,6 +708,7 @@ function exceptionHandler($exception)
 	}
 	
 	$DIR		= MODE == 'INSTALL' ? '..' : '.';
+	ob_start();
 	echo '<!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="de" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="de" class="no-js ie7"> <![endif]-->
@@ -773,12 +774,14 @@ function exceptionHandler($exception)
 			<b>PHP-API: </b>'.php_sapi_name().'<br>
 			<b>MySQL-Cleint-Version: </b>'.mysqli_get_client_info().'<br>
 			<b>2Moons Version: </b>'.$VERSION.'<br>
-			<b>Debug Backtrace:</b><br>'.makebr(str_replace(ROOT_PATH, '/', htmlspecialchars(str_replace('\\', '/',$exception->getTraceAsString())))).'
+			<b>Debug Backtrace:</b><br>'.makebr(htmlspecialchars($exception->getTraceAsString())).'
 		</td>
 	</tr>
 </table>
 </body>
 </html>';
+
+	echo str_replace(array('\\', ROOT_PATH, substr(ROOT_PATH, 0, 15)), array('/', '/', 'FILEPATH '), ob_get_clean());
 	
 	$errorText	= date("[d-M-Y H:i:s]", TIMESTAMP).' '.$errorType[$errno].': "'.strip_tags($exception->getMessage())."\"\r\n";
 	$errorText	.= 'File: '.$exception->getFile().' | Line: '.$exception->getLine()."\r\n";
