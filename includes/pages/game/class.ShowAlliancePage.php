@@ -955,28 +955,35 @@ class ShowAlliancePage extends AbstractPage
 			$sql = "INSERT INTO `".ALLIANCE_RANK."` SET "; 
 
 			foreach($newrank as $key => $value)
-			{
 				$sql .= "`" . $GLOBALS['DATABASE']->sql_escape($key) ."` = '" . $GLOBALS['DATABASE']->sql_escape($value) . "',";
-		}
 		
 			$sql .= "`allianceID` = ".$this->allianceData['id']."";
 				
 			$GLOBALS['DATABASE']->query($sql);
-		}
-		
-		if(!empty($delete)) {
-			$GLOBALS['DATABASE']->query("DELETE FROM ".ALLIANCE_RANK." WHERE rankID = ".$delete." AND allianceID = ".$this->allianceData['id'].";");
-			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET ally_rank_id = 0 WHERE ally_rank_id = ".$delete." AND ally_id = ".$this->allianceData['id'].";");			$SQL	= array();
-			foreach($this->avalibleRanks as $rankName) {
-				if(!$this->rights[$rankName]) {
-					continue;
-				}
-				
-				$SQL[]	= $rankName." = ".(isset($rankRow[$rankName]) ? 1 : 0);
+		} else {
+			if(!empty($delete)) 
+			{
+				$GLOBALS['DATABASE']->query("DELETE FROM ".ALLIANCE_RANK." WHERE rankID = ".$delete." AND allianceID = ".$this->allianceData['id'].";");
+				$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET ally_rank_id = 0 WHERE ally_rank_id = ".$delete." AND ally_id = ".$this->allianceData['id'].";");
 			}
-			
-			$SQL[]	= "rankName = '".$GLOBALS['DATABASE']->sql_escape($rankRow['name'])."'";			
-			$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE_RANK." SET ".implode(", ", $SQL)." WHERE rankID = ".((int) $rankID)." AND allianceID = ".$this->allianceData['id'].";");
+			else
+			{
+				$Query = '';
+				foreach ($rankData as $k => $rankRow)
+				{
+					$SQL	= array();
+					foreach($this->avalibleRanks as $rankName) 
+					{
+						if(!$this->rights[$rankName])
+							continue;
+						
+						$SQL[]	= $rankName." = ".(isset($rankRow[$rankName]) ? 1 : 0);
+					}
+					$SQL[]	= "rankName = '".$GLOBALS['DATABASE']->sql_escape($rankRow['name'])."'";
+					$Query .= "UPDATE ".ALLIANCE_RANK." SET ".implode(", ", $SQL)." WHERE rankID = ".((int) $GLOBALS['DATABASE']->sql_escape($k))." AND allianceID = ".$this->allianceData['id'].";";
+				}
+				$GLOBALS['DATABASE']->multi_query($Query);
+			}
 		}
 		
 		$this->redirectTo('game.php?page=alliance&mode=admin&action=permissions');
