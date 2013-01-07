@@ -242,6 +242,7 @@ function _date($format, $time = null, $toTimeZone = null, $LNG = NULL) {
 		$time	= TIMESTAMP;
 	}
 	
+		
 	if(isset($toTimeZone))
 	{
 		$date = new DateTime();

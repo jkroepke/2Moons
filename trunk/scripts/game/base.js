@@ -225,20 +225,27 @@ $(function() {
 		});
 	});
 	
+	
+	window.setInterval(function() {
+		$('.countdown').each(function() {
+			var s		= $(this).data('time') - (serverTime.getTime() - startTime) / 1000;
+			if(s <= 0) {
+				$(this).text('-');
+			} else {
+				$(this).text(GetRestTimeFormat(s));
+			}
+		});
+	}, 1000);
+	
 	$('#planetSelector').on('change', function() {
 		document.location = '?'+queryString+'&cp='+$(this).val();
 	});
 
 	UhrzeitAnzeigen();
 	setInterval(UhrzeitAnzeigen, 1000);
-});
-
-$(function() 
-{
-	$("button#create_new_alliance_rank").click(function() 
-	{
-		$("div#new_alliance_rank").dialog(
-		{
+	
+	$("button#create_new_alliance_rank").click(function() {
+		$("div#new_alliance_rank").dialog(		{
 			draggable: false,
 			resizable: false,
 			modal: true,
