@@ -529,29 +529,6 @@ function ClearCache()
 	}
 }
 
-function allowPlanetPosition($Pos, $techLevel)
-{
-	// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-	
-	switch($Pos) {
-		case 1:
-		case 15:
-			return $techLevel >= 8;
-		break;
-		case 2:
-		case 14:
-			return $techLevel >= 6;
-		break;
-		case 3:
-		case 13:
-			return $techLevel >= 4;
-		break;
-		default:
-			return $techLevel >= 1;
-		break;
-	}
-}
-
 function GetCrons()
 {
 	global $CONF;
