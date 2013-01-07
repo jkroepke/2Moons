@@ -41,15 +41,25 @@ class ShowRaportPage extends AbstractPage
 	{
 		if(isset($CombatRaport['moon']['desfail']))
 		{
-			$CombatRaport	= array_merge($CombatRaport, array(
+			$CombatRaport['moon']	= array(
 				'moonName'				=> $CombatRaport['moon']['name'],
 				'moonChance'			=> $CombatRaport['moon']['chance'],
 				'moonDestroySuccess'	=> !$CombatRaport['moon']['desfail'],
 				'fleetDestroyChance'	=> $CombatRaport['moon']['chance2'],
 				'fleetDestroySuccess'	=> !$CombatRaport['moon']['fleetfail']
-			));			
+			);			
 		}
-	
+		elseif(isset($CombatRaport['moon'][0]))
+		{
+			$CombatRaport['moon']	= array(
+				'moonName'				=> $CombatRaport['moon'][1],
+				'moonChance'			=> $CombatRaport['moon'][0],
+				'moonDestroySuccess'	=> !$CombatRaport['moon'][2],
+				'fleetDestroyChance'	=> $CombatRaport['moon'][3],
+				'fleetDestroySuccess'	=> !$CombatRaport['moon'][4]
+			);			
+		}
+		
 		if(isset($CombatRaport['simu']))
 		{
 			$CombatRaport['additionalInfo'] = $CombatRaport['simu'];
@@ -109,8 +119,7 @@ class ShowRaportPage extends AbstractPage
 		
 		$CombatRaport			= unserialize($Raport['raport']);
 		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], $USER['timezone']);
-		
-		$CombatRaport			= $this->BCWrapperPreRev2321($CombatReport);
+		$CombatRaport			= $this->BCWrapperPreRev2321($CombatRaport);
 		
 		$this->tplObj->assign_vars(array(
 			'Raport'	=> $CombatRaport,
