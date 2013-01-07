@@ -20,9 +20,9 @@
 <script type="text/javascript">
 $(function() {
 	tinyMCE_GZ.init({
-		plugins : 'bbcode,fullscreen"',
+		plugins : 'bbcode,fullscreen',
 		themes : 'advanced',
-		languages : 'en',
+		languages : '{$lang}',
 		disk_cache : true,
 		debug : false
 	}, function() {
