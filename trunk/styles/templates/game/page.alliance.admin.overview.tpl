@@ -130,13 +130,14 @@
 <script type="text/javascript">
 $(function() {
 	tinyMCE_GZ.init({
-		plugins : 'bbcode,fullscreen"',
+		plugins : 'bbcode,fullscreen',
 		themes : 'advanced',
-		languages : 'en',
+		languages : '{$lang}',
 		disk_cache : true,
 		debug : false
 	}, function() {
 		tinyMCE.init({
+			language : '{$lang}',
 			script_url : 'scripts/base/tinymce/tiny_mce.js',
 			theme : "advanced",
 			mode : "textareas",
