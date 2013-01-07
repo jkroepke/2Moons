@@ -549,9 +549,6 @@ function allowPlanetPosition($Pos, $techLevel)
 			return $techLevel >= 1;
 		break;
 	}
-	
-	
-	return min($GLOBALS['CONFIG'][$Universe]['min_player_planets'] + ceil($Level / 2) * PLANETS_PER_TECH, $GLOBALS['CONFIG'][$Universe]['max_player_planets']);
 }
 
 function GetCrons()
