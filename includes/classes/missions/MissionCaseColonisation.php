@@ -55,6 +55,11 @@ class MissionCaseColonisation extends MissionFunctions
 			$TheMessage = sprintf($LNG['sys_colo_maxcolo'] , GetTargetAdressLink($this->_fleet, ''), $MaxPlanets);
 			$this->setState(FLEET_RETURN);
 		}
+		elseif(PlayerUtil::allowPlanetPosition($this->_fleet['fleet_end_planet'],$senderUser) == false)
+		{
+			$TheMessage = sprintf($LNG['sys_colo_notech'] , GetTargetAdressLink($this->_fleet, ''), $MaxPlanets);
+			$this->setState(FLEET_RETURN);
+		}		
 		else
 		{
 			require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');

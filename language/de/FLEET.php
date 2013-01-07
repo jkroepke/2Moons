@@ -85,8 +85,9 @@ $LNG['sys_colo_defaultname'] 				= 'Kolonie';
 $LNG['sys_colo_arrival'] 					= '';
 $LNG['sys_colo_maxcolo'] 					= 'Eine deiner Flotten erreicht die Koordinaten %s. Eine Besiedelung ist nicht möglich, da du nicht mehr als %d Planeten haben kannst.';
 $LNG['sys_colo_allisok'] 					= 'Eine deiner Flotten erreicht die Koordinaten %s. Die Siedler beginnen den neuen Planeten zu besiedeln.';
-$LNG['sys_colo_badpos']  					= 'Eine deiner Flotten erreicht die Koordinaten %s. Hier wurde keine Siedlungsmöglichkeit gefunden, entäuscht kehrten deine Siedler zurück.';
+$LNG['sys_colo_badpos']  					= 'Eine deiner Flotten erreicht die Koordinaten %s. Hier wurde keine Siedlungsmöglichkeit gefunden, enttäuscht kehrten deine Siedler zurück.';
 $LNG['sys_colo_notfree'] 					= 'Eine deiner Flotten erreicht die Koordinaten %s. Als deine Siedler auf den Koordinaten ankamen, mussten sie feststellen das es dort bereits eine Kolonie gibt. Völlig demoralisiert kehrten sie um.';
+$LNG['sys_colo_notech'] 					= 'Eine deiner Flotten erreicht die Koordinaten %s. Als sich deine Siedler dem Planeten näherten, mussten sie feststellen, dass ihre Ausrüstung noch nicht für die dort herrschenden Klimabedingungen geeignet war und zuerst weiterentwickelt werden muss. Enttäuscht kehrten die Siedler zurück.';
 
 $LNG['sys_expe_report'] 					= "Expeditionsbericht";
 $LNG['sys_recy_report'] 					= "Recyclerbericht";

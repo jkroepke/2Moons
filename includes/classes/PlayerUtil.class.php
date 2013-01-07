@@ -387,25 +387,27 @@ class PlayerUtil {
 		return min($CONF['min_player_planets'] + ceil($USER[$resource[124]] / 2) * PLANETS_PER_TECH + $USER['factor']['Planets'], $CONF['max_player_planets']);
 	}
 
-	static function allowPlanetPosition($planetPosition)
+	static function allowPlanetPosition($Pos, $USER)
 	{
 		// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-		
-		switch($planetPosition) {
+
+		global $resource;
+		$CONF	= Config::getAll('universe', $USER['universe']);
+		switch($Pos) {
 			case 1:
-			case 15:
-				return 8;
+			case ($CONF['max_planets']):
+				return $USER[$resource[124]] >= 8;
 			break;
 			case 2:
-			case 14:
-				return 6;
+			case ($CONF['max_planets']-1):
+				return $USER[$resource[124]] >= 6;
 			break;
 			case 3:
-			case 13:
-				return 4;
+			case ($CONF['max_planets']-2):
+				return $USER[$resource[124]] >= 4;
 			break;
 			default:
-				return 1;
+				return $USER[$resource[124]] >= 1;
 			break;
 		}
 	}

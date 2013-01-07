@@ -132,12 +132,6 @@ class ShowFleetStep3Page extends AbstractPage
 			if ($targetType != 1) {
 				$this->printMessage($LNG['fl_only_planets_colonizable']);
 			}
-			
-			$techLevel	= PlayerUtil::allowPlanetPosition($targetPlanet);
-			
-			if($techLevel > $USER[$resource[124]]) {
-				$this->printMessage(sprintf($LNG['fl_tech_for_position_required'], $LNG['tech'][124], $techLevel));
-			}
 		}
 		
 		if ($targetMission == 7 || $targetMission == 15) {
