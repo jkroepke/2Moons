@@ -5,7 +5,7 @@
 		</tr>
 		{if $gateData.restTime != 0}
 		<tr style="height:20px;">
-			<td colspan="3">{$LNG.in_jump_gate_wait_time} {$gateData.nextTime}&nbsp;(<span id="bxxGate1">{$gateData.restTime|time}</span>)</td>
+			<td colspan="3">{$LNG.in_jump_gate_wait_time} {$gateData.nextTime}&nbsp;(<span class="countdown" data-time="{$gateData.restTime}">{pretty_fly_time($gateData.restTime)}</span>)</td>
 		</tr>
 		{else}
 			<tr style="height:20px;">
