@@ -384,7 +384,7 @@ class PlayerUtil {
 		}
 
 		// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-		return min($CONF['min_player_planets'] + ceil($USER[$resource[124]] / 2) * PLANETS_PER_TECH * $USER['factor']['Planets'], $CONF['max_player_planets']);
+		return min($CONF['min_player_planets'] + ceil($USER[$resource[124]] / 2) * PLANETS_PER_TECH + $USER['factor']['Planets'], $CONF['max_player_planets']);
 	}
 
 	static function allowPlanetPosition($planetPosition)
