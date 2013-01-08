@@ -36,7 +36,7 @@ class CleanerCronjob
 		$unis	= array_keys(Config::getAll(NULL));
 		
 		$GLOBALS['DATABASE']->query("LOCK TABLES ".ALLIANCE." WRITE, ".ALLIANCE_REQUEST." WRITE,
-									".BUDDY." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, , ".FLEETS_EVENT." WRITE, 
+									".BUDDY." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".FLEETS_EVENT." WRITE, 
 									".NOTES." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, 
 									".RW." WRITE, ".SESSION." WRITE, ".STATPOINTS." WRITE, 
 									".TOPKB." WRITE, ".TOPKB_USERS." WRITE, ".USERS." WRITE;");
