@@ -194,7 +194,6 @@ $LNG['sys_destruc_lune']          		 	= 'Die Wahrscheinlichkeit einer Mondzerst�
 $LNG['sys_destruc_rip']          			= 'Die Wahrscheinlichkeit der Selbstzerstörung der Flotte beträgt: %d%%';
 $LNG['sys_destruc_stop']      			 	= 'Der Verteidiger hat die Mondzerstörung erfolgreich abgeblockt.';
 $LNG['sys_destruc_mess1']       		   	= 'Die Todessterne richten ihre gewaltigen Energien auf den Mond.';
-$LNG['sys_destruc_mess']        		   	= 'Eine Flotte vom Planeten [%d:%d:%d] erreicht den Mond bei [%d:%d:%d].';
 $LNG['sys_destruc_echec']       		   	= 'Erdbeben erschüttern den Planeten. Doch etwas geht schief: Die Todessterne explodieren und zerfallen in tausende Einzelteile. <br>Die Druckwelle erreicht die komplette Flotte.';
 $LNG['sys_destruc_reussi']      		   	= 'Die Strahlen der Todessterne erreichen den Mond und zerfetzen ihn.<br>Der gesamte Mond wurde zerstört.';
 $LNG['sys_destruc_null']        		   	= 'Die Todessterne können ihre volle Leistung nicht aufbauen und implodieren.<br> Der Mond wird nicht zerstört.';
