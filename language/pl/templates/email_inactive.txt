@@ -1,7 +1,7 @@
 ﻿Witaj %1$s,
 
 
-Zalogowałeś się  %2$s dni, ostatni raz %3$s. Jeśli wciąz chcesz być członkiem naszej społeczności zaloguj się na twoje konto.
+Zalogowałeś się  %3$s dni, ostatni raz %2$s. Jeśli wciąz chcesz być członkiem naszej społeczności zaloguj się na twoje konto.
 
 
 Jeśli zapomniałeś hasło udaj się na %4$s i kliknij "Zapomniałem hasło". 
@@ -10,4 +10,4 @@ Otrzymasz email z twoim nowym hasłem.
 
 Pozdrowienia,
 
-%3$s - Team
+%2$s - Team
