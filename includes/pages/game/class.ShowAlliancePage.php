@@ -1187,7 +1187,7 @@ class ShowAlliancePage extends AbstractPage
 		$diploMode	= HTTP::_GP('diploMode', 0);
 		
 		$diploAlly	= $GLOBALS['DATABASE']->query("SELECT ally_tag,ally_name,id FROM ".ALLIANCE." WHERE id != ".$USER['ally_id']." ORDER BY ally_tag ASC;");
-		$AllyArray = array();
+		$AllyList = array();
 		$IdList = array();
 		while ($i = $GLOBALS['DATABASE']->fetch_array($diploAlly))
 		{
