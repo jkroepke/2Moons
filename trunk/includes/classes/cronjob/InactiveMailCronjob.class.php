@@ -40,7 +40,7 @@ class InactiveMailCronjob
 		require_once ROOT_PATH.'includes/classes/Mail.class.php';
 		
 		if($CONF['mail_active'] == 1) {
-			$Users	= $GLOBALS['DATABASE']->query("SELECT `id`, `username`, `lang`, `email`, `onlinetime`, `universe` FROM ".USERS." WHERE `inactive_mail` = '0' AND `onlinetime` < '".(TIMESTAMP - $CONF['del_user_sendmail'])."';");
+			$Users	= $GLOBALS['DATABASE']->query("SELECT `id`, `username`, `lang`, `email`, `onlinetime`, `universe` FROM ".USERS." WHERE `inactive_mail` = '0' AND `onlinetime` < '".(TIMESTAMP - $CONF['del_user_sendmail'] * 24 * 60 * 60)."';");
 			while($User	= $GLOBALS['DATABASE']->fetch_array($Users))
 			{
 				if(!isset($langObjects[$User['lang']]))
