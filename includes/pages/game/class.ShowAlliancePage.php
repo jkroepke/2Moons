@@ -1186,8 +1186,18 @@ class ShowAlliancePage extends AbstractPage
 		
 		$diploMode	= HTTP::_GP('diploMode', 0);
 		
+		$diploAlly	= $GLOBALS['DATABASE']->query("SELECT ally_tag,ally_name,id FROM ".ALLIANCE." WHERE id != ".$USER['ally_id']." ORDER BY ally_tag ASC;");
+		$AllyArray = array();
+		$IdList = array();
+		while ($i = $GLOBALS['DATABASE']->fetch_array($diploAlly))
+		{
+			$IdList[] = $i['id'];
+			$AllyList[] = $i['ally_name'];
+		}
 		$this->tplObj->assign_vars(array(
 			'diploMode'	=> $diploMode,
+			'AllyList'	=> $AllyList,
+			'IdList'	=> $IdList,
 		));
 		
 		$this->display('page.alliance.admin.diplomacy.create.tpl');
@@ -1200,14 +1210,21 @@ class ShowAlliancePage extends AbstractPage
 			$this->redirectToHome();
 		}
 		
-		$name	= HTTP::_GP('name', '', UTF8_SUPPORT);
+		$id	= HTTP::_GP('ally_id', '', UTF8_SUPPORT);
 		
-		$targetAlliance	= $GLOBALS['DATABASE']->getFirstRow("SELECT id, ally_owner, ally_tag FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND ally_name = '".$GLOBALS['DATABASE']->sql_escape($name)."';");
+		$targetAlliance	= $GLOBALS['DATABASE']->getFirstRow("SELECT id, ally_name, ally_owner, ally_tag, (SELECT level FROM ".DIPLO." WHERE (owner_1 = ".$GLOBALS['DATABASE']->sql_escape($id)." AND owner_2 = ".$USER['ally_id'].") OR (owner_2 = ".$GLOBALS['DATABASE']->sql_escape($id)." AND owner_1 = ".$USER['ally_id'].")) as diplo FROM ".ALLIANCE." WHERE ally_universe = ".$UNI." AND id = '".$GLOBALS['DATABASE']->sql_escape($id)."';");
 		
 		if(empty($targetAlliance)) {
 			$this->sendJSON(array(
 				'error'		=> true,
-				'message'	=> sprintf($LNG['al_diplo_no_alliance'], $name),
+				'message'	=> sprintf($LNG['al_diplo_no_alliance'], $targetAlliance['id']),
+			));	
+		}
+		
+		if(!empty($targetAlliance['diplo'])) {
+			$this->sendJSON(array(
+				'error'		=> true,
+				'message'	=> sprintf($LNG['al_diplo_exists'], $targetAlliance['ally_name']),
 			));	
 		}
 		if($targetAlliance['id'] == $this->allianceData['id']) {
@@ -1232,12 +1249,12 @@ class ShowAlliancePage extends AbstractPage
 		}
 		
 		$GLOBALS['DATABASE']->query("INSERT INTO ".DIPLO." SET 
-		owner_1		= ".$this->allianceData['id'].",
-		owner_2		= ".$targetAlliance['id'].", 
-		level		= ".$level.", 
-		accept		= 0, 
-		accept_text	= '".$GLOBALS['DATABASE']->sql_escape($text)."', 
-		universe	= ".$UNI.";");
+			owner_1		= ".$this->allianceData['id'].",
+			owner_2		= ".$targetAlliance['id'].", 
+			level		= ".$level.", 
+			accept		= 0, 
+			accept_text	= '".$GLOBALS['DATABASE']->sql_escape($text)."', 
+			universe	= ".$UNI.";");
 		
 		$this->sendJSON(array(
 			'error'		=> false,

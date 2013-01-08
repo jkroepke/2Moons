@@ -7,7 +7,7 @@
 	</tr>
 	<tr>
 		<td>{$LNG.al_diplo_ally}</td>
-		<td><input type="name" id="name" name="name" value="" size="30"></td>
+		<td>{html_options name="ally_id" values=$IdList output=$AllyList selected=$diploMode}</td>
 	</tr>
 	<tr>
 		<td>{$LNG.al_diplo_level_des}</td>

@@ -373,7 +373,7 @@ class PlayerUtil {
 		}
 	}
 	
-	static function maxPlanetCount($USER, $PLANET)
+	static function maxPlanetCount($USER)
 	{
 		global $resource;
 		$CONF	= Config::getAll('universe', $USER['universe']);
