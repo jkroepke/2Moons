@@ -1239,9 +1239,9 @@ class ShowAlliancePage extends AbstractPage
 		$level	= HTTP::_GP('level', 0);
 		$text	= HTTP::_GP('text', '', true);
 		
-		if($level == 6)
+		if($level == 5)
 		{
-			SendSimpleMessage($targetAlliance['ally_owner'], $USER['id'], TIMESTAMP, 1, $LNG['al_circular_alliance'].$this->allianceData['ally_tag'], $LNG['al_diplo_war'], sprintf($LNG['al_diplo_war_mes'], $this->allianceData['ally_tag'], $targetAlliance['ally_tag'], $LNG['al_diplo_level'][$level], $text));
+			SendSimpleMessage($targetAlliance['ally_owner'], $USER['id'], TIMESTAMP, 1, $LNG['al_circular_alliance'].$this->allianceData['ally_tag'], $LNG['al_diplo_war'], sprintf($LNG['al_diplo_war_mes'], "[".$this->allianceData['ally_tag']."] ".$this->allianceData['ally_name'], "[".$targetAlliance['ally_tag']."] ".$targetAlliance['ally_name'], $LNG['al_diplo_level'][$level], $text));
 		}
 		else
 		{
