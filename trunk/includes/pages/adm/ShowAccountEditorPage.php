@@ -115,9 +115,9 @@ function ShowAccountEditorPage()
 				}
 
 				if ($_POST['add']) {
-					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
+					$template->message($LNG['ad_add_res_sucess'], '?page=accounteditor&edit=resources');
 				} else if ($_POST['delete']) {
-					$template->message($LNG['ad_delete_sucess'], '?page=accounteditor&edit=resources');
+					$template->message($LNG['ad_delete_res_sucess'], '?page=accounteditor&edit=resources');
 				}
 				exit;
 			}
@@ -172,9 +172,9 @@ function ShowAccountEditorPage()
 				$LOG->save();
 
 				if ($_POST['add']) {
-					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
+					$template->message($LNG['ad_add_ships_sucess'], '?page=accounteditor&edit=ships');
 				} else if ($_POST['delete']) {
-					$template->message($LNG['ad_delete_sucess'], '?page=accounteditor&edit=resources');
+					$template->message($LNG['ad_delete_ships_sucess'], '?page=accounteditor&edit=ships');
 				}
 				exit;
 			}
@@ -240,9 +240,9 @@ function ShowAccountEditorPage()
 				$LOG->save();
 
 				if ($_POST['add']) {
-					$template->message($LNG['ad_add_sucess'], '?page=accounteditor&edit=resources');
+					$template->message($LNG['ad_add_defenses_success'], '?page=accounteditor&edit=defenses');
 				} else if ($_POST['delete']) {
-					$template->message($LNG['ad_delete_sucess'], '?page=accounteditor&edit=resources');
+					$template->message($LNG['ad_delete_defenses_success'], '?page=accounteditor&edit=defenses');
 				}
 				exit;
 			}
@@ -321,9 +321,9 @@ function ShowAccountEditorPage()
 				$LOG->save();
 
 				if ($_POST['add']) {
-					$template->message($LNG['ad_add_succes'], '?page=accounteditor&edit=buildings');
+					$template->message($LNG['ad_add_build_success'], '?page=accounteditor&edit=buildings');
 				} else if ($_POST['delete']) {
-					$template->message($LNG['ad_delete_succes'], '?page=accounteditor&edit=buildings');
+					$template->message($LNG['ad_delete_build_success'], '?page=accounteditor&edit=buildings');
 				}
 				exit;
 			}
@@ -387,9 +387,9 @@ function ShowAccountEditorPage()
 				$LOG->save();
 				
 				if ($_POST['add']) {
-					$template->message($LNG['ad_add_succes'], '?page=accounteditor&edit=researchs');
+					$template->message($LNG['ad_add_tech_success'], '?page=accounteditor&edit=researchs');
 				} else if ($_POST['delete']) {
-					$template->message($LNG['ad_delete_succes'], '?page=accounteditor&edit=researchs');
+					$template->message($LNG['ad_delete_tech_success'], '?page=accounteditor&edit=researchs');
 				}
 				exit;
 			}
@@ -520,9 +520,9 @@ function ShowAccountEditorPage()
 				$LOG->save();
 				
 				if ($_POST['add']) {
-					$template->message($LNG['ad_offi_succes_add'], '?page=accounteditor&edit=officiers');
+					$template->message($LNG['ad_add_offi_success'], '?page=accounteditor&edit=officiers');
 				} else if ($_POST['delete']) {
-					$template->message($LNG['ad_offi_succes_delete'], '?page=accounteditor&edit=officiers');
+					$template->message($LNG['ad_delete_offi_success'], '?page=accounteditor&edit=officiers');
 				}
 				exit;
 			}

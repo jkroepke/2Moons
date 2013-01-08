@@ -127,42 +127,42 @@ $LNG['ad_editor_authlevels']	= 'verwalte Rechte';
 $LNG['ad_add_not_exist']		= 'ID existiert nicht!';
 
 //	INVESTIGACIONES - RESEARCHS - FORSCHUNGEN
-$LNG['ad_add_succes']			= 'Hinzufügen der Forschungen war erfolgreich!';
-$LNG['ad_delete_succes']		= 'Löschen der Forschungen war erfolgreich!';
+$LNG['ad_add_tech_success']		= 'Hinzufügen der Forschungen war erfolgreich!';
+$LNG['ad_delete_tech_success']	= 'Löschen der Forschungen war erfolgreich!';
 $LNG['ad_research_title']		= 'Forschungen bearbeiten';
-$LNG['ad_research']		= 'Forschung';
+$LNG['ad_research']				= 'Forschung';
 
 //	OFICIALES - OFFICIERS - OFFIZIERE
 $LNG['ad_offi_title']			= 'Offiziere bearbeiten';
 $LNG['ad_offi']					= 'Offiziere';
-$LNG['ad_offi_succes_add']		= 'Hinzufügen der Offiziere war erfolgreich!';
-$LNG['ad_offi_succes_delete']	= 'Löschen der Offiziere war erfolgreich!';
+$LNG['ad_add_offi_success']		= 'Hinzufügen der Offiziere war erfolgreich!';
+$LNG['ad_delete_offi_success']	= 'Löschen der Offiziere war erfolgreich!';
 
 //	RECURSOS - RESOURCES - ROHSTOFFE
-$LNG['ad_add_sucess']		= 'Hinzufügen der Rohstoffe war erfolgreich!';
-$LNG['ad_delete_sucess']	= 'Löschen der Rohstoffe war erfolgreich!';
-$LNG['ad_main_title']		= 'Verwalten der Rohstoffe & Technologie';
+$LNG['ad_add_res_sucess']			= 'Hinzufügen der Rohstoffe war erfolgreich!';
+$LNG['ad_delete_res_sucess']		= 'Löschen der Rohstoffe war erfolgreich!';
+$LNG['ad_main_title']			= 'Verwalten der Rohstoffe & Technologie';
 
 //	NAVES - SHIPS - SCHIFFE
 $LNG['ad_ships_title']			= 'Schiffe bearbeiten';
-$LNG['ad_ships']			= 'Schiffe';
-$LNG['ad_add_sucess_ships']		= 'Hinzufügen der Schiffe war erfolgreich!';
-$LNG['ad_delete_sucess_ships']	= 'Löschen der Schiffe war erfolgreich!';
+$LNG['ad_ships']				= 'Schiffe';
+$LNG['ad_add_ships_sucess']		= 'Hinzufügen der Schiffe war erfolgreich!';
+$LNG['ad_delete_ships_sucess']	= 'Löschen der Schiffe war erfolgreich!';
 
 //	DEFENSAS - DEFENSES - VERTEIDIGUNG
 $LNG['ad_defenses_title']			= 'Verteidigungen bearbeiten';
-$LNG['ad_defenses']			= 'Verteidigung';
-$LNG['ad_add_defenses_succes']		= 'Hinzufügen der Verteidigungen war erfolgreich!';
-$LNG['ad_delete_defenses_succes']	= 'Löschen der Verteidigungen war erfolgreich!';
+$LNG['ad_defenses']					= 'Verteidigung';
+$LNG['ad_add_defenses_success']		= 'Hinzufügen der Verteidigungen war erfolgreich!';
+$LNG['ad_delete_defenses_success']	= 'Löschen der Verteidigungen war erfolgreich!';
 
 //	EDIFICIOS - BUILDINGS - GEBÄUDE
-$LNG['ad_buildings_title']	= 'Gebäude bearbeiten';
-$LNG['ad_buildings']	= 'Gebäude';
-$LNG['ad_planet_id']		= 'ID Planet oder Mond';
-$LNG['ad_levels']			= 'Anzahl der Stufe';
-$LNG['ad_count']			= 'Anzahl';
-$LNG['ad_add_succes']		= 'Hinzufügen der Gebäude war erfolgreich!';
-$LNG['ad_delete_succes']	= 'Löschen der Gebäude war erfolgreich!';
+$LNG['ad_buildings_title']		= 'Gebäude bearbeiten';
+$LNG['ad_buildings']			= 'Gebäude';
+$LNG['ad_planet_id']			= 'ID Planet oder Mond';
+$LNG['ad_levels']				= 'Anzahl der Stufe';
+$LNG['ad_count']				= 'Anzahl';
+$LNG['ad_add_build_success']			= 'Hinzufügen der Gebäude war erfolgreich!';
+$LNG['ad_delete_build_success']		= 'Löschen der Gebäude war erfolgreich!';
 
 // DATOS PERSONALES - PERSONAL DATA
 $LNG['ad_personal_title']		= 'Persönliche Daten bearbeiten';
