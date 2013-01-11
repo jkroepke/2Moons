@@ -74,8 +74,10 @@ class ShowGalaxyPage extends AbstractPage
             }
 		}
 
-        $targetDefensive    = array_diff($reslist['defense'], array(502));
+        $targetDefensive    = $reslist['defense'];
+        $targetDefensive[]	= 502;
 		$MissleSelector[0]	= $LNG['gl_all_defenses'];
+		
 		foreach($targetDefensive  as $Element)
 		{	
 			$MissleSelector[$Element] = $LNG['tech'][$Element];

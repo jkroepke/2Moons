@@ -147,6 +147,9 @@ class VarsBuildCache
 				case 400: 
 					$reslist['defense'][]	= $varsRow['elementID'];
 				break;
+				case 500: 
+					$reslist['missile'][]	= $varsRow['elementID'];
+				break;
 				case 600: 
 					$reslist['officier'][]	= $varsRow['elementID'];
 				break;
