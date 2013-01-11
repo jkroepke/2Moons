@@ -104,7 +104,7 @@ class ShowShipyardPage extends AbstractPage
 			$Count 			= min($Count, $MaxElements);
 			
 			$BuildArray    	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
-			if ($Element == 502 || $Element == 503)
+			if (in_array($Element, $reslist['missile']))
 			{
 				$MaxMissiles		= BuildFunctions::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
 				$Count 				= min($Count, $MaxMissiles[$Element]);
@@ -220,15 +220,17 @@ class ShowShipyardPage extends AbstractPage
 		$mode		= HTTP::_GP('mode', 'fleet');
 		
 		if($mode == 'defense') {
-			$elementIDs	= $reslist['defense'];
+			$elementIDs	= array_merge($reslist['defense'], $reslist['missile']);
 		} else {
 			$elementIDs	= $reslist['fleet'];
 		}
 		
-		$Missiles	= array(
-			502	=> $PLANET[$resource[502]],
-			503	=> $PLANET[$resource[503]],
-		);
+		$Missiles	= array();
+		
+		foreach($reslist['missile'] as $elementID)
+		{
+			$Missiles[$elementID]	= $PLANET[$resource[$elementID]];
+		}
 		
 		$MaxMissiles	= BuildFunctions::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
 		

@@ -160,7 +160,8 @@ $LNG['tech'] = array(
 	409 => 'Gigantische Schildkuppel',
 	410 => 'Gravitonkanone',
 	411 => 'Orbitale Verteidigungsplattform',
-
+	
+	500 => 'Raketen',
 	502 => 'Abfangrakete',
 	503 => 'Interplanetarrakete',
 

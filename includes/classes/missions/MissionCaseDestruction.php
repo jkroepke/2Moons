@@ -140,7 +140,7 @@ HTML;
 		
 		foreach(array_merge($reslist['fleet'], $reslist['defense']) as $elementID)
 		{
-			if ($elementID >= 500 || empty($targetPlanet[$resource[$elementID]])) continue;
+			if (empty($targetPlanet[$resource[$elementID]])) continue;
 
 			$fleetDefend[0]['unit'][$elementID] = $targetPlanet[$resource[$elementID]];
 		}

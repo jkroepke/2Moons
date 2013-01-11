@@ -231,14 +231,18 @@ class BuildFunctions
 	
 	public static function getMaxConstructibleRockets($USER, $PLANET, $Missiles = NULL)
 	{
-		global $resource, $CONF;
+		global $resource, $CONF, $reslist;
 
-		if(!isset($Missiles)) {
-			$Missiles			= array(
-				502	=> $PLANET[$resource[502]],
-				503	=> $PLANET[$resource[503]],
-			);
+		if(!isset($Missiles))
+		{		
+			$Missiles	= array();
+			
+			foreach($reslist['missile'] as $elementID)
+			{
+				$Missiles[$elementID]	= $PLANET[$resource[$elementID]];
+			}
 		}
+		
 		$BuildArray  	  	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
 		$MaxMissiles   		= $PLANET[$resource[44]] * 10 * max(Config::get('silo_factor'), 1);
 

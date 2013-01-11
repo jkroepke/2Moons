@@ -298,7 +298,8 @@ class ShowInformationPage extends AbstractPage
 				}
 			}
 		}
-		elseif($elementID == 43 && $PLANET[$resource[43]] > 0)
+		
+		if($elementID == 43 && $PLANET[$resource[43]] > 0)
 		{
 			$this->tplObj->loadscript('gate.js');
 			$nextTime	= self::getNextJumpWaitTime($PLANET['last_jump_time']);
