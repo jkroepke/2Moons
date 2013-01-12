@@ -157,10 +157,9 @@ function maxShip(id) {
 
 function maxShips() {
 	var id;
-	for (i = 200; i < 250; i++) {
-		id = "ship" + i;
-		maxShip(id);
-	}
+	$('input[name^="ship"]').each(function() {
+		maxShip($(this).attr('name'));
+	})
 }
 
 
@@ -173,10 +172,9 @@ function noShip(id) {
 
 function noShips() {
 	var id;
-	for (i = 200; i < 250; i++) {
-		id = "ship" + i;
-		noShip(id);
-	}
+	$('input[name^="ship"]').each(function() {
+		noShip($(this).attr('name'));
+	});
 }
 
 function setNumber(name, number) {
