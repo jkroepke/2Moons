@@ -1152,6 +1152,7 @@ $LNG['bs_cancel']							= 'Zurücksetzen';
 $LNG['bs_wait']								= 'Warte 10 Sekunden für nächste Simulation';
 $LNG['bs_acs_slot']							= 'AKS-Slot';
 $LNG['bs_add_acs_slot']						= 'Add AKS-Slot';
+$LNG['bs_reset']							= 'Reset';
 //----------------------------------------------------------------------------//
 // Fleettrader
 
