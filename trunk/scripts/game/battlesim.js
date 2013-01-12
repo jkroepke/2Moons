@@ -31,4 +31,16 @@ $(function() {
 	var $tabs = $('#tabs').tabs({
 		tabTemplate: '<li><a href="#{href}">#{label}</a></li>',
 	});
+	
+	$('.reset').live('click', function(e) {
+		e.preventDefault();
+	
+		var index = $(this).parent().index();
+		
+		
+		$(this).parent().parent().nextAll().each(function() {
+			$(this).children('td:eq('+index+')').children().val(0);
+		});
+		return false;
+	});
 });

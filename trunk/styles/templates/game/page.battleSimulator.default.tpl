@@ -27,6 +27,11 @@
 								<th>{$LNG.bs_deffer}</th>
 							</tr>
 							<tr>
+								<td></td>
+								<td><button class="reset">{$LNG.bs_reset}</button></td>
+								<td><button class="reset">{$LNG.bs_reset}</button></td>
+							</tr>
+							<tr>
 								<td>{$LNG.tech.109}:</td>
 								<td><input type="text" size="10" value="{if isset($battleinput.{$smarty.section.content.index}.0.109)}{$battleinput.{$smarty.section.content.index}.0.109}{else}0{/if}" name="battleinput[{$smarty.section.content.index}][0][109]"></td>
 								<td><input type="text" size="10" value="{if isset($battleinput.{$smarty.section.content.index}.1.109)}{$battleinput.{$smarty.section.content.index}.1.109}{else}0{/if}" name="battleinput[{$smarty.section.content.index}][1][109]"></td>
@@ -52,6 +57,11 @@
 											<th>{$LNG.bs_atter}</th>
 											<th>{$LNG.bs_deffer}</th>
 										</tr>
+										<tr>
+											<td></td>
+											<td><button class="reset">{$LNG.bs_reset}</button></td>
+											<td><button class="reset">{$LNG.bs_reset}</button></td>
+										</tr>
 										{foreach $fleetList as $id}
 										<tr>
 											<td>{$LNG.tech.$id}:</td>
@@ -69,14 +79,17 @@
 												<th>{$LNG.bs_atter}</th>
 												<th>{$LNG.bs_deffer}</th>
 											</tr>
+											<tr>
+												<td></td>
+												<td></td>
+												<td><button class="reset">{$LNG.bs_reset}</button></td>
+											</tr>
 											{foreach $defensiveList as $id}
-											{if $id < 500}
 											<tr>
 												<td>{$LNG.tech.$id}:</td>
 												<td>-</td>
 												<td><input type="text" size="10" value="{if isset($battleinput.{$smarty.section.content.index}.1.$id)}{$battleinput.{$smarty.section.content.index}.1.$id}{else}0{/if}" name="battleinput[{$smarty.section.content.index}][1][{$id}]"></td>
 											</tr>
-											{/if}
 										{/foreach}
 										</table>
 									</td>
