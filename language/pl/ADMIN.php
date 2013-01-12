@@ -127,33 +127,33 @@ $LNG['ad_editor_authlevels']	= 'ustawienia praw';
 $LNG['ad_add_not_exist']		= 'ID nie istnieje!';
 
 //	INVESTIGACIONES - RESEARCHS - FORSCHUNGEN - BADANIA
-$LNG['ad_add_succes']			= 'Badania dodano z powodzeniem!';
-$LNG['ad_delete_succes']		= 'Badania usunięto z powodzeniem!';
+$LNG['ad_add_tech_success']			= 'Badania dodano z powodzeniem!';
+$LNG['ad_delete_tech_success']		= 'Badania usunięto z powodzeniem!';
 $LNG['ad_research_title']		= 'Stwórz badanie';
 $LNG['ad_research']		= 'Badania';
 
 //	OFICIALES - OFFICIERS - OFFIZIERE - OFICEROWIE
 $LNG['ad_offi_title']			= 'Stwórz oficera';
 $LNG['ad_offi']					= 'Oficerowie';
-$LNG['ad_offi_succes_add']		= 'Oficer dodany!';
-$LNG['ad_offi_succes_delete']	= 'Oficer usunięty!';
+$LNG['ad_add_offi_success']		= 'Oficer dodany!';
+$LNG['ad_delete_offi_success']	= 'Oficer usunięty!';
 
 //	RECURSOS - RESOURCES - ROHSTOFFE - ZASOBY
-$LNG['ad_add_sucess']		= 'Zasób dodano!';
-$LNG['ad_delete_sucess']	= 'Zasób usunięto!';
+$LNG['ad_add_res_sucess']		= 'Zasób dodano!';
+$LNG['ad_delete_res_sucess']	= 'Zasób usunięto!';
 $LNG['ad_main_title']		= 'Zarządzanie zasobami i technologiami';
 
 //	NAVES - SHIPS - SCHIFFE - STATKI
 $LNG['ad_ships_title']			= 'Stwórz statek';
 $LNG['ad_ships']			= 'Statek';
-$LNG['ad_add_sucess_ships']		= 'Dodano nowy statek!';
-$LNG['ad_delete_sucess_ships']	= 'Usunięto statek!';
+$LNG['ad_add_ships_sucess']		= 'Dodano nowy statek!';
+$LNG['ad_delete_ships_sucess']	= 'Usunięto statek!';
 
 //	DEFENSAS - DEFENSES - VERTEIDIGUNG - OBRONA
 $LNG['ad_defenses_title']			= 'Stwórz obronę';
 $LNG['ad_defenses']			= 'Obrona';
-$LNG['ad_add_defenses_succes']		= 'Dodano jednostkę obrony!';
-$LNG['ad_delete_defenses_succes']	= 'Usunięto jednostkę obrony!';
+$LNG['ad_add_defenses_success']		= 'Dodano jednostkę obrony!';
+$LNG['ad_delete_defenses_success']	= 'Usunięto jednostkę obrony!';
 
 //	EDIFICIOS - BUILDINGS - GEBÄUDE - BUDYNKI
 $LNG['ad_buildings_title']	= 'Dodaj budynek';
@@ -161,8 +161,8 @@ $LNG['ad_buildings']	= 'Budynki';
 $LNG['ad_planet_id']		= 'ID Planety lub księżyca';
 $LNG['ad_levels']			= 'Ilość poziomów';
 $LNG['ad_count']			= 'Ilość';
-$LNG['ad_add_succes']		= 'Budynek dodano!';
-$LNG['ad_delete_succes']	= 'Budynek usunięto!';
+$LNG['ad_add_build_success']		= 'Budynek dodano!';
+$LNG['ad_delete_build_success']	= 'Budynek usunięto!';
 
 // DATOS PERSONALES - PERSONAL DATA - DANE OSOBOWE
 $LNG['ad_personal_title']		= 'Dane personalne';
@@ -289,17 +289,19 @@ $LNG['er_data']			= 'Data';
 
 //---------------	LISTA DE MENSAJES - MESSAGES IST - LISTA WIADOMOŚCI	------------------------//
 $LNG['ml_message_list']			= 'Lista wiadomości';
-$LNG['ml_page']					= 'Strona';
-$LNG['ml_type']					= 'Typ';
-$LNG['ml_dlte_selection']		= 'Zaznacz do usunięcia';
-$LNG['ml_dlte_since']			= 'Usuń';
-$LNG['ml_dlte_since_button']	= 'Usuń';
+$LNG['ml_type_submit']			= 'Wyślij';
+$LNG['ml_id']					= '#ID';
+$LNG['ml_sender']				= 'Nadawca';
+$LNG['ml_receiver']				= 'Odbiorca';
 $LNG['ml_date']					= 'Data';
-$LNG['ml_from']					= 'Od';
-$LNG['ml_to']					= 'Do';
+$LNG['ml_type']					= 'Typ wiadomości';
 $LNG['ml_subject']				= 'Temat';
-$LNG['ml_content']				= 'Zawartość';
-$LNG['ml_see_all_messages']		= 'Zobacz wszystkie wiadomości';
+$LNG['ml_date_range']			= 'Zeitraum';
+
+
+$LNG['ml_page']					= 'Strona';
+
+
 //###########################################################//
 
 
@@ -353,6 +355,7 @@ $LNG['se_normal_speed_halt']			= 'Normalna szybkość Expo: 1 <br> Zalecana maks
 $LNG['se_fleet_speed']					= 'Szybkość floty';
 $LNG['se_resources_producion_speed']	= 'Szybkość wydobywania zasobów';
 $LNG['se_halt_speed']					= 'Expospeed';
+$LNG['se_energy_speed']					= 'Mnożnik energii';
 $LNG['se_forum_link']					= 'Forum link';
 $LNG['se_server_op_close']				= 'Gra otwarta';
 $LNG['se_server_status_message']		= 'Powód zamknięcia';
@@ -514,7 +517,11 @@ $LNG['se_dst_sel'][0]					= 'Nie';
 $LNG['se_dst_sel'][1]					= 'Tak';
 $LNG['se_dst_sel'][2]					= 'Automatycznie';
 $LNG['se_max_dm_missions']				= 'Max. Dark Metter podczas misji szukaj Dark Metter';
-
+$LNG['se_alliance_create_min_points']   = 'Ilość punktów potrzebna do założenia sojuszu';
+$LNG['se_disclamerAddress']				= 'Adres';
+$LNG['se_disclamerPhone']				= 'Telefon';
+$LNG['se_disclamerMail']				= 'E-Mail-Adres';
+$LNG['se_disclamerNotice']				= 'Więcej';
 //###########################################################//
 
 
@@ -628,6 +635,8 @@ $LNG['mu_cronjob']					= 'Cronjobs';
 $LNG['mu_logs']						= 'Admin-Log';
 $LNG['mu_giveaway']					= 'Bonusy';
 $LNG['mu_disclamer']				= 'Ustawienia prawne';
+$LNG['mu_dump']						= 'Baza danych - Kopia';
+
 
 $LNG['vt_error']					= 'Błąd plików - wymagana aktualizacja!';
 $LNG['vt_fail']						= 'Zmienione Pliki';
@@ -645,7 +654,6 @@ $LNG['vt_filefail']					= 'zmienione pliki ';
 $LNG['vt_filenew']					= 'nowe pliki';
 $LNG['vt_fileerror']				= 'Błąd';
 $LNG['vt_loadfile']					= 'Szczegóły';
-
 //###########################################################//
 
 $LNG['cc_cache_clear']				= 'Cache Usunięto'; 
@@ -1117,7 +1125,7 @@ $LNG['uvs_new']							= 'Nowe uniwersum';
 $LNG['uvs_planets']						= 'Planety';
 $LNG['uvs_upload']						= 'Załaduj';
 $LNG['uvs_error']						= 'Niepoprawny lub błędny plik!';
-$LNG['uvs_reload']						= 'Neuladen';
+$LNG['uvs_reload']						= 'Załaduj ponownie';
 $LNG['uvs_back']						= 'Powrót';
 
 //Update Page
@@ -1210,6 +1218,7 @@ $LNG['log_usettings']					= 'Ustawienia uniwersum';
 $LNG['log_statsettings']				= 'Ustawienia statystyk';
 $LNG['log_chatsettings']				= 'Ustawienia Chat';
 $LNG['log_tssettings']					= 'Teamspeak-Konfiguration';
+$LNG['log_disclamersettings']			= 'Impressum';
 $LNG['log_uni_short']					= 'Uni';
 $LNG['log_universe']					= 'Universum';
 
@@ -1255,8 +1264,12 @@ $LNG['cronjob_lock']				= 'Zablokowane';
 $LNG['cronjob_is_lock']				= 'Tak';
 $LNG['cronjob_is_unlock']			= 'Nie';
 
+
+
+
 $LNG['cronjob_inactive']			= 'Tak';
 $LNG['cronjob_active']				= 'Nie';
+
 // Giveaway
 $LNG['ga_success']						= 'Udane!';
 $LNG['ga_selectplanettype']				= 'Wybierz conajmniej jedną planetę!';
@@ -1266,9 +1279,9 @@ $LNG['ga_homecoordinates']				= 'Tylko koordynaty planety domowej';
 $LNG['ga_no_inactives']					= 'Wyklucz nie aktywnych';
 
 // Old SupportTicket Keys
-
 $LNG['supp_header'] 						= 'Pomoc techniczna';
 $LNG['supp_header_g'] 						= 'Zamknięte wiadomości';
+
 $LNG['ticket_id'] 							= '#Ticket-ID';
 $LNG['subject'] 							= 'Temat';
 $LNG['status'] 								= 'Status';
@@ -1296,4 +1309,12 @@ $LNG['supp_admin_answer'] 					= 'Admin- Odpowiedź';
 $LNG['supp_player_write'] 					= '%s napisał o %s';
 $LNG['supp_player_answer'] 					= 'Odpowiedź gracza';
 
+// SQL-Dumper
+
+$LNG['du_header']					= 'Baza danych - ustawienia kopii';
+$LNG['du_submit']					= 'Wyślij';
+$LNG['du_select_all_tables']		= 'Wszystkie Tabele';
+$LNG['du_choose_tables']			= 'Wybierz tabele';
+$LNG['du_success']					= 'Utworzono kopię pomyślnie! Dane: %s';
+$LNG['du_not_tables_selected']		= 'Nie wybrałeś tabel!';
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012

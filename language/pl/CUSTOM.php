@@ -1,6 +1,7 @@
 <?php
-
 /**
+ * 
+ *
  *  2Moons
  *  Copyright (C) 2012 Jan Kr�pke
  *
@@ -10,7 +11,7 @@
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * but WITHOUT ANY WARRANTY'; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
  *
@@ -28,3 +29,8 @@
  
 // If you have custom lang vars, you can include them here. The file ll be not overwrite by updatemanager
 // Also you can overwrite exists var, too. You use the same key.
+//Race
+
+					
+
+ ?>
