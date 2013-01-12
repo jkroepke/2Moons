@@ -106,33 +106,33 @@ $LNG['ad_editor_authlevels'] ='Permissions';
 $LNG['ad_add_not_exist']		='ID does not exist!';
 
 //	Pesquisas
-$LNG['ad_add_succes'] ='The Research has been inserted successfully!';
-$LNG['ad_delete_succes'] ='The Research has been removed successfully!';
+$LNG['ad_add_tech_success'] ='The Research has been inserted successfully!';
+$LNG['ad_delete_tech_success'] ='The Research has been removed successfully!';
 $LNG['ad_research_title'] ='Research';
 $LNG['ad_research'] ='Research';
 
-//	OFICIALES - OFFICIERS - OFFIZIERE
+//	Officiais
 $LNG['ad_offi_title'] ='Officiers';
 $LNG['ad_offi'] ='Officiers';
-$LNG['ad_offi_succes_add'] ='The Officiers were entered successfully!';
-$LNG['ad_offi_succes_delete'] ='The Officiers were removed successfully!';
+$LNG['ad_add_offi_success'] ='The Officiers were entered successfully!';
+$LNG['ad_delete_offi_success'] ='The Officiers were removed successfully!';
 
 //	Recursos
-$LNG['ad_add_sucess'] ='Resources have been inserted successfully!';
-$LNG['ad_delete_sucess'] ='The Researches were removed successfully!';
+$LNG['ad_add_res_sucess'] ='Resources have been inserted successfully!';
+$LNG['ad_delete_res_sucess'] ='The Researches were removed successfully!';
 $LNG['ad_main_title'] ='Ressources and Technologies';
 
 //	Naves
 $LNG['ad_ships_title'] ='Ships';
 $LNG['ad_ships'] ='Ships';
-$LNG['ad_add_sucess_ships'] ='The ships have been uploaded successfully!';
-$LNG['ad_delete_sucess_ships'] ='The ships were removed successfully!';
+$LNG['ad_add_ships_sucess'] ='The ships have been uploaded successfully!';
+$LNG['ad_delete_ships_sucess'] ='The ships were removed successfully!';
 
 //	Defesas
 $LNG['ad_defenses_title'] ='Defences';
 $LNG['ad_defenses'] ='Defences';
-$LNG['ad_add_defenses_succes'] ='The defenses were uploaded successfully!';
-$LNG['ad_delete_defenses_succes'] ='The defenses were removed successfully!';
+$LNG['ad_add_defenses_success'] ='The defenses were uploaded successfully!';
+$LNG['ad_delete_defenses_success'] ='The defenses were removed successfully!';
 
 //	Edificios
 $LNG['ad_buildings_title'] ='Buildings';
@@ -140,8 +140,8 @@ $LNG['ad_buildings'] ='Buildings';
 $LNG['ad_planet_id'] ='ID of the planet or Moon';
 $LNG['ad_levels'] ='Level';
 $LNG['ad_count'] ='Number';
-$LNG['ad_add_succes'] ='The buildings were entered successfully!';
-$LNG['ad_delete_succes'] ='The buildings were removed successfully!';
+$LNG['ad_add_build_success'] ='The buildings were entered successfully!';
+$LNG['ad_delete_build_success'] ='The buildings were removed successfully!';
 
 // Dados Pessoais
 $LNG['ad_personal_title'] ='Edit Personal Data';
@@ -615,6 +615,7 @@ $LNG['mu_cronjob']					= 'Cronjobs';
 $LNG['mu_logs']						= 'Admin Log';
 $LNG['mu_giveaway']					= 'Giveaways';
 $LNG['mu_disclamer']				= 'Contact settings';
+$LNG['mu_dump']						= 'Database Backup';
 
 $LNG['vt_error']					='Hashfile is not available! - Run Update!';
 $LNG['vt_fail']						='Changed Files';
@@ -1287,3 +1288,11 @@ $LNG['supp_open'] 							='Open';
 $LNG['supp_admin_answer'] 					='Administrator response';
 $LNG['supp_player_write'] 					='%s written on %s';
 $LNG['supp_player_answer'] 					='Player response';
+
+// SQL-Dumper
+$LNG['du_header']					= 'Database Backup';
+$LNG['du_submit']					= 'Submit';
+$LNG['du_select_all_tables']		= 'All Tables';
+$LNG['du_choose_tables']			= 'Select tables';
+$LNG['du_success']					= 'Backup created successfully! File: %s';
+$LNG['du_not_tables_selected']		= 'You have no tables selected to backup!';

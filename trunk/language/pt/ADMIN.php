@@ -124,28 +124,28 @@ $LNG['ad_delete_succes']		= 'A pesquisa foi removida com sucesso!';
 $LNG['ad_research_title']		= 'Pesquisa';
 $LNG['ad_research']		= 'Pesquisas';
 
-//	OFICIALES - OFFICIERS - OFFIZIERE
+//	Oficiais
 $LNG['ad_offi_title']			= 'Oficiais';
 $LNG['ad_offi']					= 'Oficiais';
-$LNG['ad_offi_succes_add']		= 'Os oficiais foram inseridos com sucesso!';
-$LNG['ad_offi_succes_delete']	= 'Os oficiais foram removidos com sucesso!';
+$LNG['ad_add_offi_success']		= 'Os oficiais foram inseridos com sucesso!';
+$LNG['ad_delete_offi_success']	= 'Os oficiais foram removidos com sucesso!';
 
 //	Recursos
-$LNG['ad_add_sucess']		= 'Os recursos foram inseridos com sucesso!';
-$LNG['ad_delete_sucess']	= 'Os recursos foram removidos com sucesso!';
+$LNG['ad_add_res_sucess']		= 'Os recursos foram inseridos com sucesso!';
+$LNG['ad_delete_res_sucess']	= 'Os recursos foram removidos com sucesso!';
 $LNG['ad_main_title']		= 'Recursos e Tecnologias';
 
 //	Naves
 $LNG['ad_ships_title']			= 'Naves';
 $LNG['ad_ships']			= 'Naves';
-$LNG['ad_add_sucess_ships']		= 'As naves foram inseridas com sucesso!';
-$LNG['ad_delete_sucess_ships']	= 'As naves foram removidas com sucesso!';
+$LNG['ad_add_ships_sucess']		= 'As naves foram inseridas com sucesso!';
+$LNG['ad_delete_ships_sucess']	= 'As naves foram removidas com sucesso!';
 
 //	Defesas
 $LNG['ad_defenses_title']			= 'Defesas';
 $LNG['ad_defenses']			= 'Defesas';
-$LNG['ad_add_defenses_succes']		= 'As defesas foram inseridas com sucesso!';
-$LNG['ad_delete_defenses_succes']	= 'As defesas foram removidas com sucesso!';
+$LNG['ad_add_defenses_success']		= 'As defesas foram inseridas com sucesso!';
+$LNG['ad_delete_defenses_success']	= 'As defesas foram removidas com sucesso!';
 
 //	Edificios
 $LNG['ad_buildings_title']	= 'Edificios';
@@ -153,8 +153,8 @@ $LNG['ad_buildings']	= 'Edificios';
 $LNG['ad_planet_id']		= 'ID de Planeta ou Lua';
 $LNG['ad_levels']			= 'Nivel';
 $LNG['ad_count']			= 'Numero';
-$LNG['ad_add_succes']		= 'Os edificios foram inseridos com sucesso!';
-$LNG['ad_delete_succes']	= 'Os edificios foram removidos com sucesso!';
+$LNG['ad_add_build_success']		= 'Os edificios foram inseridos com sucesso!';
+$LNG['ad_delete_build_success']	= 'Os edificios foram removidos com sucesso!';
 
 // Dados Pessoais
 $LNG['ad_personal_title']		= 'Persnoalizar Dados Pessoais';
@@ -624,6 +624,7 @@ $LNG['mu_logs']				     		= 'Atividade de Administrador';
 $LNG['mu_giveaway']				     	= 'Sistema Giveaway'; 
 $LNG['mu_cronjob']					= 'Cronjobs'; 
 $LNG['mu_disclamer']				= 'Configurações de contato';
+$LNG['mu_dump']						= 'Backup da Base de Dados';
 
 $LNG['vt_error']					= 'Hashfile não está disponível! - Executar Atualização!';
 $LNG['vt_fail']						= 'Arquivos Alterados';
@@ -1287,3 +1288,11 @@ $LNG['cronjob_is_unlock']			= 'Não';
 
 $LNG['cronjob_inactive']			= 'Yes';
 $LNG['cronjob_active']				= 'No';
+
+// SQL-Dumper
+$LNG['du_header']					= 'Backup de Base de Dados';
+$LNG['du_submit']					= 'Submeter';
+$LNG['du_select_all_tables']		= 'Todas as tabelas';
+$LNG['du_choose_tables']			= 'Selecionar tabelas';
+$LNG['du_success']					= 'Backup criado com sucesso! Ficheiros: %s';
+$LNG['du_not_tables_selected']		= 'Não selecionaste tabelas para fazer backup!';

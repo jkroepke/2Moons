@@ -90,33 +90,33 @@ $LNG['ad_editor_authlevels']           = 'Полномочия';
 $LNG['ad_add_not_exist']               = 'Указанный ID не существует.';
 
 // Исследования
-$LNG['ad_add_succes']                  = 'Уровни технологии добавлены.';
-$LNG['ad_delete_succes']               = 'Уровни технологии удалены.';
+$LNG['ad_add_tech_success']            = 'Уровни технологий добавлены.';
+$LNG['ad_delete_tech_success']         = 'Уровни технологий удалены.';
 $LNG['ad_research_title']              = 'Редактор исследований';
 $LNG['ad_research']                    = 'Исследования';
 
 // Офицеры
 $LNG['ad_offi_title']                  = 'Редактор офицеров';
 $LNG['ad_offi']                        = 'Офицеры';
-$LNG['ad_offi_succes_add']             = 'Офицеры добавлены.';
-$LNG['ad_offi_succes_delete']          = 'Офицеры удалены.';
+$LNG['ad_add_offi_success']            = 'Офицеры добавлены.';
+$LNG['ad_delete_offi_success']         = 'Офицеры удалены.';
 
 // Ресурсы
-$LNG['ad_add_sucess']                  = 'Ресурсы добавлены.';
-$LNG['ad_delete_sucess']               = 'Ресурсы удалены.';
+$LNG['ad_add_res_sucess']              = 'Ресурсы добавлены.';
+$LNG['ad_delete_res_sucess']           = 'Ресурсы удалены.';
 $LNG['ad_main_title']                  = 'Редактор ресурсов';
 
 // Флот
 $LNG['ad_ships_title']                 = 'Редактор флота';
 $LNG['ad_ships']                       = 'Корабли';
-$LNG['ad_add_sucess_ships']            = 'Корабли добавлены.';
-$LNG['ad_delete_sucess_ships']         = 'Корабли удалены.';
+$LNG['ad_add_ships_sucess']            = 'Корабли добавлены.';
+$LNG['ad_delete_ships_sucess']         = 'Корабли удалены.';
 
 // Оборона
 $LNG['ad_defenses_title']              = 'Редактор обороны';
 $LNG['ad_defenses']                    = 'Оборона';
-$LNG['ad_add_defenses_succes']         = 'Оборона добавлена.';
-$LNG['ad_delete_defenses_succes']      = 'Оборона удалена.';
+$LNG['ad_add_defenses_success']        = 'Оборона добавлена.';
+$LNG['ad_delete_defenses_success']     = 'Оборона удалена.';
 
 // Постройки
 $LNG['ad_buildings_title']             = 'Редактор построек';
@@ -124,8 +124,8 @@ $LNG['ad_buildings']                   = 'Постройки';
 $LNG['ad_planet_id']                   = 'ID планеты или луны';
 $LNG['ad_levels']                      = 'Уровень';
 $LNG['ad_count']                       = 'Количество';
-$LNG['ad_add_succes']                  = 'Уровни построек добавлены.';
-$LNG['ad_delete_succes']               = 'Уровни построек удалены.';
+$LNG['ad_add_build_success']           = 'Уровни построек добавлены.';
+$LNG['ad_delete_build_success']        = 'Уровни построек удалены.';
 
 // Персональные данные
 $LNG['ad_personal_title']              = 'Редактор персональных данных';
@@ -311,7 +311,7 @@ $LNG['se_crystal_production']          = 'Добыча кристалла';
 $LNG['se_deuterium_production']        = 'Добыча дейтерия';
 $LNG['se_several_parameters']          = 'Разное';
 $LNG['se_title_admins_protection']     = 'Если поставить галочку, игроки не смогут посылать флот с любым заданием на планеты и луны Администраторов.';
-$LNG['se_admin_protection']            = 'Защита Администраторов';
+$LNG['se_admin_protection']            = 'Защита администраторов';
 $LNG['se_debug_mode']                  = 'Включить режим отладки';
 $LNG['se_save_parameters']             = 'Сохранить';
 $LNG['se_configuration_title']         = 'Общее';
@@ -345,7 +345,7 @@ $LNG['se_news_active']                 = 'Включить';
 $LNG['se_news_limit']                  = 'Максимум 255 символов.';
 $LNG['se_news_info']                   = 'Если поставить галочку, в обзоре будет отображаться блок новостей.';
 $LNG['se_news']                        = 'Содержание';
-$LNG['se_verfiy_mail']                 = 'Включить активацию';
+$LNG['se_verfiy_mail']                 = 'Включить активацию аккаунтов';
 $LNG['se_verfiy_mail_info']            = 'Если стоит галочка, то игрок должен будет активировать аккаунт после регистрации, чтобы иметь возможность играть.<br>Для работоспособности этой фукнции необходимо указать настройки SMTP.';
 $LNG['se_smtp']                        = 'Почта';
 $LNG['se_smtp_info']                   = 'В этом разделе можно задать настройки для отправки писем на электронную почту игроков.';
@@ -562,10 +562,11 @@ $LNG['mu_cronjob']                     = 'Планировщик задач';
 $LNG['mu_logs']                        = 'Логи';
 $LNG['mu_giveaway']                    = 'Подарки';
 $LNG['mu_disclamer']                   = 'Контакты';
+$LNG['mu_dump']                        = 'Резервное копирование БД';
 
 $LNG['vt_error']                       = 'Хэш файл не доступен. Выполните обновление.';
 $LNG['vt_fail']                        = 'Измененные файлы';
-$LNG['vt_info']                        = 'Этот список содержит файлы, которые содержат изменения и не соответствуют оригиналу.<br>Если Вы не меняли содержимое файлов, рекомендуется заменить файлы оригинальными.';
+$LNG['vt_info']                        = 'Это список файлов, которые содержат изменения и не соответствуют оригиналу.<br>Если Вы не меняли содержимое файлов, рекомендуется заменить файлы оригинальными.';
 $LNG['vt_head']                        = 'Проверка файлов игры';
 $LNG['vt_filephp']                     = 'Файлы PHP';
 $LNG['vt_filetpl']                     = 'Файлы шаблона';
@@ -935,7 +936,7 @@ $LNG['fb_settings']                    = 'Настройки Facebook';
 $LNG['fb_active']                      = 'Включить Facebook';
 $LNG['fb_api_key']                     = 'API ID';
 $LNG['fb_secrectkey']                  = 'Секретный ключ';
-$LNG['fb_info']                        = 'Пользователи, зарегистрированные в Facebook, могут завести аккаунт в игре, не проходя регистрацию, а используя данные из Facebook.<br><br>Чтобы использовать эту возможость Вы должны быть зарегистрированы в Facebook. Кроме того, необходимо создать приложение. Это можно сделать по следующей ссылке <a href="http://www.facebook.com/developers/">http://www.facebook.com/developers/</a>. Когда Вы укажите в игре API ID и секретный ключ, можно будет пользоваться данной возможностью.<br><br><font color="red">Должна быть настроена рассылка почты (Настройки SMTP)</font>';
+$LNG['fb_info']                        = 'Пользователи, зарегистрированные в Facebook, могут создать аккаунт в игре, не проходя регистрацию, а используя данные из Facebook.<br><br>Чтобы использовать эту возможость Вы должны быть зарегистрированы в Facebook. Кроме того, необходимо создать приложение. Это можно сделать по следующей ссылке <a href="http://www.facebook.com/developers/">http://www.facebook.com/developers/</a>. Когда Вы укажите в игре API ID и секретный ключ, можно будет пользоваться данной возможностью.<br><br><font color="red">Должна быть настроена рассылка почты (Настройки SMTP)</font>';
 $LNG['fb_curl_yes']                    = '<span style="color:green">cURL установлен.</span>';
 $LNG['fb_curl_no']                     = '<span style="color:red">cURL не установлен. Для подключения к Facebook необходимо установить cURL.</span>';
 
@@ -1130,7 +1131,7 @@ $LNG['log_disclamersettings']          = 'Контакты';
 $LNG['log_uni_short']                  = 'Вселенная';
 $LNG['log_universe']                   = 'Вселенная';
 
-// Планировщик
+// Планировщик задач
 $LNG['cronName']['referral']           = 'Реферальная система';
 $LNG['cronName']['statistic']          = 'Статистика';
 $LNG['cronName']['daily']              = 'Ежедневные задачи';
@@ -1211,3 +1212,11 @@ $LNG['supp_open']                      = 'Открыт';
 $LNG['supp_admin_answer']              = 'Админ ответил';
 $LNG['supp_player_write']              = '%s ответил %s';
 $LNG['supp_player_answer']             = 'Игрок ответил';
+
+// Резервное копирование базы данных
+$LNG['du_header']                      = 'Резервное копирование базы данных';
+$LNG['du_submit']                      = 'Создать резервную копию';
+$LNG['du_select_all_tables']           = 'Все таблицы';
+$LNG['du_choose_tables']               = 'Выбрать таблицы';
+$LNG['du_success']                     = 'Резервное копирование завершено. Название файла: %s';
+$LNG['du_not_tables_selected']         = 'Не выбрана ни одна таблица.';

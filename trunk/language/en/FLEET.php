@@ -58,7 +58,7 @@ $LNG['sys_stat_mess'] 		         		= 'Your fleet reaches the planet %s and deliv
 $LNG['sys_colo_mess_from'] 					= "Colonisation";
 $LNG['sys_colo_mess_report'] 				= "Colonisation report";
 $LNG['sys_colo_defaultname'] 				= "Colony";
-
+$LNG['sys_colo_notech'] 					= 'One of your fleets reached the coordinates %s. When your settlers approached the planet, they had to determine that their equipment still not for the prevailing climate was suitable and must be developed first. Disappointed, the settlers returned.';
 $LNG['sys_colo_arrival'] 					= "";
 $LNG['sys_colo_maxcolo'] 					= "One of your fleets reaches the coordinates %s. Ssettlement is not possible as you can only have %d planets. ";
 $LNG['sys_colo_allisok'] 					= "One of your fleets reaches the coordinates %s. The settlers start to colonise the new planet.";
@@ -171,7 +171,6 @@ $LNG['sys_destruc_lune']          		 	= 'The probability of a moon destruction i
 $LNG['sys_destruc_rip']          			= 'The probability of a self-destruction of the fleet is: %d%%';
 $LNG['sys_destruc_stop']      			 	= 'The defender has blocked the moon destruction successfully.';
 $LNG['sys_destruc_mess1']       		   	= 'The deathstars fired their tremendous energy at the moon. ';
-$LNG['sys_destruc_mess']        		   	= 'A fleet from the planet [%d:%d:%d] reached the moon at [%d:%d:%d].';
 $LNG['sys_destruc_echec']       		   	= 'Earthquakes shook the planet. But something went wrong, the deathstars exploded and disintegrated into a thousands pieces, the shockwaves took out the entire fleet.';
 $LNG['sys_destruc_reussi']      		   	= 'The deathstars beams reached the moon and teared it to pieces. <br>The entire moon was destroyed.';
 $LNG['sys_destruc_null']        		   	= 'The deathstars could not charge fully before firing and imploded.<br> The moon is not destroyed.';
