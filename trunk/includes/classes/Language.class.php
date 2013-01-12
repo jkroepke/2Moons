@@ -55,7 +55,7 @@ class Language implements ArrayAccess {
 			return true;
 		}
 		
-   		if ((MODE === 'INDEX' || MODE === 'INSTALL') && isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], self::getAllowedLangs()))
+   		if ((MODE === 'LOGIN' || MODE === 'INSTALL') && isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], self::getAllowedLangs()))
 		{
 			$this->setLanguage($_COOKIE['lang']);
 			return true;
@@ -64,7 +64,7 @@ class Language implements ArrayAccess {
 	    if (empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             return false;
         }
-
+		
 		$quality = 0;
 
 
