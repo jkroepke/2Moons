@@ -12,7 +12,7 @@ function resourceTicker(config, init) {
 	if(element.className.match(/res_current_max/) !== null)
 		return false;
 		
-	var nrResource = Math.max(0, Math.round(config.available + config.production / 3600 * (serverTime.getTime() - startTime) / 1000));
+	var nrResource = Math.max(0, Math.round(parseFloat(config.available) + parseFloat(config.production) / 3600 * (serverTime.getTime() - startTime) / 1000));
 	if (nrResource < config.limit[1]) 
 	{
 		if (nrResource >= config.limit[1])
