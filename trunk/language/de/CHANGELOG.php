@@ -22,7 +22,7 @@
  * @author Jan <slaver7@gmail.com>
  * @copyright 2011 Jan <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.0 (2012-12-31)
+ * @version 1.7.0 (2013-01-14)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -32,35 +32,104 @@ $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
 
-'v1.7' => 'Jan 08.09.2012
-- 0000048: [Fleet missions] moon destruction (Jan) - resolved.
-- 0000051: [Fleet missions] Bei Angriffen werden keine Ressourcen abgezogen. (Jan) - resolved.
-- 0000013: [Eco system] Wrong cost (Jan) - resolved.
-- 0000047: [Fleet missions] Nach Angriff, beim Verlassen des ACP, Undefined index: USER (Jan) - resolved.
-- 0000045: [Installer] Installation Error (Jan) - resolved.
-- 0000046: [Statistical] cronjobs.php (Jan) - resolved.
-- 0000044: [User errors] The same lang keys (Jan) - resolved.
-- 0000043: [Fleet missions] Revision 2320: Spy support is Ok, but attack is bug ... (Jan) - resolved.
-- 0000042: [Fleet missions] Bug spy support (Jan) - resolved.
-- 0000027: [User errors] Additional language keys (Orion) - resolved.
-- 0000009: [User errors] Two players on one account (Orion) - resolved.
-- 0000005: [Time] Phalanx sometimes dont show times. (Orion) - resolved.
-- 0000030: [Admin Panal] Im ACP Suche in Spielerliste und Planetenliste nicht möglich (Orion) - resolved.
-- 0000034: [Fleet missions] BUG Mondzerstörung mit SQL-Error (Jan) - resolved.
-- 0000028: [Galaxy] The mission selected in galaxy dont apear in fleet mission selected (Orion) - resolved.
-- 0000017: [Admin Panal] Status of the ticket does not change (Orion) - resolved.
-- 0000020: [User errors] Wrong Type of parameter in database (Orion) - resolved.
-- 0000006: [Fleet missions] Missile attack report (Jan) - resolved.
-- 0000029: [Fleet missions] Interplanetarraketen Bug PRODUZIERT Raketenwerfer (Jan) - resolved.
-- 0000010: [User errors] SupportPage.tpl is unused (Jan) - resolved.
-- 0000007: [Galaxy] Type of planet in galaxy (Orion) - resolved.
-- 0000008: [Fleet missions] fl_admins_cannot_be_attacked absent in the language files (Orion) - resolved.
-- 0000026: [Officier] Incorrect wrapping of description (Orion) - resolved.
-- 0000019: [Statistical] Worng title of page (Orion) - resolved.
-- 0000021: [Admin Panal] In tooltip does not show text (Orion) - resolved.
-- 0000022: [Eco system] Counter resources on the moon rise (Orion) - resolved.
-- 0000025: [Officier] Two minus in description (Orion) - resolved.
-- 0000003: [Admin Panal] Modules (Orion) - closed.
+'v1.7' => 'Jan 12.01.2013
+- 0000327: [Feature request] allowPlanetPosition integrieren (FC92) - resolved.
+- 0000316: [Feature request] List of alliances when concluding the contract (FC92) - resolved.
+- 0000328: [Admin Panal] CleanerCronjob SQL error (FC92) - resolved.
+- 0000330: [Admin Panal] Adding fleet (FC92) - resolved.
+- 0000331: [Feature request] Duplication of information in the combat report (FC92) - resolved.
+- 0000333: [Feature request] Contract of alliances (FC92) - resolved.
+- 0000336: [Alliance] A lot of confusion in the language keys two types of contracts (war and secret alliance) (FC92) - resolved.
+- 0000338: [Alliance] You can offer an infinite number of identical contracts from one alliance to one alliance (FC92) - resolved.
+- 0000339: [User errors] Falsche DE email_inactive.txt Texte (FC92) - resolved.
+- 0000312: [Feature request] Backup schedule (FC92) - resolved.
+- 0000322: [Feature request] Button to add the rank (FC92) - resolved.
+- 0000014: [Officier] Mixed up the description extraDM (Orion) - resolved.
+- 0000016: [Time] The extra zero in ACP -> Online users (Orion) - resolved.
+- 0000031: [User errors] Beim automatischen löschen eines Spieler der Mitglied in einer Ali ist, wird der kompletten Ali-Datensatz gelöscht! (Orion) - resolved.
+- 0000039: [Installer] Installation Error (Jan) - resolved.
+- 0000041: [Fleet missions] class.FlyingFleetsTable.php Ref 2306 verursacht undefined Index PM, kein Login mehr möglich. (Orion) - resolved.
+- 0000065: [Alliance] Error when you enter in menu Alliance (Jan) - resolved.
+- 0000072: [User errors] PHP Fatal error bei Ref 2349 (Orion) - resolved.
+- 0000076: [Fleet missions] Flying fleets disappear (Jan) - resolved.
+- 0000152: [User errors] PHPMailer Exception handling (Jan) - resolved.
+- 0000164: [Statistical] int -> bigint (Jan) - resolved.
+- 0000191: [Admin Panal] Default Installation Typo? (Jan) - resolved.
+- 0000225: [Statistical] Bein Aufruf eines KB aus der Hall of Fame Error: Undefined variable: CombatReport / Ref 2491 (Jan) - resolved.
+- 0000233: [Installer] Fix installer with new language class (Jan) - resolved.
+- 0000234: [Installer] Unkown Config Key lang (Jan) - resolved.
+- 0000236: [Langauge] Error in language class (Jan) - resolved.
+- 0000315: [Eco system] DailyCronjob locks when using other table prefix (FC92) - resolved.
+- 0000309: [Admin Panal] Reply to the ticket after it is closed (FC92) - resolved.
+- 0000303: [Officier] Officer 610 (Jan) - resolved.
+- 0000298: [Fleet missions] Treibstoffverbrauch bei Stationieren und Transport ist immer gleich! (Jan) - resolved.
+- 0000319: [Alliance] Undefined variable: rankRow (FC92) - resolved.
+- 0000320: [Alliance] Button to save the rank does not work (FC92) - resolved.
+- 0000313: [Time] Incorrect time in the teleport (Jan) - resolved.
+- 0000317: [Admin Panal] InactiveMailCronjob lock with PHP Fatal error: Cannot redeclare class Mail (Jan) - resolved.
+- 0000176: [User errors] Undefined index: moonChance (Jan) - resolved.
+- 0000321: [Alliance] In the ranks the picture is missing (Jan) - resolved.
+- 0000323: [Feature request] HTML editor (Jan) - resolved.
+- 0000311: [Fleet missions] Some fleet missions are not working (Jan) - resolved.
+- 0000310: [Feature request] Dynamic the remaining flight time (Jan) - resolved.
+- 0000308: [Admin Panal] Support system (Jan) - resolved.
+- 0000304: [User errors] Settings - Number spy probe (Jan) - resolved.
+- 0000300: [User errors] Bei Mondversuch erhalte ich bei bestimmten angriffen folgende fehlermeldung (Jan) - resolved.
+- 0000307: [Langauge] ru/email/email_inactive.txt: failed to open stream (Jan) - resolved.
+- 0000306: [User errors] SQL Error: Unknown column 'Array' (Jan) - resolved.
+- 0000231: [Feature request] The name of the object in the battle report. (Jan) - resolved.
+- 0000105: [Feature request] Create a MySQL Backup solution (Jan) - resolved.
+- 0000179: [Officier] ExtraDM 705 does not add energy (Jan) - resolved.
+- 0000299: [Installer] Smarty error in installer (Jan) - resolved.
+- 0000220: [Fleet missions] Jump Gates not allowing jumps (Jan) - resolved.
+- 0000295: [User errors] Kein Login mit IE8 möglich, Error: "Undefined offset: 1" (Jan) - resolved.
+- 0000296: [Admin Panal] ReferralCronjob BUG, PHP Fatal error: Call to a member function setDefault() (Jan) - resolved.
+- 0000180: [Officier] rpg_espion not work (Jan) - resolved.
+- 0000186: [Fleet missions] A lot of problems with fleet mission (Jan) - resolved.
+- 0000197: [Cheat] The Phalanax shows deployment mission at origin planet (Jan) - resolved.
+- 0000221: [Officier] Officer General ADDs fleet time (Jan) - resolved.
+- 0000211: [Fleet missions] [FIX] Interplanetarraketen (Jan) - resolved.
+- 0000206: [Feature request] 2 neue Variabeln für aktuelle Forschung & Schiffbau einbauen (Jan) - resolved.
+- 0000223: [Alliance] Missing key in alliance home page (Jan) - resolved.
+- 0000204: [Admin Panal] Teamspeak-Cronjob geht auf lock (Jan) - resolved.
+- 0000192: [Admin Panal] Cronjob CleanerCronjob geht auf lock, inaktive User werde nicht gelöscht. (Jan) - resolved.
+- 0000153: [Feature request] Block PMs (Jan) - resolved.
+- 0000172: [Admin Panal] The page numbering does not fit on the screen (Jan) - resolved.
+- 0000185: [Admin Panal] User Ban Panel (Jan) - resolved.
+- 0000194: [Langauge] Typo in Vac Mod (Jan) - resolved.
+- 0000198: [Feature request] Market (Jan) - resolved.
+- 0000202: [Langauge] Delete Player confirmation text typo (Jan) - resolved.
+- 0000219: [Admin Panal] Aktivierungs Probleme, nach der Registration (Jan) - resolved.
+- 0000226: [Fleet missions] Expeditionen können nicht gestartet werden, FIX 187 nicht ganz vollständig ! (Jan) - resolved.
+- 0000227: [Installer] Fix to installer (Jan) - resolved.
+- 0000228: [Alliance] Bug in alliance manage rights (Jan) - resolved.
+- 0000229: [Admin Panal] Bug in info page (Jan) - resolved.
+- 0000230: [Alliance] Text wrong in alliance view member (Jan) - resolved.
+- 0000232: [Eco system] Better buildings page (Jan) - resolved.
+- 0000196: [Eco system] Different encoding across PHP scripts (not always UTF-8) (Jan) - resolved.
+- 0000168: [User errors] Not work switcher pages (Jan) - resolved.
+- 0000205: [Admin Panal] Infos aus der "Nachrichtenliste" können nicht geöffnet werden, Error [object Object] (Jan) - resolved.
+- 0000184: [Fleet missions] DM Untersuchung (Jan) - resolved.
+- 0000177: [Feature request] To loser comes abbreviated battle report (Jan) - resolved.
+- 0000199: [Admin Panal] Admin Logs (Jan) - resolved.
+- 0000210: [Admin Panal] Bei Erstellung von neuen Usern über ACP werden nicht alle Infotexte angezeigt. (Jan) - resolved.
+- 0000216: [Fleet missions] Expeditionsnachrichten (Jan) - resolved.
+- 0000203: [Admin Panal] News im ACP können nicht erstellt oder geändert werden. (Jan) - resolved.
+- 0000208: [Feature request] Building queue Update (Jan) - resolved.
+- 0000209: [Fleet missions] Verband kann nicht aktiviert werden (Jan) - resolved.
+- 0000212: [Alliance] [FIX] Delete Alliance Rank (Jan) - resolved.
+- 0000214: [Fleet missions] Rückkehrmeldungen enthalten falschen Planeten (Jan) - resolved.
+- 0000217: [Admin Panal] ACP/ Uni Konfigurations seite (Jan) - resolved.
+- 0000215: [Fleet missions] Meldung von Expedition bei finden von Schiffen anpassen (Jan) - resolved.
+- 0000183: [Feature request] Händler Funtioniert nicht ganz (Jan) - resolved.
+- 0000161: [Admin Panal] Cronjobs können nicht richtig gesetzt werden und werden nicht abgearbeitet. (Jan) - resolved.
+- 0000189: [Fleet missions] Able to attack while in VMODE (Jan) - resolved.
+- 0000173: [Langauge] Two identical language key in a file ADMIN.php (Jan) - resolved.
+- 0000174: [User errors] Undefined index: lm_changelog (Jan) - resolved.
+- 0000175: [Admin Panal] Cleaning the cache does not work correctly (Jan) - resolved.
+- 0000170: [Admin Panal] File CUSTOM.php does not overwrite the values of language keys ADMIN.php (Jan) - resolved.
+- 0000169: [Admin Panal] Wrong reduction in numbers (Jan) - resolved.
+- 0000127: [Fleet missions] Recycling missions with max transported resources fail [with solution] (Jan) - closed.
 TMOONS-22 - In admin panel issue
 TMOONS-106 - Werte des Atomkraftwerks bei Bonus kopiert (Deuterium)
 TMOONS-137 - Kein Login nach Update von Ref 2091 auf 2104 mehr möglich
