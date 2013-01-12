@@ -66,7 +66,7 @@ $LNG['sys_stat_mess'] 		         	= 'A tua frota chegou ao planeta %s e entregou
 $LNG['sys_colo_mess_from']              = 'Colonização';
 $LNG['sys_colo_mess_report'] 			= "Relatório de colonização";
 $LNG['sys_colo_defaultname'] 			= "Colónia";
-
+$LNG['sys_colo_notech'] 					= 'As tuas naves alcançaram as coordenadas %s. Quando os teus colonos aproximaram-se do planeta, eles tinham que determinar que seu equipamento ainda não para o clima predominante foi adequado e deve ser desenvolvido primeiro. Decepcionado, os colonos voltaram.';
 $LNG['sys_colo_arrival'] 				= "A nave de colonização chegou às coordenadas ";
 $LNG['sys_colo_maxcolo'] 				= "A nave de colonização chegou às coordenadas %s, Mas infelizmente, não pode colonizar, não podes ter mais de ";
 $LNG['sys_colo_allisok'] 				= "A nave de colonização chegou às coordenadas %s, A tua colónia acabou de ser colonizada podes começar a construir nela.";
@@ -176,7 +176,6 @@ $LNG['sys_destruc_lune'] 				= "A probabilidade de destruição de lua foi de: %
 $LNG['sys_destruc_rip'] 				= "A probabilidade das estrelas serem destruídas no confronto é de: %d%% ";
 $LNG['sys_destruc_stop'] 				= "O defensor não conseguiu evitar a destruição da sua lua";
 $LNG['sys_destruc_mess1'] 				= "As estrelas da morte causam gravitação na órbita da lua";
-$LNG['sys_destruc_mess'] 				= "Uma frota do planeta [%d:%d:%d] vai à lua do planeta [%d:%d:%d].";
 $LNG['sys_destruc_echec'] 				= ".As tuas estrelas da morte e os seus gravitões produziram enormes terramotos na estrutura da lua mas não foram suficientemente fortes para uma lua deste tamanho. O seu ataque foi refletido pela lua e destruiu toda a frota";
 $LNG['sys_destruc_reussi'] 				= ",<br> As tuas estrelas da morte e os seus gravitões produziram enormes terramotos na estrutura da lua.<br> A lua entrou em colapso e foi destruída";
 $LNG['sys_destruc_null'] 				= ", As tuas estrelas da morte e os seus gravitões não têm energia suficiente para fazer qualquer estrago nesta lua.<br> A lua absorveu a onda de gravitões na sua superfície.<br> A frota retornará da sua missão sem ter destruído a lua";

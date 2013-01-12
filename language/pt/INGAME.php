@@ -298,7 +298,6 @@ $LNG['fl_hours']                            = 'Horas';
 $LNG['fl_resources_left']				    = 'Capacidade Desponível';
 $LNG['fl_all_resources']			        = 'Todos os recursos';
 $LNG['fl_multi_alarm']						= 'Multi alarme!';
-$LNG['fl_admins_cannot_be_attacked']			= 'Os administradores não podem ser atacados';
 $LNG['fl_empty_target']						= 'Sem missão disponivel (o planeta existe?)';
 $LNG['fl_expedition_alert_message']		    = 'Atenção ! Exploração espacial são missões perigosas, podes perder a tua frota!';
 $LNG['fl_dm_alert_message']                 = 'Tem cuidado, se em %s %s foi encontrada, destruiu as frotas!';
@@ -353,7 +352,6 @@ $LNG['fl_target_not_exists']				= 'Planeta de destino não existe!';
 $LNG['fl_only_planets_colonizable']			= 'Apenas planetas podem ser colonizados.';
 $LNG['fl_player_is_noob']					= 'Jogador está na proteção Noob!';
 $LNG['fl_player_is_strong']					= 'Jogador é muito forte!';
-$LNG['fl_tech_for_position_required']		= 'Precisas de nível %s % d, a fim de ocupar esta posição!';
 $LNG['fl_no_hold_depot']					= 'Nenhum depósito Aliança situa-se no alvo.';
 $LNG['fl_not_enough_deuterium']				= 'Sem deutério disponível.';
 $LNG['fl_not_enough_space']					= 'Não tens carga suficiente';
@@ -456,6 +454,7 @@ $LNG['tt_lvl']								= 'Nivel ';
 
 //----------------------------------------------------------------------------//
 // Infos
+$LNG['in_jump_gate_no_target']				= 'Sem alvo disponivel';
 $LNG['in_jump_gate_done']					='O portal de salto foi usado, poderás voltar a usá-lo em:';
 $LNG['in_jump_gate_error_data']			    = 'Erro, coordenadas para salto não estão corretas!';
 $LNG['in_jump_gate_not_ready_target']		= 'O portal não está pronto na lua de destino, Estará pronto em ';
@@ -698,6 +697,7 @@ $LNG['al_diplo_level'][3]                   = 'Pacto de Comercio';
 $LNG['al_diplo_level'][4]                   = 'Pacto de não agressão';
 $LNG['al_diplo_level'][5]                   = 'Guerra';
 $LNG['al_diplo_level'][6]					= 'Aliança Secreta';
+$LNG['al_diplo_exists']						= 'Atualmente já existe algum pacto ou algum pedido sobre a aliança "%s"!';
 $LNG['al_diplo_no_entry']                   = '- Não existe nenhum pacto -';
 $LNG['al_diplo_no_accept']                  = '- Sem pedidos desponíveis -';
 $LNG['al_diplo_accept']                     = 'Os pedidos de entrada';
@@ -1094,6 +1094,7 @@ $LNG['ti_status_closed'] 					= 'Fechado';
 $LNG['ti_status_answer'] 					= 'Resposta';
 $LNG['ti_admin_open'] 						= 'O ticket foi aberto!';
 $LNG['ti_admin_close'] 						= 'O ticket foi fechado!';
+$LNG['ti_error_closed'] 					= 'Não é possivel responder porque o ticket foi fechado.';
 $LNG['ti_create_info']						= '<p>Por favor, quando criares um Ticket de Suporte, descreve e explica qual é a sua questão com o máximo detalhe possível!</p>
 <p>Uma descrição detalhada do que pretendes perguntar, encurta a duração do tempo de resolução e evita a perda de tempo de ambos os lados</p>
 <p>Para questões relacionadas com contas, especificar facilita a atribuição do problema e também encurta o tempo.</p>';
@@ -1133,7 +1134,7 @@ $LNG['bs_cancel']                           = "Limpar";
 $LNG['bs_wait']								= "Aguarde 10 segundos pela proxima simulação";
 $LNG['bs_acs_slot']							= 'Slot ACS';
 $LNG['bs_add_acs_slot']						= 'Adicionar Slot de ACS';
-
+$LNG['bs_reset']							= 'Reiniciar';
 //----------------------------------------------------------------------------//
 // Mercador de Naves
 

@@ -7,124 +7,222 @@ $LNG['Version']     = 'Версия';
 $LNG['Description'] = 'Описание';
 
 $LNG['changelog']   = array(
-'v1.7' => 'Jan 10.03.2012
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-22\'>TMOONS-22</a>] - In admin panel issue
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-106\'>TMOONS-106</a>] - Werte des Atomkraftwerks bei Bonus kopiert (Deuterium)
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-137\'>TMOONS-137</a>] - Kein Login nach Update von Ref 2091 auf 2104 mehr möglich
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-154\'>TMOONS-154</a>] - Login doesn&#39;t work
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-157\'>TMOONS-157</a>] - Versatz und Fehler meldung bei Spionage
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-159\'>TMOONS-159</a>] - Regestrierung geht nicht!!
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-161\'>TMOONS-161</a>] - New versions errors!
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-163\'>TMOONS-163</a>] - Koloniesieren
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-165\'>TMOONS-165</a>] - Admin control panel, cannot create new player
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-166\'>TMOONS-166</a>] - IPM does not work
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-169\'>TMOONS-169</a>] - Konfiguration der Planeten in Galaxie
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-170\'>TMOONS-170</a>] - It&#39;s imposible sen fleets
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-173\'>TMOONS-173</a>] - Error in Flotten und in Technologie
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-174\'>TMOONS-174</a>] - Undefined constant in index.php
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-176\'>TMOONS-176</a>] - Undefined index: shipsNeed at game.php?page=galaxy
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-181\'>TMOONS-181</a>] - Kristall Fehlt :)
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-188\'>TMOONS-188</a>] - Statistik
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-189\'>TMOONS-189</a>] - Händler fehler
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-190\'>TMOONS-190</a>] - Die Aufgerufene Seite existiert nicht
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-191\'>TMOONS-191</a>] - System 500 error
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-196\'>TMOONS-196</a>] - Reports of failed construction
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-198\'>TMOONS-198</a>] - Rohstoffe Produktion einstellen
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-199\'>TMOONS-199</a>] - Händler 
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-205\'>TMOONS-205</a>] - Die Aufgerufene Seite existiert nicht
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-206\'>TMOONS-206</a>] - Technologie
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-207\'>TMOONS-207</a>] - User über Admin erstellen
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-208\'>TMOONS-208</a>] - Flotte verschicken
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-209\'>TMOONS-209</a>] - install Fehler
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-211\'>TMOONS-211</a>] - Gebäude Timer Overview
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-216\'>TMOONS-216</a>] - Error beim Flottenversand
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-218\'>TMOONS-218</a>] - Infos von Offizieren können nicht aufgerufen werden
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-219\'>TMOONS-219</a>] - Error Account-Information aus ACP
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-223\'>TMOONS-223</a>] - Fleet vanished
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-228\'>TMOONS-228</a>] - Error log #2
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-235\'>TMOONS-235</a>] - Date of block
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-236\'>TMOONS-236</a>] - Vacation and flying fleet
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-238\'>TMOONS-238</a>] - Error beim Aufruf der Galaxie über Koordinaten in Playercard / Siehe sceenshot 
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-239\'>TMOONS-239</a>] - Keine Flottendaten beim Versand / NUR IE8 !
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-240\'>TMOONS-240</a>] - Error in Flotten bei Mission Angriff 
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-245\'>TMOONS-245</a>] - Händler kann nicht gerufen werden
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-246\'>TMOONS-246</a>] - Support-Ticket kann weder gelöscht noch geschlossen werden.
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-247\'>TMOONS-247</a>] - Error in Flotten bei Mission Transport und maximalen Rohstoffen
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-248\'>TMOONS-248</a>] - Planetenauswahl zeigt immer ersten Planeten
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-249\'>TMOONS-249</a>] - Hall of Fame wird nicht angezeigt
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-250\'>TMOONS-250</a>] - Lösch-Icon /styles/images/r1.png nicht vorhanden
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-251\'>TMOONS-251</a>] - Double key
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-254\'>TMOONS-254</a>] - anflug auf Mond nicht möglich
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-256\'>TMOONS-256</a>] - User erstellen im Admin
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-257\'>TMOONS-257</a>] - Planetmenu (PlanetAction)
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-258\'>TMOONS-258</a>] - Error Allianz Rundmail
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-259\'>TMOONS-259</a>] - Errormeldung Login Versuch wenn Game gesperrt 
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-260\'>TMOONS-260</a>] - Schrotthändler, Schiffe werden nicht abgezogen, Ressourcenanzeige beim Schrotthändler falsch
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-261\'>TMOONS-261</a>] - Error bei Abbruch einer Bauschleife im Baumenü bei mehr als einen Eintrag
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-263\'>TMOONS-263</a>] - Error nach Sprachumstellung auf Russisch
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-264\'>TMOONS-264</a>] - The doubling of the fleet
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-265\'>TMOONS-265</a>] - Zeitzone kann im ACP nicht gespeicher/geändert werden
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-266\'>TMOONS-266</a>] - Error Allianz-Chat
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-267\'>TMOONS-267</a>] - Fleet-Points haben sich gigantisch vergrößert!
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-268\'>TMOONS-268</a>] - Aktuelle 1.7. Version - Fehler bei der Installation
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-269\'>TMOONS-269</a>] - Technologie trotz Erfüllung der Voraussetzungen, Farbanzeige rot
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-271\'>TMOONS-271</a>] - Gamespeed wirkt sich nicht auf Enegie-Produktion aus
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-272\'>TMOONS-272</a>] - Gebäude Produzieren nichts und lassen sich nicht ausbauen.
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-273\'>TMOONS-273</a>] - Spionageberichte unformatiert 
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-274\'>TMOONS-274</a>] - Ban-Panel Einträge werden nicht mehr gelöscht und Spielername und Adminname sind vertauscht
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-275\'>TMOONS-275</a>] - Error bei Changelog-Anzeige !
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-276\'>TMOONS-276</a>] - Doppelte Texte in Forschung
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-278\'>TMOONS-278</a>] - Schrotthändler, Kristall und Deuterium wird nicht richtig verbucht
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-281\'>TMOONS-281</a>] - Händler, Beträge werden falsch verbucht
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-282\'>TMOONS-282</a>] - Error in Error.log
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-283\'>TMOONS-283</a>] - Flotten, Verband, Error  - Die Aufgerufene Seite existiert nicht
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-284\'>TMOONS-284</a>] - Spielername ändern in Einstellungen
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-285\'>TMOONS-285</a>] - Error Planeten löschen im ACP
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-286\'>TMOONS-286</a>] - Error bei Abbruch von aktiver Forschung bei mehreren Einträgen
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-287\'>TMOONS-287</a>] - Error beim Auflösen einer Allianz
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-289\'>TMOONS-289</a>] - Allianz, Bewerbungen -&gt; Die Bewerbung existiert nicht.
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-291\'>TMOONS-291</a>] - Error bei Löschen einer Bauphase in Schiffswerft oder Verteidigung ohne Markierung eines Eintrags
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-292\'>TMOONS-292</a>] - Manually update
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-294\'>TMOONS-294</a>] - Lang keys change places
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-295\'>TMOONS-295</a>] - Lang key in page.notes.default.tpl
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-299\'>TMOONS-299</a>] - Error bei laufender Forschung wenn Wechsel auf Planeten wo diese Art der Forschung noch nicht vorhanden
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-300\'>TMOONS-300</a>] - Schrotthändler Meldung immer &quot;erfolgreich umgetauscht&quot;
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-303\'>TMOONS-303</a>] - Passwortänderung wird nicht gespeichert
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-304\'>TMOONS-304</a>] - Gebäude Infos
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-305\'>TMOONS-305</a>] - Flotten, Schiffe werden bei Angriff nicht verschickt
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-306\'>TMOONS-306</a>] - Lang key in page.galaxy.default.tpl
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-307\'>TMOONS-307</a>] - ExtraDM description
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-309\'>TMOONS-309</a>] - Error.log in alpha 3
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-310\'>TMOONS-310</a>] - Page does not exist
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-313\'>TMOONS-313</a>] - Benötigte Ressourcen für Solarkraftwerk viel zu hoch.
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-314\'>TMOONS-314</a>] - Error Undefined variable: RPLANET 
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-315\'>TMOONS-315</a>] - Error.log gesammelte Einträge
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-316\'>TMOONS-316</a>] - Im ACP bei &quot;Fliegende Flotten&quot; fehlerhafte Stationszeit
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-318\'>TMOONS-318</a>] - topkb error
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-320\'>TMOONS-320</a>] - Statistik update fehler
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-321\'>TMOONS-321</a>] - Die unendlichen Weiten des Universums reisen
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-322\'>TMOONS-322</a>] - Create Planet
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-323\'>TMOONS-323</a>] - Angriff nicht möglich bei Revision 100
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-324\'>TMOONS-324</a>] - Expedition
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-325\'>TMOONS-325</a>] - Nach Angriff Metallmine auf Stufe 255
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-329\'>TMOONS-329</a>] - Installation Fehler neuste Version
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-330\'>TMOONS-330</a>] - SQL Fehler
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-332\'>TMOONS-332</a>] - Flotten senden mit &quot;Max Rohstoffe&quot;
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-339\'>TMOONS-339</a>] - Error, Reflink, HTML und BBCode, Undefined index
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-340\'>TMOONS-340</a>] - Nach der Installation kommt ein fehler
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-341\'>TMOONS-341</a>] - Fehler Useranmeldung
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-343\'>TMOONS-343</a>] - Allianz auflösen geht nicht; Rev 128
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-349\'>TMOONS-349</a>] - SQL injection[<a href=\'http://tracker.2moons.cc/browse/TMOONS-193\'>TMOONS-193</a>] - Removing log_fleets
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-224\'>TMOONS-224</a>] - Page multiips
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-230\'>TMOONS-230</a>] - The intersection of the fleets
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-237\'>TMOONS-237</a>] - Button 100% production
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-297\'>TMOONS-297</a>] - Location shortcuts
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-298\'>TMOONS-298</a>] - Exchange
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-308\'>TMOONS-308</a>] - Banner
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-311\'>TMOONS-311</a>] - Backup the database
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-312\'>TMOONS-312</a>] - Pagination
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-290\'>TMOONS-290</a>] - Texte bei Offiziere und Technologie  nicht vollständig.
-[<a href=\'http://tracker.2moons.cc/browse/TMOONS-301\'>TMOONS-301</a>] - Bei &quot;Passwort vergessen&quot; keine Info dass eMail-Versand durchgeführt worden ist.
+'v1.7' => 'Jan 12.01.2013
+- 0000327: [Feature request] allowPlanetPosition integrieren (FC92) - resolved.
+- 0000316: [Feature request] List of alliances when concluding the contract (FC92) - resolved.
+- 0000328: [Admin Panal] CleanerCronjob SQL error (FC92) - resolved.
+- 0000330: [Admin Panal] Adding fleet (FC92) - resolved.
+- 0000331: [Feature request] Duplication of information in the combat report (FC92) - resolved.
+- 0000333: [Feature request] Contract of alliances (FC92) - resolved.
+- 0000336: [Alliance] A lot of confusion in the language keys two types of contracts (war and secret alliance) (FC92) - resolved.
+- 0000338: [Alliance] You can offer an infinite number of identical contracts from one alliance to one alliance (FC92) - resolved.
+- 0000339: [User errors] Falsche DE email_inactive.txt Texte (FC92) - resolved.
+- 0000312: [Feature request] Backup schedule (FC92) - resolved.
+- 0000322: [Feature request] Button to add the rank (FC92) - resolved.
+- 0000014: [Officier] Mixed up the description extraDM (Orion) - resolved.
+- 0000016: [Time] The extra zero in ACP -> Online users (Orion) - resolved.
+- 0000031: [User errors] Beim automatischen löschen eines Spieler der Mitglied in einer Ali ist, wird der kompletten Ali-Datensatz gelöscht! (Orion) - resolved.
+- 0000039: [Installer] Installation Error (Jan) - resolved.
+- 0000041: [Fleet missions] class.FlyingFleetsTable.php Ref 2306 verursacht undefined Index PM, kein Login mehr möglich. (Orion) - resolved.
+- 0000065: [Alliance] Error when you enter in menu Alliance (Jan) - resolved.
+- 0000072: [User errors] PHP Fatal error bei Ref 2349 (Orion) - resolved.
+- 0000076: [Fleet missions] Flying fleets disappear (Jan) - resolved.
+- 0000152: [User errors] PHPMailer Exception handling (Jan) - resolved.
+- 0000164: [Statistical] int -> bigint (Jan) - resolved.
+- 0000191: [Admin Panal] Default Installation Typo? (Jan) - resolved.
+- 0000225: [Statistical] Bein Aufruf eines KB aus der Hall of Fame Error: Undefined variable: CombatReport / Ref 2491 (Jan) - resolved.
+- 0000233: [Installer] Fix installer with new language class (Jan) - resolved.
+- 0000234: [Installer] Unkown Config Key lang (Jan) - resolved.
+- 0000236: [Langauge] Error in language class (Jan) - resolved.
+- 0000315: [Eco system] DailyCronjob locks when using other table prefix (FC92) - resolved.
+- 0000309: [Admin Panal] Reply to the ticket after it is closed (FC92) - resolved.
+- 0000303: [Officier] Officer 610 (Jan) - resolved.
+- 0000298: [Fleet missions] Treibstoffverbrauch bei Stationieren und Transport ist immer gleich! (Jan) - resolved.
+- 0000319: [Alliance] Undefined variable: rankRow (FC92) - resolved.
+- 0000320: [Alliance] Button to save the rank does not work (FC92) - resolved.
+- 0000313: [Time] Incorrect time in the teleport (Jan) - resolved.
+- 0000317: [Admin Panal] InactiveMailCronjob lock with PHP Fatal error: Cannot redeclare class Mail (Jan) - resolved.
+- 0000176: [User errors] Undefined index: moonChance (Jan) - resolved.
+- 0000321: [Alliance] In the ranks the picture is missing (Jan) - resolved.
+- 0000323: [Feature request] HTML editor (Jan) - resolved.
+- 0000311: [Fleet missions] Some fleet missions are not working (Jan) - resolved.
+- 0000310: [Feature request] Dynamic the remaining flight time (Jan) - resolved.
+- 0000308: [Admin Panal] Support system (Jan) - resolved.
+- 0000304: [User errors] Settings - Number spy probe (Jan) - resolved.
+- 0000300: [User errors] Bei Mondversuch erhalte ich bei bestimmten angriffen folgende fehlermeldung (Jan) - resolved.
+- 0000307: [Langauge] ru/email/email_inactive.txt: failed to open stream (Jan) - resolved.
+- 0000306: [User errors] SQL Error: Unknown column "Array" (Jan) - resolved.
+- 0000231: [Feature request] The name of the object in the battle report. (Jan) - resolved.
+- 0000105: [Feature request] Create a MySQL Backup solution (Jan) - resolved.
+- 0000179: [Officier] ExtraDM 705 does not add energy (Jan) - resolved.
+- 0000299: [Installer] Smarty error in installer (Jan) - resolved.
+- 0000220: [Fleet missions] Jump Gates not allowing jumps (Jan) - resolved.
+- 0000295: [User errors] Kein Login mit IE8 möglich, Error: "Undefined offset: 1" (Jan) - resolved.
+- 0000296: [Admin Panal] ReferralCronjob BUG, PHP Fatal error: Call to a member function setDefault() (Jan) - resolved.
+- 0000180: [Officier] rpg_espion not work (Jan) - resolved.
+- 0000186: [Fleet missions] A lot of problems with fleet mission (Jan) - resolved.
+- 0000197: [Cheat] The Phalanax shows deployment mission at origin planet (Jan) - resolved.
+- 0000221: [Officier] Officer General ADDs fleet time (Jan) - resolved.
+- 0000211: [Fleet missions] [FIX] Interplanetarraketen (Jan) - resolved.
+- 0000206: [Feature request] 2 neue Variabeln für aktuelle Forschung & Schiffbau einbauen (Jan) - resolved.
+- 0000223: [Alliance] Missing key in alliance home page (Jan) - resolved.
+- 0000204: [Admin Panal] Teamspeak-Cronjob geht auf lock (Jan) - resolved.
+- 0000192: [Admin Panal] Cronjob CleanerCronjob geht auf lock, inaktive User werde nicht gelöscht. (Jan) - resolved.
+- 0000153: [Feature request] Block PMs (Jan) - resolved.
+- 0000172: [Admin Panal] The page numbering does not fit on the screen (Jan) - resolved.
+- 0000185: [Admin Panal] User Ban Panel (Jan) - resolved.
+- 0000194: [Langauge] Typo in Vac Mod (Jan) - resolved.
+- 0000198: [Feature request] Market (Jan) - resolved.
+- 0000202: [Langauge] Delete Player confirmation text typo (Jan) - resolved.
+- 0000219: [Admin Panal] Aktivierungs Probleme, nach der Registration (Jan) - resolved.
+- 0000226: [Fleet missions] Expeditionen können nicht gestartet werden, FIX 187 nicht ganz vollständig ! (Jan) - resolved.
+- 0000227: [Installer] Fix to installer (Jan) - resolved.
+- 0000228: [Alliance] Bug in alliance manage rights (Jan) - resolved.
+- 0000229: [Admin Panal] Bug in info page (Jan) - resolved.
+- 0000230: [Alliance] Text wrong in alliance view member (Jan) - resolved.
+- 0000232: [Eco system] Better buildings page (Jan) - resolved.
+- 0000196: [Eco system] Different encoding across PHP scripts (not always UTF-8) (Jan) - resolved.
+- 0000168: [User errors] Not work switcher pages (Jan) - resolved.
+- 0000205: [Admin Panal] Infos aus der "Nachrichtenliste" können nicht geöffnet werden, Error [object Object] (Jan) - resolved.
+- 0000184: [Fleet missions] DM Untersuchung (Jan) - resolved.
+- 0000177: [Feature request] To loser comes abbreviated battle report (Jan) - resolved.
+- 0000199: [Admin Panal] Admin Logs (Jan) - resolved.
+- 0000210: [Admin Panal] Bei Erstellung von neuen Usern über ACP werden nicht alle Infotexte angezeigt. (Jan) - resolved.
+- 0000216: [Fleet missions] Expeditionsnachrichten (Jan) - resolved.
+- 0000203: [Admin Panal] News im ACP können nicht erstellt oder geändert werden. (Jan) - resolved.
+- 0000208: [Feature request] Building queue Update (Jan) - resolved.
+- 0000209: [Fleet missions] Verband kann nicht aktiviert werden (Jan) - resolved.
+- 0000212: [Alliance] [FIX] Delete Alliance Rank (Jan) - resolved.
+- 0000214: [Fleet missions] Rückkehrmeldungen enthalten falschen Planeten (Jan) - resolved.
+- 0000217: [Admin Panal] ACP/ Uni Konfigurations seite (Jan) - resolved.
+- 0000215: [Fleet missions] Meldung von Expedition bei finden von Schiffen anpassen (Jan) - resolved.
+- 0000183: [Feature request] Händler Funtioniert nicht ganz (Jan) - resolved.
+- 0000161: [Admin Panal] Cronjobs können nicht richtig gesetzt werden und werden nicht abgearbeitet. (Jan) - resolved.
+- 0000189: [Fleet missions] Able to attack while in VMODE (Jan) - resolved.
+- 0000173: [Langauge] Two identical language key in a file ADMIN.php (Jan) - resolved.
+- 0000174: [User errors] Undefined index: lm_changelog (Jan) - resolved.
+- 0000175: [Admin Panal] Cleaning the cache does not work correctly (Jan) - resolved.
+- 0000170: [Admin Panal] File CUSTOM.php does not overwrite the values of language keys ADMIN.php (Jan) - resolved.
+- 0000169: [Admin Panal] Wrong reduction in numbers (Jan) - resolved.
+- 0000127: [Fleet missions] Recycling missions with max transported resources fail [with solution] (Jan) - closed.
+MOONHUNT-22 - Ошибка в панеле администратора.
+MOONHUNT-106 - Неверное значение потребления дейтерия атомной электростанцией.
+MOONHUNT-137 - Не работает вход в игру.
+MOONHUNT-154 - Не проходит авторизация.
+MOONHUNT-157 - Ошибка при появлении сообщения о шпионаже.
+MOONHUNT-159 - Невозможно зарегистрироваться.
+MOONHUNT-161 - Ошибка новой версии.
+MOONHUNT-163 - Колонизация.
+MOONHUNT-165 - Не создаётся новый аккаунт в панеле администратора.
+MOONHUNT-166 - IPM не работает.
+MOONHUNT-169 - Неверная конфигурация планет в галактике.
+MOONHUNT-170 - Невозможно отправить флот.
+MOONHUNT-173 - Ошибка в флоте и исследованиях.
+MOONHUNT-174 - Неизвестная константа.
+MOONHUNT-176 - Неизвестный индекс.
+MOONHUNT-181 - Нехватка кристалла.
+MOONHUNT-188 - Статистика.
+MOONHUNT-189 - Ошибка в обработчике флота.
+MOONHUNT-190 - Несуществующая страница.
+MOONHUNT-191 - 500 ошибка.
+MOONHUNT-196 - Сообщение о неудачном строительстве.
+MOONHUNT-198 - Остановка производства ресурсов.
+MOONHUNT-199 - Скупщик ресурсов.
+MOONHUNT-205 - Вызов несуществующей страницы.
+MOONHUNT-206 - Исследования.
+MOONHUNT-207 - Повышение прав
+MOONHUNT-208 - Отправка флота.
+MOONHUNT-209 - Ошибка установщика.
+MOONHUNT-211 - Таймер строительства в обзоре.
+MOONHUNT-216 - Ошибка во время отправки флота.
+MOONHUNT-218 - Подробное описание офицеров недоступно.
+MOONHUNT-219 - Информация об аккаунте.
+MOONHUNT-223 - Исчезновение флота.
+MOONHUNT-228 - Лог ошибок.
+MOONHUNT-235 - Дата блокировки.
+MOONHUNT-236 - Режим отпуска и полёт флота.
+MOONHUNT-238 - Ошибка при переходе по координатам в карточке игрока.
+MOONHUNT-239 - Нет данных о флоте при его отправке.
+MOONHUNT-240 - Ошибка на странице флота при атаке.
+MOONHUNT-245 - Невожможно вызвать скупщика ресурсов.
+MOONHUNT-246 - Заявки технической поддержки не могут быть удалены или закрыты.
+MOONHUNT-247 - Ошибка при отправке полностью загруженного флота.
+MOONHUNT-248 - В списке планет всегда первой отображается главная планета.
+MOONHUNT-249 - Неотображаются боевые доклады в зале славы.
+MOONHUNT-250 - Не отображается иконка кнопки удаления.
+MOONHUNT-251 - Дубрированный языковой ключ.
+MOONHUNT-254 - Невозможно отправить флот на луну.
+MOONHUNT-256 - Создание аккаунта в панеле администрации.
+MOONHUNT-257 - Список планет.
+MOONHUNT-258 - Ошибка отправки общего сообщения по альянсу.
+MOONHUNT-259 - Сообщение об ошибке при входе заблокированного игрока в игру.
+MOONHUNT-260 - При продаже кораблей скупщику корабли не исчезали.
+MOONHUNT-261 - Ошибка во время сноса постройки.
+MOONHUNT-263 - Ошибка после смены языка на русский.
+MOONHUNT-264 - Удвоение флота.
+MOONHUNT-265 - Изменение часового пояса не сохраняется.
+MOONHUNT-266 - Чат альяса.
+MOONHUNT-267 - Неверное увеличение очков флота.
+MOONHUNT-268 - Ошибка при устновки.
+MOONHUNT-269 - Исследование, несмотря на выполнение требований, отображается красным.
+MOONHUNT-271 - Скорость игры не влияет на производство энергии.
+MOONHUNT-272 - Ошибка при строительстве.
+MOONHUNT-273 - Некорректное отображение данные о шпионаже.
+MOONHUNT-274 - Ошибка при блокировки аккаунтов.
+MOONHUNT-275 - История изменений.
+MOONHUNT-276 - Дублированное описание исследований.
+MOONHUNT-278 - Неверно списываются ресурсы при обменен у скупщика.
+MOONHUNT-281 - Неверно рассчитывается коммисия скупщику.
+MOONHUNT-282 - Лог ошибок.
+MOONHUNT-283 - Старница не существует.
+MOONHUNT-284 - Невозможно изменить логин.
+MOONHUNT-285 - Ошибка при удалении планеты в панеле администрации.
+MOONHUNT-286 - Ошибка при удалении исследования из очереди.
+MOONHUNT-287 - Невозможно расформировать альянс.
+MOONHUNT-289 - Ошибка при отклонении заявки на вступление в альянс.
+MOONHUNT-291 - Ошибка при удалении строящегося флота в верфи.
+MOONHUNT-292 - Ручное обновление статистики.
+MOONHUNT-294 - Смена расположения языковых ключей.
+MOONHUNT-295 - Добавление языкового ключа в заметках.
+MOONHUNT-299 - Ошибка при переходе на планету, где текущее исследование недоступно.
+MOONHUNT-300 - Неверное сообщение при обмене ресурсов у скупщика.
+MOONHUNT-303 - Изменение пароля не сохраняется.
+MOONHUNT-304 - Описание построек.
+MOONHUNT-305 - Невозможно отправить флот в атаку.
+MOONHUNT-306 - Добавление языкового ключа в галактике.
+MOONHUNT-307 - Описание инновационных разработок.
+MOONHUNT-309 - Лог ошибок.
+MOONHUNT-310 - Страница не существует.
+MOONHUNT-313 - Необходимые ресурсы для солнечной электростанции.
+MOONHUNT-314 - Неизвестная переменнная.
+MOONHUNT-315 - Записи лога ошибок.
+MOONHUNT-316 - Время удержание отображается неверно.
+MOONHUNT-318 - Ошибка в зале славы.
+MOONHUNT-320 - Не обновляется статистика.
+MOONHUNT-321 - Полёт в экспедицию.
+MOONHUNT-322 - Создание планеты.
+MOONHUNT-323 - Невозможно атаковать.
+MOONHUNT-324 - Экспедиция.
+MOONHUNT-325 - Увеличение уровня построек после атаки.
+MOONHUNT-329 - Ошибка при установке новой версии.
+MOONHUNT-330 - SQL-ошибка.
+MOONHUNT-332 - Нельзя отправить полностью загруженный ресурсами флот.
+MOONHUNT-339 - Ошибка в реферальной ссылке, HTML и BBCode.
+MOONHUNT-340 - Ошибка при установке.
+MOONHUNT-341 - Невозможно зарегистрироваться
+MOONHUNT-343 - Невозможно расформировать альянс.
+MOONHUNT-349 - SQL инъекция.
+MOONHUNT-193 - Автоматическая очистка логов полётов флота.
+MOONHUNT-224 - Список мультиаккаунтов.
+MOONHUNT-230 - Запрет на пересечение флотов.
+MOONHUNT-237 - Кнопка вывода производства на 100%.
+MOONHUNT-297 - Маршруты.
+MOONHUNT-298 - Обмен ресурсов.
+MOONHUNT-308 - Баннер.
+MOONHUNT-311 - Резервное копирование базы данных.
+MOONHUNT-312 - Разделение больших списков на страницы.
+MOONHUNT-290 - Неполные тексты офицеров и исследований.
+MOONHUNT-301 - При восстановлении пароля не появлялось сообщение об отправке письма на почту.
 ',
 
 'v1.6.1' => 'Jan 19.11.2011

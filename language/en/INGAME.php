@@ -19,7 +19,7 @@ $LNG['invalid_action']						= 'Action Invalidated!!';
 $LNG['type_mission'][1]  					= 'Attack';
 $LNG['type_mission'][2]  					= 'ACS - Attack on cooperation';
 $LNG['type_mission'][3]  					= 'Transport';
-$LNG['type_mission'][4]  					= 'Station';
+$LNG['type_mission'][4]  					= 'Deploy';
 $LNG['type_mission'][5]  					= 'Transfer';
 $LNG['type_mission'][6]  					= 'Spying';
 $LNG['type_mission'][7]  					= 'Colonize';
@@ -299,7 +299,6 @@ $LNG['fl_hours']                            = 'Hours';
 $LNG['fl_resources_left']				    = 'Capacity avaliable';
 $LNG['fl_all_resources']			        = 'All resources';
 $LNG['fl_multi_alarm']						= 'Multi alarm!';
-$LNG['fl_admins_cannot_be_attacked']			= 'The Admins can not be attacked';
 $LNG['fl_empty_target']						= 'Without mission available (the planet exist?)';
 $LNG['fl_expedition_alert_message']		    = 'Attention! Explorations are dangerous missions, you can lose your fleet!';
 $LNG['fl_dm_alert_message']                 = 'Beware, if in %s %s was found, destroyed the fleets!';
@@ -354,7 +353,6 @@ $LNG['fl_target_not_exists']				= 'Target planet does not exist!';
 $LNG['fl_only_planets_colonizable']			= 'Only planets can be colonized.';
 $LNG['fl_player_is_noob']					= 'Player is in the Noob Protection!';
 $LNG['fl_player_is_strong']					= 'Player is too strong!';
-$LNG['fl_tech_for_position_required']		= 'You need %s level %d, in order to occupy this position!';
 $LNG['fl_no_hold_depot']					= 'No Alliance Depot is located on the target.';
 $LNG['fl_not_enough_deuterium']				= 'Not enough deuterium available.';
 $LNG['fl_not_enough_space']					= 'You have not enough cargo space available.';
@@ -457,6 +455,7 @@ $LNG['tt_lvl']								= 'Level ';
 
 //----------------------------------------------------------------------------//
 // Infos
+$LNG['in_jump_gate_no_target']				= 'No target jump available.';
 $LNG['in_jump_gate_done']					='The jump portal was used, you can use it in:';
 $LNG['in_jump_gate_error_data']			    = 'Error, coordinates to jump are not correct!';
 $LNG['in_jump_gate_not_ready_target']		= 'The portal is not ready in destination Moon, will be ready in ';
@@ -712,7 +711,7 @@ $LNG['al_diplo_level'][6]					= 'Secret Alliance';
 $LNG['al_diplo_no_entry']                   = '- There is no Pact -';
 $LNG['al_diplo_no_accept']                  = '- Without applications available -';
 $LNG['al_diplo_accept']                     = 'Applications';
-
+$LNG['al_diplo_exists']						= 'There is already a valid or not yet accepted diplomatic relationship with the Alliance "%s"!';
 $LNG['al_diplo_accept_send']                = 'Output requests';
 $LNG['al_diplo_create']                     = 'Create new Pact.';
 $LNG['al_diplo_create_done']                = 'The Pact created successfully.';
@@ -1094,7 +1093,7 @@ $LNG['ti_status_closed'] 					= 'Closed';
 $LNG['ti_status_answer'] 					= 'Response';
 $LNG['ti_admin_open'] 						= 'The ticket has been opened!';
 $LNG['ti_admin_close'] 						= 'The ticket was closed!';
-
+$LNG['ti_error_closed'] 					= 'No answer can be created on this ticket, because it was already closed!';
 $LNG['ti_create_info']						= '<p>Please, when creating a support Ticket, describes and explains what is your issue with the maximum detail possible!</p>
 <p>A detailed description of what you want to ask, shortens the duration of time of resolution and avoids the waste of time on both sides</p>
 <p>For issues related to accounts, specify facilitates the assignment of problem and also shortens the time.</p>';
@@ -1134,7 +1133,7 @@ $LNG['bs_cancel']   						= "Reset";
 $LNG['bs_wait']   							= "Wait 10 seconds for the next simulation";
 $LNG['bs_acs_slot']   						= 'ACS-Slot';
 $LNG['bs_add_acs_slot']   					= 'Add ACS-Slot';
-
+$LNG['bs_reset']							= 'Reset';
 //----------------------------------------------------------------------------//
 // Mercador de Naves
 
