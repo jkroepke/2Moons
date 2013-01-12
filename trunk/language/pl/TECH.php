@@ -149,56 +149,6 @@ $LNG['tech'] = array(
 219 => 'Giga-Recycler',
 220 => 'Inter. DM-Collector',
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 400 => 'Obrona Planetarna',
 401 => 'Wyrzutnia Rakiet',
 402 => 'Lekki Laser',
@@ -212,7 +162,37 @@ $LNG['tech'] = array(
 410 => 'Działo Grawitonowe',
 411 => 'Orbitalna Platforma Obronna',
 
-	502 => 'Antyrakieta',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+500 => 'Rakiety',
+502 => 'Antyrakieta',
 503 => 'Rakieta Międzyplanetarna',
 
 	600 => 'Oficerowie',
@@ -251,25 +231,24 @@ $LNG['tech'] = array(
 
 $LNG['shortDescription'] = array(
 	1 => 'Wydobywa Metal, kopalnie metalu mają podstawowe znaczenie dla twojego imperium !.',
-2 => 'Wydobywa Kryształ, potrzebny do budowy komponentów elektronicznych !.',
-3 => 'Deuterium jest wydobywane przez ekstraktor, służy jako paliwo jak element do budowy, bardzo cenne !.',
-4 => 'Elektrownia słoneczna pobiera energie ze słońca, Wszytkie budynki wymagają energii !!',
-
-6 => 'Skraca czas badań na każdy levl o 8%.',
+	2 => 'Wydobywa Kryształ, potrzebny do budowy komponentów elektronicznych !.',
+	3 => 'Deuterium jest wydobywane przez ekstraktor, służy jako paliwo jak element do budowy, bardzo cenne !.',
+	4 => 'Elektrownia słoneczna pobiera energie ze słońca, Wszytkie budynki wymagają energii !!',
+	6 => 'Skraca czas badań na każdy levl o 8%.',
 	12 => 'Reaktor fuzyjny dzieki fuzji deuteru wytwarza energie !',
-14 => 'Fabryka Robotów, przyspiesza budowe, każdy level sprawia iż budynki są budowane i upgradeowane szybciej',
-15 => 'Zwięczenie rozwoju robotyki, każdy poziom zwiększa szybkość budowy statków, instalacji obronnych i budynków !',
+	14 => 'Fabryka Robotów, przyspiesza budowe, każdy level sprawia iż budynki są budowane i upgradeowane szybciej',
+	15 => 'Zwięczenie rozwoju robotyki, każdy poziom zwiększa szybkość budowy statków, instalacji obronnych i budynków !',
 	21 => 'W stoczni budujesz instalacje obronne jak i wszystkie typy stacji, Im wyższy poziom tym sie szybciej buduje !',
-22 => 'Zwiększa ilość przechowywanego metalu.',
-23 => 'Zwiększa ilość przechowywanego kryształu.',
-24 => 'Zwiększa ilość przechowywanego deuterium',
+	22 => 'Zwiększa ilość przechowywanego metalu.',
+	23 => 'Zwiększa ilość przechowywanego kryształu.',
+	24 => 'Zwiększa ilość przechowywanego deuterium',
 	31 => 'Konieczne do tego by móc odkrywać nowe technologie .',
-33 => 'Terraformer przez terraforming zwiększa ilość dostępnych pól do zabudowy na planecie !',
-34 => 'Zasila w paliwo sojusznicza flote na orbicie.',
+	33 => 'Terraformer przez terraforming zwiększa ilość dostępnych pól do zabudowy na planecie !',
+	34 => 'Zasila w paliwo sojusznicza flote na orbicie.',
 	41 => 'Jako iż na księzycu nie ma atmosfery musisz najpierw zbudować baze księżycową.',
-42 => 'Falanga pozwala obrserwować aktywne floty w jej zasięgu, każdy level zwiększa maksymalny zasięg.',
-43 => 'Teleporter pozwala przenosić floty bez staraty cennego czasu !.',
-44 => 'używane do przechowywania rakiet i antyrakiet.',
+	42 => 'Falanga pozwala obrserwować aktywne floty w jej zasięgu, każdy level zwiększa maksymalny zasięg.',
+	43 => 'Teleporter pozwala przenosić floty bez staraty cennego czasu !.',
+	44 => 'używane do przechowywania rakiet i antyrakiet.',
 
 	106 => 'Informacje o innych planetach i księżycach mogą być zbierane dzięki tej technologi !.',
 	108 => 'Dzięki rozwojowi technologi komputerowej możesz zarządzać większą ilością flot, każdy level zwiększa ilość flot którymi możesz zarządzać o 1',
@@ -350,6 +329,7 @@ $LNG['shortDescription'] = array(
 706 => 'Skraca na jakiś czas długość badań.',
 707 => 'Skraca czas lotu floty. Bonus działa tylko jakiś czas i nie ma wpływu na ekspedycje !.',
 );
+
 $LNG['longDescription'] = array(
 	1 => 'Metal to podstawowy budulec na twojej planecie. Dzięki rozwojowi kopalni możesz go wydobywać z głębszych pokładów gdzie jest go więcej !',
 	2 => 'Podstawowy budulec elementów elektronicznych. Kopalnie wymagają więcej energii niż metal bo obróbka kryształu jest bardziej skomplikowana. Kryształ jest potrzebny wszędzie tam gdzie elektronika poczynając od fabryki robotów a na najmniejszych statkach kończąc',

@@ -29,14 +29,10 @@
 $LNG['Messages']							= 'Wiadomości';
 $LNG['write_message']						= 'Napisz wiadomość';
 
-
 $LNG['PM']									= '[PW]';
 $LNG['ready']								= 'Gotowe';
 
 $LNG['loading']								= 'Ładuję';
-
-
-
 
 $LNG['invalid_action']						= 'Niedozwolona akcja';
 
@@ -160,8 +156,8 @@ $LNG['ov_userbanner']						= 'Statystyki -Banner';
 $LNG['ov_userrank_info']					= '%s (%s <a href="game.php?page=statistics&amp;range=%d">%d</a> %s %s)';
 $LNG['ov_teamspeak_not_online']				= 'TeamspeakServer chwilowo nie dostępny';
 $LNG['ov_teamspeak']						= 'Teamspeak';
-$LNG['ov_teamspeak_v2']						= '<a href="teamspeak://%s:%s?nickname=%s" title="Teamspeak Connect">Connect</a> &bull; Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
-$LNG['ov_teamspeak_v3']						= '<a href="ts3server://%s?port=%d&amp;nickname=%s&amp;password=%s" title="Teamspeak Connect">Connect</a>&nbsp;&bull;&nbsp;Online: %d/%d &bull; Channels: %d &bull; Traffic ges.: %s MB';
+$LNG['ov_teamspeak_connect']				= 'Połącz';
+$LNG['ov_teamspeak_online']					= 'Online';
 $LNG['ov_closed']							= 'Gra chwilowo nie aktywna!';
 $LNG['ov_reflink']							= 'Reflink';
 $LNG['ov_noreflink']						= 'Nikogo nie zwerbowałeś do gry';
@@ -267,8 +263,8 @@ $LNG['lv_total']							= 'Łącznie';
 
 //----------------------------------------------------------------------------//
 //FLEET - FLEET1 - FLEET2 - FLEET3 - FLEETACS - FLEETSHORTCUTS
-$LNG['fl_onway']							= 'Flota z Planety';
 $LNG['fl_returning']						= 'Flota na Planete';
+$LNG['fl_onway']							= 'Flota z Planety';
 
 $LNG['fl_r']								= '(R)';
 $LNG['fl_a']								= '(A)';
@@ -337,7 +333,7 @@ $LNG['fl_expedition_fleets_limit']			= 'Limit ekspedycji osiągnięty!';
 $LNG['fl_week_player']						= 'Gracz bardzo słaby!';
 $LNG['fl_strong_player']					= 'Gracz bardzo mocny!';
 $LNG['fl_in_vacation_player']				= 'Gracz w trybie urlop';
-$LNG['fl_admins_cannot_be_attacked']		= 'Nie można atakować adminów!';
+
 $LNG['fl_multi_alarm']						= 'Multi-Alarm!';
 $LNG['fl_no_slots']							= 'Sloty niedostępne!';
 $LNG['fl_planet_populed']					= 'Ta planeta jest zajęta!';
@@ -381,15 +377,15 @@ $LNG['fl_invalid_mission']					= 'Błedna misja';
 $LNG['fl_bash_protection']					= 'Bash Ochrona';
 $LNG['fl_admin_attack']						= 'Nie możesz atakować admina';
 $LNG['fl_target_exists']					= 'Cel istnieje';
-$LNG['fl_target_not_exists']				= 'Planeta docelowa nie istnieje!';
+$LNG['fl_target_not_exists']				= 'Planeta docelowa nie istnieje, ewentualnie nie odkryłeś astrofizyki!';
 $LNG['fl_only_planets_colonizable']			= 'Możesz kolonizować tylko planety!';
 $LNG['fl_player_is_noob']					= 'Gracz znajduje się pod ochroną!';
 $LNG['fl_player_is_strong']					= 'Gracz za mocny!';
-$LNG['fl_tech_for_position_required']		= 'Du brauchst %s Stufe %d, um diese Position zu besiedeln zu können!';
 $LNG['fl_no_hold_depot']					= 'Na planecie docelowej nie ma depozytu sojuszniczego.';
 $LNG['fl_not_enough_deuterium']				= 'Nie masz wystarczającej ilości deuterium.';
 $LNG['fl_not_enough_space']					= 'Nie masz tyle miejsca w ładowniach.';
 $LNG['fl_hold_time_not_exists']				= 'Nie poprawny czas postoju.';
+
 
 
 
@@ -465,7 +461,7 @@ $LNG['of_lvl']								= 'Level';
 $LNG['of_dm_trade']							= '%s - Store';
 $LNG['of_still']							= 'still';
 $LNG['of_active']							= 'aktywny';
-$LNG['of_update']							= 'aktualizacja';
+
 
 
 //----------------------------------------------------------------------------//
@@ -519,6 +515,7 @@ $LNG['in_jump_gate_finish_moon']			= 'Księżyc docelowy';
 $LNG['in_jump_gate_select_ships']			= 'Użyj telportera/ilość statków';
 $LNG['in_jump_gate_wait_time']				= 'Następny skok możliwy za: ';
 $LNG['in_jump_gate_jump']					= 'Skocz';
+$LNG['in_jump_gate_no_target']				= 'Musisz podać cel.';
 $LNG['in_destroy']     						= 'Zniszcz:';
 $LNG['in_needed']      						= 'Wymagania';
 $LNG['in_dest_durati'] 						= 'Czas niszczenia';
@@ -573,6 +570,7 @@ $LNG['mg_empty_text']						= 'Wpisz tekst';
 $LNG['mg_answer_to']						= 'Odpowiedz do:';
 $LNG['mg_write_mail_to_ops']				= 'Napisz wiadomość do';
 $LNG['mg_page']								= 'Strona ';
+$LNG['mg_receiver_block_pm']				= 'Odbioraca zablokował prywatne wiadomości.';
 
 //----------------------------------------------------------------------------//
 //ALLIANCE
@@ -774,10 +772,11 @@ $LNG['al_diplo_war_mes']                    = 'Sojusz %s wyzwał sojusz %s !Soju
 $LNG['al_diplo_head']						= 'Dyplomacja';
 $LNG['al_diplo_same_alliance']				= 'Nie możesz zawrzeć sojuszu sam ze sobą!';
 $LNG['al_diplo_no_alliance']				= 'Brak sojuszu o takiej nazwie %s!';
+$LNG['al_diplo_exists']						= 'Stosunki z sojuszem "%s" już są, albo nie zostały jeszcze zatwierdzone!';
 $LNG['al_diplo_info']						= '<p>Na tej stronie zarządzasz sojuszem !</p><p>Hier findest du die Erklärung der einzelnen Bündnissarten. [TODO: Link zu FAQ]</p>';
 $LNG['al_leave_ally']						= 'Napewno chcesz opuścić sojusz?';
 $LNG['al_default_leader_name']				= 'Leader';
-$LNG['al_rank_name']						= 'Name';
+$LNG['al_rank_name']						= 'Nazwa';
 $LNG['al_rank_desc']['MEMBERLIST']			= 'Zobacz listę członków';
 $LNG['al_rank_desc']['ONLINESTATE']			= 'Kto jest online';
 $LNG['al_rank_desc']['TRANSFER']			= 'Może zotać liderem';
@@ -1009,12 +1008,13 @@ $LNG['fcm_moon']							= 'Księżyc';
 $LNG['fcm_info']							= 'Informacje';
 $LNG['fcp_colony']							= 'Kolonia';
 $LNG['fgp_require']							= 'Potrzebujesz: ';
-$LNG['fgf_time']							= 'Czas budowy: ';
+$LNG['fgf_time']							= 'Czas budowy ';
 $LNG['sys_module_inactive']        	 		= 'Moduł nieaktywny';
 $LNG['sys_refferal_from']        	 		= 'System';
 $LNG['sys_refferal_title']        	 		= 'Bonus dla gracza %s';
 $LNG['sys_refferal_text']					= 'Gracz %s zrekrutowany przez ciebie osiągnoł %s punktów.<br><br>Zostałeś wynagrodzony za aktywnego gracza, otrzymujesz %s %s';
 $LNG['sys_closed_game']        	 			= 'Gra chwilowo nie dostępna:';
+$LNG['spec_mail_inactive_title']  			= '%s - przypomnienie';
 
 //----------------------------------------------------------------------------//
 // CombatReport.php
@@ -1129,6 +1129,7 @@ $LNG['ti_new'] 								= 'Zgłoś nowy problem';
 $LNG['ti_status_open'] 						= 'Otwarty';
 $LNG['ti_status_closed'] 					= 'Zamknięty';
 $LNG['ti_status_answer'] 					= 'Odpowiedziano';
+$LNG['ti_error_closed'] 					= 'Nie możesz odpowiedzieć na Ticket który został zamknięty';
 $LNG['ti_admin_open'] 						= 'Wiadomość zostanie otwarta!';
 $LNG['ti_admin_close'] 						= 'Wiadomość zostanie zamknięta!';
 

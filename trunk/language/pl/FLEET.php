@@ -87,6 +87,7 @@ $LNG['sys_colo_maxcolo'] 					= "Jedna z twoich flot osiągneła koordynaty %s. 
 $LNG['sys_colo_allisok'] 					= "Jedna z twoich flot osiągneła koordynaty %s. Rozpoczołeś kolonizacje nowej planety.";
 $LNG['sys_colo_badpos']  					= "Jedna z twoich flot osiągneła koordynaty %s. Brak możliwości kolonizacji, twoi kolonizatorzy wracają rozczarowani. ";
 $LNG['sys_colo_notfree'] 					= "Jedna z twoich flot osiągneła koordynaty %s. Po dotarciu na miejsce okazało się że planeta jest już skolonizowana, kolonizatorzy wracają kompletnie zdemoralizowani. ";
+$LNG['sys_colo_notech'] 					= 'Jedna z twoich flot doleciała na %s. I okazało się że nie możesz zasiedlić tej planety bo poziom Astrofizyki jest za mały!';
 
 $LNG['sys_expe_report'] 					= "Raport ekspedycji";
 $LNG['sys_recy_report'] 					= "Raport zbierania";
@@ -193,20 +194,17 @@ $LNG['sys_destruc_lune']          		 	= 'Szansa na zniszczenie księżyca to: %d
 $LNG['sys_destruc_rip']          			= 'Prawdopodobieństwo samozniszczenia floty to: %d%%';
 $LNG['sys_destruc_stop']      			 	= 'Obrońca zablokował zniszczenie księżyca.';
 $LNG['sys_destruc_mess1']       		   	= 'Gwiazdy śmierci skierowały swoje ogromne działa na księżyc. ';
-$LNG['sys_destruc_mess']        		   	= 'Flota z planety [%d:%d:%d] dotarła na księżyc [%d:%d:%d].';
 $LNG['sys_destruc_echec']       		   	= 'Trzęsienia ziemi przetaczają się po planecie, lecz coś idzie nie tak : gwiazdy śmierci implodują rozpadając się na tysiąc kawałków. <br>Niestety fala uderzeniowa niszczy kompletnie flote.';
 $LNG['sys_destruc_reussi']      		   	= 'Potężne dziła giazd śmierci rozniosły kśiężyc na kawałki <br>Księżyc został zniszczony.';
 $LNG['sys_destruc_null']        		   	= 'Atak się nie powiódł.<br> Księżyc nie został zniszczony.';
+
+
 
 $LNG['fcp_colony']							= 'Kolonia';
 $LNG['fl_simulate']							= 'Symulacja';
 
 $LNG['type_mission'][1]  					= 'Atak';
 $LNG['type_mission'][2]  					= 'Atak łączony';
-
-
-
-
 $LNG['type_mission'][3]  					= 'Transport';
 $LNG['type_mission'][4]  					= 'Stacjonuj';
 $LNG['type_mission'][5]  					= 'Zostań';
