@@ -515,7 +515,7 @@ switch($mode)
 				$installVersion			= file_get_contents('VERSION');
 				$installRevision		= 0;
 				
-				preg_match('!\$Id$installSQL, $match);
+				preg_match('!\$'.'Id: install.sql ([0-9]+)!', $installSQL, $match); 
 				
 				$installVersion		= explode('.', $installVersion);
 				if(isset($match[1]))
