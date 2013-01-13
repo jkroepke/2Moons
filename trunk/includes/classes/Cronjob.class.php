@@ -71,7 +71,10 @@ class Cronjob
 	
 	static function reCalculateCronjobs($cronjobID = NULL)
 	{
-		require_once ROOT_PATH.'includes/libs/Crontab/Crontab.class.php';
+	
+		require_once ROOT_PATH.'includes/libs/tdcron/class.tdcron.php';
+		require_once ROOT_PATH.'includes/libs/tdcron/class.tdcron.entry.php';
+		
 		$cronjobsList	= array();
 		$SQL			= "";
 		$where			= "";
@@ -86,7 +89,7 @@ class Cronjob
 		while($cronjobRow = $GLOBALS['DATABASE']->fetchArray($cronjobsRaw))
 		{
 			$cronTabString	= implode(' ', array($cronjobRow['min'], $cronjobRow['hours'], $cronjobRow['dom'], $cronjobRow['month'], $cronjobRow['dow']));
-			$nextTime		= Crontab::parse($cronTabString, TIMESTAMP);
+			$nextTime		= tdCron::getNextOccurrence($cronTabString, TIMESTAMP);
 			
 			$SQL			.= "UPDATE ".CRONJOBS." SET nextTime = ".$nextTime." WHERE cronjobID = ".$cronjobRow['cronjobID'].";";
 		}
