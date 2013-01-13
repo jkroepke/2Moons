@@ -73,7 +73,9 @@ function ShowConfigUniPage()
 			'max_system'			=> $CONF['max_system'],
 			'max_planets'			=> $CONF['max_planets'],
 			'min_player_planets'	=> $CONF['min_player_planets'],
-			'max_player_planets'	=> $CONF['max_player_planets'],
+			'planets_tech'			=> $CONF['planets_tech'],
+			'planets_officier'		=> $CONF['planets_officier'],
+			'planets_per_tech'		=> $CONF['planets_per_tech'],
 			'planet_factor'			=> $CONF['planet_factor'],
 			'max_elements_build'	=> $CONF['max_elements_build'],
 			'max_elements_tech'		=> $CONF['max_elements_tech'],
@@ -136,7 +138,9 @@ function ShowConfigUniPage()
 		$max_system				= HTTP::_GP('max_system', 0);
 		$max_planets			= HTTP::_GP('max_planets', 0);
 		$min_player_planets		= HTTP::_GP('min_player_planets', 0);
-		$max_player_planets		= HTTP::_GP('max_player_planets', 0);
+		$planets_tech			= HTTP::_GP('planets_tech', 0);
+		$planets_officier		= HTTP::_GP('planets_officier', 0);
+		$planets_per_tech		= HTTP::_GP('planets_per_tech', 0.0);
 		$planet_factor			= HTTP::_GP('planet_factor', 0.0);
 		$max_elements_build		= HTTP::_GP('max_elements_build', 0);
 		$max_elements_tech		= HTTP::_GP('max_elements_tech', 0);
@@ -195,7 +199,9 @@ function ShowConfigUniPage()
 			'max_system'			=> $max_system,
 			'max_planets'			=> $max_planets,
 			'min_player_planets'	=> $min_player_planets,
-			'max_player_planets'	=> $max_player_planets,
+			'planets_tech'			=> $planets_tech,
+			'planets_officier'		=> $planets_officier,
+			'planets_per_tech'		=> $planets_per_tech,
 			'planet_factor'			=> $planet_factor,
 			'max_elements_build'	=> $max_elements_build,
 			'max_elements_tech'		=> $max_elements_tech,
@@ -433,7 +439,9 @@ function ShowConfigUniPage()
 		'max_system'					=> $CONF['max_system'],
 		'max_planets'					=> $CONF['max_planets'],
 		'min_player_planets'			=> $CONF['min_player_planets'],
-		'max_player_planets'			=> $CONF['max_player_planets'],
+		'planets_tech'					=> $CONF['planets_tech'],
+		'planets_officier'				=> $CONF['planets_officier'],
+		'planets_per_tech'				=> $CONF['planets_per_tech'],
 		'planet_factor'					=> $CONF['planet_factor'],
 		'max_elements_build'			=> $CONF['max_elements_build'],
 		'max_elements_tech'				=> $CONF['max_elements_tech'],

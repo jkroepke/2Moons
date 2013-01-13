@@ -43,7 +43,7 @@ class MissionCaseColonisation extends MissionFunctions
 		$senderUser['factor']	= getFactors($senderUser, 'basic', $this->_fleet['fleet_start_time']);
 		$LNG			= $this->getLanguage($senderUser['lang']);
 		
-		$MaxPlanets		= PlayerUtil::maxPlanetCount($senderUser, $senderPlanet);
+		$MaxPlanets		= PlayerUtil::maxPlanetCount($senderUser);
 		
 		if ($iGalaxyPlace != 0)
 		{
