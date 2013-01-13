@@ -165,6 +165,7 @@ CREATE TABLE `%PREFIX%chat_online` (
 CREATE TABLE `%PREFIX%config` (
   `uni` int(11) NOT NULL AUTO_INCREMENT,
   `VERSION` varchar(8) NOT NULL,
+  `sql_revision` INT NOT NULL DEFAULT  '0',
   `users_amount` int(11) unsigned NOT NULL DEFAULT '1',
   `game_speed` bigint(20) unsigned NOT NULL DEFAULT '2500',
   `fleet_speed` bigint(20) unsigned NOT NULL DEFAULT '2500',
@@ -921,13 +922,14 @@ INSERT INTO `%PREFIX%config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_
 (1, '%VERSION%', '', '2Moons', '', '', '', '', '', '', '');
 
 INSERT INTO `%PREFIX%cronjobs` (`cronjobID`, `name`, `isActive`, `min`, `hours`, `dom`, `month`, `dow`, `class`, `nextTime`, `lock`) VALUES
-(1, 'referral', 1, '0,30', '*', '*', '*', '*', 'ReferralCronjob', 0, NULL),
-(2, 'statistic', 1, '0,30', '*', '*', '*', '*', 'StatisticCronjob', 0, NULL),
-(3, 'daily', 1, '25', '2', '*', '*', '*', 'DailyCronjob', 0, NULL),
-(4, 'cleaner', 1, '45', '2', '*', '*', '6', 'CleanerCronjob', 0, NULL),
-(5, 'inactive', 1, '30', '1', '*', '*', '0,3,6', 'InactiveMailCronjob', 0, NULL),
-(6, 'teamspeak', 0, '*/3', '*', '*', '*', '*', 'TeamSpeakCronjob', 0, NULL),
-(7, 'databasedump', 1, '30', '1', '*', '*', '1', 'DumpCronjob', 0, NULL);
+(NULL, 'referral', 1, '0,30', '*', '*', '*', '*', 'ReferralCronjob', 0, NULL),
+(NULL, 'statistic', 1, '0,30', '*', '*', '*', '*', 'StatisticCronjob', 0, NULL),
+(NULL, 'daily', 1, '25', '2', '*', '*', '*', 'DailyCronjob', 0, NULL),
+(NULL, 'cleaner', 1, '45', '2', '*', '*', '6', 'CleanerCronjob', 0, NULL),
+(NULL, 'inactive', 1, '30', '1', '*', '*', '0,3,6', 'InactiveMailCronjob', 0, NULL),
+(NULL, 'teamspeak', 0, '*/3', '*', '*', '*', '*', 'TeamSpeakCronjob', 0, NULL),
+(NULL, 'databasedump', 1, '30', '1', '*', '*', '1', 'DumpCronjob', 0, NULL),
+(NULL, 'tracking', 1, FLOOR(RAND() * 60), FLOOR(RAND() * 24), '*', '*', '0', 'TrackingCronjob', 0, NULL);
 
 INSERT INTO `%PREFIX%ticket_category` (`categoryID`, `name`) VALUES
 (1, 'Support');

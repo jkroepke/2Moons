@@ -30,7 +30,7 @@ class SQLDumper
 {	
 	public function dumpTablesToFile($dbTables, $filePath)
 	{
-		if($this->canNative())
+		if($this->canNative('mysqldump'))
 		{
 			return $this->nativeDumpToFile($dbTables, $filePath);
 		}
@@ -42,12 +42,12 @@ class SQLDumper
 	
 	private function setTimelimit()
 	{
-		set_time_limit(600); // 10 Minutes
+		@set_time_limit(600); // 10 Minutes
 	}
-	
-	private function canNative()
+		
+	private function canNative($command)
 	{
-		return function_exists('shell_exec') && function_exists('escapeshellarg') && shell_exec('mysqldump') !== NULL;
+		return function_exists('shell_exec') && function_exists('escapeshellarg') && shell_exec($command) !== NULL;
 	}
 	
 	private function nativeDumpToFile($dbTables, $filePath)
@@ -146,13 +146,23 @@ LOCK TABLES `{$dbTable}` WRITE;
 			}
 			$GLOBALS['DATABASE']->free_result($columsData);
 			
-			fwrite($fp, "INSERT INTO `{$dbTable}` (`".implode("`, `", $columNames)."`) VALUES\r\n");
-				
+			
+			$insertInto	= "INSERT INTO `{$dbTable}` (`".implode("`, `", $columNames)."`) VALUES\r\n";
+			
+			fwrite($fp, $insertInto);
+			$i = 0;
 			$tableData	= $GLOBALS['DATABASE']->query("SELECT * FROM ".$dbTable);
 			while($tableRow = $GLOBALS['DATABASE']->fetchArray($tableData))
 			{
 				$rowData = array();
-			
+				$i++;
+				if(($i % 50) === 0)
+				{
+					$firstRow	= true;
+					fwrite($fp, ";\r\n");
+					fwrite($fp, $insertInto);
+				}
+				
 				if(!$firstRow)
 				{
 					fwrite($fp, ",\r\n");
@@ -195,5 +205,29 @@ UNLOCK TABLES;
 
 -- Dump completed on ".date("Y-d-m H:i:s"));
 		fclose($fp);
+	}
+	
+	public function restoreDatabase($filePath)
+	{
+		// Ugly.
+		$this->setTimelimit();
+		
+		if($this->canNative('mysql'))
+		{
+		
+			$sqlDump	= shell_exec("mysql --host='".escapeshellarg($database['host'])."' --port=".((int) $database['port'])." --user='".escapeshellarg($database['user'])."' --password='".escapeshellarg($database['userpw'])."' '".escapeshellarg($database['databasename'])."' < ".escapeshellarg($filePath)." 2>&1 1> /dev/null");
+			if(strlen($sqlDump) !== 0) #mysql error
+			{
+				throw new Exception($sqlDump);
+			}
+		}
+		else
+		{
+			$backupQuery	= explode(";\r\n", file_get_contents($filePath));
+			foreach($backupQuery as $query)
+			{
+				$GLOBALS['DATABASE']->multi_query($query);
+			}
+		}
 	}
 }

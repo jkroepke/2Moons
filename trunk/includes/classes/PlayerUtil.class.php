@@ -389,7 +389,7 @@ class PlayerUtil {
 		}
 		
 		// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-		return (int) ceil($CONF['min_player_planets'] + min($CONF['planets_tech'],$USER[$resource[124]] * $CONF['planets_per_tech']) + min($CONF['planets_officier'],$USER['factor']['Planets']));
+		return (int) ceil($CONF['min_player_planets'] + min($CONF['planets_tech'], $USER[$resource[124]] * $CONF['planets_per_tech']) + min($CONF['planets_officier'],$USER['factor']['Planets']));
 	}
 
 	static function allowPlanetPosition($position, $USER)

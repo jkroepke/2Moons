@@ -46,6 +46,13 @@ $LNG['intro_text']				= '2Moons ist eines der besten Klone von OGame.<br>2Moons 
 $LNG['intro_upgrade_head']		= '2Moons schon installiert?';
 $LNG['intro_upgrade_text']		= '<p>Du hast 2Moons bereits installiert und möchtest einfach updaten?</p><p>Hier kann du deine alte Datenbank mit wenigen klicks aktualisieren!</p>';
 
+$LNG['upgrade_success']			= 'Update der Datenbank erfolgreich. Datenbank ist jetzt auf dem Stand von Revision %s.';
+$LNG['upgrade_nothingtodo']		= 'Keine Aktion erforderlich. Datenbank ist bereits auf dem neusten Stand von Revision %s.';
+$LNG['upgrade_back']			= 'Zurück';
+$LNG['upgrade_intro_welcome']	= 'Willkommen beim Datenbank-Upgrader!';
+$LNG['upgrade_available']		= 'Es sind Updates für deine Datenbank verfügbar! Die Datenbank ist auf dem Stand von Revision %s und kann durch ein Update auf Revision %s gebracht werden.<br><br>Bitte wähle aus dem folgendem Menü das erste zu installierende SQL-Update:';
+$LNG['upgrade_notavailable']	= 'Die verwendete Revision %s ist die Aktuellste für deine Datenbank.';
+$LNG['upgrade_required_rev']	= 'Der Updater kann nur ab Revision r2579 (2Moons v1.7) oder höher updaten.';
 
 $LNG['licence_head']			= 'Lizenzbestimmungen';
 $LNG['licence_desc']			= 'Bitte lesen Sie die folgenden Lizenzbestimmungen. Verwenden Sie die Bildlaufleiste, um das gesamte Dokument anzuzeigen.';

@@ -191,7 +191,6 @@ abstract class AbstractPage
 			'debug'				=> Config::get('debug'),
 			'VERSION'			=> Config::get('VERSION'),
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
-			'cron'				=> GetCrons(),
 			'REV'				=> substr(Config::get('VERSION'), -4),
 			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
 			'queryString'		=> $this->getQueryString(),

@@ -53,7 +53,6 @@ $LNG['sys_adress_planet'] 					= '[%s:%s:%s]';
 $LNG['sys_stat_mess_stay']           		= 'Flota estacionada';
 $LNG['sys_stat_mess'] 		         		= 'Su flota llega al planeta %s y entrega %s %s, %s %s y %s %s.';
 
-
 $LNG['sys_colo_mess_from'] 				= "Colonización";
 $LNG['sys_colo_mess_report'] 				= "Informe de colonización";
 $LNG['sys_colo_defaultname'] 				= "Colonia";
@@ -63,6 +62,7 @@ $LNG['sys_colo_maxcolo'] 					= "El colonizador llega a las coordenadas %s. Por 
 $LNG['sys_colo_allisok'] 					= "El colonizador llega a las coordenadas %s. Los colonizadores están comenzando a construir una nueva colonia.";
 $LNG['sys_colo_badpos']  					= "El colonizador llega a las coordenadas %s. No es posible colonizar aquí, tus coloniazdores, descepcionados, emprenden el viaje de retorno.";
 $LNG['sys_colo_notfree'] 					= "El colonizador llega a las coordenadas %s. Cuando tus coloniazadores llegaron a las cordenadas se encontraron con otra colonia ya desarrollada. Totalmente desmoralizados emprenden el viaje de retorno.";
+$LNG['sys_colo_notech'] 					= 'El colonizador llega a las coordenadas %s. Cuando los colonos se acercaron al planeta, encontraron que su equipo no es el adecuado para las condiciones climáticas imperantes y primero tendrian que evolucionar las Tecnologías. Decepcionados, los colonos emprenden el viaje de retorno.';
 
 $LNG['sys_expe_report'] 					= "Reporte de expedición";
 $LNG['sys_recy_report'] 					= "Reporte de reciclaje";
@@ -139,6 +139,7 @@ $LNG['sys_expe_attack_2_2_2'] 				= 'Tu flota de expedición, al parecer, violó
 $LNG['sys_expe_attack_2_2_3'] 				= 'El enlace a nuestra flota de expedición fue interrumpido. Por lo que hemos sabido sobre el último mensaje, la flota se encuentra bajo un fuerte fuego - los agresores no pudieron ser identificados.';
 $LNG['sys_expe_attack_2_3_1'] 				= '¡Tu expedición ha encontrado una flota de invasión extraterrestre y reportaron intensos combates!';
 $LNG['sys_expe_attack_2_3_2'] 				= 'Una asociación de gran cantidad de naves cristalinas de origen desconocido tiene rumbo de colisión directa con nuestra flota de expedición. Ahora tenemos que asumir lo peor.';
+$LNG['sys_expe_found_ships_nothing']		= '- No habían naves que se pudieran reparar.';
 $LNG['sys_expe_attackname_1']				= 'Piratas';
 $LNG['sys_expe_attackname_2'] 				= 'Aliens';
 $LNG['sys_expe_back_home'] 				= 'Tu expedición regresó al hangar de una expedición.<br>Han traído %s %s, %s %s, %s %s y %s %s .';
@@ -163,11 +164,11 @@ $LNG['sys_debris'] 						    = "Escombros";
 $LNG['sys_destruc_title']    				= "Las siguientes flotas contrastan la destrucción de la luna:";
 $LNG['sys_mess_destruc_report'] 			= "Reporte: Destrucción de la luna";
 $LNG['sys_raport_not_found']				= 'ID de Informe de batalla no válido';
+$LNG['sys_raport_lost_contact']				= 'El contacto con la flota atacante se perdió (lo que significa que fue totalmente destruida en la primera ronda.)';
 $LNG['sys_destruc_lune'] 					= "La probabilidad de destruir la luna es de: %d %% ";
 $LNG['sys_destruc_rip'] 					= "La probabilidad de autodestrucción de la flota es de: %d %% ";
 $LNG['sys_destruc_stop'] 					= "El defensor ha conseguido detener la destrucción de la luna";
 $LNG['sys_destruc_mess1'] 					= "Las estrellas de la muerte disparan el graviton a la luna";
-$LNG['sys_destruc_mess'] 					= "Una flota del planeta [%d:%d:%d] ha alcanzado la luna en [%d:%d:%d]";
 $LNG['sys_destruc_echec'] 					= "Los temblores sacuden la luna. Pero algo sale mal, las estrellas de la muerte explotan y se desintengran en millones de pedazos. <br>La onda expansiva elimina toda la fola por completo.";
 $LNG['sys_destruc_reussi'] 					= "Los temblores empiezan a sacudir la superficie de la luna, despues de unos instantes la luna no soporta mas y vuela en mil pedazos, mision cumplida, la flota vuelve al planeta de origen.";
 $LNG['sys_destruc_null'] 					= "Las estrellas de la muerten no generan el poder necesario, la mision falla y las naves vuelven de regreso.";
@@ -187,3 +188,11 @@ $LNG['type_mission'][8]  					= 'Reciclar';
 $LNG['type_mission'][9]  					= 'Destruir';
 $LNG['type_mission'][11]  					= 'Investigación DM';
 $LNG['type_mission'][15] 					= 'Expedición';
+
+$LNG['type_planet_short'][1]  				= 'P';
+$LNG['type_planet_short'][2]  				= 'C.E';
+$LNG['type_planet_short'][3]  				= 'M';
+
+$LNG['type_planet'][1]  					= 'Planeta';
+$LNG['type_planet'][2]  					= 'Campo de Escombros';
+$LNG['type_planet'][3]  					= 'Luna';

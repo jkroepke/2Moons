@@ -31,6 +31,7 @@ if(!function_exists('spl_autoload_register')) {
 	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
 }
 
+
 $UNI	= 1;
 
 define('MODE', 'INSTALL');
@@ -48,12 +49,9 @@ $template = new template();
 $template->assign(array(
 	'lang'			=> $LNG->getLanguage(),
 	'Selector'		=> $LNG->getAllowedLangs(false),
-	'intro_lang'	=> $LNG['intro_lang'],
 	'title'			=> $LNG['title_install'].' &bull; 2Moons',
-	'menu_intro'	=> $LNG['menu_intro'],
-	'menu_install'	=> $LNG['menu_install'],
-	'menu_license'	=> $LNG['menu_license'],
-	'canUpgrade'	=> false,#file_exists(ROOT_PATH."includes/config.php") && filesize(ROOT_PATH."includes/config.php") !== 0,
+	'header'		=> $LNG['menu_install'],
+	'canUpgrade'	=> file_exists(ROOT_PATH."includes/config.php") && filesize(ROOT_PATH."includes/config.php") !== 0,
 ));
 
 $enableInstallToolFile	= ROOT_PATH.'includes/ENABLE_INSTALL_TOOL';
@@ -115,7 +113,168 @@ switch($mode)
 		$ftp->chmod('install', $CHMOD);
 	break;
 	case 'upgrade':
+		// Willkommen zum Update page. Anzeige, von und zu geupdatet wird. Informationen, dass ein backup erstellt wird.
+		require_once(ROOT_PATH . 'includes/config.php');
+		require_once(ROOT_PATH . 'includes/dbtables.php');
+		
+		$DATABASE	= new Database();
+		Config::init();
+		
+		
+		$directoryIterator = new DirectoryIterator(ROOT_PATH.'install/updates/');
+		try {
+			$sqlRevision	= Config::get('sql_revision');
+		} catch(Exception $e) {
+			$template->message($LNG['upgrade_required_rev'], false, 0, true);
+			exit;
+		}
+		
+		$fileList	= array();
+		foreach($directoryIterator as $fileInfo)
+		{
+			if (!$fileInfo->isFile()) continue;
+			
+			$fileRevision	= substr($fileInfo->getFilename(), 7, -4);
+			if ($fileRevision > $sqlRevision)
+			{
+				$fileList[]	= (int) $fileRevision;
+			}
+		}
+			
+		sort($fileList);
+		
+		$template->assign_vars(array(
+			'revisionlist'	=> $fileList,
+			'file_revision'	=> empty($fileList) ? $sqlRevision : max($fileList),
+			'sql_revision'	=> $sqlRevision,
+			'header'		=> $LNG['menu_upgrade'],
+		));
+		
+		$template->show('ins_update.tpl');
+	break;
+	case 'doupgrade':
+		require_once(ROOT_PATH . 'includes/config.php');
+		require_once(ROOT_PATH . 'includes/dbtables.php');
+		
+		$startrevision	= HTTP::_GP('startrevision', 0);
+		$DATABASE		= new Database();
+		
+		// Create a Backup
+		$prefixCounts	= strlen(DB_PREFIX);
+		$dbTables		= array();
+		$sqlTableRaw	= $DATABASE->query("SHOW TABLE STATUS FROM `".DB_NAME."`;");
+
+		while($table = $DATABASE->fetchArray($sqlTableRaw))
+		{
+			if(DB_PREFIX == substr($table['Name'], 0, $prefixCounts))
+			{
+				$dbTables[]	= $table['Name'];
+			}
+		}
+		
+		if(empty($dbTables))
+		{
+			throw new Exception('No tables found for dump.');
+		}
+		
+		$fileName	= '2MoonsBackup_'.date('d_m_Y_H_i_s', TIMESTAMP).'.sql';
+		$filePath	= ROOT_PATH.'includes/backups/'.$fileName;
+		
+		require ROOT_PATH.'includes/classes/SQLDumper.class.php';
+		
+		Config::init();
+		$dump	= new SQLDumper;
+		$dump->dumpTablesToFile($dbTables, $filePath);
+		@set_time_limit(600);
+		$httpRoot	= PROTOCOL.HTTP_HOST.str_replace(array('\\', '//'), '/', dirname(dirname($_SERVER['SCRIPT_NAME'])).'/');
+		
+		$revision	= $startrevision - 1;
+		
+		$fileList	= array();
+		
+		$directoryIterator = new DirectoryIterator(ROOT_PATH.'install/updates/');
+		foreach($directoryIterator as $fileInfo)
+		{
+			if (!$fileInfo->isFile()) continue;
+			
+			$fileRevision	= substr($fileInfo->getFilename(), 7, -4);
 	
+			if ($fileRevision > $revision)
+			{			
+				
+				$fileExtension	= pathinfo($filePath, PATHINFO_EXTENSION);
+				$key			= $fileRevision.((int) $fileExtension === 'php');
+				
+				$fileList[$key]	= array(
+					'fileName'		=> $fileInfo->getFilename(),
+					'fileRevision'	=> $fileRevision,
+					'fileExtension'	=> $fileExtension,
+				);
+			}
+		}
+		
+		ksort($fileList);
+		
+		if (!empty($fileList) && !empty($revision))
+		{
+			foreach($fileList as $fileInfo)
+			{
+				switch($fileInfo['fileExtension'])
+				{
+					case 'php':
+						copy(ROOT_PATCH.'install/updates/'.$fileInfo['fileName'], ROOT_PATH.$fileInfo['fileName']);
+						$ch = curl_init($httpRoot.$fileInfo['fileName']);
+						curl_setopt($ch, CURLOPT_HEADER, false);
+						curl_setopt($ch, CURLOPT_NOBODY, true);
+						curl_setopt($ch, CURLOPT_MUTE, true);
+						curl_exec($ch);
+						if(curl_errno($ch))
+						{
+							$errorMessage = 'CURL-Error on update '.basename($fileInfo['filePath']).':'.curl_error($ch);
+							try {
+								$dump->restoreDatabase($filePath);
+								$message	= 'Update error.<br><br>'.$errorMessage.'<br><br><b><i>Backup restored.</i></b>';
+							} catch(Exception $e) {
+								$message	= 'Update error.<br><br>'.$errorMessage.'<br><br><b><i>Can not restore backup. Your game is maybe broken right now.</i></b><br><br>Restore error:<br>'.$e->getMessage();
+							}
+							throw new Exception($message);
+						}
+						curl_close($ch);
+						unlink(ROOT_PATCH.$file);
+					break;
+					case 'sql';
+						$data = file_get_contents(ROOT_PATH.'install/updates/'.$fileInfo['fileName']);
+						try {
+							$DATABASE->multi_query(str_replace("prefix_", DB_PREFIX, $data));
+						} catch (Exception $e) {
+							$errorMessage = $e->getMessage();
+							try {
+								$dump->restoreDatabase($filePath);
+								$message	= 'Update error.<br><br>'.$errorMessage.'<br><br><b><i>Backup restored.</i></b>';
+							} catch(Exception $e) {
+								$message	= 'Update error.<br><br>'.$errorMessage.'<br><br><b><i>Can not restore backup. Your game is maybe broken right now.</i></b><br><br>Restore error:<br>'.$e->getMessage();
+							}
+							throw new Exception($message);
+						}
+					break;
+				}
+			}
+			
+			$revision	= end($fileList);
+			$revision	= $revision['fileRevision'];
+		}
+		
+		$gameVersion	= explode('.', Config::get('VERSION'));
+		$gameVersion[2]	= $revision;
+		
+		$DATABASE->query("UPDATE ".CONFIG." SET VERSION = '".implode('.', $gameVersion)."', sql_revision = ".$revision.";");
+		ClearCache();
+		$template->assign_vars(array(
+			'update'		=> !empty($fileList),
+			'revision'		=> $revision,
+			'header'		=> $LNG['menu_upgrade'],
+		));
+		$template->show('ins_doupdate.tpl');
 	break;
 	case 'install':
 		$step	  = HTTP::_GP('step', 0);
@@ -350,18 +509,42 @@ switch($mode)
 				require_once(ROOT_PATH . 'includes/config.php');
 				require_once(ROOT_PATH . 'includes/dbtables.php');	
 				require_once(ROOT_PATH . 'includes/classes/class.Database.php');
-				$GLOBALS['DATABASE']	= new Database();
-				try {
-					$GLOBALS['DATABASE']->multi_query(str_replace(
-					array(
-						'%PREFIX%',
-						'%VERSION%',
-					), array(
-						$database['tableprefix'],
-						file_get_contents('VERSION'),
-					), file_get_contents('install.sql')));
+				
+				
+				$installSQL				= file_get_contents('install.sql');
+				$installVersion			= file_get_contents('VERSION');
+				$installRevision		= 0;
+				
+				preg_match('!\$Id$installSQL, $match);
+				
+				$installVersion		= explode('.', $installVersion);
+				if(isset($match[1]))
+				{
+					$installRevision	= (int) $match[1];
+					$installVersion[2]	= $installRevision;
+				}
+				else
+				{
+					$installRevision	= (int) $installVersion[2];
+				}
+				
+				$installVersion		= implode('.', $installVersion);
+				
+ 				try {
+ 					$GLOBALS['DATABASE']->multi_query(str_replace(
+ 					array(
+ 						'%PREFIX%',
+ 						'%VERSION%',
+						'%REVISION%',
+ 					), array(
+ 						$database['tableprefix'],
+						$installVersion,
+						$installRevision,
+					), $installSQL));
+ 					
+					unset($installSQL, $installRevision, $installVersion);
 					
-					Config::init();
+ 					Config::init();
 					Config::update(array(
 						'timezone'			=> @date_default_timezone_get(),
 						'lang'				=> $LNG->getLanguage(),
@@ -374,7 +557,7 @@ switch($mode)
 					HTTP::redirectTo('index.php?mode=install&step=7');
 				} catch (Exception $e) {
 					unlink(ROOT_PATH."includes/config.php");
-					$error	= $GLOBALS['DATABASE']->error;
+					$error	= $DATABASE->error;
 					if(empty($error))
 					{
 						$error	= $e->getMessage();

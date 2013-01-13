@@ -527,30 +527,12 @@ function ClearCache()
 			unlink(ROOT_PATH.$DIR.$FILE);
 		}
 	}
+	
+	require ROOT_PATH.'includes/classes/Cronjob.class.php';
+	Cronjob::reCalculateCronjobs();
+	$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET eco_hash = '';");
+	clearstatcache();
 }
-
-function GetCrons()
-{
-	global $CONF;
-	$Crons	= '';
-	$Crons .= TIMESTAMP >= (Config::get('stat_last_update') + (60 * Config::get('stat_update_time'))) ? '<img src="./cronjobs.php?cron=stats" alt="" height="1" width="1">' : '';
-	
-	$Crons .= Config::get('ts_modon') == 1 && TIMESTAMP >= (Config::get('ts_cron_last') + 60 * Config::get('ts_cron_interval')) ? '<img src="./cronjobs.php?cron=teamspeak" alt="" height="1" width="1">' : '';
-	
-	$Crons .= TIMESTAMP >= (Config::get('stat_last_db_update') + 86400) ? '<img src="./cronjobs.php?cron=daily" alt="" height="1" width="1">' : ''; //Daily Cronjob
-	
-	return $Crons;
-}
-
-function r_implode($glue, $pieces)
-{
-	$retVal	= array();
-	foreach($pieces as $r_pieces)
-	{
-		$retVal[] = is_array($r_pieces) ? r_implode($glue, $r_pieces) : $r_pieces;
-	}
-	return implode($glue, $retVal);
-} 
 
 function allowedTo($side)
 {

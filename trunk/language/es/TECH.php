@@ -1,6 +1,7 @@
 <?php
 
 //SHORT NAMES FOR COMBAT REPORTS
+
 $LNG['shortNames'] = array (
 	202 => "N.C peque&ntilde;a",
 	203 => "N.C grande",
@@ -36,20 +37,24 @@ $LNG['shortNames'] = array (
 );
 
 $LNG['bonus'] = array(
-	'Attack'			=> '+%f%% Angriff',
-	'Defensive'			=> '+%f%% Verteidigung',
-	'Shield'			=> '+%f%% Schild',
-	'BuildTime'			=> '-%f%% Bauzeit',
-	'ResearchTime'		=> '-%f%% Forschungszeit',
-	'ShipTime'			=> '-%f%% Schiffbauzeit',
-	'DefensiveTime'		=> '-%f%% Verteidungsbauzeit',
-	'Resource'			=> '+%f%% Mienenertrag',
-	'Energy'			=> '+%f%% Energieerzeugung',
-	'ResourceStorage'	=> '+%f%% Speicher',
-	'ShipStorage'		=> '+%f%% Flottenkapazität',
-	'FlyTime'			=> '+%f%% Flugzeit',
-	'FleetSlots'		=> '+%f%% Flottenslots',
-	'Planets'			=> '+%f%% Planeten',
+	'Attack'			=> 'Angriff',
+	'Defensive'			=> 'Verteidigung',
+	'Shield'			=> 'Schild',
+	'BuildTime'			=> 'Bauzeit',
+	'ResearchTime'		=> 'Forschungszeit',
+	'ShipTime'			=> 'Schiffbauzeit',
+	'DefensiveTime'		=> 'Verteidungsbauzeit',
+	'Resource'			=> 'Mienenertrag',
+	'Energy'			=> 'Energieerzeugung',
+	'ResourceStorage'	=> 'Speicher',
+	'ShipStorage'		=> 'Flottenkapazität',
+	'FlyTime'			=> 'Flugzeit',
+	'FleetSlots'		=> 'Flottenslots',
+	'Planets'			=> 'Planeten',
+	'SpyPower'			=> 'Spionagepower',
+	'Expedition'		=> 'Expeditionen',
+	'GateCoolTime'		=> 'Sprungtoraufladungszeit',
+	'MoreFound'			=> 'Expeditionsfund',
 );
 
 $LNG['tech'] = array(
@@ -70,13 +75,11 @@ $LNG['tech'] = array(
  33 => "Terraformer",
  34 => "Dep&oacute;sito de la Alianza",
  44 => "Silo",
-
-
  40 => "Construcciones Lunares",
  41 => "Base lunar",
  42 => "Sensor Phalanx",
  43 => "Salto cu&aacute;ntico",
-// Technologies
+
 100 => "Investigaci&oacute;n",
 106 => "Tecnolog&iacute;a de espionaje",
 108 => "Tecnolog&iacute;a de computaci&oacute;n",
@@ -132,6 +135,7 @@ $LNG['tech'] = array(
 410 => 'Ca&ntilde;&oacute;n de Graviton',
 411 => 'Plataforma de Defensa Orbital',
 
+500 => 'Misiles',
 502 => 'Misil de intercepci&oacute;n',
 503 => 'Misil interplanetario',
 
@@ -245,31 +249,29 @@ $LNG['shortDescription'] = array(
 502 => "Los misiles de intercepci&oacute;n destruyen los misiles interplanetarios.",
 503 => "Los misiles interplanetarios destruyen los sistemas de defensa del enemigo.",
 
+	601 => 'El ge&oacute;logo es un experto en astrominerolog&iacute;a y astrocristalograf&iacute;a. Asiste a sus equipos en la metalurgia y qu&iacute;mica y tambi&eacute;n se encarga de las comunicaciones interplanetarias para optimizar el uso y refinamiento de la materia bruta a lo largo de todo el imperio.',
+	602 => 'El almirante es un veterano de guerra experimentado y un habilidoso estratega. En las batallas mas duras, es capaz de hacerse una idea de la situaci&oacute;n y contactar a sus almirantes subordinados. Un emperador sabio puede apoyarse en su ayuda durante los combates.',
+	603 => 'El Ingeniero es un especialista en la gesti&oacute;n de energ&iacute;a. En tiempos de paz, aumenta la energ&iacute;a de todas las colonias. En caso de ataque, garantiza el abastecimiento de energ&iacute;a a los ca&ntilde;ones, evitando una posible sobrecarga, lo que conduce a una reducci&oacute;n de defensas perdidas en batalla.',
+	604 => 'El gremio de los tecn&oacute;cratas est&aacute; compuesto de aut&eacute;nticos genios, y siempre los encontrar&aacute;s en ese peligroso borde donde todo explotar&iacute;a en mil pedazos antes de poder encontrar una explicaci&oacute;n tecnol&oacute;gica y racional. Ning&uacute;n ser humano normal tratar&iacute;a jam&aacute;s descifrar el c&oacute;digo de un tecn&oacute;crata, con su presencia, inspira a los investigadores del imperio.',
+	605 => 'El Constructor tiene alterado su ADN, uno solo de estos hombres puede construir una ciudad entera en poco tiempo.',
+	606 => 'Los cient&iacute;ficos forman parte de un gremio concurrente al de los tecn&oacute;cratas. Ellos se especializan en la mejora de las tecnolog&iacute;as.',
+	607 => 'El Maestro del Almacén ha dominado el almacenaje de elementos valiosos y las habilidades de clasificación. A través de técnicas sofisticadas de almacenamiento y  ajustes estructurales puede aumentar el volumen útil de un espacio de almacenamiento de manera significativa.',
+	608 => 'El defensor es un miembro del ej&eacute;rcito imperial. Abocarse en su trabajo le permite construir una formidable defensa en un breve periodo de tiempo.',
+	609 => 'El Protector ha realizado un impresionante trabajo para el Reino y por ello se le dio la oportunidad de ser Protector. El protector es el reconocimiento más importante dentro del Ejército Imperial en materia de Defensa.',
+	610 => 'El esp&iacute;a es una persona enigm&aacute;tica. Nadie nunca vio su verdadero rostro, la &uacute;nica forma ser&iacute;a asesinandol&oacute;.',
+	611 => 'El comandante forma parte del ej&eacute;rcito imperial ha dominado el arte del manejo de flotas. Su cerebro puede calcular las trayectorias de una gran cantidad de flotas.',
+	612 => 'El destructor es un miembro del ej&eacute;rcito imperial sin misericordia. Masacra todo lo que est&aacute; a su paso s&oacute;lo por placer. Actualmente est&aacute; desarrollando un nuevo m&eacute;todo de producci&oacute;n de las estrellas de la muerte.',
+	613 => 'El general es una persona que ha servido desde hace muchos a&ntilde;os al ej&eacute;rcito imperial. Los fabricantes de naves producen naves m&aacute;s r&aacute;pidas si el lo pide.',
+	614 => 'El Conquistador posee cualidades innegables de la conquista. Es parte de la armada imperial, siendo el más alto nivel de educación que se puede alcanzar. Conoce como comandar la Estrella Negra.',
+	615 => 'Ha demostrado ser el más grande conquistador del universo. El universo es tuyo, siempre que se mantenga haciendo lo que se debe hacer.',
 
-	601 => 'El ge&oacute;logo es un experto en astrominerolog&iacute;a y astrocristalograf&iacute;a. Asiste a sus equipos en la metalurgia y qu&iacute;mica y tambi&eacute;n se encarga de las comunicaciones interplanetarias para optimizar el uso y refinamiento de la materia bruta a lo largo de todo el imperio.<br><br><span style="color:red">+%s%% Producción de Recursos. Nivel Máximo %s</span>',
-	602 => 'El almirante es un veterano de guerra experimentado y un habilidoso estratega. En las batallas mas duras, es capaz de hacerse una idea de la situaci&oacute;n y contactar a sus almirantes subordinados. Un emperador sabio puede apoyarse en su ayuda durante los combates.<br><br><span style="color:red">+%s%% Escudos,Defensas y Ataque. Nivel Máximo %s </span>',
-	603 => 'El Ingeniero es un especialista en la gesti&oacute;n de energ&iacute;a. En tiempos de paz, aumenta la energ&iacute;a de todas las colonias. En caso de ataque, garantiza el abastecimiento de energ&iacute;a a los ca&ntilde;ones, evitando una posible sobrecarga, lo que conduce a una reducci&oacute;n de defensas perdidas en batalla.<br><br><span style="color:red">+%s%% Energía. Nivel Máximo %s</span>',
-	604 => 'El gremio de los tecn&oacute;cratas est&aacute; compuesto de aut&eacute;nticos genios, y siempre los encontrar&aacute;s en ese peligroso borde donde todo explotar&iacute;a en mil pedazos antes de poder encontrar una explicaci&oacute;n tecnol&oacute;gica y racional. Ning&uacute;n ser humano normal tratar&iacute;a jam&aacute;s descifrar el c&oacute;digo de un tecn&oacute;crata, con su presencia, inspira a los investigadores del imperio.<br><br><span style="color:red">-%s%% Tiempo Construcción de Naves. Nivel Máximo %s</span>',
-	605 => 'El Constructor tiene alterado su ADN, uno solo de estos hombres puede construir una ciudad entera en poco tiempo.<br><br><span style="color:red">-%s%% Construcción de Edificios. Nivel Máximo %s</span>',
-	606 => 'Los cient&iacute;ficos forman parte de un gremio concurrente al de los tecn&oacute;cratas. Ellos se especializan en la mejora de las tecnolog&iacute;as.<br><br><span style="color:red">-%s%% Tiempo de Investigación. Nivel Máximo %s</span>',
-	607 => 'El Maestro del Almacén ha dominado el almacenaje de elementos valiosos y las habilidades de clasificación. A través de técnicas sofisticadas de almacenamiento y  ajustes estructurales puede aumentar el volumen útil de un espacio de almacenamiento de manera significativa.<br><br><span style="color:red">+%s%% Depósitos. Nivel Máximo. : %s</span>',
-	608 => 'El defensor es un miembro del ej&eacute;rcito imperial. Abocarse en su trabajo le permite construir una formidable defensa en un breve periodo de tiempo.<br><br><span style="color:red">Construcción de defensas -%s%%. Nivel Máximo %s</span>',
-	609 => 'El Protector ha realizado un impresionante trabajo para el Reino y por ello se le dio la oportunidad de ser Protector. El protector es el reconocimiento más importante dentro del Ejército Imperial en materia de Defensa<br><br><span style="color:red">Permite construír la Cúpula Grande de Protección. Nivel Máximo %s</span>',
-	610 => 'El esp&iacute;a es una persona enigm&aacute;tica. Nadie nunca vio su verdadero rostro, la &uacute;nica forma ser&iacute;a asesinandol&oacute;. <br><br><span style="color:red">+%s Nivel de Espionaje. Nivel Máximo %s</span>',
-	611 => 'El comandante forma parte del ej&eacute;rcito imperial ha dominado el arte del manejo de flotas. Su cerebro puede calcular las trayectorias de una gran cantidad de flotas.<br><br><span style="color:red">+%s Espacios de Flota. Nivel Máximo %s </span>',
-	612 => 'El destructor es un miembro del ej&eacute;rcito imperial sin misericordia. Masacra todo lo que est&aacute; a su paso s&oacute;lo por placer. Actualmente est&aacute; desarrollando un nuevo m&eacute;todo de producci&oacute;n de las estrellas de la muerte.<br><br><span style="color:red">Construye 2 Estrellas de la Muerte por el precio de Una. Nivel Máximo %s </span>',
-	613 => 'El general es una persona que ha servido desde hace muchos a&ntilde;os al ej&eacute;rcito imperial. Los fabricantes de naves producen naves m&aacute;s r&aacute;pidas si el lo pide.<br><br><span style="color:red">+%s%% Velocidad de las Naves. Nivel Máximo %s</span>',
-	614 => 'El Conquistador posee cualidades innegables de la conquista. Es parte de la armada imperial, siendo el más alto nivel de educación que se puede alcanzar. Conoce como comandar la Estrella Negra.<br><br><span style="color:red">Permite usar la Estrella Negra. Nivel Máximo %s</span>',
-	615 => 'Ha demostrado ser el más grande conquistador del universo. El universo es tuyo, siempre que se mantenga haciendo lo que se debe hacer.<br><br><span style="color:red">Aprueba la destrucción. Nivel Máximo %s</span>',
-
-701 => 'Aumenta el valor de ataque de las naves y defensas en %s%%. El bono es s&oacute;lo temporal.',
-702 => 'Aumenta el valor de los buques en los escudos y defensas en %s%%. El bono es s&oacute;lo temporal.',
-703 => 'Reducir el tiempo de construcci&oacute;n de edificios en %s%%. El bono es s&oacute;lo temporal.',
-704 => 'Aumenta la producci&oacute;n de recursos en %s%%. El bono es s&oacute;lo temporal.',
-705 => 'Aumenta la producci&oacute;n de energ&iacute;a en %s%%. El bono es s&oacute;lo temporal.',
-706 => 'Reduce el tiempo de la investigaci&oacute;n en %s%%. El bono es s&oacute;lo temporal.',
-707 => 'Acorta el tiempo de vuelo en %s%%. El bono es s&oacute;lo temporal. No afecta a las expediciones.',
-
+701 => 'El bono es s&oacute;lo temporal.',
+702 => 'El bono es s&oacute;lo temporal.',
+703 => 'El bono es s&oacute;lo temporal.',
+704 => 'El bono es s&oacute;lo temporal.',
+705 => 'El bono es s&oacute;lo temporal.',
+706 => 'El bono es s&oacute;lo temporal.',
+707 => 'El bono es s&oacute;lo temporal. No afecta a las expediciones.',
 );
 
 $LNG['longDescription'] = array(
@@ -344,7 +346,6 @@ $LNG['longDescription'] = array(
 	409 => "Era la mejor protecci&oacute;n m&aacute;s avanzada para el planeta.",
 	410 => 'Se basa como su nombre indica, en la fuerza Graviton, el ataque m&aacute;s conocido de la Estrella de la Muerte.',
 	411 => 'Esta plataforma de proporciones gigantescas, es el m&aacute;s grande del universo jam&aacute;s haya visto. Es una plataforma de defensa inmuebles. No tiene mando directo y se realiza por gravedad en una &oacute;rbita estable del planeta. El inicio de este proceso requiere de grandes misas de la energ&iacute;a. Los investigadores est&aacute;n trabajando en maneras de construir los buques en esta plataforma con el fin de utilizarlos como un cintur&oacute;n defensivo exterior, lo que permite una defensa m&aacute;s planetaria. Debido a la enorme escala, es posible tener s&oacute;lo uno de estos monstruos.',
-
 	502 => "Los misiles de intercepci&oacute;n destruyen los misiles interplanetarios. Cada mis&iacute;l de intercepci&oacute;n destruye un mis&iacute;l interplanetario.",
 	503 => "Los misiles interplanetarios destruyen los sistemas de defensa del enemigo. Los sistemas de defensa destruidos por los misiles interplanetarios no ser&aacute;n reparados.",
 
@@ -364,13 +365,11 @@ $LNG['longDescription'] = array(
 	614 => 'El Conquistador posee cualidades innegables de la conquista. Es parte de la armada imperial, siendo el más alto nivel de educación que se puede alcanzar. Conoce como comandar la Estrella Negra.<br><br><span style="color:red">Permite usar la Estrella Negra. Nivel Máximo %s</span>',
 	615 => 'Ha demostrado ser el más grande conquistador del universo. El universo es tuyo, siempre que se mantenga haciendo lo que se debe hacer.<br><br><span style="color:red">Aprueba la destrucción. Nivel Máximo %s</span>',
 
-	701 => 'Optimizaci&oacute;n de armas',
-	702 => 'Optimizaci&oacute;n de escudos',
-	703 => 'Coordinaci&oacute;n de construcci&oacute;n',
-	704 => 'Optimizaci&oacute;n de recursos',
-	705 => 'Optimizaci&oacute;n de energ&iacute;a',
-	706 => 'Optimizaci&oacute;n de investigaciones',
-	707 => 'Coordinaci&oacute;n de flota',
-
+	701 => 'El bono es s&oacute;lo temporal.',
+	702 => 'El bono es s&oacute;lo temporal.',
+	703 => 'El bono es s&oacute;lo temporal.',
+	704 => 'El bono es s&oacute;lo temporal.',
+	705 => 'El bono es s&oacute;lo temporal.',
+	706 => 'El bono es s&oacute;lo temporal.',
+	707 => 'El bono es s&oacute;lo temporal. No afecta a las expediciones.',
 );
-// Translation into Spanish by angelus_ira . All rights reserved (C) 2011

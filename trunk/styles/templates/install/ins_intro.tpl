@@ -17,7 +17,7 @@
 		<div id="main" align="left">
 			<h2>{$LNG.intro_upgrade_head}</h2>
 			<p>{$LNG.intro_upgrade_text}</p>
-		</div><br><a href="index.php?mode=install&step=upgrade"><button style="cursor: pointer;">{$LNG.continueUpgrade}</button></a>
+		</div><br><a href="index.php?mode=upgrade"><button style="cursor: pointer;">{$LNG.continueUpgrade}</button></a>
 	</td>
 </tr>
 {/if}
