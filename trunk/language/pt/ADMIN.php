@@ -119,8 +119,8 @@ $LNG['ad_editor_authlevels']	= 'Permissões';
 $LNG['ad_add_not_exist']		= 'ID inexistente!';
 
 //	Pesquisas
-$LNG['ad_add_succes']			= 'A pesquisa foi inserida com sucesso!';
-$LNG['ad_delete_succes']		= 'A pesquisa foi removida com sucesso!';
+$LNG['ad_add_tech_success']			= 'A pesquisa foi inserida com sucesso!';
+$LNG['ad_delete_tech_success']		= 'A pesquisa foi removida com sucesso!';
 $LNG['ad_research_title']		= 'Pesquisa';
 $LNG['ad_research']		= 'Pesquisas';
 
@@ -131,15 +131,15 @@ $LNG['ad_add_offi_success']		= 'Os oficiais foram inseridos com sucesso!';
 $LNG['ad_delete_offi_success']	= 'Os oficiais foram removidos com sucesso!';
 
 //	Recursos
-$LNG['ad_add_res_sucess']		= 'Os recursos foram inseridos com sucesso!';
-$LNG['ad_delete_res_sucess']	= 'Os recursos foram removidos com sucesso!';
+$LNG['ad_add_res_success']		= 'Os recursos foram inseridos com sucesso!';
+$LNG['ad_delete_res_success']	= 'Os recursos foram removidos com sucesso!';
 $LNG['ad_main_title']		= 'Recursos e Tecnologias';
 
 //	Naves
 $LNG['ad_ships_title']			= 'Naves';
 $LNG['ad_ships']			= 'Naves';
-$LNG['ad_add_ships_sucess']		= 'As naves foram inseridas com sucesso!';
-$LNG['ad_delete_ships_sucess']	= 'As naves foram removidas com sucesso!';
+$LNG['ad_add_ships_success']		= 'As naves foram inseridas com sucesso!';
+$LNG['ad_delete_ships_success']	= 'As naves foram removidas com sucesso!';
 
 //	Defesas
 $LNG['ad_defenses_title']			= 'Defesas';
