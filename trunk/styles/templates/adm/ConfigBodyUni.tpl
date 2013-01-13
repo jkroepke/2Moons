@@ -83,7 +83,25 @@
 	<td><input name="ref_max_referals" maxlength="6" size="8" value="{$ref_max_referals}" type="text"></td>
 	<td><img src="./styles/resource/images/admin/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$se_ref_max_referals_info}"></td>
 </tr><tr>
-	<th colspan="2">{$se_server_planet_parameters}</th><th>&nbsp;</th>
+	<th colspan="2">{$LNG.se_server_colonisation_config}</th><th>&nbsp;</th>
+</tr><tr>
+	<td>{$LNG.se_planets_min}</td>
+	<td><input name="min_player_planets" maxlength="11" size="11" value="{$min_player_planets}" type="text"></td>
+	<td><img src="./styles/resource/images/admin/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$LNG.se_planets_min_info}"></td>
+</tr><tr>
+	<td>{$LNG.se_planets_tech}</td>
+	<td><input name="planets_tech" maxlength="11" size="11" value="{$planets_tech}" type="text"></td>
+	<td><img src="./styles/resource/images/admin/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$LNG.se_planets_tech_info}"></td>
+</tr><tr>
+	<td>{$LNG.se_planets_officier}</td>
+	<td><input name="planets_officier" maxlength="11" size="11" value="{$planets_officier}" type="text"></td>
+	<td><img src="./styles/resource/images/admin/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$LNG.se_planets_officier_info}"></td>
+</tr><tr>
+	<td>{$LNG.se_planets_per_tech}</td>
+	<td><input name="planets_per_tech" maxlength="11" size="11" value="{$planets_per_tech}" type="text"></td>
+	<td><img src="./styles/resource/images/admin/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$LNG.se_planets_per_tech_info}"></td>
+</tr><tr>
+	<th colspan="2">{$LNG.se_server_planet_parameters}</th><th>&nbsp;</th>
 </tr><tr>
 	<td>{$se_metal_start}</td>
 	<td><input name="metal_start" maxlength="11" size="11" value="{$metal_start}" type="text"></td>
@@ -158,7 +176,7 @@
 	<td>{$se_max_planets}</td>
 	<td><input name="max_planets" maxlength="3" size="3" value="{$max_planets}" type="text"></td>
 	<td><img src="./styles/resource/images/admin/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$se_max_planets_info}"></td>
-</tr><tr>
+</tr><!--<tr>
 	<td>{$se_min_player_planets}</td>
 	<td><input name="min_player_planets" maxlength="3" size="3" value="{$min_player_planets}" type="text"></td>
 	<td><img src="./styles/resource/images/admin/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$se_max_player_planets_info}"></td>
@@ -166,7 +184,7 @@
 	<td>{$se_max_player_planets}</td>
 	<td><input name="max_player_planets" maxlength="3" size="3" value="{$max_player_planets}" type="text"></td>
 	<td><img src="./styles/resource/images/admin/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$se_min_player_planets_info}"></td>
-</tr><tr>
+</tr>--><tr>
 	<td>{$se_planet_factor}</td>
 	<td><input name="planet_factor" maxlength="3" size="3" value="{$planet_factor}" type="text"></td>
 	<td><img src="./styles/resource/images/admin/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$se_planet_factor_info}"></td>

@@ -378,13 +378,8 @@ class PlayerUtil {
 		global $resource;
 		$CONF	= Config::getAll('universe', $USER['universe']);
 		
-		if(empty($CONF['max_player_planets']))
-		{
-			return 0;
-		}
-
 		// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-		return min($CONF['min_player_planets'] + ceil($USER[$resource[124]] / 2) * PLANETS_PER_TECH + $USER['factor']['Planets'], $CONF['max_player_planets']);
+		return (int) ceil($CONF['min_player_planets'] + min($CONF['planets_tech'],$USER[$resource[124]] * $CONF['planets_per_tech']) + min($CONF['planets_officier'],$USER['factor']['Planets']));
 	}
 
 	static function allowPlanetPosition($Pos, $USER)
