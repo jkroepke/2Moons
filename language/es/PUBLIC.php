@@ -1,119 +1,147 @@
 <?php
 
-//general
-$LNG['index'] = 'Indice';
-$LNG['register'] = 'Registro';
-$LNG['forum'] = 'Foro';
-$LNG['send'] = 'Aceptar';
-$LNG['menu_index'] = 'Inicio';
-$LNG['menu_news'] = 'Noticias';
-$LNG['menu_rules'] = 'Reglas';
-$LNG['menu_pranger'] = 'Baneados';
-$LNG['menu_top100'] = 'Salón de la Fama';
-$LNG['menu_disclamer'] = 'Contacto';
-$LNG['uni_closed'] = '(offline)';
+// Translated into Espanish by Orion . All rights reversed (C) 2012
+// 2Moons - Copyright (C) 2010-2012 Jän Kropke
 
-//index.php
-//case lostpassword
+// Site Title
+$LNG['siteTitleIndex']				= 'Indice';
+$LNG['siteTitleRegister']			= 'Registro';
+$LNG['siteTitleScreens']			= 'Imagenes del Juego';
+$LNG['siteTitleBanList']			= 'Baneados';
+$LNG['siteTitleBattleHall']			= 'Salón de la Fama';
+$LNG['siteTitleRules']				= 'Reglas';
+$LNG['siteTitleNews']				= 'Noticias';
+$LNG['siteTitleDisclamer']			= 'Contactar';
+$LNG['siteTitleLostPassword']			= 'Olvidaste tu contraseña?';
 
-$LNG['lost_empty'] = '¡Debes rellenar todos los campos!';
-$LNG['lost_not_exists'] = '¡No pudo encontrarse ningún usuario que posea este correo electrónico!';
-$LNG['lost_mail_title'] = 'Nueva contraseña';
-$LNG['mail_sended'] = '¡Su nueva contraseña ha sido enviada con éxito!';
+// Menu
+$LNG['forum']						= 'Foro';
+$LNG['menu_index']					= 'Indice';
+$LNG['menu_news']					= 'Noticias';
+$LNG['menu_rules']					= 'Reglas';
+$LNG['menu_banlist']				= 'Baneados';
+$LNG['menu_battlehall']				= 'Salón de la Fama';
+$LNG['menu_disclamer']				= 'Contactar';
+$LNG['menu_register']				= 'Registrar';
+
+// Universe select
+$LNG['chose_a_uni']					= 'Elige el Universo';
+$LNG['universe']					= 'Universo';
+$LNG['uni_closed']					= ' (cerrado)';
+
+// Button
+$LNG['buttonRegister']				= 'Registrate Ahora!';
+$LNG['buttonScreenshot']			= 'Imagenes del Juego';
+$LNG['buttonLostPassword']			= 'Recuperar contraseña?';
+
+// Start
+$LNG['gameInformations']			= array(
+	"Un juego de estrategia espacial en tiempo real.",
+	"Juega junto con cientos de jugadores.",
+	"Nada de descarga, s&oacute;lo se requiere un navegador est&aacute;ndar.",
+	"Registro Gratuito",
+);
+
+// Login
+$LNG['loginHeader']					= 'Iniciar Sesión';
+$LNG['loginUsername']				= 'Usuario';
+$LNG['loginPassword']				= 'Contraseña';
+$LNG['loginButton']					= 'Iniciar Sesión';
+$LNG['loginInfo']					= 'Con el Inicio de Sesión acepto las %s.';
+$LNG['loginWelcome']				= 'Bienvenido a %s';
+$LNG['loginServerDesc']				= '%s es un juego de estrategia espacial con cientos de jugadores jugando juntos <strong>al mismo tiempo</strong> tratando de ser el mejor. Todo lo que necesitas para jugar es un navegador estándar.';
+
+// Register
+$LNG['registerFacebookAccount']		= 'Cuenta Facebook';
+$LNG['registerUsername']			= 'Usuario';
+$LNG['registerUsernameDesc']		= 'El nombre de usuario debe tener por lo menos 3 y un máximo de 25 caracteres y puntos, y pueden consistir en números, letras, guiones y espacios';
+$LNG['registerPassword']			= 'Contraseña';
+$LNG['registerPasswordDesc']		= 'La Contraseña debe tener por lo menos 6 caracteres de longitud.';
+$LNG['registerPasswordReplay']		= 'Repetir Contraseña';
+$LNG['registerPasswordReplayDesc']	= 'Por Favor ingrese la misma contraseña.';
+$LNG['registerEmail']				= 'E-Mail';
+$LNG['registerEmailDesc']			= 'Por Favor introduce tu direccion de E-Mail (Necesaria para confirmacion de cuenta)!';
+$LNG['registerEmailReplay']			= 'Repetir E-Mail';
+$LNG['registerEmailReplayDesc']		= 'Por favor, introduzca su dirección de correo electrónico de nuevo para confirmación de seguridad!';
+$LNG['registerLanguage']			= 'Idioma';
+$LNG['registerReferral']			= 'Invitado por:';
+$LNG['registerCaptcha']				= 'Código de Seguridad';
+$LNG['registerCaptchaDesc']			= 'Por favor ingrese los caracteres de la imagen en el campo vacío. No tiene mayúsculas y minúsculas';
+$LNG['registerCaptchaReload']		= 'Recargar Captcha.';
+$LNG['registerRules']				= 'Reglas';
+$LNG['registerRulesDesc']			= 'Estoy deacuerdo con las %s';
+
+$LNG['registerBack']				= 'Atras';
+$LNG['registerNext']				= 'Siguiente';
+
+$LNG['registerErrorUniClosed']		= 'El registro está cerrado en este Universo.!';
+$LNG['registerErrorUsernameEmpty']	= 'Tienes que introducir un nombre de Usuario!';
+$LNG['registerErrorUsernameChar']	= 'Su nombre de usuario debe consistir sólo en números, letras, espacios, _, -, .!';
+$LNG['registerErrorUsernameExist']	= 'El nombre de usuario ya está en uso!';
+$LNG['registerErrorPasswordLength']	= 'La contraseña debe tener al menos 6 caracteres de longitud!';
+$LNG['registerErrorPasswordSame']	= 'Introducidas 2 contraseñas diferentes!';
+$LNG['registerErrorMailEmpty']		= 'Tienes que especificar una dirección de E-Mail!';
+$LNG['registerErrorMailInvalid']	= 'Dirección de E-Mail invalida!';
+$LNG['registerErrorMailSame']		= 'Has introducido 2 direcciones de email diferentes!';
+$LNG['registerErrorMailExist']		= 'La dirección de E-Mail ya esta en uso!';
+$LNG['registerErrorRules']			= 'Tienes que aceptar las Reglas!';
+$LNG['registerErrorCaptcha']		= 'El Codigo de seguridad no es correcto!';
+
+$LNG['registerMailVertifyTitle']	= 'La activación del registro en el juego: %s';
+$LNG['registerMailVertifyError']	= 'Fallo en el envio del mail: %s';
+
+$LNG['registerMailCompleteTitle']	= 'Bienvenido a %s!';
+
+$LNG['registerSendComplete']		= 'Gracias por tu registro. Debes consultar tu correo electrónico (atención con el SPAM) para más información.';
+
+$LNG['registerWelcomePMSenderName']	= 'Administrador';
+$LNG['registerWelcomePMSubject']	= 'Bienvenido';
+$LNG['registerWelcomePMText']		= 'Bienvenido a %s! En primer lugar tienes que construir una planta de energía solar, ya que es el edificio que genera la energía que se necesita para la producción de materias primas. Para crear una, haga clic izquierdo en el menú de "edificios". Entonces construya el cuarto edificio contando apartir de la parte superior. </br> Cuando tengas construida la planta de energía, podrás comenzar a construir las minas. Ir a los edificios en el menú y construir una mina de metal, seguido de una mina de cristal. </br></br>Con el fin de poder construir tus propias flotas, debes tener un Hangar. Para ver lo que se necesita para desbloquear ese edificio se puede echar un vistazo al apartado "Tecnologías" en el menú de la izquierda.</br>Si tienes más preguntas puedes mirar en la guía de principiantes, nuestro foro o abrir un ticket de soporte. </br></br> El equipo te desea mucha diversión explorando el universo!';
+
+//Vertify
+
+$LNG['vertifyNoUserFound']			= 'Solicitud no válida!';
+$LNG['vertifyAdminMessage']			= 'El Usuario "%s" ha sido activado!';
+
+
+//lostpassword
+$LNG['passwordInfo']				= 'Si ha olvidado su contraseña, debe especificar el nombre de usuario y la dirección de E-Mail que consta en su cuenta.';
+$LNG['passwordUsername']			= 'Usuario';
+$LNG['passwordMail']				= 'E-Mail';
+$LNG['passwordCaptcha']				= 'Codigo de Seguridad';
+$LNG['passwordSubmit']				= 'Enviar';
+$LNG['passwordErrorUsernameEmpty']	= 'No has especificado el nombre de usuario!';
+$LNG['passwordErrorMailEmpty']		= 'Ha introducido una dirección de e-mail desconocida!';
+$LNG['passwordErrorUnknown']		= 'No se pudo encontrar con los datos de la cuenta.';
+$LNG['passwordErrorOnePerDay']		= 'Contraseña para esta cuenta de usuario solicitada en las últimas 24. Sólo se puede solicitar la contraseña para esta cuenta de usuario cada 24 horas. ';
+
+$LNG['passwordValidMailTitle']		= 'Olvidó su contraseña en el juego: %s';
+$LNG['passwordValidMailSend']		= 'Recibirás un correo electrónico en breve con información adicional.';
+
+$LNG['passwordValidInValid']		= 'Solicitud no valida!';
+$LNG['passwordChangedMailSend']		= 'Recibirás un correo electrónico en breve con tu nueva contraseña.';
+$LNG['passwordChangedMailTitle']	= 'Nueva contraseña en el juego: %s';
+
+$LNG['passwordBack']				= 'Anterior';
+$LNG['passwordNext']				= 'Siguiente';
 
 //case default
 
-$LNG['server_infos'] = array("Un juego de estrategia espacial en tiempo real.", "Juega junto con cientos de jugadores.", "Nada de descarga, s&oacute;lo se requiere un navegador est&aacute;ndar.", "Registro Gratuito", );
-
-$LNG['login_error_1'] = 'Usuario/Contrase&ntilde;a Incorrecto!';
-$LNG['login_error_2'] = 'Alguien se ha conectado desde otro ordenador con esta cuenta!';
-$LNG['login_error_3'] = 'La sesi&oacute;n ha expirado!';
-$LNG['login_error_4'] = 'Hubo un error en la autorización externa, por favor inténtelo más tarde!';
-$LNG['screenshots'] = 'Imagenes';
-$LNG['universe'] = 'Universo';
-$LNG['chose_a_uni'] = 'Elige Universo';
-
-/* ------------------------------------------------------------------------------------------ */
-
-//lostpassword.tpl
-$LNG['lost_pass_title'] = 'Recuperar Contraseña';
-
-//index_body.tpl
-$LNG['user'] = 'Usuario';
-$LNG['pass'] = 'Contrase&ntilde;a';
-$LNG['remember_pass'] = 'Auto-Login';
-$LNG['lostpassword'] = 'Recordar Contrase&ntilde;a';
-$LNG['welcome_to'] = 'Bienvenido a';
-$LNG['server_description'] = '<strong>%s</strong> es un <strong>Juego de Simulación de Estrategia en el Espacio</strong> compite con cientos de jugadores conectados a lo largo del planeta <strong>simultaneamente</strong> para ser el/la mejor de todos. Todo lo que necesitas para jugar es un navegador Web Estandart.';
-$LNG['server_register'] = 'Registrate Ahora';
-$LNG['server_message'] = 'Reg&iacute;strese ahora y experimente una nueva y emocionante aventura en el mundo de';
-$LNG['login'] = 'Conexión';
-$LNG['disclamer'] = 'Contacto';
-$LNG['login_info'] = 'Al conectarme, estoy de acuerdo con las siguientes <a href="index.php?page=rules">Reglas</a>';
-
-/* ------------------------------------------------------------------------------------------ */
-
-//reg.php - Registrierung
-$LNG['register_closed'] = 'Registro Cerrado!';
-$LNG['register_at'] = 'Registrado en ';
-$LNG['reg_mail_message_pass'] = 'Un paso m&aacute;s para activar su nombre de usuario';
-$LNG['reg_mail_reg_done'] = 'Bienvenido a %s!';
-$LNG['invalid_mail_adress'] = 'Correo Electrónico Incorrecto!<br>';
-$LNG['empty_user_field'] = 'Por favor, rellene todos los campos!<br>';
-$LNG['password_lenght_error'] = 'La contrase&ntilde;a debe tener al menos 6 caracteres!<br>';
-$LNG['user_field_specialchar']		= 'Los nombres de usuario sólo permiten números, letras, espacios, _, -,.!';
-$LNG['planet_field_no'] = 'Debe introducir un Nombre al Planeta!';
-$LNG['planet_field_specialchar']	= 'Los nombres de planeta sólo permiten números, letras, espacios, _, -,.!';
-$LNG['terms_and_conditions'] = '¡Usted debe aceptar el Reglamento!';
-$LNG['user_already_exists'] = 'El nombre de usuario ya está siendo usado.<br>';
-$LNG['mail_already_exists'] = 'La dirección de correo electrónico ya está en uso.<br>';
-$LNG['wrong_captcha'] = 'Código de Seguridad incorrecto.<br>';
-$LNG['different_passwords'] = 'Ha introducido dos contraseñas diferentes.<br>';
-$LNG['different_mails'] = 'Ha introducido dos direcciónes de correo electrónico diferentes.<br>';
-$LNG['welcome_message_from'] = 'Administración';
-$LNG['welcome_message_sender'] = 'Administración';
-$LNG['welcome_message_subject'] = 'Bienvenido';
-$LNG['welcome_message_content'] = 'Bienvenido a %s!<br>En primer lugar construye una Planta de energ&iacute;a solar, porque la energ&iacute;a es necesaria para la posterior producci&oacute;n de materias primas. Para construirla, haga clic en Edificios en el menú del panel izquierdo. Cuando tengas la energ&iacute;a, puedes comenzar a construir las minas. Vuelve al men&uacute; Edificio y construye una mina de metal, y luego otra vez una mina de cristal. Para construír Naves, deberá construír un Hangar. Para conocer los requerimientos de cualquier construcción, puede observarlos en la zona de Tecnología, la cual se accede desde el Menú izquierdo. El equipo le desea mucha diversi&oacute;n y comienza a explorar el universo!';
-$LNG['reg_completed'] = 'Gracias por registrarte, recibirás un correo electrónico con el enlace de activación de la cuenta.';
-$LNG['planet_already_exists'] = '¡La posición del planeta ya está ocupada!';
-
-//registry_form.tpl
-$LNG['server_message_reg'] = 'Reg&iacute;strate ahora y forma parte de';
-$LNG['register_at_reg'] = 'Registrado en';
-$LNG['uni_reg'] = 'Universo';
-$LNG['user_reg'] = 'Usuario';
-$LNG['pass_reg'] = 'Contrase&ntilde;a';
-$LNG['pass2_reg'] = 'Confirmar Contrase&ntilde;a';
-$LNG['email_reg'] = 'Direccion de Correo electrónico';
-$LNG['email2_reg'] = 'Confirmar Direccion Correo electrónico';
-$LNG['planet_reg'] = 'Nombre del planeta principal';
-$LNG['ref_reg'] = 'Referido por';
-$LNG['lang_reg'] = 'Idioma';
-$LNG['register_now'] = 'Registrate';
-$LNG['captcha_reg'] = 'Clave de Seguridad';
-$LNG['accept_terms_and_conditions'] = 'Acepto las <a href="index.php?page=rules">Reglas</a>.';
-$LNG['captcha_reload'] = 'Recarga';
-$LNG['captcha_help'] = 'Ayuda';
-$LNG['captcha_get_image'] = 'Carga Bild-CAPTCHA';
-$LNG['captcha_reload'] = 'Nuevo CAPTCHA';
-$LNG['captcha_get_audio'] = 'Carga Sonido-CAPTCHA';
-$LNG['user_active'] = 'Usuario %s se ha activado!';
+$LNG['login_error_1']				= 'Incorrecto Usuario/Contraseña!';
+$LNG['login_error_2']				= 'Alguien se ha conectado desde otro PC en su cuenta, o su dirección IP es diferente!';
+$LNG['login_error_3']				= 'Tu sesión ha expirado!';
+$LNG['login_error_4']				= 'Se ha producido un error en la autorización externa, inténtalo de nuevo!';
 
 //Rules
-$LNG['rules_overview'] = "Reglas";
+$LNG['rulesHeader']					= 'Reglas';
 
 //NEWS
-
-$LNG['news_overview'] = "Noticias";
-$LNG['news_from'] = "Publicado el %s por %s";
-$LNG['news_does_not_exist'] = "¡No hay noticias disponibles!";
+$LNG['news_overview']				= 'Noticias';
+$LNG['news_from']					= 'El %s por %s';
+$LNG['news_does_not_exist']			= 'No hay Noticias Disponibles!';
 
 //Impressum
-
-$LNG['disclamer'] = "Descargo";
-$LNG['disclamer_name'] = "Nombre:";
-$LNG['disclamer_adress'] = "Dirección:";
-$LNG['disclamer_tel'] = "Telefono:";
-$LNG['disclamer_email'] = "Correo Electrónico:";
-
-// Translated into Spanish by Scofield06 . All rights reversed (C) 2011
+$LNG['disclamerLabelAddress']		= 'Dirección:';
+$LNG['disclamerLabelPhone']			= 'Nr. de Teléfono:';
+$LNG['disclamerLabelMail']			= 'Dirección de E-Mail:';
+$LNG['disclamerLabelNotice']		= 'Información de Contacto';

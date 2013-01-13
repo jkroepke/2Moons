@@ -512,11 +512,11 @@ $LNG['se_ref_max_referals_info']		= 'Maximale Anzahl, der der User an Spielern w
 $LNG['se_server_colonisation_config'] 	= 'Kolonisationseinstellungen';
 $LNG['se_planets_min'] 					= 'Max. kolonisierbare Planeten ohne Forschungen';
 $LNG['se_planets_min_info'] 			= 'Von Beginn an hat der Spieler die Möglichkeit die Angegebene Anzahl an Planeten zu besiedeln';
-$LNG['se_planets_tech'] 				= 'Max. zusätzliche Planetenzahl durch Foschung';
+$LNG['se_planets_tech'] 				= 'Max. zusätzliche Planetenzahl durch Foschung. (0 = deaktiviert Limit)';
 $LNG['se_planets_tech_info'] 			= 'Durch Forschung von Astrophysik hat der Spieler die Möglichkeit maximal die angegebene Anzahl an Planeten zusätzlich zu besiedeln.';
 $LNG['se_planets_officier'] 			= 'Max. zusätzliche Planetenzahl durch Offiziere';
-$LNG['se_planets_officier_info'] 		= 'Durch Forschung von Astrophysik hat der Spieler die Möglichkeit maximal die angegebene Anzahl an Planeten zusätzlich zu besiedeln.';
-$LNG['se_planets_per_tech'] 			= 'Zusätzliche Planeten pro Forschungsstufe';
+$LNG['se_planets_officier_info'] 		= 'Maximaler Bonus an Planeten durch Offiziere. (0 = deaktiviert Limit)';
+$LNG['se_planets_per_tech'] 			= 'Faktor: Planeten pro Stufe Astrophysik';
 $LNG['se_planets_per_tech_info'] 		= 'Pro geforschter Stufe kann der Spieler die angegebene Anzahl an Planeten zusätzlich besiedeln.';
 $LNG['se_silo_factor']					= 'Raketensilogröße';
 $LNG['se_silo_factor_info']				= 'Faktor für die größe des Silos';

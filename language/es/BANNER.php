@@ -35,5 +35,5 @@ $LNG['ub_buildings']					        	= 'Edificios';
 $LNG['ub_defenses']							= 'Defensas';
 
 $LNG['ub_fights']							= 'Batallas';
-$LNG['ub_quote']							= 'Quote';
+$LNG['ub_quote']							= 'Ganadas';
 $LNG['ub_rank']				        			= 'Posicion';

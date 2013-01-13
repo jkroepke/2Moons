@@ -42,8 +42,6 @@ class HTTPRequest
 	
 	function send()
 	{
-		global $gameConfig;
-		
 		if(function_exists("curl_init"))
 		{
 			$this->ch	= curl_init($this->url);
@@ -57,7 +55,6 @@ class HTTPRequest
 				"Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3",
 				"Accept-Language: de-DE,de;q=0.8,en-US;q=0.6,en;q=0.4",
 			));
-			
 			
 			$this->content	= curl_exec($this->ch);
 			curl_close($this->ch);
