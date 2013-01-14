@@ -162,35 +162,6 @@ $LNG['tech'] = array(
 410 => 'Działo Grawitonowe',
 411 => 'Orbitalna Platforma Obronna',
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 500 => 'Rakiety',
 502 => 'Antyrakieta',
 503 => 'Rakieta Międzyplanetarna',

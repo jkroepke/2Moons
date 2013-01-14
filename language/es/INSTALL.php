@@ -46,14 +46,21 @@ $LNG['intro_text'] = '2Moons es uno de los mejores clones de OGame. <br> 2Moons 
 $LNG['intro_upgrade_head']		= '2Moons ya instalado?';
 $LNG['intro_upgrade_text']		= '<p>2Moons ya está instalado y sólo desea actualizarlo?</p>Aquí usted puede actualizar su base de datos antigua con unos pocos clics</p>';
 
+$LNG['upgrade_success']			= 'Actualización de la base de datos correcta. Base de datos Corresponde ahora al estado de la revisión %s.';
+$LNG['upgrade_nothingtodo']		= 'No se requiere acción. Base de datos ya está en actualizada hasta la fecha de la revisión %s.';
+$LNG['upgrade_back']			= 'Atrás';
+$LNG['upgrade_intro_welcome']	= 'Bienvenido al actualizador de la base de datos!';
+$LNG['upgrade_available']		= 'Hay actualizaciones disponibles para su base de datos! La base de datos está actualizada a la revisión %s y hay una actualización de la revisión %s para actualizar.<br><br>Por favor, seleccione en el menú siguiente, el primero en instalar la actualización de SQL:';
+$LNG['upgrade_notavailable']	= 'La actualización utiliza la revisión %s es el más reciente de la base de datos.';
+$LNG['upgrade_required_rev']	= 'La actualización sólo se puede utilizar desde la r2579 (2Moons v1.7) o superior.';
 
-$LNG['licence_head']			= 'Lizenzbestimmungen';
-$LNG['licence_desc']			= 'Bitte lesen Sie die folgenden Lizenzbestimmungen. Verwenden Sie die Bildlaufleiste, um das gesamte Dokument anzuzeigen.';
-$LNG['licence_accept']			= 'Akzeptieren Sie sämtliche Bedingungen der Lizenzbestimmungen? Sie können die Software nur installieren, wenn Sie die Lizenzbestimmungen akzeptieren.';
-$LNG['licence_need_accept']		= 'Um mit der Installation fortfahren zu können, müssen Sie die Lizenzbestimmungen akzeptieren.';
+$LNG['licence_head']			= 'Aviso Legal';
+$LNG['licence_desc']			= 'Por favor, lea el siguiente acuerdo de licencia. Utilice la barra de desplazamiento para ver el documento completo.';
+$LNG['licence_accept']			= '¿Acepta todas las condiciones del contrato de licencia? Puede instalar el software sólo si acepta los términos de la licencia.';
+$LNG['licence_need_accept']		= 'Para continuar con la instalación, debe aceptar los términos de la licencia.';
 
-$LNG['req_head']				= 'Benötigte Systemvoraussetzungen';
-$LNG['req_desc']				= 'Bevor die Installation fortgesetzt werden kann, wird 2Moons einige Tests zu deiner Server-Konfiguration und deinen Dateien durchführen, um sicherzustellen, dass du 2Moons installieren und benutzen kannst. Bitte lies die Ergebnisse aufmerksam durch und fahre nicht weiter fort, bevor alle erforderlichen Tests bestanden sind. Falls du irgendeine der Funktionen, die unter den optionalen Modulen aufgeführt sind, nutzen möchtest, solltest du sicherstellen, dass die entsprechenden Tests auch bestanden werden.';
+$LNG['req_head']				= 'Systema Requerido';
+$LNG['req_desc']				= 'Antes de que la instalación pueda continuar, 2Moons realizará algunas pruebas en la configuración de su servidor y los archivos para asegurarse de que se puede instalar y utilizar 2Moons. Por favor, lea cuidadosamente los resultados y no van más allá de todas las pruebas necesarias hasta que haya sido aprobada. Si desea utilizar cualquiera de las funciones que se enumeran en los módulos opcionales, debe asegurarse de que las pruebas adecuadas también se pasan.';
 $LNG['reg_yes'] = 'Sí';
 $LNG['reg_no'] = 'No';
 $LNG['reg_found'] = 'Encontrado';
