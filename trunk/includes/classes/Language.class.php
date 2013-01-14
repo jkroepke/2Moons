@@ -119,7 +119,7 @@ class Language implements ArrayAccess {
     }
 	
     public function addData($data) {
-		$this->container = array_merge($this->container, $data);
+		$this->container = array_merge_recursive($this->container, $data);
     }
 	
 	public function getLanguage()
