@@ -155,7 +155,8 @@ abstract class AbstractPage
 			'image'				=> $PLANET['image'],
 			'resourceTable'		=> $resourceTable,
 			'shortlyNumber'		=> $themeSettings['TOPNAV_SHORTLY_NUBMER'],
-			'closed'			=> !Config::get('game_disable') ? $LNG['ov_closed'] : false,
+			'closed'			=> !Config::get('game_disable'),
+			'hasBoard'			=> filter_var(Config::get('forum_url'), FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED),
 			'hasAdminAccess'	=> isset($_SESSION['admin_login']),
 		));
 	}

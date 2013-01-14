@@ -89,7 +89,7 @@
 		{/if}
 	</div>
 	{if $closed}
-	<div class="infobox">{$closed}</div>
+	<div class="infobox">{$LNG.ov_closed}</div>
 	{elseif $delete}
 	<div class="infobox">{$delete}</div>
 	{elseif $vacation}
