@@ -39,10 +39,15 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $missiles, $targetDef
 	}
 
 	$totalAttack 		= $countMissles * $CombatCaps[503]['attack'] * (1 +  0.1 * $OwnerAttTech);
-	$firstTargetData	= array($firstTarget => $targetDefensive[$firstTarget]);
-	unset($targetDefensive[$firstTarget]);
-	$targetDefensive	= ($firstTargetData + array_diff_key($targetDefensive, $firstTargetData));
-
+	
+	// Select primary target, if exists
+	if(isset($targetDefensive[$firstTarget]))
+	{
+		$firstTargetData	= array($firstTarget => $targetDefensive[$firstTarget]);
+		unset($targetDefensive[$firstTarget]);
+		$targetDefensive	= array_merge($firstTargetData, $targetDefensive);
+	}
+	
 	foreach($targetDefensive as $element => $count)
 	{
 		$elementStructurePoints = ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]) * (1 + 0.1 * $TargetDefTech) / 10;
