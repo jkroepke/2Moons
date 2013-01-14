@@ -46,6 +46,13 @@ $LNG['intro_text']				= '2Moons to najlepszy klon Ogame.<br>2Moons to najnowsza 
 $LNG['intro_upgrade_head']		= 'Zainstalować 2Moons?';
 $LNG['intro_upgrade_text']		= '<p>2Moons zainstalowane, chcesz teraz sprawdzić aktualizację?</p><p>Aktulizacje!</p>';
 
+$LNG['upgrade_success']			= 'Aktualizacja przebiegła pomyślnie, baza danych została zaktualizowana do %s.';
+$LNG['upgrade_nothingtodo']		= 'Baza danych aktualna z wersją %s.';
+$LNG['upgrade_back']			= 'Wróć';
+$LNG['upgrade_intro_welcome']	= 'Witaj w aktualizatorze bazy danych!';
+$LNG['upgrade_available']		= 'Dostępna jest aktualizacja bazy danych. Aktualna wersja bazy to %s i może zostać zaktualizowana do wersji %s.<br><br>Wybierz z menu wersję do której chcesz zaktualizować:';
+$LNG['upgrade_notavailable']	= 'Wersja %s bazy to aktualna wersja!.';
+$LNG['upgrade_required_rev']	= 'Aktualizator bazy danych działa od wersji r2579 (2Moons v1.7) lub wyższej!.';
 
 $LNG['licence_head']			= 'Licencja';
 $LNG['licence_desc']			= 'Prosze przeczytać licencję, przewiń by przeczytać całą!.';

@@ -509,6 +509,15 @@ $LNG['se_ref_minpoints']				= 'Min. punktów dla Bonusu';
 $LNG['se_ref_minpoints_info']			= 'Określa jaką liczbę punktów musi zdobyć nowy użytkownik, by osoba zapraszająca otrzymała bonus!.';
 $LNG['se_ref_max_referals']				= 'Ma Graczy poleconych';
 $LNG['se_ref_max_referals_info']		= 'Max liczbra graczy których może zwerbować inny gracz';
+$LNG['se_server_colonisation_config'] 	= 'Konfiguracja Kolonizacji';
+$LNG['se_planets_min'] 					= 'Maksymalna ilość kolonii bez badań';
+$LNG['se_planets_min_info'] 			= 'Ilość planet jakie może zasiedlić gracz od początku gry, bez dodatkowych badań';
+$LNG['se_planets_tech'] 				= 'Maksymalna ilość planet które może zasiedlić gracz (0 = brak limitu)';
+$LNG['se_planets_tech_info'] 			= 'Maksymalna ilość planet które może zasiedlić gracz po uwzględnienieu badań';
+$LNG['se_planets_officier'] 			= 'Maksymalna ilość dodatkowych planet które można zasiedlić dzięki oficerom';
+$LNG['se_planets_officier_info'] 		= 'Bonus oficerów do ilości planet. (0 = bez limitu)';
+$LNG['se_planets_per_tech'] 			= 'Faktor: Przelicznik na poziom badania astrofizyki';
+$LNG['se_planets_per_tech_info'] 		= 'Poziom odkrytej technologi i liczba planet które może zasiedlić gracz.';
 $LNG['se_silo_factor']					= 'Wielkość silosów rakietowych';
 $LNG['se_silo_factor_info']				= 'Przelicznik wielkości silosów';
 $LNG['se_timzone']						= 'Strefa czasowa universum';
@@ -1163,13 +1172,13 @@ $LNG['ch_socket_host']					= 'Socket Hostname';
 $LNG['ch_socket_active']				= 'Socket aktiv?';
 $LNG['ch_socket']						= 'Einstellungen Socket Server';
 $LNG['ch_closed']						= 'Chat geschlossen?';
-$LNG['ch_allowchan']					= 'Erlaube Private Channels';
-$LNG['ch_allowmes']						= 'Erlaube Private Nachrichten';
+$LNG['ch_allowchan']					= 'Możliwe tworzenie prywatnych kanałów';
+$LNG['ch_allowmes']						= 'Możliwe wysyłanie prawytanych wiadomości';
 $LNG['ch_allowcelmes']					= 'Eigende Nachrichten löschen';
-$LNG['ch_logmessage']					= 'Aktiviere Logmessages';
-$LNG['ch_nickchange']					= 'Erlaube Nickwechsel';
-$LNG['ch_botname']						= 'Botname';
-$LNG['ch_channelname']					= 'Standart Channelname';
+$LNG['ch_logmessage']					= 'Aktywacja logowania wiadomości';
+$LNG['ch_nickchange']					= 'Możliwość zmiany nicka';
+$LNG['ch_botname']						= 'Nazwa bota';
+$LNG['ch_channelname']					= 'Standardowa nazwa kanału';
 
 
 //Active Page
@@ -1264,11 +1273,15 @@ $LNG['cronjob_lock']				= 'Zablokowane';
 $LNG['cronjob_is_lock']				= 'Tak';
 $LNG['cronjob_is_unlock']			= 'Nie';
 
-
-
-
 $LNG['cronjob_inactive']			= 'Tak';
 $LNG['cronjob_active']				= 'Nie';
+
+
+
+
+
+
+
 
 // Giveaway
 $LNG['ga_success']						= 'Udane!';

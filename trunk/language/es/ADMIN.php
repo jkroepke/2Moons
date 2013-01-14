@@ -1241,6 +1241,8 @@ $LNG['cronName']['daily']			= 'Tareas Diarias';
 $LNG['cronName']['cleaner']			= 'Eliminar Archivos Antiguos';
 $LNG['cronName']['inactive']		= 'Eliminar Inactivos';
 $LNG['cronName']['teamspeak']		= 'Actualización Teamspeak';
+$LNG['cronName']['tracking']		= 'Enviar Estadísticas globales del servidor.';
+$LNG['cronName']['databasedump']	= 'Copia de Seguridad-Base de Datos';
 
 
 $LNG['cronjob_id']					= 'ID';
