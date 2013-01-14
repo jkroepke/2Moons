@@ -92,7 +92,7 @@ class ShowShipyardPage extends AbstractPage
 		foreach($fmenge as $Element => $Count)
 		{
 			if(empty($Count)
-				|| !in_array($Element, array_merge($reslist['fleet'], $reslist['defense']))
+				|| !in_array($Element, array_merge($reslist['fleet'], $reslist['defense'], $reslist['missile']))
 				|| !BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element)
 			) {
 				continue;
