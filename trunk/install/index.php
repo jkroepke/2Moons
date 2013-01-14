@@ -117,7 +117,7 @@ switch($mode)
 		require_once(ROOT_PATH . 'includes/config.php');
 		require_once(ROOT_PATH . 'includes/dbtables.php');
 		
-		$DATABASE	= new Database();
+		$GLOBALS['DATABASE']	= new Database();
 		Config::init();
 		
 		
@@ -157,14 +157,14 @@ switch($mode)
 		require_once(ROOT_PATH . 'includes/dbtables.php');
 		
 		$startrevision	= HTTP::_GP('startrevision', 0);
-		$DATABASE		= new Database();
+		$GLOBALS['DATABASE']		= new Database();
 		
 		// Create a Backup
 		$prefixCounts	= strlen(DB_PREFIX);
 		$dbTables		= array();
-		$sqlTableRaw	= $DATABASE->query("SHOW TABLE STATUS FROM `".DB_NAME."`;");
+		$sqlTableRaw	= $GLOBALS['DATABASE']->query("SHOW TABLE STATUS FROM `".DB_NAME."`;");
 
-		while($table = $DATABASE->fetchArray($sqlTableRaw))
+		while($table = $GLOBALS['DATABASE']->fetchArray($sqlTableRaw))
 		{
 			if(DB_PREFIX == substr($table['Name'], 0, $prefixCounts))
 			{
@@ -245,7 +245,7 @@ switch($mode)
 					case 'sql';
 						$data = file_get_contents(ROOT_PATH.'install/updates/'.$fileInfo['fileName']);
 						try {
-							$DATABASE->multi_query(str_replace("prefix_", DB_PREFIX, $data));
+							$GLOBALS['DATABASE']->multi_query(str_replace("prefix_", DB_PREFIX, $data));
 						} catch (Exception $e) {
 							$errorMessage = $e->getMessage();
 							try {
@@ -267,7 +267,7 @@ switch($mode)
 		$gameVersion	= explode('.', Config::get('VERSION'));
 		$gameVersion[2]	= $revision;
 		
-		$DATABASE->query("UPDATE ".CONFIG." SET VERSION = '".implode('.', $gameVersion)."', sql_revision = ".$revision.";");
+		$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET VERSION = '".implode('.', $gameVersion)."', sql_revision = ".$revision.";");
 		ClearCache();
 		$template->assign_vars(array(
 			'update'		=> !empty($fileList),
@@ -480,7 +480,7 @@ switch($mode)
 				require_once(ROOT_PATH . 'includes/classes/class.Database.php');
 				
 				try {
-					$DATABASE = new Database();
+					$GLOBALS['DATABASE'] = new Database();
 				} catch (Exception $e) {
 					$template->assign(array(
 						'class'		=> 'fatalerror',
@@ -510,6 +510,7 @@ switch($mode)
 				require_once(ROOT_PATH . 'includes/dbtables.php');	
 				require_once(ROOT_PATH . 'includes/classes/class.Database.php');
 				
+				$GLOBALS['DATABASE']	= new Database();
 				
 				$installSQL				= file_get_contents('install.sql');
 				$installVersion			= file_get_contents('VERSION');
@@ -557,7 +558,7 @@ switch($mode)
 					HTTP::redirectTo('index.php?mode=install&step=7');
 				} catch (Exception $e) {
 					unlink(ROOT_PATH."includes/config.php");
-					$error	= $DATABASE->error;
+					$error	= $GLOBALS['DATABASE']->error;
 					if(empty($error))
 					{
 						$error	= $e->getMessage();
@@ -602,14 +603,14 @@ switch($mode)
 				}
 					
 				require_once(ROOT_PATH . 'includes/dbtables.php');
-				$DATABASE	= new Database();
+				$GLOBALS['DATABASE']	= new Database();
 				Config::init();
 								
 				$SQL  = "INSERT INTO ".USERS." SET ";
-				$SQL .= "username		= '".$DATABASE->sql_escape($AdminUsername)."', ";
-				$SQL .= "password		= '".$DATABASE->sql_escape($hashPassword)."', ";
-				$SQL .= "email			= '".$DATABASE->sql_escape($AdminMail)."', ";
-				$SQL .= "email_2		= '".$DATABASE->sql_escape($AdminMail)."', ";
+				$SQL .= "username		= '".$GLOBALS['DATABASE']->sql_escape($AdminUsername)."', ";
+				$SQL .= "password		= '".$GLOBALS['DATABASE']->sql_escape($hashPassword)."', ";
+				$SQL .= "email			= '".$GLOBALS['DATABASE']->sql_escape($AdminMail)."', ";
+				$SQL .= "email_2		= '".$GLOBALS['DATABASE']->sql_escape($AdminMail)."', ";
 				$SQL .= "ip_at_reg		= '".$_SERVER['REMOTE_ADDR']."', ";
 				$SQL .= "lang			= '".$LNG->getLanguage(). "', ";
 				$SQL .= "authlevel		= ".AUTH_ADM.", ";
@@ -621,7 +622,7 @@ switch($mode)
 				$SQL .= "system			= 1, ";
 				$SQL .= "planet			= 2, ";
 				$SQL .= "register_time	= ".TIMESTAMP.";";
-				$DATABASE->query($SQL);
+				$GLOBALS['DATABASE']->query($SQL);
 						
 				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
 				
