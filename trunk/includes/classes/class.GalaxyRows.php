@@ -212,7 +212,7 @@ class GalaxyRows
 			'username'		=> htmlspecialchars($this->galaxyRow['username'], ENT_QUOTES, "UTF-8"),
 			'rank'			=> $this->galaxyRow['total_rank'],
 			'points'		=> pretty_number($this->galaxyRow['total_points']),
-			'playerrank'	=> sprintf($LNG['gl_in_the_rank'], htmlspecialchars($this->galaxyRow['username'],ENT_QUOTES,"UTF-8"), $this->galaxyRow['total_rank']),
+			'playerrank'	=> isModulAvalible(25)?sprintf($LNG['gl_in_the_rank'], htmlspecialchars($this->galaxyRow['username'],ENT_QUOTES,"UTF-8"), $this->galaxyRow['total_rank']):htmlspecialchars($this->galaxyRow['username'],ENT_QUOTES,"UTF-8"),
 			'class'			=> $Class,
 			'isBuddy'		=> $this->galaxyRow['buddy'] == 0,
 		);
