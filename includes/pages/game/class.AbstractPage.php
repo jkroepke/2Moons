@@ -85,7 +85,7 @@ abstract class AbstractPage
 	
 	protected function getCronjobsTodo()
 	{
-		require ROOT_PATH.'includes/classes/Cronjob.class.php';
+		require_once ROOT_PATH.'includes/classes/Cronjob.class.php';
 		
 		$this->tplObj->assign_vars(array(	
 			'cronjobs'		=> Cronjob::getNeedTodoExecutedJobs()
