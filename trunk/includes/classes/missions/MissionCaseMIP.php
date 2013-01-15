@@ -37,7 +37,7 @@ class MissionCaseMIP extends MissionFunctions
 	{
 		global $resource, $reslist;
 		$SQL = "";
-		foreach($reslist['defense'] as $Element)
+		foreach(array_merge($reslist['defense'],$reslist['missile']) as $Element)
 		{
 			$SQL	.= PLANETS.".".$resource[$Element].", ";
 		}
