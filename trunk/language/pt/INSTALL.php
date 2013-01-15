@@ -24,6 +24,15 @@ $LNG['intro_text']				= 'O 2Moons é um dos melhores projectos de OGame.<br>O 2M
 $LNG['intro_upgrade_head']		= '2Moons já instalado?';
 $LNG['intro_upgrade_text']		= '<p>Já instalaste o 2Moons e queres fácil actualização?</p><p>Aqui podes atualizar a base de dados antiga com apenas alguns cliques!</p>';
 
+
+$LNG['upgrade_success']			= 'Atualização de base de dados com sucesso, de momento na revisão %s.';
+$LNG['upgrade_nothingtodo']		= 'Sem ação requerida, base de dados na revisão %s.';
+$LNG['upgrade_back']			= 'Atrás';
+$LNG['upgrade_intro_welcome']	= 'Bem vindo à atualização de base de dados!';
+$LNG['upgrade_available']		= 'Atualizações disponíveis! A tua base de dados se encontra na revisão %s e poderás atualizar para a revisão %s.<br><br>Escolhe um dos primeiros comandos SQL para iniciar a instalação:';
+$LNG['upgrade_notavailable']	= 'A revisão %s é a ultima para a tua base de dados.';
+$LNG['upgrade_required_rev']	= 'A atualizaçao apenas funciona na revisão 2579 (2Moons v1.7) ou superior.';
+
 $LNG['licence_head']			= 'Termos de Licença';
 $LNG['licence_desc']			= 'Por favor, leia os termos de licença a seguir. Usa a barra de scroll para poderes ver todo o conteudo do documento';
 $LNG['licence_accept']			= 'Para prosseguires a instalação de 2Moons, precisas de concordar com os Termos e Condições da Lincença do 2Moons';

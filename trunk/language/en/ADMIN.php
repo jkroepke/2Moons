@@ -1220,7 +1220,8 @@ $LNG['cronName']['daily']			= 'Daily tasks';
 $LNG['cronName']['cleaner']			= 'Delete old data';
 $LNG['cronName']['inactive']		= 'Delete inactive';
 $LNG['cronName']['teamspeak']		= 'Teamspeak data update';
-
+$LNG['cronName']['tracking']		= 'Send global server statistics';
+$LNG['cronName']['databasedump']	= 'Database backup';
 
 $LNG['cronjob_id']					= 'ID';
 $LNG['cronjob_name']				= 'Name';

@@ -1259,7 +1259,8 @@ $LNG['cronName']['daily']			= 'Tarefas diárias';
 $LNG['cronName']['cleaner']			= 'Excluir dados antigos';
 $LNG['cronName']['inactive']		= 'Excluir inativo';
 $LNG['cronName']['teamspeak']		= 'Teamspeak data';
-
+$LNG['cronName']['tracking']		= 'Estatísticas Globais';
+$LNG['cronName']['databasedump']	= 'Backup de Base de Dados';
 
 $LNG['cronjob_id']					= 'ID';
 $LNG['cronjob_name']				= 'Nome';
