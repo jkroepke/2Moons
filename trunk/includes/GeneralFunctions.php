@@ -528,7 +528,7 @@ function ClearCache()
 		}
 	}
 	
-	require ROOT_PATH.'includes/classes/Cronjob.class.php';
+	require_once ROOT_PATH.'includes/classes/Cronjob.class.php';
 	Cronjob::reCalculateCronjobs();
 	$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET eco_hash = '';");
 	clearstatcache();
