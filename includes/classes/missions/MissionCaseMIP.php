@@ -37,90 +37,90 @@ class MissionCaseMIP extends MissionFunctions
 	{
 		global $resource, $reslist;
 		$SQL = "";
-		foreach(array_merge($reslist['defense'],$reslist['missile']) as $Element)
+		
+		$elementIDs	= array_merge($reslist['defense'], $reslist['missile']);
+		foreach($elementIDs as $elementID)
 		{
-			$SQL	.= PLANETS.".".$resource[$Element].", ";
+			$SQL	.= PLANETS.".".$resource[$elementID].", ";
 		}
 			
 		$QryTarget		 	= "SELECT ".USERS.".lang, ".USERS.".shield_tech, ".PLANETS.".id, ".PLANETS.".name, ".PLANETS.".id_owner, ".substr($SQL, 0, -2)."
 							   FROM ".PLANETS.", ".USERS."
 							   WHERE ".PLANETS.".id = '".$this->_fleet['fleet_end_id']."' AND 
 							   ".PLANETS.".id_owner = ".USERS.".id;";
-		$TargetInfo			= $GLOBALS['DATABASE']->getFirstRow($QryTarget);
+		$targetData			= $GLOBALS['DATABASE']->getFirstRow($QryTarget);
 
 		if($this->_fleet['fleet_end_type'] == 3)
 		{
-			$TargetInfo[$resource[502]]	= $GLOBALS['DATABASE']->getFirstCell("SELECT ".$resource[502]." FROM ".PLANETS." WHERE id_luna = ".$this->_fleet['fleet_end_id'].";");
+			$targetData[$resource[502]]	= $GLOBALS['DATABASE']->getFirstCell("SELECT ".$resource[502]." FROM ".PLANETS." WHERE id_luna = ".$this->_fleet['fleet_end_id'].";");
 		}
 
 		$OwnerInfo			= $GLOBALS['DATABASE']->getFirstRow("SELECT lang, military_tech FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");					   
 		$Target				= (!in_array($this->_fleet['fleet_target_obj'], $reslist['defense']) || $this->_fleet['fleet_target_obj'] == 502 || $this->_fleet['fleet_target_obj'] == 0) ? 401 : $this->_fleet['fleet_target_obj'];
 
-        $TargetDefensive    = array();
+        $targetDefensive    = array();
 
-		foreach($reslist['defense'] as $Element)		
+		foreach($elementIDs as $elementID)	
 		{
-			$TargetDefensive[$Element]	= $TargetInfo[$resource[$Element]];
+			$targetDefensive[$elementID]	= $targetData[$resource[$elementID]];
 		}
 		
-		unset($TargetDefensive[502]);
+		unset($targetDefensive[502]);
 		
-		$message 	= "";
 		$SQL 		= "";
-			
 		$LNG		= $this->getLanguage($GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['lang'], array('L18N', 'FLEET', 'TECH'));
 				
-		if ($TargetInfo[$resource[502]] >= $this->_fleet['fleet_amount'])
+		if ($targetData[$resource[502]] >= $this->_fleet['fleet_amount'])
 		{
 			$message 	= $LNG['sys_irak_no_att'];
-			if($this->_fleet['fleet_end_type'] == 3)
-				$SQL .= "UPDATE ".PLANETS." SET ".$resource[502]." = ".$resource[502]." - ".$this->_fleet['fleet_amount']." WHERE id_luna = ".$TargetInfo['id'].";";
-			else 
-				$SQL .= "UPDATE ".PLANETS." SET ".$resource[502]." = ".$resource[502]." - ".$this->_fleet['fleet_amount']." WHERE id = ".$TargetInfo['id'].";";
+			$where 		= $this->_fleet['fleet_end_type'] == 3 ? 'id_luna' : 'id';
+			
+			$SQL .= "UPDATE ".PLANETS." SET ".$resource[502]." = ".$resource[502]." - ".$this->_fleet['fleet_amount']." WHERE ".$where." = ".$targetData['id'].";";
 		}
 		else
 		{
-			if ($TargetInfo[$resource[502]] > 0)
+			if ($targetData[$resource[502]] > 0)
 			{
-				if($this->_fleet['fleet_end_type'] == 3)
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$resource[502]." = 0 WHERE id_luna = " . $TargetInfo['id'].";");
-				else
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$resource[502]." = 0 WHERE id = " . $TargetInfo['id'].";");
+				$where 		= $this->_fleet['fleet_end_type'] == 3 ? 'id_luna' : 'id';
+				$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$resource[502]." = 0 WHERE ".$where." = ".$targetData['id'].";");
 			}
 			
-			$TargetDefensive = array_filter($TargetDefensive);
+			$targetDefensive = array_filter($targetDefensive);
 			
-			if(!empty($TargetDefensive))
+			if(!empty($targetDefensive))
 			{
 				require_once 'calculateMIPAttack.php';
-				$irak   = calculateMIPAttack($TargetInfo["shield_tech"], $OwnerInfo["military_tech"], $this->_fleet['fleet_amount'], $TargetDefensive, $Target, $TargetInfo[$resource[502]]);
-				$irak	= array_filter($irak);
+				$irak   	= calculateMIPAttack($targetData["shield_tech"], $OwnerInfo["military_tech"], $this->_fleet['fleet_amount'], $targetDefensive, $Target, $targetData[$resource[502]]);
+				$irak		= array_filter($irak);
+				
+				$message	= sprintf($LNG['sys_irak_def'], $targetData[$resource[502]]).'<br><br>';
+				
 				ksort($irak, SORT_NUMERIC);
-
+				
 				foreach ($irak as $Element => $destroy)
 				{
-					$message .= $LNG['tech'][$Element]." (- ".$destroy.")<br>";
+					$message .= $LNG['tech'][$Element].' (- '.$destroy.')<br>';
 					
 					if(in_array($Element, $reslist['one']))
-						$SQL .= "UPDATE ".PLANETS." SET ".$resource[$Element]." = '0' WHERE id = ".$TargetInfo['id'].";";
+						$SQL .= "UPDATE ".PLANETS." SET ".$resource[$Element]." = '0' WHERE id = ".$targetData['id'].";";
 					else
-						$SQL .= "UPDATE ".PLANETS." SET ".$resource[$Element]." = ".$resource[$Element]." - ".$destroy." WHERE id = ".$TargetInfo['id'].";";
+						$SQL .= "UPDATE ".PLANETS." SET ".$resource[$Element]." = ".$resource[$Element]." - ".$destroy." WHERE id = ".$targetData['id'].";";
 				}
 			}
 			else
 			{
-				$message .= $LNG['sys_irak_no_def'];
+				$message = $LNG['sys_irak_no_def'];
 			}
 		}
 				
 		$UserPlanet 		= $GLOBALS['DATABASE']->getFirstRow("SELECT name FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_start_id'].";");
 		$OwnerLink			= $UserPlanet['name']." [".$this->_fleet['fleet_start_galaxy'].":".$this->_fleet['fleet_start_system'].":".$this->_fleet['fleet_start_planet']."]";
-		$TargetLink 		= $TargetInfo['name']." [".$this->_fleet['fleet_end_galaxy'].":".$this->_fleet['fleet_end_system'].":".$this->_fleet['fleet_end_planet']."]";
-		$Message			= sprintf($LNG['sys_irak_mess'], $this->_fleet['fleet_amount'], $OwnerLink, $TargetLink).(empty($message) ? $LNG['sys_irak_no_def'] : $message);
+		$TargetLink 		= $targetData['name']." [".$this->_fleet['fleet_end_galaxy'].":".$this->_fleet['fleet_end_system'].":".$this->_fleet['fleet_end_planet']."]";
+		$Message			= sprintf($LNG['sys_irak_mess'], $this->_fleet['fleet_amount'], $OwnerLink, $TargetLink).$message;
 	
-		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_irak_subject'] , $Message);
-		SendSimpleMessage($this->_fleet['fleet_target_owner'], 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_irak_subject'] , $Message);
-		$SQL				.= "DELETE FROM ".FLEETS." WHERE fleet_id = '" . $this->_fleet['fleet_id'] . "';";
+		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_irak_subject'], $Message);
+		SendSimpleMessage($this->_fleet['fleet_target_owner'], 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_irak_subject'], $Message);
+		$SQL				.= "DELETE FROM ".FLEETS." WHERE fleet_id = '".$this->_fleet['fleet_id']."';";
 		$GLOBALS['DATABASE']->multi_query($SQL);
 	}
 	
