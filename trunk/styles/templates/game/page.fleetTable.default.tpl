@@ -126,14 +126,4 @@
 	<tr><td>+{$bonusCombustion} %</td><td>+{$bonusImpulse} %</td><td>+{$bonusHyperspace} %</td></tr>
 </table>
 {/block}
-{block name="script" append}
-{if isset($smarty.get.code) && isset($LNG.fl_send_error.{$smarty.get.code})}
-<script type="text/javascript">
-    $(function() {
-     var error = "{$LNG.fl_send_error.{$smarty.get.code}}";
-    if(error != "") alert(error);
-    });
-</script>
-{/if}
-{/block}
 {block name="script" append}<script src="scripts/game/fleetTable.js"></script>{/block}
