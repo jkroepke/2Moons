@@ -134,7 +134,6 @@ class MissionCaseExpedition extends MissionFunctions
 				$this->UpdateFleet('fleet_resource_darkmatter', $this->_fleet['fleet_resource_darkmatter'] + $Size);
 			break;
 			case 3:
-			default:
 				$FindSize   = mt_rand(0, 100);
                 $Size       = 0;
                 $Message    = "";
