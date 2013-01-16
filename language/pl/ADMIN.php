@@ -1238,6 +1238,8 @@ $LNG['cronName']['daily']			= 'Zadania dzienne';
 $LNG['cronName']['cleaner']			= 'Usuń przestarzałe dane';
 $LNG['cronName']['inactive']		= 'Usuń nie aktywnych';
 $LNG['cronName']['teamspeak']		= 'Aktualizacja ustawień Teamspeak';
+$LNG['cronName']['tracking']		= 'Wyślij statystyki na główny serwer.';
+$LNG['cronName']['databasedump']	= 'Backup bazy danych';
 
 
 $LNG['cronjob_id']					= 'ID';
@@ -1273,15 +1275,17 @@ $LNG['cronjob_lock']				= 'Zablokowane';
 $LNG['cronjob_is_lock']				= 'Tak';
 $LNG['cronjob_is_unlock']			= 'Nie';
 
+
+
+
+
+
+
+
+
+
 $LNG['cronjob_inactive']			= 'Tak';
 $LNG['cronjob_active']				= 'Nie';
-
-
-
-
-
-
-
 
 // Giveaway
 $LNG['ga_success']						= 'Udane!';
