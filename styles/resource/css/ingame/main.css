@@ -72,6 +72,16 @@ textarea.tinymce{
 	width:100%
 }
 
+.textForBlind 
+{
+	position:absolute;
+	left:-10000px;
+	top:auto;
+	width:1px;
+	height:1px;
+	overflow:hidden;
+}
+
 .res_max,.res_current,.res_current_max {
 	min-width:90px
 }

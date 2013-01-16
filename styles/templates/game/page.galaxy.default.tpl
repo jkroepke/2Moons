@@ -154,6 +154,7 @@
 					<img src="{$dpath}img/r.gif" title="{$LNG.gl_missile_attack}" alt="">
 				</a>{/if}
 			{else}-{/if}
+			{if $currentPlanet.planet.phalanx}<a class="textForBlind" href="#" onclick="OpenPopup('?page=phalanx&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$planet}&amp;planettype=1','',640,510);return false;"><span>{$LNG.gl_phalanx}</span></a>{/if}
 		</td>
 	{/if}
 	</tr>
