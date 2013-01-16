@@ -21,7 +21,7 @@
  * @author FC92
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.0 (2013-01-14)
+ * @version 1.7.0 (2013-01-17)
  * @info $Id$
  * @link http://2moons.cc/
  */
