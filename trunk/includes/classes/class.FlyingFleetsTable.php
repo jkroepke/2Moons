@@ -234,6 +234,13 @@ class FlyingFleetsTable
 		$FleetTotalC  = $fleetRow['fleet_resource_metal'] + $fleetRow['fleet_resource_crystal'] + $fleetRow['fleet_resource_deuterium'] + $fleetRow['fleet_resource_darkmatter'];
 		if ($FleetTotalC != 0)
 		{
+			$textForBlind = $LNG['tech'][900].': ';
+			$textForBlind .= floattostring($fleetRow['fleet_resource_metal']).' '.$LNG['tech'][901];
+			$textForBlind .= '; '.floattostring($fleetRow['fleet_resource_crystal']).' '.$LNG['tech'][902];
+			$textForBlind .= '; '.floattostring($fleetRow['fleet_resource_deuterium']).' '.$LNG['tech'][903];
+			if($fleetRow['fleet_resource_darkmatter'] > 0)
+				$textForBlind .= '; '.floattostring($fleetRow['fleet_resource_darkmatter']).' '.$LNG['tech'][921];
+			
 			$FRessource   = '<table width=200>';
 			$FRessource  .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][901].'</td><td style=\'width:50%;color:white\'>'. pretty_number($fleetRow['fleet_resource_metal']).'</td></tr>';
 			$FRessource  .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][902].'</td><td style=\'width:50%;color:white\'>'. pretty_number($fleetRow['fleet_resource_crystal']).'</td></tr>';
@@ -242,7 +249,7 @@ class FlyingFleetsTable
 				$FRessource  .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][921].'</td><td style=\'width:50%;color:white\'>'. pretty_number($fleetRow['fleet_resource_darkmatter']).'</td></tr>';
 			$FRessource  .= '</table>';
 			
-			$MissionPopup  = '<a data-tooltip-content="'.$FRessource.'" class="tooltip '.$FleetType.'">'.$Texte.'</a>';
+			$MissionPopup  = '<a data-tooltip-content="'.$FRessource.'" class="tooltip '.$FleetType.'">'.$Texte.'</a><span class="textForBlind"> ('.$textForBlind.')</span>';
 		}
 		else
 			$MissionPopup  = $Texte;
@@ -257,10 +264,16 @@ class FlyingFleetsTable
 		$Owner			= $fleetRow['fleet_owner'] == $this->UserID;
 		$FleetRec		= explode(';', $fleetRow['fleet_array']);
 		$FleetPopup		= '<a href="#" data-tooltip-content="<table style=\'width:200px\'>';
+		$textForBlind	= '';
 		if ($this->IsPhalanx || $SpyTech >= 4 || $Owner)
 		{
+			
 			if($SpyTech < 8 && !$Owner)
-				$FleetPopup .= '<tr><td style=\'width:100%;color:white\'>'.$LNG['cff_aproaching'].$fleetRow['fleet_amount'].$LNG['cff_ships'].':</td></tr>';
+			{
+				$FleetPopup		.= '<tr><td style=\'width:100%;color:white\'>'.$LNG['cff_aproaching'].$fleetRow['fleet_amount'].$LNG['cff_ships'].':</td></tr>';
+				$textForBlind	= $LNG['cff_aproaching'].$fleetRow['fleet_amount'].$LNG['cff_ships'].': ';
+			}
+			$shipsData	= array();
 			foreach($FleetRec as $Item => $Group)
 			{
 				if (empty($Group))
@@ -268,19 +281,28 @@ class FlyingFleetsTable
 					
 				$Ship    = explode(',', $Group);
 				if($Owner) {
-					$FleetPopup .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][$Ship[0]].':</td><td style=\'width:50%;color:white\'>'.pretty_number($Ship[1]).'</td></tr>';
+					$FleetPopup 	.= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][$Ship[0]].':</td><td style=\'width:50%;color:white\'>'.pretty_number($Ship[1]).'</td></tr>';
+						$shipsData[]	= floattostring($Ship[1]).' '.$LNG['tech'][$Ship[0]];
 				} else {
 					if($SpyTech >= 8)
-						$FleetPopup .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][$Ship[0]].':</td><td style=\'width:50%;color:white\'>'.pretty_number($Ship[1]).'</td></tr>';
+					{
+						$FleetPopup 	.= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][$Ship[0]].':</td><td style=\'width:50%;color:white\'>'.pretty_number($Ship[1]).'</td></tr>';
+						$shipsData[]	= floattostring($Ship[1]).' '.$LNG['tech'][$Ship[0]];
+					}
 					else
-						$FleetPopup .= '<tr><td style=\'width:100%;color:white\'>'.$LNG['tech'][$Ship[0]].'</td></tr>';
+					{
+						$FleetPopup		.= '<tr><td style=\'width:100%;color:white\'>'.$LNG['tech'][$Ship[0]].'</td></tr>';
+						$shipsData[]	= $LNG['tech'][$Ship[0]];
+					}
 				}
 			}
+			$textForBlind	.= implode('; ', $shipsData);
 		} else {
-			$FleetPopup .= '<tr><td style=\'width:100%;color:white\'>'.$LNG['cff_no_fleet_data'].'</span></td></tr>';
+			$FleetPopup 	.= '<tr><td style=\'width:100%;color:white\'>'.$LNG['cff_no_fleet_data'].'</span></td></tr>';
+			$textForBlind	= $LNG['cff_no_fleet_data'];
 		}
 		
-		$FleetPopup  .= '</table>" class="tooltip '. $FleetType .'">'. $Text .'</a>';
+		$FleetPopup  .= '</table>" class="tooltip '. $FleetType .'">'. $Text .'</a><span class="textForBlind"> ('.$textForBlind.')</span>';
 
 		return $FleetPopup;
 	}	
