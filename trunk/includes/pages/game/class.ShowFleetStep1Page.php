@@ -41,10 +41,10 @@ class ShowFleetStep1Page extends AbstractPage
 	{
 		global $USER, $PLANET, $resource, $pricelist, $reslist, $LNG;
 		
-		$targetGalaxy 			= HTTP::_GP('galaxy', $PLANET['galaxy']);
-		$targetSystem 			= HTTP::_GP('system', $PLANET['system']);
-		$targetPlanet			= HTTP::_GP('planet', $PLANET['planet']);
-		$targetType 			= HTTP::_GP('type', $PLANET['planet_type']);
+		$targetGalaxy 			= HTTP::_GP('galaxy', (int) $PLANET['galaxy']);
+		$targetSystem 			= HTTP::_GP('system', (int) $PLANET['system']);
+		$targetPlanet			= HTTP::_GP('planet', (int) $PLANET['planet']);
+		$targetType 			= HTTP::_GP('type', (int) $PLANET['planet_type']);
 		
 		$mission				= HTTP::_GP('target_mission', 0);
 				
