@@ -1,0 +1,9 @@
+Hola %1$s,
+¡Gracias por registrarse en %2$s!
+
+Nos complace que haya elegido nuestra comunidad para jugar 
+esperamos que lo disfrute mucho.
+
+Saluda atentamente
+
+El equipo de %2$s
