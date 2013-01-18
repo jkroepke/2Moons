@@ -22,7 +22,7 @@
  * @author Jan <slaver7@gmail.com>
  * @copyright 2011 Jan <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.0 (2013-01-17)
+ * @version 1.7.1 (2013-01-18)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -31,8 +31,10 @@ $LNG['Version']     = 'Version';
 $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
-
-'v1.7' => 'Jan 12.01.2013
+'v1.7.1' => 'Jan 18.01.2013
+- Fix possible SQL Injections.
+',
+'v1.7' => 'Jan 17.01.2013
 - 0000327: [Feature request] allowPlanetPosition integrieren (FC92) - resolved.
 - 0000316: [Feature request] List of alliances when concluding the contract (FC92) - resolved.
 - 0000328: [Admin Panal] CleanerCronjob SQL error (FC92) - resolved.
