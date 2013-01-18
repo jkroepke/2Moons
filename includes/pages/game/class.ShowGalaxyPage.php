@@ -47,12 +47,12 @@ class ShowGalaxyPage extends AbstractPage
 		$galaxyRight	= HTTP::_GP('galaxyRight', '');
 		$systemLeft		= HTTP::_GP('systemLeft', '');
 		$systemRight	= HTTP::_GP('systemRight', '');
-		$galaxy			= min(max(HTTP::_GP('galaxy', $PLANET['galaxy']), 1), Config::get('max_galaxy'));
-		$system			= min(max(HTTP::_GP('system', $PLANET['system']), 1), Config::get('max_system'));
-		$planet			= min(max(HTTP::_GP('planet', $PLANET['planet']), 1), Config::get('max_planets'));
+		$galaxy			= min(max(HTTP::_GP('galaxy', (int) $PLANET['galaxy']), 1), Config::get('max_galaxy'));
+		$system			= min(max(HTTP::_GP('system', (int) $PLANET['system']), 1), Config::get('max_system'));
+		$planet			= min(max(HTTP::_GP('planet', (int) $PLANET['planet']), 1), Config::get('max_planets'));
 		$type			= HTTP::_GP('type', 1);
 		$current		= HTTP::_GP('current', 0);
-			
+		
         if (!empty($galaxyLeft))
             $galaxy	= max($galaxy - 1, 1);
         elseif (!empty($galaxyRight))

@@ -55,7 +55,7 @@ class ShowInformationPage extends AbstractPage
 			$this->sendJSON(array('message' => $LNG['in_jump_gate_already_used'].' '.pretty_time($NextJumpTime - TIMESTAMP), 'error' => true));
 		}
 		
-		$TargetPlanet = HTTP::_GP('jmpto', $PLANET['id']);
+		$TargetPlanet = HTTP::_GP('jmpto', (int) $PLANET['id']);
 		$TargetGate   = $GLOBALS['DATABASE']->getFirstRow("SELECT id, last_jump_time FROM ".PLANETS." WHERE id = ".$TargetPlanet." AND id_owner = ".$USER['id']." AND sprungtor > 0;");
 
 		if (!isset($TargetGate) || $TargetPlanet == $PLANET['id']) {
