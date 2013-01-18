@@ -1,13 +1,40 @@
+
 <?php
 
-// 2Moons - Copyright © 2012 Jan Kröpke <info@2moons.cc>
-// Translation into Russian - Copyright © 2012 InquisitorEA <support@moon-hunt.ru>
-
-$LNG['Version']     = 'Версия';
-$LNG['Description'] = 'Описание';
+/**
+ *  2Moons
+ *  Copyright (C) 2012 Jan Kröpke
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @package 2Moons
+ * @author Jan <slaver7@gmail.com>
+ * @copyright 2011 Jan <slaver7@gmail.com> (Fork/2Moons)
+ * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version 1.7.1 (2013-01-18)
+ * @info $Id$
+ * @link http://2moons.cc/
+ */
+ 
+$LNG['Version']     = 'Version';
+$LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
-'v1.7' => 'Jan 12.01.2013
+'v1.7.1' => 'Jan 18.01.2013
+- Fix possible SQL Injections.
+',
+'v1.7' => 'Jan 17.01.2013
 - 0000327: [Feature request] allowPlanetPosition integrieren (FC92) - resolved.
 - 0000316: [Feature request] List of alliances when concluding the contract (FC92) - resolved.
 - 0000328: [Admin Panal] CleanerCronjob SQL error (FC92) - resolved.
@@ -51,7 +78,7 @@ $LNG['changelog']   = array(
 - 0000304: [User errors] Settings - Number spy probe (Jan) - resolved.
 - 0000300: [User errors] Bei Mondversuch erhalte ich bei bestimmten angriffen folgende fehlermeldung (Jan) - resolved.
 - 0000307: [Langauge] ru/email/email_inactive.txt: failed to open stream (Jan) - resolved.
-- 0000306: [User errors] SQL Error: Unknown column "Array" (Jan) - resolved.
+- 0000306: [User errors] SQL Error: Unknown column 'Array' (Jan) - resolved.
 - 0000231: [Feature request] The name of the object in the battle report. (Jan) - resolved.
 - 0000105: [Feature request] Create a MySQL Backup solution (Jan) - resolved.
 - 0000179: [Officier] ExtraDM 705 does not add energy (Jan) - resolved.
@@ -105,799 +132,851 @@ $LNG['changelog']   = array(
 - 0000170: [Admin Panal] File CUSTOM.php does not overwrite the values of language keys ADMIN.php (Jan) - resolved.
 - 0000169: [Admin Panal] Wrong reduction in numbers (Jan) - resolved.
 - 0000127: [Fleet missions] Recycling missions with max transported resources fail [with solution] (Jan) - closed.
-MOONHUNT-22 - Ошибка в панеле администратора.
-MOONHUNT-106 - Неверное значение потребления дейтерия атомной электростанцией.
-MOONHUNT-137 - Не работает вход в игру.
-MOONHUNT-154 - Не проходит авторизация.
-MOONHUNT-157 - Ошибка при появлении сообщения о шпионаже.
-MOONHUNT-159 - Невозможно зарегистрироваться.
-MOONHUNT-161 - Ошибка новой версии.
-MOONHUNT-163 - Колонизация.
-MOONHUNT-165 - Не создаётся новый аккаунт в панеле администратора.
-MOONHUNT-166 - IPM не работает.
-MOONHUNT-169 - Неверная конфигурация планет в галактике.
-MOONHUNT-170 - Невозможно отправить флот.
-MOONHUNT-173 - Ошибка в флоте и исследованиях.
-MOONHUNT-174 - Неизвестная константа.
-MOONHUNT-176 - Неизвестный индекс.
-MOONHUNT-181 - Нехватка кристалла.
-MOONHUNT-188 - Статистика.
-MOONHUNT-189 - Ошибка в обработчике флота.
-MOONHUNT-190 - Несуществующая страница.
-MOONHUNT-191 - 500 ошибка.
-MOONHUNT-196 - Сообщение о неудачном строительстве.
-MOONHUNT-198 - Остановка производства ресурсов.
-MOONHUNT-199 - Скупщик ресурсов.
-MOONHUNT-205 - Вызов несуществующей страницы.
-MOONHUNT-206 - Исследования.
-MOONHUNT-207 - Повышение прав
-MOONHUNT-208 - Отправка флота.
-MOONHUNT-209 - Ошибка установщика.
-MOONHUNT-211 - Таймер строительства в обзоре.
-MOONHUNT-216 - Ошибка во время отправки флота.
-MOONHUNT-218 - Подробное описание офицеров недоступно.
-MOONHUNT-219 - Информация об аккаунте.
-MOONHUNT-223 - Исчезновение флота.
-MOONHUNT-228 - Лог ошибок.
-MOONHUNT-235 - Дата блокировки.
-MOONHUNT-236 - Режим отпуска и полёт флота.
-MOONHUNT-238 - Ошибка при переходе по координатам в карточке игрока.
-MOONHUNT-239 - Нет данных о флоте при его отправке.
-MOONHUNT-240 - Ошибка на странице флота при атаке.
-MOONHUNT-245 - Невожможно вызвать скупщика ресурсов.
-MOONHUNT-246 - Заявки технической поддержки не могут быть удалены или закрыты.
-MOONHUNT-247 - Ошибка при отправке полностью загруженного флота.
-MOONHUNT-248 - В списке планет всегда первой отображается главная планета.
-MOONHUNT-249 - Неотображаются боевые доклады в зале славы.
-MOONHUNT-250 - Не отображается иконка кнопки удаления.
-MOONHUNT-251 - Дубрированный языковой ключ.
-MOONHUNT-254 - Невозможно отправить флот на луну.
-MOONHUNT-256 - Создание аккаунта в панеле администрации.
-MOONHUNT-257 - Список планет.
-MOONHUNT-258 - Ошибка отправки общего сообщения по альянсу.
-MOONHUNT-259 - Сообщение об ошибке при входе заблокированного игрока в игру.
-MOONHUNT-260 - При продаже кораблей скупщику корабли не исчезали.
-MOONHUNT-261 - Ошибка во время сноса постройки.
-MOONHUNT-263 - Ошибка после смены языка на русский.
-MOONHUNT-264 - Удвоение флота.
-MOONHUNT-265 - Изменение часового пояса не сохраняется.
-MOONHUNT-266 - Чат альяса.
-MOONHUNT-267 - Неверное увеличение очков флота.
-MOONHUNT-268 - Ошибка при устновки.
-MOONHUNT-269 - Исследование, несмотря на выполнение требований, отображается красным.
-MOONHUNT-271 - Скорость игры не влияет на производство энергии.
-MOONHUNT-272 - Ошибка при строительстве.
-MOONHUNT-273 - Некорректное отображение данные о шпионаже.
-MOONHUNT-274 - Ошибка при блокировки аккаунтов.
-MOONHUNT-275 - История изменений.
-MOONHUNT-276 - Дублированное описание исследований.
-MOONHUNT-278 - Неверно списываются ресурсы при обменен у скупщика.
-MOONHUNT-281 - Неверно рассчитывается коммисия скупщику.
-MOONHUNT-282 - Лог ошибок.
-MOONHUNT-283 - Старница не существует.
-MOONHUNT-284 - Невозможно изменить логин.
-MOONHUNT-285 - Ошибка при удалении планеты в панеле администрации.
-MOONHUNT-286 - Ошибка при удалении исследования из очереди.
-MOONHUNT-287 - Невозможно расформировать альянс.
-MOONHUNT-289 - Ошибка при отклонении заявки на вступление в альянс.
-MOONHUNT-291 - Ошибка при удалении строящегося флота в верфи.
-MOONHUNT-292 - Ручное обновление статистики.
-MOONHUNT-294 - Смена расположения языковых ключей.
-MOONHUNT-295 - Добавление языкового ключа в заметках.
-MOONHUNT-299 - Ошибка при переходе на планету, где текущее исследование недоступно.
-MOONHUNT-300 - Неверное сообщение при обмене ресурсов у скупщика.
-MOONHUNT-303 - Изменение пароля не сохраняется.
-MOONHUNT-304 - Описание построек.
-MOONHUNT-305 - Невозможно отправить флот в атаку.
-MOONHUNT-306 - Добавление языкового ключа в галактике.
-MOONHUNT-307 - Описание инновационных разработок.
-MOONHUNT-309 - Лог ошибок.
-MOONHUNT-310 - Страница не существует.
-MOONHUNT-313 - Необходимые ресурсы для солнечной электростанции.
-MOONHUNT-314 - Неизвестная переменнная.
-MOONHUNT-315 - Записи лога ошибок.
-MOONHUNT-316 - Время удержание отображается неверно.
-MOONHUNT-318 - Ошибка в зале славы.
-MOONHUNT-320 - Не обновляется статистика.
-MOONHUNT-321 - Полёт в экспедицию.
-MOONHUNT-322 - Создание планеты.
-MOONHUNT-323 - Невозможно атаковать.
-MOONHUNT-324 - Экспедиция.
-MOONHUNT-325 - Увеличение уровня построек после атаки.
-MOONHUNT-329 - Ошибка при установке новой версии.
-MOONHUNT-330 - SQL-ошибка.
-MOONHUNT-332 - Нельзя отправить полностью загруженный ресурсами флот.
-MOONHUNT-339 - Ошибка в реферальной ссылке, HTML и BBCode.
-MOONHUNT-340 - Ошибка при установке.
-MOONHUNT-341 - Невозможно зарегистрироваться
-MOONHUNT-343 - Невозможно расформировать альянс.
-MOONHUNT-349 - SQL инъекция.
-MOONHUNT-193 - Автоматическая очистка логов полётов флота.
-MOONHUNT-224 - Список мультиаккаунтов.
-MOONHUNT-230 - Запрет на пересечение флотов.
-MOONHUNT-237 - Кнопка вывода производства на 100%.
-MOONHUNT-297 - Маршруты.
-MOONHUNT-298 - Обмен ресурсов.
-MOONHUNT-308 - Баннер.
-MOONHUNT-311 - Резервное копирование базы данных.
-MOONHUNT-312 - Разделение больших списков на страницы.
-MOONHUNT-290 - Неполные тексты офицеров и исследований.
-MOONHUNT-301 - При восстановлении пароля не появлялось сообщение об отправке письма на почту.
+TMOONS-22 - In admin panel issue
+TMOONS-106 - Werte des Atomkraftwerks bei Bonus kopiert (Deuterium)
+TMOONS-137 - Kein Login nach Update von Ref 2091 auf 2104 mehr möglich
+TMOONS-154 - Login doesn&#39;t work
+TMOONS-157 - Versatz und Fehler meldung bei Spionage
+TMOONS-159 - Regestrierung geht nicht!!
+TMOONS-161 - New versions errors!
+TMOONS-163 - Koloniesieren
+TMOONS-165 - Admin control panel, cannot create new player
+TMOONS-166 - IPM does not work
+TMOONS-169 - Konfiguration der Planeten in Galaxie
+TMOONS-170 - It&#39;s imposible sen fleets
+TMOONS-173 - Error in Flotten und in Technologie
+TMOONS-174 - Undefined constant in index.php
+TMOONS-176 - Undefined index: shipsNeed at game.php?page=galaxy
+TMOONS-181 - Kristall Fehlt :)
+TMOONS-188 - Statistik
+TMOONS-189 - Händler fehler
+TMOONS-190 - Die Aufgerufene Seite existiert nicht
+TMOONS-191 - System 500 error
+TMOONS-196 - Reports of failed construction
+TMOONS-198 - Rohstoffe Produktion einstellen
+TMOONS-199 - Händler 
+TMOONS-205 - Die Aufgerufene Seite existiert nicht
+TMOONS-206 - Technologie
+TMOONS-207 - User über Admin erstellen
+TMOONS-208 - Flotte verschicken
+TMOONS-209 - install Fehler
+TMOONS-211 - Gebäude Timer Overview
+TMOONS-216 - Error beim Flottenversand
+TMOONS-218 - Infos von Offizieren können nicht aufgerufen werden
+TMOONS-219 - Error Account-Information aus ACP
+TMOONS-223 - Fleet vanished
+TMOONS-228 - Error log #2
+TMOONS-235 - Date of block
+TMOONS-236 - Vacation and flying fleet
+TMOONS-238 - Error beim Aufruf der Galaxie über Koordinaten in Playercard / Siehe sceenshot 
+TMOONS-239 - Keine Flottendaten beim Versand / NUR IE8 !
+TMOONS-240 - Error in Flotten bei Mission Angriff 
+TMOONS-245 - Händler kann nicht gerufen werden
+TMOONS-246 - Support-Ticket kann weder gelöscht noch geschlossen werden.
+TMOONS-247 - Error in Flotten bei Mission Transport und maximalen Rohstoffen
+TMOONS-248 - Planetenauswahl zeigt immer ersten Planeten
+TMOONS-249 - Hall of Fame wird nicht angezeigt
+TMOONS-250 - Lösch-Icon /styles/resource/images/r1.png nicht vorhanden
+TMOONS-251 - Double key
+TMOONS-254 - anflug auf Mond nicht möglich
+TMOONS-256 - User erstellen im Admin
+TMOONS-257 - Planetmenu (PlanetAction)
+TMOONS-258 - Error Allianz Rundmail
+TMOONS-259 - Errormeldung Login Versuch wenn Game gesperrt 
+TMOONS-260 - Schrotthändler, Schiffe werden nicht abgezogen, Ressourcenanzeige beim Schrotthändler falsch
+TMOONS-261 - Error bei Abbruch einer Bauschleife im Baumenü bei mehr als einen Eintrag
+TMOONS-263 - Error nach Sprachumstellung auf Russisch
+TMOONS-264 - The doubling of the fleet
+TMOONS-265 - Zeitzone kann im ACP nicht gespeicher/geändert werden
+TMOONS-266 - Error Allianz-Chat
+TMOONS-267 - Fleet-Points haben sich gigantisch vergrößert!
+TMOONS-268 - Aktuelle 1.7. Version - Fehler bei der Installation
+TMOONS-269 - Technologie trotz Erfüllung der Voraussetzungen, Farbanzeige rot
+TMOONS-271 - Gamespeed wirkt sich nicht auf Enegie-Produktion aus
+TMOONS-272 - Gebäude Produzieren nichts und lassen sich nicht ausbauen.
+TMOONS-273 - Spionageberichte unformatiert 
+TMOONS-274 - Ban-Panel Einträge werden nicht mehr gelöscht und Spielername und Adminname sind vertauscht
+TMOONS-275 - Error bei Changelog-Anzeige !
+TMOONS-276 - Doppelte Texte in Forschung
+TMOONS-278 - Schrotthändler, Kristall und Deuterium wird nicht richtig verbucht
+TMOONS-281 - Händler, Beträge werden falsch verbucht
+TMOONS-282 - Error in Error.log
+TMOONS-283 - Flotten, Verband, Error  - Die Aufgerufene Seite existiert nicht
+TMOONS-284 - Spielername ändern in Einstellungen
+TMOONS-285 - Error Planeten löschen im ACP
+TMOONS-286 - Error bei Abbruch von aktiver Forschung bei mehreren Einträgen
+TMOONS-287 - Error beim Auflösen einer Allianz
+TMOONS-289 - Allianz, Bewerbungen -&gt; Die Bewerbung existiert nicht.
+TMOONS-291 - Error bei Löschen einer Bauphase in Schiffswerft oder Verteidigung ohne Markierung eines Eintrags
+TMOONS-292 - Manually update
+TMOONS-294 - Lang keys change places
+TMOONS-295 - Lang key in page.notes.default.tpl
+TMOONS-296 - Shortcut name
+TMOONS-299 - Error bei laufender Forschung wenn Wechsel auf Planeten wo diese Art der Forschung noch nicht vorhanden
+TMOONS-300 - Schrotthändler Meldung immer &quot;erfolgreich umgetauscht&quot;
+TMOONS-303 - Passwortänderung wird nicht gespeichert
+TMOONS-304 - Gebäude Infos
+TMOONS-305 - Flotten, Schiffe werden bei Angriff nicht verschickt
+TMOONS-306 - Lang key in page.galaxy.default.tpl
+TMOONS-307 - ExtraDM description
+TMOONS-309 - Error.log in alpha 3
+TMOONS-310 - Page does not exist
+TMOONS-313 - Benötigte Ressourcen für Solarkraftwerk viel zu hoch.
+TMOONS-314 - Error Undefined variable: RPLANET 
+TMOONS-315 - Error.log gesammelte Einträge
+TMOONS-316 - Im ACP bei &quot;Fliegende Flotten&quot; fehlerhafte Stationszeit
+TMOONS-318 - topkb error
+TMOONS-320 - Statistik update fehler
+TMOONS-321 - Die unendlichen Weiten des Universums reisen
+TMOONS-322 - Create Planet
+TMOONS-323 - Angriff nicht möglich bei Revision 100
+TMOONS-324 - Expedition
+TMOONS-325 - Nach Angriff Metallmine auf Stufe 255
+TMOONS-329 - Installation Fehler neuste Version
+TMOONS-330 - SQL Fehler
+TMOONS-332 - Flotten senden mit &quot;Max Rohstoffe&quot;
+TMOONS-335 - .htaccess
+TMOONS-336 - Fehlerhafte Energieberechnung bei Solarkraftwerk + Ingenieur
+TMOONS-339 - Error, Reflink, HTML und BBCode, Undefined index
+TMOONS-340 - Nach der Installation kommt ein fehler
+TMOONS-341 - Fehler Useranmeldung
+TMOONS-343 - Allianz auflösen geht nicht; Rev 128
+TMOONS-345 - Cheat on the speed of the ships
+TMOONS-348 - Error.log nach login
+TMOONS-349 - SQL injection
+TMOONS-352 - SQL Error: Unknown column &#39;s.user_id&#39; in &#39;on clause&#39;
+TMOONS-353 - In Statistik ... /styles/theme/gow/img/m.gif  für Private Nachrichten nicht vorhanden
+TMOONS-359 - Plane namen ändern
+TMOONS-360 - ENABLE_INSTALL_TOOL
+TMOONS-361 - Colorful background in ACP
+TMOONS-363 - Installation Fehler
+TMOONS-365 - Disabling modules
+TMOONS-366 - Not used languages keys
+TMOONS-367 - Page vertify - white screen
+TMOONS-368 - New user from ACP
+TMOONS-369 - Double &quot;name&quot;
+TMOONS-370 - Untranslated word
+TMOONS-372 - Language mistake
+TMOONS-373 - Not displayed language key
+TMOONS-374 - Keine schnellauswahl in der Galaxieansicht
+TMOONS-375 - Changing the name of the planet
+TMOONS-376 - Template of the curve
+TMOONS-380 - Deleting messages by date
+TMOONS-382 - Uni Export funkioniert nicht
+TMOONS-385 - Cosmetic improvement in the language file
+TMOONS-386 - The filter of name
+TMOONS-387 - Advanced search in the ACP
+TMOONS-388 - List of universes
+TMOONS-389 - Resetting the universe
+TMOONS-396 - Spieler löschen im Admin
+TMOONS-401 - Produkltionsmaxiemierung (Forschung) funktioniert nicht
+TMOONS-403 - Can&#39;t destroy buildings
+TMOONS-404 - Fleet in overview page
+TMOONS-405 - search page
+TMOONS-406 - Problem beim rechte von Spieler ändern
+TMOONS-407 - Return time the mission LeaveTMOONS-193 - Removing log_fleets
+TMOONS-224 - Page multiips
+TMOONS-230 - The intersection of the fleets
+TMOONS-237 - Button 100% production
+TMOONS-297 - Location shortcuts
+TMOONS-298 - Exchange
+TMOONS-308 - Banner
+TMOONS-311 - Backup the database
+TMOONS-312 - Pagination
+TMOONS-331 - The overall result of the empire
+TMOONS-354 - AKS module in ACP
+TMOONS-356 - Information about the storage capacity
+TMOONS-381 - ID sender message in the ACP
+TMOONS-398 - Engine of shipsTMOONS-301 - Bei &quot;Passwort vergessen&quot; keine Info dass eMail-Versand durchgeführt worden ist.
+TMOONS-346 - The doubling of the fleet',
+'v1.6.1' => 'Jan 19.11.11
+- 0000027: [Core] Phalanx (Slaver) - resolved.
+- 0000071: [Core] The list of the moon for teleportation (Slaver) - resolved.
+- 0000078: [Fleets (Missions)] Rev. 2074 Mission atack (Slaver) - resolved.
+- 0000077: [Core] Rev. 2074 Phalnax (Slaver) - resolved.
+- 0000079: [Design] Tooltip bei Server-Konfig und Uni-Konfig werden nicht mehr angezeigt (Slaver) - resolved.
+- 0000076: [Fleets (Missions)] neue version 1.6 (Slaver) - resolved.
 ',
-
-'v1.6.1' => 'Jan 19.11.2011
-- 0000027: [Ядро] Фаланга (Jan) - исправлено.
-- 0000071: [Ядро] Список лун для телепортации (Jan) - исправлено.
-- 0000078: [Флот (Задания)] Ревизия 2074 Задание Атака (Jan) - исправлено.
-- 0000077: [Ядро] Ревизия 2074 Фаланга (Jan) - исправлено.
-- 0000079: [Дизайн] Всплывающие подсказки в настройках вселенной не отображаются (Jan) - исправлено.
-- 0000076: [Флот (Задания)] Новая версия 1.6 (Jan) - исправлено.
+'v1.6' => 'Jan 17.11.11
+- 0000075: [Login] Registrierungserror wenn im Planeten namen ein \' vorkommt (Slaver) - resolved.
+- 0000069: [Core] Chance of destruction of the moon (Slaver) - resolved.
+- 0000066: [Core] Registration (Slaver) - resolved.
+- 0000054: [Core] Missions Rocket attack and to Destroy (Slaver) - resolved.
+- 0000070: [Core] Ticket system (Slaver) - resolved.
+- 0000068: [Core] Rev 2065 Error afeter update in class.template (Slaver) - resolved.
+- 0000018: [Core] Speed of recyclers and spies (Slaver) - resolved.
+- 0000062: [Login] Install fehler (Slaver) - resolved.
+- 0000065: [Core] Attacks and a holiday mode (Slaver) - resolved.
+- 0000067: [Core] Rev. 2062 Reset universum (Slaver) - resolved.
+- 0000061: [Time (offset errors)] progresbar moves only 100 pixels (1% - 1 pixel) in the construction and research (Slaver) - resolved.
+- 0000058: [Design] Fortschrittsbalken bei Forschung und Gebäude wird nur noch zu ca. 40% aufgebaut. (Slaver) - resolved.
+- 0000064: [Login] Install doesn\'t work in 2060 SVN Version: FIX (Slaver) - resolved.
+- 0000057: [Fleets (Missions)] Nobody can send one ship (Slaver) - resolved.
+- 0000031: [Core] Search limit (Slaver) - resolved.
+- 0000038: [Core] Resource bug (Slaver) - resolved.
+- 0000044: [Core] Invalid argument supplied error in Game Updates Pages (Slaver) - resolved.
+- 0000047: [Login] someone has logget in from another PC on your account every 2 minutes (Slaver) - resolved.
+- 0000051: [Fleets (Missions)] Fatal error: class.FlyingFleetHandler.php on line 59 (Slaver) - resolved.
+- 0000052: [Core] Shortcuts (Slaver) - resolved.
+- 0000055: [Fleets (Missions)] Combat Report does not show moon building message (Slaver) - resolved.
+- 0000045: [Design] Screenshots not shown by IE8/IE9 by FF it works (Slaver) - resolved.
+- 0000050: [Core] Wrong redirect (Slaver) - resolved.
+- 0000049: [Core] Encoding banner (Slaver) - resolved.
 ',
-
-'v1.6' => 'Jan 17.11.2011
-- 0000075: [Логин] Ошибка в названии планеты при её создании (Jan) - исправлено.
-- 0000069: [Ядро] Шанс уничтожения луны (Jan) - исправлено.
-- 0000066: [Ядро] Регистрация (Jan) - исправлено.
-- 0000054: [Ядро] Задания Ракетная атака и Уничтожить (Jan) - исправлено.
-- 0000070: [Ядро] Тех. поддержка (Jan) - исправлено.
-- 0000068: [Ядро] Ревизия 2065 ошибка в файле класса шаблона (Jan) - исправлено.
-- 0000018: [Ядро] Занижение скорости переработчиков и шпионов в галактике (Jan) - исправлено.
-- 0000062: [Логин] Ошибка в установщике (Jan) - исправлено.
-- 0000065: [Ядро] Атака в режиме отпуска (Jan) - исправлено.
-- 0000067: [Ядро] Ревизия 2062 Обнуление вселенной (Jan) - исправлено.
-- 0000061: [Время (ошибки смещения)] Прогрес бар двигается только на 100 пикселей (Jan) - исправлено.
-- 0000058: [Дизайн] Прогресс бар на странице исследований не двигается бальше 40% (Jan) - исправлено.
-- 0000064: [Логин] Установщик не работает (Jan) - исправлено.
-- 0000057: [Флот (Задания)] Нет возможности отправить один корабль (Jan) - исправлено.
-- 0000031: [Ядро] Ограничение в поиске (Jan) - исправлено.
-- 0000038: [Ядро] Баг, связанный с ресурсами (Jan) - исправлено.
-- 0000044: [Ядро] Недопустимый аргумент на странице обновления (Jan) - исправлено.
-- 0000047: [Логин] Кто-то заходит с другого компьютера на Ваш аккаунт каждые 2 минуты (Jan) - исправлено.
-- 0000051: [Флот (Задания)] Критическая ошибка в обработчике флота (Jan) - исправлено.
-- 0000052: [Ядро] Маршруты (Jan) - исправлено.
-- 0000055: [Флот (Задания)] В боевом отчёте не отображается сообщение об образовании луны (Jan) - исправлено.
-- 0000045: [Дизайн] Скриншоты не показываются в IE8/IE9 (Jan) - исправлено.
-- 0000050: [Ядро] Неправильное перенаправление (Jan) - исправлено.
-- 0000049: [Ядро] Кодировка баннера (Jan) - исправлено.
+'v1.5' => 'Jan 18.09.11
+- FIX: REMOTE FILE INCLUSION VULNERABILITY
+- ADD: Timezone Support
+- FIX: Fleetspeed Bonus
+- FIX: Messafe Notfiy
+- FIX: Hall of Fame Mulituniverse glitch
+- FIX: delete messages in IE
+- FIX: planetmenu cookie
+- FIX: PHP errors in chatsystem
+- FIX: Iusses with Special Char on alliance request 
+- FIX: Fleettime, if acs mission was cancel
+- FIX: clear planets after spy
+- FIX: little template iusses
+- FIX: SQL Error on FleetBack, if fleet is on a acs
+- FIX: JS Error on Combat Raports
+- FIX: Cron on statbuilder, who deletes raports
+- FIX: Cross universe glitch on acs invations (StoNelHa) 
+. FIX: Case 6 on Expedition 
+- DIV: Sicherheit im Game erhöht
+- DIV: rootID now in constants
+- DIV: Added Suhosin detection 
+- DIV: Updated Smarty & TS Libs
+- DIV: Diverse Anpassungen am Game
+- 0000024: [Login] On email activation users cann´t register (Slaver) - resolved.
+- 0000046: [Core] referals in overview (Slaver) - resolved.
+- 0000042: [Core] referrals name (Slaver) - resolved.
+- 0000034: [Design] IE8 / IE9 changelog and menu-top.png not shown (Slaver) - resolved.
+- 0000030: [Core] Phalanx not work after update, says error (Slaver) - resolved.
+- 0000025: [Time (offset errors)] Timezone [not resolved 2030] (Slaver) - resolved.
+- 0000035: [Core] after last update to 2043 (Slaver) - resolved.
+- 0000037: [Fleets (Missions)] Flotten Hängen sich auf!! (Slaver) - resolved.
+- 0000003: [EcoSystem] Time of building of the ships (Slaver) - resolved.
+- 0000033: [Design] Rules werden auch in Deutsch nicht angezeigt (Slaver) - resolved.
+- 0000013: [EcoSystem] Rev. 2033 (Slaver) - resolved.
+- 0000029: [Core] After rev 2039 crash error on email (Slaver) - resolved.
+- 0000001: [Core] Display error message, if register fails (Slaver) - resolved.
+- 0000006: [Core] Error.log (Slaver) - resolved.
+- 0000023: [Fleets (Missions)] Rev. 2037 Mission destruction (Slaver) - resolved.
+- 0000021: [Core] Timezone (Slaver) - resolved.
+- 0000019: [Core] Information ACP Page (Slaver) - resolved.
+- 0000008: [Core] Research Always Refresh (Slaver) - resolved.
+- 0000005: [Core] Rockets (Slaver) - resolved.
+- 0000004: [Core] Free fields (Slaver) - resolved.
+- 0000007: [Core] Free fields again (Slaver) - resolved.
+- 0000015: [Core] Rev. 2033 Silo (Slaver) - resolved.
+- 0000014: [Design] Anzeige von Energie bei IE8 defekt (Slaver) - resolved.
+- 0000011: [Chat] Portuguese chat don´t work (Slaver) - resolved.
+- 0000010: [EcoSystem] Demolish a level (Slaver) - closed.
 ',
-
-'v1.5' => 'Jan 18.09.2011
-- ADD: Поддержка часового пояса
-- FIX: Уязвимость удалённого включения файлов
-- FIX: Скорость флота в инновационных разработках
-- FIX: Уведомительное сообщение
-- FIX: Мультивселенная ошибка в Зале славы
-- FIX: Удаление сообщений в IE
-- FIX: Cookie для нижнего меню планет
-- FIX: PHP ошибки в системе чата
-- FIX: Ошибки со специальными символами в запросе на вступление в альянс
-- FIX: Время полёта кораблей, если совместная атака была отменена
-- FIX: Пропажа ресурсов после шпионажа
-- FIX: Небольшие ошибки дизайна
-- FIX: SQL-ошибка отзыва флота, если он один в САБе
-- FIX: JS ошибка в боевых докладах
-- FIX: Cron для статистики, который удаляет боевые доклады
-- FIX: Мультивселенная ошибка при приглашении в САБ (StoNelHa) 
-- FIX: Миссия 6 в экспедиции
-- DIV: Улучшение безопасности в игре
-- DIV: rootID теперь константа
-- DIV: Добавлено Suhosin обнаружение
-- DIV: Обновлены Smarty и TS Libs
-- DIV: Различные корректировки в игре
-- 0000024: [Логин] Активация по электронной почте не работает (Jan) - исправлено.
-- 0000046: [Ядро] Не отображается список рефералов (Jan) - исправлено.
-- 0000042: [Ядро] Имена рефералов не отображаются (Jan) - исправлено.
-- 0000034: [Дизайн] В IE8 / IE9 не отображается история изменений (Jan) - исправлено.
-- 0000030: [Ядро] Ошибка при попытке просканировать фалангой (Jan) - исправлено.
-- 0000025: [Время (ошибки смещения)] Часовые пояса [повтор] (Jan) - исправлено.
-- 0000035: [Ядро] Ошибка в ревизии 2043 (Jan) - исправлено.
-- 0000037: [Флот (Задания)] Зависания флотов (Jan) - исправлено.
-- 0000003: [EcoSystem] Время строительства кораблей (Jan) - исправлено.
-- 0000033: [Дизайн] Правила не отображаются при выборе немецкого языка (Jan) - исправлено.
-- 0000013: [EcoSystem] Ревизия 2033 (Jan) - исправлено.
-- 0000029: [Ядро] Критическая ошибка при отправке на почту (Jan) - исправлено.
-- 0000001: [Ядро] Сообщение об ошибке при неудачной регистрации (Jan) - исправлено.
-- 0000006: [Ядро] Лог ошибок (Jan) - исправлено.
-- 0000023: [Флот (Задания)] Ревизия 2037 Задание уничтожить (Jan) - исправлено.
-- 0000021: [Ядро] Часовые пояса (Jan) - исправлено.
-- 0000019: [Ядро] Информация о настройках сервера в админке (Jan) - исправлено.
-- 0000008: [Ядро] Страница исследований постоянно обновляется (Jan) - исправлено.
-- 0000005: [Ядро] Межпланетные ракеты (Jan) - исправлено.
-- 0000004: [Ядро] Накрутка свободных полей (Jan) - исправлено.
-- 0000007: [Ядро] Накрутка свободных полей [повтор] (Jan) - исправлено.
-- 0000015: [Ядро] Ревизия 2033 Ракетная шахта (Jan) - исправлено.
-- 0000014: [Дизайн] В IE 8 энергия отображается с дефектами (Jan) - исправлено.
-- 0000011: [Chat] Чат не работает при выборе португальского языка (Jan) - исправлено.
-- 0000010: [EcoSystem] Снос построек (Jan) - исправлено.
+'v1.4' => 'Jan 10.07.11
+- ADD: FirePHP Log System
+- ADD: Language selectable on Global Messages
+- ADD: New Message System (includes old global message system like another XNova versions)
+- ADD: {lang} Block for tpls. Directly access to langvars with {lang}varname{/lang}
+- ADD: More dynamic for new languages
+- FIX: Ressource Cheat
+- FIX: Multiply Messages
+- FIX: Forgotten password
+- FIX: Defender bonus on combats
+- FIX: Fixed Register on large Unis
+- FIX: Redirect on Messages
+- FIX: Unable to send recylers to vacation players
+- FIX: Cencored coors on hall of frame know correctly
+- FIX: Fixed not correct calculaton of DM extras on destruction
+- FIX: Chat
+- FIX: Fixed incorrect display of reycler fleets
+- FIX: Fixed Servertime are not localize
+- FIX: MaxElemens for shields &amp; missiles
+- FIX: wrong padding for leftmenu
+- FIX: Moduls after a fresh installation
+- FIX: search
+- FIX: Fixed Register on lange Unis
+- FIX: cancel researches
+- FIX: UTF8 names on fleet shortcuts
+- FIX: galaxy messages
+- FIX: Deactive modules are not visible on galaxy
+- FIX: Multiply load cache files
+- FIX: Wrong datatype for lage numbers
+- FIX: Wrong Queue display, if 2 elements with same level in there
+- FIX: Bypass module check on spy and recyle
+- DIV: Refresh database design
+- DIV: Old Popups for Playercard &amp; Messages
+- DIV: Includes Smarty
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
 ',
-
-'v1.4' => 'Jan 10.07.2011
-- ADD: Система логирования FirePHP
-- ADD: Выбор языка в глобальном сообщении
-- ADD: Новая система сообщений
-- ADD: {lang} тег для файлов шаблона. Прямой доступ к языковым переменным
-- ADD: Больше динамики для новых языков
-- FIX: Чит на ресурсы
-- FIX: Дублирование одинаковых сообщений
-- FIX: Восстановление пароля
-- FIX: Бонус обороняющемуся в битвах
-- FIX: Регистрация
-- FIX: Перенаправление на сообщения
-- FIX: Невозможно отправить переработчиков на поле обломков игрока, находяшегося в РО
-- FIX: Спрятаны координаты в боевых отчётах Зала Славы
-- FIX: Неправильный подсчёт боевых параметров при уничтожении луны
-- FIX: Чат
-- FIX: Неправльное отображение переработчиков в Обзоре
-- FIX: Локализация серверного времени
-- FIX: Максимальное количество щитов и ракет
-- FIX: Неправильный отступ тевого меню
-- FIX: Моудли после новой установки
-- FIX: Поиск
-- FIX: Регистрация в больших вселенных
-- FIX: Отмена исследований
-- FIX: UTF8-имена целей флотов
-- FIX: Сообщения в меню Галактика
-- FIX: Отключённые модули не видны в меню Галактика
-- FIX: Мультизагрузка файлов из кэша
-- FIX: Неправильный тип данных для больших чисел
-- FIX: Неправильное отображение очереди, если в ней два элемента одного уровня
-- FIX: Обход проверки состояния модуля шпионажа и переработки
-- DIV: Обновление архитектуры базы данных
-- DIV: Старые всплывающие окна для сообщений и карточки с информацией об игроке
-- DIV: Библиотека Smarty добавлена внутрь движка
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-',
-
-'v1.3.5' => 'Jan 23.04.2011
-- ADD: Новый чат
-- ADD: Новый стиль всплывающих окон
-- ADD: Реферальная система
-- ADD: Уничтожение ракет
-- ADD: Хорошо сформированные ссылки (строительство)
-- ADD: Добыча энергии на луне солнечными спутниками
-- FIX: Правильный расчёт максимального количества ракет
-- FIX: Деление на ноль
-- FIX: Ошибка подсчёта общего числа игроков, если новый игрок присоединился к игре
-- FIX: Ошибки верфи, если BCMath не доступна
+'v1.3.5' => 'Jan 11.06.11
+- ADD: New ChatSystem
+- ADD: New Popup UI
+- ADD: Refferalsystem
+- ADD: Destroy Rocket
+- ADD: Wellformed URLs on Bulidsides
+- ADD: Solarsat on Moon give now energy
+- FIX: Correct Calculation of maximum amount rockets
+- FIX: Division by Zero
+- FIX: Wrong TotalUsercount, if a new User join the Game
+- FIX: Shipyard Iusses, with BCMath is not avalible
 - FIX: reCAPTCHA
-- FIX: Отображение в обзоре и фаланге перерабатывающего поле обломков флота
-- FIX: Подключение к Facebook
-- FIX: Импорт/экспорт вселенных
-- FIX: Исчезновение кораблей
-- FIX: Сокращённые названия в боевом докладе
-- FIX: Очереди
-- FIX: $_SESSION[&quot;uni&quot;] = 0, после выхода из админки
-- FIX: Сбор поля обломков из меню Флот
-- DEL: Испанский и французский языки
-- DIV: Установлен корректный метатег для favicon
-- DIV: Расчёт размера луны
-- DIV: Добавлена информация о максимальном количестве полей на планете (админка)
-- DIV: Добавлены пропущенные языковые ключи
-- DIV: Улучшена функция request_vars
-- DIV: Переписана стартовая страница
-- DIV: Улучшен код Javascript
-- DIV: Поддержка нескольких вселенных
-- DIV: Переписана система обновления
-- DIV: Переписано подключение к Facebook
-- DIV: Обновлены Smarty и jQuery
-- DIV: Удалены Soundmanager и библиотека overLIB
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
+- FIX: Incoming Recylcer Fleet, where display on overview &amp; phalanx
+- FIX: Facebook Login
+- FIX: Universe Import/Export
+- FIX: Disapier Ships
+- FIX: Short Names on Combat Reports
+- FIX: Queues
+- FIX: $_SESSION[&quot;uni&quot;] = 0, after leave Admin Panel
+- FIX: Grap Debris from Fleetmenu
+- DEL: Spanish &amp; French Language
+- DIV: set correct favicon Metatag
+- DIV: Moonsize Calculation
+- DIV: Added Bonus Maxfields on Planets (AccountEditor)
+- DIV: Added missed language keys
+- DIV: Improved request_vars
+- DIV: Rewrite LoginPage
+- DIV: Improved Javascript Code
+- DIV: MultiUniverse Support
+- DIV: Rewrite UpdateSystem
+- DIV: Change Copyright Header
+- DIV: Rewrite Connect wit Facebook
+- DIV: Update Smarty and jQuery
+- DIV: Remove Soundmanager and overLIB Liberary
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+'v1.3' => 'Jan 05.03.11
+- ADD: MultiUniverse Support
+- ADD: IPv6 Support
+- ADD: Limit of max Colony
+- ADD: Template Cache System
+- ADD: Daily Cronjob for clear Cache
+- ADD: Fleettrader
+- ADD: SessionSystem
+- ADD: AdminHack Protection
+- ADD: FTP Service on Installer to solved the CHMOD Problems
+- ADD: New Chat System
+- ADD: Cyrillic Char support for UserBanner
+- FIX: Facebook Connector
+- FIX: ACS
+- FIX: SQL Injections on FleetsShoutcuts
+- FIX: XSS on Battlesim
+- FIX: TF Iusses
+- FIX: UpdateSystem
+- FIX: Ressource Cheat
+- FIX: Admin Attack
+- FIX: SSL on IIS
+- FIX: Admin on Records
+- FIX: Noobprotection for Holding Mission
+- FIX: BattleReports show correct Techs now
+- FIX: ResetPage
+- FIX: Updated Ressource on TargetPlanet on Attacks
+- FIX: Fleetspeed Hack
+- FIX: BuildTime Hack
+- FIX: Cache System
+- FIX: Moondestruction
+- FIX: Teamspeak API for Teamspeak 3 Servers
+- FIX: UpdateSystem dont donwload same Files now
+- DIV: 2Moons not longer require safe_mode = off
+- DIV: Change Copyright Header
+- DIV: Max Buttons on Jumpgate
+- DIV: OfficiersVars now on vars.php
+- DIV: Fleet Ressoucres go up tp 18.446.744.073.709.551.616
+- DIV: Allow Change Version on ACP
+- DIV: Get Language via HTTP Header on Index
+- DIV: Use Facebooks new Graph API now.
+- DIV: Set new location for error.log
+- DIV: Update TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
+',
+'v1.2' => 'Jan 04.10.10
+- ADD: Set Max Fleets on ACS (Default: 16)
+- ADD: New RightsSystem on ACP
+- ADD: .htaccess Protection for some dirs
+- FIX: Expedition
+- FIX: Servertime at Overview
+- FIX: Research Hack while Build ID:6 or 31
+- FIX: Alliance Exit
+- FIX: See not invited ACS
+- FIX: overLIB Problems with Internet Explorer
+- FIX: Multilanguages Iusses
+- FIX: reCAPTCHA
+- FIX: Admin Protection
+- FIX: Moon Creation Explod
+- FIX: Rights on Alliance
+- FIX: Jumpgate
+- FIX: Build Points
+- FIX: Some HTML Errors
+- FIX: Linebreaks on Alliance Rundmails
+- FIX: UMode
+- DIV: Update Langauges
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+'v1.1' => 'Jan 31.08.10
+- ADD: GoW Skin
+- ADD: Mod Versions Control
+- ADD: Cronjoboption für Banner
+- ADD: Options for Loginmusic
+- FIX: Anzeigefehler in Raports
+- FIX: Ressoucre Hack
+- FIX: Fleet Bugs
+- DEL: Unused Pictures
+- DIV: Optimized CSS
+- DIV: Changed HTML Tree (Changed td.c to th / th to td)
+- DIV: Update to HTML 5
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+'v1.0' => 'Jan 07.08.10
+- FIX: Global Messages
+- FIX: Forgotten Password
+- FIX: Gamereset
+- FIX: Ressouce Glitch
+- FIX: Accout Informationen
+- FIX: Destroying Fleet after Fights
+- FIX: User Activation on ACP
+- FIX: Account delection
+- FIX: Bonusspeed for small cargo
+- FIX: Recycling Derbis
+- FIX: Message delection on ACP
+- FIX: Modules on English language
+- FIX: UpdatePage
+- FIX: class.ShowShipyardPage.php on line 43: Division by zero
+- DIV: Limited Random on Dm Mission
+- DIV: Changed System of Rapidfire
+- DIV: Solved Problems with BattleSimulator
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+'RC6' => 'Jan 28.07.10
+- ADD: Russian Language (ssAAss &amp; InquisitorEA)
+- ADD: Portuguese Language (morgado)
+- ADD: Spanish Language (ZideN) ALPHA (!)
+- FIX: UTF-8 Support for Buddy Requests
+- FIX: Messages Notify
+- FIX: Phalanx
+- FIX: Installer
+- FIX: Trümmerfeld bei Mondangriffen
+- FIX: Trümmerfeldabbau
+- FIX: Ressourcenberechnung bei Angriffen
+- FIX: Mondzerstörung
+- DIV: Neue Loginmusik
+- DIV: Removeold Settings
+- DIV: Recoding ACP
+- DIV: Optimized CSS for Login
+- DIV: zlib.output_compression wird statt ob_gzhandler genutzt
+- DIV: Change Path for reCAPTCHA AJAX
+- DIV: Remove old UGamla Functions
+- DIV: Sicherheit im Game erhöht
+- DIV: Include New Version of Soundmanager (2.96a.20100624)
+- DIV: Update Smarty Engine
+- DIV: Diverse Anpassungen am Game
+',
+'RC5.1' => 'Jan 23.06.10
+- ADD: Für Halten muss man in der Ally/Buddy sein
+- ADD: Name des HP bei der Reg.
+- ADD: Passwort Abfrage bei Authlevel/Reset
+- FIX: Flottenverluste
+- FIX: AKW, wenn keine Deuterium vorhanden ist
+- FIX: reCAPTCHA wird beim Direkt Link nicht geladen
+- FIX: Englische VaildMail
+- FIX: IRaks
+- FIX: Langauge Select beim Registieren
+- FIX: Koloniename
+- FIX: UMode
+- FIX: Admin Hack via Facebook
+- FIX: Flottenrückkehr
+- FIX: Nachrichten Transport
+- FIX: Forschung
+- FIX: Phalax
+- FIX: Steal
+- FIX: BuildQueue
+- FIX: Install
+- FIX: Forschungen
+- DIV: Mienen auf 100% nach UMode
+- DIV: Full MultiLangauge Support
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+'RC5.0' => 'Jan 30.05.10
+- ADD: Neue Schiffe
+- ADD: Support Planet in System != 15
+- ADD: Cookie für LoginMusik
+- ADD: Check für verfügbare Missions in Fleet3
+- ADD: Multi-Lang Installer
+- ADD: Kampfsimulator
+- ADD: bcmath for JS
+- DEL: PluginSystem
+- FIX: View Database Logindata, if connections problems to database.
+- FIX: Dublicate Ressis Bug
+- FIX: Bewerbungstext
+- FIX: Support
+- FIX: Mondzerstörung
+- FIX: Flotten
+- FIX: Gebäude Cheat
+- FIX: Resource Bug
+- FIX: Shipyard supports now Trillion \'Build per Row\'
+- FIX: Darmatter Kosten bei Verteidigung
+- FIX: Mood Löschung
+- FIX: Intergal. Netzwerk
+- FIX: class.FlyingFleetMissions.php on 1183:SQL Error (Duplicate entry \'Key\' for key \'rid\')
+- FIX: Bauzeiten, wenn Gebäude nicht baubar war
+- FIX: Gebäude mit 0 Sekunden Bauzeit
+- FIX: Allianzstatistik
+- FIX: SQL Injection in Notizen, Nachrichten un Fleet Shoutcuts
+- FIX: Große TF`s
+- FIX: Evo Trans. &amp; Gigarec.
+- FIX: Große HoF KBs
+- FIX: GebäudeCheat
+- FIX: Statistiken Fehler bei neuen Spielern
+- DIV: Use IE7-js for IE CSS Fixs
+- DIV: Use Googles Host for jQuery JS
+- DIV: Updatet TS 3 Lib
+- DIV: Flottenquery vereinfacht
+- DIV: Sicherheit im Game erhöht
+- DIV: Leftmenu
+- DIV: Diverse Anpassungen am Game
 ',
 
-'v1.3' => 'Jan 21.01.2011
-- ADD: Поддержка нескольких вселенных
-- ADD: Поддержка IPv6
-- ADD: Ограничение максимального количества планет
-- ADD: Шаблон системы кэша
-- ADD: Ежедневная работа Cron для очистки кэша
-- ADD: Скупщик флота
-- ADD: Система сессий
-- ADD: Защита от взлома админки
-- ADD: Настройки FTP при установке игры для решения проблем с CHMOD
-- ADD: Новая система чата
-- ADD: Поддержка кириллицы для баннера-статистики
-- FIX: Подключение к Facebook
-- FIX: САБ
-- FIX: XSS в симуляторе боя
-- FIX: Поле обломков
-- FIX: Система обновления
-- FIX: Чит на ресурсы
-- FIX: Атака Администратора
-- FIX: SSL на IIS
-- FIX: Отображение Администратора в рекордах
-- FIX: Защита новичков для миссии удержания
-- FIX: Боевой доклад показывает корректные параметры технологий
-- FIX: Система обнуления вселенной
-- FIX: Обновление ресурсов на планете-мишени при атаке
-- FIX: Взлом скорости флота
-- FIX: Взлом скорости строительства
-- FIX: Система кэша
-- FIX: Уничтожение луны
-- FIX: Teamspeak API для Teamspeak 3 серверов
-- FIX: Система обновления не будет скачивать уже существующие файлы
-- DIV: Изменён копирайт
-- DIV: Кнопка "все" для телепорта
-- DIV: Переменные офицеров теперь в vars.php
-- DIV: Предел перевозимых ресурсов поднят до 18.446.744.073.709.551.616
-- DIV: Изменение версии через админку
-- DIV: Определение языка по HTTP заголовку в Index
-- DIV: Использование нового Graph API для Facebook
-- DIV: Новое местоположение для error.log
-- DIV: Обновлены библиотеки TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty и jQuery (UI)
+'RC5.0b8' => 'Jan 20.04.10
+- FIX: Bann
+- FIX: Unmarkierte Nachrichten Löschen
+- FIX: Query log
+- FIX: Steal
+- FIX: Aktivitätstern
+- FIX: Planetenerstellung im ACP
+- FIX: Sprungtor
+- FIX: Ress up to 9e132
+- FIX: BBCodes
+- FIX: Lost Ressis
+- FIX: Install
+- DIV: AddBuildingToQueue überarbeitet
+- DIV: Sicherheit im Game erhöht
+- DIV: min. Requieres PHP 5.2.6
+- DIV: Diverse Anpassungen am Game
 ',
 
-'v1.2' => 'Jan 14.09.2010
-- ADD: Максимальное количество флотов в САБе (По умолчанию: 16)
-- ADD: Новая система прав доступа в админке
-- ADD: .htaccess защита для некоторых директорий
-- FIX: Экспедиция
-- FIX: Время сервера в обзоре
-- FIX: Взлом исследований когда строится ID:6 или 31
-- FIX: Выход из альянса
-- FIX: Не видно приглашённых в САБ
-- FIX: overLIB проблемы с Internet Explorer
-- FIX: Проблемы мультиязычности
-- FIX: Защитный код reCAPTCHA
-- FIX: Защита админа
-- FIX: Образование луны
-- FIX: Права в альянсе
-- FIX: Телепорт
-- FIX: Подсчёт очков построек
-- FIX: Несколько HTML ошибок
-- FIX: Разрыв строки в общем сообщении в альянсе
-- FIX: Режим отпуска
-- DIV: Обновление языков
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
+'RC5.0b7' => 'Jan 16.04.10
+- ADD: Google Analytics Mod
+- FIX: max Button, if thousend Sep is not "."
+- FIX: Große Transporte
+- FIX: Globale Nachrichten
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
 ',
 
-'v1.1' => 'Jan 31.08.2010
-- ADD: Скин GoW
-- ADD: Мод управления версиями
-- ADD: Cronjob настройки для баннера-статистики
-- ADD: Настройки для музыки
-- FIX: Ошибка уведомления в докладах
-- FIX: Взлом ресурсов
-- FIX: Баг флота
-- DEL: Неиспользуемые картинки
-- DIV: Оптимизирован CSS
-- DIV: Изменены HTML функции (td.c на th / th на td)
-- DIV: Обновление до HTML 5
+'RC5.0b6' => 'Jan 15.04.10
+- ADD: Updated ACP (XG Proyecto 2.9.4)
+- ADD: Facebook Connector Alpha
+- ADD: Diplomatie-System
+- ADD: Gigarecyler on Galaxy
+- ADD: Ori. Platform, Spalteinreißer, Bahamut
+- ADD: Händlergebühren
+- ADD: Universität
+- ADD: Konstanten für Mondentstehung
+- ADD: Download Patch Files in ACP
+- ADD: Locale Settings in Language File
+- FIX: Trader
+- FIX: Ressverlust bei hohen Zahlen.
+- FIX: Galaxy
+- FIX: Spioangeabwehr
+- FIX: Aliianz Übergeben
+- FIX: Minus-Werte bei NPC`s in Expeditions Kämpfen
+- FIX: Allianz Hack
+- FIX: UMode
+- FIX: Sprungtor
+- FIX: BuildQuere
+- FIX: Aktivitäts Stern
+- FIX: Playercard
+- FIX: General
+- FIX: AKS-Stealberechnung
+- FIX: Negative Rückflugzeit bei AKS-Einheiten
+- FIX: Rohstoffberechnung
+- FIX: Zeit von Spionageberichten
+- FIX: Allianzstatistiken
+- FIX: Font-FIX in overLIB
+- DIV: Updated ACP
+- DIV: Update Smarty to 3.0b8
+- DIV: Change Buildsystem für Gebäude/Flotten
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+'RC5.0b5' => 'Jan 06.03.10
+- FIX: Attack
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+'RC5.0b4' => 'Jan 01.03.10
+- ADD: Plugin-System v0.4 (Green @ XG Proyecto)
+- ADD: Neu StatBuilder
+- FIX: AKS
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
 ',
 
-'v1.0' => 'Jan 07.08.2010
-- FIX: Глобальное сообщение
-- FIX: Забыли пароль?
-- FIX: Перезапуск игры
-- FIX: Ресурсы
-- FIX: Информация об аккаунте
-- FIX: Уничтожение флота после боя
-- FIX: Активация пользователя в админке
-- FIX: Удаление аккаунта
-- FIX: Бонус к скорости для малого транспорта
-- FIX: Переработка поля обломков
-- FIX: Сообщение удаления в админке
-- FIX: Модули на английском языке
-- FIX: Страница обновления
-- FIX: class.ShowShipyardPage.php на строке 43: деление на ноль
-- DIV: Ограничение количества найденной тёмной материи
-- DIV: Изменена система скорострела
-- DIV: Решены проблемы с симулятором боя
+'RC5.0b3' => 'Jan 23.02.10
+- ADD: DM BANK
+- ADD: Koords werden nicht mehr in der HoF angezeigt.
+- ADD: Update System BETA
+- ADD: Admin in Statistiken ausblendbar
+- ADD: jQuery UI 1.8rc2
+- ADD: Neue Expedition
+- FIX: Phalax &amp; Interplanetarrakten Reichweiten
+- FIX: Urlaubsmodus fixed
+- FIX: Haltende Flotten werden im Spiobericht dazugezählt.
+- FIX: Anzeige der Canche der Mondzerstörung
+- FIX: Admins in Rekorden
+- FIX: Planetensuche
+- FIX: Neues Kampfscript für Interplanetarraketeneinschläge
+- DIV: Set DB Connection to UTF-8
+- DIV: Userbanner wird nurnoch einmal ein Tag aktualisiert.
+- DIV: Webseitenoptimierung(YSlow Grande: A/Score: 91)
+- DIV: Add Headers für Browsercaching 
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+- DIV: Update jQuery to 1.4.2
+',
+'RC5.0b2' => 'Jan 20.02.10
+- ADD: Accountlöschung w&auml;hrend des U-Modes
+- ADD: UTF-8 Support for Names
+- ADD: Kosten Dunkle Materie
+- ADD: Some langs (not complete)
+- FIX: Quere
+- FIX: Gebäude Abreißen
+- FIX: Allianzerstellung
+- FIX: AKS in der Overview
+- FIX: AKS-Hack
+- FIX: AKS-Ressisverteilung
+- FIX: Deuteriumberechung Planetentemperaturabhb&auml;nig
+- FIX: Fusionkrafwerk: Bonus durch Energietechnik 
+- FIX: Zeilenumbruch in Globalen Nachrichten fixed
+- DIV: Update Smarty to 3.0b7
+- DIV: UserStats Mod an AKS angepasst.
+- DIV: Optimized Game Messages
+- DIV: Rechtschreibfehler korrigiert
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+',
+'RC5.0b1' => 'Jan 02.02.10
+- NEW: Search-Engine
+- NEW: LOGIN
+- NEW: Change Name to 2Moons
+- ADD: Smarty-Template-Engine
+- ADD: Forschungsmaximum in vars.php einstellbar
+- ADD: fb-share
+- ADD: Planetenliste
+- ADD: Teampseak-Addon: Support für Teamspeak 3
+- ADD: Max. Auftr&auml;ge in Fleet/Def einstellbar (Standart: 10)
+- ADD: Cache for Records
+- ADD: Realtime-Ressanzeige
+- ADD: Optimize Hall of Fame DB
+- ADD: Postausgang
+- ADD: Abbruch Schiffswert
+- FIX: Wirtschaftssystem
+- FIX: Ress. - Page
+- FIX: DM-Untersuchung
+- FIX: Playercard
+- FIX: Speicheranzeige in Rohstoffe
+- FIX: Design
+- FIX: Pranger
+- FIX: Teamspeak-Overview
+- FIX: Useramount
+- FIX: Spioangebericht, -anzeige und -abwehr
+- FIX: Allianz Chat
+- FIX: TF-Entstehungs Bug bei Mondentstehung
+- FIX: CheckPlanetUsedFields
+- FIX: DeleteSelectedUser
+- FIX: Moon TF
+- FIX: Intergal. Forschungsnetzwerk
+- FIX: Werte für den Verbrauch
+- FIX: Error-Handler
+- FIX: U-Mode &amp; Adminschutz - Iraks
+- FIX: AKS-BUG in der SendFleetBack Funktion
+- FIX: Flottenflugzeit
+- FIX: CAPTCHA
+- FIX: Bug bei Mond- und Planetzerstörung
+- FIX: Reyclerrückkehr
+- FIX: Kolonisierung: Mitgebrachte Ressis werden nun gutschreiben
+- FIX: Flottenverbrauch
+- FIX: SQL-Lücke in FleetAjax.php
+- FIX: Planetenentfernung
+- FIX: Diverse Flottencheats entfernt
+- FIX: Magic TF`s
+- FIX: ACP-fopen Error
+- FIX: Opera Style Fix
+- FIX: Mondzerstörung
+- FIX: Module-Addon
+- FIX: Support-Ticket
+- FIX: DM Untersuchungs Mission
+- FIX: Probleme mit der erstellung von Haputplaneten nach der mauellen Erstellung von Usern
+- FIX: Allianzmemberanzahl in ainfo
+- FIX: Noobschutz
+- FIX: Moon Building
+- FIX: Adminschutz
+- FIX: Schiffebauen ohne Schiffswerft
+- FIX: Anzeigefehler im KB Erstellung
+- FIX: Passwort vergessen
+- FIX: Passwort/Nichname &auml;ndern
+- FIX: Umlaute in den Beschreibungen
+- DIV: Neue Methode zum Aufruf von Fleethandler
+- DIV: Neue Plantenbilder
+- DIV: Flexibilit&auml;t für einfügen neue Geb&auml;ude erhöht
+- DIV: Neue Formel für Speicherberechung
+- DIV: Info im ACP, wenn FlyingFleetHandler einen Fehler hatte
+- DIV: Useraktivierung per ACP
+- DIV: Neue Formel für Solarsats, Deuterium, Planettemp und Felderanzahl
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+- DIV: Update jQuery to 1.4.1
 ',
 
-'RC 6' => 'Jan 28.07.2010
-- ADD: Русский язык (ssAAss и InquisitorEA)
-- ADD: Португальский язык (morgado)
-- ADD: Испанский язык (ZideN) АЛЬФА версия (!)
-- FIX: Поддержка UTF-8 для запросов в друзья
-- FIX: Уведомление о новых сообщениях
-- FIX: Фаланга
-- FIX: Установщик
-- FIX: Поле обломков при нападении на луну
-- FIX: Сбор поля обломков
-- FIX: Расчёт кражи ресурсов в нападениях
-- FIX: Уничтожение луны
-- DIV: Новая музыка на стартовой странице
-- DIV: Удалены старые настройки
-- DIV: Перекодирование админки
-- DIV: Оптимизирован CSS для логина
-- DIV: zlib.output_compression используется вместо ob_gzhandler
-- DIV: Изменён путь для reCAPTCHA AJAX
-- DIV: Удалены старые UGamla функции
-- DIV: Добавлена новая версия Soundmanager (2.96a.20100624)
-- DIV: Обновлён движок Smarty
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
+'RC4.2' => 'Jan 06.12.09
+- ADD: StatBanner
+- ADD: Sycrogs robots.txt
+- ADD: UserVaild-Funktion einstellbar
+- FIX: News
+- FIX: Offiziere
+- FIX: Vaild-Maillink
+- FIX: Retrun-Subject in Messages
+- FIX: Global Adminmessage
+- FIX: SQL Lücken in Notes
+- FIX: NEWS
+- FIX: Flotten Geschwindigkeit
+- FIX: BeuteMath (by WOT-Game)
+- FIX: GalxyMoonRow
+- FIX: Mail
+- FIX: Allianzinfo
+- FIX: LostPassword
+- FIX: Allianzr&auml;nge
+- FIX: max. Expiditionen / max. Haltezeit
+- FIX: Usernamenüberprüfung bei der Registration
+- FIX: Registration close &amp; Game Close
+- FIX: AdminChatPage
+- FIX: Speicheranzeige in Rohstoffe korrigiert
+- FIX: Galaxy Allyname Crash
+- FIX: Statfunctions.php
+- DIV: Mails über SMTP-Auth
+- DIV: Chat-Class
+- DIV: überarbeitung Installer
+- DIV: Notes-Class
+- DIV: Chat-Interval auf 10 Sekunden gesetzt
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
 ',
 
-'RC 5.1' => 'Jan 23.06.2010
-- ADD: Для задания "держаться" игрок должен быть в альянсе/списке друзей
-- ADD: Название главной планеты при регистрации
-- ADD: Запрос пароля при смене должности/релогине
-- FIX: Потери флотов
-- FIX: Работа термоядерной электростанции при отсутствии добычи дейтерия
-- FIX: Прямая ссылка защитного кода не загружается
-- FIX: Ракеты
-- FIX: Выбор языка при регистрации
-- FIX: Название колонии
-- FIX: Режим отпуска
-- FIX: Взлом админки через Facebook
-- FIX: Возврат флота
-- FIX: Сообщение транспорта
-- FIX: Исследования
-- FIX: Фаланга
-- FIX: Получение ресурсов после победного боя
-- FIX: Очередь построек
-- FIX: Установка
-- DIV: Автоматическое включение производства на 100% после выхода из режима отпуска
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
+'RC4.1' => 'Jan 23.11.09
+- FIX: Moderration-ACP
+- FIX: Userlöschung
+- FIX: cronjob.php
+- FIX: Mail-Funktion
+- FIX: ACP-Topnav - Error
+- FIX: UTF-8 im ACP
+- FIX: Kleinere SQL-Lücken
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
 ',
 
-'RC 5.0' => 'Jan 30.05.2010
-- ADD: Новые корабли
-- ADD: Поддержка всех планет в системе
-- ADD: Возможность слушать музыку на главной странице
-- ADD: Проверка доступных миссий в третьем окне отправления флота
-- ADD: Симулятор боя
-- ADD: bcmath в JS
-- DEL: Система плагинов
-- FIX: Проблема соединения с базой данных
-- FIX: Удвоение ресурсов при полёте
-- FIX: Текст заявки
-- FIX: Техническая поддержка
-- FIX: Уничтожение луны
-- FIX: Полёт флота
-- FIX: Два чита при строительстве
-- FIX: Ресурсы
-- FIX: Теперь в верфи можно строить до триллиона кораблей в одной очереди
-- FIX: Расход Тёмной материи на оборону
-- FIX: Удаление луны
-- FIX: Межгалактическая исследовательская сеть
-- FIX: SQL-ошибка при выборе заданий для флота
-- FIX: Строительство постройки при его недоступности
-- FIX: Строительство построек за ноль секунд
-- FIX: Статистика альянса
-- FIX: SQL-инъекция в заметках, сообщениях и целях флота
-- FIX: Teamspeak
-- FIX: Улучшенный транспорт, Мега переработчик
-- FIX: Ошибка в статистике у новых угроков
-- DIV: Использование IE7-js для IE
-- DIV: Использование хоста Google для размещения jQuery JS
-- DIV: Обновление библиотек Teamspeak 3
-- DIV: Упрощение запросов к флоту
-- DIV: Левое меню
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
+'RC4' => 'Jan 13.11.09
+- ADD: Fleet/Def ins TF einstellbar
+- ADD: Neue Funktion request_var, set_var und msg_handler
+- ADD: Komplett überarbeitetes ACP (XGP 2.9.1)
+- ADD: FlyingFleetHandler wird nicht mehr im Login aufgerufen
+- ADD: FlyingFleetHandler wird nun nicht mehr 2x aufgerufen
+- ADD: Neue Cronjob - "Engine"
+- ADD: Verwendung von PHPMailer v5.1 Lite
+- MOD: Datenbankverbindung nun mit mysqli
+- MOD: AKS-Overview
+- MOD: Neue Chat Engine based on jQuery
+- MOD: Bauschleifennachrichten pro User abschaltbar
+- MOD: Nutztung von mysqli::multi_query (5%)
+- MOD: $_GET und $_POST durch request_var ersetzt (70%)
+- MOD: Uservaris mit $db->sql_escape (mysqli_real_escape_string) verstzt (80%)
+- MOD: Neue EMail-Klasse
+- MOD: Bauzeit der aktuellen Forschung/des aktuellen Geb&auml;udes in der Titelleiste
+- MOD: autoload - Funktion
+- FIX: Zeilenumbrüche in Allianztexten
+- FIX: Buddyliste
+- FIX: Statistiken: Punkte up to 18.446.744.073.709.551.616 (Ja wei&szlig;, unnütz)
+- FIX: Universumreset
+- FIX: Spionageangriff
+- FIX: SQL-Lücke in MissilesAjax.php
+- FIX: Anonyme User können nicht ins Spiel kommen
+- FIX: Planetenlöschung
+- FIX: Ressourcen bei Forschungsabbruch
+- FIX: Keine 10 Deu für eigene Gala mehr
+- FIX: Planiliste im ACP
+- FIX: (ID:01)-Bauen
+- FIX: Geb&auml;ude mit Vorrausetztungen können nicht mehr ohne Vorraussetztung gebaut werden
+- FIX: Hauptplanet hei&szlig;t nun standartm&auml;&szlig;ig Hauptplanet
+- FIX: Attacklink bei Mondspionageberichten
+- FIX: DM-Forschungsmission
+- DIV: luna und galaxy Tabellen entfernt
+- DIV: Komplett UTF-8 umgestellt
+- DIV: Koords-Verliunkung zur Galaxie in Fleets
+- DIV: Skinoptimierungen
+- DIV: DB-Speichertyp für Geb&auml;ude und Forschung von int(11) auf TINYINT(3) unsigned ge&auml;ndert
+- DIV: Anpassung an Internet Explorer (IE8) &amp; Opera
+- DIV: Unnötige SQL-Abfragen(SELECT * FROM) ge&auml;ndert
+- DIV: register_globals standartm&auml;ssig aus
+- DIV: Alle Tabellen werden nun 1x pro Tag Aufger&auml;mt (OPTIMIZE TABLE)
+- DIV: Seiten werden komprimiert an Client versendet
+- DIV: Allianzpage nun mit switches gesteuert
+- DIV: Performance Ingal. Netzwerk erhöht
+- DIV: formatCR und calculateAttack in der FlyingFleetHandler nun integriert
+- DIV: Neue Registration (XNova-Reloaded 0.1)
+- DIV: Neue Nachrichtenverwaltung (XNova-Reloaded 0.1)
+- DIV: Neue Baulisten (XNova-Reloaded 0.1)
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
 ',
-
-'RC 5.0 бета 8' => 'Jan 20.04.2010
-- FIX: Блокировка
-- FIX: Удаление невыделенных сообщений
-- FIX: История запросов
-- FIX: Распределение ресурсов после победного боя
-- FIX: Активность
-- FIX: Создание планеты в админке
-- FIX: Телепортация флота
-- FIX: Скачок ресурсов до 9*10^132
-- FIX: BB-коды
-- FIX: Потеря ресурсов
-- FIX: Установка
-- DIV: Переделано добавление построек в очередь
-- DIV: Обновление до PHP 5.2.6
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
+'RC3' => 'Jan 18.10.09
+- ADD: AGB
+- ADD: Rules
+- ADD: Vaild E-Mail Funktion
+- ADD: Datenbank-Backup
+- ADD: Datenbank-Port ausw&auml;hlbar
+- MOD: Datenbank Optimirungen
+- FIX: Allianzr&auml;nge
+- FIX: Allianzname &auml;ndern
+- FIX: Aliianztag &auml;ndern
+- FIX: Mehr als 2.147.483.647 Einheiten transportierbar
+- FIX: statbuilder.php
+- FIX: Userlöschung
+- FIX: Beute beim Angriff
+- FIX: DM Fund bei Expedition
+- DIV: Alte Steal und Wirtschaftsysteme wieder eingefügt
+- DIV: Neuer EMail-Text fü vergessendes Passwort
+- DIV: Sicherheit im Game erhöht
+- DIV: W3C Vaild (Login)
+- DIV: Diverse Anpassungen am Game
 ',
+'RC2' => 'Jan 13.10.09
+- MOD: Lotterie
+- MOD: TS-Overview Mod
+- MOD: Mindestbauzeit einstellbar
+- MOD: Captcha-Mod powerd by reCAPTCHA.net
+- MOD: News in der Overview/auf der Startseite
+- MOD: Hall of Fame + Allianzstatistik + Playercard
+- MOD: Neue Planeten-, Mond- und Spielerlisten im ACP
+- MOD: 4 Neue Schiffe(Evolution Transporter, Gigarecyler, Intergal. Materiensammler, Sternenzerstörer)
+- MOD: Neue Def (Gravitationskannone)
+- MOD: Neue Mission zur DM-Bergung
+- MOD: Neues Wirtschaftssystem
+- MOD: Module
+- MOD: Supportsystem
+- MOD: Rekorde
+- FIX: Mondgrö&szlig;e wird richtig berechnet
+- FIX: Korrekte Stealberechnung beim Angriff
+- FIX: Sichheitslücke in der Allianzseite
+- FIX: Flotten kommen bei zerstörten Mond auf den Planet wieder
+- DIV: Neuer Standartskin: Darkness&sup2;
+- DIV: Game zu 100% in Deutsche übersetzt (danke an Sycrog für das übersetzte ACP)
+- DIV: Sicherheit im Game erhöht
+- DIV: Diverse Anpassungen am Game
+- DIV: Anzeige der Admins, die zurzeit online sind
 
-'RC 5.0 бета 7' => 'Jan 16.04.2010
-- ADD: Google Analytics
-- FIX: Большой транспорт
-- FIX: Глобальное сообщение
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-',
 
-'RC 5.0 бета 6' => 'Jan 15.04.2010
-- ADD: Обновление админки (XG Proyecto 2.9.4)
-- ADD: Подключение к Facebook
-- ADD: Система дипломатии
-- ADD: Мега переработчик в галактике
-- ADD: Орбитальная база, Террор, Бегемот
-- ADD: Постоянная образования луны
-- ADD: Возможность загружать обновлённые файлы из админки
-- FIX: Потери ресурсов в огромном количестве
-- FIX: Галактика
-- FIX: Шпионаж
-- FIX: Передача альянса
-- FIX: Отрицательные знаечения в экспедиционных боях
-- FIX: Взлом альянса
-- FIX: Режим отпуска
-- FIX: Телепортация флота
-- FIX: Постройки
-- FIX: Активность
-- FIX: Об игроке
-- FIX: Генерал
-- FIX: Распределение ресурсов при атаке в САБе
-- FIX: Отрицательное время обратного полёта у участников САБа
-- FIX: Расчёт ресурсов
-- FIX: Время в шпионских докладах
-- FIX: Статистика альянса
-- FIX: Шрифт в overLIB
-- DIV: Обновление админки
-- DIV: Обновление Smarty до 3.0 бета 8
-- DIV: Изменение системы строительства построек и флота
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-',
-
-'RC 5.0 бета 5' => 'Jan 06.03.2010
-- FIX: Нападение
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-',
-
-'RC 5.0 бета 4' => 'Jan 01.03.2010
-- ADD: Система плагинов v0.4 (Green @ XG Proyect)
-- ADD: Новая система обновления статистики
-- FIX: САБ
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-',
-
-'RC 5.0 бета 3' => 'Jan 23.02.2010
-- ADD: Банк Тёмной материи
-- ADD: Система обновления
-- ADD: Возможность скрытия Администраторов в статистике
-- ADD: jQuery 1.8 RC 2
-- ADD: Новая экспедиция
-- FIX: Охват фаланги и дальность полёта межпланетных ракет
-- FIX: Режим отпуска
-- FIX: Удерживающиеся флоты теперь учитываются в шпионских докладах
-- FIX: Сообщение об уничтожении луны
-- FIX: Учитывание Администраторов в рекордах
-- FIX: Поиск планеты
-- FIX: Новый боевой движок для межпланетных ракет
-- DIV: Подключение к базе данных в UTF-8
-- DIV: Баннер-статистика будет обновляться один раз в день
-- DIV: Оптимизация веб-страниц
-- DIV: Добавлен заголовок для кеширования браузера
-- DIV: Обновление jQuery до 1.4.2
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-',
-
-'RC 5.0 бета 2' => 'Jan 20.02.2010
-- ADD: Удаление аккаунта во время режима отпуска
-- ADD: Поддержка UTF-8 в названиях
-- ADD: Стоимость Тёмной материи
-- FIX: Очередь
-- FIX: Снос построек
-- FIX: Создание альянса
-- FIX: САБ в обзоре
-- FIX: Взлом САБа
-- FIX: Распределение ресурсов при атаке в САБе
-- FIX: Зависимость добычи дейтерия от температуры планеты
-- FIX: Термоядерная электростанция: бонус энергетической технологии
-- FIX: Разрыв строки в глобальном сообщении
-- DIV: Обновление Smarty до 3.0 бета 7
-- DIV: Учитывание САБа в статистике об игроке
-- DIV: Оптимизированы игровые сообщения
-- DIV: Исправлены опечатки
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-',
-
-'RC 5.0 бета 1' => 'Jan 02.02.2010
-- NEW: Поиск
-- NEW: Главная страница
-- ADD: Движок шаблонов веб-страниц
-- ADD: Максимальный уровень исследований теперь регулируем
-- ADD: Список планет
-- ADD: Поддержка Teamspeak 3
-- ADD: Кэш для рекордов
-- ADD: Обновление ресурсов в реальном времени
-- ADD: Оптимизация зала славы в базе данных
-- ADD: Исходящие сообщения
-- FIX: Экономическая система
-- FIX: Поиск Тёмной материи
-- FIX: Об игроке
-- FIX: Вместимость хранилищ в меню сырьё
-- FIX: Дизайн
-- FIX: Заблокированные
-- FIX: Teamspeak в обзоре
-- FIX: Количество игроков
-- FIX: Отображение шпионского доклада
-- FIX: Чат альянса
-- FIX: Появление поля обломков после образования луны
-- FIX: Проверка занятых полей на планете
-- FIX: Удаление игроков
-- FIX: Межгалактическая исследовательская сеть
-- FIX: Данные потребления
-- FIX: Обработчик флотов
-- FIX: Дейтсиве межпланетных ракет в режиме отпуска и при защите админов
-- FIX: Присоединение к САБу
-- FIX: Время полёта флота
-- FIX: Защитный код
-- FIX: Уничтожение планеты
-- FIX: Возврат переработчиков
-- FIX: При колонизации привезённые ресурсы будут помещены в хранилища планеты
-- FIX: Потребление дейтерия флотом
-- FIX: SQL-дыра касательно флота
-- FIX: Удаление планеты
-- FIX: Различные читы связанные с флотом
-- FIX: Ошибка при открытии админки
-- FIX: Неправильное отображение в Опере
-- FIX: Уничтожение луны
-- FIX: Аддон Модули
-- FIX: Техническая поддержка
-- FIX: Задание: поиск Тёмной материи
-- FIX: Проблема образования больших планет
-- FIX: Члены альянса в информации
-- FIX: Защита новичков
-- FIX: Строительство на луне
-- FIX: Защита администарции
-- FIX: Строительство кораблей без верфи
-- FIX: Ошибка при создании боевого доклада
-- FIX: Восстановление пароля
-- FIX: Изменение логина и пароля
-- FIX: Пояснения в описаниях
-- DIV: Новый способ вызова обработчика флота
-- DIV: Новая система образования планет
-- DIV: Более удобное добавление строительства построек
-- DIV: Новая формула для расчёта вместимости хранилищ
-- DIV: Информация в админке, при ошибке обработчика флотов
-- DIV: Активация пользователей в админке
-- DIV: Новые формулы для солнечного спутника, дейтерия, температуры и полей планеты
-- DIV: Обновление jQuery до 1.4.1
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-',
-
-'RC 4.2' => 'Jan 06.12.2009
-- ADD: Баннер-статистика
-- ADD: Ограничение доступа к содержимому
-- ADD: Фукция подтверждения пользователя регулируема
-- FIX: Офицеры
-- FIX: Ссылка на подтверждение электронной почты
-- FIX: Возврат - тема в сообщения
-- FIX: Глобальное сообщение
-- FIX: SQL-брешь в заметках
-- FIX: Новости
-- FIX: Скорость кораблей
-- FIX: Расчёт добычи (by WOT-Game)
-- FIX: Луна в галактике
-- FIX: Электронная почта
-- FIX: Описание альянса
-- FIX: Восстановление пароля
-- FIX: Старница альянса
-- FIX: макс. время в экспедиции и макс. время удерживания флота
-- FIX: Проверка имени пользователя при регистрации
-- FIX: Закрытие регистрации и отключение сервера
-- FIX: Редактор чата в админке
-- FIX: Сообщение о переполнении склада
-- FIX: Название альянса в галактике
-- FIX: Статистика
-- DIV: Электронная почта через SMTP
-- DIV: Чат
-- DIV: Переделан установщик
-- DIV: Заметки
-- DIV: Интервал между сообщениями в чате - десять секунд
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-',
-
-'RC 4.1' => 'Jan 23.11.2009
-- FIX: Модерация в админке
-- FIX: Удаление игроков
-- FIX: Cron
-- FIX: Отправление автосообщения на электронную почту
-- FIX: Ошибка в верхней навигационной полосе в админке
-- FIX: UTF-8 в админке
-- FIX: Мелкие SQL-уязвимости
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-',
-
-'RC 4.0' => 'Jan 13.11.2009
-- ADD: Настройка флота и обороны в обломки
-- ADD: Новые функции в коде игры
-- ADD: Полностью переделана админка (XGP 2.9.1)
-- ADD: Обработчик флота больше не вызывается из авторизации
-- ADD: Новый Cron - движок
-- ADD: Использование PHPMailer v5.1 Lite
-- MOD: Связь с базой данных через MySQLi
-- MOD: САБ в обзоре
-- MOD: Новый движок чата на основе jQuery
-- MOD: Сообщение о строительстве выключено
-- MOD: Мультизапрос (5%)
-- MOD: Замена функций в движке игры (70%)
-- MOD: Замена функций-запросов к базе данных (80%)
-- MOD: Новый отправщик электронных сообщений
-- MOD: Оставшееся время строительства/изучения в заголовке страницы
-- MOD: Функция автозагрузки
-- FIX: Разрыв строки в описании альянса
-- FIX: Список друзей
-- FIX: Предел очков в статистике поднят до 18.446.744.073.709.551.616
-- FIX: Обнуление вселенной
-- FIX: Нападение шпионскими зондами
-- FIX: SQL-брешь касательно ракет
-- FIX: Нахождение в игре анонимных пользователей
-- FIX: Удаление планеты
-- FIX: Ресурсы за "снос" исследований
-- FIX: Вычет десяти дейтрия за просмотр своей системы
-- FIX: Список планет в админке
-- FIX: (ID:01) - строительство
-- FIX: Строительство построек без затрат ресурсов
-- FIX: Главной планетой является одна из колоний
-- FIX: Ссылка на атаку в сообщениях шпионажа луны
-- FIX: Задание поиск Тёмной материи
-- DIV: Из базы данных удалены таблицы лун и галактик
-- DIV: Полный переход на UTF-8
-- DIV: Оптимизация скина
-- DIV: Изменения в базе данных относительно построек и исследований
-- DIV: Адаптация к Internet Explorer 8 и Opera
-- DIV: Ненужные SQL-запросы (SELECT * FROM) изменены и дополнены
-- DIV: Все таблицы базы данных отптимизируются один раз в день
-- DIV: Страницу альянса можно включать и выключать
-- DIV: Эффективность межгалактической исследовательской станции увеличилась
-- DIV: Новая регистрация (XNova-Reloaded 0.1)
-- DIV: Новое сообещние Администрации (XNova-Reloaded 0.1)
-- DIV: Новая очередь (XNova-Reloaded 0.1)
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-',
-
-'RC 3.0' => 'Jan 18.10.2009
-- ADD: Положения
-- ADD: Правила
-- ADD: Подтверждение электронной почты
-- ADD: Резервное копирование базы данных
-- ADD: Выбор порта базы данных
-- MOD: Оптимизация базы данных
-- FIX: Страница альянса
-- FIX: Смена названия альянса
-- FIX: Смена аббревиатуры альянса
-- FIX: Невозможность перевозить более 2.147.483.647 ресурсов
-- FIX: Обновление статистики
-- FIX: Удаление игроков
-- FIX: Добыча при нападении
-- FIX: Получение Тёмной материи в экспедиции
-- DIV: Старая экономическая система и распеределение ресурсов после победного боя
-- DIV: Новый текст, приходящий при восстановлении пароля
-- DIV: Система авторизации
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-',
-
-'RC 2.0' => 'Jan 13.10.2009
-- MOD: Лотерея
-- MOD: Teamspeak
-- MOD: Минимальное время строитльства
-- MOD: Защитный код
-- MOD: Новости в обзоре и на главной странице
-- MOD: Зал славы
-- MOD: Статистика альянса
-- MOD: Информация об игроке в меню галактика
-- MOD: Новые списки планет, лун, игроков в админке
-- MOD: Новые корабли: Улучшенный транспорт, Мега переработчик, Сборщик Тёмной материи, Звёздный ловец
-- MOD: Новое оборонительное орудие (Гравитонное орудие)
-- MOD: Новое задание (Поиск Тёмной материи)
-- MOD: Новая экономическая система
-- MOD: Модули
-- MOD: Техническая поддержка
-- MOD: Рекорды
-- FIX: Неправильный расчёт размера луны при её образовании
-- FIX: Неправильное распределение ресурсов после победного боя
-- FIX: Старница альянса
-- FIX: При уничтожении луны флоты не возвращаются на планету
-- DIV: Новый стандартный скин Darkness
-- DIV: Игра на 100% переведена на русский (автор InquisitorEA)
-- DIV: Показ админов, которые в настоящее время в сети
-- DIV: Улучшение безопасности в игре
-- DIV: Различные корректировки в игре
-
-За основу взята XG Proyect 2.8 по состоянию на 11.10.2009
+Based on XG Proyect 2.8 on 11.10.09
 ',
 );
