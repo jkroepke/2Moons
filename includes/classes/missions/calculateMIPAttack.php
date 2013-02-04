@@ -45,7 +45,7 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $missiles, $targetDef
 	{
 		$firstTargetData	= array($firstTarget => $targetDefensive[$firstTarget]);
 		unset($targetDefensive[$firstTarget]);
-		$targetDefensive	= array_merge($firstTargetData, $targetDefensive);
+		$targetDefensive	= $firstTargetData + $targetDefensive;
 	}
 	
 	foreach($targetDefensive as $element => $count)
