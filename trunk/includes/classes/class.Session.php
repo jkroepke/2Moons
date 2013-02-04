@@ -99,6 +99,7 @@ class Session
 		if(!isset($_SESSION)) {
 			session_start();
 		}
+		
 		return !empty($_SESSION['id']);
 	}
 	
