@@ -73,7 +73,7 @@
 		</table>
 		{if !$vmode}
 		<script type="text/javascript">
-		var shortly_number	= {$shortlyNumber|json}
+		var shortlyNumber	= {$shortlyNumber|json}
 		var vacation		= {$vmode};
 		{foreach $resourceTable as $resourceID => $resouceData}
 		{if isset($resouceData.production)}

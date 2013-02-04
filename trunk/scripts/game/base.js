@@ -32,14 +32,25 @@ function NumberGetHumanReadable(value, dec) {
 
 function shortly_number(number)
 {
-	var unit = ["K", "M", "B", "T", "Q", "Q+", "S", "S+", "O", "N"];
-	key	= 0;
-	while(number >= 1000000)
-    {
+    var unit	= ["", "K", "M", "B", "T", "Q", "Q+", "S", "S+", "O", "N"];
+	var negate	= number < 0 ? -1 : 1;
+	var key		= 0;
+	number		= Math.abs(number);
+	
+	if(number >= 1000000) {
 		++key;
-        number = number / 1000000;
-    };
-	return NumberGetHumanReadable(number, ((number != 0 && number < 100) + 0))+'&nbsp;'+unit[key];
+		while(number >= 1000000)
+		{
+			++key;
+			number = number / 1000000;
+		}
+	} else if(number >= 1000) {
+		++key;
+		number = number / 1000;
+	}
+	
+	decial	= key != 0 && number != 0 && number < 100;
+	return NumberGetHumanReadable(negate * number, decial)+(key !== 0 ? '&nbsp;'+unit[key] : '');
 }
 
 function removeE(Number) {
