@@ -238,22 +238,8 @@ class ShowFleetStep3Page extends AbstractPage
 			}
 		}
 
-		if ($targetMission == 5) {
-		
-			if($targetType == 3)
-			{
-				$ally_deposit	= $GLOBALS['DATABASE']->getFirstCell("SELECT ally_deposit FROM ".PLANETS." WHERE id_luna = ".$targetPlanetData['id'].";");
-				if ($ally_deposit < 1) {
-					$this->printMessage($LNG['fl_no_hold_depot']);
-				}
-			}
-			else
-			{
-				if ($targetPlanetData['ally_deposit'] < 1) {
-					$this->printMessage($LNG['fl_no_hold_depot']);
-				}
-			}
-					
+		if ($targetMission == 5)
+		{	
 			if($targetPlayerData['ally_id'] != $USER['ally_id']) {
 				$buddy	= $GLOBALS['DATABASE']->getFirstCell("
 				SELECT COUNT(*) FROM ".BUDDY." 
