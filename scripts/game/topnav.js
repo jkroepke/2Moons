@@ -20,7 +20,7 @@ function resourceTicker(config, init) {
 		else if (element.className.match(/res_current_warn/) === null && nrResource >= config.limit[1] * 0.9)
 			element.className = element.className+" res_current_warn";
 		
-		if(shortly_number) {
+		if(shortlyNumber) {
 			element.innerHTML	= shortly_number(nrResource);
 			element.data('tooltipContent', NumberGetHumanReadable(nrResource));
 		} else {

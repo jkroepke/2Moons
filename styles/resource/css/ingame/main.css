@@ -82,6 +82,17 @@ textarea.tinymce{
 	overflow:hidden;
 }
 
+.centerContainer > .outer {
+    float: right;
+    right: 50%;
+    position: relative;
+}
+.centerContainer > .outer > .inner {
+    float: right;
+    right: -50%;
+    position: relative;
+}
+
 .res_max,.res_current,.res_current_max {
 	min-width:90px
 }
@@ -271,16 +282,6 @@ div#disclamer {
 	cursor: pointer;
 }
 
-div#trader {
-	margin:14px auto;
-	height:55px;
-	width:330px;
-}
-
-div#trader + div {
-	clear:both;
-}
-
 .trader_col {
 	margin:0 5px;
 	float:left;
@@ -334,6 +335,10 @@ div#trader + div {
 
 .ui-progressbar-value {
 	margin:0;
+}
+
+#traderContainer {
+	margin-top:5px;
 }
 
 .infobox {

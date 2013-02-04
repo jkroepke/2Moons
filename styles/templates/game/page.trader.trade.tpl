@@ -5,37 +5,35 @@
 	<input type="hidden" name="resource" value="{$tradeResourceID}">
 	<table class="table569">
 	<tr>
-		<th colspan="3">{$LNG.tr_sell} {$LNG.tech.$tradeResourceID}</th>
+		<th colspan="4">{$LNG.tr_sell} {$LNG.tech.$tradeResourceID}</th>
 	</tr>
 	<tr>
 		<td>{$LNG.tr_resource}</td>
-		<td>{$LNG.tr_amount}</td>
+		<td colspan="2">{$LNG.tr_amount}</td>
 		<td>{$LNG.tr_quota_exchange}</td>
 	</tr>
 	<tr>
 		<td>{$LNG.tech.$tradeResourceID}</td>
 		<td><span id="ress">0</span></td>
+		<td>&nbsp;</td>
 		<td>1</td>
 	</tr>
+	{foreach $tradeResources as $tradeResource}
 	<tr>
-		<td><label for="resource{$tradeRessources.0}">{$LNG.tech[$tradeRessources.0]}</label></td>
-		<td><input name="trade[{$tradeRessources.0}]" id="resource{$tradeRessources.0}" class="trade_input" type="text" value="0" size="30"></td>
-		<td>{$charge[$tradeRessources.0]}</td>
+		<td><label for="resource{$tradeResource}">{$LNG.tech[$tradeResource]}</label></td>
+		<td><input name="trade[{$tradeResource}]" id="resource{$tradeResource}" class="trade_input" type="text" value="0" size="30"></td>
+		<td><span id="resource{$tradeResource}Shortly"></span></td>
+		<td>{$charge[$tradeResource]}</td>
 	</tr>
+	{/foreach}
 	<tr>
-		<td><label for="resource{$tradeRessources.1}">{$LNG.tech[$tradeRessources.1]}</label></td>
-		<td><input name="trade[{$tradeRessources.1}]" id="resource{$tradeRessources.1}" class="trade_input" type="text" value="0" size="30"></td>
-		<td>{$charge[$tradeRessources.1]}</td>
-	</tr>
-	<tr>
-		<td colspan="3"><input type="submit" value="{$LNG.tr_exchange}"></td>
+		<td colspan="4"><input type="submit" value="{$LNG.tr_exchange}"></td>
 	</tr>
 	</table>
 </form>
 {/block}
 {block name="script" append}
 <script type="text/javascript">
-var ress1charge = {$charge[$tradeRessources.0]|default:'0'};
-var ress2charge = {$charge[$tradeRessources.1]|default:'0'};
+var charge = {$charge|json};
 </script>
 {/block}
