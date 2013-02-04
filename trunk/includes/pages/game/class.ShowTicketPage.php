@@ -93,15 +93,13 @@ class ShowTicketPage extends AbstractPage
 		
 		if(empty($ticketID)) {
 			$ticketID	= $this->ticketObj->createTicket($USER['id'], $categoryID, $subject);
+		} else {
+			$ticketDetail	= $GLOBALS['DATABASE']->getFirstCell("SELECT status FROM ".TICKETS." WHERE ticketID = ".$ticketID.";");
+			if ($ticketDetail['status'] == 2)
+				$this->printMessage($LNG['ti_error_closed']);
 		}
-		
-		$ticketDetail	= $GLOBALS['DATABASE']->getFirstCell("SELECT status FROM ".TICKETS." WHERE ticketID = ".$ticketID.";");
-		if ($ticketDetail['status'] == 2)
-			$this->printMessage($LNG['ti_error_closed']);
 			
-		$subject		= "RE: ".$subject;
-		
-		$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $message, 0);
+		$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], '', $message, 0);
 		$this->redirectTo('game.php?page=ticket&mode=view&id='.$ticketID);
 	}
 	

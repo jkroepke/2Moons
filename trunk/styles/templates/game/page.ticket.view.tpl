@@ -11,10 +11,7 @@
 	{/if}
 	<tr>
 		<td class="left" colspan="2">
-			<p>{if !$answerRow@first}
-				<b>{$LNG.ti_subject}: {$answerRow.subject}</b><br>
-			{/if}
-			{$LNG.ti_create}: <b>{$answerRow.time}</b> {$LNG.ti_from} <b>{$answerRow.ownerName}</b>
+			{$LNG.ti_msgtime} <b>{$answerRow.time}</b> {$LNG.ti_from} <b>{$answerRow.ownerName}</b>
 			{if $answerRow@first}
 				<br>{$LNG.ti_category}: {$categoryList[$answerRow.categoryID]}
 			{/if}
