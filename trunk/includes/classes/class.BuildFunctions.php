@@ -76,7 +76,7 @@ class BuildFunctions
 	public static function getElementPrice($USER, $PLANET, $Element, $forDestroy = false, $forLevel = NULL) { 
 		global $pricelist, $resource, $reslist;
 
-       	if (in_array($Element, $reslist['fleet']) || in_array($Element, $reslist['defense'])) {
+       	if (in_array($Element, $reslist['fleet']) || in_array($Element, $reslist['defense']) || in_array($Element, $reslist['missile'])) {
 			$elementLevel = $forLevel;
 		} elseif (isset($forLevel)) {
 			$elementLevel = $forLevel;
@@ -106,7 +106,7 @@ class BuildFunctions
 				$price[$resType]	*= pow($pricelist[$Element]['factor'], $elementLevel);
 			}
 			
-			if($forLevel && (in_array($Element, $reslist['fleet']) || in_array($Element, $reslist['defense']))) {
+			if($forLevel && (in_array($Element, $reslist['fleet']) || in_array($Element, $reslist['defense']) || in_array($Element, $reslist['missile']))) {
 				$price[$resType]	*= $elementLevel;
 			}
 			
