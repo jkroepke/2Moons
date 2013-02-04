@@ -1,26 +1,27 @@
 $(function() {
-	$('.trade_input').each(function() {
+	$('.trade_input').each(function(event) {
 		$('#'+$(this).attr('id')+'Shortly').html(function(i, old) {
-			return shortly_number($(event.currentTarget).val());
+			return 0;
 		});
 	}).keyup(function(event) {
 		$('#'+$(this).attr('id')+'Shortly').html(function(i, old) {
 			return shortly_number($(event.currentTarget).val());
 		});
-		return;
-		var ress1   = $(".trade_input:eq(0)").val().replace(/[^[0-9]|\.]/g, '');
-		var ress2	= $(".trade_input:eq(1)").val().replace(/[^[0-9]|\.]/g, '');
-
-		var ress 	= ress1 * ress1charge + ress2 * ress2charge
-
-		if (isNaN(ress))
+		
+		var needResource	= 0;
+		
+		$('.trade_input').each(function() {
+			needResource	+= parseFloat($(this).val()) * charge[$(this).data('resource')];
+		});
+		if (isNaN(needResource))
 		{
 			$("#ress").text(0);
 		}
 		else
 		{
-			$("#ress").text(NumberGetHumanReadable(ress));
+			$("#ress").text(NumberGetHumanReadable(needResource));
 		}
+		return true;
 	});
 	$('#trader').submit(function() {
 		$('.trade_input').val(function(i, old) {
