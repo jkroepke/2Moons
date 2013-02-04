@@ -154,7 +154,7 @@ abstract class AbstractPage
 			'current_pid'		=> $PLANET['id'],
 			'image'				=> $PLANET['image'],
 			'resourceTable'		=> $resourceTable,
-			'shortlyNumber'		=> $themeSettings['TOPNAV_SHORTLY_NUBMER'],
+			'shortlyNumber'		=> $themeSettings['TOPNAV_SHORTLY_NUMBER'],
 			'closed'			=> !Config::get('game_disable'),
 			'hasBoard'			=> filter_var(Config::get('forum_url'), FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED),
 			'hasAdminAccess'	=> isset($_SESSION['admin_login']),
