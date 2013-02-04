@@ -107,7 +107,6 @@ class ShowShipyardPage extends AbstractPage
 			if (in_array($Element, $reslist['missile']))
 			{
 				$MaxMissiles		= BuildFunctions::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
-				var_dump(BuildFunctions::getElementPrice($USER, $PLANET, 503, false, 2));
 				$Count 				= min($Count, $MaxMissiles[$Element]);
 
 				$Missiles[$Element] += $Count;
