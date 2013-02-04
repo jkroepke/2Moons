@@ -14,14 +14,13 @@
 	</tr>
 	<tr>
 		<td>{$LNG.tech.$tradeResourceID}</td>
-		<td><span id="ress">0</span></td>
-		<td>&nbsp;</td>
+		<td colspan="2"><span id="ress">0</span></td>
 		<td>1</td>
 	</tr>
 	{foreach $tradeResources as $tradeResource}
 	<tr>
 		<td><label for="resource{$tradeResource}">{$LNG.tech[$tradeResource]}</label></td>
-		<td><input name="trade[{$tradeResource}]" id="resource{$tradeResource}" class="trade_input" type="text" value="0" size="30"></td>
+		<td><input name="trade[{$tradeResource}]" id="resource{$tradeResource}" class="trade_input" type="text" value="0" size="30" data-resource="{$tradeResource}"></td>
 		<td><span id="resource{$tradeResource}Shortly"></span></td>
 		<td>{$charge[$tradeResource]}</td>
 	</tr>
