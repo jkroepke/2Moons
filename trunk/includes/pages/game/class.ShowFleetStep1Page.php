@@ -72,6 +72,7 @@ class ShowFleetStep1Page extends AbstractPage
 			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
 			'maxspeed'			=> FleetFunctions::GetFleetMaxSpeed($Fleet, $USER),
 			'ships'				=> FleetFunctions::GetFleetShipInfo($Fleet, $USER),
+			'fleetMinDuration'	=> MIN_FLEET_TIME,
 		);
 		
 		$token		= getRandomString();
