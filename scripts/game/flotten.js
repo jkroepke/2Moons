@@ -31,7 +31,7 @@ function GetDistance() {
 
 function GetDuration() {
 	var sp = document.getElementsByName("speed")[0].value;
-	return Math.max(Math.round((3500 / (sp * 0.1) * Math.pow(dataFlyDistance * 10 / data.maxspeed, 0.5) + 10) / data.gamespeed) * data.fleetspeedfactor, 5);
+	return Math.max(Math.round((3500 / (sp * 0.1) * Math.pow(dataFlyDistance * 10 / data.maxspeed, 0.5) + 10) / data.gamespeed) * data.fleetspeedfactor, data.fleetMinDuration);
 }
 
 function GetConsumption() {
