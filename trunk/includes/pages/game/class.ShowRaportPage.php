@@ -154,7 +154,7 @@ class ShowRaportPage extends AbstractPage
 		}
 
 		$CombatRaport			= unserialize($raportData['raport']);
-		if($isAttacker && $CombatRaport['result'] == 'r' && count($CombatRaport['rounds']) <= 2) {
+		if($isAttacker && !$isDefender && $CombatRaport['result'] == 'r' && count($CombatRaport['rounds']) <= 2) {
 			$this->printMessage($LNG['sys_raport_lost_contact']);
 		}
 		
