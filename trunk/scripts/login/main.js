@@ -35,6 +35,12 @@ $(function() {
 			document.location.href = LoginConfig.basePath+'uni'+$(this).val()+'/index.php'+document.location.search;
 		});
 	}
+	else
+	{
+		$('.fb_login').attr('href', function(i, old) {
+			return LoginConfig.basePath+$(this).data('href');
+		});
+	}
 });
 
 var Login = {
