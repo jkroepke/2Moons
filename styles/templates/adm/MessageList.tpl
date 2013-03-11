@@ -26,13 +26,12 @@
 </table>
 <table width="90%">  	
 	<tr>
-		<th colspan="{if $Selected == 100}7{else}6{/if}">{$LNG.ml_message_list}</th>
+		<th colspan="{if $Selected == 100}6{else}5{/if}">{$LNG.ml_message_list}</th>
 	</tr>
 	<tr style="height: 20px;">
-		<td class="right" colspan="{if $Selected == 100}7{else}6{/if}">{$LNG.mg_page}: {if $page != 1}<a href="#" onclick="gotoPage({$page - 1});return false;">&laquo;</a> {/if}{for $site=1 to $maxPage}<a href="#" onclick="gotoPage({$site});return false;">{if $site == $page}<span style="color:orange"><b>[{$site}]</b></span>{else}[{$site}]{/if}</a>{if $site != $maxPage} {/if}{/for}{if $page != $maxPage} <a href="#" onclick="gotoPage({$page + 1});return false;">&raquo;</a>{/if}</td>
+		<td class="right" colspan="{if $Selected == 100}6{else}5{/if}">{$LNG.mg_page}: {if $page != 1}<a href="#" onclick="gotoPage({$page - 1});return false;">&laquo;</a> {/if}{for $site=1 to $maxPage}<a href="#" onclick="gotoPage({$site});return false;">{if $site == $page}<span style="color:orange"><b>[{$site}]</b></span>{else}[{$site}]{/if}</a>{if $site != $maxPage} {/if}{/for}{if $page != $maxPage} <a href="#" onclick="gotoPage({$page + 1});return false;">&raquo;</a>{/if}</td>
 	</tr>
 	<tr>
-		<th style="width:3%;"><input title="{$ml_select_all_messages}" type="checkbox" onClick="checkedAll(select_all);"></th>
 		<th style="width:4%">{$LNG.ml_id}</th>
 		{if $Selected == 100}<th>{$LNG.ml_type}</th>{/if}
 		<th style="width:15%">{$LNG.ml_date}</th>
@@ -42,7 +41,6 @@
 	</tr>
 	{foreach $messageList as $messageID => $messageRow}
 	<tr data-messageID="{$messageID}">
-		<td><input type="checkbox" name="messageID[{$messageID}]" value="1"></td>
 		<td><a href="#" class="toggle">{$messageID}</a></td>
 		{if $Selected == 100}<td><a href="#" class="toggle">{$LNG.mg_type[$messageRow.type]}</a></td>{/if}
 		<td><a href="#" class="toggle">{$messageRow.time}</a></td>
@@ -51,28 +49,10 @@
 		<td><a href="#" class="toggle">{$messageRow.subject}</a></td>
 	</tr>
 	<tr id="contentID{$messageID}" style="display:none;">
-		<td class="left" colspan="{if $Selected == 100}7{else}6{/if}" style="padding:5px 8px;">{$messageRow.text}</td>
+		<td class="left" colspan="{if $Selected == 100}6{else}5{/if}" style="padding:5px 8px;">{$messageRow.text}</td>
 	</tr>
 	{/foreach}
 </table>
 </form>
-<script>
-function gotoPage(page) {
-	$('#side').val(page);
-	$('form').submit();
-}
-
-$(function() {
-	$('#sender, #receiver').autocomplete({
-		'source': 'admin.php?page=autocomplete',
-	});
-	
-	$('.toggle').on('click', function(e) {
-		e.preventDefault();
-		var messageID = $(this).parent().parent().data('messageID');
-		$('#contentID'+messageID).toggle();
-		return false;
-	});
-});
-</script>
+<script src="scripts/admin/messageList.js"></script>
 {include file="overall_footer.tpl"}
