@@ -7,27 +7,29 @@ function resourceTicker(config, init) {
 	if(typeof init !== "undefined" && init === true)
 		window.setInterval(function(){resourceTicker(config)}, 1000);
 		
-	var element	= document.getElementById(config.valueElem);
+	var element	= $('#'+config.valueElem);
 
-	if(element.className.match(/res_current_max/) !== null)
+	if(element.hasClass('res_current_max'))
+	{
 		return false;
-		
+	}
+	
 	var nrResource = Math.max(0, Math.round(parseFloat(config.available) + parseFloat(config.production) / 3600 * (serverTime.getTime() - startTime) / 1000));
+	
 	if (nrResource < config.limit[1]) 
 	{
-		if (nrResource >= config.limit[1])
-			element.className = element.className+" res_current_max";
-		else if (element.className.match(/res_current_warn/) === null && nrResource >= config.limit[1] * 0.9)
-			element.className = element.className+" res_current_warn";
-		
+		if (!element.hasClass('res_current_warn') && nrResource >= config.limit[1] * 0.9)
+		{
+			element.addClass('res_current_warn');
+		}
 		if(shortlyNumber) {
-			element.innerHTML	= shortly_number(nrResource);
-			element.data('tooltipContent', NumberGetHumanReadable(nrResource));
+			element.attr('data-tooltip-content', NumberGetHumanReadable(nrResource));
+			element.html(shortly_number(nrResource));
 		} else {
-			element.innerHTML	= NumberGetHumanReadable(nrResource);
+			element.html(NumberGetHumanReadable(nrResource));
 		}
 	} else {
-		element.className = element.className+" res_current_max";
+		element.addClass('res_current_max');
 	}
 }
 
