@@ -99,18 +99,31 @@ function ShowUniversePage() {
 					$_SESSION['adminuni']	= $USER['universe'];
 				}
 				
-				$CONFIG	= Config::init();
+				Config::init();
+				$CONFIG	= Config::getAll(NULL);
 				
 				if(count($CONFIG) == 1)
 				{
 					// Hack The Session
 					setcookie(session_name(), session_id(), SESSION_LIFETIME, HTTP_BASE, NULL, HTTPS, true);
+					HTTP::redirectTo("admin.php?reload=r");
 				}
 			}
 		break;
 		case 'create':
+			Config::init();
+			$CONFIG	= Config::getAll(NULL);
+			
 			// Check Multiuniverse Support
-			$ch	= curl_init(PROTOCOL.HTTP_HOST.HTTP_BASE."uni".ROOT_UNI."/");
+			$ch	= curl_init();
+			if(count($CONFIG) == 1)
+			{
+				curl_setopt($ch, CURLOPT_URL, PROTOCOL.HTTP_HOST.HTTP_BASE."uni".ROOT_UNI."/");
+			}
+			else
+			{
+				curl_setopt($ch, CURLOPT_URL, PROTOCOL.HTTP_HOST.HTTP_BASE);
+			}
 			curl_setopt($ch, CURLOPT_HTTPGET, true);
 			curl_setopt($ch, CURLOPT_AUTOREFERER, true);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
@@ -123,6 +136,7 @@ function ShowUniversePage() {
 			));
 			curl_exec($ch);
 			$httpCode	= curl_getinfo($ch, CURLINFO_HTTP_CODE);
+			
 			curl_close($ch);
 			if($httpCode != 302)
 			{
@@ -157,7 +171,8 @@ function ShowUniversePage() {
 		
 			$GLOBALS['DATABASE']->query("INSERT INTO ".CONFIG." SET ".implode(', ', $configSQL).";");
 			$newUniverse	= $GLOBALS['DATABASE']->GetInsertID();
-			$CONFIG	= Config::init();
+			Config::init();
+			$CONFIG	= Config::getAll(NULL);
 			
 			list($userID, $planetID) = PlayerUtil::createPlayer($newUniverse, $USER['username'], '', $USER['email'], $USER['lang'], 1, 1, 1, NULL, AUTH_ADM);
 			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET password = '".$USER['password']."' WHERE id = ".$userID.";");
@@ -166,6 +181,7 @@ function ShowUniversePage() {
 			{
 				// Hack The Session
 				setcookie(session_name(), session_id(), SESSION_LIFETIME, HTTP_ROOT.'uni'.$USER['universe'].'/', NULL, HTTPS, true);
+				HTTP::redirectTo("admin.php?reload=r");
 			}
 		break;
 	}
