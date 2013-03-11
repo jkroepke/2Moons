@@ -50,6 +50,11 @@ class FacebookAuth extends Facebook {
 			return $this->getUser();
 		}
 		
+		if(!empty($_GET['error_reason']))
+		{
+			HTTP::redirectTo('index.php');
+		}
+		
 		HTTP::sendHeader('Location', $this->getLoginUrl(array(
 			'scope' => 'publish_stream,publish_actions,user_games_activity',
 			'redirect_uri' => HTTP_PATH.'index.php?page=externalAuth&method=facebook'

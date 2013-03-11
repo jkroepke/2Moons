@@ -31,9 +31,9 @@
 class Session
 {
 	private static $obj;
+	private static $isInit = false;
 	
-	function __construct()
-	{
+	static function init() {
 		ini_set('session.use_cookies', '1');
 		ini_set('session.use_only_cookies', '1');
 		ini_set('session.use_trans_sid', 0);
@@ -46,13 +46,20 @@ class Session
 		ini_set('session.bug_compat_42', '0');
 		ini_set('session.cookie_httponly', true);
 		
-		//session_set_cookie_params(SESSION_LIFETIME, HTTP_ROOT, HTTP_HOST, HTTPS, true);
-		
 		$HTTP_ROOT = MODE === 'INSTALL' ? dirname(HTTP_ROOT) : HTTP_ROOT;
 		
 		session_set_cookie_params(SESSION_LIFETIME, $HTTP_ROOT, NULL, HTTPS, true);
 		session_cache_limiter('nocache');
 		session_name('2Moons');
+		self::$isInit	= true;
+	}
+	
+	function __construct()
+	{
+		if(self::$isInit === false)
+		{
+			self::init();
+		}
 	}
 	
 	static function redirectCode($Code)

@@ -46,6 +46,8 @@ class ShowExternalAuthPage extends AbstractPage
 			HTTP::redirectTo('index.php');			
 		}
 		
+		Session::init();
+		
 		require(ROOT_PATH.'includes/extauth/'.$method.'.class.php');
 		
 		$methodClass	= ucwords($method).'Auth';
