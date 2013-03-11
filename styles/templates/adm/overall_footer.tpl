@@ -7,6 +7,10 @@ parent.topFrame.document.location.reload();
 <script type="text/javascript">
 parent.rightFrame.document.location.reload();
 </script>
+{elseif $smarty.get.reload == 'r'}
+<script type="text/javascript">
+top.document.location.reload();
+</script>
 {/if}
 {/if}
 </body>
