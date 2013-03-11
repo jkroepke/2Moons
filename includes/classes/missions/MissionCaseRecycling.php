@@ -87,7 +87,7 @@ class MissionCaseRecycling extends MissionFunctions
 			$incomingGoods		= 0;
 			foreach($resourceIDs as $resourceID)
 			{
-				$incomingGoods	+= $this->_fleet['fleet_resource_'.$resource[$debrisID]];
+				$incomingGoods	+= $this->_fleet['fleet_resource_'.$resource[$resourceID]];
 			}
 			
 			$totalStorage = $recyclerStorage + min(0, $otherFleetStorage - $incomingGoods);
