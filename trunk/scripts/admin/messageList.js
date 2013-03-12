@@ -10,7 +10,6 @@ $(function() {
 	
 	$('.toggle').on('click', function(e) {
 		e.preventDefault();
-		console.log(messageID);
 		var messageID = $(this).parent().parent().data('messageid');
 		$('#contentID'+messageID).toggle();
 		return false;
