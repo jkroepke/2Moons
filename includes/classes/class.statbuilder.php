@@ -63,7 +63,7 @@ class statbuilder
 	
 	private function CheckUniverseAccounts($UniData)
 	{
-		$UniData	= $UniData + array_combine($this->Unis, array_fill(1, count($this->Unis), 0));
+		$UniData	= array_combine($this->Unis, array_fill(1, count($this->Unis), 0)) + $UniData;
 		foreach($UniData as $Uni => $Amount) {
 			Config::update(array('users_amount' => $Amount), $Uni);
 		}
@@ -90,6 +90,10 @@ class statbuilder
 		}	
 		
 		foreach($reslist['defense'] as $Defense){
+			$select_defenses	.= " SUM(p.".$resource[$Defense].") as ".$resource[$Defense].",";
+		}
+		
+		foreach($reslist['missile'] as $Defense){
 			$select_defenses	.= " SUM(p.".$resource[$Defense].") as ".$resource[$Defense].",";
 		}
 		
@@ -206,7 +210,7 @@ class statbuilder
 		$DefenseCounts = 0;
 		$DefensePoints = 0;
 				
-		foreach($reslist['defense'] as $Defense) {
+		foreach(array_merge($reslist['defense'], $reslist['missile']) as $Defense) {
 			if($USER[$resource[$Defense]] == 0) continue;
 			
 			$Units			= $pricelist[$Defense]['cost'][901] + $pricelist[$Defense]['cost'][902] + $pricelist[$Defense]['cost'][903];
@@ -515,8 +519,7 @@ class statbuilder
 
 		$this->SaveDataIntoDB($RankSQL);
 		$this->CheckUniverseAccounts($UniData);		
-		$this->writeRecordData();		
-		$this->AnotherCronJobs();		
+		$this->writeRecordData();	
 		return $this->SomeStatsInfos();
 	}
 }
