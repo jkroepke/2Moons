@@ -50,6 +50,10 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $missiles, $targetDef
 	
 	foreach($targetDefensive as $element => $count)
 	{
+		if($element == 0)
+		{
+			throw new Exception("Unknown error. Please report this error on tracker.2moons.cc. Debuginforations:<br><br>".serialize(array($TargetDefTech, $OwnerAttTech, $missiles, $targetDefensive, $firstTarget, $defenseMissles)));
+		}
 		$elementStructurePoints = ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]) * (1 + 0.1 * $TargetDefTech) / 10;
 		$destroyCount           = floor($totalAttack / $elementStructurePoints);
 		$destroyCount           = min($destroyCount, $count);
