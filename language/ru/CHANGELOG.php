@@ -22,7 +22,7 @@
  * @author Jan <slaver7@gmail.com>
  * @copyright 2011 Jan <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.1 (2013-01-18)
+ * @version 1.7.2 (2013-03-18)
  * @info $Id$
  * @link http://2moons.cc/
  */
