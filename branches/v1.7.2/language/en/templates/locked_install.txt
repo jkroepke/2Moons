@@ -1,0 +1,7 @@
+<h1>The Install Tool is locked</h1>
+<p>To enable the Install Tool, the file ENABLE_INSTALL_TOOL must be created.</p>
+<ul>
+    <li>In the includes/ folder, create a file named ENABLE_INSTALL_TOOL. The file name is case sensitive, but the file itself can simply be an empty file.</li>
+</ul>
+<p>For security reasons, it is highly recommended that you either rename or delete the file after the operation is finished.</p>
+<p>As an additional security measure, if the file is older than one hour, 2Moons will automatically delete it.</p>

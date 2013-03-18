@@ -1,0 +1,6 @@
+<h2>Der Installer ist gespeert!</h2>
+<p>Um den Installer zu aktivieren, muss die Datei ENABLE_INSTALL_TOOL erstellt werden.</p>
+<ul>
+    <li>In dem includes/ Ordner, erstelle eine Datei ENABLE_INSTALL_TOOL. Der Dateiname muss in Großbuchstaben sein. Die Datei selbst kann leer sein.</li>
+</ul>
+<p>Wegen der Sicherheits ist es sehr empfehlenswert, die Datei zu umbennnen oder diese zu löschen, wenn die Installien fertig ist.</p>
