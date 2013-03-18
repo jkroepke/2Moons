@@ -22,7 +22,7 @@
  * @author Jan <slaver7@gmail.com>
  * @copyright 2011 Jan <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.1 (2013-01-18)
+ * @version 1.7.2 (2013-03-18)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -31,6 +31,20 @@ $LNG['Version']     = 'Version';
 $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
+'v1.7.2' => 'Jan 18.03.2013
+- 0000358: [Fleet missions] Recycler mit vollem Rohstoffspeicher inkl. viel Kristall, baut TF nicht ab und geht auf Lock (Jan) - resolved.
+- 0000360: [Fleet missions] Wenn bei "Mission: Halten" Rohstoffe mitgenommen wird, werden diese dort abgeliefert und die Flotte behält diese Rohstoffe (Jan) - resolved.
+- 0000371: [Admin Panal] Support ticket kann nicht geschrieben werden (FC92) - resolved.
+- 0000373: [Admin Panal] Nachrichten im ACP in der Nachrichtenliste können nicht mehr gelesen werden. (Jan) - resolved.
+- 0000375: [Fleet missions] Halten soll kein Allianzdepot voraussetzen (Jan) - resolved.
+- 0000386: [Fleet missions] Mehrere Interplantrakten kosten für eine (FC92) - resolved.
+- 0000390: [User errors] Facebook Login (Jan) - resolved.
+- 0000395: [Admin Panal] Manual Update Points (Jan) - resolved.
+- 0000397: [Fleet missions] Mindestflugzeit wird nicht bei der Anzeige beachtet (Jan) - resolved.
+- 0000411: [Langauge] "active users" in German (Jan) - resolved.
+- 0000416: [Admin Panal] MessageListe im ACP bei IE8 / IE9 wird nicht geöffnet, Error: \'console\' ist undefiniert (Jan) - resolved.
+- 0000423: [Statistical] Error in der class.statbuilder.php / Ref 2627, In der Tabelle config wird users_amount = 0 gesetzt (Jan) - resolved.
+',
 'v1.7.1' => 'Jan 18.01.2013
 - Fix possible SQL Injections.
 ',
