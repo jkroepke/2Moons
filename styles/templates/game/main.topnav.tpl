@@ -73,8 +73,8 @@
 		</table>
 		{if !$vmode}
 		<script type="text/javascript">
-		var shortlyNumber	= {$shortlyNumber|json}
-		var vacation		= {$vmode};
+		var viewShortlyNumber	= {$shortlyNumber|json}
+		var vacation			= {$vmode};
 		{foreach $resourceTable as $resourceID => $resouceData}
 		{if isset($resouceData.production)}
 		resourceTicker({
