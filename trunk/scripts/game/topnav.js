@@ -22,7 +22,7 @@ function resourceTicker(config, init) {
 		{
 			element.addClass('res_current_warn');
 		}
-		if(shortlyNumber) {
+		if(viewShortlyNumber) {
 			element.attr('data-tooltip-content', NumberGetHumanReadable(nrResource));
 			element.html(shortly_number(nrResource));
 		} else {
