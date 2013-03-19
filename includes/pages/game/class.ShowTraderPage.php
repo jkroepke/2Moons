@@ -101,6 +101,10 @@ class ShowTraderPage extends AbstractPage
 		$tradeSum 			= 0;
 		
 		foreach($tradeResources as $tradeRessID) {
+			if(!isset($getTradeResources[$tradeRessID]))
+			{
+				continue;
+			}
 			$tradeAmount	= max(0, round((float) $getTradeResources[$tradeRessID]));
 			
 			if(empty($tradeAmount) || !isset(self::$Charge[$resourceID][$tradeRessID]))
