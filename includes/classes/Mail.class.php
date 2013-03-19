@@ -90,7 +90,7 @@ class Mail
 				$transport->setPassword(Config::get('smtp_pass'));
 			}
 		}
-		elseif(Config::get('mailMethod') == 0)
+		elseif(Config::get('mail_use') == 0)
 		{
 			$transport = Swift_MailTransport::newInstance();
 		}
