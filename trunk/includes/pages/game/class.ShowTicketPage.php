@@ -83,6 +83,10 @@ class ShowTicketPage extends AbstractPage
 		$message	= HTTP::_GP('message', '', true);
 		$subject	= HTTP::_GP('subject', '', true);
 		
+		if(empty($subject)) {
+			$this->printMessage($LNG['ti_error_no_subject']);
+		}
+		
 		if(empty($message)) {
 			if(empty($ticketID)) {
 				$this->redirectTo('game.php?page=ticket&mode=create');
