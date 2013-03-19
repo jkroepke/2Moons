@@ -64,10 +64,10 @@ class AJAXChat {
 		$this->_requestVars['userName']		= isset($_REQUEST['userName'])		? $_REQUEST['userName']			: null;
 		$this->_requestVars['channelID']	= isset($_REQUEST['channelID'])		? (int)$_REQUEST['channelID']	: null;
 		$this->_requestVars['channelName']	= isset($_REQUEST['channelName'])	? $_REQUEST['channelName']		: null;
-		$this->_requestVars['text']			= isset($_REQUEST['text'])			? $_REQUEST['text']				: null;
+		$this->_requestVars['text']			= isset($_POST['text'])				? $_POST['text']				: null;
 		$this->_requestVars['lastID']		= isset($_REQUEST['lastID'])		? (int)$_REQUEST['lastID']		: 0;
 		$this->_requestVars['login']		= isset($_REQUEST['login'])			? true							: false;
-		$this->_requestVars['logout']		= isset($_REQUEST['logout'])		? true							: false;
+		$this->_requestVars['logout']		= isset($_POST['logout'])			? true							: false;
 		$this->_requestVars['password']		= isset($_REQUEST['password'])		? $_REQUEST['password']			: null;
 		$this->_requestVars['view']			= isset($_REQUEST['view'])			? $_REQUEST['view']				: null;
 		$this->_requestVars['year']			= isset($_REQUEST['year'])			? (int)$_REQUEST['year']		: null;
@@ -121,7 +121,7 @@ class AJAXChat {
 	}
 	
 	function getDataBaseTable($table) {
-		return ($this->db->getName() ? $this->db->getName().'.'.$this->getConfig('dbTableNames',$table) : $this->getConfig('dbTableNames',$table));
+		return ($this->db->getName() ? '`'.$this->db->getName().'`.'.$this->getConfig('dbTableNames',$table) : $this->getConfig('dbTableNames',$table));
 	}
 
 	function initSession() {
@@ -232,8 +232,16 @@ class AJAXChat {
 			$time += $this->getConfig('timeZoneOffset');
 		}
 		// Check the opening hours:
-		if(($this->getConfig('openingHour') > date('G', $time)) || ($this->getConfig('closingHour') <= date('G', $time)))
-			return false;
+		if($this->getConfig('openingHour') < $this->getConfig('closingHour'))
+		{
+			if(($this->getConfig('openingHour') > date('G', $time)) || ($this->getConfig('closingHour') <= date('G', $time)))
+				return false;
+		}
+		else
+		{
+			if(($this->getConfig('openingHour') > date('G', $time)) && ($this->getConfig('closingHour') <= date('G', $time)))
+				return false;
+		}
 		// Check the opening weekdays:
 		if(!in_array(date('w', $time), $this->getConfig('openingWeekDays')))
 			return false;
@@ -462,8 +470,8 @@ class AJAXChat {
 				// channelName might need encoding conversion:
 				if($channelID === null) {
 					$channelID = $this->getChannelIDFromChannelName(
-						$this->trimChannelName($channelName, $this->getConfig('contentEncoding'))
-					);
+									$this->trimChannelName($channelName, $this->getConfig('contentEncoding'))
+								);
 				}
 			}
 		}
@@ -2357,7 +2365,6 @@ class AJAXChat {
 		if($this->_requestVars && isset($this->_requestVars[$key])) {
 			return $this->_requestVars[$key];
 		}
-		
 		return null;
 	}
 	
@@ -3295,7 +3302,7 @@ class AJAXChat {
 	// Override:
 	// Store the channels the current user has access to
 	// Make sure channel names don't contain any whitespace
-	function getChannels() {
+	function &getChannels() {
 		if($this->_channels === null) {
 			$this->_channels = $this->getAllChannels();
 		}
@@ -3305,7 +3312,7 @@ class AJAXChat {
 	// Override:
 	// Store all existing channels
 	// Make sure channel names don't contain any whitespace
-	function getAllChannels() {
+	function &getAllChannels() {
 		if($this->_allChannels === null) {
 			$this->_allChannels = array();
 			

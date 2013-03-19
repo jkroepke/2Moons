@@ -25,5 +25,3 @@ if(!isModulAvalible(MODULE_CHAT))
 {
 	ShowErrorPage::printError($LNG['sys_module_inactive']);
 }
-
-?>
