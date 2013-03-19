@@ -649,7 +649,7 @@ $LNG['mu_dump']						= 'Datenbank-Backup';
 
 $LNG['vt_error']					= 'HashFile ist nicht verfügbar! - Update durchführen!';
 $LNG['vt_fail']						= 'Geänderte Dateien';
-$LNG['vt_info']						= 'Diese Liste enthält die Dateien, die modifziert worden und nicht dem orginal entsprechen.<br>Wenn Sie selbst nichts am Spiel geändert haben, sollte Sie die Dateien mit dem Orginalen ersetzten.';
+$LNG['vt_info']						= 'Diese Liste enthält die Dateien, die modifziert wurden und nicht dem orginal entsprechen.<br>Wenn Sie selbst nichts am Spiel geändert haben, sollte Sie die Dateien mit dem Orginalen ersetzten.';
 $LNG['vt_head']						= 'Überprüfe Spieldateien';
 $LNG['vt_filephp']					= 'PHP-Dateien';
 $LNG['vt_filetpl']					= 'Template-Dateien';
