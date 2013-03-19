@@ -10,8 +10,8 @@
 // Class to provide static encoding methods
 class AJAXChatEncoding {
 
-	// Helper static function to store special chars as we cannot use static class members in PHP4:
-	static function getSpecialChars() {
+	// Helper function to store special chars as we cannot use static class members in PHP4:
+	public static function getSpecialChars() {
 		static $specialChars;
 		if(!$specialChars) {
 			// As &apos; is not supported by IE, we use &#39; as replacement for "'":
@@ -20,8 +20,8 @@ class AJAXChatEncoding {
 		return $specialChars;
 	}
 
-	// Helper static function to store Regular expression for NO-WS-CTL as we cannot use static class members in PHP4:
-	static function getRegExp_NO_WS_CTL() {
+	// Helper function to store Regular expression for NO-WS-CTL as we cannot use static class members in PHP4:
+	public static function getRegExp_NO_WS_CTL() {
 		static $regExp_NO_WS_CTL;
 		if(!$regExp_NO_WS_CTL) {
 			// Regular expression for NO-WS-CTL, non-whitespace control characters (RFC 2822), decimal 1–8, 11–12, 14–31, and 127:
@@ -30,7 +30,7 @@ class AJAXChatEncoding {
 		return $regExp_NO_WS_CTL;
 	}
 
-	static function convertEncoding($str, $charsetFrom, $charsetTo) {
+	public static function convertEncoding($str, $charsetFrom, $charsetTo) {
 		if(function_exists('mb_convert_encoding')) {
 			return mb_convert_encoding($str, $charsetTo, $charsetFrom);
 		}
@@ -46,7 +46,7 @@ class AJAXChatEncoding {
 		return $str;
 	}
 
-	static function htmlEncode($str, $contentCharset='UTF-8') {
+	public static function htmlEncode($str, $contentCharset='UTF-8') {
 		switch($contentCharset) {
 			case 'UTF-8':
 				// Encode only special chars (&, <, >, ', ") as entities:
@@ -77,22 +77,22 @@ class AJAXChatEncoding {
 		}
 	}
 
-	static function encodeSpecialChars($str) {
+	public static function encodeSpecialChars($str) {
 		return strtr($str, AJAXChatEncoding::getSpecialChars());
 	}
 
-	static function decodeSpecialChars($str) {
+	public static function decodeSpecialChars($str) {
 		return strtr($str, array_flip(AJAXChatEncoding::getSpecialChars()));
 	}
 
-	static function encodeEntities($str, $encoding='UTF-8', $convmap=null) {
+	public static function encodeEntities($str, $encoding='UTF-8', $convmap=null) {
 		if($convmap && function_exists('mb_encode_numericentity')) {
 			return mb_encode_numericentity($str, $convmap, $encoding);
 		}
 		return htmlentities($str, ENT_QUOTES, $encoding);
 	}
 
-	static function decodeEntities($str, $encoding='UTF-8', $htmlEntitiesMap=null) {
+	public static function decodeEntities($str, $encoding='UTF-8', $htmlEntitiesMap=null) {
 		// Due to PHP bug #25670, html_entity_decode does not work with UTF-8 for PHP versions < 5:
 		if(function_exists('html_entity_decode') && version_compare(phpversion(), 5, '>=')) {
 			// Replace numeric and literal entities:
@@ -112,7 +112,7 @@ class AJAXChatEncoding {
 		return $str;
 	}
 
-	static function unicodeChar($c) {
+	public static function unicodeChar($c) {
 		if($c <= 0x7F) {
 			return chr($c);
 		} else if($c <= 0x7FF) {
@@ -129,7 +129,7 @@ class AJAXChatEncoding {
 		}
 	}
 
-	static function removeUnsafeCharacters($str) {
+	public static function removeUnsafeCharacters($str) {
 		// Remove NO-WS-CTL, non-whitespace control characters (RFC 2822), decimal 1–8, 11–12, 14–31, and 127:
 		return preg_replace(AJAXChatEncoding::getRegExp_NO_WS_CTL(), '', $str);
 	}

@@ -15,7 +15,7 @@ var ajaxChatConfig = {
 	loginChannelName: null,	
 	
 	// The time in ms between update calls to retrieve new chat messages:
-	timerRate: 5000,
+	timerRate: 2000,
 	
 	// The URL to retrieve the XML chat messages (must at least contain one parameter):
 	ajaxURL: './?ajax=true',
@@ -213,7 +213,8 @@ var ajaxChatConfig = {
 	},
 	
 	
-	// The following configuration options are usually overwritten by server-side values:
+	// Once users have been logged in, the following values are overridden by those in config.php.
+	// You should set these to be the same as the ones in config.php to avoid confusion.
 	
 	// Session identification, used for style and setting cookies:
 	sessionName: 'ajax_chat',

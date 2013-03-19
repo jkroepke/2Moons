@@ -83,16 +83,17 @@ var ajaxChat = {
 	originalDocumentTitle: null,
 	blinkInterval: null,
 	httpRequest: null,
-	retryTimer:null,
-	retryTimerDelay:null,
+	retryTimer: null,
+	retryTimerDelay: null,
+	requestStatus: 'ok',
 	DOMbuffering: null,
 	DOMbuffer: null,
 	DOMbufferRowClass: 'rowOdd',
 	
 	init: function(config, lang, initSettings, initStyle, initialize, initializeFunction, finalizeFunction) {	
-		this.httpRequest		= new Object();
-		this.usersList			= new Array();
-		this.userNamesList		= new Array();
+		this.httpRequest		= {};
+		this.usersList			= [];
+		this.userNamesList		= [];
 		this.userMenuCounter	= 0;
 		this.lastID				= 0;
 		this.localID			= 0;
@@ -147,24 +148,24 @@ var ajaxChat = {
 		this.socketServerChatID		= config['socketServerChatID'];
 		this.DOMbuffering			= false;
 		this.DOMbuffer				= "";
-		this.retryTimerDelay = this.timerRate + (((this.inactiveTimeout*6000) - this.timerRate)/4);
+		this.retryTimerDelay 		= (this.inactiveTimeout*6000 - this.timerRate)/4 + this.timerRate;
 	},
 
 	initDirectories: function() {
-		this.dirs = new Object();
+		this.dirs = {};
 		this.dirs['emoticons'] 	= this.baseURL+'img/emoticons/';
 		this.dirs['sounds']		= this.baseURL+'sounds/';
 		this.dirs['flash']		= this.baseURL+'flash/';
 	},
 	
 	initSettings: function() {
+		var cookie = this.readCookie(this.sessionName + '_settings'),
+			i, settingsArray, setting, key, value, number;
 		this.settingsInitiated = true;
-		this.unusedSettings = new Object();
-		var cookie = this.readCookie(this.sessionName + '_settings');
+		this.unusedSettings = {};
 		if(cookie) {
-			var settingsArray = cookie.split('&');
-			var setting,key,value,number;
-			for(var i=0; i<settingsArray.length; i++) {
+			settingsArray = cookie.split('&');
+			for(i=0; i<settingsArray.length; i++) {
 				setting = settingsArray[i].split('=');
 				if(setting.length == 2) {
 					key = setting[0];
@@ -201,8 +202,9 @@ var ajaxChat = {
 	},
 
 	persistSettings: function() {
+		var settingsArray;
 		if(this.settingsInitiated) {
-			var settingsArray = new Array();
+			settingsArray = [];
 			for(var property in this.settings) {
 				if(this.inArray(this.nonPersistentSettings, property)) {
 					if(this.unusedSettings && this.unusedSettings[property]) {
@@ -255,7 +257,7 @@ var ajaxChat = {
 		this.setSelectedStyle();
 		this.customInitialize();
 		//preload the Alert icon (it can't display if there's no connection unless it's cached!)
-		this.setStatus('Alert');
+		this.setStatus('retrying');
 		if(typeof this.initializeFunction == 'function') {
 			this.initializeFunction();
 		}
@@ -359,7 +361,7 @@ var ajaxChat = {
 	},
 	
 	initializeDocumentNodes: function() {
-		this.dom = new Object();
+		this.dom = {};
 		for(var key in this.domIDs) {
 			this.dom[key] = document.getElementById(this.domIDs[key]);
 		}
@@ -406,14 +408,7 @@ var ajaxChat = {
  			this.DOMbuffer = "";
 		}
 	},
-	
-	setStatus: function(currentStatus) {
-		//Make sure the status container div exists before changing its class.
-		if (document.getElementById('statusIconContainer') != null ) {
-			//currentStatus options are: Off for green, On for orange, and Alert for red.
-			document.getElementById('statusIconContainer').className = 'statusContainer' + currentStatus;
-		}
-	},
+
 
 	startChatUpdate: function() {
 		// Start the chat update and retrieve current user and channel info and set the login channel:
@@ -452,7 +447,7 @@ var ajaxChat = {
 				+'height="1" width="1">'
 				+'<param name="flashvars" value="bridgeName=ajaxChat"/>'
 				+'<param name="src" value="'+this.dirs['flash']+'FABridge.swf"/>'
-				+'<embed name="ajaxChatFlashInterface" pluginspage="'
+				+'<embed name="ajaxChatFlashInterface" type="application/x-shockwave-flash" pluginspage="'
 				+ window.location.protocol
 				+'//www.macromedia.com/go/getflashplayer" '
 				+'src="'+this.dirs['flash']+'FABridge.swf" height="1" width="1" flashvars="bridgeName=ajaxChat"/>'
@@ -498,7 +493,7 @@ var ajaxChat = {
 	socketConnectHandler: function(event) {
 		ajaxChat.socketIsConnected = true;
 		// setTimeout is needed to avoid calling the flash interface recursively:
-		setTimeout('ajaxChat.socketRegister()', 0);
+		setTimeout(ajaxChat.socketRegister, 0);
 	},
 
 	socketCloseHandler: function(event) {
@@ -515,14 +510,14 @@ var ajaxChat = {
 
 	socketIOErrorHandler: function(event) {
 		// setTimeout is needed to avoid calling the flash interface recursively (e.g. sound on new messages):
-		setTimeout('ajaxChat.addChatBotMessageToChatList(\'/error SocketIO\')', 0);
-		setTimeout('ajaxChat.updateChatlistView()', 1);
+		setTimeout(function() { ajaxChat.addChatBotMessageToChatList('/error SocketIO'); }, 0);
+		setTimeout(ajaxChat.updateChatlistView, 1);
 	},
 
 	socketSecurityErrorHandler: function(event) {
 		// setTimeout is needed to avoid calling the flash interface recursively (e.g. sound on new messages):
-		setTimeout('ajaxChat.addChatBotMessageToChatList(\'/error SocketSecurity\')', 0);
-		setTimeout('ajaxChat.updateChatlistView()', 1);
+		setTimeout(function() { ajaxChat.addChatBotMessageToChatList('/error SocketSecurity'); }, 0);
+		setTimeout(ajaxChat.updateChatlistView, 1);
 	},
 
 	socketRegister: function() {
@@ -619,7 +614,7 @@ var ajaxChat = {
 	loadSounds: function() {
 		try {
 			this.setAudioVolume(this.settings['audioVolume']);
-			this.sounds = new Object();
+			this.sounds = {};
 			var sound,urlRequest;
 			for(var key in this.soundFiles) {
 				sound = FABridge.ajaxChat.create('flash.media.Sound');
@@ -647,8 +642,8 @@ var ajaxChat = {
 
 	soundIOErrorHandler: function(event) {
 		// setTimeout is needed to avoid calling the flash interface recursively (e.g. sound on new messages):
-		setTimeout('ajaxChat.addChatBotMessageToChatList(\'/error SoundIO\')', 0);
-		setTimeout('ajaxChat.updateChatlistView()', 1);
+		setTimeout(function() { ajaxChat.addChatBotMessageToChatList('/error SoundIO'); }, 0);
+		setTimeout(ajaxChat.updateChatlistView, 1);
 	},
 	
 	soundPlayCompleteHandler: function(event) {
@@ -714,6 +709,34 @@ var ajaxChat = {
 			i++;
 		}
 	},
+
+	setStatus: function(newStatus) {
+		// status options are: ok, retrying, waiting
+		if (this.requestStatus != 'retrying' || newStatus == 'ok') {
+			this.requestStatus = newStatus;
+		}
+		
+		var statusIcon = document.getElementById('statusIconContainer');
+
+		if (statusIcon) {
+			switch (this.requestStatus) {
+				case 'ok':
+					this.setClass(statusIcon, 'statusContainerOff');
+					break;
+				case 'waiting':
+					this.setClass(statusIcon, 'statusContainerOn');
+					break;
+				case 'retrying':
+					this.setClass(statusIcon, 'statusContainerAlert');
+					break;
+			}
+		}
+	},
+	
+	forceNewRequest: function() {
+		ajaxChat.updateChat(null); 
+		ajaxChat.setStatus('retrying');
+	},
 	
 	getHttpRequest: function(identifier) {
 		if(!this.httpRequest[identifier]) {
@@ -735,10 +758,10 @@ var ajaxChat = {
 		}
 		return this.httpRequest[identifier];
 	},
-	
+
 	makeRequest: function(url, method, data) {
-		ajaxChat.setStatus('On');
-		ajaxChat.retryTimer = setTimeout("ajaxChat.updateChat(null); ajaxChat.setStatus('Alert');", this.retryTimerDelay);
+		this.setStatus('waiting');
+		
 		try {
 			var identifier;
 			if(data) {
@@ -752,6 +775,9 @@ var ajaxChat = {
 			} else {
 				identifier = 0;
 			}
+			//if the response takes longer than retryTimerDelay to give an OK status, abort the connection and start again.
+			this.retryTimer = setTimeout(ajaxChat.forceNewRequest, ajaxChat.retryTimerDelay);
+			
 			this.getHttpRequest(identifier).open(method, url, true);
 			this.getHttpRequest(identifier).onreadystatechange = function() {
 				try {
@@ -765,14 +791,14 @@ var ajaxChat = {
 					try {
 						if(data) {
 							ajaxChat.addChatBotMessageToChatList('/error ConnectionTimeout');
-							ajaxChat.setStatus('Alert');
+							ajaxChat.setStatus('retrying');
 							ajaxChat.updateChatlistView();
 						}
 					} catch(e) {
 						//alert(e);
 					}
 					try {				
-						ajaxChat.timer = setTimeout('ajaxChat.updateChat(null);', ajaxChat.timerRate);
+						ajaxChat.timer = setTimeout(function() { ajaxChat.updateChat(null); }, ajaxChat.timerRate);
 					} catch(e) {
 						//alert(e);
 					}
@@ -786,10 +812,10 @@ var ajaxChat = {
 			clearTimeout(this.timer);
 			if(data) {
 				this.addChatBotMessageToChatList('/error ConnectionTimeout');
-				ajaxChat.setStatus('Alert');
+				ajaxChat.setStatus('retrying');
 				this.updateChatlistView();
 			}
-			this.timer = setTimeout('ajaxChat.updateChat(null);', this.timerRate);
+			this.timer = setTimeout(function() { ajaxChat.updateChat(null); }, this.timerRate);
 		}
 	},
 		
@@ -798,16 +824,16 @@ var ajaxChat = {
 			if (this.getHttpRequest(identifier).status == 200) {
 				clearTimeout(ajaxChat.retryTimer);
 				var xmlDoc = this.getHttpRequest(identifier).responseXML;
-				ajaxChat.setStatus('Off');
+				ajaxChat.setStatus('ok');
 			} else {
 				// Connection status 0 can be ignored.
 				if (this.getHttpRequest(identifier).status == 0) {
-					ajaxChat.setStatus('On');
+					this.setStatus('waiting');
 					this.updateChatlistView();
 					return false;
 				} else {
 					this.addChatBotMessageToChatList('/error ConnectionStatus '+this.getHttpRequest(identifier).status);
-					ajaxChat.setStatus('Alert');
+					this.setStatus('retrying');
 					this.updateChatlistView();				
 					return false;
 				}
@@ -838,10 +864,10 @@ var ajaxChat = {
 				timeout = this.timerRate;
 				if(this.socketServerEnabled && !this.socketReconnectTimer) {
 					// If the socket connection fails try to reconnect once in a minute:
-					this.socketReconnectTimer = setTimeout('ajaxChat.socketConnect();', 60000);
+					this.socketReconnectTimer = setTimeout(ajaxChat.socketConnect, 60000);
 				}
 			}
-			this.timer = setTimeout('ajaxChat.updateChat(null);', timeout);			
+			this.timer = setTimeout(function() {ajaxChat.updateChat(null);}, timeout);			
 		}
 	},
 	
@@ -894,9 +920,9 @@ var ajaxChat = {
 
 	handleOnlineUsers: function(userNodes) {
 		if(userNodes.length) {
-			var index,userID,userName,userRole;
-			var onlineUsers = new Array();
-			for(var i=0; i<userNodes.length; i++) {
+			var index,userID,userName,userRole,i,
+				onlineUsers = [];
+			for(i=0; i<userNodes.length; i++) {
 				userID = userNodes[i].getAttribute('userID');
 				userName = userNodes[i].firstChild ? userNodes[i].firstChild.nodeValue : '';
 				userRole = userNodes[i].getAttribute('userRole');
@@ -918,7 +944,7 @@ var ajaxChat = {
 				}
 			}
 			// Clear the offline users from the online users list:
-			for(var i=0; i<this.usersList.length; i++) {
+			for(i=0; i<this.usersList.length; i++) {
 				if(!this.inArray(onlineUsers, this.usersList[i])) {
 					this.removeUserFromOnlineList(this.usersList[i], i);
 				}
@@ -928,9 +954,9 @@ var ajaxChat = {
 	},
 
 	handleChatMessages: function(messageNodes) {
+		var userNode,userName,textNode,messageText,i;
 		if(messageNodes.length) {
-			var userNode,userName,textNode,messageText;		
-			for(var i=0; i<messageNodes.length; i++) {
+			for(i=0; i<messageNodes.length; i++) {
 				this.DOMbuffering = true;
 				userNode = messageNodes[i].getElementsByTagName('username')[0];
 				userName = userNode.firstChild ? userNode.firstChild.nodeValue : '';
@@ -955,11 +981,12 @@ var ajaxChat = {
 	},
 	
 	setSelectedChannel: function(channel) {
+		var channelSelected = false,
+			i,option,text;
 		if(this.dom['channelSelection']) {
 			// Replace the entities in the channel name with their character equivalent:
 			channel = this.decodeSpecialChars(channel);
-			var channelSelected = false;
-			for(var i=0; i<this.dom['channelSelection'].options.length; i++) {
+			for(i=0; i<this.dom['channelSelection'].options.length; i++) {
 				if(this.dom['channelSelection'].options[i].value == channel) {
 					this.dom['channelSelection'].options[i].selected = true;
 					channelSelected = true;
@@ -968,8 +995,8 @@ var ajaxChat = {
 			}
 			// The given channel is not in the list, add it:
 			if(!channelSelected) {
-				var option = document.createElement('option');
-				var text = document.createTextNode(channel);
+				option = document.createElement('option');
+				text = document.createTextNode(channel);
 				option.appendChild(text);
 				option.setAttribute('value', channel);
 				option.setAttribute('selected', 'selected');			
@@ -999,11 +1026,12 @@ var ajaxChat = {
 	},
 
 	getUserNodeString: function(userID, userName, userRole) {
+		var encodedUserName, str;
 		if(this.userNodeString && userID == this.userID) {
 			return this.userNodeString;
 		} else {
-			var encodedUserName = this.scriptLinkEncode(userName);
-			var str	= '<div id="'
+			encodedUserName = this.scriptLinkEncode(userName);
+			str	= '<div id="'
 					+ this.getUserDocumentID(userID)
 					+ '"><a href="javascript:ajaxChat.toggleUserMenu(\''
 					+ this.getUserMenuDocumentID(userID)
@@ -1111,7 +1139,10 @@ var ajaxChat = {
 						+ '</a></li>';
 			}
 		} else {
-			menu 	= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/who\');">'
+			menu 	= '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/quit\');">'
+					+ this.lang['userMenuLogout']
+					+ '</a></li>'
+					+ '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/who\');">'
 					+ this.lang['userMenuWho']
 					+ '</a></li>'
 					+ '<li><a href="javascript:ajaxChat.sendMessageWrapper(\'/ignore\');">'
@@ -1163,8 +1194,8 @@ var ajaxChat = {
 	},
 
 	clearOnlineUsersList: function() {
-		this.usersList = new Array();
-		this.userNamesList = new Array();
+		this.usersList = [];
+		this.userNamesList = [];
 		if(this.dom['onlineList']) {
 			while(this.dom['onlineList'].hasChildNodes()) {
 				this.dom['onlineList'].removeChild(this.dom['onlineList'].firstChild);
@@ -1728,7 +1759,7 @@ var ajaxChat = {
 			if(ignoredUserNamesString) {
 				this.ignoredUserNames = ignoredUserNamesString.split(' ');
 			} else {
-				this.ignoredUserNames = new Array();
+				this.ignoredUserNames = [];
 			}
 		}
 		return this.ignoredUserNames;
@@ -2294,7 +2325,7 @@ var ajaxChat = {
 		
 	replaceCommandList: function(textParts) {
 		var channels = textParts.slice(1);
-		var listChannels = new Array();
+		var listChannels = [];
 		var channelName;
 		for(var i=0; i<channels.length; i++) {
 			channelName = (channels[i] == this.channelName) ? '<b>'+channels[i]+'</b>' : channels[i];
@@ -2316,7 +2347,7 @@ var ajaxChat = {
 		
 	replaceCommandBans: function(textParts) {
 		var users = textParts.slice(1);
-		var listUsers = new Array();
+		var listUsers = [];
 		for(var i=0; i<users.length; i++) {
 			listUsers.push(
 				'<a href="javascript:ajaxChat.sendMessageWrapper(\'/unban '
