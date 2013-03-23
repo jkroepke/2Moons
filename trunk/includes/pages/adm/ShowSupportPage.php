@@ -34,7 +34,7 @@ class ShowSupportPage
 	
 	function __construct() 
 	{
-		require(ROOT_PATH.'includes/classes/class.SupportTickets.php');
+		require('includes/classes/class.SupportTickets.php');
 		$this->ticketObj	= new SupportTickets;
 		$this->tplObj		= new template();
 		// 2Moons 1.7TO1.6 PageClass Wrapper
@@ -110,7 +110,7 @@ class ShowSupportPage
 	{
 		global $USER, $LNG;
 		
-		require_once(ROOT_PATH.'includes/functions/BBCode.php');
+		require_once('includes/functions/BBCode.php');
 				
 		$ticketID			= HTTP::_GP('id', 0);
 		$answerResult		= $GLOBALS['DATABASE']->query("SELECT a.*, t.categoryID, t.status FROM ".TICKETS_ANSWER." a INNER JOIN ".TICKETS." t USING(ticketID) WHERE a.ticketID = ".$ticketID." ORDER BY a.answerID;");

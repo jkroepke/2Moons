@@ -54,7 +54,7 @@ class ShowVertifyPage extends AbstractPage
 		list($userID, $planetID) = PlayerUtil::createPlayer($userData['universe'], $userData['userName'], $userData['password'], $userData['email'], $userData['language']);
 		
 		if(Config::get('mail_active', $userData['universe']) == 1) {
-			require(ROOT_PATH.'includes/classes/Mail.class.php');
+			require('includes/classes/Mail.class.php');
 			$MailSubject	= t('registerMailCompleteTitle', Config::get('game_name', $userData['universe']));	
 			$MailRAW		= $GLOBALS['LNG']->getTemplate('email_reg_done');
 			$MailContent	= str_replace(array(

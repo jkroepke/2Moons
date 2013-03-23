@@ -101,7 +101,7 @@ function CheckPermissions() {
 
 function ExecuteUpdates() {
 	clearstatcache();
-	copy(ROOT_PATH.'includes/update.php', ROOT_PATH.'update.php');
+	copy('includes/update.php', ROOT_PATH.'update.php');
 }
 
 function DisplayUpdates() {

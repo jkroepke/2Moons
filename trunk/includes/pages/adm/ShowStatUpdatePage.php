@@ -30,7 +30,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowStatUpdatePage() {
 	global $LNG;
-	require_once(ROOT_PATH.'includes/classes/class.statbuilder.php');
+	require_once('includes/classes/class.statbuilder.php');
 	$stat			= new statbuilder();
 	$result			= $stat->MakeStats();
 	$memory_p		= str_replace(array("%p", "%m"), $result['memory_peak'], $LNG['sb_top_memory']);

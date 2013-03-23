@@ -107,7 +107,7 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_not_exists']);
 		}
 		
-		require_once(ROOT_PATH.'includes/functions/BBCode.php');
+		require_once('includes/functions/BBCode.php');
 		
 		if ($this->allianceData['ally_diplo'] == 1)
 		{
@@ -387,7 +387,7 @@ class ShowAlliancePage extends AbstractPage
 	private function homeAlliance()
 	{
 		global $USER, $UNI, $LNG;
-		require_once(ROOT_PATH.'includes/functions/BBCode.php');
+		require_once('includes/functions/BBCode.php');
 		
 		if ($this->allianceData['ally_owner'] == $USER['id']) {
 			$rankName	= ($this->allianceData['ally_owner_range'] != '') ? $this->allianceData['ally_owner_range'] : $LNG['al_founder_rank_text'];
@@ -423,7 +423,7 @@ class ShowAlliancePage extends AbstractPage
 			
 			$result = $GLOBALS['DATABASE']->query($sql);
 
-			require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.php');
+			require_once('includes/classes/class.FlyingFleetsTable.php');
 			$FlyingFleetsTable = new FlyingFleetsTable;
 			
 			$this->tplObj->loadscript('overview.js');
@@ -868,7 +868,7 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_apply_not_exists']);
 		}
 		
-		require_once(ROOT_PATH.'includes/functions/BBCode.php');
+		require_once('includes/functions/BBCode.php');
 		$applyDetail['text']    	= bbcode($applyDetail['text']);
 		$applyDetail['kbmetal']    	= pretty_number($applyDetail['kbmetal']);
 		$applyDetail['kbcrystal']   = pretty_number($applyDetail['kbcrystal']);

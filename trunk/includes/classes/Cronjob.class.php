@@ -44,7 +44,7 @@ class Cronjob
 		
 		$GLOBALS['DATABASE']->query("UPDATE ".CRONJOBS." SET `lock` = '".md5(TIMESTAMP)."' WHERE cronjobID = ".$cronjobID.";");
 		
-		$cronjobsPath		= ROOT_PATH.'includes/classes/cronjob/'.$cronjobsClassName.'.class.php';
+		$cronjobsPath		= 'includes/classes/cronjob/'.$cronjobsClassName.'.class.php';
 		
 		// die hard, if file not exists.
 		require_once($cronjobsPath);
@@ -72,8 +72,8 @@ class Cronjob
 	static function reCalculateCronjobs($cronjobID = NULL)
 	{
 	
-		require_once ROOT_PATH.'includes/libs/tdcron/class.tdcron.php';
-		require_once ROOT_PATH.'includes/libs/tdcron/class.tdcron.entry.php';
+		require_once 'includes/libs/tdcron/class.tdcron.php';
+		require_once 'includes/libs/tdcron/class.tdcron.entry.php';
 		
 		$cronjobsList	= array();
 		$SQL			= "";

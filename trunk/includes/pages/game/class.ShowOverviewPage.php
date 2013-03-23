@@ -73,7 +73,7 @@ class ShowOverviewPage extends AbstractPage
 
 	private function GetFleets() {
 		global $USER, $PLANET;
-		require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.php');
+		require_once('includes/classes/class.FlyingFleetsTable.php');
 		$fleetTableObj = new FlyingFleetsTable;
 		$fleetTableObj->setUser($USER['id']);
 		$fleetTableObj->setPlanet($PLANET['id']);

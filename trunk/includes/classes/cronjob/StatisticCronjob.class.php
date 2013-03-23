@@ -32,7 +32,7 @@ class StatisticCronjob
 {
 	function run()
 	{
-		require_once(ROOT_PATH.'includes/classes/class.statbuilder.php');
+		require_once('includes/classes/class.statbuilder.php');
 		$stat			= new Statbuilder();
 		$result			= $stat->MakeStats();
 		Config::update(array(

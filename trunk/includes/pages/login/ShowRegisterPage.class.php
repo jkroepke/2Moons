@@ -61,9 +61,9 @@ class ShowRegisterPage extends AbstractPage
 			$externalAuth['method']		= strtolower(str_replace(array('_', '\\', '/', '.', "\0"), '', $externalAuth['method']));
 		}
 		
-		if(!empty($externalAuth['account']) && file_exists(ROOT_PATH.'includes/extauth/'.$externalAuth['method'].'.class.php'))
+		if(!empty($externalAuth['account']) && file_exists('includes/extauth/'.$externalAuth['method'].'.class.php'))
 		{
-			require(ROOT_PATH.'includes/extauth/'.$externalAuth['method'].'.class.php');
+			require('includes/extauth/'.$externalAuth['method'].'.class.php');
 			$methodClass	= ucwords($externalAuth['method']).'Auth';
 			$authObj		= new $methodClass;
 			
@@ -218,9 +218,9 @@ class ShowRegisterPage extends AbstractPage
 			)));
 		}
 		
-		if(!empty($externalAuth['account']) && file_exists(ROOT_PATH.'includes/extauth/'.$externalAuthMethod.'.class.php'))
+		if(!empty($externalAuth['account']) && file_exists('includes/extauth/'.$externalAuthMethod.'.class.php'))
 		{
-			require(ROOT_PATH.'includes/extauth/'.$externalAuthMethod.'.class.php');
+			require('includes/extauth/'.$externalAuthMethod.'.class.php');
 			$methodClass	= ucwords($externalAuthMethod).'Auth';
 			$authObj		= new $methodClass;
 			
@@ -275,7 +275,7 @@ class ShowRegisterPage extends AbstractPage
 		}
 		else
 		{
-			require(ROOT_PATH.'includes/classes/Mail.class.php');
+			require('includes/classes/Mail.class.php');
 			$MailSubject 	= t('registerMailVertifyTitle');
 			$MailRAW		= $GLOBALS['LNG']->getTemplate('email_vaild_reg');
 			$MailContent	= str_replace(array(

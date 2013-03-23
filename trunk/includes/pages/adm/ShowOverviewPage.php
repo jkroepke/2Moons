@@ -40,13 +40,13 @@ function ShowOverviewPage()
 		if(file_exists(ROOT_PATH.'webinstall.php'))
 			$Message[]	= sprintf($LNG['ow_file_detected'], 'webinstall.php');
 			
-		if(file_exists(ROOT_PATH.'includes/ENABLE_INSTALL_TOOL'))
+		if(file_exists('includes/ENABLE_INSTALL_TOOL'))
 			$Message[]	= sprintf($LNG['ow_file_detected'], 'includes/ENABLE_INSTALL_TOOL');
 					
 		if(!is_writable(ROOT_PATH.'cache'))
 			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'cache');
 			
-		if(!is_writable(ROOT_PATH.'includes'))
+		if(!is_writable('includes'))
 			$Message[]	= sprintf($LNG['ow_dir_not_writable'], 'includes');
 	}
 	

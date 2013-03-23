@@ -29,9 +29,11 @@
 define('MODE', 'LOGIN');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
-require(ROOT_PATH.'includes/pages/login/AbstractPage.class.php');
-require(ROOT_PATH.'includes/pages/login/ShowErrorPage.class.php');
-require(ROOT_PATH.'includes/common.php');
+set_include_path(ROOT_PATH);
+
+require('includes/pages/login/AbstractPage.class.php');
+require('includes/pages/login/ShowErrorPage.class.php');
+require('includes/common.php');
 
 $page 		= HTTP::_GP('page', 'index');
 $mode 		= HTTP::_GP('mode', 'show');

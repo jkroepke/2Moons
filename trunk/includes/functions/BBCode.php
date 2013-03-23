@@ -27,7 +27,7 @@
  */
 
 function bbcode($text) {
-	require_once(ROOT_PATH.'includes/classes/class.BBCode.php');
+	require_once('includes/classes/class.BBCode.php');
 	$bbcode = new BBCode();
 
 	$bbcode->addParser ('list', 'bbcode_stripcontents');

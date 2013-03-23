@@ -28,7 +28,7 @@
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
-require_once(ROOT_PATH . 'includes/functions/DeleteSelectedUser.php');
+require_once('includes/functions/DeleteSelectedUser.php');
 
 
 function ShowSearchPage()

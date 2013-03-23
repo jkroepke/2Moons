@@ -58,7 +58,7 @@ class ShowPhalanxPage extends AbstractPage
 	function show()
 	{
 		global $USER, $PLANET, $LNG, $UNI, $resource;
-		require_once(ROOT_PATH.'includes/classes/class.FlyingFleetsTable.php');
+		require_once('includes/classes/class.FlyingFleetsTable.php');
 		
 		$FlyingFleetsTable 	= new FlyingFleetsTable();
 		$this->initTemplate();
@@ -88,7 +88,7 @@ class ShowPhalanxPage extends AbstractPage
 			$this->printMessage($LNG['px_out_of_range']);
 		}
 		
-		require_once(ROOT_PATH . 'includes/classes/class.FlyingFleetsTable.php');
+		require_once('includes/classes/class.FlyingFleetsTable.php');
 		$fleetTableObj = new FlyingFleetsTable;
 		$fleetTableObj->setPhalanxMode();
 		$fleetTableObj->setUser($TargetInfo['id_owner']);
