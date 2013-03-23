@@ -29,21 +29,21 @@
 define('MODE', 'INGAME');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
-require(ROOT_PATH.'includes/pages/game/class.AbstractPage.php');
-require(ROOT_PATH.'includes/pages/game/class.ShowErrorPage.php');
-require(ROOT_PATH.'includes/common.php');
+require('includes/pages/game/class.AbstractPage.php');
+require('includes/pages/game/class.ShowErrorPage.php');
+require('includes/common.php');
 
 $page 		= HTTP::_GP('page', 'overview');
 $mode 		= HTTP::_GP('mode', 'show');
 $mode		= str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);
 $pageClass	= 'Show'.ucwords($page).'Page';
 
-if(!file_exists(ROOT_PATH . 'includes/pages/game/class.'.$pageClass.'.php')) {
+if(!file_exists('includes/pages/game/class.'.$pageClass.'.php')) {
 	ShowErrorPage::printError($LNG['page_doesnt_exist']);
 }
 
 // Added Autoload in feature Versions
-require(ROOT_PATH . 'includes/pages/game/class.'.$pageClass.'.php');
+require('includes/pages/game/class.'.$pageClass.'.php');
 
 $pageObj	= new $pageClass;
 // PHP 5.2 FIX

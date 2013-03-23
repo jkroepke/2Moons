@@ -80,13 +80,13 @@ function ShowVertify()
 		break;
 		case 'getFileList':
 			echo json_encode(array_merge(
-				dir_tree(ROOT_PATH, $EXT, false), 
-				dir_tree(ROOT_PATH.'chat/', $EXT),
-				dir_tree(ROOT_PATH.'includes/', $EXT),
-				dir_tree(ROOT_PATH.'includes/', $EXT),
-				dir_tree(ROOT_PATH.'language/', $EXT),
-				dir_tree(ROOT_PATH.'scripts/', $EXT),
-				dir_tree(ROOT_PATH.'styles/', $EXT)
+				dir_tree('./', $EXT, false), 
+				dir_tree('chat/', $EXT),
+				dir_tree('includes/', $EXT),
+				dir_tree('includes/', $EXT),
+				dir_tree('language/', $EXT),
+				dir_tree('scripts/', $EXT),
+				dir_tree('styles/', $EXT)
 			));
 			exit;
 		break;

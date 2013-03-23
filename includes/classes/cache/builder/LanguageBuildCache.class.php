@@ -31,16 +31,16 @@ class LanguageBuildCache
 	function buildCache()
 	{
 		$languages	= array();
-		foreach (new DirectoryIterator(ROOT_PATH.'language/') as $fileInfo) {
+		foreach (new DirectoryIterator('language/') as $fileInfo) {
 			if(!$fileInfo->isDir()) continue;
 			
 			$Lang	= $fileInfo->getBasename();
 			
-			if(!file_exists(ROOT_PATH.'language/'.$Lang.'/LANG.cfg')) continue;
+			if(!file_exists('language/'.$Lang.'/LANG.cfg')) continue;
 				
 			// Fixed BOM problems.
 			ob_start();
-			require(ROOT_PATH.'language/'.$Lang.'/LANG.cfg');
+			require 'language/'.$Lang.'/LANG.cfg';
 			ob_end_clean();
 			$languages[$Lang]	= $Language['name'];
 		}

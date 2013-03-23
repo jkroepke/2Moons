@@ -27,7 +27,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-require(ROOT_PATH.'includes/libs/Smarty/Smarty.class.php');
+require('includes/libs/Smarty/Smarty.class.php');
 		
 class template extends Smarty
 {
@@ -52,7 +52,6 @@ class template extends Smarty
 		$this->setCompileDir(is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : $this->getTempPath());
 		$this->setCacheDir(ROOT_PATH.'cache/templates');
 		$this->setTemplateDir(ROOT_PATH.'styles/templates/');
-		#$this->loadFilter('output', 'trimwhitespace');
 	}
 	
 	public function loadscript($script)
@@ -68,7 +67,7 @@ class template extends Smarty
 	public function getTempPath()
 	{
 		$this->force_compile 		= true;
-		include(ROOT_PATH.'includes/libs/wcf/BasicFileUtil.class.php');
+		include 'includes/libs/wcf/BasicFileUtil.class.php';
 		return BasicFileUtil::getTempFolder();
 	}
 		

@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-require(ROOT_PATH.'/includes/libs/OpenID/openid.php');
+require '/includes/libs/OpenID/openid.php';
 
 class OpenIDAuth extends LightOpenID {
 	

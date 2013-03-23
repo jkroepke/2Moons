@@ -54,7 +54,7 @@ class FlyingFleetHandler
 	function run()
 	{
 				
-		require_once(ROOT_PATH.'includes/classes/class.MissionFunctions.php');
+		require_once('includes/classes/class.MissionFunctions.php');
 		
 		$fleetResult = $GLOBALS['DATABASE']->query("SELECT ".FLEETS.".* 
 		FROM ".FLEETS_EVENT." 
@@ -71,7 +71,7 @@ class FlyingFleetHandler
 			
 			$missionName	= self::$MissionsPattern[$fleetRow['fleet_mission']];
 			
-			require_once(ROOT_PATH.'includes/classes/missions/'.$missionName.'.php');
+			require_once('includes/classes/missions/'.$missionName.'.php');
 			$Mission	= new $missionName($fleetRow);
 			
 			switch($fleetRow['fleet_mess'])

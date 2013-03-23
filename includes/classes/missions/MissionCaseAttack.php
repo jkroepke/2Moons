@@ -293,7 +293,7 @@ HTML;
 		$randChance	= mt_rand(1, 100);
 		if ($randChance <= $chanceCreateMoon)
 		{		
-			require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
+			require_once('includes/functions/CreateOneMoonRecord.php');
 			
 			$LNG					= $this->getLanguage($targetUser['lang']);
 			$raportInfo['moonName']	= $LNG['type_planet'][3];

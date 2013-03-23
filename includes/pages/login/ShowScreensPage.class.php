@@ -41,7 +41,7 @@ class ShowScreensPage extends AbstractPage
 	function show() 
 	{
 		$screenshots	= array();
-		$directoryIterator = new DirectoryIterator(ROOT_PATH.'styles/resource/images/login/screens/');
+		$directoryIterator = new DirectoryIterator('styles/resource/images/login/screens/');
         foreach ($directoryIterator as $fileinfo) { 
             if (!$fileinfo->isFile())
 			{

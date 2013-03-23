@@ -129,9 +129,9 @@ class Language implements ArrayAccess {
 	
 	public function getTemplate($templateName)
 	{
-		if(file_exists(ROOT_PATH.'language/'.$this->getLanguage().'/templates/'.$templateName.'.txt'))
+		if(file_exists('language/'.$this->getLanguage().'/templates/'.$templateName.'.txt'))
 		{
-			return file_get_contents(ROOT_PATH.'language/'.$this->getLanguage().'/templates/'.$templateName.'.txt');
+			return file_get_contents('language/'.$this->getLanguage().'/templates/'.$templateName.'.txt');
 		}
 		else
 		{
@@ -145,12 +145,12 @@ class Language implements ArrayAccess {
 		ob_start();
 		
         foreach($Files as $File) {
-			require(ROOT_PATH.'language/'.$this->getLanguage().'/'.$File.'.php');
+			require('language/'.$this->getLanguage().'/'.$File.'.php');
 		}
 		
-		if(file_exists(ROOT_PATH.'language/'.$this->getLanguage().'/CUSTOM.php'))
+		if(file_exists('language/'.$this->getLanguage().'/CUSTOM.php'))
 		{
-			require(ROOT_PATH.'language/'.$this->getLanguage().'/CUSTOM.php');
+			require('language/'.$this->getLanguage().'/CUSTOM.php');
 		}
 		
 		ob_end_clean();

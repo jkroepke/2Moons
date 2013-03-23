@@ -37,7 +37,7 @@ $UNI	= 1;
 define('MODE', 'INSTALL');
 define('ROOT_PATH', str_replace('\\', '/', dirname(dirname(__FILE__))).'/');
 
-require(ROOT_PATH . 'includes/common.php');
+require('includes/common.php');
 
 $THEME->setUserTheme('gow');
 
@@ -54,8 +54,8 @@ $template->assign(array(
 	'canUpgrade'	=> file_exists(ROOT_PATH."includes/config.php") && filesize(ROOT_PATH."includes/config.php") !== 0,
 ));
 
-$enableInstallToolFile	= ROOT_PATH.'includes/ENABLE_INSTALL_TOOL';
-$quickstartFile			= ROOT_PATH.'includes/FIRST_INSTALL';
+$enableInstallToolFile	= 'includes/ENABLE_INSTALL_TOOL';
+$quickstartFile			= 'includes/FIRST_INSTALL';
 
 // If include/FIRST_INSTALL is present and can be deleted, automatically create include/ENABLE_INSTALL_TOOL
 if (is_file($quickstartFile) && is_writeable($quickstartFile) && unlink($quickstartFile)) {
@@ -89,8 +89,8 @@ $mode	  = HTTP::_GP('mode', '');
 switch($mode)
 {
 	case 'ajax':
-		require_once(ROOT_PATH.'includes/libs/ftp/ftp.class.php');
-		require_once(ROOT_PATH.'includes/libs/ftp/ftpexception.class.php');
+		require_once('includes/libs/ftp/ftp.class.php');
+		require_once('includes/libs/ftp/ftpexception.class.php');
 		$LNG->includeData(array('ADMIN'));
 		$CONFIG = array("host" => $_GET['host'], "username" => $_GET['user'], "password" => $_GET['pass'], "port" => 21); 
 		try
@@ -114,8 +114,8 @@ switch($mode)
 	break;
 	case 'upgrade':
 		// Willkommen zum Update page. Anzeige, von und zu geupdatet wird. Informationen, dass ein backup erstellt wird.
-		require_once(ROOT_PATH . 'includes/config.php');
-		require_once(ROOT_PATH . 'includes/dbtables.php');
+		require_once('includes/config.php');
+		require_once('includes/dbtables.php');
 		
 		$GLOBALS['DATABASE']	= new Database();
 		Config::init();
@@ -153,8 +153,8 @@ switch($mode)
 		$template->show('ins_update.tpl');
 	break;
 	case 'doupgrade':
-		require_once(ROOT_PATH . 'includes/config.php');
-		require_once(ROOT_PATH . 'includes/dbtables.php');
+		require_once('includes/config.php');
+		require_once('includes/dbtables.php');
 		
 		$startrevision	= HTTP::_GP('startrevision', 0);
 		$GLOBALS['DATABASE']		= new Database();
@@ -178,9 +178,9 @@ switch($mode)
 		}
 		
 		$fileName	= '2MoonsBackup_'.date('d_m_Y_H_i_s', TIMESTAMP).'.sql';
-		$filePath	= ROOT_PATH.'includes/backups/'.$fileName;
+		$filePath	= 'includes/backups/'.$fileName;
 		
-		require ROOT_PATH.'includes/classes/SQLDumper.class.php';
+		require 'includes/classes/SQLDumper.class.php';
 		
 		Config::init();
 		$dump	= new SQLDumper;
@@ -477,7 +477,7 @@ switch($mode)
 				$database['databasename']	= $dbname;
 				$database['tableprefix']	= $prefix;
 				
-				require_once(ROOT_PATH . 'includes/classes/class.Database.php');
+				require_once('includes/classes/class.Database.php');
 				
 				try {
 					$GLOBALS['DATABASE'] = new Database();
@@ -506,9 +506,9 @@ switch($mode)
 				$template->show('ins_step5.tpl');
 			break;
 			case 6:
-				require_once(ROOT_PATH . 'includes/config.php');
-				require_once(ROOT_PATH . 'includes/dbtables.php');	
-				require_once(ROOT_PATH . 'includes/classes/class.Database.php');
+				require_once('includes/config.php');
+				require_once('includes/dbtables.php');	
+				require_once('includes/classes/class.Database.php');
 				
 				$GLOBALS['DATABASE']	= new Database();
 				
@@ -585,7 +585,7 @@ switch($mode)
 				$AdminMail		= HTTP::_GP('email', '');
 				
 				// Get Salt.
-				require_once(ROOT_PATH . 'includes/config.php');
+				require_once('includes/config.php');
 
 				$hashPassword	= cryptPassword($AdminPassword);
 				
@@ -602,7 +602,7 @@ switch($mode)
 					exit;
 				}
 					
-				require_once(ROOT_PATH . 'includes/dbtables.php');
+				require_once('includes/dbtables.php');
 				$GLOBALS['DATABASE']	= new Database();
 				Config::init();
 								
@@ -624,7 +624,7 @@ switch($mode)
 				$SQL .= "register_time	= ".TIMESTAMP.";";
 				$GLOBALS['DATABASE']->query($SQL);
 						
-				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
+				require_once('includes/functions/CreateOnePlanetRecord.php');
 				
 				$PlanetID		= CreateOnePlanetRecord(1, 1, 1, 1, 1, '', true, AUTH_ADM);
 				$SESSION       	= new Session();

@@ -33,7 +33,7 @@ class PlayerUtil {
 	static function cryptPassword($password)
 	{
 		// http://www.phpgangsta.de/schoener-hashen-mit-bcrypt
-		require(ROOT_PATH . 'includes/config.php');
+		require('includes/config.php');
 		
 		if(!CRYPT_BLOWFISH || !isset($salt)) {
 			return md5($password);
@@ -199,7 +199,7 @@ class PlayerUtil {
 			throw new Exception("Position is not empty: ".$Galaxy.":".$System.":".$Position);
 		}
 		
-		require(ROOT_PATH.'includes/PlanetData.php');
+		require('includes/PlanetData.php');
 		
 		$Pos                = ceil($Position / ($CONF['max_planets'] / count($PlanetData))); 
 		$TMax				= $PlanetData[$Pos]['temp'];

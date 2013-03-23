@@ -50,9 +50,9 @@ class DumpCronjob
 		}
 		
 		$fileName	= '2MoonsBackup_'.date('d_m_Y_H_i_s', TIMESTAMP).'.sql';
-		$filePath	= ROOT_PATH.'includes/backups/'.$fileName;
+		$filePath	= 'includes/backups/'.$fileName;
 		
-		require ROOT_PATH.'includes/classes/SQLDumper.class.php';
+		require 'includes/classes/SQLDumper.class.php';
 		
 		$dump	= new SQLDumper;
 		$dump->dumpTablesToFile($dbTables, $filePath);

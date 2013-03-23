@@ -31,70 +31,67 @@
 
 class Mail
 {	
-	function send($MailTarget, $MailTargetName, $MailSubject, $MailContent)
+	function send($mailTarget, $mailTargetName, $mailSubject, $mailContent)
 	{		
-		$transport	= self::getSwiftTransport();
-		$mailer 	= Swift_Mailer::newInstance($transport);
+		$mail	= self::getMailObject();
 		
-		$mailFrom	= Config::get('smtp_sendmail');
-		$mailTo		= Config::get('game_name');
-					
-		$mail = Swift_Message::newInstance();
-		$mail->setSubject($MailSubject)
-			 ->setFrom(array($mailFrom => $mailTo))
-			 ->setTo(array($MailTarget => $MailTargetName))
-			 ->setBody($MailContent);
+		$mailFromAdress	= Config::get('smtp_sendmail');
+		$mailFromName	= Config::get('game_name');
 			 
-		$mailer->send($mail);
+        $mail->CharSet          = 'UTF-8';              
+        $mail->Subject          = $mailSubject;
+        $mail->Body             = $mailContent;
+        $mail->SetFrom($mailFromAdress, $mailFromName);
+        $mail->AddAddress($mailTarget, $mailTargetName);
+        $mail->Send(); 
 	}
 	
-	function multiSend($MailTargets, $MailSubject, $MailContent = NULL)
+	function multiSend($mailTargets, $mailSubject, $mailContent = NULL)
 	{
-		$transport	= self::getSwiftTransport();
-		$mailer 	= Swift_Mailer::newInstance($transport);
+		$mail	= self::getMailObject();
 		
-		$mailFrom	= Config::get('smtp_sendmail');
-		$mailTo		= Config::get('game_name');
-					
-		$mail		= Swift_Message::newInstance();
-		$mail->setSubject($MailSubject)
-			 ->setFrom(array($mailFrom => $mailTo));
+		$mailFromAdress	= Config::get('smtp_sendmail');
+		$mailFromName	= Config::get('game_name');
 			 
-		foreach($MailTargets as $address => $data)
+        $mail->CharSet          = 'UTF-8';         
+        $mail->SetFrom($mailFromAdress, $mailFromName);     
+        $mail->Subject          = $mailSubject;
+			 
+		foreach($mailTargets as $address => $data)
 		{
-			$content = isset($data['body']) ? $data['body'] : $MailContent;
-			$mail->setTo(array($address => $data['username']))
-				 ->setBody(strip_tags($content))
-				 ->addPart($content, 'text/html');
-				 
-			$mailer->send($mail);
+			$content = isset($data['body']) ? $data['body'] : $mailContent;
+			
+			$mail->AddAddress($address, $data['username']);
+			$mail->MsgHTML($content);
+			$mail->Send(); 
+			$mail->ClearAddresses();
 		}
 	}
 	
-	function getSwiftTransport()
+	function getMailObject()
 	{
-		require_once(ROOT_PATH.'includes/libs/swift/swift_required.php');
+        require 'includes/libs/phpmailer/class.phpmailer.php';
+        $mail                   = new PHPMailer(true);
+		$mail->PluginDir		= 'includes/libs/phpmailer/';
 		
-		if(Config::get('mail_use') == 2)
-		{
-			$transport = Swift_SmtpTransport::newInstance(Config::get('smtp_host'), Config::get('smtp_port'));
-			
-			if(Config::get('smtp_ssl') == 'ssl' || Config::get('smtp_ssl') == 'tls')
-			{
-				$transport->setEncryption(Config::get('smtp_ssl'));
-			}
+        if($CONF['mail_use'] == 2) {
+			$mail->IsSMTP();  
+			$mail->SMTPSecure       = Config::get('smtp_ssl');                                            
+			$mail->Host             = Config::get('smtp_host');
+			$mail->Port             = Config::get('smtp_port');
 			
 			if(Config::get('smtp_user') != '')
 			{
-				$transport->setUsername(Config::get('smtp_user'));
-				$transport->setPassword(Config::get('smtp_pass'));
+				$mail->SMTPAuth         = true; 
+				$mail->Username         = Config::get('smtp_user');
+				$mail->Password         = Config::get('smtp_pass');
 			}
-		}
-		elseif(Config::get('mail_use') == 0)
-		{
-			$transport = Swift_MailTransport::newInstance();
+        } elseif($CONF['mail_use'] == 0) {
+			$mail->IsMail();
+        } else {
+			throw new Exception("Sendmail is deprecated, use SMTP instaed!");
 		}
 		
-		return $transport;
+		return $mail;
 	}
 }

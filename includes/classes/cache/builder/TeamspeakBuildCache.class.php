@@ -38,7 +38,7 @@ class TeamspeakBuildCache
 		switch($CONF['ts_version'])
 		{
 			case 2:
-				include_once(ROOT_PATH.'includes/libs/teamspeak/class.teamspeak2.php');
+				require 'includes/libs/teamspeak/cyts/cyts.class.php';
 				$ts = new cyts();
 				
 				if($ts->connect($CONF['ts_server'], $CONF['ts_tcpport'], $CONF['ts_udpport'], $CONF['ts_timeout'])) {
@@ -54,7 +54,7 @@ class TeamspeakBuildCache
 				}
 			break;
 			case 3:
-				require_once(ROOT_PATH . "includes/libs/teamspeak/class.teamspeak3.php");
+				require 'includes/libs/teamspeak/class.teamspeak3.php';
 				$tsAdmin 	= new ts3admin($CONF['ts_server'], $CONF['ts_udpport'], $CONF['ts_timeout']);
 				$connected	= $tsAdmin->connect();				
 				if(!$connected['success'])

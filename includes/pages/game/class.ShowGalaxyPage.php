@@ -26,8 +26,8 @@
  * @link http://2moons.cc/
  */
 
-require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
-require_once(ROOT_PATH . 'includes/classes/class.GalaxyRows.php');
+require_once('includes/classes/class.FleetFunctions.php');
+require_once('includes/classes/class.GalaxyRows.php');
 
 class ShowGalaxyPage extends AbstractPage
 {

@@ -59,25 +59,25 @@ ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	time());
 	
-require(ROOT_PATH . 'includes/constants.php');
+require('includes/constants.php');
 
 ini_set('log_errors', 'On');
-ini_set('error_log', ROOT_PATH.'includes/error.log');
+ini_set('error_log', 'includes/error.log');
 
-require(ROOT_PATH . 'includes/GeneralFunctions.php');
+require('includes/GeneralFunctions.php');
 set_exception_handler('exceptionHandler');
 set_error_handler('errorHandler');
 
-require(ROOT_PATH . 'includes/classes/class.Cache.php');
-require(ROOT_PATH . 'includes/classes/class.Database.php');
-require(ROOT_PATH . 'includes/classes/class.theme.php');
-require(ROOT_PATH . 'includes/classes/class.Session.php');
-require(ROOT_PATH . 'includes/classes/class.template.php');
-require(ROOT_PATH . 'includes/classes/Config.class.php');
-require(ROOT_PATH . 'includes/classes/ArrayUtil.class.php');
-require(ROOT_PATH . 'includes/classes/Language.class.php');
-require(ROOT_PATH . 'includes/classes/HTTP.class.php');
-require(ROOT_PATH . 'includes/classes/PlayerUtil.class.php');
+require('includes/classes/class.Cache.php');
+require('includes/classes/class.Database.php');
+require('includes/classes/class.theme.php');
+require('includes/classes/class.Session.php');
+require('includes/classes/class.template.php');
+require('includes/classes/Config.class.php');
+require('includes/classes/ArrayUtil.class.php');
+require('includes/classes/Language.class.php');
+require('includes/classes/HTTP.class.php');
+require('includes/classes/PlayerUtil.class.php');
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
@@ -91,12 +91,12 @@ if (MODE === 'INSTALL')
 	return;
 }
 
-if(!file_exists(ROOT_PATH.'includes/config.php')) {
+if(!file_exists('includes/config.php')) {
 	HTTP::redirectTo("install/index.php");
 }
 
-require(ROOT_PATH . 'includes/config.php');
-require(ROOT_PATH . 'includes/dbtables.php');
+require('includes/config.php');
+require('includes/dbtables.php');
 
 $SESSION	= new Session();
 $DATABASE	= new Database();
@@ -108,7 +108,7 @@ Config::setGlobals();
 
 date_default_timezone_set(Config::get('timezone'));
 
-require(ROOT_PATH.'includes/vars.php');
+require('includes/vars.php');
 
 if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 {	
@@ -119,11 +119,11 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 	
 	$SESSION->UpdateSession();
 
-	require(ROOT_PATH.'includes/classes/class.BuildFunctions.php');
-	require(ROOT_PATH.'includes/classes/class.PlanetRessUpdate.php');
+	require('includes/classes/class.BuildFunctions.php');
+	require('includes/classes/class.PlanetRessUpdate.php');
 	
 	if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS)) {
-		require(ROOT_PATH.'includes/FleetHandler.php');
+		require('includes/FleetHandler.php');
 	}
 		
 	$USER	= $GLOBALS['DATABASE']->getFirstRow("SELECT 

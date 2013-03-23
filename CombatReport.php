@@ -30,5 +30,5 @@ define('MODE', 'INGAME');
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
-require(ROOT_PATH.'includes/common.php');
+require('includes/common.php');
 HTTP::redirectTo('game.php?page=raport&raport='.HTTP::_GP('raport', ''));

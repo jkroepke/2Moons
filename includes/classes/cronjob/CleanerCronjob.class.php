@@ -57,7 +57,7 @@ class CleanerCronjob
 
 		if(isset($ChooseToDelete))
 		{
-			include_once(ROOT_PATH.'includes/functions/DeleteSelectedUser.php');
+			include_once('includes/functions/DeleteSelectedUser.php');
 			while($delete = $GLOBALS['DATABASE']->fetch_array($ChooseToDelete))
 			{
 				DeleteSelectedUser($delete['id']);

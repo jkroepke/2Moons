@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-include(ROOT_PATH.'includes/classes/cache/ressource/CacheFile.class.php');
+include('includes/classes/cache/ressource/CacheFile.class.php');
 
 class Cache {
 	private $cacheRessource;
@@ -80,7 +80,7 @@ class Cache {
 	
 	function buildCache($Key) {
 		$className		= $this->cacheBuilder[$Key];
-		include_once(ROOT_PATH.'includes/classes/cache/builder/'.$className.'.class.php');
+		include_once('includes/classes/cache/builder/'.$className.'.class.php');
 		$cacheBuilder	= new $className();
 		$cacheData		= $cacheBuilder->buildCache();
 		$cacheData		= (array) $cacheData;

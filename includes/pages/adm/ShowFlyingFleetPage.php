@@ -28,7 +28,7 @@
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
-require_once(ROOT_PATH. 'includes/classes/class.FlyingFleetsTable.php');
+require 'includes/classes/class.FlyingFleetsTable.php';
 
 function ShowFlyingFleetPage()
 {

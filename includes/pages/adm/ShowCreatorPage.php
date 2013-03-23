@@ -112,7 +112,7 @@ function ShowCreatorPage()
 
 				$UserID = $GLOBALS['DATABASE']->GetInsertID();
 				
-				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
+				require_once('includes/functions/CreateOnePlanetRecord.php');
 				$PlanerID	= CreateOnePlanetRecord($Galaxy, $System, $Planet, $_SESSION['adminuni'], $UserID, $LNG['fcm_planet'], true, $UserAuth);
 								
 				$SQL = "UPDATE ".USERS." SET 
@@ -186,7 +186,7 @@ function ShowCreatorPage()
 					exit;
 				}
 			
-				require_once(ROOT_PATH.'includes/functions/CreateOneMoonRecord.php');
+				require_once('includes/functions/CreateOneMoonRecord.php');
 				
 				if(empty($MoonName))
 				{
@@ -240,7 +240,7 @@ function ShowCreatorPage()
 					exit;
 				}
 				
-				require_once(ROOT_PATH.'includes/functions/CreateOnePlanetRecord.php');
+				require_once('includes/functions/CreateOnePlanetRecord.php');
 				CreateOnePlanetRecord($Galaxy, $System, $Planet, $_SESSION['adminuni'], $id, '', '', false) ; 
 						
 				$SQL  = "UPDATE ".PLANETS." SET ";

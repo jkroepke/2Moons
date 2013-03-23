@@ -26,7 +26,8 @@
  * @link http://2moons.cc/
  */
 
-require(ROOT_PATH.'/includes/libs/facebook/facebook.php');
+require '/includes/libs/facebook/facebook.php';
+
 class FacebookAuth extends Facebook {
 	function __construct()
 	{	

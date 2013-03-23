@@ -41,7 +41,7 @@ class MissionCaseStay extends MissionFunctions
 		$fleetArray			= fleetAmountToArray($this->_fleet['fleet_array']);
 		$duration			= $this->_fleet['fleet_start_time'] - $this->_fleet['start_time'];
 		
-		require_once(ROOT_PATH . 'includes/classes/class.FleetFunctions.php');
+		require_once('includes/classes/class.FleetFunctions.php');
 		
 		$fleetMaxSpeed 		= FleetFunctions::GetFleetMaxSpeed($fleetArray, $senderUser);
 		$SpeedFactor    	= FleetFunctions::GetGameSpeedFactor();

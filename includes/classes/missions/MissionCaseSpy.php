@@ -129,7 +129,7 @@ class MissionCaseSpy extends MissionFunctions
 		
 		// I'm use template class here, because i want to exclude HTML in PHP.
 		
-		require_once(ROOT_PATH.'includes/classes/class.template.php');
+		require_once('includes/classes/class.template.php');
 		
 		$template	= new template;
 		

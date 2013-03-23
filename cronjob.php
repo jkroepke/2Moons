@@ -29,7 +29,7 @@
 define('MODE', 'CRON');
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
-require(ROOT_PATH . 'includes/common.php');
+require('includes/common.php');
 
 // Output transparent gif
 HTTP::sendHeader('Cache-Control', 'no-cache');
@@ -50,7 +50,7 @@ if(empty($cronjobID))
 	exit;
 }
 
-require ROOT_PATH.'includes/classes/Cronjob.class.php';
+require 'includes/classes/Cronjob.class.php';
 
 $cronjobsTodo	= Cronjob::getNeedTodoExecutedJobs();
 if(!in_array($cronjobID, $cronjobsTodo))

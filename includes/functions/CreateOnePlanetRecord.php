@@ -48,7 +48,7 @@ function CreateOnePlanetRecord($Galaxy, $System, $Position, $Universe, $PlanetOw
 	}
 
 	$FieldFactor		= Config::get('planet_factor');
-	require(ROOT_PATH.'includes/PlanetData.php');
+	require('includes/PlanetData.php');
 	$Pos                = ceil($Position / (Config::get('max_planets') / count($PlanetData))); 
 	$TMax				= $PlanetData[$Pos]['temp'];
 	$TMin				= $TMax - 40;
