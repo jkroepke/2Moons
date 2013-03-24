@@ -32,14 +32,12 @@ class InactiveMailCronjob
 	function run()
 	{
 		global $LNG;
-		
-		$CONFIG	= Config::getAll(NULL);
-		$CONF	= $CONFIG[ROOT_UNI];
-		$langObjects	= array();
-		
-		require_once 'includes/classes/Mail.class.php';
+		$CONF	= Config::getAll(NULL, ROOT_UNI);
 		
 		if($CONF['mail_active'] == 1) {
+			$langObjects	= array();
+		
+			require 'includes/classes/Mail.class.php';
 			$Users	= $GLOBALS['DATABASE']->query("SELECT `id`, `username`, `lang`, `email`, `onlinetime`, `universe` FROM ".USERS." WHERE `inactive_mail` = '0' AND `onlinetime` < '".(TIMESTAMP - $CONF['del_user_sendmail'] * 24 * 60 * 60)."';");
 			while($User	= $GLOBALS['DATABASE']->fetch_array($Users))
 			{

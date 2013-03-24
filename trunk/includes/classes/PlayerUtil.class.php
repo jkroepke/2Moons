@@ -199,7 +199,7 @@ class PlayerUtil {
 			throw new Exception("Position is not empty: ".$Galaxy.":".$System.":".$Position);
 		}
 		
-		require('includes/PlanetData.php');
+		require_once 'includes/PlanetData.php' ;
 		
 		$Pos                = ceil($Position / ($CONF['max_planets'] / count($PlanetData))); 
 		$TMax				= $PlanetData[$Pos]['temp'];
@@ -378,18 +378,21 @@ class PlayerUtil {
 		global $resource;
 		$CONF	= Config::getAll('universe', $USER['universe']);
 
+		$planetPerTech	= $CONF['planets_tech'];
+		$planetPerBonus	= $CONF['planets_officier'];
+		
 		if($CONF['min_player_planets'] == 0)
 		{
-			$CONF['planets_tech'] = 999;
+			$planetPerTech = 999;
 		}
 
 		if($CONF['min_player_planets'] == 0)
 		{
-			$CONF['planets_officier'] = 999;
+			$planetPerBonus = 999;
 		}
 		
 		// http://owiki.de/index.php/Astrophysik#.C3.9Cbersicht
-		return (int) ceil($CONF['min_player_planets'] + min($CONF['planets_tech'], $USER[$resource[124]] * $CONF['planets_per_tech']) + min($CONF['planets_officier'],$USER['factor']['Planets']));
+		return (int) ceil($CONF['min_player_planets'] + min($planetPerTech, $USER[$resource[124]] * $CONF['planets_per_tech']) + min($planetPerBonus, $USER['factor']['Planets']));
 	}
 
 	static function allowPlanetPosition($position, $USER)

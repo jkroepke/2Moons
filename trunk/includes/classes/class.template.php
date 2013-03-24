@@ -78,7 +78,7 @@ class template extends Smarty
 	
 	private function adm_main()
 	{
-		global $LNG, $CONF, $USER;
+		global $LNG, $USER;
 		
 		$dateTimeServer		= new DateTime("now");
 		if(isset($USER['timezone'])) {
@@ -107,7 +107,7 @@ class template extends Smarty
 	
 	public function show($file)
 	{		
-		global $USER, $PLANET, $CONF, $LNG, $THEME;
+		global $USER, $PLANET, $LNG, $THEME;
 
 		if($THEME->isCustomTPL($file))
 			$this->setTemplateDir($THEME->getTemplatePath());

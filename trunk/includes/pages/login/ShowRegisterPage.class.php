@@ -292,13 +292,7 @@ class ShowRegisterPage extends AbstractPage
 				Config::get('smtp_sendmail'),
 			), $MailRAW);
 			
-			try {
-				Mail::send($mailAddress, $userName, t('registerMailVertifyTitle', Config::get('game_name')), $MailContent);
-			}
-			catch (Exception $e)
-			{
-				$this->printMessage(t('registerMailError', $e->getMessage()));
-			}
+			Mail::send($mailAddress, $userName, t('registerMailVertifyTitle', Config::get('game_name')), $MailContent);
 			
 			$this->printMessage(t('registerSendComplete'));
 		}

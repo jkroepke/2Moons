@@ -30,18 +30,16 @@
 class TeamspeakBuildCache
 {
 	function buildCache()
-	{
-		global $CONF;
-		
+	{		
 		$teamspeakData	= array();
 		
-		switch($CONF['ts_version'])
+		switch(Config::get('ts_version'))
 		{
 			case 2:
 				require 'includes/libs/teamspeak/cyts/cyts.class.php';
 				$ts = new cyts();
 				
-				if($ts->connect($CONF['ts_server'], $CONF['ts_tcpport'], $CONF['ts_udpport'], $CONF['ts_timeout'])) {
+				if($ts->connect(Config::get('ts_server'), Config::get('ts_tcpport'), Config::get('ts_udpport'), Config::get('ts_timeout'))) {
 					$serverInfo	= $ts->info_serverInfo();
 					$teamspeakData	= array(
 						'password'	=> '', // NO Server-API avalible.
@@ -55,20 +53,20 @@ class TeamspeakBuildCache
 			break;
 			case 3:
 				require 'includes/libs/teamspeak/class.teamspeak3.php';
-				$tsAdmin 	= new ts3admin($CONF['ts_server'], $CONF['ts_udpport'], $CONF['ts_timeout']);
+				$tsAdmin 	= new ts3admin(Config::get('ts_server'), Config::get('ts_udpport'), Config::get('ts_timeout'));
 				$connected	= $tsAdmin->connect();				
 				if(!$connected['success'])
 				{
 					throw new Exception('Teamspeak-Error: '.implode("<br>\r\n", $connected['errors']));
 				}
 				
-				$selected	= $tsAdmin->selectServer($CONF['ts_tcpport'], 'port', true);
+				$selected	= $tsAdmin->selectServer(Config::get('ts_tcpport'), 'port', true);
 				if(!$selected['success'])
 				{
 					throw new Exception('Teamspeak-Error: '.implode("<br>\r\n", $selected['errors']));
 				}
 					
-				$loggedIn	= $tsAdmin->login($CONF['ts_login'], $CONF['ts_password']);
+				$loggedIn	= $tsAdmin->login(Config::get('ts_login'), Config::get('ts_password'));
 				if(!$loggedIn['success'])
 				{
 					throw new Exception('Teamspeak-Error: '.implode("<br>\r\n", $loggedIn['errors']));
