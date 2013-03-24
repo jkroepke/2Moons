@@ -231,7 +231,7 @@ class BuildFunctions
 	
 	public static function getMaxConstructibleRockets($USER, $PLANET, $Missiles = NULL)
 	{
-		global $resource, $CONF, $reslist;
+		global $resource, $reslist;
 
 		if(!isset($Missiles))
 		{		

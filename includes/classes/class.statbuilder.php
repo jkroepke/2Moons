@@ -30,15 +30,14 @@ class statbuilder
 {
 	function __construct()
 	{
-		global $CONF;
 		$this->starttime   	= microtime(true);
 		$this->memory		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));
 		$this->time   		= TIMESTAMP;
 
 		$this->recordData  	= array();
 		
-		$this->Unis			= array(Config::get('uni'));
-		$Query				= $GLOBALS['DATABASE']->query("SELECT uni FROM ".CONFIG." WHERE uni != '".Config::get('uni')."' ORDER BY uni ASC;");
+		$this->Unis			= array();
+		$Query				= $GLOBALS['DATABASE']->query("SELECT uni FROM ".CONFIG." ORDER BY uni ASC;");
 		while($Uni	= $GLOBALS['DATABASE']->fetch_array($Query)) {
 			$this->Unis[]	= $Uni['uni'];
 		}
@@ -55,11 +54,6 @@ class statbuilder
 			'sql_count'			=> $GLOBALS['DATABASE']->get_sql(),
 		);
 	}
-	
-	private function AnotherCronJobs()
-	{
-
-	}	
 	
 	private function CheckUniverseAccounts($UniData)
 	{
@@ -159,7 +153,7 @@ class statbuilder
 
 	private function GetTechnoPoints($USER) 
 	{
-		global $resource, $reslist, $pricelist, $CONF;
+		global $resource, $reslist, $pricelist;
 		$TechCounts = 0;
 		$TechPoints = 0;
 
@@ -183,7 +177,7 @@ class statbuilder
 
 	private function GetBuildPoints($PLANET) 
 	{
-		global $resource, $reslist, $pricelist, $CONF;
+		global $resource, $reslist, $pricelist;
 		$BuildCounts = 0;
 		$BuildPoints = 0;
 		
@@ -206,7 +200,7 @@ class statbuilder
 
 	private function GetDefensePoints($USER) 
 	{
-		global $resource, $reslist, $pricelist, $CONF;
+		global $resource, $reslist, $pricelist;
 		$DefenseCounts = 0;
 		$DefensePoints = 0;
 				
@@ -225,7 +219,7 @@ class statbuilder
 
 	private function GetFleetPoints($USER) 
 	{
-		global $resource, $reslist, $pricelist, $CONF;
+		global $resource, $reslist, $pricelist;
 		$FleetCounts = 0;
 		$FleetPoints = 0;
 	
@@ -244,8 +238,6 @@ class statbuilder
 	
 	private function SetNewRanks()
 	{
-		global $CONF;	
-		
 		$QryUpdateStats = "";
 		foreach($this->Unis as $Uni)
 		{
@@ -365,7 +357,7 @@ class statbuilder
 	
 	final public function MakeStats()
 	{
-		global $CONF, $resource;
+		global $resource;
 		$AllyPoints	= array();
 		$UserPoints	= array();
 		$TotalData	= $this->GetUsersInfosFromDB();
