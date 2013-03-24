@@ -74,7 +74,7 @@ class Mail
         $mail                   = new PHPMailer(true);
 		$mail->PluginDir		= 'includes/libs/phpmailer/';
 		
-        if($CONF['mail_use'] == 2) {
+        if(Config::get('mail_use') == 2) {
 			$mail->IsSMTP();  
 			$mail->SMTPSecure       = Config::get('smtp_ssl');                                            
 			$mail->Host             = Config::get('smtp_host');
@@ -86,7 +86,7 @@ class Mail
 				$mail->Username         = Config::get('smtp_user');
 				$mail->Password         = Config::get('smtp_pass');
 			}
-        } elseif($CONF['mail_use'] == 0) {
+        } elseif(Config::get('mail_use') == 0) {
 			$mail->IsMail();
         } else {
 			throw new Exception("Sendmail is deprecated, use SMTP instaed!");
