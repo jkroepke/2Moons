@@ -91,7 +91,7 @@ if (MODE === 'INSTALL')
 	return;
 }
 
-if(!file_exists('includes/config.php')) {
+if(!file_exists(ROOT_PATH.'includes/config.php')) {
 	HTTP::redirectTo("install/index.php");
 }
 
