@@ -1,0 +1,9 @@
+﻿Hallo {USERNAME},
+
+du hast dich das letzte Mal am {LASTDATE} bei {GAMENAME} eingeloggt. Wenn du weiterhin Mitglied der Community bleiben möchtest, logge dich bitte mit deinen Daten wieder ein damit dein Account nicht verfällt.
+
+Solltest du dein Passwort vergessen haben, dann gehe auf {HTTPPATH} und klicke "Passwort vergessen" an. Du bekommst innerhalb von wenigen Minuten eine E-mail mit deinem neuen Passwort.
+
+Mit freundlichen Grüßen
+
+Dein {GAMENAME} Team

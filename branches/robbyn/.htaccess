@@ -1,0 +1,50 @@
+# ----------------------------------------------------------------------
+# Better website experience for IE users
+# ----------------------------------------------------------------------
+
+# Force the latest IE version, in various cases when it may fall back to IE7 mode
+#  github.com/rails/rails/commit/123eb25#commitcomment-118920
+# Use ChromeFrame if it's installed for a better experience for the poor IE folk
+<IfModule mod_headers.c>
+  Header set X-UA-Compatible "IE=Edge,chrome=1"
+  # mod_headers can't match by content-type, but we don't want to send this header on *everything*...
+  <FilesMatch "\.(js|css|gif|png|jpe?g|pdf|xml|oga|ogg|m4a|ogv|mp4|m4v|webm|svg|svgz|eot|ttf|otf|woff|ico|webp|appcache|manifest|htc|crx|oex|xpi|safariextz|vcf)$" >
+    Header unset X-UA-Compatible
+  </FilesMatch>
+</IfModule>
+
+
+# ----------------------------------------------------------------------
+# UTF-8 encoding
+# ----------------------------------------------------------------------
+
+# Use UTF-8 encoding for anything served text/plain or text/html
+AddDefaultCharset utf-8
+
+# Force UTF-8 for a number of file formats
+AddCharset utf-8 .css .js .xml .json .rss .atom
+
+<IfModule mod_autoindex.c>
+  Options -Indexes
+</IfModule>
+
+<IfModule mod_rewrite.c>
+  RewriteCond %{SCRIPT_FILENAME} -d
+  RewriteCond %{SCRIPT_FILENAME} -f
+  RewriteRule "(^|/)\." - [F]
+</IfModule>
+
+<FilesMatch "(\.(bak|config|sql|fla|psd|ini|log|sh|inc|swp|dist)|~)$">
+  Order allow,deny
+  Deny from all
+  Satisfy All
+</FilesMatch>
+
+# ----------------------------------------------------------------------
+# 2Moons: Multiuniverse support
+# ----------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteRule uni([0-9]+)/?(.*)?$ $2 [L,QSA,E=UNI:$1]
+</IfModule>

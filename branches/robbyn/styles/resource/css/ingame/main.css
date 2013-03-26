@@ -1,0 +1,432 @@
+html, body {
+	min-height:100%;
+	min-width:100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+	line-height:14px;
+	padding-bottom:21px;
+}
+
+body.popup {
+	min-width:0px;
+}
+
+body,input,button,select,textarea,td,th,tr,table,button {
+	font-family:Verdana;
+	font-size:10px;
+}
+
+:focus {
+	outline:none
+}
+
+input:invalid {
+	background-color:red;
+	border:1px solid #FFF;
+}
+
+input[type="submit"],input[type="button"],button {
+	cursor:pointer;
+}
+
+table {
+	border-collapse: separate;
+	border-spacing: 2px;
+	empty-cells:show
+}
+
+table table,img {
+	border:0
+}
+
+table {
+	margin:0 auto
+}
+
+td {
+	padding: 2px 3px;
+	vertical-align: middle;
+}
+
+input,button {
+	margin:2px;
+}
+
+th input {
+	margin:0
+}
+
+th {
+	height: 14px;
+	padding:4px 6px;
+}
+
+textarea {
+	width:97%
+}
+
+textarea.tinymce{
+	width:100%
+}
+
+.textForBlind 
+{
+	position:absolute;
+	left:-10000px;
+	top:auto;
+	width:1px;
+	height:1px;
+	overflow:hidden;
+}
+
+.centerContainer > .outer {
+    float: right;
+    right: 50%;
+    position: relative;
+}
+.centerContainer > .outer > .inner {
+    float: right;
+    right: -50%;
+    position: relative;
+}
+
+.res_max,.res_current,.res_current_max {
+	min-width:90px
+}
+
+.res_name {
+	float:none;
+}
+
+.table519{
+	min-width:519px !important;
+	width:519px !important
+}
+
+.table569{
+	min-width:569px !important;
+	width:569px !important
+}
+
+.build_submit {
+    max-width: 100px;
+	padding:0;
+    word-wrap: break-word;
+	white-space: normal;
+}
+
+.build_submit:hover {
+	text-decoration:underline;
+}
+
+.build_form {
+	display:inline;
+}
+
+.onlist {
+    max-width: 100%;
+	margin:0;
+	padding:0;
+}
+
+.onlist:hover {
+	text-decoration:underline;
+}
+
+.shortcut-edit {
+	display:none;
+}
+
+.clear {
+	clear:both;
+}
+
+/** HEADER **/
+#header {
+	padding:5px 10px;
+	margin-left:10px;
+	margin-right:10px;
+	height:90px;
+	min-width:915px;
+	overflow: hidden;
+}
+
+#headerTable {
+	width:100%;
+}
+
+#planetSelectorWrapper {
+	width:145px;
+}
+
+#planetSelector {
+	float:left;
+	height:16px;
+	margin:37px 10px;
+	width:145px;
+}
+
+#planetImage{
+	width:50px;
+}
+
+#planetImage > img{
+	width:50px;
+	height:50px;
+}
+
+#resourceWrapper{
+	height:90px;
+	text-align:center;
+	margin:0;
+}
+
+#resourceTable{
+	height:80px;
+	padding-right: 215px;
+}
+
+#resourceTable td{
+	margin:0 5px;
+	min-width:130px;
+}
+
+#resourceTable img {
+    display: block;
+    height: 22px;
+    margin: 0 auto;
+    width: 42px;
+}
+
+/** MENU **/
+
+#leftmenu {
+	width:200px;
+	float:left;
+}
+
+#menu {
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+
+#menu li {
+	margin:0;
+	padding:0;
+}
+
+#menu a {
+	display:block;
+	margin:0;
+	padding:4px 20px;
+}
+
+div#disclamer {
+	position: relative;
+	top: -24px;
+	width: 100%;
+	text-align: center;
+	font-size: 9px;
+}
+
+.menu-head {
+	height:78px;
+}
+
+.menucat1-head, .menucat2-head, .menucat3-head, .menu-footer{
+	height:30px;
+}
+
+#options select {
+	max-width:170px;
+}
+/* CONTENT */
+
+#page {
+	margin-left:200px;
+	padding:0;
+}
+
+#content, .infobox {
+	margin:10px 10px 0 ;
+	padding:10px 10px 5px 10px;
+}
+
+.full #content > table, .full form > table {
+	max-width:95%;
+	width:80%;
+}
+
+.left{
+	text-align:left
+}
+
+.right{
+	text-align:right
+}
+
+.center{
+	text-align:center
+}
+
+.top{
+	vertical-align:top
+}
+
+
+.tooltip, .tooltip_sticky {
+	cursor: pointer;
+}
+
+.trader_col {
+	margin:0 5px;
+	float:left;
+	width:100px;
+}
+
+.globalWarning {
+	background-color: #FFFFDD;
+	border: 1px solid #F7DF92;
+	color: #000000;
+	margin: 0;
+	padding: 5px;
+	text-align: center;	
+}
+
+.globalWarning a:hover {
+	text-decoration:underline;
+}
+
+.globalWarning a{
+	cursor:pointer;
+	color:#D20000;
+}
+
+.trader_col label:hover{
+	cursor:pointer;
+}
+
+.tip {
+	display:none;
+	padding:7px;
+	position:absolute;
+	z-index:1000;
+	max-width: 500px;
+}
+
+.tip.notify {
+	position:fixed;
+	top:200px;
+	padding:20px;
+}
+
+.ui-widget, .ui-widget td{
+	font-family:Verdana;
+	font-size:10px
+}
+
+.ui-progressbar {
+	height: 10px !important;
+}
+
+.ui-progressbar-value {
+	margin:0;
+}
+
+#traderContainer {
+	margin-top:5px;
+}
+
+.infobox {
+    border: 2px solid red;
+    padding: 2px 5px;
+    text-align: center;
+}
+
+.shortcut-colum{
+	position:relative;
+}
+
+.shortcut-delete {
+	position:absolute;
+	z-index:1;
+	top:3px;
+	display:none;
+	right:3px;
+	width:16px;
+	height:16px;
+	cursor:pointer;
+	background:url(../images/false.png) scroll no-repeat 0 0 transparent;
+}
+
+.shortcut-colum:hover .shortcut-delete{
+	display:block;
+}
+
+.spyRaportFooter,
+.spyRaportContainer {
+	clear:both;
+}
+
+.spyRaportContainerRow.first {
+	clear:both;
+}
+
+.spyRaportContainerHead {
+	font-weight:700;
+	padding-top:8px;
+}
+.spyRaportContainerCell {
+	float:left;
+	width:25%;
+}
+
+.spyRaportFooter{
+	text-align:center;
+	padding-top:8px;
+}
+
+table.tablesorter thead {
+	position:relative;
+}
+
+table.tablesorter thead tr .header {
+	cursor: pointer;
+}
+
+table.tablesorter thead tr .headerSortUp {
+	color:lime;
+}
+
+table.tablesorter thead tr .headerSortDown {
+	color:red;
+} 
+
+.defaultSkin table.mceLayout {
+	border-spacing: 0;
+	width:100% !important;
+}
+	
+.ui-autocomplete-category {
+	font-weight: bold;
+	padding: .2em .4em;
+	line-height: 1.5;
+}
+
+.ui-autocomplete-item {
+	cursor:pointer;
+}
+
+@media screen and (max-width: 1165px) {
+	body {
+		min-width: 0;
+	}
+	
+	#resourceTable td{
+		min-width: 100px;
+	}
+}

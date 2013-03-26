@@ -1,0 +1,59 @@
+<ul id="rules">
+	<li>
+		<h1>1. Cuentas</h1>
+		<p>El propietario de una cuenta es siempre el propietario de la dirección de Correo Electrónico establecida como principal. A cada cuenta puede jugar un solo jugador.</p>
+		<p>La única excepción es la tarea de cuidador. Si por alguna circunstancia en alguna ocasión es necesario que la cuenta la controle uno o varios operadores. El operador competente deberá ser informado con antelación y obtener la aprobación del equipo del juego. Como mínimo el aviso deberá realizarse con más de 12 horas de antelacion al inicio del período de control.</p>
+		<p>Todos los movimientos de la flota están totalmente prohibidos, sólo está permitido en caso de un ataque a la cuenta en cuestión y el movimiento se limita a mover las naves y materias primas entre el planeta en cuestión y otro planeta o luna de la misma cuenta, echo este sin exepciones.</p>
+		<p>Una cuenta puede ser cuidada durante un período máximo de 72 horas. Existen excepciones, dichas excepciones serán con la previa autorización de un operador.</p>
+		<p>El cuidador de la cuenta lo puede hacer como máximo 3 veces al mes y hacer todo de forma gratuita.</p>
+		<p>Todo el manejo de la cuenta debe quedar registrado por un operador.</p>
+	</li>
+	<li>
+		<h1>2. Multi Cuentas</h1>
+		<p>Cada jugador tiene permitido jugar una cuenta por universo. Si dos o más cuentas se usan, ya sea temporal o permanente, desde la misma conexión a Internet (por ejemplo, escuelas, universidades y Cyber Cafés), deben aclarar con antelación a la administración para obtener una cuota de cuentas. En estos casos, está prohibido entre las cuentas correspondientes cualquier contacto con de flotas, mientras se use la misma conexión a Internet. Del mismo modo, otras acciones similares tales como ataques conjuntos etc... están prohibidas.</p>
+	</li>
+	<li>
+		<h1>3. Pushing</h1>
+		<p>Queda totalmete prohibido a cualquier cuenta obtener un provecho injusto en cuestion de recuros a costa de una cuenta de menor puntuación.</p> 
+		<p>Esto incluye pero no esta limitado a:</p>
+		<p>- Recursos enviados desde una cuenta de menor puntuación a una de mayor puntuación sin obtener nada tangible a cambio.</p>
+		<p>- Que un jugador destruya su flota en una de mayor puntuación para que la de mayor puntuación pueda recolectar el campo de escombros, y así sacar provecho de esta circunstancia.</p>
+		<p>- Los préstamos que no se devuelven en 48 horas.</p>
+		<p>- Operaciones en las que el jugador de mayor puntuación no devuelve los recursos dentro de las 48 horas.</p>
+		<p>- Jugadores de que responden a una extorsión de un jugador de mayor puntuación mediante el pago de los recursos.</p>
+		<p>- Intercambios que significan un beneficio injusto para el jugador de mayor puntuación por la salida fuera de la siguiente gama de relaciones:</p>
+		<p>03:02:01 Donde cada unidad de deuterio vale 2 unidades de cristal o 3 unidades de metal.</p>
+		<p>02:01:01 Donde cada unidad de deuterio es un valor de 1 unidad de cristal o 2 unidades de metal.</p>
+	</li>
+	<li>
+		<h1>4. Bashing</h1>
+		<p>Está prohibido más de seis ataques en 24 horas sobre el mismo planeta (la luna se cuenta como un planeta aparte). Sondas de Espionaje o misiles interplanetarios no se tendrán en cuenta.</p>
+		<p>El Bashing sólo se aplica a los jugadores activos. Solo en caso de guerra declarada se permite más ataques. (Sujeto a la notificación entre ambas alianzas, con nombres de jugador correctamente listados) La guerra debe ser declarada en el foro al menos 24 horas antes que los ataques. Una declaración de guerra sólo puede ser dirigida a alianzas, y la declaración de guerra puede tener lugar a través de una alianza o una sola persona.</p>
+		<p>Es necesario que ambas partes de la Guerra estén de acuerdo en el foro. Las guerras que sólo sirven paraa la evasión masiva de Bashing están prohibidas. Los moderadores, operadores o administradores harán de juez para mediar posibles casos.</p>
+	</li>
+	<li>
+		<h1>5. Ataques de Misiles</h1>
+		<p>Se admiten un total de 1000 misiles cada 24 horas. El número de ataques en que se envian los misiles es irrelevante.</p>
+	</li>
+	<li>
+		<h1>6. Explotar Errores (Bugusing)</h1>
+		<p>La explotación de errores y / o bugs en la programación está prohibida. Los errores detectados deben ser reportados con la mayor brevedad posible por correo, en el foro de errores, IRC  o ICQ. El engaño en el reporte también  está prohibido.</p>
+	</li>
+	<li>
+		<h1>7. Idioma en el Juego</h1>
+		<p>En todos los universos correspondientes se debe utilizar el idioma oficial del juego. Violaciones a esto puede ser castigado con sanciones. El uso de idiomas extranjeros en  los Mensajes /Páginas de alianza puede conducir a sanciones.</p>
+	</li>
+	<li>
+		<h1>8. Amenazas/Insultos</h1>
+		<p>Extorsión y amenazas a la vida real de un jugador puede llevar a la exclusión de una o todas las áreas del juego.
+Se consideran todas las amenazas y el chantaje que aparezcan tanto en una noticia del juego, foros, IRC, los canales de ICQ, mensajes entre jugadores o dentro de alianzas, donde pueda verse claramente la intención de buscar a una persona y causarle daño o a un tercero relacionado..</p>
+	</li>
+	<li>
+		<h1>9. Spam y Contenido adulto</h1>
+		<p>Spam y la publicidad a sitios exteriores está prohibido. Enlaces a sitios o contenidos eróticos y pornográficos están prohibidos. ¡Se sanciona con un bloqueo en todos los universos del juego  de por vida!.</p>
+	</li>
+	<li>
+		<h1>10. Las Reglas</h1>
+		<p>Las reglas se pueden cambiar, y cada usuario esta obligado a mantenerse informado constantemente  sobre las mismas.</p>
+	</li>
+</ul>

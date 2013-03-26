@@ -1,0 +1,1 @@
+ALTER TABLE `uni1_config` ADD `min_js` TINYINT( 1 ) NOT NULL DEFAULT '1';

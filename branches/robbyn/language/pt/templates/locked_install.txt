@@ -1,0 +1,6 @@
+﻿<h2>A instalação não pode ser feita!</h2>
+<p>Para ativar o instalador, o ficheiro ENABLE_INSTALL_TOOL deve ser criado.</p>
+<ul>
+    <li>Na directória "includes/" , poderás por o ficheiro ENABLE_INSTALL_TOOL. O nome do ficheiro deve estar em maiusculas e o seu conteúdo é nulo</li>
+</ul>
+<p>Por causa de segurança, é recomendável eliminar o ficheiro para evitar novas instalações. De outro modo, se o ficheiro estiver presente, uma nova instalação poderá ser feita!</p>
