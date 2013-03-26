@@ -41,6 +41,7 @@ class CustomAJAXChat extends AJAXChat {
 		$this->setConfig('langAvailable', false, Language::getAllowedLangs());
 		$this->setConfig('langNames', false, Language::getAllowedLangs(false));
 		$this->setConfig('forceAutoLogin', false, true);
+		$this->setConfig('contentType', false, 'text/html');
 	}
 	
 	function initCustomSession() {
