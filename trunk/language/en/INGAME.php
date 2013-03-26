@@ -1109,6 +1109,8 @@ $LNG['ti_responded']							= 'Ticket replied on ';
 $LNG['ti_not_exist']						= 'The ticket #%d dont exist!';
 $LNG['ti_from']								= 'by';
 $LNG['ti_re']								= 'FW:';
+$LNG['ti_error_no_subject']					= 'You must enter a subject!';
+$LNG['ti_msgtime']							= 'Message posted at';
 
 //----------------------------------------------------------------------------//
 // Recordes 

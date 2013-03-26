@@ -1,8 +1,8 @@
-Hello %1$s,
+Hello {USERNAME},
 
-You havent logged in for %3$s days, the last time was at %2$s. If you still want to remain a member of our community, please log in with your account information, else your account will be deleted.
+You havent logged in since {LASTDATE} in {GAMENAME}. If you still want to remain a member of our community, please log in with your account information, else your account will be deleted.
 
-If you forgot your password, then go to %4$s and click on  "Forgot password". You will receive within a few minutes an email with your new password.
+If you forgot your password, then go to {HTTPPATH} and click on  "Forgot password". You will receive within a few minutes an email with your new password.
 
 Regards,
-%2$s - Team
+{GAMENAME} Team

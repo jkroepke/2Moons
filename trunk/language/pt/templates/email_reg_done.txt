@@ -1,9 +1,8 @@
-Hallo %1$s,
-Danke, dass Sie sich bei %2$s als Benutzer registriert haben!
+Olá {USERNAME},
 
-Wir freuen uns, dass Sie sich entschieden haben, ein Teil unserer 
-Community zu werden und hoffen, dass es Ihnen gefallen wird.
+Obrigada por te juntares a um novo universo em {GAMENAME}
 
-Mit freundlichen Grüßen
+Esperamos que te divirtas e conquistas os teus objetivos connosco!
+Não te esquecas de visitares a comunidade para teres proveito do jogo.
 
-%2$s - Team
+Bom jogo, a equipa de {GAMENAME}
