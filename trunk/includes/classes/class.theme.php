@@ -29,6 +29,7 @@
 class Theme
 {
 	static public $Themes;
+	private $THEMESETTINGS;
 	
 	function __construct()
 	{	
