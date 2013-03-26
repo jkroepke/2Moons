@@ -1110,6 +1110,8 @@ $LNG['ti_responded']						= 'Ticket respondido em ';
 $LNG['ti_not_exist']						= 'Das Ticket #%d existiert nicht!';
 $LNG['ti_from']								= 'por';
 $LNG['ti_re']								= 'RE:';
+$LNG['ti_error_no_subject']					= 'Precisas de por um título!!';
+$LNG['ti_msgtime']							= 'Mensagem enviada em';
 
 //----------------------------------------------------------------------------//
 // Recordes 

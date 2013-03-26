@@ -1,9 +1,7 @@
-﻿Hallo %1$s,
+﻿Olá {USERNAME},
 
-du hast dich das letzte Mal am %3$s bei %2$s eingeloggt. Wenn du weiterhin Mitglied der Community bleiben möchtest, logge dich bitte mit deinen Daten wieder ein damit dein Account nicht verfällt.
+Já não juntas-te com os teus oficiais desde {LASTDATE}!
 
-Solltest du dein Passwort vergessen haben, dann gehe auf %4$s und klicke "Passwort vergessen" an. Du bekommst innerhalb von wenigen Minuten eine E-mail mit deinem neuen Passwort.
+Se esqueceste da tua password, vai a {HTTPPATH} e clica em "Esqueci me da Password". Deverás receber um email em instantes.
 
-Mit freundlichen Grüßen
-
-dein %2$s Team
+{GAMENAME} Team
