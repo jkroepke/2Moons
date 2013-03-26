@@ -185,6 +185,7 @@ abstract class AbstractPage
             'vmode'				=> $USER['urlaubs_modus'],
 			'authlevel'			=> $USER['authlevel'],
 			'userID'			=> $USER['id'],
+			'bodyclass'			=> $this->getWindow(),
             'game_name'			=> Config::get('game_name'),
             'uni_name'			=> Config::get('uni_name'),
 			'ga_active'			=> Config::get('ga_active'),

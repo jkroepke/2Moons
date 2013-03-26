@@ -1,5 +1,5 @@
 <footer>
-	<a href="index.php?page=disclamer">{$LNG.menu_disclamer}</a><br>Powered by <a href="http://2moons.cc" title="2Moons" target="copy">2Moons</a> 2009-2012
+	<a href="index.php?page=disclamer">{$LNG.menu_disclamer}</a><br>Powered by <a href="http://2moons.cc" title="2Moons" target="copy">2Moons</a> 2009-2013
 </footer>
 </div>
 <div id="dialog" style="display:none;"></div>

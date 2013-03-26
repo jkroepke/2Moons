@@ -28,12 +28,13 @@
 
 define('MODE', 'BANNER');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
+set_include_path(ROOT_PATH);
 
 if(!extension_loaded('gd')) {
 	clearGIF();
 }
 
-require('includes/common.php');
+require 'includes/common.php';
 $id = HTTP::_GP('id', 0);
 
 if(!isModulAvalible(MODULE_BANNER) || $id == 0) {

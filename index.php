@@ -28,7 +28,6 @@
 
 define('MODE', 'LOGIN');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
-
 set_include_path(ROOT_PATH);
 
 require('includes/pages/login/AbstractPage.class.php');
@@ -40,12 +39,12 @@ $mode 		= HTTP::_GP('mode', 'show');
 $mode		= str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);
 $pageClass	= 'Show'.ucwords($page).'Page';
 
-if(!file_exists(ROOT_PATH . 'includes/pages/login/'.$pageClass.'.class.php')) {
+if(!file_exists('includes/pages/login/'.$pageClass.'.class.php')) {
 	ShowErrorPage::printError($LNG['page_doesnt_exist']);
 }
 
 // Added Autoload in feature Versions
-require(ROOT_PATH . 'includes/pages/login/'.$pageClass.'.class.php');
+require('includes/pages/login/'.$pageClass.'.class.php');
 
 $pageObj	= new $pageClass;
 // PHP 5.2 FIX

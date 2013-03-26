@@ -28,10 +28,11 @@
 
 define('MODE', 'INGAME');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
+set_include_path(ROOT_PATH);
 
-require('includes/pages/game/class.AbstractPage.php');
-require('includes/pages/game/class.ShowErrorPage.php');
-require('includes/common.php');
+require 'includes/pages/game/class.AbstractPage.php';
+require 'includes/pages/game/class.ShowErrorPage.php';
+require 'includes/common.php';
 
 $page 		= HTTP::_GP('page', 'overview');
 $mode 		= HTTP::_GP('mode', 'show');

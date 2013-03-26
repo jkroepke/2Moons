@@ -28,8 +28,10 @@
 
 define('MODE', 'LOGIN');
 define('ROOT_PATH'	, str_replace('\\', '/',dirname(__FILE__)).'/');
+set_include_path(ROOT_PATH);
 
 require('includes/common.php');
+
 $LNG->includeData(array('L18N', 'INGAME', 'ADMIN'));
 
 if(isset($_REQUEST['admin_pw']))
