@@ -97,7 +97,7 @@ class ShowTraderPage extends AbstractPage
 
 		$getTradeResources	= HTTP::_GP('trade', array());
 		
-		$tradeResources		= array_values(array_diff(array_merge($reslist['resstype'][1], $reslist['resstype'][3]), array($resourceID)));
+		$tradeResources		= array_values(array_diff(array_keys(self::$Charge[$resourceID]), array($resourceID)));
 		$tradeSum 			= 0;
 		
 		foreach($tradeResources as $tradeRessID) {
