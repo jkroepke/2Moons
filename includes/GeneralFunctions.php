@@ -798,7 +798,8 @@ if (!function_exists('array_replace_recursive'))
         {
             return $array;
         }
-        for ($i = 1; $i < count($args); $i++)
+        $count = count($args);
+        for ($i = 1; $i < $count; ++$i)
         {
             if (is_array($args[$i]))
             {
