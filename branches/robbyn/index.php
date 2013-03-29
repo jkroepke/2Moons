@@ -26,7 +26,51 @@
  * @link http://2moons.cc/
  */
 
-define('MODE', 'LOGIN');
+require 'common.php';
+
+$page	=	'';
+$mode	=	'';
+
+if(isset($_GET['page']))
+{
+	$page	=	filter_input(INPUT_GET, 'page');
+}
+
+if(isset($_GET['mode']))
+{
+	$mode	=	filter_input(INPUT_GET, 'mode');
+	$mode	= 	str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);
+}
+
+//Erste Installation des Systems
+if(is_file(ROOT.SEP.'includes'.SEP.'FIRST_INSTALL') === true)
+{
+	define('MODE', 'INSTALL');
+
+	$install	=	autoload::get('installer');
+
+	if($mode == '')
+	{
+		if(method_exists($install, 'overview'))
+		{
+			$install->overview();
+		}
+	}
+	else
+	{
+		if(method_exists($install, $mode) === true)
+		{
+			$install->$mode();
+		}
+	}
+}
+else
+{
+	define('MODE', 'LOGIN');
+}
+
+/*
+
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 set_include_path(ROOT_PATH);
 
@@ -63,3 +107,4 @@ if(!is_callable(array($pageObj, $mode))) {
 }
 
 $pageObj->{$mode}();
+*/

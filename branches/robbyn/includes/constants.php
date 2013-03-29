@@ -41,12 +41,14 @@ define('HTTP_FILE'					, basename($_SERVER['SCRIPT_NAME']));
 define('HTTP_HOST'					, $_SERVER['HTTP_HOST']);
 define('HTTP_PATH'					, PROTOCOL.HTTP_HOST.HTTP_ROOT);
 
+define('TIMESTAMP'					, time());
+
 if(!defined('AJAX_CHAT_PATH')) {
-	define('AJAX_CHAT_PATH', ROOT_PATH.'/chat/');
+	define('AJAX_CHAT_PATH', ROOT.'chat'.SEP);
 }
 
 if(!defined('CACHE_PATH')) {
-	define('CACHE_PATH', ROOT_PATH.'/cache/');
+	define('CACHE_PATH', ROOT.'cache'.SEP);
 }
 
 // For Fatal Errors!

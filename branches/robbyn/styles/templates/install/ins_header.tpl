@@ -18,24 +18,24 @@
 	<meta http-equiv="refresh" content="{$gotoinsec};URL={$goto}">
 	{/if}
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-	<link rel="stylesheet" type="text/css" href="../styles/resource/css/base/boilerplate.css">
-	<link rel="stylesheet" type="text/css" href="../styles/resource/css/ingame/main.css">
-	<link rel="stylesheet" type="text/css" href="../styles/resource/css/install/main.css">
-	<link rel="stylesheet" type="text/css" href="../styles/resource/css/base/jquery.css">
-	<link rel="stylesheet" type="text/css" href="../styles/resource/css/base/jquery.fancybox.css">
-	<link rel="stylesheet" type="text/css" href="../styles/resource/css/base/validationEngine.jquery.css">
-	<link rel="stylesheet" type="text/css" href="../styles/theme/gow/formate.css">
-	<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
-	<script type="text/javascript" src="../scripts/base/jquery.js"></script>
-	<script type="text/javascript" src="../scripts/base/jquery.ui.js"></script>
-	<script type="text/javascript" src="../scripts/base/jquery.cookie.js"></script>
-	<script type="text/javascript" src="../scripts/base/jquery.fancybox.js"></script>
-	<script type="text/javascript" src="../scripts/base/jquery.validationEngine.js"></script>
-	<script type="text/javascript" src="../scripts/l18n/validationEngine/jquery.validationEngine-{$lang}.js"></script>
-	<script type="text/javascript" src="../scripts/base/tooltip.js"></script>
-	<script type="text/javascript" src="../scripts/game/base.js"></script>
+	<link rel="stylesheet" type="text/css" href="{$HTTP_PATH}styles/resource/css/base/boilerplate.css">
+	<link rel="stylesheet" type="text/css" href="{$HTTP_PATH}styles/resource/css/ingame/main.css">
+	<link rel="stylesheet" type="text/css" href="{$HTTP_PATH}styles/resource/css/install/main.css">
+	<link rel="stylesheet" type="text/css" href="{$HTTP_PATH}styles/resource/css/base/jquery.css">
+	<link rel="stylesheet" type="text/css" href="{$HTTP_PATH}styles/resource/css/base/jquery.fancybox.css">
+	<link rel="stylesheet" type="text/css" href="{$HTTP_PATH}styles/resource/css/base/validationEngine.jquery.css">
+	<link rel="stylesheet" type="text/css" href="{$HTTP_PATH}styles/theme/gow/formate.css">
+	<link rel="shortcut icon" href="{$HTTP_PATH}favicon.ico" type="image/x-icon">
+	<script type="text/javascript" src="{$HTTP_PATH}scripts/base/jquery.js"></script>
+	<script type="text/javascript" src="{$HTTP_PATH}scripts/base/jquery.ui.js"></script>
+	<script type="text/javascript" src="{$HTTP_PATH}scripts/base/jquery.cookie.js"></script>
+	<script type="text/javascript" src="{$HTTP_PATH}scripts/base/jquery.fancybox.js"></script>
+	<script type="text/javascript" src="{$HTTP_PATH}scripts/base/jquery.validationEngine.js"></script>
+	<script type="text/javascript" src="{$HTTP_PATH}scripts/l18n/validationEngine/jquery.validationEngine-{$lang}.js"></script>
+	<script type="text/javascript" src="{$HTTP_PATH}scripts/base/tooltip.js"></script>
+	<script type="text/javascript" src="{$HTTP_PATH}scripts/game/base.js"></script>
 	{foreach item=scriptname from=$scripts}
-	<script type="text/javascript" src="../scripts/game/{$scriptname}.js"></script>
+	<script type="text/javascript" src="{$HTTP_PATH}scripts/game/{$scriptname}.js"></script>
 	{/foreach}
 	{block name="script"}{/block}
 	<script type="text/javascript">

@@ -3,9 +3,19 @@
 	<td class="left">
 		<h2>{$LNG.step1_head}</h2>
 		<p>{$LNG.step1_desc}</p>
-		<form action="index.php?mode=install&step=4" method="post"> 
+		<form action="{$HTTP_PATH}index.php?mode=install&step=4" method="post">
 		<input type="hidden" name="post" value="1">
 		<table class="req">
+		    <tr>
+				<td class="transparent left"><p>{$LNG.step1_database_typ}</p></td>
+				<td class="transparent">
+				    <select name="dbTyp" style="width:165px;">
+                        {foreach from=$pdoDrivers item=pdoItem}
+                            <option value="{$pdoItem}">{$pdoItem}</option>
+                        {/foreach}
+				    </select>
+				</td>
+			</tr>
 			<tr>
 				<td class="transparent left"><p>{$LNG.step1_mysql_server}</p></td>
 				<td class="transparent"><input type="text" name="host" value="{$smarty.get.host|escape:'htmlall'|default:'localhost'}" size="30"></td>

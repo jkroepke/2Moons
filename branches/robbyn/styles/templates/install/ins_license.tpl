@@ -640,10 +640,10 @@ copy of the Program in return for a fee.</p>
 <table style="width: 100%;max-width:100%;margin-top:10px">
 	<tr>
 		<td class="transparent" width="70">
-			<input type="checkbox" name="accept">
+			<input type="checkbox" name="accept" id="accept">
 		</td>
 		<td class="transparent left">
-			<label>{$LNG.licence_accept}</label>
+			<label onclick="(($('#accept').attr('checked') == 'checked') ? $('#accept').attr('checked', false) : $('#accept').attr('checked', true));">{$LNG.licence_accept}</label>
 		</td>
 	</tr>
 	{if isset($accept)}

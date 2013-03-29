@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
+ *  Copyright (C) 2012 Jan Krï¿½pke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,50 +18,76 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @author Jan Krï¿½pke <info@2moons.cc>
+ * @copyright 2012 Jan Krï¿½pke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.7.2 (2013-03-18)
  * @info $Id$
  * @link http://2moons.cc/
  */
 
-class Language implements ArrayAccess {
+class Language implements ArrayAccess
+{
     private $container = array();
     private $language = array();
+
     static private $allLangauges = array();
-	
-	static function getAllowedLangs($OnlyKey = true)
+
+    private $cache;
+
+    public function __construct($language = NULL)
 	{
-		if(count(self::$allLangauges) == 0) {
-			$GLOBALS['CACHE']->add('language', 'LanguageBuildCache');
-			self::$allLangauges = $GLOBALS['CACHE']->get('language');
+		$this->setLanguage($language);
+    }
+
+
+    /**
+	 * Initialisiert Externe Klassen
+	 *
+	 * @param Cache
+	 * @return void
+     */
+    public function initializeExternClass(Cache $cache)
+	{
+		$this->cache	=	$cache;
+	}
+
+	
+	static function getAllowedLangs($OnlyKey = true, Cache $cache)
+	{
+		if(count(self::$allLangauges) == 0)
+		{
+			$cache->add('language', 'LanguageBuildCache');
+			self::$allLangauges = $cache->get('language');
 		}
 		
-		if($OnlyKey) {
+		if($OnlyKey)
+		{
 			return array_keys(self::$allLangauges);
 		}
-		else {
+		else
+		{
 			return self::$allLangauges;
 		}
 	}
 	
 	public function getUserAgentLanguage()
 	{
-   		if (isset($_REQUEST['lang']) && in_array($_REQUEST['lang'], self::getAllowedLangs()))
+   		if(isset($_REQUEST['lang']) && in_array($_REQUEST['lang'], self::getAllowedLangs(true, $this->cache)))
 		{
 			HTTP::sendCookie('lang', $_REQUEST['lang'], 2147483647);
 			$this->setLanguage($_REQUEST['lang']);
 			return true;
 		}
 		
-   		if ((MODE === 'LOGIN' || MODE === 'INSTALL') && isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], self::getAllowedLangs()))
+   		if((MODE === 'LOGIN' || MODE === 'INSTALL') && isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], self::getAllowedLangs(true, $this->cache)))
 		{
 			$this->setLanguage($_COOKIE['lang']);
 			return true;
 		}
 		
-	    if (empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+	    if(empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+	    {
             return false;
         }
 		
@@ -73,11 +99,11 @@ class Language implements ArrayAccess {
         $language = $this->getLanguage();
         $current_q = 0;
 
-        foreach ($accepted_languages as $accepted_language)
+        foreach($accepted_languages as $accepted_language)
 		{
 			$isValid = preg_match('/^([a-z]{1,8}(?:-[a-z]{1,8})*)'.'(?:;\s*q=(0(?:\.[0-9]{1,3})?|1(?:\.0{1,3})?))?$/i', $accepted_language, $matches);
 
-			if ($isValid !== 1)
+			if($isValid !== 1)
 			{
 				continue;
 			}
@@ -85,7 +111,7 @@ class Language implements ArrayAccess {
             list($code)	= explode('-', strtolower($matches[1]));
 			$quality	= isset($matches[2]) ? (float)$matches[2] : 1.0;
 
-			if($quality > $current_q && in_array($code, self::getAllowedLangs()))
+			if($quality > $current_q && in_array($code, self::getAllowedLangs(true, $this->cache)))
 			{
 				$language	= $code;
 				$current_q	= $quality;
@@ -97,14 +123,9 @@ class Language implements ArrayAccess {
 		$this->setLanguage($language);
 	}
 	
-    public function __construct($language = NULL)
-	{
-		$this->setLanguage($language);
-    }
-	
     public function setLanguage($language)
 	{
-		if(!is_null($language) && in_array($language, self::getAllowedLangs()))
+		if(!is_null($language) && in_array($language, self::getAllowedLangs(true, $this->cache)))
 		{
 			$this->language = $language;
 		}
@@ -129,9 +150,9 @@ class Language implements ArrayAccess {
 	
 	public function getTemplate($templateName)
 	{
-		if(file_exists('language/'.$this->getLanguage().'/templates/'.$templateName.'.txt'))
+		if(is_file('language'.SEP.$this->getLanguage().SEP.'templates'.SEP.$templateName.'.txt'))
 		{
-			return file_get_contents('language/'.$this->getLanguage().'/templates/'.$templateName.'.txt');
+			return file_get_contents('language'.SEP.$this->getLanguage().SEP.'templates'.SEP.$templateName.'.txt');
 		}
 		else
 		{
@@ -144,13 +165,14 @@ class Language implements ArrayAccess {
 		// Fixed BOM problems.
 		ob_start();
 		
-        foreach($Files as $File) {
-			require('language/'.$this->getLanguage().'/'.$File.'.php');
+        foreach($Files as $File)
+        {
+			require('language'.SEP.$this->getLanguage().SEP.$File.'.php');
 		}
 		
-		if(file_exists('language/'.$this->getLanguage().'/CUSTOM.php'))
+		if(is_file('language'.SEP.$this->getLanguage().SEP.'CUSTOM.php'))
 		{
-			require('language/'.$this->getLanguage().'/CUSTOM.php');
+			require('language'.SEP.$this->getLanguage().SEP.'CUSTOM.php');
 		}
 		
 		ob_end_clean();
@@ -164,23 +186,35 @@ class Language implements ArrayAccess {
 	
 	/** ArrayAccess Functions **/
 	
-    public function offsetSet($offset, $value) {
-        if (is_null($offset)) {
+    public function offsetSet($offset, $value)
+    {
+        if(is_null($offset))
+        {
             $this->container[] = $value;
-        } else {
+        }
+        else
+        {
             $this->container[$offset] = $value;
         }
     }
 	
-    public function offsetExists($offset) {
+    public function offsetExists($offset)
+    {
         return isset($this->container[$offset]);
     }
 	
-    public function offsetUnset($offset) {
+    public function offsetUnset($offset)
+    {
         unset($this->container[$offset]);
     }
 	
-    public function offsetGet($offset) {
+    public function offsetGet($offset)
+    {
         return isset($this->container[$offset]) ? $this->container[$offset] : $offset;
     }
+
+    public function getLanguageVariables()
+	{
+		return $this->container;
+	}
 }
