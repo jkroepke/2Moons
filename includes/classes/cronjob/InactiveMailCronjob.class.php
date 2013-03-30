@@ -51,18 +51,18 @@ class InactiveMailCronjob
 				
 				$MailSubject	= sprintf($LNG['spec_mail_inactive_title'], $CONF['game_name'].' - '.$CONFIG[$User['universe']]['uni_name']);
 				$MailRAW		= $LNG->getTemplate('email_inactive');
-			$MailContent	= str_replace(array(
-				'{USERNAME}',
-				'{GAMENAME}',
-				'{LASTDATE}',
-				'{HTTPPATH}',
-			), array(
-				$User['username'],
-				$CONF['game_name'].' - '.$CONFIG[$User['universe']]['uni_name'],
-				_date($LNG['php_tdformat'], $User['onlinetime'], $User['timezone']),
-				HTTP_PATH,
-			), $MailRAW);
-				$MailContent	= sprintf($MailRAW, , , , PROTOCOL.$_SERVER['HTTP_HOST'].HTTP_ROOT);	
+				
+				$MailContent	= str_replace(array(
+					'{USERNAME}',
+					'{GAMENAME}',
+					'{LASTDATE}',
+					'{HTTPPATH}',
+				), array(
+					$User['username'],
+					$CONF['game_name'].' - '.$CONFIG[$User['universe']]['uni_name'],
+					_date($LNG['php_tdformat'], $User['onlinetime'], $User['timezone']),
+					HTTP_PATH,
+				), $MailRAW);
 						
 				Mail::send($User['email'], $User['username'], $MailSubject, $MailContent);
 				$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET `inactive_mail` = '1' WHERE `id` = '".$User['id']."';");
