@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan KrÃ¶pke <info@2moons.cc>
- * @copyright 2012 Jan KrÃ¶pke <info@2moons.cc>
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.7.2 (2013-03-18)
  * @info $Id$
@@ -129,9 +129,9 @@ class Language implements ArrayAccess {
 	
 	public function getTemplate($templateName)
 	{
-		if(file_exists('language/'.$this->getLanguage().'/templates/'.$templateName.'.txt'))
+		if(file_exists(ROOT_PATH.'language/'.$this->getLanguage().'/templates/'.$templateName.'.txt'))
 		{
-			return file_get_contents('language/'.$this->getLanguage().'/templates/'.$templateName.'.txt');
+			return file_get_contents(ROOT_PATH.'language/'.$this->getLanguage().'/templates/'.$templateName.'.txt');
 		}
 		else
 		{
