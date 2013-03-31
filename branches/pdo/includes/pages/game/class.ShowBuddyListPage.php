@@ -49,14 +49,23 @@ class ShowBuddyListPage extends AbstractPage
 			$this->printMessage($LNG['bu_cannot_request_yourself']);
 		}
 		
-		$exists	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BUDDY." WHERE (sender = ".$USER['id']." AND owner = ".$id.") OR (owner = ".$USER['id']." AND sender = ".$id.");");
-		
+		$db = Database::get();
+
+        $sql = "SELECT COUNT(*) as count FROM %%BUDDY%% WHERE (sender = :userID AND owner = :friendID) OR (owner = :userID AND sender = :friendID);";
+        $exists = $db->selectSingle($sql, array(
+            ':userID'	=> $USER['id'],
+            ':friendID'  => $id
+        ), 'count');
+
 		if($exists != 0)
 		{
 			$this->printMessage($LNG['bu_request_exists']);
 		}
 		
-		$userData	= $GLOBALS['DATABASE']->getFirstRow("SELECT username, galaxy, system, planet FROM ".USERS." WHERE id = ".$id.";");
+		$sql = "SELECT username, galaxy, system, planet FROM %%USERS%% WHERE id = :friendID;";
+        $userData = $db->selectSingle($sql, array(
+            ':friendID'  => $id
+        ));
 
 		$this->tplObj->assign_vars(array(
 			'username'	=> $userData['username'],
@@ -79,32 +88,46 @@ class ShowBuddyListPage extends AbstractPage
 		
 		$id		= HTTP::_GP('id', 0);
 		$text	= HTTP::_GP('text', '', UTF8_SUPPORT);
-		$test 	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BUDDY." WHERE (sender = ".$USER['id']." AND owner = ".$id.") OR (owner = ".$USER['id']." AND sender = ".$id.");");
-		
+
 		if($id == $USER['id'])
 		{
 			$this->printMessage($LNG['bu_cannot_request_yourself']);
 		}
-		
-		$exists	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BUDDY." WHERE (sender = ".$USER['id']." AND owner = ".$id.") OR (owner = ".$USER['id']." AND sender = ".$id.");");
-		
-		if($exists != 0)
+
+        $db = Database::get();
+
+        $sql = "SELECT COUNT(*) as count FROM %%BUDDY%% WHERE (sender = :userID AND owner = :friendID) OR (owner = :userID AND sender = :friendID);";
+        $exists = $db->selectSingle($sql, array(
+            ':userID'	=> $USER['id'],
+            ':friendID'  => $id
+        ), 'count');
+
+        if($exists != 0)
 		{
 			$this->printMessage($LNG['bu_request_exists']);
 		}
-		
-		$GLOBALS['DATABASE']->multi_query("INSERT INTO ".BUDDY." SET 
-		sender = ".$USER['id'].", 
-		owner = ".$id.", 
-		universe = ".$UNI.";
-		SET @buddyID = LAST_INSERT_ID();
-		INSERT INTO ".BUDDY_REQUEST." SET 
-		id = @buddyID, 
-		text = '".$GLOBALS['DATABASE']->sql_escape($text)."';");
-		
-		$username	= $GLOBALS['DATABASE']->getFirstCell("SELECT username FROM ".USERS." WHERE id = ".$id.";");
-		
-		SendSimpleMessage($id, $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_new_request_title'], sprintf($LNG['bu_new_request_body'], $username, $USER['username']));
+
+        $sql = "INSERT INTO %%BUDDY%% SET sender = :userID,	owner = :friendID, universe = :universe;";
+        $db->insert($sql, array(
+            ':userID'	=> $USER['id'],
+            ':friendID'  => $id,
+            ':universe' => $UNI
+        ));
+
+        $buddyID	= $db->lastInsertId();
+
+        $GLOBALS['DATABASE']->multi_query("INSERT INTO %%BUDDY_REQUEST%% SET id = :buddyID, text = :text;");
+        $db->insert($sql, array(
+            ':buddyID'  => $buddyID,
+            ':text' => $text
+        ));
+
+        $sql = "SELECT username FROM %%USERS%% WHERE id = :friendID;";
+        $username = $db->selectSingle($sql, array(
+            ':friendID'  => $id,
+        ), 'username');
+
+        SendSimpleMessage($id, $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_new_request_title'], sprintf($LNG['bu_new_request_body'], $username, $USER['username']));
 
 		$this->printMessage($LNG['bu_request_send']);
 	}
@@ -114,26 +137,37 @@ class ShowBuddyListPage extends AbstractPage
 		global $USER, $LNG;
 		
 		$id	= HTTP::_GP('id', 0);
-		
-		$isAllowed = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BUDDY." WHERE id = ".$id." AND (sender = ".$USER['id']." OR owner = ".$USER['id'].");");
-		
+		$db = Database::get();
+
+        $sql = "SELECT COUNT(*) as count FROM %%BUDDY%% WHERE id = :id AND (sender = :userID OR owner = :userID);";
+        $isAllowed = $db->selectSingle($sql, array(
+            ':id'  => $id,
+            ':userID' => $USER['id']
+        ), 'count');
+
 		if($isAllowed)
 		{
-			$isRequest = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BUDDY_REQUEST." WHERE ".$id.";");
+			$sql = "SELECT COUNT(*) as count FROM %%BUDDY_REQUEST%% WHERE :id;";
+            $isRequest = $db->selectSingle($sql, array(
+                ':id'  => $id
+            ), 'count');
 			
 			if($isRequest)
 			{
-				$reuqestData = $GLOBALS['DATABASE']->getFirstRow("SELECT
-				u.username, u.id
-				FROM ".BUDDY." b
-				INNER JOIN ".USERS." u ON u.id = IF(b.sender = ".$USER['id'].",b.owner,b.sender)
-				WHERE b.id = ".$id.";");
-				
-				SendSimpleMessage($reuqestData['id'], $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_rejected_request_title'], sprintf($LNG['bu_rejected_request_body'], $reuqestData['username'], $USER['username']));
+                $sql = "SELECT u.username, u.id FROM %%BUDDY%% b INNER JOIN %%USERS%% u ON u.id = IF(b.sender = :userID,b.owner,b.sender) WHERE b.id = :id;";
+                $requestData = $db->selectSingle($sql, array(
+                    ':id'       => $id,
+                    'userID'    => $USER['id']
+                ));
+
+                SendSimpleMessage($requestData['id'], $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_rejected_request_title'], sprintf($LNG['bu_rejected_request_body'], $requestData['username'], $USER['username']));
 			}
-			
-			$GLOBALS['DATABASE']->query("DELETE b.*, r.* FROM ".BUDDY." b LEFT JOIN ".BUDDY_REQUEST." r USING (id) WHERE b.id = ".$id.";");
-		}			
+
+            $sql = "DELETE b.*, r.* FROM %%BUDDY%% b LEFT JOIN %%BUDDY_REQUEST%% r USING (id) WHERE b.id = :id;";
+            $db->delete($sql, array(
+                ':id'       => $id,
+            ));
+        }
 		$this->redirectTo("game.php?page=buddyList");
 	}
 	
@@ -142,10 +176,18 @@ class ShowBuddyListPage extends AbstractPage
 		global $USER, $LNG;
 		
 		$id	= HTTP::_GP('id', 0);
-		
-		$GLOBALS['DATABASE']->query("DELETE FROM ".BUDDY_REQUEST." WHERE id = ".$id.";");
-		
-		$sender	= $GLOBALS['DATABASE']->getFirstRow("SELECT sender, u.username FROM ".BUDDY." b INNER JOIN ".USERS." u ON sender = u.id WHERE b.id = ".$id.";");
+		$db = Database::get();
+
+        $sql = "DELETE FROM %%BUDDY_REQUEST%% WHERE id = :id;";
+        $db->delete($sql, array(
+            ':id'       => $id
+        ));
+
+        $sql = "SELECT sender, u.username FROM %%BUDDY%% b INNER JOIN %%USERS%% u ON sender = u.id WHERE b.id = :id;";
+        $sender = $db->selectSingle($sql, array(
+            ':id'       => $id
+        ));
+
 		SendSimpleMessage($sender['sender'], $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_accepted_request_title'], sprintf($LNG['bu_accepted_request_body'], $sender['username'], $USER['username']));
 		
 		$this->redirectTo("game.php?page=buddyList");
@@ -153,25 +195,21 @@ class ShowBuddyListPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $PLANET, $LNG, $UNI;
+		global $USER;
 		
-		$BuddyListResult	= $GLOBALS['DATABASE']->query("SELECT 
-		a.sender, a.id as buddyid, 
-		b.id, b.username, b.onlinetime, b.galaxy, b.system, b.planet, b.ally_id,
-		c.ally_name,
-		d.text
-		FROM (".BUDDY." as a, ".USERS." as b) 
-		LEFT JOIN ".ALLIANCE." as c ON c.id = b.ally_id
-		LEFT JOIN ".BUDDY_REQUEST." as d ON a.id = d.id
-		WHERE 
-		(a.sender = ".$USER['id']." AND a.owner = b.id) OR 
-		(a.owner = ".$USER['id']." AND a.sender = b.id);");
-				
-		$myRequestList		= array();
+		$db = Database::get();
+        $sql = "SELECT a.sender, a.id as buddyid, b.id, b.username, b.onlinetime, b.galaxy, b.system, b.planet, b.ally_id, c.ally_name, d.text
+		FROM (%%BUDDY%% as a, %%USERS%% as b) LEFT JOIN %%ALLIANCE%% as c ON c.id = b.ally_id LEFT JOIN %%BUDDY_REQUEST%% as d ON a.id = d.id
+		WHERE (a.sender = ".$USER['id']." AND a.owner = b.id) OR (a.owner = :userID AND a.sender = b.id);";
+        $BuddyListResult = $db->select($sql, array(
+            'userID'    => $USER['id']
+        ));
+
+        $myRequestList		= array();
 		$otherRequestList	= array();
 		$myBuddyList		= array();		
 				
-		while($BuddyList = $GLOBALS['DATABASE']->fetch_array($BuddyListResult))
+		foreach($BuddyListResult as $BuddyList)
 		{
 			if(isset($BuddyList['text']))
 			{
@@ -187,9 +225,7 @@ class ShowBuddyListPage extends AbstractPage
 			}
 		}
 		
-		$GLOBALS['DATABASE']->free_result($BuddyListResult);
-	
-		$this->tplObj->assign_vars(array(	
+		$this->tplObj->assign_vars(array(
 			'myBuddyList'		=> $myBuddyList,
 			'myRequestList'			=> $myRequestList,
 			'otherRequestList'	=> $otherRequestList,

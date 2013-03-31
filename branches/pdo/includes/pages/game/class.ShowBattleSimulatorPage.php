@@ -37,7 +37,7 @@ class ShowBattleSimulatorPage extends AbstractPage
 
 	function send()
 	{
-		global $USER, $PLANET, $reslist, $pricelist, $LNG, $CONF;
+		global $reslist, $pricelist, $LNG;
 		
 		if(!isset($_REQUEST['battleinput'])) {
 			$this->sendJSON(0);
@@ -234,17 +234,23 @@ class ShowBattleSimulatorPage extends AbstractPage
 		);
 		
 		$raportData	= GenerateReport($combatResult, $raportInfo);
-		
 		$raportID	= md5(uniqid('', true).TIMESTAMP);
-		$sqlQuery	= "INSERT INTO ".RW." SET rid = '".$raportID."', raport = '".$GLOBALS['DATABASE']->sql_escape(serialize($raportData))."', time = ".TIMESTAMP.";";
-		$GLOBALS['DATABASE']->query($sqlQuery);
-		
-		$this->sendJSON($raportID);
+
+        $db = Database::get();
+
+        $sql = "INSERT INTO %%RW%% SET rid = :raportID, raport = :raportData, time = :time;";
+        $db->insert($sql,array(
+            ':raportID'     => $raportID,
+            ':raportData'   => $raportData,
+            ':time'         => TIMESTAMP
+        ));
+
+        $this->sendJSON($raportID);
 	}
 	
 	function show()
 	{
-		global $USER, $PLANET, $reslist, $pricelist, $resource, $LNG, $CONF;
+		global $USER, $PLANET, $reslist, $resource;
 		
 		require_once('includes/classes/class.FleetFunctions.php');
 		
