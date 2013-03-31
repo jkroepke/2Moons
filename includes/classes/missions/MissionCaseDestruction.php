@@ -493,8 +493,8 @@ HTML;
 						".$defendStatus." = ".$defendStatus." + 1,
 						kbmetal = kbmetal + ".$debris[901].",
 						kbcrystal = kbcrystal + ".$debris[902].",
-						lostunits = lostunits + ".$combatResult['unitLost']['attacker'].",
-						desunits = desunits + ".$combatResult['unitLost']['defender']."
+						lostunits = lostunits + ".$combatResult['unitLost']['defender'].",
+						desunits = desunits + ".$combatResult['unitLost']['attacker']."
 						WHERE
 						id IN (".implode(',', array_keys($userDefend)).");";
 						
