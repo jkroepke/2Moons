@@ -1,0 +1,34 @@
+﻿Witaj %1$s,
+
+
+Dzięki za rejstracje na %2$s
+Nim aktywujesz swoje konto jeszcze jeden krok przed tobą.
+
+Kliknij na ten link poniżej aktywujący twoje konto.
+
+
+
+
+Link aktywacyjny :
+
+
+%3$s?page=reg&action=valid&uni=%7$s&clef=%4$s
+
+
+
+Dane do logowania
+
+
+Username : %1$s
+Password : %5$s
+
+
+
+Jeśli będziesz miał jakieś problemy prosze daj znać na maila adminowi :
+
+mailto:%6$s
+
+
+Pozdrowienia,
+
+%2$s - Team
