@@ -85,9 +85,9 @@ class OpenIDAuth extends LightOpenID {
 			$username	= $user['namePerson'];
 		}
 		
-		$ValidReg	= $GLOBALS['DATABASE']->getFirstCell("SELECT cle FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->sql_escape($user['contact/email'])."';");
+		$ValidReg	= $GLOBALS['DATABASE']->getFirstCell("SELECT cle FROM ".USERS_VALID." WHERE universe = ".Universe::current()." AND email = '".$GLOBALS['DATABASE']->sql_escape($user['contact/email'])."';");
 		if(!empty($ValidReg))
-			HTTP::redirectTo("index.php?uni=".$UNI."&page=reg&action=valid&clef=".$ValidReg);
+			HTTP::redirectTo("index.php?uni=".Universe::current()."&page=reg&action=valid&clef=".$ValidReg);
 					
 		$GLOBALS['DATABASE']->query("INSERT INTO ".USERS_AUTH." SET
 		id = (SELECT id FROM ".USERS." WHERE email = '".$GLOBALS['DATABASE']->sql_escape($me['email'])."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($user['contact/email'])."'),
@@ -97,7 +97,7 @@ class OpenIDAuth extends LightOpenID {
 	
 	function getLoginData()
 	{
-		global $UNI;
+
 		
 		try {
 			$user = $this->getAttributes();
@@ -108,7 +108,7 @@ class OpenIDAuth extends LightOpenID {
 		return $GLOBALS['DATABASE']->getFirstRow("SELECT 
 		user.id, user.username, user.dpath, user.authlevel, user.id_planet 
 		FROM ".USERS_AUTH." auth 
-		INNER JOIN ".USERS." user ON auth.id = user.id AND user.universe = ".$UNI."
+		INNER JOIN ".USERS." user ON auth.id = user.id AND user.universe = ".Universe::current()."
 		WHERE auth.account = '".$user['contact/email']."' AND mode = '".$GLOBALS['DATABASE']->sql_escape($_REQUEST['openid_identifier'])."';");
 	}
 }

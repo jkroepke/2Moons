@@ -80,7 +80,7 @@ class ShowBuddyListPage extends AbstractPage
 	
 	function send()
 	{
-		global $USER, $UNI, $LNG;
+		global $USER, $LNG;
 		
 		$this->initTemplate();
 		$this->setWindow('popup');
@@ -111,7 +111,7 @@ class ShowBuddyListPage extends AbstractPage
         $db->insert($sql, array(
             ':userID'	=> $USER['id'],
             ':friendID'  => $id,
-            ':universe' => $UNI
+            ':universe' => Universe::current()
         ));
 
         $buddyID	= $db->lastInsertId();

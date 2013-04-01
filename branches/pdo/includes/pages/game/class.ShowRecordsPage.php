@@ -38,9 +38,9 @@ class ShowRecordsPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $PLANET, $LNG, $resource, $CONF, $UNI, $reslist;
+		global $USER, $PLANET, $LNG, $resource, $CONF, $reslist;
 
-		$recordResult	= $GLOBALS['DATABASE']->query("SELECT elementID, level, userID, username FROM ".USERS." INNER JOIN ".RECORDS." ON userID = id WHERE universe = ".$UNI.";");
+		$recordResult	= $GLOBALS['DATABASE']->query("SELECT elementID, level, userID, username FROM ".USERS." INNER JOIN ".RECORDS." ON userID = id WHERE universe = ".Universe::current().";");
 		
 		$defenseList	= array_fill_keys($reslist['defense'], array());
 		$fleetList		= array_fill_keys($reslist['fleet'], array());

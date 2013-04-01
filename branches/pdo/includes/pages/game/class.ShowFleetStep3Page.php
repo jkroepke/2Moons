@@ -39,7 +39,7 @@ class ShowFleetStep3Page extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $resource, $LNG, $UNI;
+		global $USER, $PLANET, $resource, $LNG;
 			
 		if (IsVacationMode($USER)) {
 			FleetFunctions::GotoFleetPage(0);
@@ -124,7 +124,7 @@ class ShowFleetStep3Page extends AbstractPage
 
         $sql = "SELECT id, id_owner, der_metal, der_crystal, destruyed, ally_deposit FROM %%PLANETS%% WHERE universe = :universe AND galaxy = :targetGalaxy AND system = :targetSystem AND planet = :targetPlanet AND planet_type = :targetType;";
         $targetPlanetData = $db->selectSingle($sql, array(
-            ':universe'     => $UNI,
+            ':universe'     => Universe::current(),
             ':targetGalaxy' => $targetGalaxy,
             ':targetSystem' => $targetSystem,
             ':targetPlanet' => $targetPlanet,

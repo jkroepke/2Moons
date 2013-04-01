@@ -36,7 +36,7 @@ class ShowBattleHallPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $LNG, $UNI;
+		global $USER, $LNG;
 		$order = HTTP::_GP('order', 'units');
 		$sort = HTTP::_GP('sort', 'desc');
 		$sort = strtoupper($sort);
@@ -58,7 +58,7 @@ class ShowBattleHallPage extends AbstractPage
 		,@rank:=@rank+1 as rank
 		FROM %%TOPKB%% WHERE universe = :universe ORDER BY units DESC LIMIT 100;";
         $top = $db->select($sql, array(
-            ':universe' => $UNI
+            ':universe' => Universe::current()
         ));
 
         $TopKBList	= array();

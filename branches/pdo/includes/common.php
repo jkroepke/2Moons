@@ -153,7 +153,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 	
 	if (MODE === 'INGAME')
 	{
-		if($UNI != $USER['universe'] && count($CONFIG) > 1)
+		if(Universe::current() != $USER['universe'] && count($CONFIG) > 1)
 		{
 			HTTP::redirectToUniverse($USER['universe']);
 		}

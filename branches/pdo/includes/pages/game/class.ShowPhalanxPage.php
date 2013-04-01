@@ -57,7 +57,7 @@ class ShowPhalanxPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $PLANET, $LNG, $UNI, $resource;
+		global $USER, $PLANET, $LNG, $resource;
 		require_once('includes/classes/class.FlyingFleetsTable.php');
 		
 		$FlyingFleetsTable 	= new FlyingFleetsTable();
@@ -81,7 +81,7 @@ class ShowPhalanxPage extends AbstractPage
 
 		$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `deuterium` = `deuterium` - ".PHALANX_DEUTERIUM." WHERE `id` = '".$PLANET['id']."';");
 		
-		$TargetInfo = $GLOBALS['DATABASE']->getFirstRow("SELECT id, name, id_owner FROM ".PLANETS." WHERE`universe` = '".$UNI."' AND `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '1';");
+		$TargetInfo = $GLOBALS['DATABASE']->getFirstRow("SELECT id, name, id_owner FROM ".PLANETS." WHERE`universe` = '".Universe::current()."' AND `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '1';");
 		
 		if(empty($TargetInfo))
 		{

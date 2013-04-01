@@ -70,10 +70,9 @@ class ShowSupportPage
 	
 	function send() 
 	{
-		global $USER, $UNI, $LNG;
+		global $USER, $LNG;
 				
 		$ticketID	= HTTP::_GP('id', 0);
-		$category	= HTTP::_GP('category', 0);
 		$message	= HTTP::_GP('message', '', true);
 		$change		= HTTP::_GP('change_status', 0);
 		
@@ -86,14 +85,15 @@ class ShowSupportPage
 		{
 			HTTP::redirectTo('admin.php?page=support&mode=view&id='.$ticketID);
 		}
-		
+
+		$subject		= "RE: ".$ticketDetail['subject'];
+
 		if($change && $status == 1) {
 			$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $LNG['ti_admin_open'], $status);
 		}
 		
 		if(!empty($message))
 		{
-			$subject		= "RE: ".$ticketDetail['subject'];
 			$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $message, $status);
 		}
 		

@@ -76,7 +76,7 @@ class ShowTicketPage extends AbstractPage
 	
 	function send() 
 	{
-		global $USER, $UNI, $LNG;
+		global $USER, $LNG;
 				
 		$ticketID	= HTTP::_GP('id', 0);
 		$categoryID	= HTTP::_GP('category', 0);

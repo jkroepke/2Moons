@@ -34,9 +34,9 @@ class SupportTickets
 	}
 	
 	function createTicket($ownerID, $categoryID, $subject) {
-		global $UNI;
+
 		
-		$GLOBALS['DATABASE']->query("INSERT INTO ".TICKETS." SET ownerID = ".$ownerID.", universe = ".$UNI.", categoryID = ".$categoryID.", subject = '".$GLOBALS['DATABASE']->sql_escape($subject)."', time = ".TIMESTAMP.";");
+		$GLOBALS['DATABASE']->query("INSERT INTO ".TICKETS." SET ownerID = ".$ownerID.", universe = ".Universe::current().", categoryID = ".$categoryID.", subject = '".$GLOBALS['DATABASE']->sql_escape($subject)."', time = ".TIMESTAMP.";");
 		
 		return $GLOBALS['DATABASE']->GetInsertID();
 	}

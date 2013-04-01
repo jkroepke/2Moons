@@ -536,7 +536,6 @@ function fleetAmountToArray($fleetAmount)
 
 function exceptionHandler($exception) 
 {
-	global $CONF, $UNI;
 	if(!headers_sent()) {
 		if (!class_exists('HTTP', false)) {
 			require_once('includes/classes/HTTP.class.php');
@@ -573,7 +572,7 @@ function exceptionHandler($exception)
 		{
 			throw new Exception("No config class");
 		}
-		$config		= Config::get($UNI);
+		$config		= Config::get(Universe::current());
 		$gameName	= $config->game_name;
 		$VERSION	= $config->VERSION;
 	} catch(Exception $e) {

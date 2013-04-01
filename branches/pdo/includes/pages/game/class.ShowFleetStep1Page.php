@@ -241,7 +241,7 @@ class ShowFleetStep1Page extends AbstractPage
 	
 	function checkTarget()
 	{
-		global $PLANET, $LNG, $UNI, $USER, $resource;
+		global $PLANET, $LNG, $USER, $resource;
 		$TargetGalaxy 					= HTTP::_GP('galaxy', 0);
 		$TargetSystem 					= HTTP::_GP('system', 0);
 		$TargetPlanet					= HTTP::_GP('planet', 0);
@@ -263,7 +263,7 @@ class ShowFleetStep1Page extends AbstractPage
                 p.planet_type = :targetType AND
                 u.id = p.id_owner;";
             $Data = $db->selectSingle($sql, array(
-                ':universe'     => $UNI,
+                ':universe'     => Universe::current(),
                 ':targetGalaxy' => $TargetGalaxy,
                 ':targetSystem' => $TargetSystem,
                 ':targetPlanet' => $TargetPlanet,

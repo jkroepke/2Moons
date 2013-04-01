@@ -40,7 +40,7 @@ if(isset($_REQUEST['admin_pw']))
 	if(isset($login)) {
 		session_start();
 		$SESSION       	= new Session();
-		$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], $UNI, $login['authlevel'], $login['dpath']);
+		$SESSION->CreateSession($login['id'], $login['username'], $login['id_planet'], Universe::current(), $login['authlevel'], $login['dpath']);
 		$_SESSION['admin_login']	= cryptPassword($_REQUEST['admin_pw']);
 		HTTP::redirectTo('admin.php');
 	}

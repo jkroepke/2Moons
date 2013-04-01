@@ -216,7 +216,7 @@ class ShowAlliancePage extends AbstractPage
 
 	function search() 
 	{
-		global $UNI;
+
 		if($this->hasApply) {
 			$this->redirectToHome();
 		}
@@ -257,7 +257,7 @@ class ShowAlliancePage extends AbstractPage
 			) DESC,ally_name ASC LIMIT :limit;";
 
             $searchResult	= $db->select($sql, array(
-                ':universe' => $UNI,
+                ':universe' => Universe::current(),
                 ':searchText'   => '%'.$searchText.'%',
                 ':limit'	=> 25
             ));
@@ -283,7 +283,7 @@ class ShowAlliancePage extends AbstractPage
 	
 	function apply()
 	{
-		global $UNI, $LNG, $USER;
+		global $LNG, $USER;
 		
 		if($this->hasApply) {
 			$this->redirectToHome();
@@ -296,7 +296,7 @@ class ShowAlliancePage extends AbstractPage
         $sql	= "SELECT ally_tag, ally_request, ally_request_notallow FROM %%ALLIANCE%% WHERE id = :allianceID AND ally_universe = :universe;";
         $allianceResult = $db->selectSingle($sql, array(
             ':allianceID'	=> $allianceID,
-            ':universe'     => $UNI
+            ':universe'     => Universe::current()
         ));
 
         if (!isset($allianceResult)) {
@@ -337,7 +337,7 @@ class ShowAlliancePage extends AbstractPage
 	
 	function cancelApply()
 	{
-		global $UNI, $LNG, $USER;
+		global $LNG, $USER;
 		
 		if(!$this->hasApply) {
 			$this->redirectToHome();
@@ -389,7 +389,7 @@ class ShowAlliancePage extends AbstractPage
 		
 	private function createAllianceProcessor() 
 	{
-		global $USER, $UNI, $LNG;
+		global $USER, $LNG;
 		$atag	= HTTP::_GP('atag' , '', UTF8_SUPPORT);
 		$aname	= HTTP::_GP('aname', '', UTF8_SUPPORT);
 		
@@ -408,7 +408,7 @@ class ShowAlliancePage extends AbstractPage
 		$db	= Database::get();
         $sql	= "SELECT COUNT(*) as count FROM %%ALLIANCE%% WHERE ally_universe = :universe AND (ally_tag = :allianceTag OR ally_name = :allianceName);";
         $allianceCount = $db->selectSingle($sql, array(
-            ':universe'	=> $UNI,
+            ':universe'	=> Universe::current(),
             ':allianceTag' => $atag,
             ':allianceName' => $aname
         ), 'count');
@@ -424,14 +424,14 @@ class ShowAlliancePage extends AbstractPage
 						ally_owner_range		= '".$LNG['al_default_leader_name']."',
 						ally_members			= 1,
 						ally_register_time		= ".TIMESTAMP.",
-						ally_universe 			= ".$UNI.";";
+						ally_universe 			= ".Universe::current().";";
         $db->insert($sql, array(
             ':allianceName'			=> $aname,
             ':allianceTag'			=> $atag,
             ':userID'			    => $USER['id'],
             ':allianceOwnerRange'	=> $LNG['al_default_leader_name'],
             ':time'                 => TIMESTMAP,
-            ':universe'             => $UNI,
+            ':universe'             => Universe::current(),
         ));
 
         $LastAllianceID = $db->lastInsertId();
@@ -477,7 +477,7 @@ class ShowAlliancePage extends AbstractPage
 
 	private function homeAlliance()
 	{
-		global $USER, $UNI, $LNG;
+		global $USER, $LNG;
 		require_once('includes/functions/BBCode.php');
         $db	= Database::get();
 		if ($this->allianceData['ally_owner'] == $USER['id']) {
@@ -719,7 +719,7 @@ class ShowAlliancePage extends AbstractPage
 	
 	private function adminOverview() 
 	{
-		global $LNG, $UNI;
+		global $LNG;
 		$send 		= HTTP::_GP('send', 0);
 		$textMode  	= HTTP::_GP('textMode', 'external');
 		
@@ -744,7 +744,7 @@ class ShowAlliancePage extends AbstractPage
 			{
 				$sql = "SELECT COUNT(*) as count FROM %%ALLIANCE%% WHERE ally_universe = :universe AND ally_tag = :NewAllianceTag;";
                 $allianceCount = $db->selectSingle($sql, array(
-                    ':universe'	        => $UNI,
+                    ':universe'	        => Universe::current(),
                     ':NewAllianceTag'   => $new_ally_tag
                 ), 'count');
 
@@ -762,7 +762,7 @@ class ShowAlliancePage extends AbstractPage
 			{
                 $sql = "SELECT COUNT(*) as count FROM %%ALLIANCE%% WHERE ally_universe = :universe AND ally_name = :NewAllianceName;";
                 $allianceCount = $db->selectSingle($sql, array(
-                    ':universe'	        => $UNI,
+                    ':universe'	        => Universe::current(),
                     ':NewAllianceName'   => $new_ally_name
                 ), 'count');
 
@@ -1483,7 +1483,7 @@ class ShowAlliancePage extends AbstractPage
 	
 	private function adminDiplomacyCreateProcessor()
 	{
-		global $UNI, $LNG, $USER;
+		global $LNG, $USER;
 		if (!$this->rights['DIPLOMATIC']) {
 			$this->redirectToHome();
 		}
@@ -1496,7 +1496,7 @@ class ShowAlliancePage extends AbstractPage
         $targetAlliance = $db->selectSingle($sql, array(
             ':allianceID'   => $USER['ally_id'],
             ':id'           => $id,
-            ':universe'     => $UNI
+            ':universe'     => Universe::current()
         ));
 
         if(empty($targetAlliance)) {
@@ -1539,7 +1539,7 @@ class ShowAlliancePage extends AbstractPage
             ':allianceTargetID'  => $targetAlliance['id'],
             ':level'             => $level,
             ':text'           => $text,
-            ':universe'     => $UNI
+            ':universe'     => Universe::current()
         ));
 
         $this->sendJSON(array(

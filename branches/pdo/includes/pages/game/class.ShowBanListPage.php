@@ -37,14 +37,14 @@ class ShowBanListPage extends AbstractPage
 
 	function show()
 	{
-		global $USER, $LNG, $UNI;
+		global $USER, $LNG;
 		
 		$page  		= HTTP::_GP('side', 1);
 		$db = Database::get();
 
 		$sql = "SELECT COUNT(*) as count FROM %%BANNED%% WHERE universe = :universe ORDER BY time DESC;";
         $banCount = $db->selectSingle($sql, array(
-            ':universe'	=> $UNI
+            ':universe'	=> Universe::current()
         ), 'count');
 
         $maxPage	= ceil($banCount / BANNED_USERS_PER_PAGE);
@@ -52,7 +52,7 @@ class ShowBanListPage extends AbstractPage
 		
 		$sql = "SELECT * FROM %%BANNED%% WHERE universe = :universe ORDER BY time DESC LIMIT :offset, :limit;";
         $banResult = $db->select($sql, array(
-            ':universe'	=> $UNI,
+            ':universe'	=> Universe::current(),
             ':offset'   => (($page - 1) * BANNED_USERS_PER_PAGE),
             ':limit'    => BANNED_USERS_PER_PAGE,
         ));

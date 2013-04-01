@@ -363,7 +363,7 @@ class FleetFunctions
 	
 	public static function sendFleet($fleetArray, $fleetMission, $fleetStartOwner, $fleetStartPlanetID, $fleetStartPlanetGalaxy, $fleetStartPlanetSystem, $fleetStartPlanetPlanet, $fleetStartPlanetType, $fleetTargetOwner, $fleetTargetPlanetID, $fleetTargetPlanetGalaxy, $fleetTargetPlanetSystem, $fleetTargetPlanetPlanet, $fleetTargetPlanetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, $fleetGroup = 0, $missleTarget = 0)
 	{
-		global $resource, $UNI;
+		global $resource;
 		$fleetShipCount	= array_sum($fleetArray);
 		$fleetData		= array();
 		$planetQuery	= "";
@@ -380,7 +380,7 @@ class FleetFunctions
 				   fleet_mission            = ".$fleetMission.",
 				   fleet_amount             = ".$fleetShipCount.",
 				   fleet_array              = '".implode(';',$fleetData)."',
-				   fleet_universe	        = ".$UNI.",
+				   fleet_universe	        = ".Universe::current().",
 				   fleet_start_time         = ".$fleetStartTime.",
 				   fleet_end_stay           = ".$fleetStayTime.",
 				   fleet_end_time           = ".$fleetEndTime.",
@@ -411,7 +411,7 @@ class FleetFunctions
 				   fleet_mission            = ".$fleetMission.",
 				   fleet_amount             = ".$fleetShipCount.",
 				   fleet_array              = '".implode(',',$fleetData)."',
-				   fleet_universe	        = ".$UNI.",
+				   fleet_universe	        = ".Universe::current().",
 				   fleet_start_time         = ".$fleetStartTime.",
 				   fleet_end_stay           = ".$fleetStayTime.",
 				   fleet_end_time           = ".$fleetEndTime.",

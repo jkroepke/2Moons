@@ -73,9 +73,9 @@ class FacebookAuth extends Facebook {
 		$uid	= $this->getAccount();
 		
 		$me = $this->api('/me');
-		$ValidReg	= $GLOBALS['DATABASE']->getFirstCell("SELECT cle FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->sql_escape($me['email'])."';");
+		$ValidReg	= $GLOBALS['DATABASE']->getFirstCell("SELECT cle FROM ".USERS_VALID." WHERE universe = ".Universe::current()." AND email = '".$GLOBALS['DATABASE']->sql_escape($me['email'])."';");
 		if(!empty($ValidReg))
-			HTTP::redirectTo("index.php?uni=".$UNI."&page=reg&action=valid&clef=".$ValidReg);
+			HTTP::redirectTo("index.php?uni=".Universe::current()."&page=reg&action=valid&clef=".$ValidReg);
 							
 		$GLOBALS['DATABASE']->query("INSERT INTO ".USERS_AUTH." SET
 		id = (SELECT id FROM ".USERS." WHERE email = '".$GLOBALS['DATABASE']->sql_escape($me['email'])."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($me['email'])."'),
@@ -85,14 +85,14 @@ class FacebookAuth extends Facebook {
 	
 	function getLoginData()
 	{
-		global $UNI;
+
 	
 		$uid	= $this->getAccount();
 		
 		return $GLOBALS['DATABASE']->getFirstRow("SELECT 
 		user.id, id_planet 
 		FROM ".USERS_AUTH." auth 
-		INNER JOIN ".USERS." user ON auth.id = user.id AND user.universe = ".$UNI."
+		INNER JOIN ".USERS." user ON auth.id = user.id AND user.universe = ".Universe::current()."
 		WHERE auth.account = ".$uid." AND mode = 'facebook';");
 	}
 	

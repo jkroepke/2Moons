@@ -39,7 +39,7 @@ class ShowFleetMissilePage extends AbstractPage
 	
 	public function show()
 	{	
-		global $USER, $PLANET, $LNG, $reslist, $resource, $UNI;
+		global $USER, $PLANET, $LNG, $reslist, $resource;
 		
 		$iraks 				= $PLANET['interplanetary_misil'];
 		$targetGalaxy 		= HTTP::_GP('galaxy', 0);
@@ -54,7 +54,7 @@ class ShowFleetMissilePage extends AbstractPage
         $sql = "SELECT id, id_owner FROM %%PLANETS%% WHERE universe = :universe AND  galaxy = :targetGalaxy AND system =:targetSystem AND planet = :targetPlanet AND planet_type = :targetType;";
 
         $target = $db->selectSingle($sql, array(
-            ':universe' => $UNI,
+            ':universe' => Universe::current(),
             ':targetGalaxy' => $targetGalaxy,
             ':targetSystem' => $targetSystem,
             ':targetPlanet' => $targetPlanet,

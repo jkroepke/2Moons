@@ -32,7 +32,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowAccountEditorPage() 
 {
-	global $USER, $LNG, $reslist, $resource, $UNI;
+	global $LNG, $reslist, $resource;
 	$template 	= new template();
 
 	switch($_GET['edit'])
@@ -315,6 +315,7 @@ function ShowAccountEditorPage()
 				
 				$LOG = new Log(2);
 				$LOG->target = HTTP::_GP('id', 0);
+				//TODO: Fix me!
 				$LOG->universe = $before1['universe'];
 				$LOG->old = $before;
 				$LOG->new = $after;
@@ -605,7 +606,7 @@ function ShowAccountEditorPage()
 					$P	=	$GLOBALS['DATABASE']->getFirstRow("SELECT galaxy,system,planet,planet_type FROM ".PLANETS." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 					if ($P['planet_type'] == '1')
 					{
-						if (CheckPlanetIfExist($galaxy, $system, $planet, $UNI, $P['planet_type']))
+						if (CheckPlanetIfExist($galaxy, $system, $planet, Universe::current(), $P['planet_type']))
 						{
 							$template->message($LNG['ad_pla_error_planets3'], '?page=accounteditor&edit=planets');
 							exit;
@@ -614,7 +615,7 @@ function ShowAccountEditorPage()
 						$GLOBALS['DATABASE']->query ("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
 
 					} else {
-						if(CheckPlanetIfExist($galaxy, $system, $planet, $UNI, $P['planet_type']))
+						if(CheckPlanetIfExist($galaxy, $system, $planet, Universe::current(), $P['planet_type']))
 						{
 							$template->message($LNG['ad_pla_error_planets5'], '?page=accounteditor&edit=planets');
 							exit;

@@ -54,7 +54,7 @@ class GalaxyRows
 	
 	public function getGalaxyData()
 	{
-		global $UNI, $USER;
+		global $USER;
 
         $galaxyResult	= $GLOBALS['DATABASE']->query("SELECT SQL_BIG_RESULT DISTINCT
 		p.galaxy, p.system, p.planet, p.id, p.id_owner, p.name, p.image, p.last_update, p.diameter, p.temp_min, p.destruyed, p.der_metal, p.der_crystal, p.id_luna, 
@@ -73,7 +73,7 @@ class GalaxyRows
 		LEFT JOIN ".DIPLO." as d ON (d.owner_1 = ".$USER['ally_id']." AND d.owner_2 = a.id) OR (d.owner_1 = a.id AND d.owner_2 = ".$USER['ally_id'].") AND d.accept = 1
 		LEFT JOIN ".STATPOINTS." allys ON allys.stat_type = '2' AND allys.id_owner = a.id
 		LEFT JOIN ".BUDDY." buddy ON (buddy.sender = ".$USER['id']." AND buddy.owner = u.id ) OR (buddy.sender = u.id AND buddy.owner = ".$USER['id'].")
-		WHERE p.universe = ".$UNI." AND p.galaxy = ".$this->Galaxy." AND p.system = ".$this->System." AND p.planet_type = '1'
+		WHERE p.universe = ".Universe::current()." AND p.galaxy = ".$this->Galaxy." AND p.system = ".$this->System." AND p.planet_type = '1'
 		GROUP BY p.id;");
 
         while($this->galaxyRow = $GLOBALS['DATABASE']->fetch_array($galaxyResult))

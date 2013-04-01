@@ -31,7 +31,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowCreatorPage()
 {
-	global $LNG, $USER, $UNI, $CONF;
+	global $LNG, $USER;
 
 	$template	= new template();
 
@@ -55,7 +55,9 @@ function ShowCreatorPage()
 					
 				$ExistsUser 	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND username = '".$GLOBALS['DATABASE']->sql_escape($UserName)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$_SESSION['adminuni']." AND username = '".$GLOBALS['DATABASE']->sql_escape($UserName)."')");
 				$ExistsMails	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND (email = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$_SESSION['adminuni']." AND email = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."')");
-								
+
+				$errors	= "";
+
 				if (!ValidateAddress($UserMail)) 
 					$errors .= $LNG['invalid_mail_adress'];
 					

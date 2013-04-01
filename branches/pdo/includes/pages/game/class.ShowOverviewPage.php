@@ -82,7 +82,7 @@ class ShowOverviewPage extends AbstractPage
 	
 	function savePlanetAction()
 	{
-		global $USER, $PLANET;
+		global $USER, $PLANET, $LNG;
 		$password =	HTTP::_GP('password', '', true);
 		if (!empty($password))
 		{
@@ -121,7 +121,7 @@ class ShowOverviewPage extends AbstractPage
 		
 	function show()
 	{
-		global $CONF, $LNG, $PLANET, $USER, $resource, $UNI;
+		global $CONF, $LNG, $PLANET, $USER, $resource;
 		
 		$AdminsOnline 	= array();
 		$chatOnline 	= array();
@@ -201,7 +201,7 @@ class ShowOverviewPage extends AbstractPage
 		
 		
 		
-		$OnlineAdmins 	= $GLOBALS['DATABASE']->query("SELECT id,username FROM ".USERS." WHERE universe = ".$UNI." AND onlinetime >= ".(TIMESTAMP-10*60)." AND authlevel > '".AUTH_USR."';");
+		$OnlineAdmins 	= $GLOBALS['DATABASE']->query("SELECT id,username FROM ".USERS." WHERE universe = ".Universe::current()." AND onlinetime >= ".(TIMESTAMP-10*60)." AND authlevel > '".AUTH_USR."';");
 		while ($AdminRow = $GLOBALS['DATABASE']->fetch_array($OnlineAdmins)) {
 			$AdminsOnline[$AdminRow['id']]	= $AdminRow['username'];
 		}

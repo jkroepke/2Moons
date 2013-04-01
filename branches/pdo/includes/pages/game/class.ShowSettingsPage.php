@@ -172,7 +172,7 @@ class ShowSettingsPage extends AbstractPage
 	
 	private function sendDefault()
 	{
-		global $USER, $PLANET, $CONF, $LNG, $UNI, $SESSION, $THEME;
+		global $USER, $LNG, $SESSION, $THEME;
 		
 		$adminprotection	= HTTP::_GP('adminprotection', 0);
 		
@@ -228,7 +228,7 @@ class ShowSettingsPage extends AbstractPage
 			} elseif($USER['uctime'] >= TIMESTAMP - USERNAME_CHANGETIME) {
 				$this->printMessage($LNG['op_change_name_pro_week']);
 			} else {
-				$Count 	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = ".$UNI." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = ".$UNI." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."')");
+				$Count 	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = ".Universe::current()." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = ".Universe::current()." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."')");
 				
 				if (!empty($Count)) {
 					$this->printMessage(sprintf($LNG['op_change_name_exist'], $username));
@@ -255,7 +255,7 @@ class ShowSettingsPage extends AbstractPage
 			} elseif(!ValidateAddress($email)) {
 				$this->printMessage($LNG['op_not_vaild_mail']);
 			} else {
-				$Count 	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE id != ".$USER['id']." AND universe = ".$UNI." AND (email = '".$GLOBALS['DATABASE']->sql_escape($email)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($email)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$UNI." AND email = '".$GLOBALS['DATABASE']->sql_escape($email)."')");
+				$Count 	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE id != ".$USER['id']." AND universe = ".Universe::current()." AND (email = '".$GLOBALS['DATABASE']->sql_escape($email)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($email)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".Universe::current()." AND email = '".$GLOBALS['DATABASE']->sql_escape($email)."')");
 				if (!empty($Count)) {
 					$this->printMessage(sprintf($LNG['op_change_mail_exist'], $email));
 				} else {

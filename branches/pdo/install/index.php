@@ -473,11 +473,11 @@ switch ($mode) {
 						 $installSQL
 				    ), $installSQL));
 
-					$config = Config::get($UNI);
+					$config = Config::get(Universe::current());
 					$config->timezone			= @date_default_timezone_get();
 					$config->lang	 			= $LNG->getLanguage();
 					$config->OverviewNewsText	= $LNG['sql_welcome'] . $installVersion;
-					$config->uni_name			= $LNG['fcm_universe'] . ' ' . $UNI;
+					$config->uni_name			= $LNG['fcm_universe'] . ' ' . Universe::current();
 					$config->close_reason		= $LNG['sql_close_reason'];
 					$config->moduls				= implode(';', array_fill(0, MODULE_AMOUNT - 1, 1));
 
@@ -526,7 +526,7 @@ switch ($mode) {
 					exit;
 				}
 
-				list($userId, $planetId) = PlayerUtil::createPlayer($UNI, $username, $hashPassword, $mail, $LNG->getLanguage(), 1, 1, 2, NULL, AUTH_ADM);
+				list($userId, $planetId) = PlayerUtil::createPlayer(Universe::current(), $username, $hashPassword, $mail, $LNG->getLanguage(), 1, 1, 2, NULL, AUTH_ADM);
 
 				$session	= Session::create();
 				$session->userId		= $userId;

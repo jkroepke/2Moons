@@ -38,7 +38,7 @@ class ShowStatisticsPage extends AbstractPage
 
     function show()
     {
-        global $USER, $CONF, $LNG, $UNI;
+        global $USER, $CONF, $LNG;
 
         $who   	= HTTP::_GP('who', 1);
         $type  	= HTTP::_GP('type', 1);
@@ -99,7 +99,7 @@ class ShowStatisticsPage extends AbstractPage
                 $stats_sql	=	'SELECT DISTINCT s.*, u.id, u.username, u.ally_id, a.ally_name FROM '.STATPOINTS.' as s
                 INNER JOIN '.USERS.' as u ON u.id = s.id_owner
                 LEFT JOIN '.ALLIANCE.' as a ON a.id = s.id_ally
-                WHERE s.`universe` = '.$UNI.' AND s.`stat_type` = 1 '.((Config::get('stat') == 2)?'AND u.`authlevel` < '.Config::get('stat_level').' ':'').'
+                WHERE s.`universe` = '.Universe::current().' AND s.`stat_type` = 1 '.((Config::get('stat') == 2)?'AND u.`authlevel` < '.Config::get('stat_level').' ':'').'
                 ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
 
                 $query = $GLOBALS['DATABASE']->query($stats_sql);
@@ -122,7 +122,7 @@ class ShowStatisticsPage extends AbstractPage
                 $GLOBALS['DATABASE']->free_result($query);
             break;
             case 2:
-                $MaxAllys 	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".ALLIANCE." WHERE `ally_universe` = '".$UNI."';");
+                $MaxAllys 	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".ALLIANCE." WHERE `ally_universe` = '".Universe::current()."';");
                 $range		= min($range, $MaxAllys);
                 $LastPage 	= max(1, ceil($MaxAllys / 100));
 				
@@ -137,7 +137,7 @@ class ShowStatisticsPage extends AbstractPage
 
                 $stats_sql	=	'SELECT DISTINCT s.*, a.id, a.ally_members, a.ally_name FROM '.STATPOINTS.' as s
                 INNER JOIN '.ALLIANCE.' as a ON a.id = s.id_owner
-                WHERE `universe` = '.$UNI.' AND `stat_type` = 2
+                WHERE `universe` = '.Universe::current().' AND `stat_type` = 2
                 ORDER BY `'. $Order .'` ASC LIMIT '. $start .',100;';
 
                 $query = $GLOBALS['DATABASE']->query($stats_sql);

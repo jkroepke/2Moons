@@ -39,7 +39,7 @@ class ShowFleetStep2Page extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $LNG, $UNI;
+		global $USER, $PLANET, $LNG;
 	
 		$this->tplObj->loadscript('flotten.js');
 		
@@ -60,7 +60,7 @@ class ShowFleetStep2Page extends AbstractPage
         $db = Database::get();
         $sql = "SELECT id, id_owner, der_metal, der_crystal FROM %%PLANETS%% WHERE universe = :universe AND galaxy = :targetGalaxy AND system = :targetSystem AND planet = :targetPlanet AND planet_type = '1';";
         $targetPlanetData = $db->selectSingle($sql, array(
-            ':universe' => $UNI,
+            ':universe' => Universe::current(),
             ':targetGalaxy' => $targetGalaxy,
             ':targetSystem' => $targetSystem,
             ':targetPlanet' => $targetPlanet

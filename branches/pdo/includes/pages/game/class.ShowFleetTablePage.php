@@ -89,7 +89,7 @@ class ShowFleetTablePage extends AbstractPage
 	
 	public function getACSPageData($fleetID)
 	{
-		global $USER, $LNG, $UNI;
+		global $USER, $LNG;
 		
 		$db = Database::get();
 
@@ -145,7 +145,7 @@ class ShowFleetTablePage extends AbstractPage
 		{
 			$sql = "SELECT id FROM %%USERS%% WHERE universe = :universe AND username = :username;";
             $newUserID = $db->selectSingle($sql, array(
-                ':universe' => $UNI,
+                ':universe' => Universe::current(),
                 ':username' => $newUser
             ), 'id');
 

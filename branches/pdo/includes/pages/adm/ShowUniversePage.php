@@ -32,7 +32,7 @@ if ($USER['authlevel'] != AUTH_ADM || $_GET['sid'] != session_id())
 }
 
 function ShowUniversePage() {
-	global $LNG, $UNI, $USER;
+	global $LNG, $USER;
 	$template	= new template();
 	
 	$action		= HTTP::_GP('action', '');

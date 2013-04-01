@@ -249,7 +249,7 @@ class ShowMessagesPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $PLANET, $CONF, $UNI;
+		global $USER, $PLANET, $CONF;
 		
 		$category      	= HTTP::_GP('category', 0);
 		$side			= HTTP::_GP('side', 1);
@@ -263,7 +263,7 @@ class ShowMessagesPage extends AbstractPage
 		$Total			= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
 		$UnRead			= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
 		
-		$OperatorResult 	= $GLOBALS['DATABASE']->query("SELECT username, email FROM ".USERS." WHERE universe = ".$UNI." AND authlevel != ".AUTH_USR." ORDER BY username ASC;");		
+		$OperatorResult 	= $GLOBALS['DATABASE']->query("SELECT username, email FROM ".USERS." WHERE universe = ".Universe::current()." AND authlevel != ".AUTH_USR." ORDER BY username ASC;");
 		while($OperatorRow = $GLOBALS['DATABASE']->fetch_array($OperatorResult))
 		{	
 			$OperatorList[$OperatorRow['username']]	= $OperatorRow['email'];

@@ -79,7 +79,7 @@ abstract class AbstractPage
 	
 	protected function getPageData() 
     {		
-		global $USER, $CONF, $LNG, $UNI;
+		global $USER, $CONF, $LNG;
 		
 		$dateTimeServer	= new DateTime("now");
 		$dateTimeUser	= $dateTimeServer;
@@ -96,7 +96,7 @@ abstract class AbstractPage
 			'analyticsEnable'		=> Config::get('ga_active'),
 			'analyticsUID'			=> Config::get('ga_key'),
 			'lang'					=> $LNG->getLanguage(),
-			'UNI'					=> $UNI,
+			'UNI'					=> Universe::current(),
 			'VERSION'				=> Config::get('VERSION'),
 			'REV'					=> substr(Config::get('VERSION'), -4),
 			'languages'				=> Language::getAllowedLangs(false),

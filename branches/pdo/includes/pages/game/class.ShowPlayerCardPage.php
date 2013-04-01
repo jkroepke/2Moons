@@ -40,7 +40,7 @@ class ShowPlayerCardPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $PLANET, $LNG, $UNI;
+		global $USER, $LNG;
 		
 		$this->setWindow('popup');
 		$this->initTemplate();
@@ -56,7 +56,7 @@ class ShowPlayerCardPage extends AbstractPage
 						INNER JOIN ".PLANETS." p ON p.id = u.id_planet 
 						LEFT JOIN ".STATPOINTS." s ON s.id_owner = u.id AND s.stat_type = 1 
 						LEFT JOIN ".ALLIANCE." a ON a.id = u.ally_id
-						WHERE u.id = ".$PlayerID." AND u.universe = ".$UNI.";");
+						WHERE u.id = ".$PlayerID." AND u.universe = ".Universe::current().";");
 
 		$totalfights = $query['wons'] + $query['loos'] + $query['draws'];
 		

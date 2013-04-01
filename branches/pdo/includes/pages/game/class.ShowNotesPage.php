@@ -92,7 +92,7 @@ class ShowNotesPage extends AbstractPage
 	
 	public function insert()
 	{
-		global $LNG, $USER, $UNI;
+		global $LNG, $USER;
 		$priority 	= HTTP::_GP('priority', 1);
 		$title 		= HTTP::_GP('title', '', true);
 		$text 		= HTTP::_GP('text', '', true);
@@ -101,7 +101,7 @@ class ShowNotesPage extends AbstractPage
 		$text 		= !empty($text) ? $text : $LNG['nt_no_text'];
 		
 		if($id == 0) {
-			$SQL	= "INSERT INTO ".NOTES." SET owner = ".$USER['id'].", time = ".TIMESTAMP.", priority = ".$priority.", title = '".$GLOBALS['DATABASE']->sql_escape($title)."', text = '".$GLOBALS['DATABASE']->sql_escape($text)."', universe = ".$UNI.";";		
+			$SQL	= "INSERT INTO ".NOTES." SET owner = ".$USER['id'].", time = ".TIMESTAMP.", priority = ".$priority.", title = '".$GLOBALS['DATABASE']->sql_escape($title)."', text = '".$GLOBALS['DATABASE']->sql_escape($text)."', universe = ".Universe::current().";";
 		} else {
 			$SQL	= "UPDATE ".NOTES." SET time = ".TIMESTAMP.", priority = ".$priority.", title = '".$GLOBALS['DATABASE']->sql_escape($title)."', text = '".$GLOBALS['DATABASE']->sql_escape($text)."' WHERE id = ".$id.";";
 		}
