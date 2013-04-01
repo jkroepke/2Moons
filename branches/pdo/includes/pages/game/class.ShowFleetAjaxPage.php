@@ -75,7 +75,9 @@ class ShowFleetAjaxPage extends AbstractPage
 
 		$fleetArray = array();
 
-		switch($targetMission)
+        $db = Database::get();
+
+        switch($targetMission)
 		{
 			case 6:
 				if(!isModulAvalible(MODULE_MISSION_SPY)) {
@@ -95,11 +97,13 @@ class ShowFleetAjaxPage extends AbstractPage
 				if(!isModulAvalible(MODULE_MISSION_RECYCLE)) {
 					$this->sendData(699, $LNG['sys_module_inactive']);
 				}
-				
-				$totalDebris	= $GLOBALS['DATABASE']->getFirstCell("SELECT der_metal + der_crystal FROM ".PLANETS." WHERE id = ".$planetID.";");
-				$usedDebris		= 0;
-				
-				$recElementIDs	= array(219, 209);
+
+                $sql = "SELECT (der_metal + der_crystal) as sum FROM %%PLANETS%% WHERE id = :planetID;";
+                $totalDebris = $db->selectSingle($sql, array(
+                        ':planetID' => $planetID
+                ), 'sum');
+
+                $recElementIDs	= array(219, 209);
 				
 				$fleetArray		= array();
 				
@@ -132,18 +136,22 @@ class ShowFleetAjaxPage extends AbstractPage
 		if(empty($fleetArray)) {
 			$this->sendData(610, $LNG['fa_not_enough_probes']);
 		}
-		
-		$targetData	= $GLOBALS['DATABASE']->getFirstRow("SELECT planet.id_owner as id_owner, 
-										planet.galaxy as galaxy, 
-										planet.system as system, 
+
+        $sql = "SELECT planet.id_owner as id_owner,
+										planet.galaxy as galaxy,
+										planet.system as system,
 										planet.planet as planet,
-										planet.planet_type as planet_type, 
+										planet.planet_type as planet_type,
 										total_points, onlinetime, urlaubs_modus, banaday, authattack
-										FROM ".PLANETS." planet
-										INNER JOIN ".USERS." user ON planet.id_owner = user.id
-										LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
-										WHERE planet.id = ".$planetID.";");
-		if (empty($targetData)) {
+										FROM %%PLANETS%% planet
+										INNER JOIN %%USERS%% user ON planet.id_owner = user.id
+										LEFT JOIN %%STATPOINTS%% as stat ON stat.id_owner = user.id AND stat.stat_type = '1'
+										WHERE planet.id = :planetID;";
+        $targetData = $db->selectSingle($sql, array(
+            ':planetID' => $planetID
+        ));
+
+        if (empty($targetData)) {
 			$this->sendData(601, $LNG['fa_planet_not_exist']);
 		}
 		

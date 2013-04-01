@@ -39,7 +39,7 @@ class ShowFleetMissilePage extends AbstractPage
 	
 	public function show()
 	{	
-		global $USER, $PLANET, $LNG, $CONF, $reslist, $resource, $UNI;
+		global $USER, $PLANET, $LNG, $reslist, $resource, $UNI;
 		
 		$iraks 				= $PLANET['interplanetary_misil'];
 		$targetGalaxy 		= HTTP::_GP('galaxy', 0);
@@ -48,10 +48,20 @@ class ShowFleetMissilePage extends AbstractPage
 		$targetType 		= HTTP::_GP('type', 0);
 		$anz 				= min(HTTP::_GP('SendMI',0), $iraks);
 		$pziel 				= HTTP::_GP('Target', 0);
-		
-		$target 			= $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `id_owner` FROM ".PLANETS." WHERE `universe` = '".$UNI."' AND  `galaxy` = '".$targetGalaxy."' AND `system` = '".$targetSystem."' AND `planet` = '".$targetPlanet."' AND `planet_type` = ".$targetType.";");
-		
-		$Range				= FleetFunctions::GetMissileRange($USER[$resource[117]]);
+
+        $db = Database::get();
+
+        $sql = "SELECT id, id_owner FROM %%PLANETS%% WHERE universe = :universe AND  galaxy = :targetGalaxy AND system =:targetSystem AND planet = :targetPlanet AND planet_type = :targetType;";
+
+        $target = $db->selectSingle($sql, array(
+            ':universe' => $UNI,
+            ':targetGalaxy' => $targetGalaxy,
+            ':targetSystem' => $targetSystem,
+            ':targetPlanet' => $targetPlanet,
+            ':targetType'   => $targetType
+        ));
+
+        $Range				= FleetFunctions::GetMissileRange($USER[$resource[117]]);
 		$systemMin			= $PLANET['system'] - $Range;
 		$systemMax			= $PLANET['system'] + $Range;
 		
@@ -81,9 +91,12 @@ class ShowFleetMissilePage extends AbstractPage
 		elseif($targetUser['urlaubs_modus'])
 			$error = $LNG['fl_in_vacation_player'];
 			
-		$User2Points  	= $GLOBALS['DATABASE']->getFirstRow("SELECT `total_points` FROM ".STATPOINTS." WHERE `stat_type` = '1' AND `id_owner` = '".$target['id_owner']."';");
-		
-		$IsNoobProtec	= CheckNoobProtec($USER, $User2Points, $targetUser);
+		$sql = "SELECT total_points FROM %%STATPOINTS%% WHERE stat_type = '1' AND id_owner = :ownerID;";
+        $User2Points = $db->selectSingle($sql, array(
+            ':ownerID'  => $target['id_owner']
+        ));
+
+        $IsNoobProtec	= CheckNoobProtec($USER, $User2Points, $targetUser);
 			
 		if ($IsNoobProtec['NoobPlayer'])
 			$error = $LNG['fl_week_player'];

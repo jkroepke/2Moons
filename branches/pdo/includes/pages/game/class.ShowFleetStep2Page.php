@@ -56,9 +56,17 @@ class ShowFleetStep2Page extends AbstractPage
 			FleetFunctions::GotoFleetPage();
 
 		$fleetArray    				= $_SESSION['fleet'][$token]['fleet'];
-		$targetPlanetData			= $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `id_owner`, `der_metal`, `der_crystal` FROM `".PLANETS."` WHERE `universe` = ".$UNI." AND `galaxy` = ".$targetGalaxy." AND `system` = ".$targetSystem." AND `planet` = ".$targetPlanet." AND `planet_type` = '1';");
-				
-		if($targetType == 2 && $targetPlanetData['der_metal'] == 0 && $targetPlanetData['der_crystal'] == 0)
+
+        $db = Database::get();
+        $sql = "SELECT id, id_owner, der_metal, der_crystal FROM %%PLANETS%% WHERE universe = :universe AND galaxy = :targetGalaxy AND system = :targetSystem AND planet = :targetPlanet AND planet_type = '1';";
+        $targetPlanetData = $db->selectSingle($sql, array(
+            ':universe' => $UNI,
+            ':targetGalaxy' => $targetGalaxy,
+            ':targetSystem' => $targetSystem,
+            ':targetPlanet' => $targetPlanet
+        ));
+
+        if($targetType == 2 && $targetPlanetData['der_metal'] == 0 && $targetPlanetData['der_crystal'] == 0)
 		{
 			$this->printMessage($LNG['fl_error_empty_derbis']);
 		}

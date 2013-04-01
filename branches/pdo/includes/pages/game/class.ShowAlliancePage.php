@@ -1286,7 +1286,6 @@ class ShowAlliancePage extends AbstractPage
 	
 	private function adminMembersSave()
 	{
-		global $USER, $LNG;
 		if (!$this->rights['MANAGEUSERS']) {
 			$this->redirectToHome();
 		}
@@ -1326,7 +1325,6 @@ class ShowAlliancePage extends AbstractPage
 	
 	private function adminMembersKick()
 	{
-		global $USER, $LNG;
 		if (!$this->rights['KICK']) {
 			$this->redirectToHome();
 		}
@@ -1356,7 +1354,6 @@ class ShowAlliancePage extends AbstractPage
 	
 	private function adminDiplomacy()
 	{
-		global $USER, $LNG;
 		if (!$this->rights['DIPLOMATIC']) {
 			$this->redirectToHome();
 		}
@@ -1451,7 +1448,7 @@ class ShowAlliancePage extends AbstractPage
 	
 	private function adminDiplomacyCreate()
 	{
-		global $USER, $LNG;
+		global $USER;
 		if (!$this->rights['DIPLOMATIC']) {
 			$this->redirectToHome();
 		}

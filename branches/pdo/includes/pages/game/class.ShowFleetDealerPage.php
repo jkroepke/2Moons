@@ -38,7 +38,7 @@ class ShowFleetDealerPage extends AbstractPage
 	
 	public function send()
 	{
-		global $USER, $PLANET, $LNG, $CONF, $pricelist, $resource, $reslist;
+		global $USER, $PLANET, $LNG, $pricelist, $resource;
 		
 		$shipID			= HTTP::_GP('shipID', 0);
 		$Count			= max(0, round(HTTP::_GP('count', 0.0)));
@@ -52,9 +52,17 @@ class ShowFleetDealerPage extends AbstractPage
 			$USER[$resource[921]]			+= $Count * $pricelist[$shipID]['cost'][921] * (1 - (Config::get('trade_charge') / 100));
 			
 			$PLANET[$resource[$shipID]]		-= $Count;
-			
-			$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$resource[$shipID]." = ".$resource[$shipID]." - ".$Count." WHERE id = ".$PLANET['id'].";");
-			$this->printMessage($LNG['tr_exchange_done'], array("game.php?page=fleettrader", 3));
+
+			$db = Database::get();
+
+            $sql = "UPDATE %%PLANETS%% SET :resourceID = :resourceID - :count WHERE id = :planetID;";
+            $db->update($sql, array(
+                ':resourceID'   => $resource[$shipID],
+                ':count'        => $Count,
+                ':planetID'     => $PLANET['id']
+            ));
+
+            $this->printMessage($LNG['tr_exchange_done'], array("game.php?page=fleettrader", 3));
 		}
 		else
 		{
@@ -65,7 +73,7 @@ class ShowFleetDealerPage extends AbstractPage
 	
 	function show()
 	{
-		global $PLANET, $LNG, $CONF, $pricelist, $resource, $reslist;
+		global $PLANET, $LNG, $pricelist, $resource, $reslist;
 		
 		$Cost		= array();
 		

@@ -39,7 +39,7 @@ class ShowFleetStep3Page extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $resource, $pricelist, $reslist, $CONF, $LNG, $UNI;
+		global $USER, $PLANET, $resource, $LNG, $UNI;
 			
 		if (IsVacationMode($USER)) {
 			FleetFunctions::GotoFleetPage(0);
@@ -61,7 +61,6 @@ class ShowFleetStep3Page extends AbstractPage
 			FleetFunctions::GotoFleetPage(0);
 		}
 		
-		$maxFleetSpeed	= $_SESSION['fleet'][$token]['speed'];
 		$distance		= $_SESSION['fleet'][$token]['distance'];
 		$targetGalaxy	= $_SESSION['fleet'][$token]['targetGalaxy'];
 		$targetSystem	= $_SESSION['fleet'][$token]['targetSystem'];
@@ -103,26 +102,35 @@ class ShowFleetStep3Page extends AbstractPage
 		}
 		
 		$ACSTime = 0;
-		
-		if(!empty($fleetGroup))
+
+        $db = Database::get();
+
+        if(!empty($fleetGroup))
 		{
-			$ACSTime = $GLOBALS['DATABASE']->getFirstCell("SELECT ankunft
-			FROM ".USERS_ACS." 
-			INNER JOIN ".AKS." ON id = acsID
-			WHERE acsID = ".$fleetGroup."
-			AND ".Config::get('max_fleets_per_acs')." > (SELECT COUNT(*) FROM ".FLEETS." WHERE fleet_group = ".$fleetGroup.");");
-			
-			if (empty($ACSTime)) {
+            $sql = "SELECT ankunft FROM %%USERS_ACS%% INNER JOIN %%AKS%% ON id = acsID
+			WHERE acsID = :acsID AND :maxFleets > (SELECT COUNT(*) FROM %%FLEETS%% WHERE fleet_group = :acsID);";
+            $ACSTime = $db->selectSingle($sql. array(
+                ':acsID'        => $fleetGroup,
+                ':maxFleets'    => Config::get('max_fleets_per_acs'),
+            ), 'ankunft');
+
+            if (empty($ACSTime)) {
 				$fleetGroup	= 0;
 				$targetMission	= 1;
 			}
 		}
 				
 		$ActualFleets 		= FleetFunctions::GetCurrentFleets($USER['id']);
-		
-		$targetPlanetData  	= $GLOBALS['DATABASE']->getFirstRow("SELECT id, id_owner, der_metal, der_crystal, destruyed, ally_deposit FROM ".PLANETS." WHERE universe = ".$UNI." AND galaxy = ".$targetGalaxy." AND system = ".$targetSystem." AND planet = ".$targetPlanet." AND planet_type = '".($targetType == 2 ? 1 : $targetType)."';");
-		
-		
+
+        $sql = "SELECT id, id_owner, der_metal, der_crystal, destruyed, ally_deposit FROM %%PLANETS%% WHERE universe = :universe AND galaxy = :targetGalaxy AND system = :targetSystem AND planet = :targetPlanet AND planet_type = :targetType;";
+        $targetPlanetData = $db->selectSingle($sql, array(
+            ':universe'     => $UNI,
+            ':targetGalaxy' => $targetGalaxy,
+            ':targetSystem' => $targetSystem,
+            ':targetPlanet' => $targetPlanet,
+            ':targetType' => ($targetType == 2 ? 1 : $targetType),
+        ));
+
 		if ($targetMission == 7)
 		{
 			if (isset($targetPlanetData)) {
@@ -188,12 +196,15 @@ class ShowFleetStep3Page extends AbstractPage
 		} elseif($myPlanet) {
 			$targetPlayerData	= $USER;
 		} elseif(!empty($targetPlanetData['id_owner'])) {
-			$targetPlayerData	= $GLOBALS['DATABASE']->getFirstRow("SELECT 
-			user.id, user.onlinetime, user.ally_id, user.urlaubs_modus, user.banaday, user.authattack, 
-			stat.total_points
-			FROM ".USERS." as user 
-			LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
-			WHERE user.id = ".$targetPlanetData['id_owner'].";");
+            $sql = "SELECT
+                user.id, user.onlinetime, user.ally_id, user.urlaubs_modus, user.banaday, user.authattack,
+                stat.total_points
+                FROM %%USERS%% as user
+                LEFT JOIN %%STATPOINTS%% as stat ON stat.id_owner = user.id AND stat.stat_type = '1'
+                WHERE user.id = :ownerID;";
+            $targetPlanetData = $db->selectSingle($sql, array(
+                ':ownerID'  => $targetPlanetData['id_owner']
+            ));
 		} else {
 			$this->printMessage($LNG['fl_empty_target']);
 		}
@@ -241,13 +252,15 @@ class ShowFleetStep3Page extends AbstractPage
 		if ($targetMission == 5)
 		{	
 			if($targetPlayerData['ally_id'] != $USER['ally_id']) {
-				$buddy	= $GLOBALS['DATABASE']->getFirstCell("
-				SELECT COUNT(*) FROM ".BUDDY." 
-				WHERE id NOT IN (SELECT id FROM ".BUDDY_REQUEST." WHERE ".BUDDY_REQUEST.".id = ".BUDDY.".id) AND 
-				(owner = ".$targetPlayerData['id']." AND sender = ".$USER['id'].") OR
-				(owner = ".$USER['id']." AND sender = ".$targetPlayerData['id'].");");
-				
-				if($buddy == 0) {
+				$sql = "SELECT COUNT(*) FROM %%BUDDY%%
+				WHERE id NOT IN (SELECT id FROM %%BUDDY_REQUEST%% WHERE %%BUDDY_REQUEST%%.id = %%BUDDY%%.id) AND
+				(owner = :ownerID AND sender = :userID) OR (owner = :userID AND sender = :ownerID);";
+                $buddy = $db->selectSingle($sql, array(
+                    ':ownerID'  => $targetPlayerData['id'],
+                    ':userID'   => $USER['id']
+                ));
+
+                if($buddy == 0) {
 					$this->printMessage($LNG['fl_no_same_alliance']);
 				}
 			}

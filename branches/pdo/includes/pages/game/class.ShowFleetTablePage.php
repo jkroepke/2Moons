@@ -45,19 +45,28 @@ class ShowFleetTablePage extends AbstractPage
 		$acsName	 	= 'AG'.$rand;
 		$acsCreator		= $USER['id'];
 
-		$GLOBALS['DATABASE']->query("INSERT INTO ".AKS." SET
-					name = '".$GLOBALS['DATABASE']->sql_escape($acsName)."',
-					ankunft = ".$fleetData['fleet_start_time'].",
-					target = ".$fleetData['fleet_end_id'].";");
-		$acsID	= $GLOBALS['DATABASE']->GetInsertID();
-		
-		$GLOBALS['DATABASE']->multi_query("INSERT INTO ".USERS_ACS." SET
-					acsID = ".$acsID.",
-					userID = ".$USER['id'].";
-					UPDATE ".FLEETS." SET
-					fleet_group = ".$acsID."
-					WHERE fleet_id = ".$fleetID.";");
-					
+        $db = Database::get();
+        $sql = "INSERT INTO %%AKS%% SET name = :acsName, ankunft = :time, target = :target;";
+        $db->insert($sql, array(
+            ':acsName'  => $acsName,
+            ':time'     => $fleetData['fleet_start_time'],
+            ':target'   => $fleetData['fleet_end_id']
+        ));
+
+        $acsID	= $db->lastInsertId();
+
+        $sql = "INSERT INTO %%USERS_ACS%% SET acsID = :acsID, userID = :userID;";
+        $db->insert($sql, array(
+            ':acsID'  => $acsID,
+            ':userID'   => $USER['id']
+        ));
+
+        $sql = "UPDATE %%FLEETS%% SET fleet_group = :acsID WHERE fleet_id = :fleetID;";
+        $db->update($sql, array(
+            ':acsID'  => $acsID,
+            ':fleetID'   => $fleetID
+        ));
+
 		return array(
 			'name' 			=> $acsName,
 			'id' 			=> $acsID,
@@ -67,28 +76,31 @@ class ShowFleetTablePage extends AbstractPage
 	public function loadACS($fleetID, $fleetData) {
 		global $USER;
 		
-		$acsResult = $GLOBALS['DATABASE']->query("SELECT id, name 
-		FROM ".USERS_ACS." 
-		INNER JOIN ".AKS." ON acsID = id 
-		WHERE userID = ".$USER['id']." AND acsID = ".$fleetData['fleet_group'].";");
-		
+		$db = Database::get();
+        $sql = "SELECT id, name FROM %%USERS_ACS%% INNER JOIN %%AKS%% ON acsID = id WHERE userID = :userID AND acsID = :acsID;";
+        $acsResult = $db->select($sql, array(
+            ':userID'   => $USER['id'],
+            ':acsID'    => $fleetData['fleet_group']
+        ));
+
+        // TODO: remove fetch_array
 		return $GLOBALS['DATABASE']->fetch_array($acsResult);
 	}
 	
 	public function getACSPageData($fleetID)
 	{
-		global $USER, $PLANET, $LNG, $UNI;
+		global $USER, $LNG, $UNI;
 		
-		$fleetResult	= $GLOBALS['DATABASE']->query("SELECT fleet_start_time, fleet_end_id, fleet_group, fleet_mess 
-									  FROM ".FLEETS."
-									  WHERE fleet_id = ".$fleetID.";");
+		$db = Database::get();
 
-		if ($GLOBALS['DATABASE']->numRows($fleetResult) != 1)
+        $sql = "SELECT fleet_start_time, fleet_end_id, fleet_group, fleet_mess FROM %%FLEETS%% WHERE fleet_id = :fleetID;";
+        $fleetData = $db->selectSingle($sql, array(
+            ':fleetID'  => $fleetID
+        ));
+
+        if ($db->rowCount() != 1)
 			return array();
-					
-		$fleetData 		= $GLOBALS['DATABASE']->fetch_array($fleetResult);
-		$GLOBALS['DATABASE']->free_result($fleetResult);
-		
+
 		if ($fleetData['fleet_mess'] == 1 || $fleetData['fleet_start_time'] <= TIMESTAMP)
 			return array();
 				
@@ -107,39 +119,50 @@ class ShowFleetTablePage extends AbstractPage
 				$this->sendJSON($LNG['fl_acs_newname_alphanum']);
 			}
 			
-			$GLOBALS['DATABASE']->query("UPDATE ".AKS." SET name = '".$GLOBALS['DATABASE']->sql_escape($acsName)."' WHERE id = ".$acsData['id'].";");
-			$this->sendJSON(false);
+			$sql = "UPDATE %%AKS%% SET name = acsName WHERE id = :acsID;";
+            $db->update($sql, array(
+                ':acsName'  => $acsName,
+                ':acsID'    => $acsData['id']
+            ));
+            $this->sendJSON(false);
 		}
 		
 		$invitedUsers	= array();
-		$userResult 	= $GLOBALS['DATABASE']->query("SELECT id, username
-									  FROM ".USERS_ACS."
-									  INNER JOIN ".USERS." ON userID = id 
-									  WHERE acsID = ".$acsData['id'].";");
-		
-		while($userRow = $GLOBALS['DATABASE']->fetch_array($userResult))
+
+        $sql = "SELECT id, username FROM %%USERS_ACS%% INNER JOIN %%USERS%% ON userID = id WHERE acsID = :acsID;";
+        $userResult = $db->select($sql, array(
+            ':acsID'    => $acsData['id']
+        ));
+
+        foreach($userResult as $userRow)
 		{
 			$invitedUsers[$userRow['id']]	= $userRow['username'];
 		}
 
-		$GLOBALS['DATABASE']->free_result($userResult);
-		
 		$newUser		= HTTP::_GP('username', '', UTF8_SUPPORT);
 		$statusMessage	= "";
 		if(!empty($newUser))
 		{
-			$newUserID				= $GLOBALS['DATABASE']->getFirstCell("SELECT id FROM ".USERS." WHERE universe = ".$UNI." AND username = '".$GLOBALS['DATABASE']->sql_escape($newUser)."';");
-				
-			if(empty($newUserID)) {
+			$sql = "SELECT id FROM %%USERS%% WHERE universe = :universe AND username = :username;";
+            $newUserID = $db->selectSingle($sql, array(
+                ':universe' => $UNI,
+                ':username' => $newUser
+            ), 'id');
+
+            if(empty($newUserID)) {
 				$statusMessage			= $LNG['fl_player']." ".$newUser." ".$LNG['fl_dont_exist'];
 			} elseif(isset($invitedUsers[$newUserID])) {
 				$statusMessage			= $LNG['fl_player']." ".$newUser." ".$LNG['fl_already_invited'];
 			} else {
 				$statusMessage			= $LNG['fl_player']." ".$newUser." ".$LNG['fl_add_to_attack'];
 				
-				$GLOBALS['DATABASE']->query("INSERT INTO ".USERS_ACS." SET acsID = ".$acsData['id'].", userID = ".$newUserID.";");
-				
-				$invitedUsers[$newUserID]	= $newUser;
+				$sql = "INSERT INTO %%USERS_ACS%% SET acsID = :acsID, userID = :newUserID;";
+                $db->insert($sql, array(
+                    ':acsID'        => $acsData['id'],
+                    ':newUserID'    => $newUserID
+                ));
+
+                $invitedUsers[$newUserID]	= $newUser;
 				
 				$inviteTitle			= $LNG['fl_acs_invitation_title'];
 				$inviteMessage 			= $LNG['fl_player'] . $USER['username'] . $LNG['fl_acs_invitation_message'];
@@ -162,7 +185,9 @@ class ShowFleetTablePage extends AbstractPage
 		$acsData			= array();
 		$FleetID			= HTTP::_GP('fleetID', 0);
 		$GetAction			= HTTP::_GP('action', "");
-	
+
+        $db = Database::get();
+
 		$this->tplObj->loadscript('flotten.js');
 		
 		if(!empty($FleetID) && !IsVacationMode($USER))
@@ -197,13 +222,17 @@ class ShowFleetTablePage extends AbstractPage
 		$targetPlanet	= HTTP::_GP('planet', (int) $PLANET['planet']);
 		$targetType		= HTTP::_GP('planettype', (int) $PLANET['planet_type']);
 		$targetMission	= HTTP::_GP('target_mission', 0);
-		
-		$fleetResult 		= $GLOBALS['DATABASE']->query("SELECT * FROM ".FLEETS." WHERE fleet_owner = ".$USER['id']." AND fleet_mission <> 10 ORDER BY fleet_end_time ASC;");
-		$activeFleetSlots	= $GLOBALS['DATABASE']->numRows($fleetResult);
+
+        $sql = "SELECT * FROM %%FLEETS%% WHERE fleet_owner = :userID AND fleet_mission <> 10 ORDER BY fleet_end_time ASC;";
+        $fleetResult = $db->select($sql, array(
+            ':userID'   => $USER['id']
+        ));
+
+        $activeFleetSlots	= $db->rowCount();
 
 		$FlyingFleetList	= array();
 		
-		while ($fleetsRow = $GLOBALS['DATABASE']->fetch_array($fleetResult))
+		foreach ($fleetResult as $fleetsRow)
 		{
 			$fleet = explode(";", $fleetsRow['fleet_array']);
 

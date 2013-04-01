@@ -39,7 +39,7 @@ class ShowFleetStep1Page extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $resource, $pricelist, $reslist, $LNG;
+		global $USER, $PLANET, $pricelist, $reslist, $LNG;
 		
 		$targetGalaxy 			= HTTP::_GP('galaxy', (int) $PLANET['galaxy']);
 		$targetSystem 			= HTTP::_GP('system', (int) $PLANET['system']);
@@ -121,8 +121,9 @@ class ShowFleetStep1Page extends AbstractPage
 		if(!isset($_REQUEST['shortcut'])) {
 			$this->sendJSON($LNG['fl_shortcut_saved']);
 		}
-		
-		$Shortcut		= array();
+
+        $db = Database::get();
+
 		$ShortcutData	= $_REQUEST['shortcut'];
 		$ShortcutUser	= $this->GetUserShotcut();
 		foreach($ShortcutData as $ID => $Data) {
@@ -130,28 +131,37 @@ class ShowFleetStep1Page extends AbstractPage
 				if(empty($Data['name']) || empty($Data['galaxy']) || empty($Data['system']) || empty($Data['planet'])) {
 					continue;
 				}
-				
-				$GLOBALS['DATABASE']->query("INSERT INTO ".SHORTCUTS." 
-				SET ownerID = ".$USER['id'].",
-				name = '".$GLOBALS['DATABASE']->sql_escape($Data['name'])."', 
-				galaxy = ".((int) $Data['galaxy']).", 
-				system = ".((int) $Data['system']).",
-				planet = ".((int) $Data['planet']).",
-				type = ".((int) $Data['type']).";");
+
+                $sql = "INSERT INTO %%SHORTCUTS%% SET ownerID = :userID, name = :name, galaxy = :galaxy, system = :system, planet = :planet, type = :type;";
+                $db->insert($sql, array(
+                    ':userID'   => $USER['id'],
+                    ':name'     => $Data['name'],
+                    ':galaxy'   => $Data['galaxy'],
+                    ':system'   => $Data['system'],
+                    ':planet'   => $Data['planet'],
+                    ':type'     => $Data['type']
+                ));
 			} elseif(empty($Data['name'])) {
-				$GLOBALS['DATABASE']->query("DELETE FROM ".SHORTCUTS." WHERE shortcutID = ".((int) $ID)." AND ownerID = ".$USER['id'].";");
-			} else {
+				$sql = "DELETE FROM %%SHORTCUTS%% WHERE shortcutID = :shortcutID AND ownerID = :userID;";
+                $db->delete($sql, array(
+                    ':shortcutID'   => $ID,
+                    ':userID'       => $USER['id']
+                ));
+            } else {
 				$Data['ownerID']		= $USER['id'];
 				$Data['shortcutID']		= $ID;
 				if($Data != $ShortcutUser[$ID]) {
-					$GLOBALS['DATABASE']->query("UPDATE ".SHORTCUTS." 
-					SET name = '".$GLOBALS['DATABASE']->sql_escape($Data['name'])."', 
-					galaxy = ".((int) $Data['galaxy']).", 
-					system = ".((int) $Data['system']).",
-					planet = ".((int) $Data['planet']).",
-					type = ".((int) $Data['type'])."
-					WHERE shortcutID = ".((int) $ID)." AND ownerID = ".$USER['id'].";");
-				}				
+                    $sql = "UPDATE %%SHORTCUTS%% SET name = :name, galaxy = :galaxy, system = :system, planet = :planet, type = :type WHERE shortcutID = :shortcutID AND ownerID = :userID;";
+                    $db->update($sql, array(
+                        ':userID'   => $USER['id'],
+                        ':name'     => $Data['name'],
+                        ':galaxy'   => $Data['galaxy'],
+                        ':system'   => $Data['system'],
+                        ':planet'   => $Data['planet'],
+                        ':type'     => $Data['type'],
+                        ':shortcutID'   => $ID
+                    ));
+                }
 			}
 		}
 		
@@ -187,44 +197,51 @@ class ShowFleetStep1Page extends AbstractPage
 		
 		if (!isModulAvalible(MODULE_SHORTCUTS))
 			return array();
-			
-		$ShortcutResult	= $GLOBALS['DATABASE']->query("SELECT * FROM ".SHORTCUTS." WHERE ownerID = ".$USER['id'].";");
-			
-		$ShortcutList	= array();
 
-		while($ShortcutRow = $GLOBALS['DATABASE']->fetch_array($ShortcutResult)) {						
+        $db = Database::get();
+
+        $sql = "SELECT * FROM %%SHORTCUTS%% WHERE ownerID = :userID;";
+        $ShortcutResult = $db->select($sql, array(
+            ':userID'   => $USER['id']
+        ));
+
+        $ShortcutList	= array();
+
+		foreach($ShortcutResult as $ShortcutRow) {
 			$ShortcutList[$ShortcutRow['shortcutID']] = $ShortcutRow;
 		}
-		
-		$GLOBALS['DATABASE']->free_result($ShortcutResult);
 		
 		return $ShortcutList;
 	}
 	
 	private function GetAvalibleACS()
 	{
-		global $USER, $CONF;
+		global $USER;
 		
-		$ACSResult 	= $GLOBALS['DATABASE']->query("SELECT acs.id, acs.name, planet.galaxy, planet.system, planet.planet, planet.planet_type 
-		FROM ".USERS_ACS."
-		INNER JOIN ".AKS." acs ON acsID = acs.id
-		INNER JOIN ".PLANETS." planet ON planet.id = acs.target 
-		WHERE userID = ".$USER['id']." AND ".Config::get('max_fleets_per_acs')." > (SELECT COUNT(*) FROM ".FLEETS." WHERE fleet_group = acsID);");
+		$db = Database::get();
+
+        $sql = "SELECT acs.id, acs.name, planet.galaxy, planet.system, planet.planet, planet.planet_type
+		FROM %%USERS_ACS%%
+		INNER JOIN %%AKS%% acs ON acsID = acs.id
+		INNER JOIN %%PLANETS%% planet ON planet.id = acs.target
+		WHERE userID = :userID AND :maxFleets > (SELECT COUNT(*) FROM %%FLEETS%% WHERE fleet_group = acsID);";
+        $ACSResult = $db->select($sql, array(
+            ':userID'       => $USER['id'],
+            ':maxFleets'    => Config::get('max_fleets_per_acs'),
+        ));
+
+        $ACSList	= array();
 		
-		$ACSList	= array();
-		
-		while($ACSRow = $GLOBALS['DATABASE']->fetch_array($ACSResult)) {
+		foreach ($ACSResult as $ACSRow) {
 			$ACSList[]	= $ACSRow;
 		}
-		
-		$GLOBALS['DATABASE']->free_result($ACSResult);
 		
 		return $ACSList;
 	}
 	
 	function checkTarget()
 	{
-		global $PLANET, $LNG, $UNI, $CONF, $USER, $resource;
+		global $PLANET, $LNG, $UNI, $USER, $resource;
 		$TargetGalaxy 					= HTTP::_GP('galaxy', 0);
 		$TargetSystem 					= HTTP::_GP('system', 0);
 		$TargetPlanet					= HTTP::_GP('planet', 0);
@@ -236,9 +253,24 @@ class ShowFleetStep1Page extends AbstractPage
 		}
 		
 		if ($TargetPlanet != Config::get('max_planets') + 1) {
-			$Data	= $GLOBALS['DATABASE']->getFirstRow("SELECT u.id, u.urlaubs_modus, u.user_lastip, u.authattack, p.destruyed, p.der_metal, p.der_crystal, p.destruyed FROM ".USERS." as u, ".PLANETS." as p WHERE p.universe = ".$UNI." AND p.galaxy = ".$TargetGalaxy." AND p.system = ".$TargetSystem." AND p.planet = ".$TargetPlanet."  AND p.planet_type = '".(($TargetPlanettype == 2) ? 1 : $TargetPlanettype)."' AND u.id = p.id_owner;");
+			$db = Database::get();
+            $sql = "SELECT u.id, u.urlaubs_modus, u.user_lastip, u.authattack, p.destruyed, p.der_metal, p.der_crystal, p.destruyed
+                FROM %%USERS%% as u, %%PLANETS%% as p WHERE
+                p.universe = :universe AND
+                p.galaxy = :targetGalaxy AND
+                p.system = :targetSystem AND
+                p.planet = :targetPlanet  AND
+                p.planet_type = :targetType AND
+                u.id = p.id_owner;";
+            $Data = $db->selectSingle($sql, array(
+                ':universe'     => $UNI,
+                ':targetGalaxy' => $TargetGalaxy,
+                ':targetSystem' => $TargetSystem,
+                ':targetPlanet' => $TargetPlanet,
+                ':targetType' => (($TargetPlanettype == 2) ? 1 : $TargetPlanettype),
+            ));
 
-			if ($TargetPlanettype == 3 && !isset($Data))
+            if ($TargetPlanettype == 3 && !isset($Data))
 			{
 				$this->sendJSON($LNG['fl_error_no_moon']);
 			}
@@ -258,7 +290,7 @@ class ShowFleetStep1Page extends AbstractPage
 			{
 				$this->sendJSON($LNG['fl_error_empty_derbis']);
 			}
-			elseif(ENABLE_MULTIALERT && $USER['id'] != $Data['id'] && $USER['authlevel'] != AUTH_ADM && $USER['user_lastip'] == $Data['user_lastip'] && $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$USER['id'].") + (SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$Data['id'].")") != 2)
+			elseif(ENABLE_MULTIALERT && $USER['id'] != $Data['id'] && $USER['authlevel'] != AUTH_ADM && $USER['user_lastip'] == $Data['user_lastip'] && $db->selectSingle("SELECT (SELECT COUNT(*) as count FROM %%MULTI%% WHERE userID = :userID) + (SELECT COUNT(*) FROM %%MULTI%% WHERE userID = :dataID;", array(':userID' => $USER['id'], ':dataID' => $Data['id']), 'count') != 2)
 			{
 				$this->sendJSON($LNG['fl_multi_alarm']);
 			}
