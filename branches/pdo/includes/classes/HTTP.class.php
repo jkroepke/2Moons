@@ -40,12 +40,17 @@ class HTTP {
 		}
 		exit;
 	}
-	
+
 	static public function sendHeader($name, $value = NULL)
 	{
 		header($name.(!is_null($value) ? ': '.$value : ''));
 	}
-	
+
+	static public function redirectToUniverse($universe)
+	{
+		HTTP::redirectToUniverse(PROTOCOL.HTTP_HOST.HTTP_BASE."uni".$universe."/".HTTP_FILE, true);
+	}
+
 	static public function sendCookie($name, $value = "", $toTime = NULL)
 	{
 		setcookie($name, $value, $toTime);

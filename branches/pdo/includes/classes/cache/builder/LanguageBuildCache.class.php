@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
+ *  Copyright (C) 2012 Jan Krï¿½pke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @author Jan Krï¿½pke <info@2moons.cc>
+ * @copyright 2012 Jan Krï¿½pke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.7.2 (2013-03-18)
  * @info $Id$
@@ -28,24 +28,24 @@
 
 class LanguageBuildCache
 {
-	function buildCache()
+	public function buildCache()
 	{
 		$languages	= array();
 		foreach (new DirectoryIterator(ROOT_PATH.'language/') as $fileInfo)
 		{
 			if(!$fileInfo->isDir()) continue;
-			
+
 			$Lang	= $fileInfo->getBasename();
-			
+
 			if(!file_exists(ROOT_PATH.'language/'.$Lang.'/LANG.cfg')) continue;
-				
+
 			// Fixed BOM problems.
 			ob_start();
 			require 'language/'.$Lang.'/LANG.cfg';
 			ob_end_clean();
 			$languages[$Lang]	= $Language['name'];
 		}
-		
+
 		return $languages;
 	}
 }

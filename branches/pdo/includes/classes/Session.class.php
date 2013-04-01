@@ -34,6 +34,12 @@ class Session
 
 	private $data = NULL;
 
+	/**
+	 * Set PHP session settings
+	 *
+	 * @return void
+	 */
+
 	static public function init() {
 		ini_set('session.use_cookies', '1');
 		ini_set('session.use_only_cookies', '1');
@@ -53,15 +59,16 @@ class Session
 		session_cache_limiter('nocache');
 		session_name('2Moons');
 	}
-	
-	static public function redirectCode($Code)
-	{
-		HTTP::redirectTo('index.php?code='.$Code);
-	}
+
+	/**
+	 * Create an empty session
+	 *
+	 * @return Session
+	 */
 
 	static public function create()
 	{
-		if(!isset(self::$obj))
+		if(!self::existsActiveSession())
 		{
 			self::$obj	= new self;
 			session_start();
@@ -70,15 +77,32 @@ class Session
 		return self::$obj;
 	}
 
+	/**
+	 * Wake an active session
+	 *
+	 * @return Session
+	 */
+
 	static public function load()
 	{
-		if(!isset(self::$obj))
+		if(!self::existsActiveSession())
 		{
 			self::$obj	= unserialize($_SESSION['obj']);
 			session_start();
 		}
 
 		return self::$obj;
+	}
+
+	/**
+	 * Check if an active session exists
+	 *
+	 * @return bool
+	 */
+
+	static public function existsActiveSession()
+	{
+		return isset(self::$obj);
 	}
 
 	public function __construct()
@@ -145,6 +169,7 @@ class Session
 		$this->selectActivePlanet();
 
 		$this->data['lastActivity'] = TIMESTAMP;
+		$this->data['sessionId']	= session_id();
 		$this->data['userIpAdress'] = $_SERVER['REMOTE_ADDR'];
 		$this->data['requestPath']	= $this->getRequestPath();
 

@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
+ *  Copyright (C) 2012 Jan Kr�pke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,27 +18,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @author Jan Kr�pke <info@2moons.cc>
+ * @copyright 2012 Jan Kr�pke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.7.2 (2013-03-18)
- * @info $Id$
+ * @info $Id: LanguageBuildCache.class.php 2659 2013-04-01 11:12:09Z slaver7 $
  * @link http://2moons.cc/
  */
 
-// VARS DB -> SCRIPT WRAPPER
+class UniversesBuildCache
+{
+	public function buildCache()
+	{
+		$db	= Database::get();
 
-$cache	= Cache::get();
-$cache->add('vars', 'VarsBuildCache');
-extract($cache->getData('vars'));
+		$sql = 'SELECT uni FROM %%CONFIG%%;';
+		$result = $db->nativeQuery($sql);
 
-$resource[901] = 'metal';
-$resource[902] = 'crystal';
-$resource[903] = 'deuterium';
-$resource[911] = 'energy';
-$resource[921] = 'darkmatter';
+		$universes = array();
+		foreach($result as $row)
+		{
+			$universes = $row['uni'];
+		}
 
-$reslist['ressources']  = array(901, 902, 903, 911, 921);
-$reslist['resstype'][1] = array(901, 902, 903);
-$reslist['resstype'][2] = array(911);
-$reslist['resstype'][3] = array(921);
+		return $universes;
+	}
+}

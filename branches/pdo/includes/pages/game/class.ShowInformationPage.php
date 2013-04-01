@@ -194,8 +194,6 @@ class ShowInformationPage extends AbstractPage
 			$NextJumpTime				= self::getNextJumpWaitTime($moonRow['last_jump_time']);
 			$moonList[$moonRow['id']]	= '['.$moonRow['galaxy'].':'.$moonRow['system'].':'.$moonRow['planet'].'] '.$moonRow['name'].(TIMESTAMP < $NextJumpTime ? ' ('.pretty_time($NextJumpTime - TIMESTAMP).')':'');
 		}
-		
-		$GLOBALS['DATABASE']->free_result($moonResult);
 
 		return $moonList;
 	}
