@@ -31,7 +31,7 @@
 
 class Mail
 {	
-	function send($mailTarget, $mailTargetName, $mailSubject, $mailContent)
+	static public function send($mailTarget, $mailTargetName, $mailSubject, $mailContent)
 	{		
 		$mail	= self::getMailObject();
 		
@@ -45,8 +45,8 @@ class Mail
         $mail->AddAddress($mailTarget, $mailTargetName);
         $mail->Send(); 
 	}
-	
-	function multiSend($mailTargets, $mailSubject, $mailContent = NULL)
+
+	static public function multiSend($mailTargets, $mailSubject, $mailContent = NULL)
 	{
 		$mail	= self::getMailObject();
 		
@@ -67,8 +67,8 @@ class Mail
 			$mail->ClearAddresses();
 		}
 	}
-	
-	function getMailObject()
+
+	static private function getMailObject()
 	{
         require 'includes/libs/phpmailer/class.phpmailer.php';
         $mail                   = new PHPMailer(true);
