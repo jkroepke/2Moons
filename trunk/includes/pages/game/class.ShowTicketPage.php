@@ -83,10 +83,6 @@ class ShowTicketPage extends AbstractPage
 		$message	= HTTP::_GP('message', '', true);
 		$subject	= HTTP::_GP('subject', '', true);
 		
-		if(empty($subject)) {
-			$this->printMessage($LNG['ti_error_no_subject']);
-		}
-		
 		if(empty($message)) {
 			if(empty($ticketID)) {
 				$this->redirectTo('game.php?page=ticket&mode=create');
@@ -96,6 +92,9 @@ class ShowTicketPage extends AbstractPage
 		}
 		
 		if(empty($ticketID)) {
+			if(empty($subject)) {
+				$this->printMessage($LNG['ti_error_no_subject']);
+			}
 			$ticketID	= $this->ticketObj->createTicket($USER['id'], $categoryID, $subject);
 		} else {
 			$ticketDetail	= $GLOBALS['DATABASE']->getFirstCell("SELECT status FROM ".TICKETS." WHERE ticketID = ".$ticketID.";");
@@ -120,7 +119,9 @@ class ShowTicketPage extends AbstractPage
 		if($GLOBALS['DATABASE']->numRows($answerResult) == 0) {
 			$this->printMessage(sprintf($LNG['ti_not_exist'], $ticketID));
 		}
-		
+
+		$ticket_status = 'Unknown';
+
 		while($answerRow = $GLOBALS['DATABASE']->fetch_array($answerResult)) {
 			$answerRow['time']	= _date($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
 			$answerRow['message']	= bbcode($answerRow['message']);
