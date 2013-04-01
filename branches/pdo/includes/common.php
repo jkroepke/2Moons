@@ -68,16 +68,16 @@ require('includes/GeneralFunctions.php');
 set_exception_handler('exceptionHandler');
 set_error_handler('errorHandler');
 
-require('includes/classes/class.Cache.php');
-require('includes/classes/class.Database.php');
-require('includes/classes/class.theme.php');
-require('includes/classes/class.Session.php');
-require('includes/classes/class.template.php');
-require('includes/classes/Config.class.php');
-require('includes/classes/ArrayUtil.class.php');
-require('includes/classes/Language.class.php');
-require('includes/classes/HTTP.class.php');
-require('includes/classes/PlayerUtil.class.php');
+require 'includes/classes/class.Cache.php';
+require 'includes/classes/Database.class.php';
+require 'includes/classes/class.theme.php';
+require 'includes/classes/class.template.php';
+require 'includes/classes/Config.class.php';
+require 'includes/classes/Session.class.php';
+require 'includes/classes/ArrayUtil.class.php';
+require 'includes/classes/Language.class.php';
+require 'includes/classes/HTTP.class.php';
+require 'includes/classes/PlayerUtil.class.php';
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
@@ -99,7 +99,6 @@ require('includes/config.php');
 require('includes/dbtables.php');
 
 $SESSION	= new Session();
-$DATABASE	= new Database();
 unset($database);
 
 Config::init();
@@ -125,20 +124,28 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 	if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS)) {
 		require('includes/FleetHandler.php');
 	}
-		
-	$USER	= $GLOBALS['DATABASE']->getFirstRow("SELECT 
+	
+	$db		= Database::get();
+	$sql	= "SELECT 
 	user.*, 
 	stat.total_points, 
 	stat.total_rank,
 	COUNT(message.message_id) as messages
-	FROM ".USERS." as user 
-	LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
-	LEFT JOIN ".MESSAGES." as message ON message.message_owner = user.id AND message.message_unread = '1'
-	WHERE user.id = ".$_SESSION['id']."
-	GROUP BY message.message_owner;");
+	FROM %%USERS%% as user 
+	LEFT JOIN %%STATPOINTS%% as stat ON stat.id_owner = user.id AND stat.stat_type = :statType
+	LEFT JOIN %%MESSAGES%% as message ON message.message_owner = user.id AND message.message_unread = :unread
+	WHERE user.id = :sessionId
+	GROUP BY message.message_owner;";
 	
-	if(empty($USER)) {
-		exit(header('Location: index.php'));
+	$USER	= $db->selectSingle($sql, array(
+		':unread'		=> 1,
+		':statType'		=> 1,
+		':sessionId'	=> $_SESSION['id']
+	));
+	
+	if(empty($USER))
+	{
+		HTTP::redirectTo('index.php?code=3');
 	}
 	
 	$LNG	= new Language($USER['lang']);
@@ -160,11 +167,17 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 			HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE."uni".$USER['universe']."/".HTTP_FILE, true);
 		}
 		
-		$PLANET = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$_SESSION['planet'].";");
+		$sql	= "SELECT * FROM %%PLANETS%% WHERE id = :planetId;";
+		$USER	= $db->selectSingle($sql, array(
+			':planetId'	=> $_SESSION['planet'],
+		));
 
 		if(empty($PLANET))
 		{
-			$PLANET = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$USER['id_planet'].";");
+			$sql	= "SELECT * FROM %%PLANETS%% WHERE id = :planetId;";
+			$USER	= $db->selectSingle($sql, array(
+				':planetId'	=> $USER['id_planet'],
+			));
 			
 			if(empty($PLANET))
 			{

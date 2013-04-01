@@ -129,9 +129,9 @@ class Language implements ArrayAccess {
 	
 	public function getTemplate($templateName)
 	{
-		if(file_exists('language/'.$this->getLanguage().'/templates/'.$templateName.'.txt'))
+		if(file_exists(ROOT_PATH.'language/'.$this->getLanguage().'/templates/'.$templateName.'.txt'))
 		{
-			return file_get_contents('language/'.$this->getLanguage().'/templates/'.$templateName.'.txt');
+			return file_get_contents(ROOT_PATH.'language/'.$this->getLanguage().'/templates/'.$templateName.'.txt');
 		}
 		else
 		{

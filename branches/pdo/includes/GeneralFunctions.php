@@ -607,7 +607,7 @@ function fleetAmountToArray($fleetAmount)
 
 function exceptionHandler($exception) 
 {
-	global $CONF;
+	global $CONF, $UNI;
 	if(!headers_sent()) {
 		if (!class_exists('HTTP', false)) {
 			require_once('includes/classes/HTTP.class.php');
@@ -644,7 +644,9 @@ function exceptionHandler($exception)
 		{
 			throw new Exception("No config class");
 		}
-		$VERSION	= Config::get('VERSION');
+		$config		= Config::get($UNI);
+		$gameName	= $config->game_name;
+		$VERSION	= $config->VERSION;
 	} catch(Exception $e) {
 		if(file_exists(ROOT_PATH.'install/VERSION'))
 		{
@@ -654,19 +656,8 @@ function exceptionHandler($exception)
 		{
 			$VERSION	= 'UNKNOWN';
 		}
-	}
-	
-	try
-	{
-		if(!class_exists('Config', false))
-		{
-			throw new Exception("No config class");
-		}
-		$gameName	= Config::get('game_name');
-	} catch(Exception $e) {
 		$gameName	= '-';
 	}
-	
 	$DIR		= MODE == 'INSTALL' ? '..' : '.';
 	ob_start();
 	echo '<!DOCTYPE html>

@@ -31,9 +31,9 @@ class CleanerCronjob
 {
 	function run()
 	{
-		$CONF	= Config::getAll(NULL, ROOT_UNI);
+        $CONF	= Config::getAll(null, ROOT_UNI);
 		
-		$unis	= array_keys(Config::getAll(NULL));
+		$unis	= array_keys(Config::getAll(null));
 		
 		$GLOBALS['DATABASE']->query("LOCK TABLES ".ALLIANCE." WRITE, ".ALLIANCE_REQUEST." WRITE,
 									".BUDDY." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".FLEETS_EVENT." WRITE, 
