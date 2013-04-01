@@ -38,7 +38,9 @@ class ShowImperiumPage extends AbstractPage
 
 	function show()
 	{
-		global $LNG, $USER, $PLANET, $resource, $reslist;
+		global $USER, $PLANET, $resource, $reslist;
+
+        $db = Database::get();
 
 		if($USER['planet_sort'] == 0) {
 			$Order	= "id ";
@@ -49,16 +51,21 @@ class ShowImperiumPage extends AbstractPage
 		}
 		
 		$Order .= ($USER['planet_sort_order'] == 1) ? "DESC" : "ASC" ;
-		
-		$PlanetsRAW = $GLOBALS['DATABASE']->query("SELECT * FROM ".PLANETS." WHERE id != ".$PLANET['id']." AND id_owner = '".$USER['id']."' AND destruyed = '0' ORDER BY ".$Order.";");
-		$PLANETS	= array($PLANET);
+
+        $sql = "SELECT * FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND destruyed = '0' ORDER BY :order;";
+        $PlanetsRAW = $db->select($sql, array(
+            ':planetID' => $PLANET['id'],
+            ':userID'   => $USER['id'],
+            ':order'    => $Order,
+        ));
+
+        $PLANETS	= array($PLANET);
 		
 		$PlanetRess	= new ResourceUpdate();
 		
-		while($CPLANET = $GLOBALS['DATABASE']->fetch_array($PlanetsRAW))
+		foreach ($PlanetsRAW as $CPLANET)
 		{
-
-			list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, true);
+            list($USER, $CPLANET)	= $PlanetRess->CalcResource($USER, $CPLANET, true);
 			
 			$PLANETS[]	= $CPLANET;
 			unset($CPLANET);

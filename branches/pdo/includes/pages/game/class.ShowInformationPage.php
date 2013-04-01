@@ -40,14 +40,14 @@ class ShowInformationPage extends AbstractPage
 		
 	static function getNextJumpWaitTime($lastTime)
 	{
-		global $CONF;
-		
 		return $lastTime + Config::get('gate_wait_time');
 	}
 
 	public function sendFleet()
 	{
 		global $PLANET, $USER, $resource, $LNG, $reslist;
+
+        $db = Database::get();
 
 		$NextJumpTime = self::getNextJumpWaitTime($PLANET['last_jump_time']);
 		
@@ -56,9 +56,14 @@ class ShowInformationPage extends AbstractPage
 		}
 		
 		$TargetPlanet = HTTP::_GP('jmpto', (int) $PLANET['id']);
-		$TargetGate   = $GLOBALS['DATABASE']->getFirstRow("SELECT id, last_jump_time FROM ".PLANETS." WHERE id = ".$TargetPlanet." AND id_owner = ".$USER['id']." AND sprungtor > 0;");
 
-		if (!isset($TargetGate) || $TargetPlanet == $PLANET['id']) {
+        $sql = "SELECT id, last_jump_time FROM %%PLANETS%% WHERE id = :targetID AND id_owner = :userID AND sprungtor > 0;";
+        $TargetGate = $db->selectSingle($sql, array(
+            ':targetID' => $TargetPlanet,
+            ':userID'   => $USER['id']
+        ));
+
+        if (!isset($TargetGate) || $TargetPlanet == $PLANET['id']) {
 			$this->sendJSON(array('message' => $LNG['in_jump_gate_doesnt_have_one'], 'error' => true));
 		}
 		
@@ -72,7 +77,8 @@ class ShowInformationPage extends AbstractPage
 		$SubQueryOri	= "";
 		$SubQueryDes	= "";
 		$Ships			= HTTP::_GP('ship', array());
-		
+		$SubQueryParams = array();
+
 		foreach($reslist['fleet'] as $Ship)
 		{
 			if(!isset($Ships[$Ship]) || $Ship == 212)
@@ -83,30 +89,33 @@ class ShowInformationPage extends AbstractPage
 			if(empty($ShipArray[$Ship]))
 				continue;
 								
-			$SubQueryOri 		.= $resource[$Ship]." = ".$resource[$Ship]." - ".$ShipArray[$Ship].", ";
-			$SubQueryDes 		.= $resource[$Ship]." = ".$resource[$Ship]." + ".$ShipArray[$Ship].", ";
+			$SubQueryOri 		.= $resource[$Ship]." = ".$resource[$Ship]." - :".$resource[$Ship].", ";
+            $SubQueryDes 		.= $resource[$Ship]." = ".$resource[$Ship]." + :".$resource[$Ship].", ";
+            $SubQueryParams[':'.$resource[$Ship]]    = $ShipArray[$Ship];
 			$PLANET[$resource[$Ship]] -= $ShipArray[$Ship];
 		}
 
 		if (empty($SubQueryOri)) {
 			$this->sendJSON(array('message' => $LNG['in_jump_gate_error_data'], 'error' => true));
 		}
-		
-		$JumpTime	= TIMESTAMP;
 
-		$SQL  = "UPDATE ".PLANETS." SET ";
-		$SQL .= $SubQueryOri;
-		$SQL .= "last_jump_time = ".$JumpTime." ";
-		$SQL .= "WHERE ";
-		$SQL .= "id = ". $PLANET['id'].";";
-		$SQL .= "UPDATE ".PLANETS." SET ";
-		$SQL .= $SubQueryDes;
-		$SQL .= "last_jump_time = ".$JumpTime." ";
-		$SQL .= "WHERE ";
-		$SQL .= "id = ".$TargetPlanet.";";
-		$GLOBALS['DATABASE']->multi_query($SQL);
+        //TODO: TEST IT!
 
-		$PLANET['last_jump_time'] 	= $JumpTime;
+		$sql  = "UPDATE %%PLANETS%% SET :subquery last_jump_time = :jumptime WHERE id = :planetID;";
+		$db->update($sql, array_merge(array(
+            ':planetID' => $PLANET['id'],
+            ':jumptime' => TIMESTAMP,
+            ':subquery' => $SubQueryOri
+        ), $SubQueryParams));
+
+        $sql  = "UPDATE %%PLANETS%% SET :subquery last_jump_time = :jumptime WHERE id = :targetID;";
+        $db->update($sql, array_merge(array(
+            ':targetID' => $TargetPlanet,
+            ':jumptime' => TIMESTAMP,
+            ':subquery' => $SubQueryDes
+        ), $SubQueryParams));
+
+		$PLANET['last_jump_time'] 	= TIMESTAMP;
 		$NextJumpTime	= self::getNextJumpWaitTime($PLANET['last_jump_time']);
 		$this->sendJSON(array('message' => sprintf($LNG['in_jump_gate_done'], pretty_time($NextJumpTime - TIMESTAMP)), 'error' => false));
 	}
@@ -131,20 +140,31 @@ class ShowInformationPage extends AbstractPage
 	public function destroyMissiles()
 	{
 		global $resource, $PLANET;
-		
+
+        $db = Database::get();
+
 		$Missle	= HTTP::_GP('missile', array());
 		$PLANET[$resource[502]]	-= max(0, min($Missle[502], $PLANET[$resource[502]]));
 		$PLANET[$resource[503]]	-= max(0, min($Missle[503], $PLANET[$resource[503]]));
-		
-		$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$resource[502]." = ".$PLANET[$resource[502]].", ".$resource[503]." = ".$PLANET[$resource[503]]." WHERE id = ".$PLANET['id'].";");
-		
-		$this->sendJSON(array($PLANET[$resource[502]], $PLANET[$resource[503]]));
+
+        $sql = "UPDATE %%PLANETS%% SET :resource502Name = :resource502Val, :resource503Name = :resource503Val WHERE id = :planetID;";
+        $db->update($sql, array(
+            ':resource502Name'  => $resource[502],
+            ':resource503Name'  => $resource[503],
+            ':resource502Val'   => $PLANET[$resource[502]],
+            ':resource503Val'   => $PLANET[$resource[503]],
+            ':planetID'         => $PLANET['id']
+        ));
+
+        $this->sendJSON(array($PLANET[$resource[502]], $PLANET[$resource[503]]));
 	}
 
 	private function getTargetGates()
 	{
 		global $resource, $USER, $PLANET;
-								
+
+        $db = Database::get();
+
 		$Order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
 		$Sort  = $USER['planet_sort'];
 
@@ -160,11 +180,17 @@ class ShowInformationPage extends AbstractPage
                 break;
         }
 				
-				
-        $moonResult	= $GLOBALS['DATABASE']->query("SELECT id, name, galaxy, system, planet, last_jump_time, ".$resource[43]." FROM ".PLANETS." WHERE id != ".$PLANET['id']." AND id_owner = ". $USER['id'] ." AND planet_type = '3' AND ".$resource[43]." > 0 ORDER BY ".$OrderBy.";");
+		$sql = "SELECT id, name, galaxy, system, planet, last_jump_time, :resource43Name FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND planet_type = '3' AND :resource43Name > 0 ORDER BY :order;";
+        $moonResult = $db->select($sql, array(
+            ':resource43Name'   => $resource[43],
+            ':planetID'         => $PLANET['id'],
+            ':userID'           => $USER['id'],
+            ':order'            => $OrderBy
+        ));
+
         $moonList	= array();
 
-        while($moonRow = $GLOBALS['DATABASE']->fetch_array($moonResult)) {
+        foreach($moonResult as $moonRow) {
 			$NextJumpTime				= self::getNextJumpWaitTime($moonRow['last_jump_time']);
 			$moonList[$moonRow['id']]	= '['.$moonRow['galaxy'].':'.$moonRow['system'].':'.$moonRow['planet'].'] '.$moonRow['name'].(TIMESTAMP < $NextJumpTime ? ' ('.pretty_time($NextJumpTime - TIMESTAMP).')':'');
 		}
@@ -176,7 +202,7 @@ class ShowInformationPage extends AbstractPage
 
 	public function show()
 	{
-		global $USER, $PLANET, $dpath, $LNG, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid, $CONF;
+		global $USER, $PLANET, $LNG, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid, $CONF;
 
 		$elementID 	= HTTP::_GP('id', 0);
 		
@@ -194,11 +220,7 @@ class ShowInformationPage extends AbstractPage
 		
 		if(in_array($elementID, $reslist['prod']) && in_array($elementID, $reslist['build']))
 		{
-			$BuildLevelFactor	= 10;
-			$BuildTemp       	= $PLANET['temp_max'];
 			$CurrentLevel		= $PLANET[$resource[$elementID]];
-			$BuildEnergy		= $USER[$resource[113]];
-			$BuildLevel     	= max($CurrentLevel, 0);
 			$BuildStartLvl   	= max($CurrentLevel - 2, 0);
 						
 			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++)
@@ -222,11 +244,7 @@ class ShowInformationPage extends AbstractPage
 		}
 		elseif(in_array($elementID, $reslist['storage']))
 		{
-			$BuildLevelFactor	= 10;
-			$BuildTemp       	= $PLANET['temp_max'];
 			$CurrentLevel		= $PLANET[$resource[$elementID]];
-			$BuildEnergy		= $USER[$resource[113]];
-			$BuildLevel     	= max($CurrentLevel, 0);
 			$BuildStartLvl   	= max($CurrentLevel - 2, 0);
 						
 			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++)
