@@ -41,11 +41,17 @@ class ShowNotesPage extends AbstractPage
 	function show()
 	{
 		global $LNG, $USER;
+
+        $db = Database::get();
+
+        $sql = "SELECT * FROM %%NOTES%% WHERE owner = :userID ORDER BY priority DESC, time DESC;";
+        $notesResult = $db->select($sql, array(
+            ':userID'   => $USER['id']
+        ));
+
+        $notesList		= array();
 		
-		$notesResult 	= $GLOBALS['DATABASE']->query("SELECT * FROM ".NOTES." WHERE owner = ".$USER['id']." ORDER BY priority DESC, time DESC;");
-		$notesList		= array();
-		
-		while($notesRow = $GLOBALS['DATABASE']->fetch_array($notesResult))
+		foreach($notesResult as $notesRow)
 		{
 			$notesList[$notesRow['id']]	= array(
 				'time'		=> _date($LNG['php_tdformat'], $notesRow['time'], $USER['timezone']),
@@ -54,8 +60,6 @@ class ShowNotesPage extends AbstractPage
 				'priority'	=> $notesRow['priority'],
 			);
 		}
-		
-		$GLOBALS['DATABASE']->free_result($notesResult);
 		
 		$this->tplObj->assign_vars(array(
 			'notesList'	=> $notesList,
@@ -71,7 +75,13 @@ class ShowNotesPage extends AbstractPage
 		$noteID		= HTTP::_GP('id', 0);
 		
 		if(!empty($noteID)) {
-			$noteDetail	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".NOTES." WHERE id = ".$noteID." AND owner = ".$USER['id'].";");
+            $db = Database::get();
+
+            $sql = "SELECT * FROM %%NOTES%% WHERE id = :noteID AND owner = :userID;";
+            $noteDetail = $db->selectSingle($sql, array(
+                ':userID'   => $USER['id'],
+                ':noteID'   => $noteID
+            ));
 		} else {
 			$noteDetail	= array(
 				'id'		=> 0,
@@ -99,14 +109,31 @@ class ShowNotesPage extends AbstractPage
 		$id			= HTTP::_GP('id', 0);	
 		$title 		= !empty($title) ? $title : $LNG['nt_no_title'];
 		$text 		= !empty($text) ? $text : $LNG['nt_no_text'];
-		
+
+        $db = Database::get();
+
 		if($id == 0) {
-			$SQL	= "INSERT INTO ".NOTES." SET owner = ".$USER['id'].", time = ".TIMESTAMP.", priority = ".$priority.", title = '".$GLOBALS['DATABASE']->sql_escape($title)."', text = '".$GLOBALS['DATABASE']->sql_escape($text)."', universe = ".Universe::current().";";
-		} else {
-			$SQL	= "UPDATE ".NOTES." SET time = ".TIMESTAMP.", priority = ".$priority.", title = '".$GLOBALS['DATABASE']->sql_escape($title)."', text = '".$GLOBALS['DATABASE']->sql_escape($text)."' WHERE id = ".$id.";";
-		}
+			$sql = "INSERT INTO %%NOTES%% SET owner = :userID, time = :time, priority = :priority, title = :title, text = :text, universe = :universe;";
+            $db->insert($sql, array(
+                ':userID'   => $USER['id'],
+                ':time'     => TIMESTAMP,
+                ':priority' => $priority,
+                ':title'    => $title,
+                ':text'     => $text,
+                ':universe' => Universe::current()
+            ));
+        } else {
+			$sql	= "UPDATE %%NOTES%% SET time = :time, priority = :priority, title = :title, text = :text WHERE id = :noteID;";
+            $db->update($sql, array(
+                ':noteID'   => $id,
+                ':time'     => TIMESTAMP,
+                ':priority' => $priority,
+                ':title'    => $title,
+                ':text'     => $text,
+                ':universe' => Universe::current()
+            ));
+        }
 		
-		$GLOBALS['DATABASE']->query($SQL);
 		$this->redirectTo('game.php?page=notes');
 	}
 	
@@ -115,13 +142,17 @@ class ShowNotesPage extends AbstractPage
 		global $USER;
 		if(isset($_POST['delmes']) && is_array($_POST['delmes']))
 		{
-			$SQLWhere = array();
-			foreach($_POST['delmes'] as $id => $b)
-			{
-				$SQLWhere[] = "id = '".(int) $id."'";
-			}
-			
-			$GLOBALS['DATABASE']->query("DELETE FROM ".NOTES." WHERE (".implode(" OR ",$SQLWhere).") AND owner = '".$USER['id']."';");
+			$db = Database::get();
+
+            //TODO: Test it!
+
+            list($IDs, ) = $_POST['delmes'];
+
+            $sql = "DELETE FROM %%NOTES%% WHERE id IN (:IDs) AND owner = :userID;";
+            $db->delete($sql, array(
+                ':userID'   => $USER['id'],
+                ':IDs'      => implode(', ', $IDs)
+            ));
 		}
 		$this->redirectTo('game.php?page=notes');
 	}

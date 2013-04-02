@@ -109,7 +109,7 @@ class ShowFleetStep3Page extends AbstractPage
 		{
             $sql = "SELECT ankunft FROM %%USERS_ACS%% INNER JOIN %%AKS%% ON id = acsID
 			WHERE acsID = :acsID AND :maxFleets > (SELECT COUNT(*) FROM %%FLEETS%% WHERE fleet_group = :acsID);";
-            $ACSTime = $db->selectSingle($sql. array(
+            $ACSTime = $db->selectSingle($sql, array(
                 ':acsID'        => $fleetGroup,
                 ':maxFleets'    => Config::get('max_fleets_per_acs'),
             ), 'ankunft');

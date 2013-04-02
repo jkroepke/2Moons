@@ -37,7 +37,7 @@ class ShowOverviewPage extends AbstractPage
 	
 	private function GetTeamspeakData()
 	{
-		global $CONF, $USER, $LNG;
+		global $USER, $LNG;
 		if (Config::get('ts_modon') == 0)
 		{
 			return false;
@@ -86,20 +86,17 @@ class ShowOverviewPage extends AbstractPage
 		$password =	HTTP::_GP('password', '', true);
 		if (!empty($password))
 		{
-			$IfFleets	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".FLEETS." WHERE 
-			(
-				fleet_owner = ".$USER['id']."
-				AND (
-					fleet_start_id = ".$PLANET['id']." OR fleet_start_id = ".$PLANET['id_luna']."
-				)
-			) OR (
-				fleet_target_owner = ".$USER['id']." 
-				AND (
-					fleet_end_id = ".$PLANET['id']." OR fleet_end_id = ".$PLANET['id_luna']."
-				)
-			);");
-			
-			if ($IfFleets > 0)
+			$db = Database::get();
+            $sql = "SELECT COUNT(*) FROM %%FLEETS%% WHERE
+                      (fleet_owner = :userID AND (fleet_start_id = :planetID OR fleet_start_id = :lunaID)) OR
+                      (fleet_target_owner = :userID AND (fleet_end_id = :planetID OR fleet_end_id = :lunaID));";
+            $IfFleets = $db->selectSingle($sql, array(
+                ':userID'   => $USER['id'],
+                ':planetID' => $PLANET['id'],
+                ':lunaID'   => $PLANET['id_luna']
+            ), 'count');
+
+            if ($IfFleets > 0)
 				exit(json_encode(array('message' => $LNG['ov_abandon_planet_not_possible'])));
 			elseif ($USER['id_planet'] == $PLANET['id'])
 				exit(json_encode(array('message' => $LNG['ov_principal_planet_cant_abanone'])));
@@ -108,10 +105,25 @@ class ShowOverviewPage extends AbstractPage
 			else
 			{
 				if($PLANET['planet_type'] == 1) {
-					$GLOBALS['DATABASE']->multi_query("UPDATE ".PLANETS." SET destruyed = ".(TIMESTAMP+ 86400)." WHERE id = ".$PLANET['id'].";DELETE FROM ".PLANETS." WHERE id = ".$PLANET['id_luna'].";");
-				} else {
-					$GLOBALS['DATABASE']->multi_query("UPDATE ".PLANETS." SET id_luna = 0 WHERE id_luna = ".$PLANET['id'].";DELETE FROM ".PLANETS." WHERE id = ".$PLANET['id'].";");
-				}
+					$sql = "UPDATE %%PLANETS%% SET destruyed = :time WHERE id = :planetID;";
+                    $db->update($sql, array(
+                        ':time'   => TIMESTAMP+ 86400,
+                        ':planetID' => $PLANET['id'],
+                    ));
+                    $sql = "DELETE FROM %%PLANETS%% WHERE id = :lunaID;";
+                    $db->delete($sql, array(
+                        ':lunaID' => $PLANET['id_luna']
+                    ));
+                } else {
+                    $sql = "UPDATE %%PLANETS%% SET id_luna = 0 WHERE id_luna = :planetID;";
+                    $db->update($sql, array(
+                        ':planetID' => $PLANET['id'],
+                    ));
+                    $sql = "DELETE FROM %%PLANETS%% WHERE id = :planetID;";
+                    $db->delete($sql, array(
+                        ':planetID' => $PLANET['id'],
+                    ));
+                }
 				
 				$PLANET['id']	= $USER['id_planet'];
 				exit(json_encode(array('ok' => true, 'message' => $LNG['ov_planet_abandoned'])));
@@ -121,14 +133,15 @@ class ShowOverviewPage extends AbstractPage
 		
 	function show()
 	{
-		global $CONF, $LNG, $PLANET, $USER, $resource;
+		global $LNG, $PLANET, $USER;
 		
 		$AdminsOnline 	= array();
 		$chatOnline 	= array();
 		$AllPlanets		= array();
 		$Moon 			= array();
 		$RefLinks		= array();
-		$Buildtime		= 0;
+
+        $db = Database::get();
 		
 		foreach($USER['PLANETS'] as $ID => $CPLANET)
 		{		
@@ -151,8 +164,11 @@ class ShowOverviewPage extends AbstractPage
 		}
 		
 		if ($PLANET['id_luna'] != 0) {
-			$Moon		= $GLOBALS['DATABASE']->getFirstRow("SELECT id, name FROM ".PLANETS." WHERE id = '".$PLANET['id_luna']."';");
-		}
+			$sql = "SELECT id, name FROM %%PLANETS%% WHERE id = :lunaID;";
+            $Moon = $db->selectSingle($sql, array(
+                ':lunaID'   => $PLANET['id_luna']
+            ));
+        }
 			
 		if ($PLANET['b_building'] - TIMESTAMP > 0) {
 			$Queue			= unserialize($PLANET['b_building_id']);
@@ -200,31 +216,37 @@ class ShowOverviewPage extends AbstractPage
 		}
 		
 		
-		
-		$OnlineAdmins 	= $GLOBALS['DATABASE']->query("SELECT id,username FROM ".USERS." WHERE universe = ".Universe::current()." AND onlinetime >= ".(TIMESTAMP-10*60)." AND authlevel > '".AUTH_USR."';");
-		while ($AdminRow = $GLOBALS['DATABASE']->fetch_array($OnlineAdmins)) {
+		$sql = "SELECT id,username FROM %%USERS%% WHERE universe = :universe AND onlinetime >= :onlinetime AND authlevel > :authlevel;";
+        $onlineAdmins = $db->select($sql, array(
+            ':universe'     => Universe::current(),
+            ':onlinetime'   => TIMESTAMP-10*60,
+            ':authlevel'    => AUTH_USR
+        ));
+
+        foreach ($onlineAdmins as $AdminRow) {
 			$AdminsOnline[$AdminRow['id']]	= $AdminRow['username'];
 		}
-		$GLOBALS['DATABASE']->free_result($OnlineAdmins);
 
-		
-		$chatUsers 	= $GLOBALS['DATABASE']->query("SELECT userName FROM ".CHAT_ON." WHERE dateTime > DATE_SUB(NOW(), interval 2 MINUTE) AND channel = 0");
-		while ($chatRow = $GLOBALS['DATABASE']->fetch_array($chatUsers)) {
+        $sql = "SELECT userName FROM %%CHAT_ON%% WHERE dateTime > DATE_SUB(NOW(), interval 2 MINUTE) AND channel = 0";
+        $chatUsers = $db->select($sql);
+
+        foreach ($chatUsers as $chatRow) {
 			$chatOnline[]	= $chatRow['userName'];
 		}
 
-		$GLOBALS['DATABASE']->free_result($chatUsers);
-		
 		$this->tplObj->loadscript('overview.js');
 
 		$Messages		= $USER['messages'];
 		
 		// Fehler: Wenn Spieler gelöscht werden, werden sie nicht mehr in der Tabelle angezeigt.
-		$RefLinksRAW	= $GLOBALS['DATABASE']->query("SELECT u.id, u.username, s.total_points FROM ".USERS." as u LEFT JOIN ".STATPOINTS." as s ON s.id_owner = u.id AND s.stat_type = '1' WHERE ref_id = ".$USER['id'].";");
-		
-		if(Config::get('ref_active')) 
+		$sql = "SELECT u.id, u.username, s.total_points FROM %%USERS%% as u LEFT JOIN %%STATPOINTS%% as s ON s.id_owner = u.id AND s.stat_type = '1' WHERE ref_id = :userID;";
+        $RefLinksRAW = $db->select($sql, array(
+            ':userID'   => $USER['id']
+        ));
+
+        if(Config::get('ref_active'))
 		{
-			while ($RefRow = $GLOBALS['DATABASE']->fetch_array($RefLinksRAW)) {
+			foreach ($RefLinksRAW as $RefRow) {
 				$RefLinks[$RefRow['id']]	= array(
 					'username'	=> $RefRow['username'],
 					'points'	=> min($RefRow['total_points'], Config::get('ref_minpoints'))
@@ -297,8 +319,14 @@ class ShowOverviewPage extends AbstractPage
 			if (!CheckName($newname)) {
 				$this->sendJSON(array('message' => $LNG['ov_newname_specialchar'], 'error' => true));
 			} else {
-				$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET name = '".$GLOBALS['DATABASE']->sql_escape($newname)."' WHERE id = ".$PLANET['id'].";");
-				$this->sendJSON(array('message' => $LNG['ov_newname_done'], 'error' => false));
+				$db = Database::get();
+                $sql = "UPDATE %%PLANETS%% SET name = :newName WHERE id = :planetID;";
+                $db->update($sql, array(
+                    ':newName'  => $newname,
+                    ':planetID' => $PLANET['id']
+                ));
+
+                $this->sendJSON(array('message' => $LNG['ov_newname_done'], 'error' => false));
 			}
 		}
 	}
@@ -310,18 +338,15 @@ class ShowOverviewPage extends AbstractPage
 		
 		if (!empty($password))
 		{
-			$IfFleets	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".FLEETS." WHERE 
-			(
-				fleet_owner = '".$USER['id']."'
-				AND (
-						fleet_start_id = ".$PLANET['id']." OR fleet_start_id = ".$PLANET['id_luna']."
-				)
-			) OR (
-				fleet_target_owner = '".$USER['id']."' 
-				AND (
-						fleet_end_id = '".$PLANET['id']."' OR fleet_end_id = ".$PLANET['id_luna']."
-				)
-			);");
+            $db = Database::get();
+            $sql = "SELECT COUNT(*) FROM %%FLEETS%% WHERE
+                      (fleet_owner = :userID AND (fleet_start_id = :planetID OR fleet_start_id = :lunaID)) OR
+                      (fleet_target_owner = :userID AND (fleet_end_id = :planetID OR fleet_end_id = :lunaID));";
+            $IfFleets = $db->selectSingle($sql, array(
+                ':userID'   => $USER['id'],
+                ':planetID' => $PLANET['id'],
+                ':lunaID'   => $PLANET['id_luna']
+            ), 'count');
 
 			if ($IfFleets > 0) {
 				$this->sendJSON(array('message' => $LNG['ov_abandon_planet_not_possible']));
@@ -330,13 +355,28 @@ class ShowOverviewPage extends AbstractPage
 			} elseif (cryptPassword($password) != $USER['password']) {
 				$this->sendJSON(array('message' => $LNG['ov_wrong_pass']));
 			} else {
-				if($PLANET['planet_type'] == 1) {
-					$GLOBALS['DATABASE']->multi_query("UPDATE ".PLANETS." SET destruyed = ".(TIMESTAMP + 86400)." WHERE id = ".$PLANET['id'].";DELETE FROM ".PLANETS." WHERE id = ".$PLANET['id_luna'].";");
-				} else {
-					$GLOBALS['DATABASE']->multi_query("UPDATE ".PLANETS." SET id_luna = '0' WHERE id_luna = ".$PLANET['id'].";DELETE FROM ".PLANETS." WHERE id = ".$PLANET['id'].";");
-				}
-				
-				$_SESSION['planet']     = $USER['id_planet'];
+                if($PLANET['planet_type'] == 1) {
+                    $sql = "UPDATE %%PLANETS%% SET destruyed = :time WHERE id = :planetID;";
+                    $db->update($sql, array(
+                        ':time'   => TIMESTAMP+ 86400,
+                        ':planetID' => $PLANET['id'],
+                    ));
+                    $sql = "DELETE FROM %%PLANETS%% WHERE id = :lunaID;";
+                    $db->delete($sql, array(
+                        ':lunaID' => $PLANET['id_luna']
+                    ));
+                } else {
+                    $sql = "UPDATE %%PLANETS%% SET id_luna = 0 WHERE id_luna = :planetID;";
+                    $db->update($sql, array(
+                        ':planetID' => $PLANET['id'],
+                    ));
+                    $sql = "DELETE FROM %%PLANETS%% WHERE id = :planetID;";
+                    $db->delete($sql, array(
+                        ':planetID' => $PLANET['id'],
+                    ));
+                }
+
+                $_SESSION['planet']     = $USER['id_planet'];
 				$this->sendJSON(array('ok' => true, 'message' => $LNG['ov_planet_abandoned']));
 			}
 		}
