@@ -39,10 +39,14 @@ class ShowNewsPage extends AbstractPage
 	
 	function show() 
 	{		
-		$newsResult	= $GLOBALS['DATABASE']->query("SELECT date, title, text, user FROM ".NEWS." ORDER BY id DESC;");
+		$db = Database::get();
+
+		$sql = "SELECT date, title, text, user FROM %%NEWS%% ORDER BY id DESC;";
+		$newsResult = $db->select($sql);
+
 		$newsList	= array();
 		
-		while ($newsRow = $GLOBALS['DATABASE']->fetchArray($newsResult))
+		foreach ($newsResult as $newsRow)
 		{
 			$newsList[]	= array(
 				'title' => $newsRow['title'],

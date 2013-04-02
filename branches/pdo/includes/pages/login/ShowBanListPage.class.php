@@ -40,17 +40,29 @@ class ShowBanListPage extends AbstractPage
 	function show()
 	{		
 		$universeSelect	= array();
-		
+
+		$db = Database::get();
+
 		$page  		= HTTP::_GP('side', 1);
-		$banCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BANNED." WHERE universe = ".$GLOBALS['UNI']." ORDER BY time DESC;");
-		
+
+		$sql = "SELECT COUNT(*) FROM %%BANNED%% WHERE universe = :universe ORDER BY time DESC;";
+		$banCount = $db->selectSingle($sql, array(
+			':universe'	=> $GLOBALS['UNI'],
+		), 'count');
+
 		$maxPage	= ceil($banCount / BANNED_USERS_PER_PAGE);
 		$page		= max(1, min($page, $maxPage));
 		
-		$banResult	= $GLOBALS['DATABASE']->query("SELECT * FROM ".BANNED." WHERE universe = ".$GLOBALS['UNI']." ORDER BY time DESC LIMIT ".(($page - 1) * BANNED_USERS_PER_PAGE).", ".BANNED_USERS_PER_PAGE.";");
+		$sql = "SELECT * FROM %%BANNED%% WHERE universe = :universe ORDER BY time DESC LIMIT :offset, :limit;";
+		$banResult = $db->select($sql, array(
+			':universe'	=> $GLOBALS['UNI'],
+			':offset'	=> (($page - 1) * BANNED_USERS_PER_PAGE),
+			':limit'	=> BANNED_USERS_PER_PAGE
+		));
+
 		$banList	= array();
 		
-		while($banRow = $GLOBALS['DATABASE']->fetchArray($banResult))
+		foreach($banResult as $banRow)
 		{
 			$banList[]	= array(
 				'player'	=> $banRow['who'],

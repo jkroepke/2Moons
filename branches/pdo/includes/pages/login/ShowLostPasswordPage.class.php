@@ -59,9 +59,16 @@ class ShowLostPasswordPage extends AbstractPage
 	{
 		$userID			= HTTP::_GP('u', 0);
 		$validationKey	= HTTP::_GP('k', '');
-		
-		$isValid	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".LOSTPASSWORD." WHERE userID = ".$userID." AND `key` = '".$GLOBALS['DATABASE']->escape($validationKey)."' AND time > ".(TIMESTAMP - 1800)." AND hasChanged = 0;");
-		
+
+		$db = Database::get();
+
+		$sql = "SELECT COUNT(*) FROM %%LOSTPASSWORD%% WHERE userID = :userID AND key = :$validationKey AND time > :time AND hasChanged = 0;";
+		$isValid = $db->selectSingle($sql, array(
+			':userID'			=> $userID,
+			':validationKey'	=> $validationKey,
+			':time'				=> (TIMESTAMP - 1800)
+		), 'count');
+
 		if(empty($isValid))
 		{
 			$this->printMessage(t('passwordValidInValid'), NULL, array(array(
@@ -72,7 +79,10 @@ class ShowLostPasswordPage extends AbstractPage
 		
 		$newPassword	= uniqid();
 
-		$userData		= $GLOBALS['DATABASE']->getFirstRow("SELECT username, email_2 as mail FROM ".USERS." WHERE id = ".$userID.";");
+		$sql = "SELECT username, email_2 as mail FROM %%USERS%% WHERE id = :userID;";
+		$userData = $db->selectSingle($sql, array(
+			':userID'	=> $userID,
+		));
 
 		$MailRAW		= $GLOBALS['LNG']->getTemplate('email_lost_password_changed');
 		$MailContent	= str_replace(array(
@@ -87,12 +97,21 @@ class ShowLostPasswordPage extends AbstractPage
 			$newPassword,
 		), $MailRAW);
 		
-		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET password = '".PlayerUtil::cryptPassword($newPassword)."' WHERE id = ".$userID.";");
-		
-		require 'includes/classes/Mail.class.php';		
+		$sql = "UPDATE %%USERS%% SET password = :newPassword WHERE id = :userID;";
+		$db->update($sql, array(
+			':userID'		=> $userID,
+			':nwPassword'	=> $newPassword
+		));
+
+		require 'includes/classes/Mail.class.php';
 		Mail::send($userData['mail'], $userData['username'], t('passwordChangedMailTitle', Config::get('game_name')), $MailContent);
-		
-		$GLOBALS['DATABASE']->query("UPDATE ".LOSTPASSWORD." SET hasChanged = 1 WHERE userID = ".$userID." AND `key` = '".$GLOBALS['DATABASE']->escape($validationKey)."';");
+
+		$sql = "UPDATE %%LOSTPASSWORD%% SET hasChanged = 1 WHERE userID = :userID AND key = :validationKey;";
+		$db->update($sql, array(
+			':userID'		=> $userID,
+			':validationKey'	=> $validationKey
+		));
+
 		$this->printMessage(t('passwordChangedMailSend'), NULL, array(array(
 			'label'	=> t('passwordNext'),
 			'url'	=> 'index.php',
@@ -137,9 +156,15 @@ class ShowLostPasswordPage extends AbstractPage
 			)));
 		}
 		
-		
-		$userID	= $GLOBALS['DATABASE']->getFirstCell("SELECT id FROM ".USERS." WHERE universe = ".$GLOBALS['UNI']." AND username = '".$GLOBALS['DATABASE']->escape($username)."' AND email_2 = '".$GLOBALS['DATABASE']->escape($mail)."';");
-		
+		$db = Database::get();
+
+		$sql = "SELECT id FROM %%USERS%% WHERE universe = :universeAND username = :username AND email_2 = :mail;";
+		$userID = $db->selectSingle($sql, array(
+			':universe'	=> $GLOBALS['UNI'],
+			':username'	=> $username,
+			':mail'		=> $mail
+		), 'id');
+
 		if(empty($userID))
 		{
 			$this->printMessage(t('passwordErrorUnknown'), NULL, array(array(
@@ -147,8 +172,13 @@ class ShowLostPasswordPage extends AbstractPage
 				'url'	=> 'index.php?page=lostPassword',
 			)));
 		}
-		
-		$hasChanged	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".LOSTPASSWORD." WHERE userID = ".$userID." AND time > ".(TIMESTAMP - 86400)." AND hasChanged = 0;");
+
+		$sql = "SELECT COUNT(*) FROM %%LOSTPASSWORD%% WHERE userID = :userID AND time > :time AND hasChanged = 0;";
+		$hasChanged = $db->selectSingle($sql, array(
+			':userID'	=> $userID,
+			':time'		=> (TIMESTAMP - 86400)
+		), 'count');
+
 		if(!empty($hasChanged))
 		{
 			$this->printMessage(t('passwordErrorOnePerDay'), NULL, array(array(
@@ -175,8 +205,14 @@ class ShowLostPasswordPage extends AbstractPage
 		
 		Mail::send($mail, $username, t('passwordValidMailTitle', Config::get('game_name')), $MailContent);
 		
-		$GLOBALS['DATABASE']->query("INSERT INTO ".LOSTPASSWORD." SET userID = ".$userID.", `key` = '".$validationKey."', time = ".TIMESTAMP.", fromIP = '".$_SERVER['REMOTE_ADDR']."';");
-		
+		$sql = "INSERT INTO %%LOSTPASSWORD%% SET userID = :userID, key = :validationKey, time = :timestamp, fromIP = :remoteAddr;";
+		$db->insert($sql, array(
+			':userID'		=> $userID,
+			':timestamp'	=> TIMESTAMP,
+			':validationKey'=> $validationKey,
+			':remoteAddr'	=> $_SERVER['REMOTE_ADDR']
+		));
+
 		$this->printMessage(t('passwordValidMailSend'), NULL, array(array(
 			'label'	=> t('passwordNext'),
 			'url'	=> 'index.php',

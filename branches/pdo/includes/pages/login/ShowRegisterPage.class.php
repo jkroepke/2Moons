@@ -81,8 +81,14 @@ class ShowRegisterPage extends AbstractPage
 		
 		if(Config::get('ref_active') == 1 && !empty($referralID))
 		{
-			$referralAccountName	= $GLOBALS['DATABASE']->getFirstCell("SELECT username FROM ".USERS." WHERE id = ".$referralID." AND universe = ".$GLOBALS['UNI'].";");
-			
+			$db = Database::get();
+
+			$sql = "SELECT username FROM %%USERS%% WHERE id = :referralID AND universe = :universe;";
+			$referralAccountName = $db->selectSingle($sql, array(
+				':referralID'	=> $referralID,
+				':universe'		=> $GLOBALS['UNI']
+			), 'username');
+
 			if(!empty($referralAccountName))
 			{
 				$referralData	= array('id' => $referralID, 'name' => $referralAccountName);
@@ -111,7 +117,7 @@ class ShowRegisterPage extends AbstractPage
 		$language 		= HTTP::_GP('lang', '');
 		
 		$referralID 	= HTTP::_GP('referralID', 0);
-		
+
 		$externalAuth	= HTTP::_GP('externalAuth', array());
 		if(!isset($externalAuth['account'], $externalAuth['method']))
 		{
@@ -165,32 +171,43 @@ class ShowRegisterPage extends AbstractPage
 			$errors[]	= t('registerErrorRules');
 		}
 		
-		$countUsername	= $GLOBALS['DATABASE']->getFirstCell("SELECT (
-			SELECT COUNT(*) 
-			FROM ".USERS." 
-			WHERE universe = ".$GLOBALS['UNI']."
-			AND username = '".$GLOBALS['DATABASE']->escape($userName)."'
-		) + (
+		$db = Database::get();
+
+		$sql = "SELECT (
+				SELECT COUNT(*)
+				FROM %%USERS%%
+				WHERE universe = :universe
+				AND username = :userName
+			) + (
+				SELECT COUNT(*)
+				FROM %%USERS_VALID%%
+				WHERE universe = :universe
+				AND username = :userName
+			) as count;";
+		$countUsername = $db->selectSingle($sql, array(
+			':universe'	=> $GLOBALS['UNI'],
+			':userName'	=> $userName,
+		), 'count');
+
+		$sql = "SELECT (
 			SELECT COUNT(*)
-			FROM ".USERS_VALID."
-			WHERE universe = ".$GLOBALS['UNI']."
-			AND username = '".$GLOBALS['DATABASE']->escape($userName)."'
-		);");
-		
-		$countMail		= $GLOBALS['DATABASE']->getFirstCell("SELECT (
-			SELECT COUNT(*)
-			FROM ".USERS."
-			WHERE universe = ".$GLOBALS['UNI']."
+			FROM %%USERS%%
+			WHERE universe = :universe
 			AND (
-				email = '".$GLOBALS['DATABASE']->escape($mailAddress)."'
-				OR email_2 = '".$GLOBALS['DATABASE']->escape($mailAddress)."'
+				email = :mailAddress
+				OR email_2 = :mailAddress
 			)
 		) + (
 			SELECT COUNT(*)
-			FROM ".USERS_VALID."
-			WHERE universe = ".$GLOBALS['UNI']."
-			AND email = '".$GLOBALS['DATABASE']->escape($mailAddress)."'
-		);");
+			FROM %%USERS_VALID%%
+			WHERE universe = :universe
+			AND email = :mailAddress
+		) as count;";
+
+		$countMail = $db->selectSingle($sql, array(
+			':universe'		=> $GLOBALS['UNI'],
+			':mailAddress'	=> $mailAddress,
+		), 'count');
 		
 		if($countUsername!= 0) {
 			$errors[]	= t('registerErrorUsernameExist');
@@ -237,8 +254,12 @@ class ShowRegisterPage extends AbstractPage
 		
 		if(Config::get('ref_active') == 1 && !empty($referralID))
 		{
-			$Count	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".USERS." WHERE id = ".$referralID." AND universe = ".$GLOBALS['UNI'].";");
-			
+			$sql = "SELECT COUNT(*) FROM %%USERS%% WHERE id = :referralID AND universe = :universe;";
+			$Count = $db->selectSingle($sql, array(
+				':referralID' 	=> $referralID,
+				':universe'		=> $GLOBALS['UNI']
+			), 'count');
+
 			if($Count == 0)
 			{
 				$referralID	= 0;
@@ -250,23 +271,34 @@ class ShowRegisterPage extends AbstractPage
 		}
 		
 		$validationKey	= md5(uniqid('2m'));
-	
-		$SQL = "INSERT INTO ".USERS_VALID." SET
-				`userName` = '".$GLOBALS['DATABASE']->escape($userName)."',
-				`validationKey` = '".$validationKey."',
-				`password` = '".PlayerUtil::cryptPassword($password)."',
-				`email` = '".$GLOBALS['DATABASE']->escape($mailAddress)."',
-				`date` = '".TIMESTAMP."',
-				`ip` = '".$_SERVER['REMOTE_ADDR']."',
-				`language` = '".$GLOBALS['DATABASE']->escape($language)."',
-				`universe` = ".$GLOBALS['UNI'].",
-				`referralID` = ".$referralID.",
-				`externalAuthUID` = '".$GLOBALS['DATABASE']->escape($externalAuthUID)."',
-				`externalAuthMethod` = '".$externalAuthMethod."';";
-				
-		$GLOBALS['DATABASE']->query($SQL);
-		
-		$validationID	= $GLOBALS['DATABASE']->GetInsertID();
+
+		$sql = "INSERT INTO %%USERS_VALID%% SET
+				`userName` = :userName,
+				`validationKey` = :validationKey,
+				`password` = :password,
+				`email` = :mailAddress,
+				`date` = :timestamp,
+				`ip` = :remoteAddr,
+				`language` = :language,
+				`universe` = :universe,
+				`referralID` = :referralID,
+				`externalAuthUID` = :externalAuthUID,
+				`externalAuthMethod` = :externalAuthMethod;";
+		$db->insert($sql, array(
+			':userName'				=> $userName,
+			':validationKey'		=> $validationKey,
+			':password'				=> $password,
+			':mailAddress'			=> $mailAddress,
+			':timestamp'			=> TIMESTAMP,
+			':remoteAddr'			=> $_SERVER['REMOTE_ADDR'],
+			':language'				=> $language,
+			':universe'				=> $GLOBALS['UNI'],
+			':referralID'			=> $referralID,
+			':externalAuthUID'		=> $externalAuthUID,
+			':externalAuthMethod'	=> $externalAuthMethod
+		));
+
+		$validationID	= $db->lastInsertId();
 		$vertifyURL	= 'index.php?page=vertify&i='.$validationID.'&k='.$validationKey;
 		
 		if(Config::get('user_valid') == 0 || !empty($externalAuthUID))
@@ -276,7 +308,6 @@ class ShowRegisterPage extends AbstractPage
 		else
 		{
 			require('includes/classes/Mail.class.php');
-			$MailSubject 	= t('registerMailVertifyTitle');
 			$MailRAW		= $GLOBALS['LNG']->getTemplate('email_vaild_reg');
 			$MailContent	= str_replace(array(
 				'{USERNAME}',

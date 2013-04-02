@@ -37,7 +37,7 @@ class ShowBoardPage extends AbstractPage
 	
 	function show() 
 	{
-		global $CONF, $LNG;
+		global $CONF;
 		
 		if(filter_var($CONF['forum_url'], FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
 			HTTP::sendHeader('Location', $CONF['forum_url']);

@@ -39,23 +39,28 @@ class ShowBattleHallPage extends AbstractPage
 	
 	function show() 
 	{
-		$hallRaw = $GLOBALS['DATABASE']->query("SELECT *, (
+		$db = Database::get();
+
+		$sql = "SELECT *, (
 			SELECT DISTINCT
-			IF(".TOPKB_USERS.".username = '', GROUP_CONCAT(".USERS.".username SEPARATOR ' & '), GROUP_CONCAT(".TOPKB_USERS.".username SEPARATOR ' & '))
-			FROM ".TOPKB_USERS."
-			LEFT JOIN ".USERS." ON uid = ".USERS.".id
-			WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid` AND `role` = 1
+			IF(%%TOPKB_USERS%%.username = '', GROUP_CONCAT(%%USERS%%.username SEPARATOR ' & '), GROUP_CONCAT(%%TOPKB_USERS%%.username SEPARATOR ' & '))
+			FROM %%TOPKB_USERS%%
+			LEFT JOIN %%USERS%% ON uid = %%USERS%%.id
+			WHERE %%TOPKB_USERS%%.`rid` = %%TOPKB%%.`rid` AND `role` = 1
 		) as `attacker`,
 		(
 			SELECT DISTINCT
-			IF(".TOPKB_USERS.".username = '', GROUP_CONCAT(".USERS.".username SEPARATOR ' & '), GROUP_CONCAT(".TOPKB_USERS.".username SEPARATOR ' & '))
-			FROM ".TOPKB_USERS." INNER JOIN ".USERS." ON uid = id
-			WHERE ".TOPKB_USERS.".`rid` = ".TOPKB.".`rid` AND `role` = 2
-		) as `defender`  
-		FROM ".TOPKB." WHERE `universe` = '".$GLOBALS['UNI']."' ORDER BY units DESC LIMIT 100;");
-		
+			IF(%%TOPKB_USERS%%.username = '', GROUP_CONCAT(%%USERS%%.username SEPARATOR ' & '), GROUP_CONCAT(%%TOPKB_USERS%%.username SEPARATOR ' & '))
+			FROM %%TOPKB_USERS%% INNER JOIN %%USERS%% ON uid = id
+			WHERE %%TOPKB_USERS%%.`rid` = %%TOPKB%%.`rid` AND `role` = 2
+		) as `defender`
+		FROM %%TOPKB%% WHERE `universe` = :universe ORDER BY units DESC LIMIT 100;";
+		$hallRaw = $db->select($sql, array(
+			':universe'	=> $GLOBALS['UNI'],
+		));
+
 		$hallList	= array();
-		while($hallRow = $GLOBALS['DATABASE']->fetch_array($hallRaw)) {
+		foreach($hallRaw as $hallRow) {
 			$hallList[]	= array(
 				'result'	=> $hallRow['result'],
 				'time'		=> _date(t('php_tdformat'), $hallRow['time']),
@@ -66,9 +71,7 @@ class ShowBattleHallPage extends AbstractPage
 			);
 		}
 	
-		$GLOBALS['DATABASE']->free_result($hallRaw);
-	
-		$universeSelect	= array();		
+		$universeSelect	= array();
 		$uniAllConfig	= Config::getAll('universe');
 		
 		foreach($uniAllConfig as $uniID => $uniConfig)

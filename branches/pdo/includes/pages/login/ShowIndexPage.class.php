@@ -69,7 +69,13 @@ class ShowIndexPage extends AbstractPage
 			$referralUserID		= HTTP::_GP('ref', 0);
 			if(!empty($referralUserID))
 			{
-				$referralUniversum	= $GLOBALS['DATABASE']->getFirstRow("SELECT universe FROM ".USERS." WHERE id = ".$referralUserID.";");
+				$db = Database::get();
+
+				$sql = "SELECT universe FROM %%USERS%% WHERE id = :refID;";
+				$referralUniversum = $db->selectSingle($sql, array(
+					':refID'	=> $referralUserID
+				));
+
 				if(!isset($referralUniversum))
 				{
 					$referralUniversum	= 0;

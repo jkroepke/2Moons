@@ -41,16 +41,25 @@ class ShowVertifyPage extends AbstractPage
 	{
 		$validationID	= HTTP::_GP('i', 0);
 		$validationKey	= HTTP::_GP('k', '');
-		
-		$userData	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS_VALID." WHERE validationID = ".$validationID." AND validationKey = '".$GLOBALS['DATABASE']->escape($validationKey)."';");
+
+		$db = Database::get();
+
+		$sql = "SELECT * FROM %%USERS_VALID%% WHERE validationID = :validationID AND validationKey = :validationKey;";
+		$userData = $db->selectSingle($sql, array(
+			':validationKey'	=> $validationKey,
+			':validationID'	=> $validationID
+		));
 
 		if(!isset($userData))
 		{
 			$this->printMessage(t('vertifyNoUserFound'));
 		}
-		
-		$GLOBALS['DATABASE']->query("DELETE FROM ".USERS_VALID." WHERE validationID = ".$validationID.";");
-		
+
+		$sql = "DELETE FROM %%USERS_VALID%% WHERE validationID = :validationID;";
+		$db->delete($sql, array(
+			':validationID'	=> $validationID
+		));
+
 		list($userID, $planetID) = PlayerUtil::createPlayer($userData['universe'], $userData['userName'], $userData['password'], $userData['email'], $userData['language']);
 		
 		if(Config::get('mail_active', $userData['universe']) == 1) {
@@ -78,19 +87,27 @@ class ShowVertifyPage extends AbstractPage
 		
 		if(!empty($userData['referralID']))
 		{
-			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET
-			`ref_id`	= ".$userData['referralID'].",
-			`ref_bonus`	= 1
-			WHERE
-			`id`		= ".$userID.";");
+			$sql = "UPDATE %%USERS%% SET
+				`ref_id`	= ".$userData['referralID'].",
+				`ref_bonus`	= 1
+				WHERE
+				`id`		= :userID;";
+			$db->update($sql, array(
+				':userID'	=> $userID
+			));
 		}
 		
 		if(!empty($userData['externalAuthUID']))
 		{
-			$GLOBALS['DATABASE']->query("INSERT INTO ".USERS_AUTH." SET
-			`id`		= ".$userID.",
-			`account`	= '".$GLOBALS['DATABASE']->escape($userData['externalAuthUID'])."',
-			`mode`		= '".$GLOBALS['DATABASE']->escape($userData['externalAuthMethod'])."';");
+			$sql ="INSERT INTO %%USERS_AUTH%% SET
+			`id`		= :userID,
+			`account`	= :externalAuthUID,
+			`mode`		= :externalAuthMethod;";
+			$db->insert($sql, array(
+				':userID'				=> $userID,
+				':externalAuthUID'		=> $userData['externalAuthUID'],
+				':externalAuthMethod'	=> $userData['externalAuthMethod']
+			));
 		}
 		
 		$nameSender = t('registerWelcomePMSenderName');
