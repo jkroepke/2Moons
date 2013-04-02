@@ -44,7 +44,7 @@ class ShowTraderPage extends AbstractPage
 	
 	public function show() 
 	{
-		global $LNG, $CONF, $USER, $resource;
+		global $LNG, $USER, $resource;
 		
 		$this->tplObj->assign_vars(array(
 			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number(Config::get('darkmatter_cost_trader')), $LNG['tech'][921]),
@@ -58,7 +58,7 @@ class ShowTraderPage extends AbstractPage
 		
 	function trade()
 	{
-		global $USER, $LNG, $CONF, $reslist;
+		global $USER, $LNG;
 		
 		if ($USER['darkmatter'] < Config::get('darkmatter_cost_trader')) {
 			$this->redirectTo('game.php?page=trader');
@@ -83,7 +83,7 @@ class ShowTraderPage extends AbstractPage
 	
 	function send()
 	{
-		global $USER, $PLANET, $LNG, $CONF, $reslist, $resource;
+		global $USER, $PLANET, $LNG, $resource;
 		
 		if ($USER['darkmatter'] < Config::get('darkmatter_cost_trader')) {
 			$this->redirectTo('game.php?page=trader');

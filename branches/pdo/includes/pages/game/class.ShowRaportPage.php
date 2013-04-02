@@ -91,26 +91,31 @@ class ShowRaportPage extends AbstractPage
 		
 		$LNG->includeData(array('FLEET'));
 		$this->setWindow('popup');
-		
+
+		$db = Database::get();
+
 		$RID		= HTTP::_GP('raport', '');
-		
-		$Raport		= $GLOBALS['DATABASE']->getFirstRow("SELECT 
-		raport, time,
-		(
-			SELECT 
-			GROUP_CONCAT(username SEPARATOR ' & ') as attacker
-			FROM ".USERS." 
-			WHERE id IN (SELECT uid FROM ".TOPKB_USERS." WHERE ".TOPKB_USERS.".rid = ".RW.".rid AND role = 1)
-		) as attacker,
-		(
-			SELECT 
-			GROUP_CONCAT(username SEPARATOR ' & ') as defender
-			FROM ".USERS." 
-			WHERE id IN (SELECT uid FROM ".TOPKB_USERS." WHERE ".TOPKB_USERS.".rid = ".RW.".rid AND role = 2)
-		) as defender
-		FROM ".RW."
-		WHERE rid = '".$GLOBALS['DATABASE']->escape($RID)."';");
-		
+
+		$sql = "SELECT
+			raport, time,
+			(
+				SELECT
+				GROUP_CONCAT(username SEPARATOR ' & ') as attacker
+				FROM %%USERS%%
+				WHERE id IN (SELECT uid FROM %%TOPKB_USERS%% WHERE %%TOPKB_USERS%%.rid = %%RW%%.rid AND role = 1)
+			) as attacker,
+			(
+				SELECT
+				GROUP_CONCAT(username SEPARATOR ' & ') as defender
+				FROM %%USERS%%
+				WHERE id IN (SELECT uid FROM %%TOPKB_USERS%% WHERE %%TOPKB_USERS%%.rid = %%RW%%.rid AND role = 2)
+			) as defender
+			FROM %%RW%%
+			WHERE rid = :raportID;";
+		$Raport = $db->selectSingle($sql, array(
+			':raportID'	=> $RID
+		));
+
 		$Info		= array($Raport["attacker"], $Raport["defender"]);
 		
 		if(!isset($Raport)) {
@@ -136,10 +141,15 @@ class ShowRaportPage extends AbstractPage
 		
 		$LNG->includeData(array('FLEET'));		
 		$this->setWindow('popup');
-		
+
+		$db = Database::get();
+
 		$RID		= HTTP::_GP('raport', '');
-		
-		$raportData		= $GLOBALS['DATABASE']->getFirstRow("SELECT raport,attacker,defender FROM ".RW." WHERE rid = '".$GLOBALS['DATABASE']->escape($RID)."';");
+
+		$sql = "SELECT raport,attacker,defender FROM %%RW%% WHERE rid = :raportID;";
+		$raportData = $db->selectSingle($sql, array(
+			':raportID'	=> $RID
+		));
 
 		if(empty($raportData)) {
 			$this->printMessage($LNG['sys_raport_not_found']);

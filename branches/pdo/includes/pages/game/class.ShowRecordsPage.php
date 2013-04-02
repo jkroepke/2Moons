@@ -38,16 +38,21 @@ class ShowRecordsPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $PLANET, $LNG, $resource, $CONF, $reslist;
+		global $USER, $LNG, $reslist;
 
-		$recordResult	= $GLOBALS['DATABASE']->query("SELECT elementID, level, userID, username FROM ".USERS." INNER JOIN ".RECORDS." ON userID = id WHERE universe = ".Universe::current().";");
-		
+		$db = Database::get();
+
+		$sql = "SELECT elementID, level, userID, username FROM %%USERS%% INNER JOIN %%RECORDS%% ON userID = id WHERE universe = :universe;";
+		$recordResult = $db->select($sql, array(
+			':universe'	=> Universe::current()
+		));
+
 		$defenseList	= array_fill_keys($reslist['defense'], array());
 		$fleetList		= array_fill_keys($reslist['fleet'], array());
 		$researchList	= array_fill_keys($reslist['tech'], array());
 		$buildList		= array_fill_keys($reslist['build'], array());
 		
-		while($recordRow = $GLOBALS['DATABASE']->fetch_array($recordResult)) {
+		foreach($recordResult as $recordRow) {
 			if (in_array($recordRow['elementID'], $reslist['defense'])) {
 				$defenseList[$recordRow['elementID']][]		= $recordRow;
 			} elseif (in_array($recordRow['elementID'], $reslist['fleet'])) {

@@ -37,7 +37,7 @@ class ShowSettingsPage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $LNG, $CONF;
+		global $USER, $LNG;
 		if($USER['urlaubs_modus'] == 1)
 		{
 			$this->tplObj->assign_vars(array(	
@@ -99,15 +99,24 @@ class ShowSettingsPage extends AbstractPage
 
 		if(!empty($USER['b_tech']) || !empty($PLANET['b_building']) || !empty($PLANET['b_hangar']))
 			return false;
-		
 
-		$fleets = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".FLEETS." WHERE `fleet_owner` = ".$USER['id'].";");
+		$db = Database::get();
+
+		$sql = "SELECT COUNT(*) FROM %%FLEETS%% WHERE `fleet_owner` = :userID;";
+		$fleets = $db->selectSingle($sql, array(
+			':userID'	=> $USER['id']
+		), 'count');
+
 		if($fleets != 0)
 			return false;
-						
-		$query = $GLOBALS['DATABASE']->query("SELECT * FROM ".PLANETS." WHERE id_owner = ".$USER['id']." AND id != ".$PLANET['id']." AND destruyed = 0;");
-		
-		while($CPLANET = $GLOBALS['DATABASE']->fetch_array($query))
+
+		$sql = "SELECT * FROM %%PLANETS%% WHERE id_owner = :userID AND id != :planetID AND destruyed = 0;";
+		$query = $db->select($sql, array(
+			':userID'	=> $USER['id'],
+			':planetID'	=> $PLANET['id']
+		));
+
+		foreach($query as $CPLANET)
 		{
 			list($USER, $CPLANET)	= $this->ecoObj->CalcResource($USER, $CPLANET, true);
 		
@@ -117,8 +126,6 @@ class ShowSettingsPage extends AbstractPage
 			unset($CPLANET);
 		}
 
-		$GLOBALS['DATABASE']->free_result($query);
-		
 		return true;
 	}
 	
@@ -134,38 +141,51 @@ class ShowSettingsPage extends AbstractPage
 	
 	private function sendVacation() 
 	{
-		global $USER, $PLANET, $CONF, $LNG;
+		global $USER, $LNG;
 		
 		$delete		= HTTP::_GP('delete', 0);
 		$vacation	= HTTP::_GP('vacation', 0);
 		
-		$SQL		= "";
+		$db = Database::get();
 		
 		if($vacation == 1 && $USER['urlaubs_until'] <= TIMESTAMP) {
-			$SQL	.= "UPDATE ".USERS." SET 
-						urlaubs_modus = '0', 
-						urlaubs_until = '0' 
-						WHERE id = ".$USER['id'].";
-						UPDATE ".PLANETS." SET 
-						last_update = ".TIMESTAMP.", 
-						energy_used = '10', 
-						energy = '10', 
-						metal_mine_porcent = '10', 
-						crystal_mine_porcent = '10', 
-						deuterium_sintetizer_porcent = '10', 
-						solar_plant_porcent = '10', 
-						fusion_plant_porcent = '10', 
-						solar_satelit_porcent = '10' 
-						WHERE id_owner = ".$USER["id"].";";
+			$sql = "UPDATE %%USERS%% SET
+						urlaubs_modus = '0',
+						urlaubs_until = '0'
+						WHERE id = :userID;";
+			$db->update($sql, array(
+				':userID'	=> $USER['id']
+			));
+
+			$sql = "UPDATE %%PLANETS%% SET
+						last_update = :timestamp,
+						energy_used = '10',
+						energy = '10',
+						metal_mine_porcent = '10',
+						crystal_mine_porcent = '10',
+						deuterium_sintetizer_porcent = '10',
+						solar_plant_porcent = '10',
+						fusion_plant_porcent = '10',
+						solar_satelit_porcent = '10'
+						WHERE id_owner = :userID;";
+			$db->update($sql, array(
+				':userID'	=> $USER['id'],
+				':timestamp'	=> TIMESTAMP
+			));
 		}
 		
 		if($delete == 1) {
-			$SQL	.= "UPDATE ".USERS." SET db_deaktjava = ".TIMESTAMP." WHERE id = ".$USER['id'].";";
+			$sql	= "UPDATE %%USERS%% SET db_deaktjava = :timestamp WHERE id = :userID;";
+			$db->update($sql, array(
+				':userID'	=> $USER['id'],
+				':timestamp'	=> TIMESTAMP
+			));
 		} else {
-			$SQL	.= "UPDATE ".USERS." SET db_deaktjava = 0 WHERE id = ".$USER['id'].";";
+			$sql	= "UPDATE %%USERS%% SET db_deaktjava = 0 WHERE id = :userID;";
+			$db->update($sql, array(
+				':userID'	=> $USER['id'],
+			));
 		}
-		
-		$GLOBALS['DATABASE']->multi_query($SQL);
 		
 		$this->printMessage($LNG['op_options_changed'], array('game.php?page=settings', 3));
 	}
@@ -217,9 +237,7 @@ class ShowSettingsPage extends AbstractPage
 		$language			= array_key_exists($language, $LNG->getAllowedLangs(false)) ? $language : $LNG->getLanguage();		
 		$theme				= array_key_exists($theme, Theme::getAvalibleSkins()) ? $theme : $THEME->getThemeName();
 		
-		$SQL				= "";
-		
-		$redirectTo			= 'game.php?page=settings';
+		$db = Database::get();
 		
 		if (!empty($username) && $USER['username'] != $username)
 		{
@@ -228,13 +246,25 @@ class ShowSettingsPage extends AbstractPage
 			} elseif($USER['uctime'] >= TIMESTAMP - USERNAME_CHANGETIME) {
 				$this->printMessage($LNG['op_change_name_pro_week']);
 			} else {
-				$Count 	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE `universe` = ".Universe::current()." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE `universe` = ".Universe::current()." AND `username` = '".$GLOBALS['DATABASE']->sql_escape($username)."')");
-				
+				$sql = "SELECT
+					(SELECT COUNT(*) FROM %%USERS%% WHERE universe = :universe AND username = :username) +
+					(SELECT COUNT(*) FROM %%USERS_VALID%% WHERE universe = :universe AND username = :username)
+				AS count";
+				$Count = $db->selectSingle($sql, array(
+					':universe'	=> Universe::current(),
+					':username'	=> $username
+				), 'count');
+
 				if (!empty($Count)) {
 					$this->printMessage(sprintf($LNG['op_change_name_exist'], $username));
 				} else {
-					$SQL		.= "UPDATE ".USERS." SET username = '".$GLOBALS['DATABASE']->sql_escape($username)."', uctime = ".TIMESTAMP." WHERE id = ".$USER['id'].";";
-					$redirectTo	= 'index.php';
+					$sql = "UPDATE %%USERS%% SET username = :username, uctime = :timestampt WHERE id = :userID;";
+					$db->update($sql, array(
+						':username'	=> $username,
+						':userID'	=> $USER['id'],
+						':timestamp'=> TIMESTAMP
+					));
+
 					$SESSION->DestroySession();
 				}
 			}
@@ -243,8 +273,12 @@ class ShowSettingsPage extends AbstractPage
 		if (!empty($newpassword) && cryptPassword($password) == $USER["password"] && $newpassword == $newpassword2)
 		{
 			$newpass 	 = cryptPassword($newpassword);
-			$SQL		.= "UPDATE ".USERS." SET password = '".$newpass."' WHERE id = ".$USER['id'].";";
-			$redirectTo	= 'index.php';
+			$sql = "UPDATE %%USERS%% SET password = :newpass WHERE id = :userID;";
+			$db->update($sql, array(
+				':newpass'	=> $newpass,
+				':userID'	=> $USER['id']
+			));
+
 			$SESSION->DestroySession();
 		}
 
@@ -255,11 +289,25 @@ class ShowSettingsPage extends AbstractPage
 			} elseif(!ValidateAddress($email)) {
 				$this->printMessage($LNG['op_not_vaild_mail']);
 			} else {
-				$Count 	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE id != ".$USER['id']." AND universe = ".Universe::current()." AND (email = '".$GLOBALS['DATABASE']->sql_escape($email)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($email)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".Universe::current()." AND email = '".$GLOBALS['DATABASE']->sql_escape($email)."')");
+				$sql = "SELECT
+							(SELECT COUNT(*) FROM %%USERS%% WHERE id != :userID AND universe = :universe AND (email = :email OR email_2 = :email)) +
+							(SELECT COUNT(*) FROM %%USERS_VALID%% WHERE universe = :universe AND email = :email)
+						as COUNT";
+				$Count = $db->selectSingle($sql, array(
+					':universe'	=> Universe::current(),
+					':userID'	=> $USER['id'],
+					':email'	=> $email
+				), 'count');
+
 				if (!empty($Count)) {
 					$this->printMessage(sprintf($LNG['op_change_mail_exist'], $email));
 				} else {
-					$SQL	.= "UPDATE ".USERS." SET email = '".$GLOBALS['DATABASE']->sql_escape($email)."', setmail = ".(TIMESTAMP + 604800)." WHERE id = ".$USER['id'].";";
+					$sql	= "UPDATE %%USERS%% SET email = :email, setmail = :time WHERE id = :userID;";
+					$db->update($sql, array(
+						':email'	=> $email,
+						':time'		=> (TIMESTAMP + 604800),
+						':userID'	=> $USER['id']
+					));
 				}
 			}
 		}		
@@ -273,51 +321,51 @@ class ShowSettingsPage extends AbstractPage
 			}
 			else
 			{
-				$SQL	.= "UPDATE ".USERS." SET 
-							urlaubs_modus = '1',
-							urlaubs_until = ".(TIMESTAMP + Config::get('vmode_min_time'))."
-							WHERE id = ".$USER["id"].";							
-							UPDATE ".PLANETS." SET
-							energy_used = '0',
-							energy = '0',
-							metal_mine_porcent = '0',
-							crystal_mine_porcent = '0',
-							deuterium_sintetizer_porcent = '0',
-							solar_plant_porcent = '0',
-							fusion_plant_porcent = '0',
-							solar_satelit_porcent = '0',
-							metal_perhour = '0',
-							crystal_perhour = '0',
-							deuterium_perhour = '0'
-							WHERE id_owner = ".$USER["id"].";";
+				$sql = "UPDATE %%USERS%% SET urlaubs_modus = '1', urlaubs_until = :time WHERE id = :userID";
+				$db->update($sql, array(
+					':userID'	=> $USER['id'],
+					':time'		=> (TIMESTAMP + Config::get('vmode_min_time')),
+				));
+
+				$sql = "UPDATE %%PLANETS%% SET energy_used = '0', energy = '0', metal_mine_porcent = '0', crystal_mine_porcent = '0', deuterium_sintetizer_porcent = '0', solar_plant_porcent = '0', fusion_plant_porcent = '0', solar_satelit_porcent = '0', metal_perhour = '0', crystal_perhour = '0', deuterium_perhour = '0' WHERE id_owner = :userID;";
+				$db->update($sql, array(
+					':userID'	=> $USER['id'],
+				));
 			}
 		}
-		
+
 		if($delete == 1) {
-			$SQL	.= "UPDATE ".USERS." SET db_deaktjava = ".TIMESTAMP." WHERE id = ".$USER['id'].";";
+			$sql	= "UPDATE %%USERS%% SET db_deaktjava = :timestamp WHERE id = :userID;";
+			$db->update($sql, array(
+				':userID'	=> $USER['id'],
+				':timestamp'	=> TIMESTAMP
+			));
 		} else {
-			$SQL	.= "UPDATE ".USERS." SET db_deaktjava = 0 WHERE id = ".$USER['id'].";";
+			$sql	= "UPDATE %%USERS%% SET db_deaktjava = 0 WHERE id = :userID;";
+			$db->update($sql, array(
+				':userID'	=> $USER['id'],
+			));
 		}
-		
-		$SQL	.=  "UPDATE ".USERS." SET
-					dpath = '".$GLOBALS['DATABASE']->sql_escape($theme)."',
-					timezone = '".$timezone."',
-					planet_sort = ".$planetSort.",
-					planet_sort_order = ".$planetOrder.",
-					spio_anz = ".$spycount.",
-					settings_fleetactions = ".$fleetactions.",
-					settings_esp = ".$galaxySpy.",
-					settings_wri = ".$galaxyMessage.",
-					settings_bud = ".$galaxyBuddyList.",
-					settings_mis = ".$galaxyMissle.",
-					settings_blockPM = ".$blockPM.",
-					authattack = ".$adminprotection.",
-					lang = '".$language."',
-					hof = ".$queueMessages.",
-					spyMessagesMode = ".$spyMessagesMode."
-					WHERE id = '".$USER["id"]."';";
-		
-		$GLOBALS['DATABASE']->multi_query($SQL);
+
+		$sql =  "UPDATE %%USERS%% SET dpath = :theme, timezone = :timezone, planet_sort = :planetSort, planet_sort_order = :planetOrder, spio_anz = :spyCount, settings_fleetactions = :fleetActions, settings_esp = :alaxySpy, settings_wri = :galaxyMessage, settings_bud = :galaxyBuddyList, settings_mis = :galaxyMissle, settings_blockPM = :blockPM, authattack = :adminProtection, lang = :language, hof = :queueMessages, spyMessagesMode = :spyMessagesMode WHERE id = :userID;";
+		$db->update($sql, array(
+			':theme'			=> $theme,
+			':timezone'			=> $timezone,
+			':planetSort'		=> $planetSort,
+			':planetOrder'		=> $planetOrder,
+			':spyCount'			=> $spycount,
+			':fleetActions'		=> $fleetactions,
+			':galaxySpy'		=> $galaxySpy,
+			':galaxyMessage'	=> $galaxyMessage,
+			':galaxyBuddyList'	=> $galaxyBuddyList,
+			':galaxyMissle'		=> $galaxyMissle,
+			':blockPM'			=> $blockPM,
+			':adminProtection'	=> $adminprotection,
+			':language'			=> $language,
+			':queueMessages'	=> $queueMessages,
+			':spyMessagesMode'	=> $spyMessagesMode,
+			':userID'			=> $USER['id']
+		));
 		
 		$this->printMessage($LNG['op_options_changed']);
 	}

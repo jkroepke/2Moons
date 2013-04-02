@@ -44,19 +44,25 @@ class ShowPlayerCardPage extends AbstractPage
 		
 		$this->setWindow('popup');
 		$this->initTemplate();
-		
+
+		$db = Database::get();
+
 		$PlayerID 	= HTTP::_GP('id', 0);
-			
-		$query 		= $GLOBALS['DATABASE']->getFirstRow("SELECT 
-						u.username, u.galaxy, u.system, u.planet, u.wons, u.loos, u.draws, u.kbmetal, u.kbcrystal, u.lostunits, u.desunits, u.ally_id, 
-						p.name, 
-						s.tech_rank, s.tech_points, s.build_rank, s.build_points, s.defs_rank, s.defs_points, s.fleet_rank, s.fleet_points, s.total_rank, s.total_points, 
-						a.ally_name 
-						FROM ".USERS." u 
-						INNER JOIN ".PLANETS." p ON p.id = u.id_planet 
-						LEFT JOIN ".STATPOINTS." s ON s.id_owner = u.id AND s.stat_type = 1 
-						LEFT JOIN ".ALLIANCE." a ON a.id = u.ally_id
-						WHERE u.id = ".$PlayerID." AND u.universe = ".Universe::current().";");
+
+		$sql = "SELECT
+					u.username, u.galaxy, u.system, u.planet, u.wons, u.loos, u.draws, u.kbmetal, u.kbcrystal, u.lostunits, u.desunits, u.ally_id,
+					p.name,
+					s.tech_rank, s.tech_points, s.build_rank, s.build_points, s.defs_rank, s.defs_points, s.fleet_rank, s.fleet_points, s.total_rank, s.total_points,
+					a.ally_name
+				FROM %%USERS%% u
+				INNER JOIN %%PLANETS%% p ON p.id = u.id_planet
+				LEFT JOIN %%STATPOINTS%% s ON s.id_owner = u.id AND s.stat_type = 1
+				LEFT JOIN %%ALLIANCE%% a ON a.id = u.ally_id
+				WHERE u.id = :playerID AND u.universe = :universe;";
+		$query = $db->selectSingle($sql, array(
+			':universe'	=> Universe::current(),
+			':playerID'	=> $PlayerID
+		));
 
 		$totalfights = $query['wons'] + $query['loos'] + $query['draws'];
 		

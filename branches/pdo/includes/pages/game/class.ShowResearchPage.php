@@ -39,7 +39,7 @@ class ShowResearchPage extends AbstractPage
 	
 	private function CheckLabSettingsInQueue()
 	{
-		global $PLANET, $CONF;
+		global $PLANET;
 		if ($PLANET['b_building'] == 0)
 			return true;
 			
@@ -65,7 +65,9 @@ class ShowResearchPage extends AbstractPage
 
 			return false;
 		}
-		
+
+		$db = Database::get();
+
 		$Element		= $USER['b_tech_id'];
 		$costRessources	= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
 		
@@ -75,16 +77,28 @@ class ShowResearchPage extends AbstractPage
 			if(isset($costRessources[902])) { $PLANET[$resource[902]]	+= $costRessources[902]; }
 			if(isset($costRessources[903])) { $PLANET[$resource[903]]	+= $costRessources[903]; }
 		} else {
-			$SQL	= "UPDATE ".PLANETS." SET ";
-			
-			if(isset($costRessources[901])) { $SQL	.= $resource[901]." = ".$resource[901]." + ".$costRessources[901].", "; }
-			if(isset($costRessources[902])) { $SQL	.= $resource[902]." = ".$resource[902]." + ".$costRessources[902].", "; }
-			if(isset($costRessources[903])) { $SQL	.= $resource[903]." = ".$resource[903]." + ".$costRessources[903].", "; }
-			
-			$SQL	= substr($SQL, 0, -2);
-			$SQL	.= " WHERE `id` = ".$USER['b_tech_planet'].";";
-			
-			$GLOBALS['DATABASE']->query($SQL);
+
+			//TODO: Test it!
+
+			$params = array('techPlanet' => $USER['b_tech_planet']);
+			$sql = "UPDATE %%PLANETS%% SET ";
+			if(isset($costRessources[901])) {
+				$sql	.= $resource[901]." = ".$resource[901]." + :".$resource[901].", ";
+				$params[':'.$resource[901]] = $costRessources[901];
+			}
+			if(isset($costRessources[902])) {
+				$sql	.= $resource[902]." = ".$resource[902]." + :".$resource[902].", ";
+				$params[':'.$resource[902]] = $costRessources[902];
+			}
+			if(isset($costRessources[903])) {
+				$sql	.= $resource[903]." = ".$resource[903]." + :".$resource[903].", ";
+				$params[':'.$resource[903]] = $costRessources[903];
+			}
+
+			$sql = substr($sql, 0, -2);
+			$sql .= " WHERE id = :techPlanet;";
+
+			$db->update($sql, $params);
 		}
 		
 		if(isset($costRessources[921])) { $USER[$resource[921]]		+= $costRessources[921]; }
@@ -108,9 +122,14 @@ class ShowResearchPage extends AbstractPage
 				if($Element == $ListIDArray[0] || empty($ListIDArray[0]))
 					continue;
 					
-				if($ListIDArray[4] != $PLANET['id'])
-					$CPLANET		= $GLOBALS['DATABASE']->getFirstRow("SELECT ".$resource[6].", ".$resource[31]." FROM ".PLANETS." WHERE `id` = ".$ListIDArray[4].";");
-				else
+				if($ListIDArray[4] != $PLANET['id']) {
+					$sql = "SELECT :resource6, :resource31 FROM %%PLANETS%% WHERE id = :id;";
+					$CPLANET = $db->selectSingle($sql, array(
+						':resource6'	=> $resource[6],
+						':resource31'	=> $resource[31],
+						':id'			=> $ListIDArray[4]
+					));
+				} else
 					$CPLANET		= $PLANET;
 				
 				$CPLANET[$resource[31].'_inter']	= $this->ecoObj->getNetworkLevel($USER, $CPLANET);
@@ -160,10 +179,17 @@ class ShowResearchPage extends AbstractPage
 			} else {
 				if($Element == $ListIDArray[0])
 					continue;
-					
-				if($ListIDArray[4] != $PLANET['id'])
-					$CPLANET				= $GLOBALS['DATABASE']->getFirstRow("SELECT `".$resource[6]."`, `".$resource[31]."` FROM ".PLANETS." WHERE `id` = ".$ListIDArray[4].";");
-				else
+
+				if($ListIDArray[4] != $PLANET['id']) {
+					$db = Database::get();
+
+					$sql = "SELECT :resource6, :resource31 FROM %%PLANETS%% WHERE id = :id;";
+					$CPLANET = $db->selectSingle($sql, array(
+						':resource6'	=> $resource[6],
+						':resource31'	=> $resource[31],
+						':id'			=> $ListIDArray[4]
+					));
+				} else
 					$CPLANET				= $PLANET;
 				
 				$CPLANET[$resource[31].'_inter']	= $this->ecoObj->getNetworkLevel($USER, $CPLANET);
@@ -182,7 +208,7 @@ class ShowResearchPage extends AbstractPage
 
 	private function AddBuildingToQueue($Element, $AddMode = true)
 	{
-		global $PLANET, $USER, $resource, $CONF, $reslist, $pricelist;
+		global $PLANET, $USER, $resource, $reslist, $pricelist;
 
 		if(!in_array($Element, $reslist['tech'])
 			|| !BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element)
@@ -251,7 +277,7 @@ class ShowResearchPage extends AbstractPage
 
 	private function getQueueData()
 	{
-		global $LNG, $CONF, $PLANET, $USER;
+		global $LNG, $PLANET, $USER;
 
 		$scriptData		= array();
 		$quickinfo		= array();
@@ -289,7 +315,7 @@ class ShowResearchPage extends AbstractPage
 
 	public function show()
 	{
-		global $PLANET, $USER, $LNG, $resource, $reslist, $CONF, $pricelist;
+		global $PLANET, $USER, $LNG, $resource, $reslist, $pricelist;
 		
 		if ($PLANET[$resource[31]] == 0)
 		{

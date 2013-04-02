@@ -37,7 +37,7 @@ class ShowResourcesPage extends AbstractPage
 	
 	function send()
 	{
-		global $LNG, $resource, $USER, $PLANET;
+		global $resource, $USER, $PLANET;
 		if ($USER['urlaubs_modus'] == 0)
 		{
 			$updateSQL	= array();
@@ -71,7 +71,7 @@ class ShowResourcesPage extends AbstractPage
 	}
 	function show()
 	{
-		global $LNG, $ProdGrid, $resource, $reslist, $CONF, $pricelist, $USER, $PLANET;
+		global $LNG, $ProdGrid, $resource, $reslist, $USER, $PLANET;
 		
 		if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
 		{
@@ -107,9 +107,6 @@ class ShowResourcesPage extends AbstractPage
 			)
 		);
 		
-		$BuildTemp		= $PLANET['temp_max'];
-		$BuildEnergy	= $USER[$resource[113]];
-		
 		$ressIDs		= array_merge(array(), $reslist['resstype'][1], $reslist['resstype'][2]);
 		
 		if($PLANET['energy_used'] != 0) {
@@ -120,9 +117,6 @@ class ShowResourcesPage extends AbstractPage
 		
 		foreach($reslist['prod'] as $ProdID)
 		{	
-			$BuildLevelFactor	= $PLANET[$resource[$ProdID].'_porcent'];
-			$BuildLevel 		= $PLANET[$resource[$ProdID]];
-		
 			$productionList[$ProdID]	= array(
 				'production'	=> array(901 => 0, 902 => 0, 903 => 0, 911 => 0),
 				'elementLevel'	=> $PLANET[$resource[$ProdID]],

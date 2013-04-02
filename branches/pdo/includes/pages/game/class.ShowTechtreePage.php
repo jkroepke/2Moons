@@ -38,10 +38,8 @@ class ShowTechtreePage extends AbstractPage
 	
 	function show()
 	{
-		global $resource, $requeriments, $LNG, $reslist, $USER, $PLANET;
+		global $resource, $requeriments, $reslist, $USER, $PLANET;
 		
-		$RequeriList	= array();
-
 		$elementID		= array_merge(array(0), $reslist['build'], array(100), $reslist['tech'], array(200), $reslist['fleet'], array(400), $reslist['defense'], array(500), $reslist['missile'], array(600), $reslist['officier']);
 			
 		foreach($elementID as $Element)

@@ -57,7 +57,7 @@ class ShowPhalanxPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $PLANET, $LNG, $resource;
+		global $PLANET, $LNG, $resource;
 		require_once('includes/classes/class.FlyingFleetsTable.php');
 		
 		$FlyingFleetsTable 	= new FlyingFleetsTable();
@@ -79,10 +79,21 @@ class ShowPhalanxPage extends AbstractPage
 			$this->printMessage($LNG['px_no_deuterium']);
 		}
 
-		$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `deuterium` = `deuterium` - ".PHALANX_DEUTERIUM." WHERE `id` = '".$PLANET['id']."';");
-		
-		$TargetInfo = $GLOBALS['DATABASE']->getFirstRow("SELECT id, name, id_owner FROM ".PLANETS." WHERE`universe` = '".Universe::current()."' AND `galaxy` = '".$Galaxy."' AND `system` = '".$System."' AND `planet` = '".$Planet."' AND `planet_type` = '1';");
-		
+		$db = Database::get();
+		$sql = "UPDATE %%PLANETS%% SET deuterium = deuterium - :phalanxDeuterium WHERE id = :planetID;";
+		$db->update($sql, array(
+			':phalanxDeuterium'	=> PHALANX_DEUTERIUM,
+			':planetID'			=> $PLANET['id']
+		));
+
+		$sql = "SELECT id, name, id_owner FROM %%PLANETS%% WHERE`universe` = '".Universe::current()."' AND `galaxy` = :galaxy AND `system` = :system AND `planet` = :planet AND `planet_type` = '1';";
+		$TargetInfo = $db->selectSingle($sql, array(
+			':universe'	=> Universe::current(),
+			':galaxy'	=> $Galaxy,
+			':systemy'	=> $System,
+			':planet'	=> $Planet
+		));
+
 		if(empty($TargetInfo))
 		{
 			$this->printMessage($LNG['px_out_of_range']);
