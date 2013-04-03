@@ -66,7 +66,7 @@ function ShowSendMessagesPage() {
 				while($UserData = $GLOBALS['DATABASE']->fetch_array($USERS))
 				{
 					$sendMessage = str_replace('{USERNAME}', $UserData['username'], $pmMessage);
-					SendSimpleMessage($UserData['id'], $USER['id'], TIMESTAMP, 50, $From, $pmSubject, $sendMessage);
+					PlayerUtil::sendMessage($UserData['id'], $USER['id'], TIMESTAMP, 50, $From, $pmSubject, $sendMessage);
 				}
 			}
 			if($Mode == 1 || $Mode == 2) {

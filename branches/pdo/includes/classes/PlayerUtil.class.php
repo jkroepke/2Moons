@@ -517,7 +517,7 @@ class PlayerUtil
 			':universe' => $userData['universe']
 		));
 		
-		$GLOBALS['CACHE']->flush('universe');
+		Cache::get()->flush('universe');
 
 		return true;
 	}

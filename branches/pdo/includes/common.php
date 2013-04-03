@@ -94,7 +94,9 @@ if(!file_exists('includes/config.php')) {
 	HTTP::redirectTo('install/index.php');
 }
 
-date_default_timezone_set(Config::get()->timezone);
+$config = Config::get();
+
+date_default_timezone_set($config->timezone);
 
 require 'includes/vars.php';
 
@@ -117,6 +119,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 	}
 	
 	$db		= Database::get();
+
 	$sql	= "SELECT 
 	user.*, 
 	stat.total_points, 
@@ -143,8 +146,8 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 	$LNG->includeData(array('L18N', 'INGAME', 'TECH', 'CUSTOM'));
 	$THEME->setUserTheme($USER['dpath']);
 	
-	if(Config::get('game_disable') == 0 && $USER['authlevel'] == AUTH_USR) {
-		ShowErrorPage::printError($LNG['sys_closed_game'].'<br><br>'.Config::get('close_reason'), false);
+	if($config->game_disable == 0 && $USER['authlevel'] == AUTH_USR) {
+		ShowErrorPage::printError($LNG['sys_closed_game'].'<br><br>'.$config->close_reason, false);
 	}
 
 	if($USER['bana'] == 1) {
@@ -159,20 +162,24 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 		}
 		
 		$sql	= "SELECT * FROM %%PLANETS%% WHERE id = :planetId;";
-		$USER	= $db->selectSingle($sql, array(
-			':planetId'	=> $_SESSION['planet'],
+		$PLANET	= $db->selectSingle($sql, array(
+			':planetId'	=> $session->planetId,
 		));
 
 		if(empty($PLANET))
 		{
 			$sql	= "SELECT * FROM %%PLANETS%% WHERE id = :planetId;";
-			$USER	= $db->selectSingle($sql, array(
+			$PLANET	= $db->selectSingle($sql, array(
 				':planetId'	=> $USER['id_planet'],
 			));
 			
 			if(empty($PLANET))
 			{
 				throw new Exception("Main Planet does not exist!");
+			}
+			else
+			{
+				$session->planetId = $USER['id_planet'];
 			}
 		}
 		

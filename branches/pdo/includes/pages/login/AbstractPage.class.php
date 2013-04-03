@@ -28,7 +28,12 @@
 
 abstract class AbstractPage 
 {
-	protected $tplObj;
+
+	/**
+	 * referenc of the template object
+	 * @var template
+	 */
+	protected $tplObj = NULL;
 	protected $window;
 	public $defaultWindow = 'normal';
 	
@@ -43,7 +48,8 @@ abstract class AbstractPage
 		}
 	}
 	
-	protected function initTemplate() {
+	protected function initTemplate()
+	{
 		if(isset($this->tplObj))
 			return true;
 			
@@ -79,26 +85,25 @@ abstract class AbstractPage
 	
 	protected function getPageData() 
     {		
-		global $USER, $CONF, $LNG;
-		
-		$dateTimeServer	= new DateTime("now");
-		$dateTimeUser	= $dateTimeServer;
-		
+		global $LNG;
+
+		$config	= Config::get();
+
         $this->tplObj->assign_vars(array(
-			'recaptchaEnable'		=> Config::get('capaktiv'),
-			'recaptchaPublicKey'	=> Config::get('cappublic'),
-			'gameName' 				=> Config::get('game_name'),
-			'facebookEnable'		=> Config::get('fb_on'),
-			'fb_key' 				=> Config::get('fb_apikey'),
-			'mailEnable'			=> Config::get('mail_active'),
-			'reg_close'				=> Config::get('reg_closed'),
-			'referralEnable'		=> Config::get('ref_active'),
-			'analyticsEnable'		=> Config::get('ga_active'),
-			'analyticsUID'			=> Config::get('ga_key'),
+			'recaptchaEnable'		=> $config->capaktiv,
+			'recaptchaPublicKey'	=> $config->cappublic,
+			'gameName' 				=> $config->game_name,
+			'facebookEnable'		=> $config->fb_on,
+			'fb_key' 				=> $config->fb_apikey,
+			'mailEnable'			=> $config->mail_active,
+			'reg_close'				=> $config->reg_closed,
+			'referralEnable'		=> $config->ref_active,
+			'analyticsEnable'		=> $config->ga_active,
+			'analyticsUID'			=> $config->ga_key,
 			'lang'					=> $LNG->getLanguage(),
 			'UNI'					=> Universe::current(),
-			'VERSION'				=> Config::get('VERSION'),
-			'REV'					=> substr(Config::get('VERSION'), -4),
+			'VERSION'				=> $config->VERSION,
+			'REV'					=> substr($config->VERSION, -4),
 			'languages'				=> Language::getAllowedLangs(false),
 		));
 	}
@@ -140,8 +145,6 @@ abstract class AbstractPage
 		
 		$this->assign(array(
             'lang'    			=> $LNG->getLanguage(),
-			'scripts'			=> $this->tplObj->jsscript,
-			'execscript'		=> implode("\n", $this->tplObj->script),
 			'bodyclass'			=> $this->getWindow(),
 			'basepath'			=> PROTOCOL.HTTP_HOST.HTTP_BASE,
 			'isMultiUniverse'	=> count($CONFIG) > 1,

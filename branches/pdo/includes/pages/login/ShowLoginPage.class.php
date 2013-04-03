@@ -51,9 +51,10 @@ class ShowLoginPage extends AbstractPage
 
 		$sql = "SELECT id, password FROM %%USERS%% WHERE universe = :universe AND username = :username;";
 		$loginData = $db->selectSingle($sql, array(
-			':universe'	=> $GLOBALS['UNI'],
+			':universe'	=> Universe::current(),
 			':username'	=> $username
 		));
+
 		if (isset($loginData))
 		{
 			$hashedPassword = PlayerUtil::cryptPassword($password);
@@ -70,13 +71,17 @@ class ShowLoginPage extends AbstractPage
 					HTTP::redirectTo('index.php?code=1');	
 				}
 			}
-			
-			Session::create($loginData['id']);
+
+			$session	= Session::create();
+			$session->userId		= (int) $loginData['id'];
+			$session->adminAccess	= 0;
+			$session->save();
+
 			HTTP::redirectTo('game.php');	
 		}
 		else
 		{
-			Session::redirectCode(1);	
+			HTTP::redirectTo('index.php?code=1');
 		}
 	}
 }

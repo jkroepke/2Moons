@@ -28,7 +28,16 @@
 
 abstract class AbstractPage 
 {
+	/**
+	 * reference of the template object
+	 * @var template
+	 */
 	protected $tplObj;
+
+	/**
+	 * reference of the template object
+	 * @var ResourceUpdate
+	 */
 	protected $ecoObj;
 	protected $window;
 	protected $disableEcoSystem = false;
@@ -101,20 +110,22 @@ abstract class AbstractPage
 		}
 		
 		$this->tplObj->loadscript("topnav.js");
-			
+
+		$config			= Config::get();
+
 		$PlanetSelect	= array();
 		
 		if(isset($USER['PLANETS'])) {
 			$USER['PLANETS']	= getPlanets($USER);
 		}
 		
-		foreach($USER['PLANETS'] as $CurPlanetID => $PlanetQuery)
+		foreach($USER['PLANETS'] as $PlanetQuery)
 		{
 			$PlanetSelect[$PlanetQuery['id']]	= $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (" . $LNG['fcm_moon'] . ")":"")." [".$PlanetQuery['galaxy'].":".$PlanetQuery['system'].":".$PlanetQuery['planet']."]";
 		}
 		
 		$resourceTable	= array();
-		$resourceSpeed	= Config::get('resource_multiplier');
+		$resourceSpeed	= $config->resource_multiplier;
 		foreach($reslist['resstype'][1] as $resourceID)
 		{
 			$resourceTable[$resourceID]['name']			= $resource[$resourceID];
@@ -126,7 +137,7 @@ abstract class AbstractPage
 			}
 			else
 			{
-				$resourceTable[$resourceID]['production']	= $PLANET[$resource[$resourceID].'_perhour'] + Config::get($resource[$resourceID].'_basic_income') * $resourceSpeed;
+				$resourceTable[$resourceID]['production']	= $PLANET[$resource[$resourceID].'_perhour'] + $config->{$resource[$resourceID].'_basic_income'} * $resourceSpeed;
 			}
 		}
 
@@ -149,15 +160,15 @@ abstract class AbstractPage
 			'PlanetSelect'		=> $PlanetSelect,
 			'new_message' 		=> $USER['messages'],
 			'vacation'			=> $USER['urlaubs_modus'] ? _date($LNG['php_tdformat'], $USER['urlaubs_until'], $USER['timezone']) : false,
-			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], _date($LNG['php_tdformat'], $USER['db_deaktjava'] + (Config::get('del_user_manually') * 86400)), $USER['timezone']) : false,
+			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], _date($LNG['php_tdformat'], $USER['db_deaktjava'] + ($config->del_user_manually * 86400)), $USER['timezone']) : false,
 			'darkmatter'		=> $USER['darkmatter'],
 			'current_pid'		=> $PLANET['id'],
 			'image'				=> $PLANET['image'],
 			'resourceTable'		=> $resourceTable,
 			'shortlyNumber'		=> $themeSettings['TOPNAV_SHORTLY_NUMBER'],
-			'closed'			=> !Config::get('game_disable'),
-			'hasBoard'			=> filter_var(Config::get('forum_url'), FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED),
-			'hasAdminAccess'	=> isset($_SESSION['admin_login']),
+			'closed'			=> !$config->game_disable,
+			'hasBoard'			=> filter_var($config->forum_url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED),
+			'hasAdminAccess'	=> !empty(Session::load()->adminAccess)
 		));
 	}
 	
@@ -180,20 +191,22 @@ abstract class AbstractPage
 		} else {
 			$dateTimeUser	= $dateTimeServer;
 		}
-		
+
+		$config	= Config::get();
+
         $this->tplObj->assign_vars(array(
             'vmode'				=> $USER['urlaubs_modus'],
 			'authlevel'			=> $USER['authlevel'],
 			'userID'			=> $USER['id'],
 			'bodyclass'			=> $this->getWindow(),
-            'game_name'			=> Config::get('game_name'),
-            'uni_name'			=> Config::get('uni_name'),
-			'ga_active'			=> Config::get('ga_active'),
-			'ga_key'			=> Config::get('ga_key'),
-			'debug'				=> Config::get('debug'),
-			'VERSION'			=> Config::get('VERSION'),
+            'game_name'			=> $config->game_name,
+            'uni_name'			=> $config->uni_name,
+			'ga_active'			=> $config->ga_active,
+			'ga_key'			=> $config->ga_key,
+			'debug'				=> $config->debug,
+			'VERSION'			=> $config->VERSION,
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
-			'REV'				=> substr(Config::get('VERSION'), -4),
+			'REV'				=> substr($config->VERSION, -4),
 			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
 			'queryString'		=> $this->getQueryString(),
 			'themeSettings'		=> $THEME->getStyleSettings(),

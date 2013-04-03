@@ -102,7 +102,7 @@ class ShowSupportPage
 		}
 				
 		
-		SendSimpleMessage($ticketDetail['ownerID'], $USER['id'], TIMESTAMP, 4, $USER['username'], sprintf($LNG['sp_answer_message_title'], $ticketID), sprintf($LNG['sp_answer_message'], $ticketID)); 
+		PlayerUtil::sendMessage($ticketDetail['ownerID'], $USER['id'], TIMESTAMP, 4, $USER['username'], sprintf($LNG['sp_answer_message_title'], $ticketID), sprintf($LNG['sp_answer_message'], $ticketID));
 		HTTP::redirectTo('admin.php?page=support');
 	}
 	

@@ -56,10 +56,12 @@ function t($key)
 		case 9: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6], $args[7], $args[8]); break;
 		case 10: return call_user_func_array('sprintf', $args); break;
 	}
+
+	return '';
 }
 
 function getFactors($USER, $Type = 'basic', $TIME = NULL) {
-	global $CONF, $resource, $pricelist, $reslist;
+	global $resource, $pricelist, $reslist;
 	if(empty($TIME))
 		$TIME	= TIMESTAMP;
 	
@@ -99,59 +101,66 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 
 function getPlanets($USER)
 {
-		if(isset($USER['PLANETS']))
+	if(isset($USER['PLANETS']))
 		return $USER['PLANETS'];
-		
-	$Order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
-	$Sort  = $USER['planet_sort'];
 
-	$QryPlanets  = "SELECT id, name, galaxy, system, planet, planet_type, image, b_building, b_building_id FROM ".PLANETS." WHERE id_owner = '".$USER['id']."' AND destruyed = '0' ORDER BY ";
+	$order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
 
-	if($Sort == 0)
-		$QryPlanets .= "id ". $Order;
-	elseif($Sort == 1)
-		$QryPlanets .= "galaxy, system, planet, planet_type ". $Order;
-	elseif ($Sort == 2)
-		$QryPlanets .= "name ". $Order;
+	$sql = "SELECT id, name, galaxy, system, planet, planet_type, image, b_building, b_building_id
+			FROM %%PLANETS%% WHERE id_owner = :userId AND destruyed = :destruyed ORDER BY ";
 
-	$PlanetRAW = $GLOBALS['DATABASE']->query($QryPlanets);
+	switch($USER['planet_sort'])
+	{
+		case 0:
+			$sql	.= 'id '.$order;
+			break;
+		case 1:
+			$sql	.= 'galaxy, system, planet, planet_type '.$order;
+			break;
+		case 2:
+			$sql	.= 'name '.$order;
+			break;
+	}
+
+	$planetsResult = Database::get()->select($sql, array(
+		':userId'		=> $USER['id'],
+		':destruyed'	=> 0
+   	));
 	
-	$Planets	= array();
-	
-	while($Planet = $GLOBALS['DATABASE']->fetch_array($PlanetRAW))
-		$Planets[$Planet['id']]	= $Planet;
+	$planetsList = array();
 
-	$GLOBALS['DATABASE']->free_result($PlanetRAW);
-	return $Planets;
+	foreach($planetsResult as $planetRow) {
+		$planetsList[$planetRow['id']]	= $planetRow;
+	}
+
+	return $planetsList;
 }
 
 function get_timezone_selector() {
-	global $LNG;
-	
 	// New Timezone Selector, better support for changes in tzdata (new russian timezones, e.g.)
 	// http://www.php.net/manual/en/datetimezone.listidentifiers.php
 	
 	$timezones = array();
 	$timezone_identifiers = DateTimeZone::listIdentifiers();
 
-	foreach( $timezone_identifiers as $value )
+	foreach($timezone_identifiers as $value )
 	{
 		if ( preg_match( '/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//', $value ) )
 		{
-			$ex=explode('/',$value); //obtain continent,city
-			$city = isset($ex[2])? $ex[1].' - '.$ex[2]:$ex[1]; //in case a timezone has more than one
+			$ex		= explode('/',$value); //obtain continent,city
+			$city	= isset($ex[2])? $ex[1].' - '.$ex[2]:$ex[1]; //in case a timezone has more than one
 			$timezones[$ex[0]][$value] = str_replace('_', ' ', $city);
 		}
 	}
 	return $timezones; 
 }
 
-function locale_date_format($format, $time, $LNG = NULL) {
-
-	//Workaound for locale Names.
+function locale_date_format($format, $time, $LNG = NULL)
+{
+	// Workaround for locale Names.
 
 	if(!isset($LNG)) {
-		$LNG	= $GLOBALS['LNG'];		
+		global $LNG;
 	}
 	
 	$weekDay	= date('w', $time);
@@ -164,14 +173,13 @@ function locale_date_format($format, $time, $LNG = NULL) {
 	return $format;
 }
 
-function _date($format, $time = null, $toTimeZone = null, $LNG = NULL) {
-	global $CONF;
-	
-	if(!isset($time)) {
+function _date($format, $time = null, $toTimeZone = null, $LNG = NULL)
+{
+	if(!isset($time))
+	{
 		$time	= TIMESTAMP;
 	}
-	
-		
+
 	if(isset($toTimeZone))
 	{
 		$date = new DateTime();
@@ -211,7 +219,7 @@ function ValidateAddress($address) {
 	}
 }
 
-function message($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
+function message($mes, $dest = "", $time = "3", $topnav = false)
 {
 	require_once('includes/classes/class.template.php');
 	$template = new template();
@@ -316,20 +324,28 @@ function pretty_number($n, $dec = 0)
 	return number_format(floattostring($n, $dec), $dec, ',', '.');
 }
 
-function GetUserByID($UserID, $GetInfo = "*")
+function GetUserByID($userId, $GetInfo = "*")
 {
 	if(is_array($GetInfo)) {
 		$GetOnSelect = "";
-		foreach($GetInfo as $id => $col)
+		foreach($GetInfo as $col)
 		{
-			$GetOnSelect .= "".$col.",";
+			$GetOnSelect .= "´".$col."´,";
 		}
+
 		$GetOnSelect = substr($GetOnSelect, 0, -1);
 	}
 	else
+	{
 		$GetOnSelect = $GetInfo;
-	
-	$User = $GLOBALS['DATABASE']->getFirstRow("SELECT ".$GetOnSelect." FROM ".USERS." WHERE id = '". $UserID ."';");
+	}
+
+	$sql = 'SELECT '.$GetOnSelect.' FROM %%USERS%% WHERE id = :userId';
+
+	$User = Database::get()->selectSingle($sql, array(
+		':userId'	=> $userId
+	));
+
 	return $User;
 }
 
@@ -342,19 +358,13 @@ function makebr($text)
     return (version_compare(PHP_VERSION, "5.3.0", ">=")) ? nl2br($text, false) : strtr($text, array("\r\n" => $BR, "\r" => $BR, "\n" => $BR)); 
 }
 
-function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 1)
-{
-	$QrySelectGalaxy = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".PLANETS." WHERE universe = '".$Universe."' AND galaxy = '".$Galaxy."' AND system = '".$System."' AND planet = '".$Planet."' AND planet_type = '".$Planettype."';");
-	return $QrySelectGalaxy ? true : false;
-}
-
 function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
-{	
-	global $CONF;
+{
+	$config	= Config::get();
 	if(
-		Config::get('noobprotection') == 0 
-		|| Config::get('noobprotectiontime') == 0 
-		|| Config::get('noobprotectionmulti') == 0 
+		$config->noobprotection == 0 
+		|| $config->noobprotectiontime == 0 
+		|| $config->noobprotectionmulti == 0 
 		|| $Player['banaday'] > TIMESTAMP
 		|| $Player['onlinetime'] < TIMESTAMP - INACTIVE
 	) {
@@ -369,16 +379,16 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 				ODER weniger als 5.000 hat.
 			*/
 			// Addional Comment: Letzteres ist eigentlich sinnfrei, bitte testen.a
-			($TargetPlayer['total_points'] <= Config::get('noobprotectiontime')) && // Default: 25.000
-			($OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * Config::get('noobprotectionmulti'))
+			($TargetPlayer['total_points'] <= $config->noobprotectiontime) && // Default: 25.000
+			($OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * $config->noobprotectionmulti)
 		), 
 		'StrongPlayer' => (
 			/* WAHR: 
 				Wenn Spieler weniger als 5000 Punkte hat UND
 				Mehr als das funfache der eigende Punkte hat
 			*/
-			($OwnerPlayer['total_points'] < Config::get('noobprotectiontime')) && // Default: 5.000
-			($OwnerPlayer['total_points'] * Config::get('noobprotectionmulti') < $TargetPlayer['total_points'])
+			($OwnerPlayer['total_points'] < $config->noobprotectiontime) && // Default: 5.000
+			($OwnerPlayer['total_points'] * $config->noobprotectionmulti < $TargetPlayer['total_points'])
 		),
 	);
 }
@@ -390,23 +400,6 @@ function CheckName($name)
 	} else {
 		return preg_match("/^[A-z0-9_\-. ]*$/", $name);
 	}
-}
-
-function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message)
-{
-			
-	$SQL	= "INSERT INTO ".MESSAGES." SET 
-	message_owner = ".(int) $Owner.", 
-	message_sender = ".(int) $Sender.", 
-	message_time = ".(int) $Time.", 
-	message_type = ".(int) $Type.", 
-	message_from = '".$GLOBALS['DATABASE']->sql_escape($From) ."', 
-	message_subject = '". $GLOBALS['DATABASE']->sql_escape($Subject) ."', 
-	message_text = '".$GLOBALS['DATABASE']->sql_escape($Message)."', 
-	message_unread = '1', 
-	message_universe = ".$GLOBALS['UNI'].";";
-
-	$GLOBALS['DATABASE']->query($SQL);
 }
 
 function shortly_number($number, $decial = NULL)
@@ -459,7 +452,11 @@ function ClearCache()
 	
 	require_once 'includes/classes/Cronjob.class.php';
 	Cronjob::reCalculateCronjobs();
-	$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET eco_hash = '';");
+
+	$sql	= 'UPDATE %%PLANETS%% SET eco_hash = :ecoHash;';
+	Database::get()->update($sql, array(
+		':ecoHash'	=> ''
+	));
 	clearstatcache();
 }
 
@@ -489,7 +486,7 @@ function isVacationMode($USER)
 function cryptPassword($password)
 {
 	// http://www.phpgangsta.de/schoener-hashen-mit-bcrypt
-	global $resource, $salt;
+	global $salt;
 	if(!CRYPT_BLOWFISH || !isset($salt))
 	{
 		return md5($password);
@@ -534,6 +531,11 @@ function fleetAmountToArray($fleetAmount)
 	return $fleetAmount;
 }
 
+/*
+ * Handler for exceptions
+ *
+ * @param Exception $exception object
+ */
 function exceptionHandler($exception) 
 {
 	if(!headers_sent()) {
@@ -543,7 +545,7 @@ function exceptionHandler($exception)
 		
 		HTTP::sendHeader('HTTP/1.1 503 Service Unavailable');
 	}
-	
+
 	if(method_exists($exception, 'getSeverity')) {
 		$errno	= $exception->getSeverity();
 	} else {
@@ -572,7 +574,7 @@ function exceptionHandler($exception)
 		{
 			throw new Exception("No config class");
 		}
-		$config		= Config::get(Universe::current());
+		$config		= Config::get();
 		$gameName	= $config->game_name;
 		$VERSION	= $config->VERSION;
 	} catch(Exception $e) {

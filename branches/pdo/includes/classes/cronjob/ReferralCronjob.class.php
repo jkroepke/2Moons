@@ -59,7 +59,7 @@ class ReferralCronJob
 											   UPDATE ".USERS." SET `ref_bonus` = `ref_bonus` = '0' WHERE `id` = ".$User['id'].";");
 
 			$Message	= sprintf($LNG['sys_refferal_text'], $User['username'], pretty_number($CONF['ref_minpoints']), pretty_number($CONF['ref_bonus']), $LNG['tech'][921]);
-			SendSimpleMessage($User['ref_id'], '', TIMESTAMP, 4, $LNG['sys_refferal_from'], sprintf($LNG['sys_refferal_title'], $User['username']), $Message);
+			PlayerUtil::sendMessage($User['ref_id'], '', TIMESTAMP, 4, $LNG['sys_refferal_from'], sprintf($LNG['sys_refferal_title'], $User['username']), $Message);
 		}
 	}
 }

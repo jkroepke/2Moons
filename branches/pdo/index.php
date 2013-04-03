@@ -37,7 +37,7 @@ require('includes/common.php');
 $page 		= HTTP::_GP('page', 'index');
 $mode 		= HTTP::_GP('mode', 'show');
 $mode		= str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);
-$pageClass	= 'Show'.ucwords($page).'Page';
+$pageClass	= 'Show'.ucfirst($page).'Page';
 
 if(!file_exists('includes/pages/login/'.$pageClass.'.class.php')) {
 	ShowErrorPage::printError($LNG['page_doesnt_exist']);

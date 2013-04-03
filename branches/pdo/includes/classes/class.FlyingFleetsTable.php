@@ -29,60 +29,76 @@
 class FlyingFleetsTable
 {
 	protected $Mode = null;
-	protected $UserID	= null;
-	protected $PlanetID = null;
+	protected $userId	= null;
+	protected $planetId = null;
 	protected $IsPhalanx = false;
 	protected $missions = false;
-	
-	function __construct() {
+
+	public function __construct() {
 		
 	}
-	
-	function setUser($UserID) {
-		$this->UserID = $UserID;
+
+	public function setUser($userId) {
+		$this->userId = $userId;
 	}
-	
-	function setPlanet($PlanetID) {
-		$this->PlanetID = $PlanetID;
+
+	public function setPlanet($planetId) {
+		$this->planetId = $planetId;
 	}
-	
-	function setPhalanxMode() {
+
+	public function setPhalanxMode() {
 		$this->IsPhalanx = true;
 	}
-	
-	function setMissions($missions) {
+
+	public function setMissions($missions) {
 		$this->missions = $missions;
 	}
 	
-	function getFleets($acsID = false) {
-		global $USER, $resource;
-		
+	private function getFleets($acsID = false) {
 		if($this->IsPhalanx) {
-			$SQLWhere	= "(fleet_start_id = ".$this->PlanetID." AND fleet_mission != 4) OR (fleet_end_id = ".$this->PlanetID." AND fleet_mess IN (0, 2))";
+			$where = '(fleet_start_id = :planetId AND fleet_mission != :missionId) OR
+					  (fleet_end_id = :planetId AND fleet_mess IN (0, 2))';
+			$param = array(
+				':planetId'		=> $this->planetId,
+				':missionId'	=> 4
+			);
 		} elseif(!empty($acsID)) {
-			$SQLWhere	= "fleet_group = ".$acsID;
+			$where	= 'fleet_group = :acsId';
+			$param = array(
+				':acsId'	=> $acsID
+			);
 		} elseif($this->missions) {
-			$SQLWhere	= "(fleet_owner = ". $this->UserID ." OR fleet_target_owner = ". $this->UserID .") AND fleet_mission IN (". $this->missions .")";
+			$where = '(fleet_owner = :userId OR fleet_target_owner = :userId) AND fleet_mission IN ('.$this->missions.')';
+			$param = array(
+				':userId'	=> $this->userId
+			);
 		} else {
-			$SQLWhere	= "fleet_owner = ".$this->UserID." OR (fleet_target_owner = ".$this->UserID." AND fleet_mission != 8)";
+			$where  = 'fleet_owner = :userId OR (fleet_target_owner = :userId AND fleet_mission != :missionId)';
+			$param = array(
+				':userId'		=> $this->userId,
+				':missionId'	=> 8
+			);
 		}
 
-		return $GLOBALS['DATABASE']->query("SELECT DISTINCT fleet.*, ownuser.username as own_username, targetuser.username as target_username, ownplanet.name as own_planetname, targetplanet.name as target_planetname 
-		FROM ".FLEETS." fleet
-		LEFT JOIN ".USERS." ownuser ON (ownuser.id = fleet.fleet_owner)
-		LEFT JOIN ".USERS." targetuser ON (targetuser.id = fleet.fleet_target_owner)
-		LEFT JOIN ".PLANETS." ownplanet ON (ownplanet.id = fleet.fleet_start_id)
-		LEFT JOIN ".PLANETS." targetplanet ON (targetplanet.id = fleet.fleet_end_id)
-		WHERE ".$SQLWhere.";");
+		$sql = 'SELECT DISTINCT fleet.*, ownuser.username as own_username, targetuser.username as target_username,
+		ownplanet.name as own_planetname, targetplanet.name as target_planetname
+		FROM %%FLEETS%% fleet
+		LEFT JOIN %%USERS%% ownuser ON (ownuser.id = fleet.fleet_owner)
+		LEFT JOIN %%USERS%% targetuser ON (targetuser.id = fleet.fleet_target_owner)
+		LEFT JOIN %%PLANETS%% ownplanet ON (ownplanet.id = fleet.fleet_start_id)
+		LEFT JOIN %%PLANETS%% targetplanet ON (targetplanet.id = fleet.fleet_end_id)
+		WHERE '.$where.';';
+
+		return Database::get()->select($sql, $param);
 	}
-	
-	function renderTable()
+
+	public function renderTable()
 	{
 		$fleetResult	= $this->getFleets();
 		$ACSDone		= array();
 		$FleetData		= array();
 		
-		while($fleetRow = $GLOBALS['DATABASE']->fetch_array($fleetResult)) 
+		foreach($fleetResult as $fleetRow)
 		{
 			if ($fleetRow['fleet_mess'] == 0 && $fleetRow['fleet_start_time'] > TIMESTAMP && ($fleetRow['fleet_group'] == 0 || !isset($ACSDone[$fleetRow['fleet_group']])))
 			{
@@ -93,10 +109,10 @@ class FlyingFleetsTable
 			if ($fleetRow['fleet_mission'] == 10 || ($fleetRow['fleet_mission'] == 4 && $fleetRow['fleet_mess'] == 0))
 				continue;
 				
-			if ($fleetRow['fleet_end_stay'] != $fleetRow['fleet_start_time'] && $fleetRow['fleet_end_stay'] > TIMESTAMP && ($this->IsPhalanx && $fleetRow['fleet_end_id'] == $this->PlanetID))
+			if ($fleetRow['fleet_end_stay'] != $fleetRow['fleet_start_time'] && $fleetRow['fleet_end_stay'] > TIMESTAMP && ($this->IsPhalanx && $fleetRow['fleet_end_id'] == $this->planetId))
 				$FleetData[$fleetRow['fleet_end_stay'].$fleetRow['fleet_id']] = $this->BuildFleetEventTable($fleetRow, 2);
 		
-			if ($fleetRow['fleet_owner'] != $this->UserID)
+			if ($fleetRow['fleet_owner'] != $this->userId)
 				continue;
 		
 			if ($fleetRow['fleet_end_time'] > TIMESTAMP)
@@ -104,18 +120,20 @@ class FlyingFleetsTable
 		}
 		
 		ksort($FleetData);
-		$GLOBALS['DATABASE']->free_result($fleetResult);
 		return $FleetData;
 	}
-	
-	function BuildFleetEventTable($fleetRow, $FleetState) 
+
+	private function BuildFleetEventTable($fleetRow, $FleetState)
 	{
-				
+		$Time	= 0;
+		$Rest	= 0;
+
 		if ($FleetState == 0 && !$this->IsPhalanx && $fleetRow['fleet_group'] != 0)
 		{
 			$acsResult		= $this->getFleets($fleetRow['fleet_group']);
 			$EventString	= '';
-			while($acsRow = $GLOBALS['DATABASE']->fetch_array($acsResult))
+
+			foreach($acsResult as $acsRow)
 			{
 				$Return			= $this->getEventData($acsRow, $FleetState);
 					
@@ -123,7 +141,7 @@ class FlyingFleetsTable
 				$EventString    .= $Return[1].'<br><br>';
 				$Time			= $Return[2];
 			}
-			$GLOBALS['DATABASE']->free_result($acsResult);
+
 			$EventString	= substr($EventString, 0, -8);
 		}
 		else
@@ -141,7 +159,7 @@ class FlyingFleetsTable
 	public function getEventData($fleetRow, $Status)
 	{
 		global $LNG;
-		$Owner			= $fleetRow['fleet_owner'] == $this->UserID;
+		$Owner			= $fleetRow['fleet_owner'] == $this->userId;
 		$FleetStyle  = array (
 			1 => 'attack',
 			2 => 'federation',
@@ -162,7 +180,7 @@ class FlyingFleetsTable
 
 		$FleetPrefix    = ($Owner == true) ? 'own' : '';
 		$FleetType		= $FleetPrefix.$FleetStyle[$MissionType];
-		$FleetName		= (!$Owner && ($MissionType == 1 || $MissionType == 2) && $Status == FLEET_OUTWARD && $fleetRow['fleet_target_owner'] != $this->UserID) ? $LNG['cff_acs_fleet'] : $LNG['ov_fleet'];
+		$FleetName		= (!$Owner && ($MissionType == 1 || $MissionType == 2) && $Status == FLEET_OUTWARD && $fleetRow['fleet_target_owner'] != $this->userId) ? $LNG['cff_acs_fleet'] : $LNG['ov_fleet'];
 		$FleetContent   = $this->CreateFleetPopupedFleetLink($fleetRow, $FleetName, $FleetPrefix.$FleetStyle[$MissionType]);
 		$FleetCapacity  = $this->CreateFleetPopupedMissionLink($fleetRow, $LNG['type_mission'][$MissionType], $FleetPrefix.$FleetStyle[$MissionType]);
 		$FleetStatus    = array(0 => 'flight', 1 => 'return' , 2 => 'holding');
@@ -211,18 +229,21 @@ class FlyingFleetsTable
 			}		       
 		}
 		$EventString = '<span class="'.$FleetStatus[$Status].' '.$FleetType.'">'.$EventString.'</span>';
+
 		if ($Status == FLEET_OUTWARD)
-			$Time	 = $fleetRow['fleet_start_time'];
+			$Time = $fleetRow['fleet_start_time'];
 		elseif ($Status == FLEET_RETURN)
-			$Time	 = $fleetRow['fleet_end_time'];
+			$Time = $fleetRow['fleet_end_time'];
 		elseif ($Status == FLEET_HOLD)
-			$Time	 = $fleetRow['fleet_end_stay'];
-			
+			$Time = $fleetRow['fleet_end_stay'];
+		else
+			$Time = TIMESTAMP;
+
 		$Rest	= $Time - TIMESTAMP;
 		return array($Rest, $EventString, $Time);
 	}
-	
-    private function BuildHostileFleetPlayerLink($fleetRow, $fleetRow)
+
+	private function BuildHostileFleetPlayerLink($fleetRow, $fleetRow)
     {
 		global $LNG;
 		return $fleetRow['own_username'].' <a href="#" onclick="return Dialog.PM('.$fleetRow['fleet_owner'].')">'.$LNG['PM'].'</a>';
@@ -241,7 +262,7 @@ class FlyingFleetsTable
 			if($fleetRow['fleet_resource_darkmatter'] > 0)
 				$textForBlind .= '; '.floattostring($fleetRow['fleet_resource_darkmatter']).' '.$LNG['tech'][921];
 			
-			$FRessource   = '<table width=200>';
+			$FRessource   = '<table style=\'width:200px\'>';
 			$FRessource  .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][901].'</td><td style=\'width:50%;color:white\'>'. pretty_number($fleetRow['fleet_resource_metal']).'</td></tr>';
 			$FRessource  .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][902].'</td><td style=\'width:50%;color:white\'>'. pretty_number($fleetRow['fleet_resource_crystal']).'</td></tr>';
 			$FRessource  .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][903].'</td><td style=\'width:50%;color:white\'>'. pretty_number($fleetRow['fleet_resource_deuterium']).'</td></tr>';
@@ -261,7 +282,7 @@ class FlyingFleetsTable
 	{
 		global $LNG, $USER, $resource;
 		$SpyTech		= $USER[$resource[106]];
-		$Owner			= $fleetRow['fleet_owner'] == $this->UserID;
+		$Owner			= $fleetRow['fleet_owner'] == $this->userId;
 		$FleetRec		= explode(';', $fleetRow['fleet_array']);
 		$FleetPopup		= '<a href="#" data-tooltip-content="<table style=\'width:200px\'>';
 		$textForBlind	= '';

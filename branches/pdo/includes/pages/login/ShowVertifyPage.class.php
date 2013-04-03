@@ -114,7 +114,7 @@ class ShowVertifyPage extends AbstractPage
 		$subject 	= t('registerWelcomePMSubject');
 		$message 	= t('registerWelcomePMText', Config::get('game_name', $userData['universe']));
 		
-		SendSimpleMessage($userID, 1, TIMESTAMP, 1, $nameSender, $subject, $message);
+		PlayerUtil::sendMessage($userID, 1, TIMESTAMP, 1, $nameSender, $subject, $message);
 		return array(
 			'userID'	=> $userID,
 			'userName'	=> $userData['userName'],

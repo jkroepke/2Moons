@@ -400,7 +400,7 @@ HTML;
 				pretty_number($debris[902])
 			);
 				
-			SendSimpleMessage($userID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $message);
+			PlayerUtil::sendMessage($userID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $message);
 			
 			$sqlQuery	.= "INSERT INTO ".TOPKB_USERS." SET ";
 			$sqlQuery	.= "rid = '".$raportID."', ";
@@ -446,7 +446,7 @@ HTML;
 				pretty_number($debris[902])
 			);
 				
-			SendSimpleMessage($userID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $message);
+			PlayerUtil::sendMessage($userID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $message);
 			
 			$sqlQuery	.= "INSERT INTO ".TOPKB_USERS." SET ";
 			$sqlQuery	.= "rid = '".$raportID."', ";
@@ -515,7 +515,7 @@ HTML;
 		$TargetName	= $GLOBALS['DATABASE']->getFirstCell("SELECT name FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_start_id'].";");
 		$Message	= sprintf($LNG['sys_fleet_won'], $TargetName, GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]);
 
-		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
 			
 		$this->RestoreFleet();
 	}

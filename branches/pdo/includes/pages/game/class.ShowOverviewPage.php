@@ -38,13 +38,16 @@ class ShowOverviewPage extends AbstractPage
 	private function GetTeamspeakData()
 	{
 		global $USER, $LNG;
-		if (Config::get('ts_modon') == 0)
+
+		$config = Config::get();
+
+		if ($config->ts_modon == 0)
 		{
 			return false;
 		}
 		
-		$GLOBALS['CACHE']->add('teamspeak', 'TeamspeakBuildCache');
-		$tsInfo	= $GLOBALS['CACHE']->get('teamspeak', false);
+		Cache::get()->add('teamspeak', 'TeamspeakBuildCache');
+		$tsInfo	= Cache::get()->getData('teamspeak', false);
 		
 		if(empty($tsInfo))
 		{
@@ -52,8 +55,10 @@ class ShowOverviewPage extends AbstractPage
 				'error'	=> $LNG['ov_teamspeak_not_online']
 			);
 		}
-		
-		switch(Config::get('ts_version'))
+
+		$url = '';
+
+		switch($config->ts_version)
 		{
 			case 2:
 				$url = 'teamspeak://%s:%s?nickname=%s';
@@ -64,7 +69,7 @@ class ShowOverviewPage extends AbstractPage
 		}
 		
 		return array(
-			'url'		=> sprintf($url, Config::get('ts_server'), Config::get('ts_tcpport'), $USER['username'], $tsInfo['password']),
+			'url'		=> sprintf($url, $config->ts_server, $config->ts_tcpport, $USER['username'], $tsInfo['password']),
 			'current'	=> $tsInfo['current'],
 			'max'		=> $tsInfo['maxuser'],
 			'error'		=> false,
@@ -73,7 +78,7 @@ class ShowOverviewPage extends AbstractPage
 
 	private function GetFleets() {
 		global $USER, $PLANET;
-		require_once('includes/classes/class.FlyingFleetsTable.php');
+		require 'includes/classes/class.FlyingFleetsTable.php';
 		$fleetTableObj = new FlyingFleetsTable;
 		$fleetTableObj->setUser($USER['id']);
 		$fleetTableObj->setPlanet($PLANET['id']);
@@ -244,12 +249,14 @@ class ShowOverviewPage extends AbstractPage
             ':userID'   => $USER['id']
         ));
 
-        if(Config::get('ref_active'))
+		$config	= Config::get();
+
+        if($config->ref_active)
 		{
 			foreach ($RefLinksRAW as $RefRow) {
 				$RefLinks[$RefRow['id']]	= array(
 					'username'	=> $RefRow['username'],
-					'points'	=> min($RefRow['total_points'], Config::get('ref_minpoints'))
+					'points'	=> min($RefRow['total_points'], $config->ref_minpoints)
 				);
 			}
 		}
@@ -257,13 +264,13 @@ class ShowOverviewPage extends AbstractPage
 		if($USER['total_rank'] == 0) {
 			$rankInfo	= "-";
 		} else {
-			$rankInfo	= sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], Config::get('users_amount'));
+			$rankInfo	= sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $config->users_amount);
 		}
 		
 		$this->tplObj->assign_vars(array(
 			'rankInfo'					=> $rankInfo,
-			'is_news'					=> Config::get('OverviewNewsFrame'),
-			'news'						=> makebr(Config::get('OverviewNewsText')),
+			'is_news'					=> $config->OverviewNewsFrame,
+			'news'						=> makebr($config->OverviewNewsText),
 			'planetname'				=> $PLANET['name'],
 			'planetimage'				=> $PLANET['image'],
 			'galaxy'					=> $PLANET['galaxy'],
@@ -284,8 +291,8 @@ class ShowOverviewPage extends AbstractPage
 			'planet_field_max' 			=> CalculateMaxPlanetFields($PLANET),
 			'planet_temp_min' 			=> $PLANET['temp_min'],
 			'planet_temp_max' 			=> $PLANET['temp_max'],
-			'ref_active'				=> Config::get('ref_active'),
-			'ref_minpoints'				=> Config::get('ref_minpoints'),
+			'ref_active'				=> $config->ref_active,
+			'ref_minpoints'				=> $config->ref_minpoints,
 			'RefLinks'					=> $RefLinks,
 			'chatOnline'				=> $chatOnline,
 			'servertime'				=> _date("M D d H:i:s", TIMESTAMP, $USER['timezone']),

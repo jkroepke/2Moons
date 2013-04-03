@@ -35,38 +35,62 @@ class Cronjob
 	
 	static function execute($cronjobID)
 	{
-		$cronjobsList		= array();
-		$cronjobsClassName	= $GLOBALS['DATABASE']->getFirstCell("SELECT class FROM ".CRONJOBS." WHERE isActive = 1 AND cronjobID = ".$cronjobID." AND `lock` IS NULL;");
-		if(empty($cronjobsClassName))
+		$db	= Database::get();
+
+		$sql = 'SELECT class FROM %%CRONJOBS% WHERE isActive = :isActive AND cronjobID = :cronjobId AND `lock` IS NULL;';
+
+		$cronjobClassName	= $db->selectSingle($sql, array(
+			':isActive'		=> 1,
+			':cronjobId'	=> $cronjobID
+		), 'class');
+
+		if(empty($cronjobClassName))
 		{
-			throw new Exception("Unkown cronjob ".$cronjobID." or is deactived");
+			throw new Exception(sprintf("Unknown cronjob %s or cronjob is deactive!", $cronjobID));
 		}
 		
-		$GLOBALS['DATABASE']->query("UPDATE ".CRONJOBS." SET `lock` = '".md5(TIMESTAMP)."' WHERE cronjobID = ".$cronjobID.";");
+		$sql = 'UPDATE %%CRONJOBS%% SET `lock` = :lock WHERE cronjobID = :cronjobId;';
+
+		$db->update($sql, array(
+			':lock'			=> md5(TIMESTAMP),
+			':cronjobId'	=> $cronjobID
+		));
 		
-		$cronjobsPath		= 'includes/classes/cronjob/'.$cronjobsClassName.'.class.php';
+		$cronjobsPath		= 'includes/classes/cronjob/'.$cronjobClassName.'.class.php';
 		
 		// die hard, if file not exists.
 		require_once($cronjobsPath);
 		
-		$cronjobObj			= new $cronjobsClassName;
+		$cronjobObj			= new $cronjobClassName;
 		$cronjobObj->run();
 		self::reCalculateCronjobs($cronjobID);
-		$GLOBALS['DATABASE']->query("UPDATE ".CRONJOBS." SET `lock` = NULL WHERE cronjobID = ".$cronjobID.";");	
+
+		$sql = 'UPDATE %%CRONJOBS%% SET `lock` = NULL WHERE cronjobID = :cronjobId;';
+
+		$db->update($sql, array(
+			':cronjobId'	=> $cronjobID
+		));
 	}
 	
 	static function getNeedTodoExecutedJobs()
 	{
-		$cronjobsList	= array();
-		$cronjobsRaw	= $GLOBALS['DATABASE']->query("SELECT cronjobID FROM ".CRONJOBS." WHERE isActive = 1 AND nextTime < ".TIMESTAMP." AND `lock` IS NULL;");
-		while($cronjobRow = $GLOBALS['DATABASE']->fetchArray($cronjobsRaw))
+		$sql			= 'SELECT cronjobID
+		FROM %%CRONJOBS%%
+		WHERE isActive = :isActive AND nextTime < :time AND `lock` IS NULL;';
+
+		$cronjobResult	= Database::get()->select($sql, array(
+			':isActive'	=> 1,
+			':time'		=> TIMESTAMP
+ 		));
+
+		$cronjobList	= array();
+
+		foreach($cronjobResult as $cronjobRow)
 		{
-			$cronjobsList[]	= $cronjobRow['cronjobID'];
+			$cronjobList[]	= $cronjobRow['cronjobID'];
 		}
 		
-		$GLOBALS['DATABASE']->free_result($cronjobsRaw);
-		
-		return $cronjobsList;
+		return $cronjobList;
 	}
 	
 	static function reCalculateCronjobs($cronjobID = NULL)
@@ -74,26 +98,33 @@ class Cronjob
 	
 		require_once 'includes/libs/tdcron/class.tdcron.php';
 		require_once 'includes/libs/tdcron/class.tdcron.entry.php';
-		
-		$cronjobsList	= array();
-		$SQL			= "";
-		$where			= "";
-		
+
+		$db	= Database::get();
+
 		if(!empty($cronjobID))
 		{
-			$where	= " WHERE cronjobID = ".$cronjobID;
+			$sql			= 'SELECT cronjobID, min, hours, dom, month, dow FROM %%CRONJOBS%% WHERE cronjobID = :cronjobId;';
+			$cronjobResult	= $db->select($sql, array(
+				':cronjobId' => $cronjobID
+			));
 		}
-		
-		$cronjobsRaw	= $GLOBALS['DATABASE']->query("SELECT cronjobID, min, hours, dom, month, dow FROM ".CRONJOBS.$where.";");
+		else
+		{
+			$sql			= 'SELECT cronjobID, min, hours, dom, month, dow FROM %%CRONJOBS%%;';
+			$cronjobResult	= $db->select($sql);
+		}
 
-		while($cronjobRow = $GLOBALS['DATABASE']->fetchArray($cronjobsRaw))
+		$sql = 'UPDATE %%CRONJOBS%% SET nextTime = :nextTime WHERE cronjobID = :cronjobId;';
+
+		foreach($cronjobResult as $cronjobRow)
 		{
 			$cronTabString	= implode(' ', array($cronjobRow['min'], $cronjobRow['hours'], $cronjobRow['dom'], $cronjobRow['month'], $cronjobRow['dow']));
 			$nextTime		= tdCron::getNextOccurrence($cronTabString, TIMESTAMP);
-			
-			$SQL			.= "UPDATE ".CRONJOBS." SET nextTime = ".$nextTime." WHERE cronjobID = ".$cronjobRow['cronjobID'].";";
+
+			$db->update($sql, array(
+				':nextTime'		=> $nextTime,
+				':cronjobId'	=> $cronjobRow['cronjobID'],
+			));
 		}
-		
-		$GLOBALS['DATABASE']->multi_query($SQL);
 	}
 }

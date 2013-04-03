@@ -87,8 +87,9 @@ class Session
 	{
 		if(!self::existsActiveSession())
 		{
-			self::$obj	= unserialize($_SESSION['obj']);
+			self::init();
 			session_start();
+			self::$obj	= unserialize($_SESSION['obj']);
 		}
 
 		return self::$obj;
@@ -117,7 +118,7 @@ class Session
 
 	public function __wakeup()
 	{
-		$this->__construct();
+
 	}
 
 	public function __set($name, $value)
@@ -197,7 +198,7 @@ class Session
 			return false;
 		}
 
-		if($this->data['lastActivity'] > TIMESTAMP - SESSION_LIFETIME)
+		if($this->data['lastActivity'] < TIMESTAMP - SESSION_LIFETIME)
 		{
 			return false;
 		}

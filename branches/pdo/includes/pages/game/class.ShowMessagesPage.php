@@ -294,7 +294,7 @@ class ShowMessagesPage extends AbstractPage
             $Subject	= $LNG['mg_no_subject'];
         }
 
-        SendSimpleMessage($receiverID, $USER['id'], TIMESTAMP, 1, $From, $Subject, $Message);
+        PlayerUtil::sendMessage($receiverID, $USER['id'], TIMESTAMP, 1, $From, $Subject, $Message);
         $this->sendJSON($LNG['mg_message_send']);
     }
 

@@ -46,12 +46,12 @@ class ShowIndexPage extends AbstractPage
 			$this->redirectTo('index.php?page=register&referralID='.$referralID);
 		}
 	
-		$universeSelect	= array();		
-		$uniAllConfig	= Config::getAll('universe');
+		$universeSelect	= array();
 		
-		foreach($uniAllConfig as $uniID => $uniConfig)
+		foreach(Universe::availableUniverses() as $uniId)
 		{
-			$universeSelect[$uniID]	= $uniConfig['uni_name'].($uniConfig['game_disable'] == 0 ? t('uni_closed') : '');
+			$config = Config::get($uniId);
+			$universeSelect[$uniId]	= $config->uni_name.($config->game_disable == 0 ? $LNG['uni_closed'] : '');
 		}
 		
 		$Code	= HTTP::_GP('code', 0);
@@ -63,8 +63,10 @@ class ShowIndexPage extends AbstractPage
 
 		$referralUniversum	= 0;
 		$referralUserID		= 0;
-					
-		if(Config::get('ref_active'))
+
+		$config				= Config::get();
+
+		if($config->ref_active)
 		{
 			$referralUserID		= HTTP::_GP('ref', 0);
 			if(!empty($referralUserID))
@@ -89,8 +91,8 @@ class ShowIndexPage extends AbstractPage
 			'referralUniversum'		=> $referralUniversum,
 			'universeSelect'		=> $universeSelect,
 			'code'					=> $loginCode,
-			'descHeader'			=> t('loginWelcome', Config::get('game_name')),
-			'descText'				=> t('loginServerDesc', Config::get('game_name')),
+			'descHeader'			=> t('loginWelcome', $config->game_name),
+			'descText'				=> t('loginServerDesc', $config->game_name),
 			'loginInfo'				=> t('loginInfo', '<a href="index.php?page=rules">'.t('menu_rules').'</a>')
 		));
 		

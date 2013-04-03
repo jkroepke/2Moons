@@ -32,8 +32,8 @@ require('includes/libs/Smarty/Smarty.class.php');
 class template extends Smarty
 {
 	protected $window	= 'full';
-	protected $jsscript	= array();
-	protected $script	= array();
+	public $jsscript	= array();
+	public $script		= array();
 	
 	function __construct()
 	{	
@@ -90,16 +90,18 @@ class template extends Smarty
 		} else {
 			$dateTimeUser	= $dateTimeServer;
 		}
-		
+
+		$config	= Config::get();
+
 		$this->assign_vars(array(
 			'scripts'			=> $this->script,
-			'title'				=> Config::get('game_name').' - '.$LNG['adm_cp_title'],
+			'title'				=> $config->game_name.' - '.$LNG['adm_cp_title'],
 			'fcm_info'			=> $LNG['fcm_info'],
             'lang'    			=> $LNG->getLanguage(),
-			'REV'				=> substr(Config::get('VERSION'), -4),
+			'REV'				=> substr($config->VERSION, -4),
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
 			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
-			'VERSION'			=> Config::get('VERSION'),
+			'VERSION'			=> $config->VERSION,
 			'dpath'				=> 'styles/theme/gow/',
 			'bodyclass'			=> 'full'
 		));

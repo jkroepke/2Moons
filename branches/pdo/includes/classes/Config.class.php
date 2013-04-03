@@ -51,18 +51,18 @@ class Config
 	/**
 	 * Return an config object for the requested universe
 	 *
-	 * @param int Universe ID
+	 * @param int $universe Universe ID
 	 *
 	 * @return Config
 	 */
 
-	static public function get($universe = null)
+	static public function get($universe = 0)
 	{
 		if (empty(self::$instances)) {
 			self::generateInstances();
 		}
 
-		if(is_null($universe))
+		if($universe === 0)
 		{
 			$universe = Universe::current();
 		}

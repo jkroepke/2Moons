@@ -31,7 +31,7 @@ class TeamSpeakCronjob
 {
 	function run()
 	{
-		$GLOBALS['CACHE']->add('teamspeak', 'TeamspeakBuildCache');
-		$GLOBALS['CACHE']->flush('teamspeak');
+		Cache::get()->add('teamspeak', 'TeamspeakBuildCache');
+		Cache::get()->flush('teamspeak');
 	}
 }

@@ -153,7 +153,7 @@ class MissionCaseSpy extends MissionFunctions
 				
 		$spyRaport	= $template->fetch('shared.mission.spyraport.tpl');
 
-		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $spyRaport);
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $spyRaport);
 		
 		$LNG			= $this->getLanguage($targetUser['lang']);
 		$targetMessage  = $LNG['sys_mess_spy_ennemyfleet'] ." ". $senderPlanet['name'];
@@ -166,7 +166,7 @@ class MissionCaseSpy extends MissionFunctions
 						  $LNG['sys_mess_spy_seen_at'].' '.$targetPlanet['name'].
 						  ' ['. $targetPlanet['galaxy'].':'.$targetPlanet['system'].':'.$targetPlanet['planet'].'] '.$LNG['sys_mess_spy_seen_at2'].'.';
 
-		SendSimpleMessage($this->_fleet['fleet_target_owner'], 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_spy_control'], $LNG['sys_mess_spy_activity'], $targetMessage);
+		PlayerUtil::sendMessage($this->_fleet['fleet_target_owner'], 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_spy_control'], $LNG['sys_mess_spy_activity'], $targetMessage);
 
 		if ($targetChance >= $spyChance)
 		{

@@ -166,7 +166,7 @@ class ShowFleetTablePage extends AbstractPage
 				
 				$inviteTitle			= $LNG['fl_acs_invitation_title'];
 				$inviteMessage 			= $LNG['fl_player'] . $USER['username'] . $LNG['fl_acs_invitation_message'];
-				SendSimpleMessage($newUserID, $USER['id'], TIMESTAMP, 1, $USER['username'], $inviteTitle, $inviteMessage);
+				PlayerUtil::sendMessage($newUserID, $USER['id'], TIMESTAMP, 1, $USER['username'], $inviteTitle, $inviteMessage);
 			}
 		}
 		
