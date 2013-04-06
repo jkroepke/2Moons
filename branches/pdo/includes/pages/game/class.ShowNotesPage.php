@@ -130,7 +130,6 @@ class ShowNotesPage extends AbstractPage
                 ':priority' => $priority,
                 ':title'    => $title,
                 ':text'     => $text,
-                ':universe' => Universe::current()
             ));
         }
 		

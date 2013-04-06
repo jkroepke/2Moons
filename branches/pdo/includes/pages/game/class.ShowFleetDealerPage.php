@@ -46,17 +46,16 @@ class ShowFleetDealerPage extends AbstractPage
 		
 		if(!empty($shipID) && in_array($shipID, $allowedShipIDs) && $PLANET[$resource[$shipID]] >= $Count)
 		{
-			$PLANET[$resource[901]]			+= $Count * $pricelist[$shipID]['cost'][901] * (1 - (Config::get('trade_charge') / 100));
-			$PLANET[$resource[902]]			+= $Count * $pricelist[$shipID]['cost'][902] * (1 - (Config::get('trade_charge') / 100));
-			$PLANET[$resource[903]]			+= $Count * $pricelist[$shipID]['cost'][903] * (1 - (Config::get('trade_charge') / 100));
-			$USER[$resource[921]]			+= $Count * $pricelist[$shipID]['cost'][921] * (1 - (Config::get('trade_charge') / 100));
+			$tradeCharge	= 1 - (Config::get()->trade_charge / 100);
+			$PLANET[$resource[901]]			+= $Count * $pricelist[$shipID]['cost'][901] * $tradeCharge;
+			$PLANET[$resource[902]]			+= $Count * $pricelist[$shipID]['cost'][902] * $tradeCharge;
+			$PLANET[$resource[903]]			+= $Count * $pricelist[$shipID]['cost'][903] * $tradeCharge;
+			$USER[$resource[921]]			+= $Count * $pricelist[$shipID]['cost'][921] * $tradeCharge;
 			
 			$PLANET[$resource[$shipID]]		-= $Count;
 
-			$db = Database::get();
-
             $sql = "UPDATE %%PLANETS%% SET :resourceID = :resourceID - :count WHERE id = :planetID;";
-            $db->update($sql, array(
+			Database::get()->update($sql, array(
                 ':resourceID'   => $resource[$shipID],
                 ':count'        => $Count,
                 ':planetID'     => $PLANET['id']
@@ -77,7 +76,7 @@ class ShowFleetDealerPage extends AbstractPage
 		
 		$Cost		= array();
 		
-		$allowedShipIDs	= explode(',', Config::get('trade_allowed_ships'));
+		$allowedShipIDs	= explode(',', Config::get()->trade_allowed_ships);
 		
 		foreach($allowedShipIDs as $shipID)
 		{

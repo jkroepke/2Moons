@@ -58,9 +58,7 @@ class ShowPhalanxPage extends AbstractPage
 	function show()
 	{
 		global $PLANET, $LNG, $resource;
-		require_once('includes/classes/class.FlyingFleetsTable.php');
-		
-		$FlyingFleetsTable 	= new FlyingFleetsTable();
+
 		$this->initTemplate();
 		$this->setWindow('popup');
 		$this->tplObj->loadscript('phalanx.js');
@@ -86,12 +84,15 @@ class ShowPhalanxPage extends AbstractPage
 			':planetID'			=> $PLANET['id']
 		));
 
-		$sql = "SELECT id, name, id_owner FROM %%PLANETS%% WHERE`universe` = '".Universe::current()."' AND `galaxy` = :galaxy AND `system` = :system AND `planet` = :planet AND `planet_type` = '1';";
+		$sql = "SELECT id, name, id_owner FROM %%PLANETS%% WHERE universe = :universe
+		AND galaxy = :galaxy AND system = :system AND planet = :planet AND :type;";
+		
 		$TargetInfo = $db->selectSingle($sql, array(
 			':universe'	=> Universe::current(),
 			':galaxy'	=> $Galaxy,
 			':systemy'	=> $System,
-			':planet'	=> $Planet
+			':planet'	=> $Planet,
+			':type'		=> 1
 		));
 
 		if(empty($TargetInfo))
@@ -99,7 +100,8 @@ class ShowPhalanxPage extends AbstractPage
 			$this->printMessage($LNG['px_out_of_range']);
 		}
 		
-		require_once('includes/classes/class.FlyingFleetsTable.php');
+		require 'includes/classes/class.FlyingFleetsTable.php';
+
 		$fleetTableObj = new FlyingFleetsTable;
 		$fleetTableObj->setPhalanxMode();
 		$fleetTableObj->setUser($TargetInfo['id_owner']);

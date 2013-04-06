@@ -43,36 +43,42 @@ class ShowResourcesPage extends AbstractPage
 			$updateSQL	= array();
 			if(!isset($_POST['prod']))
 				$_POST['prod'] = array();
-				
-				
-			foreach($_POST['prod'] as $ressourceID => $Value)
+
+
+			$param	= array(':planetId' => $PLANET['id']);
+			
+			foreach($_POST['prod'] as $resourceId => $Value)
 			{
-				$FieldName = $resource[$ressourceID].'_porcent';
+				$FieldName = $resource[$resourceId].'_porcent';
 				if (!isset($PLANET[$FieldName]) || !in_array($Value, range(0, 10)))
 					continue;
 				
-				$updateSQL[]	= $FieldName." = '".((int) $Value)."'";
-				
-				$PLANET[$FieldName]	= $Value;
-				$this->ecoObj->PLANET[$FieldName]	= $Value;
+				$updateSQL[]	= $FieldName." = :".$FieldName;
+				$param[':'.$FieldName]		= (int) $Value;
+				$PLANET[$FieldName]			= $Value;
 			}
 
 			if(!empty($updateSQL))
 			{
-				$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(", ", $updateSQL)." WHERE `id` = ".$PLANET['id'] .";");
-				
+				$sql	= 'UPDATE %%PLANETS%% SET '.implode(', ', $updateSQL).' WHERE id = :planetId;';
+
+				Database::get()->update($sql, $param);
+
+				$this->ecoObj->setData($USER, $PLANET);
 				$this->ecoObj->ReBuildCache();
-				$this->ecoObj->PLANET['eco_hash'] = $this->ecoObj->CreateHash();
-				$PLANET = $this->ecoObj->PLANET;
+				$PLANET['eco_hash'] = $this->ecoObj->CreateHash();
 			}
 		}
+
 		$this->save();
 		$this->redirectTo('game.php?page=resources');
 	}
 	function show()
 	{
 		global $LNG, $ProdGrid, $resource, $reslist, $USER, $PLANET;
-		
+
+		$config	= Config::get();
+
 		if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
 		{
 			$basicIncome[901]	= 0;
@@ -82,10 +88,10 @@ class ShowResourcesPage extends AbstractPage
 		}
 		else
 		{		
-			$basicIncome[901]	= Config::get($resource[901].'_basic_income');
-			$basicIncome[902]	= Config::get($resource[902].'_basic_income');
-			$basicIncome[903]	= Config::get($resource[903].'_basic_income');
-			$basicIncome[911]	= Config::get($resource[911].'_basic_income');
+			$basicIncome[901]	= $config->{$resource[901].'_basic_income'};
+			$basicIncome[902]	= $config->{$resource[902].'_basic_income'};
+			$basicIncome[903]	= $config->{$resource[903].'_basic_income'};
+			$basicIncome[911]	= $config->{$resource[911].'_basic_income'};
 		}
 		
 		$temp	= array(
@@ -108,13 +114,19 @@ class ShowResourcesPage extends AbstractPage
 		);
 		
 		$ressIDs		= array_merge(array(), $reslist['resstype'][1], $reslist['resstype'][2]);
-		
+
+		$productionList	= array();
+
 		if($PLANET['energy_used'] != 0) {
 			$prodLevel	= min(1, $PLANET['energy'] / abs($PLANET['energy_used']));
 		} else {
 			$prodLevel	= 0;
 		}
-		
+
+		/* Data for eval */
+		$BuildEnergy		= $USER[$resource[113]];
+		$BuildTemp          = $PLANET['temp_max'];
+
 		foreach($reslist['prod'] as $ProdID)
 		{	
 			$productionList[$ProdID]	= array(
@@ -122,21 +134,25 @@ class ShowResourcesPage extends AbstractPage
 				'elementLevel'	=> $PLANET[$resource[$ProdID]],
 				'prodLevel'		=> $PLANET[$resource[$ProdID].'_porcent'],
 			);
-			
+
+			/* Data for eval */
+			$BuildLevel			= $PLANET[$resource[$ProdID]];
+			$BuildLevelFactor	= $PLANET[$resource[$ProdID].'_porcent'];
+
 			foreach($ressIDs as $ID) 
 			{
 				if(!isset($ProdGrid[$ProdID]['production'][$ID]))
 					continue;
-					
+
 				$Production	= eval(ResourceUpdate::getProd($ProdGrid[$ProdID]['production'][$ID]));
 				
 				if($ID != 911)
 				{
-					$Production	*= $prodLevel * Config::get('resource_multiplier');
+					$Production	*= $prodLevel * $config->resource_multiplier;
 				}
 				else
 				{
-					$Production	*= Config::get('energySpeed');
+					$Production	*= $config->resource_multiplier;
 				}
 				
 				$productionList[$ProdID]['production'][$ID]	= $Production;
@@ -158,10 +174,10 @@ class ShowResourcesPage extends AbstractPage
 		);
 		
 		$basicProduction	= array(
-			901 => $basicIncome[901] * Config::get('resource_multiplier'),
-			902 => $basicIncome[902] * Config::get('resource_multiplier'),
-			903	=> $basicIncome[903] * Config::get('resource_multiplier'),
-			911	=> $basicIncome[911] * Config::get('energySpeed'),
+			901 => $basicIncome[901] * $config->resource_multiplier,
+			902 => $basicIncome[902] * $config->resource_multiplier,
+			903	=> $basicIncome[903] * $config->resource_multiplier,
+			911	=> $basicIncome[911] * $config->energySpeed,
 		);
 		
 		$totalProduction	= array(
@@ -194,8 +210,8 @@ class ShowResourcesPage extends AbstractPage
 			
 		$prodSelector	= array();
 		
-		foreach(range(0, 10) as $procent) {
-			$prodSelector[$procent]	= ($procent * 10).'%';
+		foreach(range(10, 0) as $percent) {
+			$prodSelector[$percent]	= ($percent * 10).'%';
 		}
 		
 		$this->tplObj->assign_vars(array(	

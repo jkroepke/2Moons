@@ -69,7 +69,7 @@ class ShowRecordsPage extends AbstractPage
 			'fleetList'		=> $fleetList,
 			'researchList'	=> $researchList,
 			'buildList'		=> $buildList,
-			'update'		=> _date($LNG['php_tdformat'], Config::get('stat_last_update'), $USER['timezone']),
+			'update'		=> _date($LNG['php_tdformat'], Config::get()->stat_last_update, $USER['timezone']),
 		));
 		
 		$this->display('page.records.default.tpl');

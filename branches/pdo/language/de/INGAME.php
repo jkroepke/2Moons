@@ -768,7 +768,9 @@ $LNG['al_rank_desc']['KICK']				= 'Kann Mitglieder entfernen';
 $LNG['al_rank_desc']['DIPLOMATIC']			= 'Kann Diplomatie verwalten';
 $LNG['al_rank_desc']['RANKS']				= 'Rangverwaltung';
 $LNG['al_rank_desc']['MANAGEUSERS']			= 'Kann Mitglieder verwalten';
-$LNG['al_rank_desc']['EVENTS']				= 'Kann Ereignisse im internen Bereich sehen';$LNG['bu_request_exists']					= 'Spieler bereits in der Buddyliste!';
+$LNG['al_rank_desc']['EVENTS']				= 'Kann Ereignisse im internen Bereich sehen';
+$LNG['al_invalid_rank_name']				= 'Im Ranknamen sind nur Zahlen, Buchstaben, Leerzeichen, _, -, . erlaubt!';
+
 
 //----------------------------------------------------------------------------//
 //BUDDY
@@ -1112,7 +1114,6 @@ $LNG['ti_status_answer'] 					= 'Beantwortet';
 $LNG['ti_error_closed'] 					= 'Auf dieses Ticket kann keine Antwort erstellt werden, da es bereits geschlossen wurde!';
 $LNG['ti_admin_open'] 						= 'Ticket wurde geöffnet!';
 $LNG['ti_admin_close'] 						= 'Ticket wurde geschlossen!';
-
 $LNG['ti_create_info']						= '<p>Bitte vergeben Sie beim Erstellen einer neuen Anfrage einen möglichst aussagekräftigen Betreff und schildern Sie Ihr Anliegen so detailliert wie möglich.</p>
 <p>Eine genaue Beschreibung Ihrer Anfrage ermöglicht kurze Bearbeitungszeiten und vermeidet zeitaufwendige Rückfragen auf beiden Seiten.</p>
 <p>Bei accountbezogenen Fragen erleichtert die Angabe des entsprechenden Kundenaccounts die Zuordnung und verkürzt ebenfalls die Bearbeitungsdauer.</p>';

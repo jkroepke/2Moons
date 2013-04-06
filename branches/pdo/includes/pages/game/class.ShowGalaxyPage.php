@@ -40,16 +40,18 @@ class ShowGalaxyPage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $resource, $LNG, $reslist, $CONF;
+		global $USER, $PLANET, $resource, $LNG, $reslist;
+
+		$config			= Config::get();
 
 		$action 		= HTTP::_GP('action', '');
 		$galaxyLeft		= HTTP::_GP('galaxyLeft', '');
 		$galaxyRight	= HTTP::_GP('galaxyRight', '');
 		$systemLeft		= HTTP::_GP('systemLeft', '');
 		$systemRight	= HTTP::_GP('systemRight', '');
-		$galaxy			= min(max(HTTP::_GP('galaxy', (int) $PLANET['galaxy']), 1), Config::get('max_galaxy'));
-		$system			= min(max(HTTP::_GP('system', (int) $PLANET['system']), 1), Config::get('max_system'));
-		$planet			= min(max(HTTP::_GP('planet', (int) $PLANET['planet']), 1), Config::get('max_planets'));
+		$galaxy			= min(max(HTTP::_GP('galaxy', (int) $PLANET['galaxy']), 1), $config->max_galaxy);
+		$system			= min(max(HTTP::_GP('system', (int) $PLANET['system']), 1), $config->max_system);
+		$planet			= min(max(HTTP::_GP('planet', (int) $PLANET['planet']), 1), $config->max_planets);
 		$type			= HTTP::_GP('type', 1);
 		$current		= HTTP::_GP('current', 0);
 		
@@ -111,7 +113,7 @@ class ShowGalaxyPage extends AbstractPage
 			'current_system'			=> $PLANET['system'],
 			'current_planet'			=> $PLANET['planet'],
 			'planet_type' 				=> $PLANET['planet_type'],
-            'max_planets'               => Config::get('max_planets'),
+            'max_planets'               => $config->max_planets,
 			'MissleSelector'			=> $MissleSelector,
 			'ShortStatus'				=> array(
 				'vacation'					=> $LNG['gl_short_vacation'],

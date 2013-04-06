@@ -120,7 +120,7 @@ class ShowTicketPage extends AbstractPage
 	{
 		global $USER, $LNG;
 		
-		require_once('includes/functions/BBCode.php');
+		require 'includes/classes/BBCode.class.php';
 
 		$db = Database::get();
 
@@ -136,13 +136,17 @@ class ShowTicketPage extends AbstractPage
 		if($db->rowCount() == 0) {
 			$this->printMessage(sprintf($LNG['ti_not_exist'], $ticketID));
 		}
-		
+
+		$ticket_status = 0;
+
 		foreach($answerResult as $answerRow) {
 			$answerRow['time']	= _date($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
-			$answerRow['message']	= bbcode($answerRow['message']);
+			$answerRow['message']	= BBCode::parse($answerRow['message']);
 			$answerList[$answerRow['answerID']]	= $answerRow;
 			if (empty($ticket_status))
+			{
 				$ticket_status = $answerRow['status'];
+			}
 		}
 
 		$categoryList	= $this->ticketObj->getCategoryList();

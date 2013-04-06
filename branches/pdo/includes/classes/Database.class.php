@@ -2,7 +2,7 @@
 
 class Database
 {
-	protected $dbHandle = null;
+	protected $dbHandle = NULL;
 	protected $dbTableNames = array();
 	protected $lastInsertId = false;
 	protected $rowCount = false;
@@ -16,6 +16,11 @@ class Database
 			self::$instance = new self();
 
 		return self::$instance;
+	}
+
+	public function getDbTableNames()
+	{
+		return $this->dbTableNames;
 	}
 
 	private function __clone()
@@ -48,7 +53,7 @@ class Database
 
 	public function disconnect()
 	{
-		$this->dbHandle = null;
+		$this->dbHandle = NULL;
 	}
 
 	public function getHandle()
@@ -78,23 +83,26 @@ class Database
 		
 		$qry	= str_replace($this->dbTableNames['keys'], $this->dbTableNames['names'], $qry);
 
-
 		/** @var $stmt PDOStatement */
 		$stmt	= $this->dbHandle->prepare($qry);
 
-		if (isset($params[':limit']))
+		if (isset($params[':limit']) || isset($params[':offset']))
 		{
-			$stmt->bindValue(':limit', (int) $params[':limit'], PDO::PARAM_INT);
-			unset($params[':limit']);
+			foreach($params as $param => $value)
+			{
+				if($param == ':limit' || $param == ':offset')
+				{
+					$stmt->bindValue($param, (int) $value, PDO::PARAM_INT);
+				}
+				else
+				{
+					$stmt->bindValue($param, (int) $value, PDO::PARAM_STR);
+				}
+			}
 		}
 
-		if (isset($params[':offset']))
-		{
-			$stmt->bindValue(':offset', (int) $params[':offset'], PDO::PARAM_INT);
-			unset($params[':offset']);
-		}
 		try {
-			$success = (count($params) !== 0) ? $stmt->execute($params) : $stmt->execute();
+			$success = (count($params) !== 0 && !isset($params[':limit']) && !isset($params[':offset'])) ? $stmt->execute($params) : $stmt->execute();
 		}
 		catch (Exception $e) {
 			throw new PDOException($e->getMessage().'<br><br>Query-Code:'.str_replace(array_keys($params), array_values($params), $qry));
@@ -202,5 +210,4 @@ class Database
 	{
 		return $this->dbHandle->quote($str);
 	}
-
 }

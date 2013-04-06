@@ -71,6 +71,8 @@ class Session
 		if(!self::existsActiveSession())
 		{
 			self::$obj	= new self;
+			register_shutdown_function(array(self::$obj, 'save'));
+
 			session_start();
 		}
 
@@ -90,6 +92,8 @@ class Session
 			self::init();
 			session_start();
 			self::$obj	= unserialize($_SESSION['obj']);
+			register_shutdown_function(array(self::$obj, 'save'));
+
 		}
 
 		return self::$obj;

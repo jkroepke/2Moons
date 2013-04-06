@@ -116,7 +116,7 @@ class ShowBuddyListPage extends AbstractPage
 
         $buddyID	= $db->lastInsertId();
 
-        $GLOBALS['DATABASE']->multi_query("INSERT INTO %%BUDDY_REQUEST%% SET id = :buddyID, text = :text;");
+		$sql = "INSERT INTO %%BUDDY_REQUEST%% SET id = :buddyID, text = :text;";
         $db->insert($sql, array(
             ':buddyID'  => $buddyID,
             ':text' => $text

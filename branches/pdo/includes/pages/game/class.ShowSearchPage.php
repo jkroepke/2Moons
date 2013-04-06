@@ -38,14 +38,13 @@ class ShowSearchPage extends AbstractPage
 	{
 		$db = Database::get();
 				
-		$Limit		= $maxResult === -1 ? "" : "LIMIT ".$maxResult;
+		$limit		= $maxResult === -1 ? '' : 'LIMIT :limit';
 		
 		$searchList	= array();
 
 		switch($searchMode) {
 			case 'playername':
-				$sql = "SELECT
-				a.id, a.username, a.ally_id, a.galaxy, a.system, a.planet, b.name, c.total_rank, d.ally_name
+				$sql = "SELECT a.id, a.username, a.ally_id, a.galaxy, a.system, a.planet, b.name, c.total_rank, d.ally_name
 				FROM %%USERS%% as a
 				INNER JOIN %%PLANETS%% as b ON b.id = a.id_planet
 				LEFT JOIN %%STATPOINTS%% as c ON c.id_owner = a.id AND c.stat_type = 1
@@ -54,12 +53,13 @@ class ShowSearchPage extends AbstractPage
 				ORDER BY (
 				  IF(a.username = :searchText, 1, 0)
 				  + IF(a.username LIKE :searchTextLike, 1, 0)
-				) DESC, a.username ASC :limit;";
+				) DESC, a.username ASC
+				".$limit.";";
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
 					':searchText' 		=> $searchText,
 					':searchTextLike'	=> '%'.$searchText.'%',
-					':limit'			=> $Limit
+					':limit'			=> $maxResult
 				));
 
 				foreach($searchResult as $searchRow)
@@ -79,8 +79,7 @@ class ShowSearchPage extends AbstractPage
 			break;
 			case 'planetname':
 
-				$sql = "SELECT
-				a.name, a.galaxy, a.planet, a.system,
+				$sql = "SELECT a.name, a.galaxy, a.planet, a.system,
 				b.id, b.ally_id, b.username,
 				c.total_rank,
 				d.ally_name
@@ -92,12 +91,14 @@ class ShowSearchPage extends AbstractPage
 				ORDER BY (
 				  IF(a.name = :searchText, 1, 0)
 				  + IF(a.name LIKE :searchTextLike, 1, 0)
-				) DESC, a.name ASC :limit;";
+				) DESC, a.name ASC
+				".$limit.";";
+
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
 					':searchText' 		=> $searchText,
 					':searchTextLike'	=> '%'.$searchText.'%',
-					':limit'			=> $Limit
+					':limit'			=> $maxResult
 				));
 
 				foreach($searchResult as $searchRow)
@@ -116,20 +117,21 @@ class ShowSearchPage extends AbstractPage
 				}
 			break;
 			case "allytag":
-				$sql = "SELECT
-				a.id, a.ally_name, a.ally_tag, a.ally_members,
+				$sql = "SELECT a.id, a.ally_name, a.ally_tag, a.ally_members,
 				c.total_points FROM %%ALLIANCE%% as a
 				LEFT JOIN %%STATPOINTS%% as c ON c.stat_type = 1 AND c.id_owner = a.id
 				WHERE a.ally_universe = :universe AND a.ally_tag LIKE :searchTextLike
 				ORDER BY (
 				  IF(a.ally_tag = :searchText, 1, 0)
 				  + IF(a.ally_tag LIKE :searchTextLike, 1, 0)
-				) DESC, a.ally_tag ASC :limit;";
+				) DESC, a.ally_tag ASC
+				".$limit.";";
+
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
 					':searchText' 		=> $searchText,
 					':searchTextLike'	=> '%'.$searchText.'%',
-					':limit'			=> $Limit
+					':limit'			=> $maxResult
 				));
 
 				foreach($searchResult as $searchRow)
@@ -143,20 +145,21 @@ class ShowSearchPage extends AbstractPage
 				}
 			break;
 			case "allyname":
-				$sql = "SELECT
-				a.ally_name, a.ally_tag, a.ally_members,
+				$sql = "SELECT a.ally_name, a.ally_tag, a.ally_members,
 				b.total_points FROM %%ALLIANCE%% as a
 				LEFT JOIN %%STATPOINTS%% as b ON b.stat_type = 1 AND b.id_owner = a.id
 				WHERE a.ally_universe = :universe AND a.ally_name LIKE :searchTextLike
 				ORDER BY (
 				  IF(a.ally_name = :searchText, 1, 0)
 				  + IF(a.ally_name LIKE :searchTextLike, 1, 0)
-				) DESC,a.ally_name ASC :limit;";
+				) DESC,a.ally_name ASC
+				".$limit.";";
+
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
 					':searchText' 		=> $searchText,
 					':searchTextLike'	=> '%'.$searchText.'%',
-					':limit'			=> $Limit
+					':limit'			=> $maxResult
 				));
 
 				foreach($searchResult as $searchRow)

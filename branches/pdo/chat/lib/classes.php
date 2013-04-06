@@ -8,19 +8,18 @@
  */
 
 // Include Class libraries:
-require(AJAX_CHAT_PATH.'lib/class/AJAXChat.php');
-require(AJAX_CHAT_PATH.'lib/class/AJAXChatDataBase.php');
-require(AJAX_CHAT_PATH.'lib/class/AJAXChatMySQLDataBase.php');
-require(AJAX_CHAT_PATH.'lib/class/AJAXChatMySQLQuery.php');
-require(AJAX_CHAT_PATH.'lib/class/AJAXChatMySQLiDataBase.php');
-require(AJAX_CHAT_PATH.'lib/class/AJAXChatMySQLiQuery.php');
-require(AJAX_CHAT_PATH.'lib/class/AJAXChatEncoding.php');
-require(AJAX_CHAT_PATH.'lib/class/AJAXChatString.php');
-require(AJAX_CHAT_PATH.'lib/class/AJAXChatFileSystem.php');
-require(AJAX_CHAT_PATH.'lib/class/AJAXChatHTTPHeader.php');
-require(AJAX_CHAT_PATH.'lib/class/AJAXChatLanguage.php');
-require(AJAX_CHAT_PATH.'lib/class/AJAXChatTemplate.php');
-require(AJAX_CHAT_PATH.'lib/class/CustomAJAXChat.php');
-require(AJAX_CHAT_PATH.'lib/class/CustomAJAXChatShoutBox.php');
-require(AJAX_CHAT_PATH.'lib/class/CustomAJAXChatInterface.php');
-?>
+require('chat/lib/class/AJAXChat.php');
+require('chat/lib/class/AJAXChatDataBase.php');
+require('chat/lib/class/AJAXChatMySQLDataBase.php');
+require('chat/lib/class/AJAXChatMySQLQuery.php');
+require('chat/lib/class/AJAXChatMySQLiDataBase.php');
+require('chat/lib/class/AJAXChatMySQLiQuery.php');
+require('chat/lib/class/AJAXChatEncoding.php');
+require('chat/lib/class/AJAXChatString.php');
+require('chat/lib/class/AJAXChatFileSystem.php');
+require('chat/lib/class/AJAXChatHTTPHeader.php');
+require('chat/lib/class/AJAXChatLanguage.php');
+require('chat/lib/class/AJAXChatTemplate.php');
+require('chat/lib/class/CustomAJAXChat.php');
+require('chat/lib/class/CustomAJAXChatShoutBox.php');
+require('chat/lib/class/CustomAJAXChatInterface.php');

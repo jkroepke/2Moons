@@ -39,7 +39,6 @@ class ShowMessagesPage extends AbstractPage
     {
         global $LNG, $USER;
         $MessCategory  	= HTTP::_GP('messcat', 100);
-
         $page  			= HTTP::_GP('site', 1);
 
         $db = Database::get();
@@ -52,54 +51,62 @@ class ShowMessagesPage extends AbstractPage
 
         if($MessCategory == 999)  {
 
-            $sql = "SELECT COUNT(*) FROM %%MESSAGES%% WHERE message_sender = :userID AND message_type != 50;";
+            $sql = "SELECT COUNT(*) as state FROM %%MESSAGES%% WHERE message_sender = :userId AND message_type != 50;";
             $MessageCount = $db->selectSingle($sql, array(
-                ':userID'   => $USER['id'],
-            ), 'count');
+                ':userId'   => $USER['id'],
+            ), 'state');
 
             $maxPage	= max(1, ceil($MessageCount / MESSAGES_PER_PAGE));
             $page		= max(1, min($page, $maxPage));
 
             $sql = "SELECT message_id, message_time, CONCAT(username, ' [',galaxy, ':', system, ':', planet,']') as message_from, message_subject, message_sender, message_type, message_unread, message_text
-                FROM %%MESSAGES%% INNER JOIN %%USERS%% ON id = message_owner
-                WHERE message_sender = :userID AND message_type != 50
-                ORDER BY message_time DESC
-                LIMIT :offset, :limit;";
+			FROM %%MESSAGES%% INNER JOIN %%USERS%% ON id = message_owner
+			WHERE message_sender = :userId AND message_type != 50
+			ORDER BY message_time DESC
+			LIMIT :offset, :limit;";
 
             $MessageResult = $db->select($sql, array(
-                ':userID'   => $USER['id'],
+                ':userId'   => $USER['id'],
                 ':offset'   => (($page - 1) * MESSAGES_PER_PAGE),
                 ':limit'    => MESSAGES_PER_PAGE
             ));
-        } else {
-            if ($MessCategory == 100) {
-                $sql = "SELECT COUNT(*) FROM %%MESSAGES%% WHERE message_owner = :userid;";
+        }
+		else
+		{
+            if ($MessCategory == 100)
+			{
+                $sql = "SELECT COUNT(*) as state FROM %%MESSAGES%% WHERE message_owner = :userId;";
                 $MessageCount = $db->selectSingle($sql, array(
-                    ':userID'   => $USER['id'],
-                ), 'count');
+                    ':userId'   => $USER['id'],
+                ), 'state');
 
                 $maxPage	= max(1, ceil($MessageCount / MESSAGES_PER_PAGE));
                 $page		= max(1, min($page, $maxPage));
 
                 $sql = "SELECT message_id, message_time, message_from, message_subject, message_sender, message_type, message_unread, message_text
                            FROM %%MESSAGES%%
-                           WHERE message_owner = :userID
+                           WHERE message_owner = :userId
                            ORDER BY message_time DESC
                            LIMIT :offset, :limit";
+
                 $MessageResult = $db->select($sql, array(
-                    ':userID'       => $USER['id'],
+                    ':userId'       => $USER['id'],
                     ':offset'       => (($page - 1) * MESSAGES_PER_PAGE),
                     ':limit'        => MESSAGES_PER_PAGE
                 ));
-            } else {
-                $sql = "SELECT COUNT(*) FROM %%MESSAGES%% WHERE message_owner = :userid AND message_type = :messCategory;";
+            }
+			else
+			{
+                $sql = "SELECT COUNT(*) as state FROM %%MESSAGES%% WHERE message_owner = :userId AND message_type = :messCategory;";
+
                 $MessageCount = $db->selectSingle($sql, array(
-                    ':userID'       => $USER['id'],
+                    ':userId'       => $USER['id'],
                     ':messCategory' => $MessCategory
-                ), 'count');
+                ), 'state');
+
                 $sql = "SELECT message_id, message_time, message_from, message_subject, message_sender, message_type, message_unread, message_text
                            FROM %%MESSAGES%%
-                           WHERE message_owner = :userID AND message_type = :messCategory
+                           WHERE message_owner = :userId AND message_type = :messCategory
                            ORDER BY message_time DESC
                            LIMIT :offset, :limit";
 
@@ -107,7 +114,7 @@ class ShowMessagesPage extends AbstractPage
                 $page		= max(1, min($page, $maxPage));
 
                 $MessageResult = $db->select($sql, array(
-                    ':userID'       => $USER['id'],
+                    ':userId'       => $USER['id'],
                     ':messCategory' => $MessCategory,
                     ':offset'       => (($page - 1) * MESSAGES_PER_PAGE),
                     ':limit'        => MESSAGES_PER_PAGE
@@ -132,9 +139,8 @@ class ShowMessagesPage extends AbstractPage
         }
 
         if(!empty($MessagesID) && $MessCategory != 999) {
-            $sql = "UPDATE %%MESSAGES%% SET message_unread = 0 WHERE message_id IN (:messageIDs) AND message_owner = :userID;";
+            $sql = 'UPDATE %%MESSAGES%% SET message_unread = 0 WHERE message_id IN ('.implode(',', $MessagesID).') AND message_owner = :userID;';
             $db->update($sql, array(
-                ':messageIDs'   => implode(',', $MessagesID),
                 ':userID'       => $USER['id'],
             ));
         }
@@ -162,6 +168,8 @@ class ShowMessagesPage extends AbstractPage
         $messageIDs		= HTTP::_GP('messageID', array());
 
         $redirectUrl	= 'game.php?page=messages&category='.$MessCategory.'&side='.$page;
+
+		$action			= false;
 
         if(isset($_POST['submitTop']))
         {
@@ -213,10 +221,9 @@ class ShowMessagesPage extends AbstractPage
                     $this->redirectTo($redirectUrl);
                 }
 
-                $sql = "UPDATE %%MESSAGES%% SET message_unread = 0 WHERE message_id IN (:messageIDs) AND message_owner = :userID;";
+                $sql = 'UPDATE %%MESSAGES%% SET message_unread = 0 WHERE message_id IN ('.implode(',', array_keys($messageIDs)).') AND message_owner = :userID;';
                 $db->update($sql, array(
                     ':userID'       => $USER['id'],
-                    ':messageIDs'   => implode(',', array_keys($messageIDs))
                 ));
                 break;
             case 'deleteall':
@@ -245,10 +252,9 @@ class ShowMessagesPage extends AbstractPage
                     $this->redirectTo($redirectUrl);
                 }
 
-                $sql = "DELETE FROM %%MESSAGES%% WHERE message_id IN (:messageIDs) AND message_owner = :userID;";
+                $sql = 'DELETE FROM %%MESSAGES%% WHERE message_id IN ('.implode(',', array_keys($messageIDs)).') AND message_owner = :userId;';
                 $db->update($sql, array(
-                    ':userID'       => $USER['id'],
-                    ':messageIDs'   => implode(',', array_keys($messageIDs))
+                    ':userId'       => $USER['id'],
                 ));
                 break;
             case 'deleteunmarked':
@@ -264,10 +270,9 @@ class ShowMessagesPage extends AbstractPage
                     $this->redirectTo($redirectUrl);
                 }
 
-                $sql = "DELETE FROM %%MESSAGES%% WHERE message_id NOT IN (:messageIDs) AND message_owner = :userID;";
+                $sql = 'DELETE FROM %%MESSAGES%% WHERE message_id NOT IN ('.implode(',', array_keys($messageIDs)).') AND message_owner = :userId;';
                 $db->update($sql, array(
-                    ':userID'       => $USER['id'],
-                    ':messageIDs'   => implode(',', array_keys($messageIDs))
+                    ':userId'       => $USER['id'],
                 ));
                 break;
         }
@@ -282,12 +287,14 @@ class ShowMessagesPage extends AbstractPage
         $Message 	= makebr(HTTP::_GP('text', '', true));
         $From    	= $USER['username'].' ['.$USER['galaxy'].':'.$USER['system'].':'.$USER['planet'].']';
 
-        if (empty($receiverID) || empty($Message) || !isset($_SESSION['messtoken']) || $_SESSION['messtoken'] != md5($USER['id'].'|'.$receiverID))
+		$session	= Session::load();
+
+        if (empty($receiverID) || empty($Message) || !isset($session->messageToken) ||$session->messageToken != md5($USER['id'].'|'.$receiverID))
         {
             $this->sendJSON($LNG['mg_error']);
         }
 
-        unset($_SESSION['messtoken']);
+		$session->messageToken = NULL;
 
         if (empty($Subject))
         {
@@ -309,7 +316,9 @@ class ShowMessagesPage extends AbstractPage
         $receiverID       	= HTTP::_GP('id', 0);
         $Subject 			= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
 
-        $sql = "SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet, b.settings_blockPM FROM %%PLANETS%% as a, %%USERS%% as b WHERE b.id = :receiver AND a.id = b.id_planet;";
+        $sql = "SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet, b.settings_blockPM
+        FROM %%PLANETS%% as a, %%USERS%% as b WHERE b.id = :receiver AND a.id = b.id_planet;";
+
         $receiverRecord = $db->selectSingle($sql, array(
             ':receiverID'   => $receiverID
         ));
@@ -324,7 +333,7 @@ class ShowMessagesPage extends AbstractPage
             $this->printMessage($LNG['mg_receiver_block_pm']);
         }
 
-        $_SESSION['messtoken'] = md5($USER['id'].'|'.$receiverID);
+        Session::load()->messageToken = md5($USER['id'].'|'.$receiverID);
 
         $this->tplObj->assign_vars(array(
             'subject'		=> $Subject,
@@ -346,10 +355,10 @@ class ShowMessagesPage extends AbstractPage
 
         $TitleColor    	= array ( 0 => '#FFFF00', 1 => '#FF6699', 2 => '#FF3300', 3 => '#FF9900', 4 => '#773399', 5 => '#009933', 15 => '#6495ed', 50 => '#666600', 99 => '#007070', 100 => '#ABABAB', 999 => '#CCCCCC');
 
-        $sql = "SELECT COUNT(*) FROM %%MESSAGES%% WHERE message_sender = :userID AND message_type != 50;";
+        $sql = "SELECT COUNT(*) as state FROM %%MESSAGES%% WHERE message_sender = :userID AND message_type != 50;";
         $MessOut = $db->selectSingle($sql, array(
             ':userID'   => $USER['id']
-        ), 'count');
+        ), 'state');
 
         $OperatorList	= array();
         $Total			= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);

@@ -111,7 +111,7 @@
 									<tr>
 										<th colspan='2'>{$LNG.bd_price_for_destroy} {$LNG.tech.{$ID}} {$Element.level}</th>
 									</tr>
-									{foreach $Element.destroyRessources as $ResType => $ResCount}
+									{foreach $Element.destroyResources as $ResType => $ResCount}
 									<tr>
 										<td>{$LNG.tech.{$ResType}}</td>
 										<td><span style='color:{if $Element.destroyOverflow[$RessID] == 0}lime{else}red{/if}'>{$ResCount|number}</span></td>

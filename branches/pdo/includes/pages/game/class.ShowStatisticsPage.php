@@ -80,12 +80,13 @@ class ShowStatisticsPage extends AbstractPage
 
         $RangeList  = array();
 
-		$db = Database::get();
+		$db 	= Database::get();
+		$config	= Config::get();
 
         switch($who)
         {
             case 1:
-                $MaxUsers 	= Config::get('users_amount');
+                $MaxUsers 	= $config->users_amount;
                 $range		= min($range, $MaxUsers);
                 $LastPage 	= max(1, ceil($MaxUsers / 100));
 
@@ -98,7 +99,7 @@ class ShowStatisticsPage extends AbstractPage
 
                 $start = max(floor(($range - 1) / 100) * 100, 0);
 
-				if (Config::get('stat') == 2) {
+				if ($config->stat == 2) {
 					$sql = "SELECT DISTINCT s.*, u.id, u.username, u.ally_id, a.ally_name FROM %%STATPOINTS%% as s
 					INNER JOIN %%USERS%% as u ON u.id = s.id_owner
 					LEFT JOIN %%ALLIANCE%% as a ON a.id = s.id_ally
@@ -106,7 +107,7 @@ class ShowStatisticsPage extends AbstractPage
 					ORDER BY :order ASC LIMIT :offset, :limit;";
 					$query = $db->select($sql, array(
 						':universe'	=> Universe::current(),
-						':authLevel'=> Config::get('stat_level'),
+						':authLevel'=> $config->stat_level,
 						':order'	=> $Order,
 						':offset'	=> $start,
 						':limit'	=> 100,
@@ -197,7 +198,7 @@ class ShowStatisticsPage extends AbstractPage
             'RangeList'				=> $RangeList,
             'CUser_ally'			=> $USER['ally_id'],
             'CUser_id'				=> $USER['id'],
-            'stat_date'				=> _date($LNG['php_tdformat'], Config::get('stat_last_update'), $USER['timezone']),
+            'stat_date'				=> _date($LNG['php_tdformat'], $config->stat_last_update, $USER['timezone']),
         ));
 
         $this->display('page.statistics.default.tpl');

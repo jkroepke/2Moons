@@ -45,12 +45,14 @@ class ShowTraderPage extends AbstractPage
 	public function show() 
 	{
 		global $LNG, $USER, $resource;
-		
+
+		$darkmatter_cost_trader	= Config::get()->darkmatter_cost_trader;
+
 		$this->tplObj->assign_vars(array(
-			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number(Config::get('darkmatter_cost_trader')), $LNG['tech'][921]),
+			'tr_cost_dm_trader'		=> sprintf($LNG['tr_cost_dm_trader'], pretty_number($darkmatter_cost_trader), $LNG['tech'][921]),
 			'charge'				=> self::$Charge,
 			'resource'				=> $resource,
-			'requiredDarkMatter'	=> $USER['darkmatter'] < Config::get('darkmatter_cost_trader') ? sprintf($LNG['tr_not_enought'], $LNG['tech'][921]) : false,
+			'requiredDarkMatter'	=> $USER['darkmatter'] < $darkmatter_cost_trader ? sprintf($LNG['tr_not_enought'], $LNG['tech'][921]) : false,
 		));
 		
 		$this->display("page.trader.default.tpl");
@@ -60,7 +62,7 @@ class ShowTraderPage extends AbstractPage
 	{
 		global $USER, $LNG;
 		
-		if ($USER['darkmatter'] < Config::get('darkmatter_cost_trader')) {
+		if ($USER['darkmatter'] < Config::get()->darkmatter_cost_trader) {
 			$this->redirectTo('game.php?page=trader');
 		}
 		
@@ -85,7 +87,7 @@ class ShowTraderPage extends AbstractPage
 	{
 		global $USER, $PLANET, $LNG, $resource;
 		
-		if ($USER['darkmatter'] < Config::get('darkmatter_cost_trader')) {
+		if ($USER['darkmatter'] < Config::get()->darkmatter_cost_trader) {
 			$this->redirectTo('game.php?page=trader');
 		}
 		
@@ -100,7 +102,8 @@ class ShowTraderPage extends AbstractPage
 		$tradeResources		= array_values(array_diff(array_keys(self::$Charge[$resourceID]), array($resourceID)));
 		$tradeSum 			= 0;
 		
-		foreach($tradeResources as $tradeRessID) {
+		foreach($tradeResources as $tradeRessID)
+		{
 			if(!isset($getTradeResources[$tradeRessID]))
 			{
 				continue;
@@ -126,9 +129,9 @@ class ShowTraderPage extends AbstractPage
 			}
 			elseif(isset($USER[$resource[$resourceID]]))
 			{
-				if($resourceID == 291)
+				if($resourceID == 921)
 				{
-					$USER[$resource[$resourceID]]	-= Config::get('darkmatter_cost_trader');
+					$USER[$resource[$resourceID]]	-= Config::get()->darkmatter_cost_trader;
 				}
 				
 				$usedResources	= $tradeAmount * self::$Charge[$resourceID][$tradeRessID];
@@ -141,14 +144,14 @@ class ShowTraderPage extends AbstractPage
 				$tradeSum	  						+= $tradeAmount;
 				$USER[$resource[$resourceID]]		-= $usedResources;
 				
-				if($resourceID == 291)
+				if($resourceID == 921)
 				{
-					$USER[$resource[$resourceID]]	+= Config::get('darkmatter_cost_trader');
+					$USER[$resource[$resourceID]]	+= Config::get()->darkmatter_cost_trader;
 				}
 			}
 			else
 			{
-				throw new Exception('Unknow resource ID #'.$resourceID);
+				throw new Exception('Unknown resource ID #'.$resourceID);
 			}
 			
 			if(isset($PLANET[$resource[$tradeRessID]]))
@@ -161,13 +164,13 @@ class ShowTraderPage extends AbstractPage
 			}
 			else
 			{
-				throw new Exception('Unknow resource ID #'.$tradeRessID);
+				throw new Exception('Unknown resource ID #'.$tradeRessID);
 			}
 		}
 		
 		if ($tradeSum > 0)
 		{
-			$USER[$resource[921]]	-= Config::get('darkmatter_cost_trader');
+			$USER[$resource[921]]	-= Config::get()->darkmatter_cost_trader;
 		}
 		
 		$this->printMessage($LNG['tr_exchange_done'], array("game.php?page=trader", 3));

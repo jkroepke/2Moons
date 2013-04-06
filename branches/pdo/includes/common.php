@@ -100,7 +100,7 @@ date_default_timezone_set($config->timezone);
 
 require 'includes/vars.php';
 
-if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
+if (MODE === 'INGAME' || MODE === 'ADMIN')
 {
 	$session	= Session::load();
 
@@ -108,8 +108,6 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
 	{
 		HTTP::redirectTo('index.php?code=3');
 	}
-
-	$session->save();
 
 	require 'includes/classes/class.BuildFunctions.php';
 	require 'includes/classes/class.PlanetRessUpdate.php';
