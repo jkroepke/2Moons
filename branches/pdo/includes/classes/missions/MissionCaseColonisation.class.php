@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class MissionCaseColonisation extends MissionFunctions
+class MissionCaseColonisation extends MissionFunctions implements Mission
 {
 	function __construct($Fleet)
 	{

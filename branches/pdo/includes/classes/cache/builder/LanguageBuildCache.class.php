@@ -26,26 +26,30 @@
  * @link http://2moons.cc/
  */
 
-class LanguageBuildCache
+class LanguageBuildCache implements BuildCache
 {
 	public function buildCache()
 	{
 		$languages	= array();
-		foreach (new DirectoryIterator(ROOT_PATH.'language/') as $fileInfo)
+		/** @var $fileInfo SplFileObject */
+		foreach (new DirectoryIterator('language/') as $fileInfo)
 		{
 			if(!$fileInfo->isDir()) continue;
 
 			$Lang	= $fileInfo->getBasename();
 
-			if(!file_exists(ROOT_PATH.'language/'.$Lang.'/LANG.cfg')) continue;
+			if(!file_exists('language/'.$Lang.'/LANG.cfg')) continue;
 
 			// Fixed BOM problems.
 			ob_start();
-			require 'language/'.$Lang.'/LANG.cfg';
+			$path	 = 'language/'.$Lang.'/LANG.cfg';
+			require $path;
 			ob_end_clean();
-			$languages[$Lang]	= $Language['name'];
+			if(!isset($Language['name']))
+			{
+				$languages[$Lang]	= $Language['name'];
+			}
 		}
-
 		return $languages;
 	}
 }

@@ -77,7 +77,9 @@ class Database
 		$this->rowCount = false;
 		
 		$qry	= str_replace($this->dbTableNames['keys'], $this->dbTableNames['names'], $qry);
-		
+
+
+		/** @var $stmt PDOStatement */
 		$stmt	= $this->dbHandle->prepare($qry);
 
 		if (isset($params[':limit']))
@@ -182,6 +184,7 @@ class Database
 
 		$qry	= str_replace($this->dbTableNames['keys'], $this->dbTableNames['names'], $qry);
 
+		/** @var $stmt PDOStatement */
 		$stmt	= $this->dbHandle->query($qry);
 
 		$this->rowCount = $stmt->rowCount();

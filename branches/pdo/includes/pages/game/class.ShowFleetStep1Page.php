@@ -300,7 +300,7 @@ class ShowFleetStep1Page extends AbstractPage
 				$this->sendJSON($LNG['fl_target_not_exists']);
 			}
 			
-			$activeExpedition	= FleetFunctions::GetCurrentFleets($USER['id'], 15);
+			$activeExpedition	= FleetFunctions::GetCurrentFleets($USER['id'], 15, true);
 
 			if ($activeExpedition >= FleetFunctions::getExpeditionLimit($USER))
 			{

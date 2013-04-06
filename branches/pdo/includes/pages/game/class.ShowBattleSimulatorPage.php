@@ -133,9 +133,9 @@ class ShowBattleSimulatorPage extends AbstractPage
 		
 		$LNG->includeData(array('FLEET'));
 		
-		require_once('includes/classes/missions/calculateAttack.php');
-		require_once('includes/classes/missions/calculateSteal.php');
-		require_once('includes/classes/missions/GenerateReport.php');
+		require_once 'includes/classes/missions/functions/calculateAttack.php';
+		require_once 'includes/classes/missions/functions/calculateSteal.php';
+		require_once 'includes/classes/missions/functions/GenerateReport.php';
 		
 		$combatResult	= calculateAttack($attackers, $defenders, Config::get('Fleet_Cdr'), Config::get('Defs_Cdr'));
 		
@@ -187,11 +187,11 @@ class ShowBattleSimulatorPage extends AbstractPage
 			'stealResource'			=> $stealResource,
 			'moonChance'			=> $chanceCreateMoon,
 			'moonDestroy'			=> false,
-			'moonName'				=> null,
-			'moonDestroyChance'		=> null,
-			'moonDestroySuccess'	=> null,
-			'fleetDestroyChance'	=> null,
-			'fleetDestroySuccess'	=> null,
+			'moonName'				=> NULL,
+			'moonDestroyChance'		=> NULL,
+			'moonDestroySuccess'	=> NULL,
+			'fleetDestroyChance'	=> NULL,
+			'fleetDestroySuccess'	=> NULL,
 		);
 		
 		$sumSteal	= array_sum($stealResource);
@@ -225,11 +225,11 @@ class ShowBattleSimulatorPage extends AbstractPage
 			'stealResource'			=> $stealResource,
 			'moonChance'			=> $chanceCreateMoon,
 			'moonDestroy'			=> false,
-			'moonName'				=> null,
-			'moonDestroyChance'		=> null,
-			'moonDestroySuccess'	=> null,
-			'fleetDestroyChance'	=> null,
-			'fleetDestroySuccess'	=> null,
+			'moonName'				=> NULL,
+			'moonDestroyChance'		=> NULL,
+			'moonDestroySuccess'	=> NULL,
+			'fleetDestroyChance'	=> NULL,
+			'fleetDestroySuccess'	=> NULL,
 			'additionalInfo'		=> $stealResourceInformations,
 		);
 		

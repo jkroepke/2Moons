@@ -48,23 +48,23 @@ class ShowFleetTablePage extends AbstractPage
         $db = Database::get();
         $sql = "INSERT INTO %%AKS%% SET name = :acsName, ankunft = :time, target = :target;";
         $db->insert($sql, array(
-            ':acsName'  => $acsName,
-            ':time'     => $fleetData['fleet_start_time'],
-            ':target'   => $fleetData['fleet_end_id']
+            ':acsName'	=> $acsName,
+            ':time'		=> $fleetData['fleet_start_time'],
+			':target'	=> $fleetData['fleet_end_id']
         ));
 
         $acsID	= $db->lastInsertId();
 
         $sql = "INSERT INTO %%USERS_ACS%% SET acsID = :acsID, userID = :userID;";
         $db->insert($sql, array(
-            ':acsID'  => $acsID,
-            ':userID'   => $USER['id']
+            ':acsID'	=> $acsID,
+            ':userID'	=> $acsCreator
         ));
 
         $sql = "UPDATE %%FLEETS%% SET fleet_group = :acsID WHERE fleet_id = :fleetID;";
         $db->update($sql, array(
-            ':acsID'  => $acsID,
-            ':fleetID'   => $fleetID
+            ':acsID'	=> $acsID,
+            ':fleetID'	=> $fleetID
         ));
 
 		return array(
@@ -73,18 +73,17 @@ class ShowFleetTablePage extends AbstractPage
 		);
 	}
 	
-	public function loadACS($fleetID, $fleetData) {
+	public function loadACS($fleetData) {
 		global $USER;
 		
 		$db = Database::get();
         $sql = "SELECT id, name FROM %%USERS_ACS%% INNER JOIN %%AKS%% ON acsID = id WHERE userID = :userID AND acsID = :acsID;";
-        $acsResult = $db->select($sql, array(
+        $acsResult = $db->selectSingle($sql, array(
             ':userID'   => $USER['id'],
             ':acsID'    => $fleetData['fleet_group']
         ));
 
-        // TODO: remove fetch_array
-		return $GLOBALS['DATABASE']->fetch_array($acsResult);
+		return $acsResult;
 	}
 	
 	public function getACSPageData($fleetID)
@@ -107,7 +106,7 @@ class ShowFleetTablePage extends AbstractPage
 		if ($fleetData['fleet_group'] == 0)
 			$acsData	= $this->createACS($fleetID, $fleetData);
 		else
-			$acsData	= $this->loadACS($fleetID, $fleetData);
+			$acsData	= $this->loadACS($fleetData);
 	
 		if (empty($acsData))
 			return array();
@@ -206,7 +205,7 @@ class ShowFleetTablePage extends AbstractPage
 
 		if ($techExpedition >= 1)
 		{
-			$activeExpedition   = FleetFunctions::GetCurrentFleets($USER['id'], 15);
+			$activeExpedition   = FleetFunctions::GetCurrentFleets($USER['id'], 15, true);
 			$maxExpedition 		= floor(sqrt($techExpedition));
 		}
 		else
@@ -275,8 +274,6 @@ class ShowFleetTablePage extends AbstractPage
 				'FleetList'		=> $FleetList[$fleetsRow['fleet_id']],
 			);
 		}
-
-		$GLOBALS['DATABASE']->free_result($fleetResult);
 		
 		$FleetsOnPlanet	= array();
 		

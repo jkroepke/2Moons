@@ -26,6 +26,9 @@
  * @link http://2moons.cc/
  */
 
+require 'includes/classes/cache/builder/BuildCache.interface.php';
+require 'includes/classes/cache/resource/CacheFile.class.php';
+
 class Cache
 {
 	private $cacheResource = NULL;
@@ -45,7 +48,6 @@ class Cache
 	}
 
 	private function __construct() {
-		include 'includes/classes/cache/resource/CacheFile.class.php';
 		$this->cacheResource = new CacheFile();
 	}
 	
@@ -96,6 +98,7 @@ class Cache
 		$path			= 'includes/classes/cache/builder/'.$className.'.class.php';
 		require_once $path;
 
+		/** @var $cacheBuilder BuildCache */
 		$cacheBuilder	= new $className();
 		$cacheData		= $cacheBuilder->buildCache();
 		$cacheData		= (array) $cacheData;

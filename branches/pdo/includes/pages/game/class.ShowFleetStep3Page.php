@@ -173,7 +173,7 @@ class ShowFleetStep3Page extends AbstractPage
 		}
 		elseif ($targetMission == 15)
 		{		
-			$activeExpedition	= FleetFunctions::GetCurrentFleets($USER['id'], 15);
+			$activeExpedition	= FleetFunctions::GetCurrentFleets($USER['id'], 15, true);
 			$maxExpedition		= FleetFunctions::getExpeditionLimit($USER);
 			
 			if ($activeExpedition >= $maxExpedition) {
@@ -269,7 +269,7 @@ class ShowFleetStep3Page extends AbstractPage
 		$fleetMaxSpeed 	= FleetFunctions::GetFleetMaxSpeed($fleetArray, $USER);
 		$SpeedFactor    = FleetFunctions::GetGameSpeedFactor();
 		$duration      	= FleetFunctions::GetMissionDuration($fleetSpeed, $fleetMaxSpeed, $distance, $SpeedFactor, $USER);
-		$consumption   	= FleetFunctions::GetFleetConsumption($fleetArray, $duration, $distance, $fleetMaxSpeed, $USER, $SpeedFactor);
+		$consumption   	= FleetFunctions::GetFleetConsumption($fleetArray, $duration, $distance, $USER, $SpeedFactor);
 	
 		if ($PLANET[$resource[903]] < $consumption) {
 			$this->printMessage($LNG['fl_not_enough_deuterium']);

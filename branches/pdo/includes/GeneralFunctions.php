@@ -508,36 +508,16 @@ function clearGIF() {
 	exit;
 }
 
-function fleetAmountToArray($fleetAmount)
-{
-	$fleetTyps		= explode(';', $fleetAmount);
-	
-	$fleetAmount	= array();
-	
-	foreach ($fleetTyps as $fleetTyp)
-	{
-		$temp = explode(',', $fleetTyp);
-		
-		if (empty($temp[0])) continue;
-
-		if (!isset($fleetAmount[$temp[0]]))
-		{
-			$fleetAmount[$temp[0]] = 0;
-		}
-		
-		$fleetAmount[$temp[0]] += $temp[1];
-	}
-	
-	return $fleetAmount;
-}
-
 /*
  * Handler for exceptions
  *
- * @param Exception $exception object
+ * @param object
+ * @return Exception
  */
-function exceptionHandler($exception) 
+function exceptionHandler($exception)
 {
+	/** @var $exception ErrorException|Exception */
+
 	if(!headers_sent()) {
 		if (!class_exists('HTTP', false)) {
 			require_once('includes/classes/HTTP.class.php');
@@ -675,11 +655,17 @@ function exceptionHandler($exception)
 		file_put_contents('includes/error.log', $errorText, FILE_APPEND);
 	}
 }
-
+/*
+ *
+ * @throws ErrorException
+ *
+ * @return bool If its an hidden error.
+ *
+ */
 function errorHandler($errno, $errstr, $errfile, $errline)
 {
     if (!($errno & error_reporting())) {
-        return;
+        return false;
     }
 	
 	throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
@@ -688,7 +674,7 @@ function errorHandler($errno, $errstr, $errfile, $errline)
 // "workaround" for PHP version pre 5.3.0
 if (!function_exists('array_replace_recursive'))
 {
-    function array_replace_recursive($array, $array1)
+    function array_replace_recursive()
     {
         if (!function_exists('recurse')) {
             function recurse($array, $array1)

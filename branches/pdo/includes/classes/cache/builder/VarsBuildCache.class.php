@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class VarsBuildCache
+class VarsBuildCache implements BuildCache
 {
 	function buildCache()
 	{
@@ -35,6 +35,7 @@ class VarsBuildCache
 		$pricelist		= array();
 		$CombatCaps		= array();
 		$reslist		= array();
+		$ProdGrid		= array();
 
 		$reslist['prod']		= array();
 		$reslist['storage']		= array();

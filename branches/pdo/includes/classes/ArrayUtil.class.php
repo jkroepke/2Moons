@@ -31,7 +31,8 @@
 
 class ArrayUtil
 {
-	static public function combineArrayWithSingleElement($keys, $var) {
+	static public function combineArrayWithSingleElement($keys, $var)
+	{
 		if(empty($keys))
 		{
 			return array();
@@ -39,7 +40,8 @@ class ArrayUtil
 		return array_combine($keys, array_fill(0, count($keys), $var));
 	}
 
-	static public function combineArrayWithKeyElements($keys, $var) {
+	static public function combineArrayWithKeyElements($keys, $var)
+	{
 		$temp	= array();
 		foreach($keys as $key)
 		{

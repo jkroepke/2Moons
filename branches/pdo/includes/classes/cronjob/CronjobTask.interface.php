@@ -1,8 +1,7 @@
 <?php
-
 /**
  *  2Moons
- *  Copyright (C) 2012 Jan Kr�pke
+ *  Copyright (C) 2011 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,29 +17,15 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kr�pke <info@2moons.cc>
- * @copyright 2012 Jan Kr�pke <info@2moons.cc>
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2009 Lucky
+ * @copyright 2011 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
- * @info $Id: LanguageBuildCache.class.php 2659 2013-04-01 11:12:09Z slaver7 $
- * @link http://2moons.cc/
+ * @version 1.7.0 (2011-12-10)
+ * @info $Id: CleanerCronjob.class.php 2659 2013-04-01 11:12:09Z slaver7 $
+ * @link http://code.google.com/p/2moons/
  */
 
-class UniversesBuildCache implements BuildCache
-{
-	public function buildCache()
-	{
-		$db	= Database::get();
-
-		$sql = 'SELECT uni FROM %%CONFIG%%;';
-		$result = $db->nativeQuery($sql);
-
-		$universes = array();
-		foreach($result as $row)
-		{
-			$universes = $row['uni'];
-		}
-
-		return $universes;
-	}
+interface CronjobTask {
+	function run();
 }

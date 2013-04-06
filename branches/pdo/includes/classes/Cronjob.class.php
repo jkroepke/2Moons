@@ -37,7 +37,7 @@ class Cronjob
 	{
 		$db	= Database::get();
 
-		$sql = 'SELECT class FROM %%CRONJOBS% WHERE isActive = :isActive AND cronjobID = :cronjobId AND `lock` IS NULL;';
+		$sql = 'SELECT class FROM %%CRONJOBS%% WHERE isActive = :isActive AND cronjobID = :cronjobId AND `lock` IS NULL;';
 
 		$cronjobClassName	= $db->selectSingle($sql, array(
 			':isActive'		=> 1,
@@ -60,9 +60,11 @@ class Cronjob
 		
 		// die hard, if file not exists.
 		require_once($cronjobsPath);
-		
+
+		/** @var $cronjobObj CronjobTask */
 		$cronjobObj			= new $cronjobClassName;
 		$cronjobObj->run();
+
 		self::reCalculateCronjobs($cronjobID);
 
 		$sql = 'UPDATE %%CRONJOBS%% SET `lock` = NULL WHERE cronjobID = :cronjobId;';

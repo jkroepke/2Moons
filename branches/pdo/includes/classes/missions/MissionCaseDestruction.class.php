@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class MissionCaseDestruction extends MissionFunctions
+class MissionCaseDestruction extends MissionFunctions implements Mission
 {
 	function __construct($Fleet)
 	{
@@ -146,8 +146,8 @@ HTML;
 		}
 			
 		$userDefend[$fleetDefend[0]['player']['id']]	= $fleetDefend[0]['player']['username'];
-		
-		require_once('calculateAttack.php');
+
+		require_once './functions/calculateAttack.php';
 		
 		$fleetIntoDebris	= $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Fleet_Cdr'];
 		$defIntoDebris		= $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['Defs_Cdr'];
@@ -267,12 +267,12 @@ HTML;
 			'thisFleet'				=> $this->_fleet,
 			'debris'				=> $debris,
 			'stealResource'			=> $stealResource,
-			'moonChance'			=> null,
+			'moonChance'			=> NULL,
 			'moonDestroy'			=> true,
-			'moonName'				=> null,
-			'moonDestroyChance'		=> null,
-			'moonDestroySuccess'	=> null,
-			'fleetDestroyChance'	=> null,
+			'moonName'				=> NULL,
+			'moonDestroyChance'		=> NULL,
+			'moonDestroySuccess'	=> NULL,
+			'fleetDestroyChance'	=> NULL,
 			'fleetDestroySuccess'	=> false,
 		);
 

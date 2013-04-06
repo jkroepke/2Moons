@@ -49,6 +49,17 @@ class ResourceUpdate
 		$this->Build	= $Build;
 		$this->Tech		= $Tech;
 	}
+
+	public function setData($USER, $PLANET)
+	{
+		$this->USER		= $USER;
+		$this->PLANET	= $PLANET;
+	}
+
+	public function getData()
+	{
+		return array($this->USER, $this->PLANET);
+	}
 	
 	public function ReturnVars() {
 		if($this->isGlobalMode)
@@ -107,7 +118,7 @@ class ResourceUpdate
 				$this->BuildingQueue();
 		}
 		
-		$this->UpdateRessource($this->TIME, $HASH);
+		$this->UpdateResource($this->TIME, $HASH);
 			
 		if($SAVE === true)
 			$this->SavePlanetToDB($this->USER, $this->PLANET);
@@ -115,7 +126,7 @@ class ResourceUpdate
 		return $this->ReturnVars();
 	}
 	
-	public function UpdateRessource($TIME, $HASH = false)
+	public function UpdateResource($TIME, $HASH = false)
 	{
 		$this->ProductionTime  			= ($TIME - $this->PLANET['last_update']);
 		
@@ -145,35 +156,35 @@ class ResourceUpdate
 		$MaxCristalStorage		= $this->PLANET['crystal_max']   * $this->config->max_overflow;
 		$MaxDeuteriumStorage	= $this->PLANET['deuterium_max'] * $this->config->max_overflow;
 		
-		$MetalTheorical		= $this->ProductionTime * (($this->config->metal_basic_income * $this->config->resource_multiplier) + $this->PLANET['metal_perhour']) / 3600;
+		$MetalTheoretical		= $this->ProductionTime * (($this->config->metal_basic_income * $this->config->resource_multiplier) + $this->PLANET['metal_perhour']) / 3600;
 		
-		if($MetalTheorical < 0)
+		if($MetalTheoretical < 0)
 		{
-			$this->PLANET['metal']      = max($this->PLANET['metal'] + $MetalTheorical, 0);
+			$this->PLANET['metal']      = max($this->PLANET['metal'] + $MetalTheoretical, 0);
 		} 
 		elseif ($this->PLANET['metal'] <= $MaxMetalStorage)
 		{
-			$this->PLANET['metal']      = min($this->PLANET['metal'] + $MetalTheorical, $MaxMetalStorage);
+			$this->PLANET['metal']      = min($this->PLANET['metal'] + $MetalTheoretical, $MaxMetalStorage);
 		}
 		
-		$CristalTheorical	= $this->ProductionTime * (($this->config->crystal_basic_income * $this->config->resource_multiplier) + $this->PLANET['crystal_perhour']) / 3600;
-		if ($CristalTheorical < 0)
+		$CristalTheoretical	= $this->ProductionTime * (($this->config->crystal_basic_income * $this->config->resource_multiplier) + $this->PLANET['crystal_perhour']) / 3600;
+		if ($CristalTheoretical < 0)
 		{
-			$this->PLANET['crystal']      = max($this->PLANET['crystal'] + $CristalTheorical, 0);
+			$this->PLANET['crystal']      = max($this->PLANET['crystal'] + $CristalTheoretical, 0);
 		} 
 		elseif ($this->PLANET['crystal'] <= $MaxCristalStorage ) 
 		{
-			$this->PLANET['crystal']      = min($this->PLANET['crystal'] + $CristalTheorical, $MaxCristalStorage);
+			$this->PLANET['crystal']      = min($this->PLANET['crystal'] + $CristalTheoretical, $MaxCristalStorage);
 		}
 		
-		$DeuteriumTheorical	= $this->ProductionTime * (($this->config->deuterium_basic_income * $this->config->resource_multiplier) + $this->PLANET['deuterium_perhour']) / 3600;
-		if ($DeuteriumTheorical < 0)
+		$DeuteriumTheoretical	= $this->ProductionTime * (($this->config->deuterium_basic_income * $this->config->resource_multiplier) + $this->PLANET['deuterium_perhour']) / 3600;
+		if ($DeuteriumTheoretical < 0)
 		{
-			$this->PLANET['deuterium']    = max($this->PLANET['deuterium'] + $DeuteriumTheorical, 0);
+			$this->PLANET['deuterium']    = max($this->PLANET['deuterium'] + $DeuteriumTheoretical, 0);
 		} 
 		elseif($this->PLANET['deuterium'] <= $MaxDeuteriumStorage) 
 		{
-			$this->PLANET['deuterium']    = min($this->PLANET['deuterium'] + $DeuteriumTheorical, $MaxDeuteriumStorage);
+			$this->PLANET['deuterium']    = min($this->PLANET['deuterium'] + $DeuteriumTheoretical, $MaxDeuteriumStorage);
 		}
 		
 		$this->PLANET['metal']		= max($this->PLANET['metal'], 0);
@@ -211,7 +222,7 @@ class ResourceUpdate
 	
 	public function ReBuildCache()
 	{
-		global $ProdGrid, $resource, $reslist, $pricelist;
+		global $ProdGrid, $resource, $reslist;
 		
 		if ($this->PLANET['planet_type'] == 3)
 		{
@@ -406,7 +417,7 @@ class ResourceUpdate
 
 		array_shift($CurrentQueue);
 		$OnHash	= in_array($Element, $reslist['prod']);
-		$this->UpdateRessource($BuildEndTime, !$OnHash);			
+		$this->UpdateResource($BuildEndTime, !$OnHash);			
 			
 		if (count($CurrentQueue) == 0) {
 			$this->PLANET['b_building']    	= 0;

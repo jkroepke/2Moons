@@ -25,7 +25,7 @@
  * @info $Id$
  * @link http://2moons.cc/
  */
-class MissionCaseTransport extends MissionFunctions
+class MissionCaseTransport extends MissionFunctions implements Mission
 {		
 	function __construct($Fleet)
 	{
