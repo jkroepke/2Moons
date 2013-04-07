@@ -36,27 +36,51 @@ class MissionCaseMIP extends MissionFunctions implements Mission
 	function TargetEvent()
 	{
 		global $resource, $reslist;
-		$SQL = "";
-		
+
+		$db	= Database::get();
+
+		$sqlFields	= array();
 		$elementIDs	= array_merge($reslist['defense'], $reslist['missile']);
+
 		foreach($elementIDs as $elementID)
 		{
-			$SQL	.= PLANETS.".".$resource[$elementID].", ";
+			$sqlFields[]	= '%%PLANETS%%.`'.$resource[$elementID].'`';
 		}
 			
-		$QryTarget		 	= "SELECT ".USERS.".lang, ".USERS.".shield_tech, ".PLANETS.".id, ".PLANETS.".name, ".PLANETS.".id_owner, ".substr($SQL, 0, -2)."
-							   FROM ".PLANETS.", ".USERS."
-							   WHERE ".PLANETS.".id = '".$this->_fleet['fleet_end_id']."' AND 
-							   ".PLANETS.".id_owner = ".USERS.".id;";
-		$targetData			= $GLOBALS['DATABASE']->getFirstRow($QryTarget);
+		$sql = 'SELECT lang, shield_tech,
+		%%PLANETS%%.id, name, id_owner, '.implode(', ', $sqlFields).'
+		FROM %%PLANETS%%
+		INNER JOIN %%USERS%% ON id_owner = %%PLANETS%%.id
+		WHERE %%PLANETS%%.id = :planetId;';
+
+		$targetData	= $db->selectSingle($sql, array(
+			':planetId'	=> $this->_fleet['fleet_end_id']
+		));
 
 		if($this->_fleet['fleet_end_type'] == 3)
 		{
-			$targetData[$resource[502]]	= $GLOBALS['DATABASE']->getFirstCell("SELECT ".$resource[502]." FROM ".PLANETS." WHERE id_luna = ".$this->_fleet['fleet_end_id'].";");
+			$sql	= 'SELECT '.$resource[502].' FROM %%PLANETS%% WHERE id_luna = :moonId;';
+			$targetData[$resource[502]]	= $db->selectSingle($sql, array(
+				':moonId'	=> $this->_fleet['fleet_end_id']
+			), $resource[502]);
 		}
 
-		$OwnerInfo			= $GLOBALS['DATABASE']->getFirstRow("SELECT lang, military_tech FROM ".USERS." WHERE id = '".$this->_fleet['fleet_owner']."';");					   
-		$Target				= (!in_array($this->_fleet['fleet_target_obj'], $reslist['defense']) || $this->_fleet['fleet_target_obj'] == 502 || $this->_fleet['fleet_target_obj'] == 0) ? 401 : $this->_fleet['fleet_target_obj'];
+		$sql		= 'SELECT lang, military_tech FROM %%USERS% WHERE id = :userId;';
+		$senderData	= $db->selectSingle($sql, array(
+			':userId'	=> $this->_fleet['fleet_owner']
+		));
+
+		if(!in_array($this->_fleet['fleet_target_obj'], $reslist['defense'])
+			|| !in_array($this->_fleet['fleet_target_obj'], $reslist['missile'])
+			|| $this->_fleet['fleet_target_obj'] == 502
+			|| $this->_fleet['fleet_target_obj'] == 0)
+		{
+			$primaryTarget	= 401;
+		}
+		else
+		{
+			$primaryTarget	= $this->_fleet['fleet_target_obj'];
+		}
 
         $targetDefensive    = array();
 
@@ -66,45 +90,57 @@ class MissionCaseMIP extends MissionFunctions implements Mission
 		}
 		
 		unset($targetDefensive[502]);
-		
-		$SQL 		= "";
-		$LNG		= $this->getLanguage($GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['lang'], array('L18N', 'FLEET', 'TECH'));
+
+		$LNG	= $this->getLanguage(Config::get($this->_fleet['fleet_universe'])->lang, array('L18N', 'FLEET', 'TECH'));
 				
 		if ($targetData[$resource[502]] >= $this->_fleet['fleet_amount'])
 		{
 			$message 	= $LNG['sys_irak_no_att'];
 			$where 		= $this->_fleet['fleet_end_type'] == 3 ? 'id_luna' : 'id';
 			
-			$SQL .= "UPDATE ".PLANETS." SET ".$resource[502]." = ".$resource[502]." - ".$this->_fleet['fleet_amount']." WHERE ".$where." = ".$targetData['id'].";";
+			$sql		= 'UPDATE %%PLANETS%% SET '.$resource[502].' = '.$resource[502].' - :amount WHERE '.$where.' = :planetId;';
+
+			$db->update($sql, array(
+				':amount'	=> $this->_fleet['fleet_amount'],
+				':planetId'	=> $targetData['id']
+			));
 		}
 		else
 		{
 			if ($targetData[$resource[502]] > 0)
 			{
-				$where 		= $this->_fleet['fleet_end_type'] == 3 ? 'id_luna' : 'id';
-				$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".$resource[502]." = 0 WHERE ".$where." = ".$targetData['id'].";");
+				$where 	= $this->_fleet['fleet_end_type'] == 3 ? 'id_luna' : 'id';
+				$sql	= 'UPDATE %%PLANETS%% SET '.$resource[502].' = :amount WHERE '.$where.' = :planetId;';
+
+				$db->update($sql, array(
+					':amount'	=> 0,
+					':planetId'	=> $targetData['id']
+				));
 			}
 			
 			$targetDefensive = array_filter($targetDefensive);
 			
 			if(!empty($targetDefensive))
 			{
-				require_once 'calculateMIPAttack.php';
-				$irak   	= calculateMIPAttack($targetData["shield_tech"], $OwnerInfo["military_tech"], $this->_fleet['fleet_amount'], $targetDefensive, $Target, $targetData[$resource[502]]);
-				$irak		= array_filter($irak);
+				require_once 'includes/classes/missions/functions/calculateMIPAttack.php';
+				$result   	= calculateMIPAttack($targetData["shield_tech"], $senderData["military_tech"],
+					$this->_fleet['fleet_amount'], $targetDefensive, $primaryTarget, $targetData[$resource[502]]);
+
+				$result		= array_filter($result);
 				
 				$message	= sprintf($LNG['sys_irak_def'], $targetData[$resource[502]]).'<br><br>';
 				
-				ksort($irak, SORT_NUMERIC);
+				ksort($result, SORT_NUMERIC);
 				
-				foreach ($irak as $Element => $destroy)
+				foreach ($result as $Element => $destroy)
 				{
-					$message .= $LNG['tech'][$Element].' (- '.$destroy.')<br>';
-					
-					if(in_array($Element, $reslist['one']))
-						$SQL .= "UPDATE ".PLANETS." SET ".$resource[$Element]." = '0' WHERE id = ".$targetData['id'].";";
-					else
-						$SQL .= "UPDATE ".PLANETS." SET ".$resource[$Element]." = ".$resource[$Element]." - ".$destroy." WHERE id = ".$targetData['id'].";";
+					$message .= sprintf('%s (- %d)<br>', $LNG['tech'][$Element], $destroy);
+
+					$sql	= 'UPDATE %%PLANETS%% SET '.$resource[$Element].' = '.$resource[$Element].' - :amount WHERE id = :planetId;';
+					$db->update($sql, array(
+						':planetId' => $targetData['id'],
+						':amount'	=> $destroy
+					));
 				}
 			}
 			else
@@ -112,16 +148,23 @@ class MissionCaseMIP extends MissionFunctions implements Mission
 				$message = $LNG['sys_irak_no_def'];
 			}
 		}
-				
-		$UserPlanet 		= $GLOBALS['DATABASE']->getFirstRow("SELECT name FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_start_id'].";");
-		$OwnerLink			= $UserPlanet['name']." [".$this->_fleet['fleet_start_galaxy'].":".$this->_fleet['fleet_start_system'].":".$this->_fleet['fleet_start_planet']."]";
-		$TargetLink 		= $targetData['name']." [".$this->_fleet['fleet_end_galaxy'].":".$this->_fleet['fleet_end_system'].":".$this->_fleet['fleet_end_planet']."]";
-		$Message			= sprintf($LNG['sys_irak_mess'], $this->_fleet['fleet_amount'], $OwnerLink, $TargetLink).$message;
-	
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_irak_subject'], $Message);
-		PlayerUtil::sendMessage($this->_fleet['fleet_target_owner'], 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_irak_subject'], $Message);
-		$SQL				.= "DELETE FROM ".FLEETS." WHERE fleet_id = '".$this->_fleet['fleet_id']."';";
-		$GLOBALS['DATABASE']->multi_query($SQL);
+
+		$sql		= 'SELECT name FROM %%PLANETS%% WHERE id = :planetId;';
+		$planetName	= Database::get()->selectSingle($sql, array(
+			':planetId'	=> $this->_fleet['fleet_start_id'],
+		), 'name');
+
+		$ownerLink			= $planetName." ".GetStartAdressLink($this->_fleet);
+		$targetLink 		= $targetData['name']." ".GetTargetAdressLink($this->_fleet);
+		$message			= sprintf($LNG['sys_irak_mess'], $this->_fleet['fleet_amount'], $ownerLink, $targetLink).$message;
+
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 3,
+			$LNG['sys_mess_tower'], $LNG['sys_irak_subject'], $message);
+
+		PlayerUtil::sendMessage($this->_fleet['fleet_target_owner'], 0, $this->_fleet['fleet_start_time'], 3,
+			$LNG['sys_mess_tower'], $LNG['sys_irak_subject'], $message);
+
+		$this->KillFleet();
 	}
 	
 	function EndStayEvent()

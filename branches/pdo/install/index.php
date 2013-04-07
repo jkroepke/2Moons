@@ -514,7 +514,7 @@ switch ($mode) {
 				require 'includes/config.php';
 				require 'includes/vars.php';
 
-				$hashPassword = cryptPassword($password);
+				$hashPassword = PlayerUtil::cryptPassword($password);
 
 				if (empty($username) || empty($password) || empty($mail)) {
 					$template->assign(array(

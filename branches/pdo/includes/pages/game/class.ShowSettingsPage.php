@@ -241,7 +241,7 @@ class ShowSettingsPage extends AbstractPage
 		
 		if (!empty($username) && $USER['username'] != $username)
 		{
-			if (!CheckName($username)) {
+			if (PlayerUtil::isNameValid($username)) {
 				$this->printMessage($LNG['op_user_name_no_alphanumeric']);
 			} elseif($USER['uctime'] >= TIMESTAMP - USERNAME_CHANGETIME) {
 				$this->printMessage($LNG['op_change_name_pro_week']);
@@ -265,26 +265,25 @@ class ShowSettingsPage extends AbstractPage
 						':timestamp'=> TIMESTAMP
 					));
 
-					$SESSION->DestroySession();
+					Session::load()->delete();
 				}
 			}
 		}
 		
-		if (!empty($newpassword) && cryptPassword($password) == $USER["password"] && $newpassword == $newpassword2)
+		if (!empty($newpassword) && PlayerUtil::cryptPassword($password) == $USER["password"] && $newpassword == $newpassword2)
 		{
-			$newpass 	 = cryptPassword($newpassword);
+			$newpass 	 = PlayerUtil::cryptPassword($newpassword);
 			$sql = "UPDATE %%USERS%% SET password = :newpass WHERE id = :userID;";
 			$db->update($sql, array(
 				':newpass'	=> $newpass,
 				':userID'	=> $USER['id']
 			));
-
-			$SESSION->DestroySession();
+			Session::load()->delete();
 		}
 
 		if (!empty($email) && $email != $USER['email'])
 		{
-			if(cryptPassword($password) != $USER['password']) {
+			if(PlayerUtil::cryptPassword($password) != $USER['password']) {
 				$this->printMessage($LNG['op_need_pass_mail']);
 			} elseif(!ValidateAddress($email)) {
 				$this->printMessage($LNG['op_not_vaild_mail']);

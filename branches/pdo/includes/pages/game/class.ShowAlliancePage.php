@@ -387,7 +387,7 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_name_required'], true, array('?page=alliance&mode=create', 3));
 		}
 		
-		if (!CheckName($allianceName) || !CheckName($allianceTag)) {
+		if (PlayerUtil::isNameValid($allianceName) || PlayerUtil::isNameValid($allianceTag)) {
 			$this->printMessage($LNG['al_newname_specialchar'], true, array('?page=alliance&mode=create', 3));
 		}
 		
@@ -461,8 +461,8 @@ class ShowAlliancePage extends AbstractPage
 	private function homeAlliance()
 	{
 		global $USER, $LNG;
-		(
-		require 'includes/classes/BBCode.class.php');
+
+		require 'includes/classes/BBCode.class.php';
 
         $db	= Database::get();
 

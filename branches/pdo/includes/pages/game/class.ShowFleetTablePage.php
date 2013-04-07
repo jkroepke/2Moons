@@ -113,7 +113,7 @@ class ShowFleetTablePage extends AbstractPage
 			
 		$acsName	= HTTP::_GP('acsName', '', UTF8_SUPPORT);
 		if(!empty($acsName)) {
-			if(!CheckName($acsName))
+			if(PlayerUtil::isNameValid($acsName))
 			{
 				$this->sendJSON($LNG['fl_acs_newname_alphanum']);
 			}

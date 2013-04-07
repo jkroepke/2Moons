@@ -34,71 +34,97 @@ class MissionCaseColonisation extends MissionFunctions implements Mission
 	}
 	
 	function TargetEvent()
-	{	
-		global $resource;
-		$iPlanetCount 	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".PLANETS." WHERE `id_owner` = '". $this->_fleet['fleet_owner'] ."' AND `planet_type` = '1' AND `destruyed` = '0';");
-		$iGalaxyPlace 	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_end_id']."';");
-		$senderUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".USERS." WHERE `id` = '".$this->_fleet['fleet_owner']."';");
-		$senderPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE `id` = '".$this->_fleet['fleet_start_id']."';");
+	{
+		$db		= Database::get();
+
+		$sql	= 'SELECT * FROM %%USERS%% WHERE `id` = :userId;';
+
+		$senderUser		= $db->selectSingle($sql, array(
+			':userId'	=> $this->_fleet['fleet_owner'],
+		));
+
 		$senderUser['factor']	= getFactors($senderUser, 'basic', $this->_fleet['fleet_start_time']);
-		$LNG			= $this->getLanguage($senderUser['lang']);
-		
-		$MaxPlanets		= PlayerUtil::maxPlanetCount($senderUser);
-		
-		if ($iGalaxyPlace != 0)
+
+		$LNG	= $this->getLanguage($senderUser['lang']);
+
+		$isPositionFree	= PlayerUtil::checkPosition(Universe::current(), $this->_fleet['fleet_end_galaxy'],
+			$this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']);
+
+		if (!$isPositionFree)
 		{
-			$TheMessage = sprintf($LNG['sys_colo_notfree'], GetTargetAdressLink($this->_fleet, ''));
-			$this->setState(FLEET_RETURN);
+			$message = sprintf($LNG['sys_colo_notfree'], GetTargetAdressLink($this->_fleet, ''));
 		}
-		elseif($iPlanetCount >= $MaxPlanets)
-		{
-			$TheMessage = sprintf($LNG['sys_colo_maxcolo'] , GetTargetAdressLink($this->_fleet, ''), $MaxPlanets);
-			$this->setState(FLEET_RETURN);
-		}
-		elseif(PlayerUtil::allowPlanetPosition($this->_fleet['fleet_end_planet'],$senderUser) == false)
-		{
-			$TheMessage = sprintf($LNG['sys_colo_notech'] , GetTargetAdressLink($this->_fleet, ''), $MaxPlanets);
-			$this->setState(FLEET_RETURN);
-		}		
 		else
 		{
-			require_once('includes/functions/CreateOnePlanetRecord.php');
-			$NewOwnerPlanet = CreateOnePlanetRecord($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'], $this->_fleet['fleet_universe'], $this->_fleet['fleet_owner'], $LNG['fcp_colony'], false, $senderUser['authlevel']);
-			if($NewOwnerPlanet === false)
+			if(PlayerUtil::allowPlanetPosition($this->_fleet['fleet_end_planet'], $senderUser) == false)
 			{
-				$TheMessage = sprintf($LNG['sys_colo_badpos'], GetTargetAdressLink($this->_fleet, ''));
-					$this->setState(FLEET_RETURN);
+				$message = sprintf($LNG['sys_colo_notech'] , GetTargetAdressLink($this->_fleet, ''));
 			}
 			else
 			{
-				$this->_fleet['fleet_end_id']	= $NewOwnerPlanet;
-				$TheMessage = sprintf($LNG['sys_colo_allisok'], GetTargetAdressLink($this->_fleet, ''));
-				$this->StoreGoodsToPlanet();
-				if ($this->_fleet['fleet_amount'] == 1) {
-					$this->KillFleet();
-				} else {
-					$CurrentFleet = explode(";", $this->_fleet['fleet_array']);
-					$NewFleet     = '';
-					foreach ($CurrentFleet as $Item => $Group)
-					{
-						if (empty($Group)) continue;
+				$sql	= 'SELECT COUNT(*) as state
+				FROM %%PLANETS%%
+				WHERE `id_owner`	= :userId
+				AND `planet_type`	= :type
+				AND `destruyed`		= :destroyed;';
 
-						$Class = explode (",", $Group);
-						if ($Class[0] == 208 && $Class[1] > 1)
-							$NewFleet  .= $Class[0].",".($Class[1] - 1).";";
-						elseif ($Class[0] != 208 && $Class[1] > 0)
-							$NewFleet  .= $Class[0].",".$Class[1].";";
+				$currentPlanetCount	= $db->selectSingle($sql, array(
+					':userId'		=> $this->_fleet['fleet_owner'],
+					':type'			=> 1,
+					':destroyed'	=> 0
+				));
+
+				$maxPlanetCount		= PlayerUtil::maxPlanetCount($senderUser);
+
+				if($currentPlanetCount >= $maxPlanetCount)
+				{
+					$message = sprintf($LNG['sys_colo_maxcolo'], GetTargetAdressLink($this->_fleet, ''), $maxPlanetCount);
+				}
+				else
+				{
+					$NewOwnerPlanet = PlayerUtil::createPlanet($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'],
+						$this->_fleet['fleet_end_planet'], $this->_fleet['fleet_universe'], $this->_fleet['fleet_owner'],
+						$LNG['fcp_colony'], false, $senderUser['authlevel']);
+
+					if($NewOwnerPlanet === false)
+					{
+						$message = sprintf($LNG['sys_colo_badpos'], GetTargetAdressLink($this->_fleet, ''));
+						$this->setState(FLEET_RETURN);
 					}
-					$this->UpdateFleet('fleet_array', $NewFleet);
-					$this->UpdateFleet('fleet_amount', ($this->_fleet['fleet_amount'] - 1));
-					$this->UpdateFleet('fleet_resource_metal', 0);
-					$this->UpdateFleet('fleet_resource_crystal', 0);
-					$this->UpdateFleet('fleet_resource_deuterium', 0);
-					$this->setState(FLEET_RETURN);
+					else
+					{
+						$this->_fleet['fleet_end_id']	= $NewOwnerPlanet;
+						$message = sprintf($LNG['sys_colo_allisok'], GetTargetAdressLink($this->_fleet, ''));
+						$this->StoreGoodsToPlanet();
+						if ($this->_fleet['fleet_amount'] == 1) {
+							$this->KillFleet();
+						} else {
+							$CurrentFleet = explode(";", $this->_fleet['fleet_array']);
+							$NewFleet     = '';
+							foreach ($CurrentFleet as $Group)
+							{
+								if (empty($Group)) continue;
+
+								$Class = explode (",", $Group);
+								if ($Class[0] == 208 && $Class[1] > 1)
+									$NewFleet  .= $Class[0].",".($Class[1] - 1).";";
+								elseif ($Class[0] != 208 && $Class[1] > 0)
+									$NewFleet  .= $Class[0].",".$Class[1].";";
+							}
+
+							$this->UpdateFleet('fleet_array', $NewFleet);
+							$this->UpdateFleet('fleet_amount', ($this->_fleet['fleet_amount'] - 1));
+							$this->UpdateFleet('fleet_resource_metal', 0);
+							$this->UpdateFleet('fleet_resource_crystal', 0);
+							$this->UpdateFleet('fleet_resource_deuterium', 0);
+						}
+					}
 				}
 			}
 		}
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 4, $LNG['sys_colo_mess_from'], $LNG['sys_colo_mess_report'], $TheMessage);
+
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 4, $LNG['sys_colo_mess_from'], $LNG['sys_colo_mess_report'], $message);
+		$this->setState(FLEET_RETURN);
 		$this->SaveFleet();
 	}
 	

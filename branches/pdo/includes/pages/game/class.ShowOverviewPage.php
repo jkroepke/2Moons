@@ -105,7 +105,7 @@ class ShowOverviewPage extends AbstractPage
 				exit(json_encode(array('message' => $LNG['ov_abandon_planet_not_possible'])));
 			elseif ($USER['id_planet'] == $PLANET['id'])
 				exit(json_encode(array('message' => $LNG['ov_principal_planet_cant_abanone'])));
-			elseif (cryptPassword($password) != $USER['password'])
+			elseif (PlayerUtil::cryptPassword($password) != $USER['password'])
 				exit(json_encode(array('message' => $LNG['ov_wrong_pass'])));
 			else
 			{
@@ -323,7 +323,7 @@ class ShowOverviewPage extends AbstractPage
 		$newname        = HTTP::_GP('name', '', UTF8_SUPPORT);
 		if (!empty($newname))
 		{
-			if (!CheckName($newname)) {
+			if (PlayerUtil::isNameValid($newname)) {
 				$this->sendJSON(array('message' => $LNG['ov_newname_specialchar'], 'error' => true));
 			} else {
 				$db = Database::get();
@@ -359,7 +359,7 @@ class ShowOverviewPage extends AbstractPage
 				$this->sendJSON(array('message' => $LNG['ov_abandon_planet_not_possible']));
 			} elseif ($USER['id_planet'] == $PLANET['id']) {
 				$this->sendJSON(array('message' => $LNG['ov_principal_planet_cant_abanone']));
-			} elseif (cryptPassword($password) != $USER['password']) {
+			} elseif (PlayerUtil::cryptPassword($password) != $USER['password']) {
 				$this->sendJSON(array('message' => $LNG['ov_wrong_pass']));
 			} else {
                 if($PLANET['planet_type'] == 1) {

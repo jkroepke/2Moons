@@ -463,7 +463,9 @@ HTML;
 			break;
 		}
 			
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_stay'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_stay'], 15,
+			$LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
+
 		$this->setState(FLEET_RETURN);
 		$this->SaveFleet();
 	}
@@ -471,8 +473,21 @@ HTML;
 	function ReturnEvent()
 	{
 		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
-		$Message 	= sprintf($LNG['sys_expe_back_home'], $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_crystal']),  $LNG['tech'][903], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][921], pretty_number($this->_fleet['fleet_resource_darkmatter']));
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
+		$Message 	= sprintf(
+			$LNG['sys_expe_back_home'],
+			$LNG['tech'][901],
+			pretty_number($this->_fleet['fleet_resource_metal']),
+			$LNG['tech'][902],
+			pretty_number($this->_fleet['fleet_resource_crystal']),
+			$LNG['tech'][903],
+			pretty_number($this->_fleet['fleet_resource_deuterium']),
+			$LNG['tech'][921],
+			pretty_number($this->_fleet['fleet_resource_darkmatter'])
+		);
+
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15,
+			$LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
+
 		$this->RestoreFleet();
 	}
 }

@@ -304,12 +304,12 @@ function pretty_fly_time($seconds)
 	return $time;
 }
 
-function GetStartAdressLink($FleetRow, $FleetType)
+function GetStartAdressLink($FleetRow, $FleetType = '')
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$FleetRow['fleet_start_galaxy'].'&amp;system='.$FleetRow['fleet_start_system'].'" class="'. $FleetType .'">['.$FleetRow['fleet_start_galaxy'].':'.$FleetRow['fleet_start_system'].':'.$FleetRow['fleet_start_planet'].']</a>';
 }
 
-function GetTargetAdressLink($FleetRow, $FleetType)
+function GetTargetAdressLink($FleetRow, $FleetType = '')
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$FleetRow['fleet_end_galaxy'].'&amp;system='.$FleetRow['fleet_end_system'].'" class="'. $FleetType .'">['.$FleetRow['fleet_end_galaxy'].':'.$FleetRow['fleet_end_system'].':'.$FleetRow['fleet_end_planet'].']</a>';
 }
@@ -393,15 +393,6 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 	);
 }
 
-function CheckName($name)
-{
-	if(UTF8_SUPPORT) {
-		return preg_match("/^[\p{L}\p{N}_\-. ]*$/u", $name);
-	} else {
-		return preg_match("/^[A-z0-9_\-. ]*$/", $name);
-	}
-}
-
 function shortly_number($number, $decial = NULL)
 {
 	$negate	= $number < 0 ? -1 : 1;
@@ -481,22 +472,6 @@ function getRandomString() {
 function isVacationMode($USER)
 {
 	return ($USER['urlaubs_modus'] == 1) ? true : false;
-}
-
-function cryptPassword($password)
-{
-	// http://www.phpgangsta.de/schoener-hashen-mit-bcrypt
-	global $salt;
-	if(!CRYPT_BLOWFISH || !isset($salt))
-	{
-		return md5($password);
-	} else {
-		return crypt($password, '$2a$09$'.$salt.'$');
-	}
-}
-
-function combineArrayWithSingleElement($keys, $var) {
-	return array_combine($keys, array_fill(0, count($keys), $var));
 }
 
 function clearGIF() {

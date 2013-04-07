@@ -73,7 +73,7 @@ function ShowCreatorPage()
 				if ($UserMail != $UserMail2)
 					$errors .= $LNG['different_mails'];
 					
-				if (!CheckName($UserName))
+				if (!PlayerUtil::isNameValid($UserName))
 					$errors .= $LNG['user_field_specialchar'];				
 										
 				if ($ExistsUser != 0)
@@ -82,7 +82,7 @@ function ShowCreatorPage()
 				if ($ExistsMails != 0)
 					$errors .= $LNG['mail_already_exists'];
 				
-				if (CheckPlanetIfExist($Galaxy, $System, $Planet, $_SESSION['adminuni'])) {
+				if (!PlayerUtil::isPositionFree(Universe::current(), $Galaxy, $System, $Planet)) {
 					$errors .= $LNG['planet_already_exists'];
 				}	
 				
