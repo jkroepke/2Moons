@@ -47,25 +47,28 @@ class FleetFunctions
 		global $pricelist;
 		
 		$techSpeed	= $pricelist[$Ship]['tech'];
+        $baseSpeed = $pricelist[$Ship]['speed'];
 		
 		if($techSpeed == 4) {
 			$techSpeed = $Player['impulse_motor_tech'] >= 5 ? 2 : 1;
+            $baseSpeed = $pricelist[$Ship]['speed2'];
 		}
 		if($techSpeed == 5) {
 			$techSpeed = $Player['hyperspace_motor_tech'] >= 8 ? 3 : 2;
+            $baseSpeed = $pricelist[$Ship]['speed2'];
 		}
 			
 		
 		switch($techSpeed)
 		{
 			case 1:
-				$speed	= $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']));
+				$speed	= $baseSpeed * (1 + (0.1 * $Player['combustion_tech']));
 			break;
 			case 2:
-				$speed	= $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']));
+				$speed	= $baseSpeed * (1 + (0.2 * $Player['impulse_motor_tech']));
 			break;
 			case 3:
-				$speed	= $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']));
+				$speed	= $baseSpeed * (1 + (0.3 * $Player['hyperspace_motor_tech']));
 			break;
 			default:
 				$speed	= 0;
