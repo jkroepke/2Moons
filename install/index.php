@@ -36,6 +36,7 @@ $UNI	= 1;
 
 define('MODE', 'INSTALL');
 define('ROOT_PATH', str_replace('\\', '/', dirname(dirname(__FILE__))).'/');
+chdir(ROOT_PATH);
 
 require('includes/common.php');
 
