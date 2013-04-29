@@ -28,12 +28,11 @@
 
 if ($USER['authlevel'] == AUTH_USR)
 {
-	throw new PagePermissionException("Permission error!");
+	throw new Exception("Permission error!");
 }
 
 function ShowAutoCompletePage()
 {
-	global $LNG;
 	$searchText	= HTTP::_GP('term', '', UTF8_SUPPORT);
 	$searchList	= array();
 	

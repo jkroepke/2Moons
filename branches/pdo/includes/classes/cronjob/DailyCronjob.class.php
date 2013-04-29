@@ -39,18 +39,25 @@ class DailyCronJob
 	
 	function optimizeTables()
 	{
-		$tables	= $GLOBALS['DATABASE']->query("SHOW TABLE STATUS FROM ".DB_NAME.";");
-		$SQL 	= array();
-		while($table = $GLOBALS['DATABASE']->fetch_array($tables)){
-			$prefix = explode("_", $table['Name']);  
-			
-			if($prefix[0].'_' === DB_PREFIX && $prefix[1] !== 'session')
-				$SQL[]	= $table['Name'];
+		$sql			= "SHOW TABLE STATUS FROM `".DB_NAME."`;";
+		$sqlTableRaw	= Database::get()->nativeQuery($sql);
+
+		$prefixCounts	= strlen(DB_PREFIX);
+		$dbTables		= array();
+
+		foreach($sqlTableRaw as $table)
+		{
+			if (DB_PREFIX == substr($table['Name'], 0, $prefixCounts)) {
+				$dbTables[] = $table['Name'];
+			}
 		}
 
-		$GLOBALS['DATABASE']->query("OPTIMIZE TABLE ".implode(', ',$SQL).";");
+		if(!empty($dbTables))
+		{
+			Database::get()->nativeQuery("OPTIMIZE TABLE ".implode(', ', $dbTables).";");
+		}
 	}
-	
+
 	function clearCache()
 	{
 		ClearCache();
@@ -63,6 +70,7 @@ class DailyCronJob
 	
 	function clearEcoCache()
 	{
-		$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET eco_hash = '';");
+		$sql	= "UPDATE %%PLANETS%% SET eco_hash = '';";
+		Database::get()->update($sql);
 	}
 }

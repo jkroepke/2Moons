@@ -192,7 +192,7 @@ class ShowSettingsPage extends AbstractPage
 	
 	private function sendDefault()
 	{
-		global $USER, $LNG, $SESSION, $THEME;
+		global $USER, $LNG, $THEME;
 		
 		$adminprotection	= HTTP::_GP('adminprotection', 0);
 		

@@ -56,6 +56,11 @@ class Universe {
 	{
 		$universe = ROOT_UNI;
 
+		if(count(self::availableUniverses()) == 1 && HTTP_ROOT != HTTP_BASE)
+		{
+			HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE.HTTP_FILE, true);
+		}
+		
 		if(MODE == 'LOGIN')
 		{
 			if(isset($_COOKIE['uni']))
@@ -89,11 +94,6 @@ class Universe {
 
 				if(count(self::availableUniverses()) == 1)
 				{
-					if(HTTP_ROOT != HTTP_BASE)
-					{
-						HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE.HTTP_FILE, true);
-					}
-
 					$universe = ROOT_UNI;
 				}
 				else

@@ -31,12 +31,14 @@ function ShowTopnavPage()
 	global $LNG, $USER;
 	$template	= new template();
 
-	$AvailableUnis[Config::get('uni')]	= Config::get('uni_name').' (ID: '.Config::get('uni').')';
-	$Query	= $GLOBALS['DATABASE']->query("SELECT `uni`, `uni_name` FROM ".CONFIG." WHERE `uni` != '".Universe::current()."' ORDER BY `uni` DESC;");
-	while($Unis	= $GLOBALS['DATABASE']->fetch_array($Query)) {
-		$AvailableUnis[$Unis['uni']]	= $Unis['uni_name'].' (ID: '.$Unis['uni'].')';
+	$universeSelect	= array();
+	foreach(Universe::availableUniverses() as $uniId)
+	{
+		$config = Config::get($uniId);
+		$universeSelect[$uniId]	= sprintf('%s (ID: %d)', $config->uni_name, $uniId);
 	}
-	ksort($AvailableUnis);
+
+	ksort($universeSelect);
 	$template->assign_vars(array(	
 		'ad_authlevel_title'	=> $LNG['ad_authlevel_title'],
 		're_reset_universe'		=> $LNG['re_reset_universe'],
@@ -48,7 +50,7 @@ function ShowTopnavPage()
 		'sid'					=> session_id(),
 		'id'					=> $USER['id'],
 		'authlevel'				=> $USER['authlevel'],
-		'AvailableUnis'			=> $AvailableUnis,
+		'AvailableUnis'			=> $universeSelect,
 		'UNI'					=> $_SESSION['adminuni'],
 	));
 	

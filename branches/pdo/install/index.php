@@ -101,21 +101,21 @@ switch ($mode) {
 		$ftp->chmod('install', $CHMOD);
 		break;
 	case 'upgrade':
-		// TODO:Need a rewrite!
 		// Willkommen zum Update page. Anzeige, von und zu geupdatet wird. Informationen, dass ein backup erstellt wird.
 		require_once('includes/config.php');
-		require_once('includes/dbtables.php');
 
-		Config::init();
-		$directoryIterator = new DirectoryIterator(ROOT_PATH . 'install/updates/');
 		try {
-			$sqlRevision = Config::get('sql_revision');
+			$sqlRevision = Config::get()->sql_revision;
 		}
 		catch (Exception $e) {
 			$template->message($LNG['upgrade_required_rev'], false, 0, true);
 			exit;
 		}
+
 		$fileList = array();
+
+		$directoryIterator = new DirectoryIterator(ROOT_PATH . 'install/updates/');
+		/** @var $fileInfo DirectoryIterator */
 		foreach ($directoryIterator as $fileInfo) {
 			if (!$fileInfo->isFile()) {
 				continue;
@@ -127,43 +127,45 @@ switch ($mode) {
 		}
 		sort($fileList);
 		$template->assign_vars(array(
-									'revisionlist'  => $fileList,
-									'file_revision' => empty($fileList) ? $sqlRevision : max($fileList),
-									'sql_revision'  => $sqlRevision,
-									'header'        => $LNG['menu_upgrade'],));
+			'revisionlist'  => $fileList,
+			'file_revision' => empty($fileList) ? $sqlRevision : max($fileList),
+			'sql_revision'  => $sqlRevision,
+			'header'        => $LNG['menu_upgrade']
+		));
 		$template->show('ins_update.tpl');
 		break;
 	case 'doupgrade':
 		// TODO:Need a rewrite!
 		require 'includes/config.php';
-		require_once('includes/dbtables.php');
-		$startrevision       = HTTP::_GP('startrevision', 0);
+		$startRevision       = HTTP::_GP('startrevision', 0);
 
 		// Create a Backup
 		$prefixCounts = strlen(DB_PREFIX);
 		$dbTables     = array();
-		$sqlTableRaw  = $GLOBALS['DATABASE']->query("SHOW TABLE STATUS FROM `" . DB_NAME . "`;");
-		while ($table = $GLOBALS['DATABASE']->fetchArray($sqlTableRaw)) {
+		$sqlTableRaw  = Database::get()->nativeQuery("SHOW TABLE STATUS FROM `" . DB_NAME . "`;");
+		foreach($sqlTableRaw as $table)
+		{
 			if (DB_PREFIX == substr($table['Name'], 0, $prefixCounts)) {
 				$dbTables[] = $table['Name'];
 			}
 		}
-		if (empty($dbTables)) {
+
+		if (empty($dbTables))
+		{
 			throw new Exception('No tables found for dump.');
 		}
+
 		$fileName = '2MoonsBackup_' . date('d_m_Y_H_i_s', TIMESTAMP) . '.sql';
 		$filePath = 'includes/backups/' . $fileName;
 		require 'includes/classes/SQLDumper.class.php';
-		Config::init();
 		$dump = new SQLDumper;
 		$dump->dumpTablesToFile($dbTables, $filePath);
 		@set_time_limit(600);
-		$httpRoot = PROTOCOL . HTTP_HOST . str_replace(array(
-															'\\',
-															'//'), '/', dirname(dirname($_SERVER['SCRIPT_NAME'])) . '/');
-		$revision = $startrevision - 1;
+		$httpRoot = PROTOCOL . HTTP_HOST . str_replace(array('\\', '//'), '/', dirname(dirname($_SERVER['SCRIPT_NAME'])) . '/');
+		$revision = $startRevision - 1;
 		$fileList = array();
 		$directoryIterator = new DirectoryIterator(ROOT_PATH . 'install/updates/');
+		/** @var $fileInfo DirectoryIterator */
 		foreach ($directoryIterator as $fileInfo) {
 			if (!$fileInfo->isFile()) {
 				continue;
@@ -175,7 +177,8 @@ switch ($mode) {
 				$fileList[$key] = array(
 					'fileName'      => $fileInfo->getFilename(),
 					'fileRevision'  => $fileRevision,
-					'fileExtension' => $fileExtension,);
+					'fileExtension' => $fileExtension
+				);
 			}
 		}
 		ksort($fileList);
@@ -206,7 +209,12 @@ switch ($mode) {
 					case 'sql';
 						$data = file_get_contents(ROOT_PATH . 'install/updates/' . $fileInfo['fileName']);
 						try {
-							$GLOBALS['DATABASE']->multi_query(str_replace("prefix_", DB_PREFIX, $data));
+							$queries	= explode(';', str_replace("prefix_", DB_PREFIX, $data));
+							$queries	= array_filter($queries);
+							foreach($queries as $query)
+							{
+								Database::get()->nativeQuery($query);
+							}
 						}
 						catch (Exception $e) {
 							$errorMessage = $e->getMessage();
@@ -227,7 +235,7 @@ switch ($mode) {
 		}
 		$gameVersion    = explode('.', Config::get('VERSION'));
 		$gameVersion[2] = $revision;
-		$GLOBALS['DATABASE']->query("UPDATE " . CONFIG . " SET VERSION = '" . implode('.', $gameVersion) . "', sql_revision = " . $revision . ";");
+		Database::get()->update("UPDATE %%CONFIG%% SET VERSION = '" . implode('.', $gameVersion) . "', sql_revision = " . $revision . ";");
 		ClearCache();
 		$template->assign_vars(array(
 									'update'   => !empty($fileList),
@@ -492,13 +500,14 @@ switch ($mode) {
 					@unlink('includes/config.php');
 					$error = $e->getMessage();
 					$template->assign(array(
-										   'host'    => $database['host'],
-										   'port'    => $database['port'],
-										   'user'    => $database['user'],
-										   'dbname'  => $database['databasename'],
-										   'prefix'  => $database['tableprefix'],
-										   'class'   => 'fatalerror',
-										   'message' => $LNG['step3_db_error'] . '</p><p>' . $error,));
+						'host'    => $database['host'],
+						'port'    => $database['port'],
+						'user'    => $database['user'],
+						'dbname'  => $database['databasename'],
+						'prefix'  => $database['tableprefix'],
+						'class'   => 'fatalerror',
+						'message' => $LNG['step3_db_error'] . '</p><p>' . $error,
+				  	));
 					$template->show('ins_step4.tpl');
 					exit;
 				}
@@ -531,7 +540,6 @@ switch ($mode) {
 				$session	= Session::create();
 				$session->userId		= $userId;
 				$session->adminAccess	= 1;
-				$session->save();
 
 				@unlink($enableInstallToolFile);
 				$template->show('ins_step8.tpl');

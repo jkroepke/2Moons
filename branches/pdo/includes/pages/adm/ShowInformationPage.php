@@ -30,7 +30,9 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowInformationPage()
 {
-	global $LNG, $CONF, $USER;
+	global $LNG, $USER;
+
+	$config = Config::get();
 
 	if(file_exists(ini_get('error_log')))
 		$Lines	= count(file(ini_get('error_log')));
@@ -38,7 +40,7 @@ function ShowInformationPage()
 		$Lines	= 0;
 	
 	try {
-		$dateTimeZoneServer = new DateTimeZone(Config::get('timezone'));
+		$dateTimeZoneServer = new DateTimeZone($config->timezone);
 	} catch (Exception $e) {
 		$dateTimeZoneServer	= new DateTimeZone(date_default_timezone_get());
 	}
@@ -65,7 +67,7 @@ function ShowInformationPage()
 		'info'				=> $_SERVER['SERVER_SOFTWARE'],
 		'vPHP'				=> PHP_VERSION,
 		'vAPI'				=> PHP_SAPI,
-		'vGame'				=> Config::get('VERSION'),
+		'vGame'				=> $config->VERSION,
 		'vMySQLc'			=> $GLOBALS['DATABASE']->getVersion(),
 		'vMySQLs'			=> $GLOBALS['DATABASE']->getServerVersion(),
 		'root'				=> $_SERVER['SERVER_NAME'],

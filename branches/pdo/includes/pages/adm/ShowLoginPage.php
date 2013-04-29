@@ -35,12 +35,18 @@ function ShowLoginPage()
 {
 	global $USER, $LNG;
 	
+	$session	= Session::create();
+	if($session->adminAccess == 1)
+	{
+		HTTP::redirectTo('admin.php');
+	}
+	
 	if(isset($_REQUEST['admin_pw']))
 	{
-		$password	= cryptPassword($_REQUEST['admin_pw']);
+		$password	= PlayerUtil::cryptPassword($_REQUEST['admin_pw']);
 
 		if ($password == $USER['password']) {
-			$_SESSION['admin_login']	= $password;
+			$session->adminAccess	= 1;
 			HTTP::redirectTo('admin.php');
 		}
 	}

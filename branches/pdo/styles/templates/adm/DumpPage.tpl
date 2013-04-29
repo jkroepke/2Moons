@@ -7,7 +7,10 @@
 	</tr>
 	<tr>
 		<td>{$LNG.du_choose_tables}</td>
-		<td><input type="checkbox" id="selectAll">{$LNG.du_select_all_tables}<br>{html_options multiple="multiple" style="width:250px" size="10" name="dbtables[]" id="dbtables" values=$dumpData.sqlTables output=$dumpData.sqlTables}</td>
+		<td>
+            <div><input type="checkbox" id="selectAll"><label for="selectAll">{$LNG.du_select_all_tables}</label></div>
+            <div>{html_options multiple="multiple" style="width:250px" size="10" name="dbtables[]" id="dbtables" values=$dumpData.sqlTables output=$dumpData.sqlTables}</div>
+        </td>
 	</tr>
 	<tr>
 		<td colspan="2"><input type="submit" value="{$LNG.du_submit}"></td>

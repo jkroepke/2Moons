@@ -27,15 +27,20 @@
  */
 
 define('MODE', 'ADMIN');
+define('DATABASE_VERSION', 'OLD');
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
 require('includes/common.php');
 require_once('includes/classes/class.Log.php');
 
-if ($USER['authlevel'] == AUTH_USR) HTTP::redirectTo('game.php');
+if ($USER['authlevel'] == AUTH_USR)
+{
+	HTTP::redirectTo('game.php');
+}
 
-if(!isset($_SESSION['admin_login']) || $_SESSION['admin_login'] != $USER['password'])
+$session	= Session::create();
+if($session->adminAccess != 1)
 {
 	include_once('includes/pages/adm/ShowLoginPage.php');
 	ShowLoginPage();

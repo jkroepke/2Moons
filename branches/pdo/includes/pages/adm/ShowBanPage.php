@@ -66,11 +66,11 @@ function ShowBanPage()
 	$template->loadscript('filterlist.js');
 
 
+	$Name					= HTTP::_GP('ban_name', '', true);
+	$BANUSER				= $GLOBALS['DATABASE']->getFirstRow("SELECT b.theme, b.longer, u.id, u.urlaubs_modus, u.banaday FROM ".USERS." as u LEFT JOIN ".BANNED." as b ON u.`username` = b.`who` WHERE u.`username` = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND u.`universe` = '".$_SESSION['adminuni']."';");
+
 	if(isset($_POST['panel']))
 	{
-		$Name					= HTTP::_GP('ban_name', '', true);
-		$BANUSER				= $GLOBALS['DATABASE']->getFirstRow("SELECT b.theme, b.longer, u.id, u.urlaubs_modus, u.banaday FROM ".USERS." as u LEFT JOIN ".BANNED." as b ON u.`username` = b.`who` WHERE u.`username` = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND u.`universe` = '".$_SESSION['adminuni']."';");
-			
 		if ($BANUSER['banaday'] <= TIMESTAMP)
 		{
 			$title			= $LNG['bo_bbb_title_1'];

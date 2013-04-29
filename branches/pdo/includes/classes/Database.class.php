@@ -198,7 +198,7 @@ class Database
 		$this->rowCount = $stmt->rowCount();
 
 		$this->queryCounter++;
-		return $stmt->fetchAll(PDO::FETCH_ASSOC);
+		return $this->getQueryType($qry) === "select" ? $stmt->fetchAll(PDO::FETCH_ASSOC) : true;
 	}
 
 	public function getQueryCounter()

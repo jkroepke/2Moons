@@ -30,32 +30,37 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowDisclamerPage()
 {
-	global $LNG, $USER;
-	
-	$CONF	= Config::getAll(NULL, $_SESSION['adminuni']);
+	global $LNG;
+
+
+	$config = Config::get($_SESSION['adminuni']);
+
 	if (!empty($_POST))
 	{
 		$config_before = array(	
-			'disclamerAddress'	=> $CONF['disclamerAddress'],
-			'disclamerPhone'	=> $CONF['disclamerPhone'],
-			'disclamerMail'		=> $CONF['disclamerMail'],
-			'disclamerNotice'	=> $CONF['disclamerNotice'],
+			'disclamerAddress'	=> $config->disclamerAddress,
+			'disclamerPhone'	=> $config->disclamerPhone,
+			'disclamerMail'	=> $config->disclamerMail,
+			'disclamerNotice'	=> $config->disclamerNotice,
 		);
 		
-		$disclamerAddress	= HTTP::_GP('disclamerAddress', '', true);
-		$disclamerPhone		= HTTP::_GP('disclamerPhone', '', true);
-		$disclamerMail		= HTTP::_GP('disclamerMail', '', true);
-		$disclamerNotice	= HTTP::_GP('disclamerNotice', '', true);
+		$disclaimerAddress	= HTTP::_GP('disclaimerAddress', '', true);
+		$disclaimerPhone	= HTTP::_GP('disclaimerPhone', '', true);
+		$disclaimerMail		= HTTP::_GP('disclaimerMail', '', true);
+		$disclaimerNotice	= HTTP::_GP('disclaimerNotice', '', true);
 		
 		$config_after = array(	
-			'disclamerAddress'	=> $disclamerAddress,
-			'disclamerPhone'	=> $disclamerPhone,
-			'disclamerMail'		=> $disclamerMail,
-			'disclamerNotice'	=> $disclamerNotice,
+			'disclamerAddress'	=> $disclaimerAddress,
+			'disclamerPhone'	=> $disclaimerPhone,
+			'disclamerMail'		=> $disclaimerMail,
+			'disclamerNotice'	=> $disclaimerNotice,
 		);
-		
-		Config::update($config_after);
-		$CONF	= Config::getAll(NULL, $_SESSION['adminuni']);
+
+		foreach($config_after as $key => $value)
+		{
+			$config->$key	= $value;
+		}
+		$config->save();
 		
 		$LOG = new Log(3);
 		$LOG->target = 5;
@@ -69,16 +74,16 @@ function ShowDisclamerPage()
 	$template->execscript('$(\'textarea\').autosize();');
 
 	$template->assign_vars(array(
-		'disclamerAddress'		=> $CONF['disclamerAddress'],
-		'disclamerPhone'		=> $CONF['disclamerPhone'],
-		'disclamerMail'			=> $CONF['disclamerMail'],
-		'disclamerNotice'		=> $CONF['disclamerNotice'],
-		'se_server_parameters'	=> $LNG['mu_disclamer'],
+		'disclaimerAddress'		=> $config->disclamerAddress,
+		'disclaimerPhone'		=> $config->disclamerPhone,
+		'disclaimerMail'		=> $config->disclamerMail,
+		'disclaimerNotice'		=> $config->disclamerNotice,
+		'se_server_parameters'	=> $LNG['mu_disclaimer'],
 		'se_save_parameters'	=> $LNG['se_save_parameters'],
-		'se_disclamerAddress'	=> $LNG['se_disclamerAddress'],
-		'se_disclamerPhone'		=> $LNG['se_disclamerPhone'],
-		'se_disclamerMail'		=> $LNG['se_disclamerMail'],
-		'se_disclamerNotice'	=> $LNG['se_disclamerNotice'],
+		'se_disclaimerAddress'	=> $LNG['se_disclaimerAddress'],
+		'se_disclaimerPhone'	=> $LNG['se_disclaimerPhone'],
+		'se_disclaimerMail'		=> $LNG['se_disclaimerMail'],
+		'se_disclaimerNotice'	=> $LNG['se_disclaimerNotice'],
 	));
 	
 	$template->show('DisclamerConfigBody.tpl');

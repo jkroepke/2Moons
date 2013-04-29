@@ -30,7 +30,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowQuickEditorPage()
 {
-	global $USER, $LNG, $reslist, $resource, $pricelist;
+	global $USER, $LNG, $reslist, $resource;
 	$action	= HTTP::_GP('action', '');
 	$edit	= HTTP::_GP('edit', '');
 	$id 	= HTTP::_GP('id', 0);
@@ -39,6 +39,8 @@ function ShowQuickEditorPage()
 	{
 		case 'planet':
 			$DataIDs	= array_merge($reslist['fleet'], $reslist['build'], $reslist['defense']);
+			$SpecifyItemsPQ	= "";
+
 			foreach($DataIDs as $ID)
 			{
 				$SpecifyItemsPQ	.= "`".$resource[$ID]."`,";
@@ -149,6 +151,8 @@ function ShowQuickEditorPage()
 		break;
 		case 'player':
 			$DataIDs	= array_merge($reslist['tech'], $reslist['officier']);
+			$SpecifyItemsPQ	= "";
+
 			foreach($DataIDs as $ID)
 			{
 				$SpecifyItemsPQ	.= "`".$resource[$ID]."`,";
@@ -164,7 +168,8 @@ function ShowQuickEditorPage()
 				}
 				$SQL	.= "`darkmatter` = '".max(HTTP::_GP('darkmatter', 0), 0)."', ";
 				if(!empty($_POST['password']) && $ChangePW)
-					$SQL	.= "`password` = '".cryptPassword(HTTP::_GP('password', '', true))."', ";
+					$SQL	.= "`password` = '".PlayerUtil::cryptPassword(HTTP::_GP('password', '', true))."', ";
+
 				$SQL	.= "`username` = '".$GLOBALS['DATABASE']->sql_escape(HTTP::_GP('name', '', UTF8_SUPPORT))."', ";
 				$SQL	.= "`authattack` = '".($UserData['authlevel'] != AUTH_USR && HTTP::_GP('authattack', '') == 'on' ? $UserData['authlevel'] : 0)."' ";
 				$SQL	.= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";

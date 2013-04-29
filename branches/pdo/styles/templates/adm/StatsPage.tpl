@@ -16,9 +16,6 @@
       <td>{$cs_access_lvl}</td>
       <td><input type="text" name="stat_level" value="{$stat_level}"></td>
     </tr>
-	<tr>
-      <td colspan="2"><a href="admin.php?page=cronjob">{$cs_time_between_updates}</a></td>
-    </tr>
     <tr>
       <td colspan="2"><input type="submit" value="{$cs_save_changes}"></td>
     </tr>

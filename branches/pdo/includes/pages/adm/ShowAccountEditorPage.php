@@ -297,6 +297,8 @@ function ShowAccountEditorPage()
 				elseif ($_POST['delete'])
 				{
 					$Fields	= 0;
+					$QryUpdate	= array();
+
 					$SQL  = "UPDATE ".PLANETS." SET ";
 					$SQL .= "`eco_hash` = '', ";
 					foreach($reslist['allow'][$PlanetData['planet_type']] as $ID)

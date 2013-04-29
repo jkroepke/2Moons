@@ -94,6 +94,21 @@ if(!file_exists('includes/config.php')) {
 	HTTP::redirectTo('install/index.php');
 }
 
+if(defined('DATABASE_VERSION') && DATABASE_VERSION === 'OLD')
+{
+	/* For our old Admin panel */
+	require 'includes/classes/Database_BC.class.php';
+	$DATABASE	= new Database_BC();
+	
+	$dbTableNames	= Database::get()->getDbTableNames();
+	$dbTableNames	= array_combine($dbTableNames['keys'], $dbTableNames['names']);
+	
+	foreach($dbTableNames as $dbAlias => $dbName)
+	{
+		define(substr($dbAlias, 2, -2), $dbName);
+	}	
+}
+
 $config = Config::get();
 
 date_default_timezone_set($config->timezone);

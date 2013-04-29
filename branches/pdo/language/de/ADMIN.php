@@ -254,7 +254,7 @@ $LNG['bo_unban']				= 'Entsperren';
 
 
 //---------------	ENCRIPTADOR MD5 - ENCRIPTER MD5	------------------------//
-$LNG['et_md5_encripter']	= 'MD5 Generator';
+$LNG['et_md5_encripter']	= 'PW Generator';
 $LNG['et_pass']				= 'Eingabe';
 $LNG['et_result']			= 'Ergebniss';
 $LNG['et_encript']			= 'Generieren';
@@ -527,10 +527,10 @@ $LNG['se_dst_sel'][1]					= 'Ja';
 $LNG['se_dst_sel'][2]					= 'Automatisch';
 $LNG['se_max_dm_missions']				= 'Max. Anzahl an parralell laufenden DM-Such Missionen';
 $LNG['se_alliance_create_min_points']   = 'Mindestpunktzahl, um eine Allianz gründen zu können';
-$LNG['se_disclamerAddress']				= 'Adresse';
-$LNG['se_disclamerPhone']				= 'Telefonnummer';
-$LNG['se_disclamerMail']				= 'E-Mail-Adresse';
-$LNG['se_disclamerNotice']				= 'Weitere Informationen';
+$LNG['se_disclaimerAddress']				= 'Adresse';
+$LNG['se_disclaimerPhone']				= 'Telefonnummer';
+$LNG['se_disclaimerMail']				= 'E-Mail-Adresse';
+$LNG['se_disclaimerNotice']				= 'Weitere Informationen';
 
 //###########################################################//
 
@@ -643,7 +643,7 @@ $LNG['mu_vertify']					= 'Vertify Game Content';
 $LNG['mu_cronjob']					= 'Cronjobs'; 
 $LNG['mu_logs']						= 'Admin-Log';
 $LNG['mu_giveaway']					= 'Giveaways';
-$LNG['mu_disclamer']				= 'Impressum-Einstellungen';
+$LNG['mu_disclaimer']				= 'Impressum-Einstellungen';
 $LNG['mu_dump']						= 'Datenbank-Backup';
 
 
@@ -1010,6 +1010,7 @@ $LNG['qe_authattack']					= 'Admin Angriffschutz';
 $LNG['qe_submit']						= 'Absenden';
 $LNG['qe_resetr']						= 'Zurücksetzten';
 $LNG['qe_allowmulti']					= 'Erlaube Multi';
+$LNG['qe_name']							= 'Name';
 	
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
@@ -1229,7 +1230,7 @@ $LNG['log_usettings']					= 'Uni Konfiguration';
 $LNG['log_statsettings']				= 'Statistik-Optionen';
 $LNG['log_chatsettings']				= 'Chat-Optionen';
 $LNG['log_tssettings']					= 'Teamspeak-Konfiguration';
-$LNG['log_disclamersettings']			= 'Impressum';
+$LNG['log_disclaimersettings']			= 'Impressum';
 $LNG['log_uni_short']					= 'Uni';
 $LNG['log_universe']					= 'Universum';
 

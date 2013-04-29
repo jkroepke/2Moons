@@ -33,7 +33,7 @@ class Log
 
 	function __construct($mode) {
 		$this->data['mode']		= $mode;
-		$this->data['admin']	= $_SESSION['id'];
+		$this->data['admin']	= Session::load()->userId;
 		$this->data['uni']		= $_SESSION['adminuni'];
 	}
 	public function __set($key, $value){

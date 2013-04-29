@@ -39,9 +39,7 @@ class ShowLogoutPage extends AbstractPage
 	
 	function show() 
 	{
-		global $SESSION;
-		
-		$SESSION->DestroySession();
+		Session::load()->delete();
 		$this->display('page.logout.default.tpl');
 	}
 }

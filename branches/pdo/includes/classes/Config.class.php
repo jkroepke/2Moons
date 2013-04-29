@@ -47,6 +47,10 @@ class Config
 										   'del_user_automatic', 'del_oldstuff', 'del_user_manually', 'ref_max_referals',
 										   'disclamerAddress','disclamerPhone','disclamerMail','disclamerNotice');
 
+	public static function getGlobalConfigKeys()
+	{
+		return self::$globalConfigKeys;
+	}
 
 	/**
 	 * Return an config object for the requested universe
@@ -67,7 +71,17 @@ class Config
 			$universe = Universe::current();
 		}
 
+		if(!isset(self::$instances[$universe]))
+		{
+			throw new Exception("Unknown universe id: ".$universe);
+		}
+
 		return self::$instances[$universe];
+	}
+
+	static public function reload()
+	{
+		self::generateInstances();
 	}
 
 	static private function generateInstances()

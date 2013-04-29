@@ -317,7 +317,7 @@ class PlayerUtil
 		return $db->lastInsertId();
 	}
 	
-	static public function createMoon($universe, $galaxy, $system, $position, $userId, $chance, $diameter = NULL)
+	static public function createMoon($universe, $galaxy, $system, $position, $userId, $chance, $diameter = NULL, $moonName = NULL)
 	{
 		global $LNG;
 
@@ -352,7 +352,10 @@ class PlayerUtil
 		$maxTemperature = $parentPlanet['temp_max'] - mt_rand(10, 45);
 		$minTemperature = $parentPlanet['temp_min'] - mt_rand(10, 45);
 
-		$moonName		= $LNG['type_planet'][3];
+		if(empty($moonName))
+		{
+			$moonName		= $LNG['type_planet'][3];
+		}
 
 		$sql	= "INSERT INTO %%PLANETS%% SET
 		name				= :name,
@@ -618,7 +621,7 @@ class PlayerUtil
 	{
 		if(is_null($universe))
 		{
-			$universe = $GLOBALS['UNI'];
+			$universe = Universe::current();
 		}
 
 		$db = Database::get();
