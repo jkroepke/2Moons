@@ -79,14 +79,16 @@ switch ($mode) {
 		require_once('includes/libs/ftp/ftp.class.php');
 		require_once('includes/libs/ftp/ftpexception.class.php');
 		$LNG->includeData(array('ADMIN'));
-		$CONFIG = array(
+		$connectionConfig = array(
 			"host"     => $_GET['host'],
 			"username" => $_GET['user'],
 			"password" => $_GET['pass'],
-			"port"     => 21);
+			"port"     => 21
+		);
+
 		try {
 			$ftp = FTP::getInstance();
-			$ftp->connect($CONFIG);
+			$ftp->connect($connectionConfig);
 		}
 		catch (FTPException $error) {
 			exit($LNG['req_ftp_error_data']);

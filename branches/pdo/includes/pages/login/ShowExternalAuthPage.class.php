@@ -41,23 +41,27 @@ class ShowExternalAuthPage extends AbstractPage
 	{
 		$method			= HTTP::_GP('method', '');
 		$method			= strtolower(str_replace(array('_', '\\', '/', '.', "\0"), '', $method));
+		$path			= 'includes/classes/extauth/'.$method.'.class.php';
 		
-		if(!file_exists('includes/extauth/'.$method.'.class.php')) {
+		if(!file_exists($path)) {
 			HTTP::redirectTo('index.php');			
 		}
 		
 		Session::init();
-		
-		require('includes/extauth/'.$method.'.class.php');
+
+		require 'includes/classes/extauth/externalAuth.interface.php';
+		require $path;
 		
 		$methodClass	= ucwords($method).'Auth';
+
+		/** @var $authObj externalAuth */
 		$authObj		= new $methodClass;
 		
 		if(!$authObj->isActiveMode()) {
 			$this->redirectTo('index.php?code=5');
 		}
 		
-		if(!$authObj->isVaild()) {
+		if(!$authObj->isValid()) {
 			$this->redirectTo('index.php?code=4');
 		}
 		

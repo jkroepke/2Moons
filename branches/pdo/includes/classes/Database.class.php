@@ -198,12 +198,17 @@ class Database
 		$this->rowCount = $stmt->rowCount();
 
 		$this->queryCounter++;
-		return $this->getQueryType($qry) === "select" ? $stmt->fetchAll(PDO::FETCH_ASSOC) : true;
+		return in_array($this->getQueryType($qry), array('select', 'show')) ? $stmt->fetchAll(PDO::FETCH_ASSOC) : true;
 	}
 
 	public function getQueryCounter()
 	{
 		return $this->queryCounter;
+	}
+
+	static public function formatDate($time)
+	{
+		return date('Y-m-d H:i:s', $time);
 	}
 
 	public function quote($str)

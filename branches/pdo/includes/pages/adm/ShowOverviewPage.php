@@ -28,7 +28,7 @@
 
 function ShowOverviewPage()
 {
-	global $LNG, $USER, $CONF;
+	global $LNG, $USER;
 	
 	$Message	= array();
 

@@ -311,7 +311,15 @@ CREATE TABLE `%PREFIX%cronjobs` (
   `lock` varchar(32) DEFAULT NULL,
   UNIQUE KEY `cronjobID` (`cronjobID`),
   KEY `isActive` (`isActive`,`nextTime`,`lock`,`cronjobID`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `%PREFIX%cronjobs_log` (
+ `cronjobId` int(11) unsigned NOT NULL,
+ `executionTime` datetime NOT NULL,
+ `lockToken` varchar(32) NOT NULL,
+ KEY `cronjobId` (`cronjobId`,`executionTime`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 
 CREATE TABLE `%PREFIX%diplo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

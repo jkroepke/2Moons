@@ -198,7 +198,7 @@ class ShowStatisticsPage extends AbstractPage
             'RangeList'				=> $RangeList,
             'CUser_ally'			=> $USER['ally_id'],
             'CUser_id'				=> $USER['id'],
-            'stat_date'				=> _date($LNG['php_tdformat'], $config->stat_last_update, $USER['timezone']),
+            'stat_date'				=> _date($LNG['php_tdformat'], Cronjob::getLastExecutionTime('statistic'), $USER['timezone']),
         ));
 
         $this->display('page.statistics.default.tpl');

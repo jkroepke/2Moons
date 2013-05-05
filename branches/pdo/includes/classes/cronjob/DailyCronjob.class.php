@@ -27,7 +27,9 @@
  * @link http://code.google.com/p/2moons/
  */
 
-class DailyCronJob
+require_once 'includes/classes/cronjob/CronjobTask.interface.php';
+
+class DailyCronJob implements CronjobTask
 {
 	function run()
 	{

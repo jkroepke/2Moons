@@ -35,6 +35,8 @@ class Cronjob
 	
 	static function execute($cronjobID)
 	{
+		$lockToken	= md5(TIMESTAMP);
+
 		$db	= Database::get();
 
 		$sql = 'SELECT class FROM %%CRONJOBS%% WHERE isActive = :isActive AND cronjobID = :cronjobId AND `lock` IS NULL;';
@@ -52,25 +54,33 @@ class Cronjob
 		$sql = 'UPDATE %%CRONJOBS%% SET `lock` = :lock WHERE cronjobID = :cronjobId;';
 
 		$db->update($sql, array(
-			':lock'			=> md5(TIMESTAMP),
+			':lock'			=> $lockToken,
 			':cronjobId'	=> $cronjobID
 		));
 		
-		$cronjobsPath		= 'includes/classes/cronjob/'.$cronjobClassName.'.class.php';
+		$cronjobPath		= 'includes/classes/cronjob/'.$cronjobClassName.'.class.php';
 		
 		// die hard, if file not exists.
-		require_once($cronjobsPath);
+		require_once($cronjobPath);
 
 		/** @var $cronjobObj CronjobTask */
 		$cronjobObj			= new $cronjobClassName;
 		$cronjobObj->run();
 
 		self::reCalculateCronjobs($cronjobID);
-
 		$sql = 'UPDATE %%CRONJOBS%% SET `lock` = NULL WHERE cronjobID = :cronjobId;';
 
 		$db->update($sql, array(
 			':cronjobId'	=> $cronjobID
+		));
+
+		$sql = 'INSERT INTO %%CRONJOBS_LOG%% SET `cronjobId` = :cronjobId,
+		`executionTime` = :executionTime, `lockToken` = :lockToken';
+
+		$db->insert($sql, array(
+			':cronjobId'		=> $cronjobID,
+			':executionTime'	=> Database::formatDate(TIMESTAMP),
+			':lockToken'		=> $lockToken
 		));
 	}
 	
@@ -94,10 +104,27 @@ class Cronjob
 		
 		return $cronjobList;
 	}
+
+	static function getLastExecutionTime($cronjobName)
+	{
+		require_once 'includes/libs/tdcron/class.tdcron.php';
+		require_once 'includes/libs/tdcron/class.tdcron.entry.php';
+
+		$sql		= 'SELECT MAX(executionTime) as executionTime FROM %%CRONJOBS_LOG%% INNER JOIN %%CRONJOBS%% USING(cronjobId) WHERE name = :cronjobName;';
+		$lastTime	= Database::get()->selectSingle($sql, array(
+			':cronjobName' => $cronjobName
+		), 'executionTime');
+
+		if(empty($lastTime))
+		{
+			return false;
+		}
+
+		return strtotime($lastTime);
+	}
 	
 	static function reCalculateCronjobs($cronjobID = NULL)
 	{
-	
 		require_once 'includes/libs/tdcron/class.tdcron.php';
 		require_once 'includes/libs/tdcron/class.tdcron.entry.php';
 

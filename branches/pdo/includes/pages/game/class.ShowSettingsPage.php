@@ -86,7 +86,7 @@ class ShowSettingsPage extends AbstractPage
 				'galaxyMessage' 	=> $USER['settings_wri'],
 				'blockPM' 			=> $USER['settings_blockPM'],
 				'userid'		 	=> $USER['id'],
-				'ref_active'		=> Config::get('ref_active'),
+				'ref_active'		=> Config::get()->ref_active,
 			));
 			
 			$this->display('page.settings.default.tpl');

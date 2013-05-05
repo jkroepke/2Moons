@@ -27,7 +27,9 @@
  * @link http://code.google.com/p/2moons/
  */
 
-class TeamSpeakCronjob
+require_once 'includes/classes/cronjob/CronjobTask.interface.php';
+
+class TeamSpeakCronjob implements CronjobTask
 {
 	function run()
 	{

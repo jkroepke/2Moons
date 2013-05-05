@@ -40,53 +40,63 @@ class ShowOfficierPage extends AbstractPage
 	{
 		global $PLANET, $USER, $resource, $pricelist;
 		
-		$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+		$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
 			
-		if (!BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources)) {
+		if (!BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costResources)) {
 			return;
 		}
 			
 		$USER[$resource[$Element]]	= max($USER[$resource[$Element]], TIMESTAMP) + $pricelist[$Element]['time'];
 			
-		if(isset($costRessources[901])) { $PLANET[$resource[901]]	-= $costRessources[901]; }
-		if(isset($costRessources[902])) { $PLANET[$resource[902]]	-= $costRessources[902]; }
-		if(isset($costRessources[903])) { $PLANET[$resource[903]]	-= $costRessources[903]; }
-		if(isset($costRessources[921])) { $USER[$resource[921]]		-= $costRessources[921]; }
-		
-		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET
-				   ".$resource[$Element]." = ".$USER[$resource[$Element]]."
-				   WHERE
-				   id = ".$USER['id'].";");
+		if(isset($costResources[901])) { $PLANET[$resource[901]]	-= $costResources[901]; }
+		if(isset($costResources[902])) { $PLANET[$resource[902]]	-= $costResources[902]; }
+		if(isset($costResources[903])) { $PLANET[$resource[903]]	-= $costResources[903]; }
+		if(isset($costResources[921])) { $USER[$resource[921]]		-= $costResources[921]; }
+
+		$sql	= 'UPDATE %%USERS%% SET
+				'.$resource[$Element].' = :newTime
+				WHERE
+				id = :userId;';
+
+		Database::get()->update($sql, array(
+			':newTime'	=> $USER[$resource[$Element]],
+			':userId'	=> $USER['id']
+		));
 	}
 
 	public function UpdateOfficier($Element)
 	{
-		global $USER, $PLANET, $reslist, $resource, $pricelist;
+		global $USER, $PLANET, $resource, $pricelist;
 		
-		$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+		$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
 			
 		if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element) 
-			|| !BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources) 
+			|| !BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costResources) 
 			|| $pricelist[$Element]['max'] <= $USER[$resource[$Element]]) {
 			return;
 		}
 		
 		$USER[$resource[$Element]]	+= 1;
 		
-		if(isset($costRessources[901])) { $PLANET[$resource[901]]	-= $costRessources[901]; }
-		if(isset($costRessources[902])) { $PLANET[$resource[902]]	-= $costRessources[902]; }
-		if(isset($costRessources[903])) { $PLANET[$resource[903]]	-= $costRessources[903]; }
-		if(isset($costRessources[921])) { $USER[$resource[921]]		-= $costRessources[921]; }
-		
-		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET
-				   ".$resource[$Element]." = ".$USER[$resource[$Element]]."
-				   WHERE
-				   id = ".$USER['id'].";");
+		if(isset($costResources[901])) { $PLANET[$resource[901]]	-= $costResources[901]; }
+		if(isset($costResources[902])) { $PLANET[$resource[902]]	-= $costResources[902]; }
+		if(isset($costResources[903])) { $PLANET[$resource[903]]	-= $costResources[903]; }
+		if(isset($costResources[921])) { $USER[$resource[921]]		-= $costResources[921]; }
+
+		$sql	= 'UPDATE %%USERS%% SET
+		'.$resource[$Element].' = :newTime
+		WHERE
+		id = :userId;';
+
+		Database::get()->update($sql, array(
+			':newTime'	=> $USER[$resource[$Element]],
+			':userId'	=> $USER['id']
+		));
 	}
 	
 	public function show()
 	{
-		global $USER, $CONF, $PLANET, $resource, $reslist, $LNG, $pricelist;
+		global $USER, $PLANET, $resource, $reslist, $LNG, $pricelist;
 		
 		$updateID	  = HTTP::_GP('id', 0);
 				
@@ -99,8 +109,6 @@ class ShowOfficierPage extends AbstractPage
 			}
 		}
 		
-		$this->tplObj->loadscript('officier.js');		
-		
 		$darkmatterList	= array();
 		$officierList	= array();
 		
@@ -112,14 +120,14 @@ class ShowOfficierPage extends AbstractPage
 					$this->tplObj->execscript("GetOfficerTime(".$Element.", ".($USER[$resource[$Element]] - TIMESTAMP).");");
 				}
 			
-				$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
-				$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources);
-				$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costRessources);
+				$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+				$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costResources);
+				$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costResources);
 				$elementBonus		= BuildFunctions::getAvalibleBonus($Element);
 
 				$darkmatterList[$Element]	= array(
 					'timeLeft'			=> max($USER[$resource[$Element]] - TIMESTAMP, 0),
-					'costRessources'	=> $costRessources,
+					'costResources'		=> $costResources,
 					'buyable'			=> $buyable,
 					'time'				=> $pricelist[$Element]['time'],
 					'costOverflow'		=> $costOverflow,
@@ -135,15 +143,15 @@ class ShowOfficierPage extends AbstractPage
 				if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element))
 					continue;
 					
-				$costRessources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
-				$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costRessources);
-				$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costRessources);
+				$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+				$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costResources);
+				$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costResources);
 				$elementBonus		= BuildFunctions::getAvalibleBonus($Element);
 				
 				$officierList[$Element]	= array(
 					'level'				=> $USER[$resource[$Element]],
 					'maxLevel'			=> $pricelist[$Element]['max'],
-					'costRessources'	=> $costRessources,
+					'costResources'		=> $costResources,
 					'buyable'			=> $buyable,
 					'costOverflow'		=> $costOverflow,
 					'elementBonus'		=> $elementBonus,

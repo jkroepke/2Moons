@@ -169,7 +169,8 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 	
 	if (MODE === 'INGAME')
 	{
-		if(Universe::current() != $USER['universe'] && count($CONFIG) > 1)
+		$universeAmount	= count(Universe::availableUniverses());
+		if(Universe::current() != $USER['universe'] && $universeAmount > 1)
 		{
 			HTTP::redirectToUniverse($USER['universe']);
 		}

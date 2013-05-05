@@ -45,6 +45,7 @@ $dbTableNames	= array(
 	'CHAT_ON'			=> DB_PREFIX.'chat_online',
 	'CONFIG'			=> DB_PREFIX.'config',
 	'CRONJOBS'			=> DB_PREFIX.'cronjobs',
+	'CRONJOBS_LOG'		=> DB_PREFIX.'cronjobs_log',
 	'DIPLO'				=> DB_PREFIX.'diplo',
 	'FLEETS'			=> DB_PREFIX.'fleets',
 	'FLEETS_EVENT'		=> DB_PREFIX.'fleet_event',

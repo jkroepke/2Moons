@@ -49,7 +49,8 @@ class TeamspeakBuildCache implements BuildCache
 					);
 					$ts->disconnect();
 				} else {
-					throw new Exception('Teamspeak-Error: '.$ts->debug());
+					$error	= $ts->debug();
+					throw new Exception('Teamspeak-Error: '.implode("<br>\r\n", $error));
 				}
 			break;
 			case 3:

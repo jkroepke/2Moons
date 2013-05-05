@@ -63,13 +63,15 @@ class ShowRecordsPage extends AbstractPage
 				$buildList[$recordRow['elementID']][]		= $recordRow;
 			}
 		}
+
+		require_once 'includes/classes/Cronjob.class.php';
 		
 		$this->tplObj->assign_vars(array(	
 			'defenseList'	=> $defenseList,
 			'fleetList'		=> $fleetList,
 			'researchList'	=> $researchList,
 			'buildList'		=> $buildList,
-			'update'		=> _date($LNG['php_tdformat'], Config::get()->stat_last_update, $USER['timezone']),
+			'update'		=> _date($LNG['php_tdformat'], Cronjob::getLastExecutionTime('statistic'), $USER['timezone']),
 		));
 		
 		$this->display('page.records.default.tpl');
