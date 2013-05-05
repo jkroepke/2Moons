@@ -387,7 +387,7 @@ class ShowAlliancePage extends AbstractPage
 			$this->printMessage($LNG['al_name_required'], true, array('?page=alliance&mode=create', 3));
 		}
 		
-		if (PlayerUtil::isNameValid($allianceName) || PlayerUtil::isNameValid($allianceTag)) {
+		if (!PlayerUtil::isNameValid($allianceName) || !PlayerUtil::isNameValid($allianceTag)) {
 			$this->printMessage($LNG['al_newname_specialchar'], true, array('?page=alliance&mode=create', 3));
 		}
 		
@@ -435,7 +435,7 @@ class ShowAlliancePage extends AbstractPage
         $this->printMessage(sprintf($LNG['al_created'], $allianceName.' ['.$allianceTag.']'), true, array('?page=alliance', 3));
 
 	}
-	
+
 	private function getDiplomatic()
 	{
 		$Return	= array();
@@ -541,8 +541,8 @@ class ShowAlliancePage extends AbstractPage
 		
 		$this->display('page.alliance.home.tpl');
 	}
-	
-	function memberList()
+
+	public function memberList()
 	{
 		global $USER, $LNG;
 		if (!$this->rights['MEMBERLIST']) {
@@ -582,7 +582,7 @@ class ShowAlliancePage extends AbstractPage
 				'system'		=> $memberListRow['system'],
 				'planet'		=> $memberListRow['planet'],
 				'register_time'	=> _date($LNG['php_tdformat'], $memberListRow['ally_register_time'], $USER['timezone']),
-				'points'		=> pretty_number($memberListRow['total_points']),
+				'points'		=> $memberListRow['total_points'],
 				'rankName'		=> $memberListRow['ally_rankName'],
 				'onlinetime'	=> floor((TIMESTAMP - $memberListRow['onlinetime']) / 60),
 			);
@@ -595,8 +595,8 @@ class ShowAlliancePage extends AbstractPage
 		
 		$this->display('page.alliance.memberList.tpl');
 	}
-	
-	function close()
+
+	public function close()
 	{
 		global $USER;
 
@@ -619,8 +619,8 @@ class ShowAlliancePage extends AbstractPage
 
         $this->redirectTo('game.php?page=alliance');
 	}
-	
-	function circular() 
+
+	public function circular()
 	{
 		global $LNG, $USER;
 
@@ -686,7 +686,7 @@ class ShowAlliancePage extends AbstractPage
 		$this->display('page.alliance.circular.tpl');
 	}
 	
-	function admin() 
+	public function admin()
 	{
 		global $LNG;
 		
@@ -993,8 +993,7 @@ class ShowAlliancePage extends AbstractPage
 
         $db = Database::get();
 
-		$sql = '
-		SELECT
+		$sql = 'SELECT
 			r.`applyID`,
 			r.`time`,
 			r.`text`,
@@ -1079,10 +1078,10 @@ class ShowAlliancePage extends AbstractPage
 		$answer		= HTTP::_GP('answer', '');
 		$applyID	= HTTP::_GP('id', 0);
 
-        $sql = "SELECT id FROM %%ALLIANCE_REQUEST%% LEFT JOIN %%USERS%% ON userId = id WHERE applyID = :applyID;";
+        $sql = "SELECT userId FROM %%ALLIANCE_REQUEST%% WHERE applyID = :applyID;";
         $userId = $db->selectSingle($sql, array(
             ':applyID'	=> $applyID
-        ), 'id');
+        ), 'userId');
 
 		if ($answer == 'yes')
 		{
@@ -1109,18 +1108,22 @@ class ShowAlliancePage extends AbstractPage
                 ':allianceId'	=> $this->allianceData['id'],
             ));
 
-            PlayerUtil::sendMessage($userId, $USER['id'], TIMESTAMP, 2, $this->allianceData['ally_tag'], $LNG['al_you_was_acceted'] . $this->allianceData['ally_name'], $LNG['al_hi_the_alliance'] . $this->allianceData['ally_name'] . $LNG['al_has_accepted'] . $text);
+			$text		= $LNG['al_hi_the_alliance'] . $this->allianceData['ally_name'] . $LNG['al_has_accepted'] . $text;
+			$subject	= $LNG['al_you_was_acceted'] . $this->allianceData['ally_name'];
 		}
-		elseif($answer == 'no')
+		else
 		{
             $sql = "DELETE FROM %%ALLIANCE_REQUEST%% WHERE applyID = :applyID";
             $db->delete($sql, array(
                 ':applyID'	=> $applyID
             ));
 
-            PlayerUtil::sendMessage($userId, $USER['id'], TIMESTAMP, 2, $this->allianceData['ally_tag'], $LNG['al_you_was_declined'] . $this->allianceData['ally_name'], $LNG['al_hi_the_alliance'] . $this->allianceData['ally_name'] . $LNG['al_has_declined'] . $text);
-		}
+			$text		= $LNG['al_hi_the_alliance'] . $this->allianceData['ally_name'] . $LNG['al_has_declined'] . $text;
+			$subject	= $LNG['al_you_was_declined'] . $this->allianceData['ally_name'];
+        }
 
+		$senderName	= $LNG['al_the_alliance'] . $this->allianceData['ally_name'] . ' ['.$this->allianceData['ally_tag'].']';
+		PlayerUtil::sendMessage($userId, $USER['id'], $senderName, 2, $subject, $text, TIMESTAMP);
 		$this->redirectTo('game.php?page=alliance&mode=admin&action=mangeApply');
 	}
 

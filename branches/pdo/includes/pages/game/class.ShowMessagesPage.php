@@ -200,14 +200,14 @@ class ShowMessagesPage extends AbstractPage
                 $db->update($sql, array(
                     ':userID'   => $USER['id']
                 ));
-                break;
+			break;
             case 'readtypeall':
                 $sql = "UPDATE %%MESSAGES%% SET message_unread = 0 WHERE message_owner = :userID AND message_type = :messCategory;";
                 $db->update($sql, array(
                     ':userID'       => $USER['id'],
                     ':messCategory' => $MessCategory
                 ));
-                break;
+			break;
             case 'readmarked':
                 if(empty($messageIDs))
                 {
@@ -225,20 +225,20 @@ class ShowMessagesPage extends AbstractPage
                 $db->update($sql, array(
                     ':userID'       => $USER['id'],
                 ));
-                break;
+			break;
             case 'deleteall':
                 $sql = "DELETE FROM %%MESSAGES%% WHERE message_owner = :userID;";
                 $db->delete($sql, array(
                     ':userID'       => $USER['id']
                 ));
-                break;
+			break;
             case 'deletetypeall':
                 $sql = "DELETE FROM %%MESSAGES%% WHERE message_owner = :userID AND message_type = :messCategory;";
                 $db->delete($sql, array(
                     ':userID'       => $USER['id'],
                     ':messCategory' => $MessCategory
                 ));
-                break;
+			break;
             case 'deletemarked':
                 if(empty($messageIDs))
                 {
@@ -256,7 +256,7 @@ class ShowMessagesPage extends AbstractPage
                 $db->update($sql, array(
                     ':userId'       => $USER['id'],
                 ));
-                break;
+			break;
             case 'deleteunmarked':
                 if(empty($messageIDs) || !is_array($messageIDs))
                 {
@@ -274,7 +274,7 @@ class ShowMessagesPage extends AbstractPage
                 $db->update($sql, array(
                     ':userId'       => $USER['id'],
                 ));
-                break;
+			break;
         }
         $this->redirectTo($redirectUrl);
     }
@@ -283,25 +283,22 @@ class ShowMessagesPage extends AbstractPage
     {
         global $USER, $LNG;
         $receiverID	= HTTP::_GP('id', 0);
-        $Subject 	= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
-        $Message 	= makebr(HTTP::_GP('text', '', true));
-        $From    	= $USER['username'].' ['.$USER['galaxy'].':'.$USER['system'].':'.$USER['planet'].']';
+        $subject 	= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
+		$text		= HTTP::_GP('text', '', true);
+		$senderName	= $USER['username'].' ['.$USER['galaxy'].':'.$USER['system'].':'.$USER['planet'].']';
+
+		$text		= makebr($text);
 
 		$session	= Session::load();
 
-        if (empty($receiverID) || empty($Message) || !isset($session->messageToken) ||$session->messageToken != md5($USER['id'].'|'.$receiverID))
+        if (empty($receiverID) || empty($text) || !isset($session->messageToken) || $session->messageToken != md5($USER['id'].'|'.$receiverID))
         {
             $this->sendJSON($LNG['mg_error']);
         }
 
 		$session->messageToken = NULL;
 
-        if (empty($Subject))
-        {
-            $Subject	= $LNG['mg_no_subject'];
-        }
-
-        PlayerUtil::sendMessage($receiverID, $USER['id'], TIMESTAMP, 1, $From, $Subject, $Message);
+		PlayerUtil::sendMessage($receiverID, $USER['id'], $senderName, 1, $subject, $text, TIMESTAMP);
         $this->sendJSON($LNG['mg_message_send']);
     }
 
@@ -317,10 +314,10 @@ class ShowMessagesPage extends AbstractPage
         $Subject 			= HTTP::_GP('subject', $LNG['mg_no_subject'], true);
 
         $sql = "SELECT a.galaxy, a.system, a.planet, b.username, b.id_planet, b.settings_blockPM
-        FROM %%PLANETS%% as a, %%USERS%% as b WHERE b.id = :receiver AND a.id = b.id_planet;";
+        FROM %%PLANETS%% as a, %%USERS%% as b WHERE b.id = :receiverId AND a.id = b.id_planet;";
 
         $receiverRecord = $db->selectSingle($sql, array(
-            ':receiverID'   => $receiverID
+            ':receiverId'   => $receiverID
         ));
 
         if (!$receiverRecord)

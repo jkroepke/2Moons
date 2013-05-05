@@ -146,7 +146,7 @@ class PlayerUtil
 			':universe'				=> $universe,
 			':language'				=> $userLanguage,
 			':registerAddress'		=> (!empty($userIpAddress) ? $userIpAddress : $_SERVER['REMOTE_ADDR']),
-			':onlinetime'			=> 0,
+			':onlinetime'			=> TIMESTAMP,
 			':registerTimestamp'	=> TIMESTAMP,
 			':password'				=> $userPassword,
 			':dpath'				=> DEFAULT_THEME,
@@ -617,7 +617,7 @@ class PlayerUtil
 		}
 	}
 
-	static public function sendMessage($userId, $senderId, $senderName, $messageType, $subject, $text, $time, $parentID = NULL, $hasRead = 0, $universe = NULL)
+	static public function sendMessage($userId, $senderId, $senderName, $messageType, $subject, $text, $time, $parentID = NULL, $unread = 1, $universe = NULL)
 	{
 		if(is_null($universe))
 		{
@@ -645,7 +645,7 @@ class PlayerUtil
 			':from'		=> $senderName,
 			':subject'	=> $subject,
 			':text'		=> $text,
-			':unread'	=> $hasRead,
+			':unread'	=> $unread,
 			':universe'	=> $universe,
 		));
 	}

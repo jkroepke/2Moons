@@ -73,7 +73,7 @@ class Session
 			self::$obj	= new self;
 			register_shutdown_function(array(self::$obj, 'save'));
 
-			session_start();
+			@session_start();
 		}
 
 		return self::$obj;
@@ -91,9 +91,15 @@ class Session
 		{
 			self::init();
 			session_start();
-			self::$obj	= unserialize($_SESSION['obj']);
-			register_shutdown_function(array(self::$obj, 'save'));
-
+			if(isset($_SESSION['obj']))
+			{
+				self::$obj	= unserialize($_SESSION['obj']);
+				register_shutdown_function(array(self::$obj, 'save'));
+			}
+			else
+			{
+				self::create();
+			}
 		}
 
 		return self::$obj;
@@ -140,6 +146,11 @@ class Session
 		{
 			return NULL;
 		}
+	}
+
+	public function __isset($name)
+	{
+		return isset($this->data[$name]);
 	}
 
 	public function save()

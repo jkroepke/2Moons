@@ -122,7 +122,7 @@ class Database
 
 	protected function getQueryType($qry)
 	{
-		list($type, ) = explode(" ", strtolower($qry), 2);
+		list($type, ) = explode(" ", trim(strtolower($qry)), 2);
 		return $type;
 	}
 
