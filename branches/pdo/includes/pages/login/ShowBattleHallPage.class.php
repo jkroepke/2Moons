@@ -39,6 +39,7 @@ class ShowBattleHallPage extends AbstractPage
 	
 	function show() 
 	{
+		global $LNG;
 		$db = Database::get();
 
 		$sql = "SELECT *, (
@@ -55,29 +56,24 @@ class ShowBattleHallPage extends AbstractPage
 			WHERE %%TOPKB_USERS%%.`rid` = %%TOPKB%%.`rid` AND `role` = 2
 		) as `defender`
 		FROM %%TOPKB%% WHERE `universe` = :universe ORDER BY units DESC LIMIT 100;";
+
 		$hallRaw = $db->select($sql, array(
-			':universe'	=> $GLOBALS['UNI'],
+			':universe'	=> Universe::current(),
 		));
 
 		$hallList	= array();
 		foreach($hallRaw as $hallRow) {
 			$hallList[]	= array(
 				'result'	=> $hallRow['result'],
-				'time'		=> _date(t('php_tdformat'), $hallRow['time']),
+				'time'		=> _date($LNG['php_tdformat'], $hallRow['time']),
 				'units'		=> $hallRow['units'],
 				'rid'		=> $hallRow['rid'],
 				'attacker'	=> $hallRow['attacker'],
 				'defender'	=> $hallRow['defender'],
 			);
 		}
-	
-		$universeSelect	= array();
-		$uniAllConfig	= Config::getAll('universe');
-		
-		foreach($uniAllConfig as $uniID => $uniConfig)
-		{
-			$universeSelect[$uniID]	= $uniConfig['uni_name'];
-		}
+
+		$universeSelect	= $this->getUniverseSelector();
 		
 		$this->assign(array(
 			'universeSelect'	=> $universeSelect,

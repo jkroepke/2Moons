@@ -30,7 +30,7 @@ abstract class AbstractPage
 {
 
 	/**
-	 * referenc of the template object
+	 * reference of the template object
 	 * @var template
 	 */
 	protected $tplObj = NULL;
@@ -47,7 +47,18 @@ abstract class AbstractPage
 			$this->setWindow('ajax');
 		}
 	}
-	
+
+	protected function getUniverseSelector()
+	{
+		$universeSelect	= array();
+		foreach(Universe::availableUniverses() as $uniId)
+		{
+			$universeSelect[$uniId]	= Config::get($uniId)->uni_name;
+		}
+
+		return $universeSelect;
+	}
+
 	protected function initTemplate()
 	{
 		if(isset($this->tplObj))

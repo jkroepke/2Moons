@@ -323,7 +323,7 @@ class ShowSettingsPage extends AbstractPage
 				$sql = "UPDATE %%USERS%% SET urlaubs_modus = '1', urlaubs_until = :time WHERE id = :userID";
 				$db->update($sql, array(
 					':userID'	=> $USER['id'],
-					':time'		=> (TIMESTAMP + Config::get('vmode_min_time')),
+					':time'		=> (TIMESTAMP + Config::get()->vmode_min_time),
 				));
 
 				$sql = "UPDATE %%PLANETS%% SET energy_used = '0', energy = '0', metal_mine_porcent = '0', crystal_mine_porcent = '0', deuterium_sintetizer_porcent = '0', solar_plant_porcent = '0', fusion_plant_porcent = '0', solar_satelit_porcent = '0', metal_perhour = '0', crystal_perhour = '0', deuterium_perhour = '0' WHERE id_owner = :userID;";

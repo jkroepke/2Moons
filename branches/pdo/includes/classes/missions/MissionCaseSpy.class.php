@@ -106,7 +106,8 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 		
 		$targetChance 	= mt_rand(0, min(($fleetAmount/4) * ($targetSpyLvl / $ownSpyLvl), 100));
 		$spyChance  	= mt_rand(0, 100);
-		
+		$spyData		= array();
+
 		foreach($classIDs as $classID => $elementIDs)
 		{
 			foreach($elementIDs as $elementID)
@@ -151,9 +152,9 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 			'LNG'			=> $LNG
 		), false);
 				
-		$spyRaport	= $template->fetch('shared.mission.spyraport.tpl');
+		$spyReport	= $template->fetch('shared.mission.spyReport.tpl');
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $spyRaport);
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 0, $LNG['sys_mess_qg'], $LNG['sys_mess_spy_report'], $spyReport);
 		
 		$LNG			= $this->getLanguage($targetUser['lang']);
 		$targetMessage  = $LNG['sys_mess_spy_ennemyfleet'] ." ". $senderPlanet['name'];
@@ -170,11 +171,11 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 
 		if ($targetChance >= $spyChance)
 		{
-			$CONF		= Config::getAll(NULL, $this->_fleet['fleet_universe']);
+			$config		= Config::get($this->_fleet['fleet_universe']);
 			$WhereCol	= $this->_fleet['fleet_end_type'] == 3 ? "id_luna" : "id";		
 			$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET
-			der_metal = der_metal + ".($fleetAmount * $pricelist[210]['cost'][901] * (Config::get('Fleet_Cdr') / 100)).", 
-			der_crystal = der_crystal + ".($fleetAmount * $pricelist[210]['cost'][902] * (Config::get('Fleet_Cdr') / 100))." 
+			der_metal = der_metal + ".($fleetAmount * $pricelist[210]['cost'][901] * ($config->Fleet_Cdr / 100)).",
+			der_crystal = der_crystal + ".($fleetAmount * $pricelist[210]['cost'][902] * ($config->Fleet_Cdr / 100))."
 			WHERE ".$WhereCol." = ".$this->_fleet['fleet_end_id'].";");
 			$this->KillFleet();
 		}

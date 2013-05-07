@@ -475,7 +475,9 @@ class PlayerUtil
 			':userId'	=> $userId
 		));
 
-		$sql	= 'DELETE FROM %%FLEETS%% WHERE fleet_owner = :userId;';
+		$sql	= 'DELETE %%FLEETS%%, %%FLEETS_EVENT%%
+		FROM %%FLEETS%% LEFT JOIN %%FLEETS_EVENT%% on fleet_id = fleetId
+		WHERE fleet_owner = :userId;';
 		$db->delete($sql, array(
 			':userId'	=> $userId
 		));

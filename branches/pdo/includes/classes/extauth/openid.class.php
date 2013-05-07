@@ -40,8 +40,8 @@ class OpenIDAuth implements externalAuth
 			if(isset($_REQUEST['openid_identifier']))
 			{
 				$this->oidObj->identity = $_REQUEST['openid_identifier'];
-				$this->oidObj->required = array('contact/email');
-				$this->oidObj->optional = array('namePerson', 'namePerson/friendly');
+				$this->oidObj->required = array('namePerson/friendly', 'contact/email', 'pref/language');
+				$this->oidObj->optional = array('namePerson');
 
 				HTTP::sendHeader('Location', $this->oidObj->authUrl());
 				exit;
@@ -95,16 +95,20 @@ class OpenIDAuth implements externalAuth
 			HTTP::redirectTo('index.php?code=4');
 		}
 
-		$sql	= 'SELECT cle FROM %%USERS_VALID%% WHERE universe = :universe AND email = :email;';
+		$sql	= 'SELECT validationID, validationKey FROM %%USERS_VALID%%
+		WHERE universe = :universe AND email = :email;';
 
-		$registerToken	= Database::get()->selectSingle($sql, array(
+		$registerData	= Database::get()->selectSingle($sql, array(
 			':universe'	=> Universe::current(),
 			':email'	=> $user['contact/email']
-		), 'cle');
+		));
 
-		if(!empty($registerToken))
+		if(!empty($registerData))
 		{
-			HTTP::redirectTo(sprintf('index.php?uni=%d&page=reg&action=valid&clef=%s', Universe::current(), $registerToken));
+			$url	= sprintf('index.php?uni=%s&page=reg&action=valid&i=%s&validationKey=%s',
+				Universe::current(), $registerData['validationID'], $registerData['validationKey']);
+
+			HTTP::redirectTo($url);
 		}
 
 		$sql	= 'INSERT INTO %%USERS_AUTH%% SET
@@ -134,5 +138,16 @@ class OpenIDAuth implements externalAuth
 			':email'	=> $user['contact/email'],
 			':mode'		=> $this->oidObj->identity
 		));
+	}
+
+	public function getAccountData()
+	{
+		$user	= $this->oidObj->getAttributes();
+
+		return array(
+			'id'		=> $user['contact/email'],
+			'name'		=> $this->getAccount(),
+			'locale'	=> $user['pref/language']
+		);
 	}
 }

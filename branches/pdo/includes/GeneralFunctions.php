@@ -26,40 +26,6 @@
  * @link http://2moons.cc/
  */
 
-function t($key)
-{
-	global $LNG;
-	
-	if(strpos($key, '.') === false)
-	{
-		$text = $LNG[$key];
-	}
-	else
-	{
-		$keys = explode('.', $key);
-		$text = $LNG[$keys[0]][$keys[1]];
-	}
-	
-	$args = func_get_args();
-	array_shift($args);
-	
-	switch (count($args)) {
-		case 0: return $text; break;
-		case 1: return sprintf($text, $args[0]); break;
-		case 2: return sprintf($text, $args[0], $args[1]); break;
-		case 3: return sprintf($text, $args[0], $args[1], $args[2]); break;
-		case 4: return sprintf($text, $args[0], $args[1], $args[2], $args[3]); break;
-		case 5: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4]); break;
-		case 6: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5]); break;
-		case 7: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6]); break;
-		case 8: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6], $args[7]); break;
-		case 9: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6], $args[7], $args[8]); break;
-		case 10: return call_user_func_array('sprintf', $args); break;
-	}
-
-	return '';
-}
-
 function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 	global $resource, $pricelist, $reslist;
 	if(empty($TIME))

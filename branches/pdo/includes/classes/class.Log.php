@@ -27,9 +27,7 @@
  
 class Log
 {
-	private $mode;
 	private $data	= array();
-	private static $db = null;
 
 	function __construct($mode) {
 		$this->data['mode']		= $mode;

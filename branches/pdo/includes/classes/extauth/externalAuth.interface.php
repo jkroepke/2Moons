@@ -37,4 +37,6 @@ interface externalAuth
 	public function register();
 
 	public function getLoginData();
+
+	public function getAccountData();
 }

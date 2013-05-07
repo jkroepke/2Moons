@@ -39,9 +39,13 @@ class ShowBoardPage extends AbstractPage
 	function show() 
 	{
 		global $LNG;
-		if(filter_var(Config::get('forum_url'), FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
-			HTTP::sendHeader('Location', Config::get('forum_url'));
-		} else {
+		$boardUrl	= Config::get()->forum_url;
+		if(filter_var($boardUrl, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED))
+		{
+			HTTP::sendHeader('Location', $boardUrl);
+		}
+		else
+		{
 			$this->printMessage($LNG['bad_forum_url']);
 		}
 	}

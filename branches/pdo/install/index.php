@@ -26,21 +26,18 @@
  * @info $Id$
  * @link      http://2moons.cc/
  */
-if (!function_exists('spl_autoload_register')) {
-	exit("PHP is missing <a href=\"http://php.net/spl\">Standard PHP Library (SPL)</a> support");
-}
-
-$UNI = 1;
 
 define('MODE', 'INSTALL');
 define('ROOT_PATH', str_replace('\\', '/', dirname(dirname(__FILE__))) . '/');
 set_include_path(ROOT_PATH);
 chdir(ROOT_PATH);
+
 require 'includes/common.php';
 $THEME->setUserTheme('gow');
 $LNG = new Language;
 $LNG->getUserAgentLanguage();
-$LNG->includeData(array('L18N', 'INGAME', 'INSTALL'));
+$LNG->includeData(array('L18N', 'INGAME', 'INSTALL', 'CUSTOM'));
+
 $template = new template();
 $template->assign(array(
    'lang'       => $LNG->getLanguage(),
@@ -51,9 +48,9 @@ $template->assign(array(
 ));
 
 $enableInstallToolFile = 'includes/ENABLE_INSTALL_TOOL';
-$quickstartFile        = 'includes/FIRST_INSTALL';
+$quickStartFile        = 'includes/FIRST_INSTALL';
 // If include/FIRST_INSTALL is present and can be deleted, automatically create include/ENABLE_INSTALL_TOOL
-if (is_file($quickstartFile) && is_writeable($quickstartFile) && unlink($quickstartFile)) {
+if (is_file($quickStartFile) && is_writeable($quickStartFile) && unlink($quickStartFile)) {
 	@touch($enableInstallToolFile);
 }
 // Only allow Install Tool access if the file "include/ENABLE_INSTALL_TOOL" is found
@@ -70,14 +67,16 @@ if (!is_file($enableInstallToolFile)) {
 	exit;
 }
 $language = HTTP::_GP('lang', '');
+
 if (!empty($language) && in_array($language, $LNG->getAllowedLangs())) {
 	setcookie('lang', $language);
 }
+
 $mode = HTTP::_GP('mode', '');
 switch ($mode) {
 	case 'ajax':
-		require_once('includes/libs/ftp/ftp.class.php');
-		require_once('includes/libs/ftp/ftpexception.class.php');
+		require 'includes/libs/ftp/ftp.class.php';
+		require 'includes/libs/ftp/ftpexception.class.php';
 		$LNG->includeData(array('ADMIN'));
 		$connectionConfig = array(
 			"host"     => $_GET['host'],
@@ -96,6 +95,7 @@ switch ($mode) {
 		if (!$ftp->changeDir($_GET['path'])) {
 			exit($LNG['req_ftp_error_dir']);
 		}
+
 		$CHMOD = (php_sapi_name() == 'apache2handler') ? 0777 : 0755;
 		$ftp->chmod('cache', $CHMOD);
 		$ftp->chmod('cache/sessions', $CHMOD);
@@ -235,7 +235,7 @@ switch ($mode) {
 			$revision = end($fileList);
 			$revision = $revision['fileRevision'];
 		}
-		$gameVersion    = explode('.', Config::get('VERSION'));
+		$gameVersion    = explode('.', Config::get(ROOT_UNI)->VERSION);
 		$gameVersion[2] = $revision;
 		Database::get()->update("UPDATE %%CONFIG%% SET VERSION = '" . implode('.', $gameVersion) . "', sql_revision = " . $revision . ";");
 		ClearCache();

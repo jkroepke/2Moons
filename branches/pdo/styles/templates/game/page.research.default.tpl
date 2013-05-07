@@ -112,3 +112,8 @@
 	{/foreach}
 </table>
 {/block}
+{block name="script" append}
+    {if !empty($Queue)}
+        <script src="scripts/game/research.js"></script>
+    {/if}
+{/block}

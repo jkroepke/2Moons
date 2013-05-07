@@ -62,41 +62,65 @@ class HTTP {
 		{
 			return $default;
 		}
+
+		if(is_float($default) || $highnum)
+		{
+			return (float) $_REQUEST[$name];
+		}
 		
 		if(is_int($default))
 		{
 			return (int) $_REQUEST[$name];			
 		}
-		
-		if(is_float($default))
-		{
-			return (float) $_REQUEST[$name];			
-		}
-		
+
 		if(is_string($default))
 		{
-			$var = trim(htmlspecialchars(str_replace(array("\r\n", "\r", "\0"), array("\n", "\n", ''), $_REQUEST[$name]), ENT_QUOTES, 'UTF-8'));
-			
-			if (empty($var)) {
-				return $default;				
-			}
-			
-			if ($multibyte) {
-				if (!preg_match('/^./u', $var)) {
-					$var = '';
-				}
-			} else {
-				$var = preg_replace('/[\x80-\xFF]/', '?', $var); // no multibyte, allow only ASCII (0-127)
-			}
-			
-			return $var;
+			return self::_quote($_REQUEST[$name], $multibyte);
 		}
 		
 		if(is_array($default))
 		{
-			return (array) $_REQUEST[$name];
+			return self::_quoteArray($_REQUEST[$name], $multibyte);
 		}
 		
 		return $default;
+	}
+
+	private static function _quoteArray($var, $multibyte)
+	{
+		$data	= array();
+		foreach($var as $key => $value)
+		{
+			if(is_array($value))
+			{
+				$data[$key]	= self::_quoteArray($value, $multibyte);
+			}
+			else
+			{
+				$data[$key]	= self::_quote($value, $multibyte);
+			}
+		}
+
+		return $data;
+	}
+
+	private static function _quote($var, $multibyte)
+	{
+		$var	= str_replace(array("\r\n", "\r", "\0"), array("\n", "\n", ''), $var);
+		$var	= htmlspecialchars($var, ENT_QUOTES, 'UTF-8');
+		$var	= trim($var);
+
+		if ($multibyte) {
+			if (!preg_match('/^./u', $var))
+			{
+				$var = '';
+			}
+		}
+		else
+		{
+			$var = preg_replace('/[\x80-\xFF]/', '?', $var); // no multibyte, allow only ASCII (0-127)
+		}
+
+		return $var;
 	}
 }

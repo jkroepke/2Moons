@@ -40,7 +40,7 @@ class ShowInformationPage extends AbstractPage
 		
 	static function getNextJumpWaitTime($lastTime)
 	{
-		return $lastTime + Config::get('gate_wait_time');
+		return $lastTime + Config::get()->gate_wait_time;
 	}
 
 	public function sendFleet()
@@ -51,8 +51,12 @@ class ShowInformationPage extends AbstractPage
 
 		$NextJumpTime = self::getNextJumpWaitTime($PLANET['last_jump_time']);
 		
-		if (TIMESTAMP < $NextJumpTime) {
-			$this->sendJSON(array('message' => $LNG['in_jump_gate_already_used'].' '.pretty_time($NextJumpTime - TIMESTAMP), 'error' => true));
+		if (TIMESTAMP < $NextJumpTime)
+		{
+			$this->sendJSON(array(
+				'message'	=> $LNG['in_jump_gate_already_used'].' '.pretty_time($NextJumpTime - TIMESTAMP),
+				'error'		=> true
+			));
 		}
 		
 		$TargetPlanet = HTTP::_GP('jmpto', (int) $PLANET['id']);
@@ -63,14 +67,22 @@ class ShowInformationPage extends AbstractPage
             ':userID'   => $USER['id']
         ));
 
-        if (!isset($TargetGate) || $TargetPlanet == $PLANET['id']) {
-			$this->sendJSON(array('message' => $LNG['in_jump_gate_doesnt_have_one'], 'error' => true));
+        if (!isset($TargetGate) || $TargetPlanet == $PLANET['id'])
+		{
+			$this->sendJSON(array(
+				'message' => $LNG['in_jump_gate_doesnt_have_one'],
+				'error' => true
+			));
 		}
 		
 		$NextJumpTime   = self::getNextJumpWaitTime($TargetGate['last_jump_time']);
 				
-		if (TIMESTAMP < $NextJumpTime) {
-			$this->sendJSON(array('message' => $LNG['in_jump_gate_not_ready_target'].' '.pretty_time($NextJumpTime - TIMESTAMP), 'error' => true));
+		if (TIMESTAMP < $NextJumpTime)
+		{
+			$this->sendJSON(array(
+				'message' => $LNG['in_jump_gate_not_ready_target'].' '.pretty_time($NextJumpTime - TIMESTAMP),
+				'error' => true
+			));
 		}
 		
 		$ShipArray		= array();
@@ -95,11 +107,13 @@ class ShowInformationPage extends AbstractPage
 			$PLANET[$resource[$Ship]] -= $ShipArray[$Ship];
 		}
 
-		if (empty($SubQueryOri)) {
-			$this->sendJSON(array('message' => $LNG['in_jump_gate_error_data'], 'error' => true));
+		if (empty($SubQueryOri))
+		{
+			$this->sendJSON(array(
+				'message' => $LNG['in_jump_gate_error_data'],
+				'error' => true
+			));
 		}
-
-        //TODO: TEST IT!
 
 		$sql  = "UPDATE %%PLANETS%% SET :subquery last_jump_time = :jumptime WHERE id = :planetID;";
 		$db->update($sql, array_merge(array(
@@ -117,10 +131,13 @@ class ShowInformationPage extends AbstractPage
 
 		$PLANET['last_jump_time'] 	= TIMESTAMP;
 		$NextJumpTime	= self::getNextJumpWaitTime($PLANET['last_jump_time']);
-		$this->sendJSON(array('message' => sprintf($LNG['in_jump_gate_done'], pretty_time($NextJumpTime - TIMESTAMP)), 'error' => false));
+		$this->sendJSON(array(
+			'message' => sprintf($LNG['in_jump_gate_done'], pretty_time($NextJumpTime - TIMESTAMP)),
+			'error' => false
+		));
 	}
 
-	private function getAvalibleFleets()
+	private function getAvailableFleets()
 	{
 		global $reslist, $resource, $PLANET;
 
@@ -231,7 +248,7 @@ class ShowInformationPage extends AbstractPage
 					$Production	= eval(ResourceUpdate::getProd($ProdGrid[$elementID]['production'][$ID]));
 					
 					if($ID != 911) {
-						$Production	*= Config::get('resource_multiplier');
+						$Production	*= Config::get()->resource_multiplier;
 					}
 					
 					$productionTable['production'][$BuildLevel][$ID]	= $Production;
@@ -252,7 +269,11 @@ class ShowInformationPage extends AbstractPage
 					if(!isset($ProdGrid[$elementID]['storage'][$ID]))
 						continue;
 						
-					$productionTable['storage'][$BuildLevel][$ID]	= round(eval(ResourceUpdate::getProd($ProdGrid[$elementID]['storage'][$ID]))) * Config::get('resource_multiplier') * STORAGE_FACTOR;
+					$production = round(eval(ResourceUpdate::getProd($ProdGrid[$elementID]['storage'][$ID])));
+					$production *= Config::get()->resource_multiplier;
+					$production *= STORAGE_FACTOR;
+
+					$productionTable['storage'][$BuildLevel][$ID]	= $production;
 				}
 			}
 			
@@ -324,7 +345,7 @@ class ShowInformationPage extends AbstractPage
 				'restTime'	=> max(0, $nextTime - TIMESTAMP),
 				'startLink'	=> $PLANET['name'].' '.strip_tags(BuildPlanetAdressLink($PLANET)),
 				'gateList' 	=> $this->getTargetGates(),
-				'fleetList'	=> $this->getAvalibleFleets(),
+				'fleetList'	=> $this->getAvailableFleets(),
 			);
 		}
 		elseif($elementID == 44 && $PLANET[$resource[44]] > 0)

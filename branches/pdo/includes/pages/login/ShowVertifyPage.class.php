@@ -32,28 +32,37 @@ class ShowVertifyPage extends AbstractPage
 {
 	public static $requireModule = 0;
 
-	function __construct() 
+	function __construct()
 	{
 		parent::__construct();
 	}
 
 	private function _activeUser()
 	{
+		global $LNG;
+
 		$validationID	= HTTP::_GP('i', 0);
 		$validationKey	= HTTP::_GP('k', '');
 
 		$db = Database::get();
 
-		$sql = "SELECT * FROM %%USERS_VALID%% WHERE validationID = :validationID AND validationKey = :validationKey;";
+		$sql = "SELECT * FROM %%USERS_VALID%%
+		WHERE validationID	= :validationID
+		AND validationKey	= :validationKey
+		AND universe		= :universe;";
+
 		$userData = $db->selectSingle($sql, array(
 			':validationKey'	=> $validationKey,
-			':validationID'	=> $validationID
+			':validationID'		=> $validationID,
+			':universe'			=> Universe::current()
 		));
 
 		if(!isset($userData))
 		{
-			$this->printMessage(t('vertifyNoUserFound'));
+			$this->printMessage($LNG['vertifyNoUserFound']);
 		}
+
+		$config	= Config::get();
 
 		$sql = "DELETE FROM %%USERS_VALID%% WHERE validationID = :validationID;";
 		$db->delete($sql, array(
@@ -61,21 +70,22 @@ class ShowVertifyPage extends AbstractPage
 		));
 
 		list($userID, $planetID) = PlayerUtil::createPlayer($userData['universe'], $userData['userName'], $userData['password'], $userData['email'], $userData['language']);
-		
-		if(Config::get('mail_active', $userData['universe']) == 1) {
+
+		if($config->mail_active == 1)
+		{
 			require('includes/classes/Mail.class.php');
-			$MailSubject	= t('registerMailCompleteTitle', Config::get('game_name', $userData['universe']));	
-			$MailRAW		= $GLOBALS['LNG']->getTemplate('email_reg_done');
+			$MailSubject	= sprintf($LNG['registerMailCompleteTitle'], $config->game_name, Universe::current());
+			$MailRAW		= $LNG->getTemplate('email_reg_done');
 			$MailContent	= str_replace(array(
 				'{USERNAME}',
 				'{GAMENAME}',
 				'{GAMEMAIL}',
 			), array(
 				$userData['userName'],
-				Config::get('game_name').' - '.Config::get('uni_name'),
-				Config::get('smtp_sendmail'),
+				$config->game_name.' - '.$config->uni_name,
+				$config->smtp_sendmail,
 			), $MailRAW);
-			
+
 			try {
 				Mail::send($userData['email'], $userData['userName'], $MailSubject, $MailContent);
 			}
@@ -84,19 +94,21 @@ class ShowVertifyPage extends AbstractPage
 				// This mail is wayne.
 			}
 		}
-		
+
 		if(!empty($userData['referralID']))
 		{
 			$sql = "UPDATE %%USERS%% SET
-				`ref_id`	= ".$userData['referralID'].",
-				`ref_bonus`	= 1
-				WHERE
-				`id`		= :userID;";
+			`ref_id`	= :referralId,
+			`ref_bonus`	= 1
+			WHERE
+			`id`		= :userID;";
+
 			$db->update($sql, array(
-				':userID'	=> $userID
+				':referralId'	=> $userData['referralID'],
+				':userID'		=> $userID
 			));
 		}
-		
+
 		if(!empty($userData['externalAuthUID']))
 		{
 			$sql ="INSERT INTO %%USERS_AUTH%% SET
@@ -109,11 +121,11 @@ class ShowVertifyPage extends AbstractPage
 				':externalAuthMethod'	=> $userData['externalAuthMethod']
 			));
 		}
-		
-		$nameSender = t('registerWelcomePMSenderName');
-		$subject 	= t('registerWelcomePMSubject');
-		$message 	= t('registerWelcomePMText', Config::get('game_name', $userData['universe']));
-		
+
+		$nameSender = $LNG['registerWelcomePMSenderName'];
+		$subject 	= $LNG['registerWelcomePMSubject'];
+		$message 	= sprintf($LNG['registerWelcomePMText'], $config->game_name, $userData['universe']);
+
 		PlayerUtil::sendMessage($userID, 1, TIMESTAMP, 1, $nameSender, $subject, $message);
 		return array(
 			'userID'	=> $userID,
@@ -121,17 +133,23 @@ class ShowVertifyPage extends AbstractPage
 			'planetID'	=> $planetID
 		);
 	}
-	
-	function show() 
-	{	
+
+	function show()
+	{
 		$userData	= $this->_activeUser();
-		Session::Create($userData['userID'], $userData['planetID']);
+
+		$session	= Session::create();
+		$session->userId		= (int) $userData['userID'];
+		$session->adminAccess	= 0;
+		$session->save();
+
 		HTTP::redirectTo('game.php');
 	}
-	
-	function json() 
-	{	
+
+	function json()
+	{
+		global $LNG;
 		$userData	= $this->_activeUser();
-		$this->sendJSON(t('vertifyAdminMessage', $userData['userName']));
+		$this->sendJSON(sprintf($LNG['vertifyAdminMessage'], $userData['userName']));
 	}
 }

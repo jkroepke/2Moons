@@ -58,31 +58,31 @@ class ShowGalaxyPage extends AbstractPage
         if (!empty($galaxyLeft))
             $galaxy	= max($galaxy - 1, 1);
         elseif (!empty($galaxyRight))
-            $galaxy	= min($galaxy + 1, Config::get('max_galaxy'));
+            $galaxy	= min($galaxy + 1, $config->max_galaxy);
 
         if (!empty($systemLeft))
             $system	= max($system - 1, 1);
         elseif (!empty($systemRight))
-            $system	= min($system + 1, Config::get('max_system'));
+            $system	= min($system + 1, $config->max_system);
 
 		if ($galaxy != $PLANET['galaxy'] || $system != $PLANET['system'])
 		{
-			if($PLANET['deuterium'] < Config::get('deuterium_cost_galaxy'))
+			if($PLANET['deuterium'] < $config->deuterium_cost_galaxy)
 			{	
 				$this->printMessage($LNG['gl_no_deuterium_to_view_galaxy'], array("game.php?page=galaxy", 3));
 				exit;
 			} else {
-				$PLANET['deuterium']	-= Config::get('deuterium_cost_galaxy');
+				$PLANET['deuterium']	-= $config->deuterium_cost_galaxy;
             }
 		}
 
         $targetDefensive    = $reslist['defense'];
         $targetDefensive[]	= 502;
-		$MissleSelector[0]	= $LNG['gl_all_defenses'];
+		$missileSelector[0]	= $LNG['gl_all_defenses'];
 		
-		foreach($targetDefensive  as $Element)
+		foreach($targetDefensive as $Element)
 		{	
-			$MissleSelector[$Element] = $LNG['tech'][$Element];
+			$missileSelector[$Element] = $LNG['tech'][$Element];
 		}
 				
 		$galaxyRows	= new GalaxyRows;
@@ -114,7 +114,7 @@ class ShowGalaxyPage extends AbstractPage
 			'current_planet'			=> $PLANET['planet'],
 			'planet_type' 				=> $PLANET['planet_type'],
             'max_planets'               => $config->max_planets,
-			'MissleSelector'			=> $MissleSelector,
+			'missileSelector'			=> $missileSelector,
 			'ShortStatus'				=> array(
 				'vacation'					=> $LNG['gl_short_vacation'],
 				'banned'					=> $LNG['gl_short_ban'],

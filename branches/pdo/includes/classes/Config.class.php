@@ -162,7 +162,7 @@ class Config
 	static function getKey($key, $universe = null)
 	{
 		if (is_null($universe)) {
-			$universe = $GLOBALS['UNI'];
+			$universe = Universe::current();
 		}
 
 		$config = self::get($universe);

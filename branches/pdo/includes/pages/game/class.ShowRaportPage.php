@@ -37,52 +37,52 @@ class ShowRaportPage extends AbstractPage
 		parent::__construct();
 	}
 	
-	private function BCWrapperPreRev2321($CombatRaport)
+	private function BCWrapperPreRev2321($combatReport)
 	{
-		if(isset($CombatRaport['moon']['desfail']))
+		if(isset($combatReport['moon']['desfail']))
 		{
-			$CombatRaport['moon']	= array(
-				'moonName'				=> $CombatRaport['moon']['name'],
-				'moonChance'			=> $CombatRaport['moon']['chance'],
-				'moonDestroySuccess'	=> !$CombatRaport['moon']['desfail'],
-				'fleetDestroyChance'	=> $CombatRaport['moon']['chance2'],
-				'fleetDestroySuccess'	=> !$CombatRaport['moon']['fleetfail']
+			$combatReport['moon']	= array(
+				'moonName'				=> $combatReport['moon']['name'],
+				'moonChance'			=> $combatReport['moon']['chance'],
+				'moonDestroySuccess'	=> !$combatReport['moon']['desfail'],
+				'fleetDestroyChance'	=> $combatReport['moon']['chance2'],
+				'fleetDestroySuccess'	=> !$combatReport['moon']['fleetfail']
 			);			
 		}
-		elseif(isset($CombatRaport['moon'][0]))
+		elseif(isset($combatReport['moon'][0]))
 		{
-			$CombatRaport['moon']	= array(
-				'moonName'				=> $CombatRaport['moon'][1],
-				'moonChance'			=> $CombatRaport['moon'][0],
-				'moonDestroySuccess'	=> !$CombatRaport['moon'][2],
-				'fleetDestroyChance'	=> $CombatRaport['moon'][3],
-				'fleetDestroySuccess'	=> !$CombatRaport['moon'][4]
+			$combatReport['moon']	= array(
+				'moonName'				=> $combatReport['moon'][1],
+				'moonChance'			=> $combatReport['moon'][0],
+				'moonDestroySuccess'	=> !$combatReport['moon'][2],
+				'fleetDestroyChance'	=> $combatReport['moon'][3],
+				'fleetDestroySuccess'	=> !$combatReport['moon'][4]
 			);			
 		}
 		
-		if(isset($CombatRaport['simu']))
+		if(isset($combatReport['simu']))
 		{
-			$CombatRaport['additionalInfo'] = $CombatRaport['simu'];
+			$combatReport['additionalInfo'] = $combatReport['simu'];
 		}
 		
-		if(isset($CombatRaport['debris'][0]))
+		if(isset($combatReport['debris'][0]))
 		{
-            $CombatRaport['debris'] = array(
-                901	=> $CombatRaport['debris'][0],
-                902	=> $CombatRaport['debris'][1]
+            $combatReport['debris'] = array(
+                901	=> $combatReport['debris'][0],
+                902	=> $combatReport['debris'][1]
             );
 		}
 		
-		if (!empty($CombatRaport['steal']['metal']))
+		if (!empty($combatReport['steal']['metal']))
 		{
-			$CombatRaport['steal'] = array(
-				901	=> $CombatRaport['steal']['metal'],
-				902	=> $CombatRaport['steal']['crystal'],
-				903	=> $CombatRaport['steal']['deuterium']
+			$combatReport['steal'] = array(
+				901	=> $combatReport['steal']['metal'],
+				902	=> $combatReport['steal']['crystal'],
+				903	=> $combatReport['steal']['deuterium']
 			);
 		}
 		
-		return $CombatRaport;
+		return $combatReport;
 	}
 	
 	function battlehall() 
@@ -111,23 +111,23 @@ class ShowRaportPage extends AbstractPage
 				WHERE id IN (SELECT uid FROM %%TOPKB_USERS%% WHERE %%TOPKB_USERS%%.rid = %%RW%%.rid AND role = 2)
 			) as defender
 			FROM %%RW%%
-			WHERE rid = :raportID;";
-		$Raport = $db->selectSingle($sql, array(
-			':raportID'	=> $RID
+			WHERE rid = :reportID;";
+		$reportData = $db->selectSingle($sql, array(
+			':reportID'	=> $RID
 		));
 
-		$Info		= array($Raport["attacker"], $Raport["defender"]);
+		$Info		= array($reportData["attacker"], $reportData["defender"]);
 		
-		if(!isset($Raport)) {
+		if(!isset($reportData)) {
 			$this->printMessage($LNG['sys_raport_not_found']);
 		}
 		
-		$CombatRaport			= unserialize($Raport['raport']);
-		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], $USER['timezone']);
-		$CombatRaport			= $this->BCWrapperPreRev2321($CombatRaport);
+		$combatReport			= unserialize($reportData['raport']);
+		$combatReport['time']	= _date($LNG['php_tdformat'], $combatReport['time'], $USER['timezone']);
+		$combatReport			= $this->BCWrapperPreRev2321($combatReport);
 		
 		$this->tplObj->assign_vars(array(
-			'Raport'	=> $CombatRaport,
+			'Raport'	=> $combatReport,
 			'Info'		=> $Info,
 			'pageTitle'	=> $LNG['lm_topkb']
 		));
@@ -146,34 +146,33 @@ class ShowRaportPage extends AbstractPage
 
 		$RID		= HTTP::_GP('raport', '');
 
-		$sql = "SELECT raport,attacker,defender FROM %%RW%% WHERE rid = :raportID;";
-		$raportData = $db->selectSingle($sql, array(
-			':raportID'	=> $RID
+		$sql = "SELECT raport,attacker,defender FROM %%RW%% WHERE rid = :reportID;";
+		$reportData = $db->selectSingle($sql, array(
+			':reportID'	=> $RID
 		));
 
-		if(empty($raportData)) {
+		if(empty($reportData)) {
 			$this->printMessage($LNG['sys_raport_not_found']);
 		}
 		
 		// empty is BC for pre r2484
-		$isAttacker = empty($raportData['attacker']) || in_array($USER['id'], explode(",", $raportData['attacker']));
-		$isDefender = empty($raportData['defender']) || in_array($USER['id'], explode(",", $raportData['defender']));
+		$isAttacker = empty($reportData['attacker']) || in_array($USER['id'], explode(",", $reportData['attacker']));
+		$isDefender = empty($reportData['defender']) || in_array($USER['id'], explode(",", $reportData['defender']));
 		
-		if(empty($raportData) || (!$isAttacker && !$isDefender)) {
+		if(empty($reportData) || (!$isAttacker && !$isDefender)) {
 			$this->printMessage($LNG['sys_raport_not_found']);
 		}
 
-		$CombatRaport			= unserialize($raportData['raport']);
-		if($isAttacker && !$isDefender && $CombatRaport['result'] == 'r' && count($CombatRaport['rounds']) <= 2) {
+		$combatReport			= unserialize($reportData['raport']);
+		if($isAttacker && !$isDefender && $combatReport['result'] == 'r' && count($combatReport['rounds']) <= 2) {
 			$this->printMessage($LNG['sys_raport_lost_contact']);
 		}
 		
-		$CombatRaport['time']	= _date($LNG['php_tdformat'], $CombatRaport['time'], (isset($USER['timezone']) ? $USER['timezone'] : Config::get('timezone')));
-		
-		$CombatRaport			= $this->BCWrapperPreRev2321($CombatRaport);
+		$combatReport['time']	= _date($LNG['php_tdformat'], $combatReport['time'], $USER['timezone']);
+		$combatReport			= $this->BCWrapperPreRev2321($combatReport);
 		
 		$this->tplObj->assign_vars(array(
-			'Raport'	=> $CombatRaport,
+			'Raport'	=> $combatReport,
 			'pageTitle'	=> $LNG['sys_mess_attack_report']
 		));
 		

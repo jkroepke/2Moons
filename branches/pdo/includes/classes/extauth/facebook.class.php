@@ -79,18 +79,20 @@ class FacebookAuth implements externalAuth
 		
 		$me		= $this->fbObj->api('/me');
 
-		$sql	= 'SELECT cle FROM %%USERS_VALID%%
+		$sql	= 'SELECT validationID, validationKey FROM %%USERS_VALID%%
 		WHERE universe = :universe AND email = :email;';
 
-		$registerToken	= Database::get()->selectSingle($sql, array(
+		$registerData	= Database::get()->selectSingle($sql, array(
 			':universe'	=> Universe::current(),
 			':email'	=> $me['email']
-		), 'cle');
+		));
 
-
-		if(!empty($registerToken))
+		if(!empty($registerData))
 		{
-			HTTP::redirectTo("index.php?uni=".Universe::current()."&page=reg&action=valid&clef=".$registerToken);
+			$url	= sprintf('index.php?uni=%s&page=reg&action=valid&i=%s&validationKey=%s',
+				Universe::current(), $registerData['validationID'], $registerData['validationKey']);
+
+			HTTP::redirectTo($url);
 		}
 
 		$sql	= 'INSERT INTO %%USERS_AUTH." SET

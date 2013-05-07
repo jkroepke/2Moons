@@ -186,10 +186,14 @@ class FleetFunctions
 	{
 		global $resource;
 		$Missions	= self::GetAvailableMissions($USER, $MisInfo, $Planet);
-		$stayBlock	= array();;
+		$stayBlock	= array();
+
+		$haltSpeed	= Config::get($USER['universe'])->halt_speed;
+
 		if (in_array(15, $Missions)) {
-			for($i = 1;$i <= $USER[$resource[124]];$i++) {	
-				$stayBlock[$i]	= round($i / Config::get('halt_speed'), 2);
+			for($i = 1;$i <= $USER[$resource[124]];$i++)
+			{
+				$stayBlock[$i]	= round($i / $haltSpeed, 2);
 			}
 		}
 		elseif(in_array(11, $Missions)) 
@@ -407,45 +411,45 @@ class FleetFunctions
 	{	
 		$YourPlanet				= (!empty($GetInfoPlanet['id_owner']) && $GetInfoPlanet['id_owner'] == $USER['id']) ? true : false;
 		$UsedPlanet				= (!empty($GetInfoPlanet['id_owner'])) ? true : false;
-		$avalibleMissions		= array();
+		$availableMissions		= array();
 		
-		if ($MissionInfo['planet'] == (Config::get('max_planets') + 1) && isModulAvalible(MODULE_MISSION_EXPEDITION))
-			$avalibleMissions[]	= 15;	
+		if ($MissionInfo['planet'] == (Config::get($USER['universe'])->max_planets + 1) && isModulAvalible(MODULE_MISSION_EXPEDITION))
+			$availableMissions[]	= 15;	
 		elseif ($MissionInfo['planettype'] == 2) {
 			if ((isset($MissionInfo['Ship'][209]) || isset($MissionInfo['Ship'][219])) && isModulAvalible(MODULE_MISSION_RECYCLE) && !($GetInfoPlanet['der_metal'] == 0 && $GetInfoPlanet['der_crystal'] == 0))
-				$avalibleMissions[]	= 8;
+				$availableMissions[]	= 8;
 		} else {
 			if (!$UsedPlanet) {
 				if (isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1 && isModulAvalible(MODULE_MISSION_COLONY))
-					$avalibleMissions[]	= 7;
+					$availableMissions[]	= 7;
 			} else {
 				if(isModulAvalible(MODULE_MISSION_TRANSPORT))
-					$avalibleMissions[]	= 3;
+					$availableMissions[]	= 3;
 					
 				if (!$YourPlanet && self::OnlyShipByID($MissionInfo['Ship'], 210) && isModulAvalible(MODULE_MISSION_SPY))
-					$avalibleMissions[]	= 6;
+					$availableMissions[]	= 6;
 
 				if (!$YourPlanet) {
 					if(isModulAvalible(MODULE_MISSION_ATTACK))
-						$avalibleMissions[]	= 1;
+						$availableMissions[]	= 1;
 					if(isModulAvalible(MODULE_MISSION_HOLD))
-						$avalibleMissions[]	= 5;}
+						$availableMissions[]	= 5;}
 						
 				elseif(isModulAvalible(MODULE_MISSION_STATION)) {
-					$avalibleMissions[]	= 4;}
+					$availableMissions[]	= 4;}
 					
 				if (!empty($MissionInfo['IsAKS']) && !$YourPlanet && isModulAvalible(MODULE_MISSION_ATTACK) && isModulAvalible(MODULE_MISSION_ACS))
-					$avalibleMissions[]	= 2;
+					$availableMissions[]	= 2;
 
 				if (!$YourPlanet && $MissionInfo['planettype'] == 3 && isset($MissionInfo['Ship'][214]) && isModulAvalible(MODULE_MISSION_DESTROY))
-					$avalibleMissions[]	= 9;
+					$availableMissions[]	= 9;
 
 				if ($YourPlanet && $MissionInfo['planettype'] == 3 && self::OnlyShipByID($MissionInfo['Ship'], 220) && isModulAvalible(MODULE_MISSION_DARKMATTER))
-					$avalibleMissions[]	= 11;
+					$availableMissions[]	= 11;
 			}
 		}
 		
-		return $avalibleMissions;
+		return $availableMissions;
 	}
 	
 	public static function CheckBash($Target)

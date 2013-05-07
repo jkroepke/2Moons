@@ -61,39 +61,14 @@ class ShowIndexPage extends AbstractPage
 			$loginCode	= $LNG['login_error_'.$Code];
 		}
 
-		$referralUniversum	= 0;
-		$referralUserID		= 0;
-
 		$config				= Config::get();
-
-		if($config->ref_active)
-		{
-			$referralUserID		= HTTP::_GP('ref', 0);
-			if(!empty($referralUserID))
-			{
-				$db = Database::get();
-
-				$sql = "SELECT universe FROM %%USERS%% WHERE id = :refID;";
-				$referralUniversum = $db->selectSingle($sql, array(
-					':refID'	=> $referralUserID
-				));
-
-				if(!isset($referralUniversum))
-				{
-					$referralUniversum	= 0;
-					$referralUserID		= 0;
-				}
-			}
-		}
 		
 		$this->assign(array(
-			'referralUserID'		=> $referralUserID,
-			'referralUniversum'		=> $referralUniversum,
 			'universeSelect'		=> $universeSelect,
 			'code'					=> $loginCode,
-			'descHeader'			=> t('loginWelcome', $config->game_name),
-			'descText'				=> t('loginServerDesc', $config->game_name),
-			'loginInfo'				=> t('loginInfo', '<a href="index.php?page=rules">'.t('menu_rules').'</a>')
+			'descHeader'			=> sprintf($LNG['loginWelcome'], $config->game_name),
+			'descText'				=> sprintf($LNG['loginServerDesc'], $config->game_name),
+			'loginInfo'				=> sprintf($LNG['loginInfo'], '<a href="index.php?page=rules">'.$LNG['menu_rules'].'</a>')
 		));
 		
 		$this->render('page.index.default.tpl');

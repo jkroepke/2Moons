@@ -137,7 +137,7 @@ class ShowBattleSimulatorPage extends AbstractPage
 		require_once 'includes/classes/missions/functions/calculateSteal.php';
 		require_once 'includes/classes/missions/functions/GenerateReport.php';
 		
-		$combatResult	= calculateAttack($attackers, $defenders, Config::get('Fleet_Cdr'), Config::get('Defs_Cdr'));
+		$combatResult	= calculateAttack($attackers, $defenders, Config::get()->Fleet_Cdr, Config::get()->Defs_Cdr);
 		
 		if($combatResult['won'] == "a")
 		{
@@ -165,51 +165,28 @@ class ShowBattleSimulatorPage extends AbstractPage
 		
 		$debrisTotal		= array_sum($debris);
 		
-		$moonFactor			= Config::get('moon_factor');
-		$maxMoonChance		= Config::get('moon_chance');
+		$moonFactor			= Config::get()->moon_factor;
+		$maxMoonChance		= Config::get()->moon_chance;
 		
 		$chanceCreateMoon	= round($debrisTotal / 100000 * $moonFactor);
 		$chanceCreateMoon	= min($chanceCreateMoon, $maxMoonChance);
-
-		$raportInfo	= array(
-			'thisFleet'				=> array(
-				'fleet_start_galaxy'	=> 1,
-				'fleet_start_system'	=> 33,
-				'fleet_start_planet'	=> 7,
-				'fleet_start_type'		=> 1,
-				'fleet_end_galaxy'		=> 1,
-				'fleet_end_system'		=> 33,
-				'fleet_end_planet'		=> 7,
-				'fleet_end_type'		=> 1,
-				'fleet_start_time'		=> TIMESTAMP,
-			),
-			'debris'				=> $debris,
-			'stealResource'			=> $stealResource,
-			'moonChance'			=> $chanceCreateMoon,
-			'moonDestroy'			=> false,
-			'moonName'				=> NULL,
-			'moonDestroyChance'		=> NULL,
-			'moonDestroySuccess'	=> NULL,
-			'fleetDestroyChance'	=> NULL,
-			'fleetDestroySuccess'	=> NULL,
-		);
 		
 		$sumSteal	= array_sum($stealResource);
 		
-		$stealResourceInformations	= sprintf($LNG['bs_derbis_raport'], 
+		$stealResourceInformation	= sprintf($LNG['bs_derbis_raport'], 
 			pretty_number(ceil($debrisTotal / $pricelist[219]['capacity'])), $LNG['tech'][219],
 			pretty_number(ceil($debrisTotal / $pricelist[209]['capacity'])), $LNG['tech'][209]
 		);
 		
-		$stealResourceInformations	.= '<br>';
+		$stealResourceInformation	.= '<br>';
 		
-		$stealResourceInformations	.= sprintf($LNG['bs_steal_raport'], 
+		$stealResourceInformation	.= sprintf($LNG['bs_steal_raport'], 
 			pretty_number(ceil($sumSteal / $pricelist[202]['capacity'])), $LNG['tech'][202], 
 			pretty_number(ceil($sumSteal / $pricelist[203]['capacity'])), $LNG['tech'][203], 
 			pretty_number(ceil($sumSteal / $pricelist[217]['capacity'])), $LNG['tech'][217]
 		);
 
-		$raportInfo	= array(
+		$reportInfo	= array(
 			'thisFleet'				=> array(
 				'fleet_start_galaxy'	=> 1,
 				'fleet_start_system'	=> 33,
@@ -230,22 +207,22 @@ class ShowBattleSimulatorPage extends AbstractPage
 			'moonDestroySuccess'	=> NULL,
 			'fleetDestroyChance'	=> NULL,
 			'fleetDestroySuccess'	=> NULL,
-			'additionalInfo'		=> $stealResourceInformations,
+			'additionalInfo'		=> $stealResourceInformation,
 		);
 		
-		$raportData	= GenerateReport($combatResult, $raportInfo);
-		$raportID	= md5(uniqid('', true).TIMESTAMP);
+		$reportData	= GenerateReport($combatResult, $reportInfo);
+		$reportID	= md5(uniqid('', true).TIMESTAMP);
 
         $db = Database::get();
 
-        $sql = "INSERT INTO %%RW%% SET rid = :raportID, raport = :raportData, time = :time;";
+        $sql = "INSERT INTO %%RW%% SET rid = :reportID, raport = :reportData, time = :time;";
         $db->insert($sql,array(
-            ':raportID'     => $raportID,
-            ':raportData'   => $raportData,
+            ':reportID'     => $reportID,
+            ':reportData'   => $reportData,
             ':time'         => TIMESTAMP
         ));
 
-        $this->sendJSON($raportID);
+        $this->sendJSON($reportID);
 	}
 	
 	function show()
@@ -253,11 +230,10 @@ class ShowBattleSimulatorPage extends AbstractPage
 		global $USER, $PLANET, $reslist, $resource;
 		
 		require_once('includes/classes/class.FleetFunctions.php');
-		
-		$action			= HTTP::_GP('action', '');
+
 		$Slots			= HTTP::_GP('slots', 1);
-		
-		$BattleArray	= array();
+
+
 		$BattleArray[0][0][109]	= $USER[$resource[109]];
 		$BattleArray[0][0][110]	= $USER[$resource[110]];
 		$BattleArray[0][0][111]	= $USER[$resource[111]];
@@ -273,10 +249,9 @@ class ShowBattleSimulatorPage extends AbstractPage
 				}
 			}
 		}
-		
-		if(isset($_REQUEST['battleinput']))
+		else
 		{
-			$BattleArray	= $_REQUEST['battleinput'];
+			$BattleArray	= HTTP::_GP('battleinput', array());
 		}
 		
 		if(isset($_REQUEST['im']))

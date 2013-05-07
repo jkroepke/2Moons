@@ -40,11 +40,12 @@ class ShowDisclamerPage extends AbstractPage
 	
 	function show() 
 	{
+		$config	= Config::get();
 		$this->assign(array(
-			'disclamerAddress'	=> makebr(Config::get('disclamerAddress')),
-			'disclamerPhone'	=> Config::get('disclamerPhone'),
-			'disclamerMail'		=> Config::get('disclamerMail'),
-			'disclamerNotice'	=> Config::get('disclamerNotice'),
+			'disclamerAddress'	=> makebr($config->disclamerAddress),
+			'disclamerPhone'	=> $config->disclamerPhone,
+			'disclamerMail'		=> $config->disclamerMail,
+			'disclamerNotice'	=> $config->disclamerNotice,
 		));
 		
 		$this->render('page.disclamer.default.tpl');
