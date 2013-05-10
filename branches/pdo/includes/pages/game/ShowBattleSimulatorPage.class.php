@@ -218,7 +218,7 @@ class ShowBattleSimulatorPage extends AbstractPage
         $sql = "INSERT INTO %%RW%% SET rid = :reportID, raport = :reportData, time = :time;";
         $db->insert($sql,array(
             ':reportID'     => $reportID,
-            ':reportData'   => $reportData,
+            ':reportData'   => serialize($reportData),
             ':time'         => TIMESTAMP
         ));
 
