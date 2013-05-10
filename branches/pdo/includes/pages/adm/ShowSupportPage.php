@@ -39,7 +39,7 @@ class ShowSupportPage
 		$this->tplObj		= new template();
 		// 2Moons 1.7TO1.6 PageClass Wrapper
 		$ACTION = HTTP::_GP('mode', 'show');
-		if(!is_callable(array($this, $mode))) {
+		if(is_callable(array($this, $ACTION))) {
 			$this->{$ACTION}();
 		} else {
 			$this->show();
@@ -102,7 +102,7 @@ class ShowSupportPage
 		}
 
 
-		$subject	= sprintf($LNG['sp_answer_message_title'], $ticketID)
+		$subject	= sprintf($LNG['sp_answer_message_title'], $ticketID);
 		$text		= sprintf($LNG['sp_answer_message'], $ticketID);
 
 		PlayerUtil::sendMessage($ticketDetail['ownerID'], $USER['id'], $USER['username'], 4,
