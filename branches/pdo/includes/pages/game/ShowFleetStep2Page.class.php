@@ -26,8 +26,6 @@
  * @link http://2moons.cc/
  */
 
-require_once('includes/classes/class.FleetFunctions.php');
-
 class ShowFleetStep2Page extends AbstractPage
 {
 	public static $requireModule = MODULE_FLEET_TABLE;

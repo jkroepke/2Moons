@@ -70,6 +70,7 @@ require 'includes/classes/ArrayUtil.class.php';
 require 'includes/classes/Cache.class.php';
 require 'includes/classes/Database.class.php';
 require 'includes/classes/Config.class.php';
+require 'includes/classes/class.FleetFunctions.php';
 require 'includes/classes/HTTP.class.php';
 require 'includes/classes/Language.class.php';
 require 'includes/classes/PlayerUtil.class.php';

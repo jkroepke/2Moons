@@ -228,8 +228,6 @@ class ShowBattleSimulatorPage extends AbstractPage
 	function show()
 	{
 		global $USER, $PLANET, $reslist, $resource;
-		
-		require_once('includes/classes/class.FleetFunctions.php');
 
 		$Slots			= HTTP::_GP('slots', 1);
 

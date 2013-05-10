@@ -26,8 +26,6 @@
  * @link http://2moons.cc/
  */
 
-require_once('includes/classes/class.FleetFunctions.php');
-
 class ShowFleetStep3Page extends AbstractPage
 {
 	public static $requireModule = MODULE_FLEET_TABLE;
@@ -232,8 +230,7 @@ class ShowFleetStep3Page extends AbstractPage
 		} elseif($myPlanet) {
 			$targetPlayerData	= $USER;
 		} elseif(!empty($targetPlanetData['id_owner'])) {
-            $sql = "SELECT
-                user.id, user.onlinetime, user.ally_id, user.urlaubs_modus, user.banaday, user.authattack,
+            $sql = "SELECT user.id, user.onlinetime, user.ally_id, user.urlaubs_modus, user.banaday, user.authattack,
                 stat.total_points
                 FROM %%USERS%% as user
                 LEFT JOIN %%STATPOINTS%% as stat ON stat.id_owner = user.id AND stat.stat_type = '1'

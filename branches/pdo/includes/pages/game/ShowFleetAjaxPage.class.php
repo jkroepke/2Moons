@@ -26,8 +26,6 @@
  * @link http://2moons.cc/
  */
 
-require_once('includes/classes/class.FleetFunctions.php');
-
 
 class ShowFleetAjaxPage extends AbstractPage
 {

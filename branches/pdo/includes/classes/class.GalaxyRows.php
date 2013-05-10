@@ -26,7 +26,6 @@
  * @link http://2moons.cc/
  */
 
-require_once 'includes/classes/class.FleetFunctions.php';
 require_once 'includes/pages/game/ShowPhalanxPage.class.php';
 
 class GalaxyRows
