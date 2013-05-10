@@ -538,7 +538,7 @@ class FleetFunctions
 			':fleetTargetOwner'			=> $fleetTargetOwner,
 			':fleetMission'				=> $fleetMission,
 			':fleetShipCount'			=> $fleetShipCount,
-			':fleetData'				=> $fleetData,
+			':fleetData'				=> implode(';', $fleetData),
 			':fleetStartTime'			=> $fleetStartTime,
 			':fleetStayTime'			=> $fleetStayTime,
 			':fleetEndTime'				=> $fleetEndTime,
