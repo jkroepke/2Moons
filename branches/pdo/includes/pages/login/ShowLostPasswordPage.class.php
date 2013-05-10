@@ -140,8 +140,10 @@ class ShowLostPasswordPage extends AbstractPage
 		if ($config->capaktiv == 1)
 		{
 			require_once('includes/libs/reCAPTCHA/recaptchalib.php');
+			$recaptcha_challenge_field	= HTTP::_GP('recaptcha_challenge_field', '');
+			$recaptcha_response_field	= HTTP::_GP('recaptcha_response_field', '');
 			
-			$resp = recaptcha_check_answer($config->capprivate, $_SERVER['REMOTE_ADDR'], $_REQUEST['recaptcha_challenge_field'], $_REQUEST['recaptcha_response_field']);
+			$resp = recaptcha_check_answer($config->capprivate, $_SERVER['REMOTE_ADDR'], $recaptcha_challenge_field, $recaptcha_response_field);
 		
 			if (!$resp->is_valid)
 			{
