@@ -134,7 +134,7 @@ class FleetFunctions
 
 	public static function GetGameSpeedFactor()
 	{
-		return $GLOBALS['CONF']['fleet_speed'] / 2500;
+		return Config::get()->fleet_speed / 2500;
 	}
 	
 	public static function GetMaxFleetSlots($USER)
@@ -398,10 +398,11 @@ class FleetFunctions
 	public static function GotoFleetPage($Code = 0)
 	{	
 		global $LNG;
-		$temp = debug_backtrace();
-		if($GLOBALS['CONF']['debug'] == 1)
+		if(Config::get()->debug == 1)
 		{
-			exit(str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']. " | Code: ".$Code." | Error: ".(isset($LNG['fl_send_error'][$Code]) ? $LNG['fl_send_error'][$Code] : ''));
+			$temp = debug_backtrace();
+			echo str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']. " | Code: ".$Code." | Error: ".(isset($LNG['fl_send_error'][$Code]) ? $LNG['fl_send_error'][$Code] : '');
+			exit;
 		}
 		
 		HTTP::redirectTo('game.php?page=fleetTable&code='.$Code);
