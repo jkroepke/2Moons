@@ -232,16 +232,22 @@ class ShowInformationPage extends AbstractPage
 		$CurrentLevel		= 0;
 		
 		$ressIDs			= array_merge(array(), $reslist['resstype'][1], $reslist['resstype'][2]);
-		
+
 		if(in_array($elementID, $reslist['prod']) && in_array($elementID, $reslist['build']))
 		{
+
+			/* Data for eval */
+			$BuildEnergy		= $USER[$resource[113]];
+			$BuildTemp          = $PLANET['temp_max'];
+			$BuildLevelFactor	= $PLANET[$resource[$elementID].'_porcent'];
+
 			$CurrentLevel		= $PLANET[$resource[$elementID]];
 			$BuildStartLvl   	= max($CurrentLevel - 2, 0);
-						
 			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++)
 			{
 				foreach($ressIDs as $ID) 
 				{
+
 					if(!isset($ProdGrid[$elementID]['production'][$ID]))
 						continue;
 						

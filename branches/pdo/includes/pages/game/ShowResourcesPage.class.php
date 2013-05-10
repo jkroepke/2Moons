@@ -128,7 +128,13 @@ class ShowResourcesPage extends AbstractPage
 		$BuildTemp          = $PLANET['temp_max'];
 
 		foreach($reslist['prod'] as $ProdID)
-		{	
+		{
+			if(isset($PLANET[$resource[$ProdID]]) && $PLANET[$resource[$ProdID]] == 0)
+				continue;
+
+			if(isset($USER[$resource[$ProdID]]) && $USER[$resource[$ProdID]] == 0)
+				continue;
+
 			$productionList[$ProdID]	= array(
 				'production'	=> array(901 => 0, 902 => 0, 903 => 0, 911 => 0),
 				'elementLevel'	=> $PLANET[$resource[$ProdID]],
@@ -152,7 +158,7 @@ class ShowResourcesPage extends AbstractPage
 				}
 				else
 				{
-					$Production	*= $config->resource_multiplier;
+					$Production	*= $config->energySpeed;
 				}
 				
 				$productionList[$ProdID]['production'][$ID]	= $Production;
