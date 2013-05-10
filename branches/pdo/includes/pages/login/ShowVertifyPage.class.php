@@ -122,11 +122,12 @@ class ShowVertifyPage extends AbstractPage
 			));
 		}
 
-		$nameSender = $LNG['registerWelcomePMSenderName'];
+		$senderName = $LNG['registerWelcomePMSenderName'];
 		$subject 	= $LNG['registerWelcomePMSubject'];
 		$message 	= sprintf($LNG['registerWelcomePMText'], $config->game_name, $userData['universe']);
 
-		PlayerUtil::sendMessage($userID, 1, TIMESTAMP, 1, $nameSender, $subject, $message);
+		PlayerUtil::sendMessage($userID, 1, $senderName, 1, $subject, $message, TIMESTAMP);
+		
 		return array(
 			'userID'	=> $userID,
 			'userName'	=> $userData['userName'],
