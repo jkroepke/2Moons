@@ -233,19 +233,7 @@ class ShowFleetTablePage extends AbstractPage
 		
 		foreach ($fleetResult as $fleetsRow)
 		{
-			$fleet = explode(";", $fleetsRow['fleet_array']);
-
-            $FleetList  = array();
-
-			foreach ($fleet as $shipDetail)
-			{
-				if (empty($shipDetail))
-					continue;
-
-				$ship = explode(",", $shipDetail);
-				
-				$FleetList[$fleetsRow['fleet_id']][$ship[0]] = $ship[1];
-			}
+			$FleetList[$fleetsRow['fleet_id']] = FleetFunctions::unserialize($fleetsRow['fleet_array']);
 			
 			if($fleetsRow['fleet_mission'] == 4 && $fleetsRow['fleet_mess'] == FLEET_OUTWARD)
 			{

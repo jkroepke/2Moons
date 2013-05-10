@@ -45,7 +45,10 @@ class ShowTicketPage extends AbstractPage
 
 		$db = Database::get();
 
-		$sql = "SELECT t.*, COUNT(a.ticketID) as answer FROM %%TICKETS%% t INNER JOIN %%TICKETS_ANSWER%% a USING (ticketID) WHERE t.ownerID = :userID GROUP BY a.ticketID ORDER BY t.ticketID DESC;";
+		$sql = "SELECT t.*, COUNT(a.ticketID) as answer
+		FROM %%TICKETS%% t
+		INNER JOIN %%TICKETS_ANSWER%% a USING (ticketID)
+		WHERE t.ownerID = :userID GROUP BY a.ticketID ORDER BY t.ticketID DESC;";
 
 		$ticketResult = $db->select($sql, array(
 			':userID'	=> $USER['id']

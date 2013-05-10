@@ -201,7 +201,7 @@ class ShowFleetAjaxPage extends AbstractPage
 			
 		$this->returnData['slots']++;
 		
-		$fleetRessource	= array(
+		$fleetResource	= array(
 			901	=> 0,
 			902	=> 0,
 			903	=> 0,
@@ -213,8 +213,11 @@ class ShowFleetAjaxPage extends AbstractPage
 		
 		$shipID				= array_keys($fleetArray);
 		
-		FleetFunctions::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'],
-		$targetData['id_owner'], $planetID, $targetData['galaxy'], $targetData['system'], $targetData['planet'], $targetData['planet_type'], $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime);
+		FleetFunctions::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'],
+			$PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $targetData['id_owner'], $planetID,
+			$targetData['galaxy'], $targetData['system'], $targetData['planet'], $targetData['planet_type'],
+			$fleetResource, $fleetStartTime, $fleetStayTime, $fleetEndTime);
+
 		$this->sendData(600, $LNG['fa_sending']." ".array_sum($fleetArray)." ". $LNG['tech'][$shipID[0]] ." ".$LNG['gl_to']." ".$targetData['galaxy'].":".$targetData['system'].":".$targetData['planet']." ...");
 	}
 }

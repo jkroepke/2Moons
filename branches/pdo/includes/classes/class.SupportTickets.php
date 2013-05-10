@@ -37,7 +37,7 @@ class SupportTickets
 		subject		= :subject
 		time = ".TIMESTAMP.";';
 
-		Database::get()->update($sql, array(
+		Database::get()->insert($sql, array(
 			':ownerId'		=> $ownerID,
 			':universe'		=> Universe::current(),
 			':categoryId'	=> $categoryID,
