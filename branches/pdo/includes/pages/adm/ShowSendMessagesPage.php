@@ -68,7 +68,7 @@ function ShowSendMessagesPage() {
 				while($UserData = $GLOBALS['DATABASE']->fetch_array($USERS))
 				{
 					$sendMessage = str_replace('{USERNAME}', $UserData['username'], $pmMessage);
-					PlayerUtil::sendMessage($UserData['id'], $USER['id'], $From, 50, $pmSubject, $sendMessage, TIMESTAMP, NULL, 0, Universe::getEmulated());
+					PlayerUtil::sendMessage($UserData['id'], $USER['id'], $From, 50, $pmSubject, $sendMessage, TIMESTAMP, NULL, 1, Universe::getEmulated());
 				}
 			}
 
