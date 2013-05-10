@@ -440,6 +440,8 @@ switch ($mode) {
 										   'class'   => 'fatalerror',
 										   'message' => $LNG['step2_db_con_fail'] . '</p><p>' . $e->getMessage(),));
 					$template->show('ins_step4.tpl');
+					
+					unlink(ROOT_PATH . 'includes/config.php');
 					exit;
 				}
 				@touch(ROOT_PATH . "includes/error.log");

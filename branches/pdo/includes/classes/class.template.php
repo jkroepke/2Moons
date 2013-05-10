@@ -50,8 +50,8 @@ class template extends Smarty
 		$this->php_handling				= Smarty::PHP_REMOVE;
 
 		$this->setCompileDir(is_writable(CACHE_PATH) ? CACHE_PATH : $this->getTempPath());
-		$this->setCacheDir(CACHE_PATH.'templates');
-		$this->setTemplateDir(ROOT_PATH.'styles/templates/');
+		$this->setCacheDir($this->getCompileDir().'templates');
+		$this->setTemplateDir('styles/templates/');
 	}
 
 	private function getTempPath()
