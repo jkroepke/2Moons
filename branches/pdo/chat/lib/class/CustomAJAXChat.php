@@ -66,7 +66,16 @@ class CustomAJAXChat extends AJAXChat
 			$prefix = $this->getConfig('sessionKeyPrefix');
 
 		// Set the session value:
-		Session::load()->__set('chat', array_merge(Session::load()->chat, array($prefix.$key => $value)));
+		if(isset(Session::load()->chat))
+		{
+			$sessionData	= array_merge(Session::load()->chat, array($prefix.$key => $value));
+		}
+		else
+		{
+			$sessionData	= array($prefix.$key => $value);
+		}
+
+		Session::load()->__set('chat', $sessionData);
 	}
 
 	function initCustomConfig()
