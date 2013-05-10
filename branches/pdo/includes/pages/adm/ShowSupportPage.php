@@ -116,6 +116,8 @@ class ShowSupportPage
 
 		$ticket_status		= 0;
 
+		require 'includes/classes/BBCode.class.php';
+
 		while($answerRow = $GLOBALS['DATABASE']->fetch_array($answerResult)) {
 			if (empty($ticket_status))
 				$ticket_status = $answerRow['status'];
