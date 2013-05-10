@@ -104,11 +104,10 @@ class ShowStatisticsPage extends AbstractPage
 					INNER JOIN %%USERS%% as u ON u.id = s.id_owner
 					LEFT JOIN %%ALLIANCE%% as a ON a.id = s.id_ally
 					WHERE s.universe = :universe AND s.stat_type = 1 AND u.authlevel < :authLevel
-					ORDER BY :order ASC LIMIT :offset, :limit;";
+					ORDER BY ".$Order." ASC LIMIT :offset, :limit;";
 					$query = $db->select($sql, array(
 						':universe'	=> Universe::current(),
 						':authLevel'=> $config->stat_level,
-						':order'	=> $Order,
 						':offset'	=> $start,
 						':limit'	=> 100,
 					));
@@ -117,10 +116,9 @@ class ShowStatisticsPage extends AbstractPage
 					INNER JOIN %%USERS%% as u ON u.id = s.id_owner
 					LEFT JOIN %%ALLIANCE%% as a ON a.id = s.id_ally
 					WHERE s.universe = :universe AND s.stat_type = 1
-					ORDER BY :order ASC LIMIT :offset, :limit;";
+					ORDER BY ".$Order." ASC LIMIT :offset, :limit;";
 					$query = $db->select($sql, array(
 						':universe'	=> Universe::current(),
-						':order'	=> $Order,
 						':offset'	=> $start,
 						':limit'	=> 100,
 					));
@@ -163,10 +161,9 @@ class ShowStatisticsPage extends AbstractPage
                 $sql = 'SELECT DISTINCT s.*, a.id, a.ally_members, a.ally_name FROM %%STATPOINTS%% as s
                 INNER JOIN %%ALLIANCE%% as a ON a.id = s.id_owner
                 WHERE universe = :universe AND stat_type = 2
-                ORDER BY :order ASC LIMIT :offset, :limit;';
+                ORDER BY '.$Order.' ASC LIMIT :offset, :limit;';
 				$query = $db->select($sql, array(
 					':universe'	=> Universe::current(),
-					':order'	=> $Order,
 					':offset'	=> $start,
 					':limit'	=> 100,
 				));
