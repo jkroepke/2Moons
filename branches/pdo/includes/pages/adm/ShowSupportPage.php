@@ -100,9 +100,14 @@ class ShowSupportPage
 		if($change && $status == 2) {
 			$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $LNG['ti_admin_close'], $status);
 		}
-				
-		
-		PlayerUtil::sendMessage($ticketDetail['ownerID'], $USER['id'], TIMESTAMP, 4, $USER['username'], sprintf($LNG['sp_answer_message_title'], $ticketID), sprintf($LNG['sp_answer_message'], $ticketID));
+
+
+		$subject	= sprintf($LNG['sp_answer_message_title'], $ticketID)
+		$text		= sprintf($LNG['sp_answer_message'], $ticketID);
+
+		PlayerUtil::sendMessage($ticketDetail['ownerID'], $USER['id'], $USER['username'], 4,
+			$subject, $text, TIMESTAMP, NULL, 1, Universe::getEmulated());
+
 		HTTP::redirectTo('admin.php?page=support');
 	}
 	
