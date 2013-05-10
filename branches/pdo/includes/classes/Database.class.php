@@ -104,8 +104,8 @@ class Database
 		try {
 			$success = (count($params) !== 0 && !isset($params[':limit']) && !isset($params[':offset'])) ? $stmt->execute($params) : $stmt->execute();
 		}
-		catch (Exception $e) {
-			throw new PDOException($e->getMessage()."<br>\r\n<br>\r\nQuery-Code:".str_replace(array_keys($params), array_values($params), $qry));
+		catch (PDOException $e) {
+			throw new Exception($e->getMessage()."<br>\r\n<br>\r\nQuery-Code:".str_replace(array_keys($params), array_values($params), $qry));
 		}
 
 		$this->queryCounter++;
