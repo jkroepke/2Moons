@@ -47,6 +47,7 @@ class VarsBuildCache implements BuildCache
 		$reslist['tech']		= array();
 		$reslist['fleet']		= array();
 		$reslist['defense']		= array();
+		$reslist['missile']		= array();
 		$reslist['officier']	= array();
 		$reslist['dmfunc']		= array();
 		

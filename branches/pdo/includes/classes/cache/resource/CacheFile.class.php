@@ -27,21 +27,42 @@
  */
 
 class CacheFile {
-	function store($Key, $Value) {
-		file_put_contents(CACHE_PATH.'cache.'.$Key.'.php', $Value);
+	private $path;
+	public function __construct()
+	{
+		$this->path	= is_writable(CACHE_PATH) ? CACHE_PATH : $this->getTempPath();
+	}
+
+	private function getTempPath()
+	{
+		include 'includes/libs/wcf/BasicFileUtil.class.php';
+		return BasicFileUtil::getTempFolder();
+	}
+
+	private function getFilePath($key)
+	{
+		return $this->path.'cache.'.$key.'.php';
+	}
+
+	public function store($Key, $Value) {
+		file_put_contents($this->getFilePath($Key), $Value);
 	}
 	
-	function open($Key) {
-		if(!file_exists(CACHE_PATH.'cache.'.$Key.'.php'))
+	public function open($Key) {
+		if(!file_exists($this->getFilePath($Key)))
+		{
 			return false;
-			
-		return file_get_contents(CACHE_PATH.'cache.'.$Key.'.php');
+		}
+
+		return file_get_contents($this->getFilePath($Key));
 	}
 	
-	function flush($Key) {
-		if(!file_exists(CACHE_PATH.'cache.'.$Key.'.php'))
+	public function flush($Key) {
+		if(!file_exists($this->getFilePath($Key)))
+		{
 			return false;
-		
-		unlink(CACHE_PATH.'cache.'.$Key.'.php');
+		}
+
+		return unlink($this->getFilePath($Key));
 	}
 }

@@ -489,26 +489,28 @@ function exceptionHandler($exception)
 		E_RECOVERABLE_ERROR	=> 'RECOVERABLE ERROR'
 	);
 	
-	try
+	if(file_exists(ROOT_PATH.'install/VERSION'))
 	{
-		if(!class_exists('Config', false))
-		{
-			throw new Exception("No config class");
-		}
-		$config		= Config::get();
-		$gameName	= $config->game_name;
-		$VERSION	= $config->VERSION;
-	} catch(Exception $e) {
-		if(file_exists(ROOT_PATH.'install/VERSION'))
-		{
-			$VERSION	= file_get_contents(ROOT_PATH.'install/VERSION').' (FILE)';
-		}
-		else
-		{
-			$VERSION	= 'UNKNOWN';
-		}
-		$gameName	= '-';
+		$VERSION	= file_get_contents(ROOT_PATH.'install/VERSION').' (FILE)';
 	}
+	else
+	{
+		$VERSION	= 'UNKNOWN';
+	}
+	$gameName	= '-';
+	
+	if(MODE !== 'INSTALL')
+	{
+		try
+		{
+			$config		= Config::get();
+			$gameName	= $config->game_name;
+			$VERSION	= $config->VERSION;
+		} catch(ErrorException $e) {
+		}
+	}
+	
+	
 	$DIR		= MODE == 'INSTALL' ? '..' : '.';
 	ob_start();
 	echo '<!DOCTYPE html>

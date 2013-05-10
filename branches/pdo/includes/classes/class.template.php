@@ -40,31 +40,21 @@ class template extends Smarty
 		parent::__construct();
 		$this->smartySettings();
 	}
-	
-	function smartySettings()
+
+	private function smartySettings()
 	{	
 		$this->force_compile 			= false;
 		$this->caching 					= true; #Set true for production!
 		$this->merge_compiled_includes	= true;
 		$this->compile_check			= true; #Set false for production!
 		$this->php_handling				= Smarty::PHP_REMOVE;
-		
-		$this->setCompileDir(is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : $this->getTempPath());
-		$this->setCacheDir(ROOT_PATH.'cache/templates');
+
+		$this->setCompileDir(is_writable(CACHE_PATH) ? CACHE_PATH : $this->getTempPath());
+		$this->setCacheDir(CACHE_PATH.'templates');
 		$this->setTemplateDir(ROOT_PATH.'styles/templates/');
 	}
-	
-	public function loadscript($script)
-	{
-		$this->jsscript[]			= substr($script, 0, -3);
-	}
-	
-	public function execscript($script)
-	{
-		$this->script[]				= $script;
-	}
-	
-	public function getTempPath()
+
+	private function getTempPath()
 	{
 		$this->force_compile 		= true;
 		include 'includes/libs/wcf/BasicFileUtil.class.php';
@@ -109,11 +99,13 @@ class template extends Smarty
 	
 	public function show($file)
 	{		
-		global $USER, $PLANET, $LNG, $THEME;
+		global $LNG, $THEME;
 
 		if($THEME->isCustomTPL($file))
+		{
 			$this->setTemplateDir($THEME->getTemplatePath());
-			
+		}
+
 		$tplDir	= $this->getTemplateDir();
 			
 		if(MODE === 'INSTALL') {
@@ -184,11 +176,11 @@ class template extends Smarty
     public function __get($name)
     {
         $allowed = array(
-        'template_dir' => 'getTemplateDir',
-        'config_dir' => 'getConfigDir',
-        'plugins_dir' => 'getPluginsDir',
-        'compile_dir' => 'getCompileDir',
-        'cache_dir' => 'getCacheDir',
+			'template_dir' => 'getTemplateDir',
+			'config_dir' => 'getConfigDir',
+			'plugins_dir' => 'getPluginsDir',
+			'compile_dir' => 'getCompileDir',
+			'cache_dir' => 'getCacheDir',
         );
 
         if (isset($allowed[$name])) {
@@ -201,11 +193,11 @@ class template extends Smarty
     public function __set($name, $value)
     {
         $allowed = array(
-        'template_dir' => 'setTemplateDir',
-        'config_dir' => 'setConfigDir',
-        'plugins_dir' => 'setPluginsDir',
-        'compile_dir' => 'setCompileDir',
-        'cache_dir' => 'setCacheDir',
+			'template_dir' => 'setTemplateDir',
+			'config_dir' => 'setConfigDir',
+			'plugins_dir' => 'setPluginsDir',
+			'compile_dir' => 'setCompileDir',
+			'cache_dir' => 'setCacheDir',
         );
 
         if (isset($allowed[$name])) {
