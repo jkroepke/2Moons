@@ -33,7 +33,7 @@ abstract class AbstractPage
 	 * reference of the template object
 	 * @var template
 	 */
-	protected $tplObj = NULL;
+	protected $tplObj = null;
 	protected $window;
 	public $defaultWindow = 'normal';
 	
@@ -119,7 +119,7 @@ abstract class AbstractPage
 		));
 	}
 	
-	protected function printMessage($message, $redirect = NULL, $redirectButtons = NULL, $fullSide = true)
+	protected function printMessage($message, $redirectButtons = null, $redirect = null, $fullSide = true)
 	{
 		$this->assign(array(
 			'message'			=> $message,
@@ -134,7 +134,7 @@ abstract class AbstractPage
 			$this->setWindow('popup');
 		}
 		
-		$this->render('error.default.tpl');
+		$this->display('error.default.tpl');
 	}
 	
 	protected function save() {
@@ -145,8 +145,8 @@ abstract class AbstractPage
 		$this->tplObj->assign_vars($array);
 	}
 	
-	protected function render($file) {
-		global $LNG, $CONFIG;
+	protected function display($file) {
+		global $LNG;
 		
 		$this->save();
 		
@@ -158,7 +158,7 @@ abstract class AbstractPage
             'lang'    			=> $LNG->getLanguage(),
 			'bodyclass'			=> $this->getWindow(),
 			'basepath'			=> PROTOCOL.HTTP_HOST.HTTP_BASE,
-			'isMultiUniverse'	=> count($CONFIG) > 1,
+			'isMultiUniverse'	=> count(Universe::availableUniverses()) > 1,
 		));
 
 		$this->assign(array(
@@ -188,6 +188,6 @@ abstract class AbstractPage
 			'postFields'	=> $postFields,
 		));
 		
-		$this->render('info.redirectPost.tpl');
+		$this->display('info.redirectPost.tpl');
 	}
 }

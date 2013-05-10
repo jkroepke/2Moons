@@ -32,7 +32,7 @@ function ShowTeamspeakPage() {
 	global $LNG;
 
 
-	$config = Config::get($_SESSION['adminuni']);
+	$config = Config::get(Universe::getEmulated());
 
 	if ($_POST)
 	{

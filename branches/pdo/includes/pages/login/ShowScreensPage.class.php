@@ -66,6 +66,6 @@ class ShowScreensPage extends AbstractPage
 			'screenshots' => $screenshots
 		));
 
-		$this->render('page.screens.default.tpl');
+		$this->display('page.screens.default.tpl');
 	}
 }

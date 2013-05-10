@@ -31,8 +31,8 @@ define('DATABASE_VERSION', 'OLD');
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
-require('includes/common.php');
-require_once('includes/classes/class.Log.php');
+require 'includes/common.php';
+require 'includes/classes/class.Log.php';
 
 if ($USER['authlevel'] == AUTH_USR)
 {
@@ -50,9 +50,9 @@ if($session->adminAccess != 1)
 $page = HTTP::_GP('page', '');
 
 if($USER['authlevel'] == AUTH_ADM && !empty($uni))
-	$_SESSION['adminuni'] = $uni;
-if(empty($_SESSION['adminuni']))
-	$_SESSION['adminuni'] = Universe::current();
+{
+	Universe::setEmulated($uni);
+}
 
 switch($page)
 {
@@ -163,10 +163,6 @@ switch($page)
 	case 'topnav':
 		include_once('includes/pages/adm/ShowTopnavPage.php');
 		ShowTopnavPage();
-	break;
-	case 'mods':
-		include_once('includes/pages/adm/ShowModVersionPage.php');
-		ShowModVersionPage();
 	break;
 	case 'overview':
 		include_once('includes/pages/adm/ShowOverviewPage.php');

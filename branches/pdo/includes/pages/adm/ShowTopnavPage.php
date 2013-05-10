@@ -51,7 +51,7 @@ function ShowTopnavPage()
 		'id'					=> $USER['id'],
 		'authlevel'				=> $USER['authlevel'],
 		'AvailableUnis'			=> $universeSelect,
-		'UNI'					=> $_SESSION['adminuni'],
+		'UNI'					=> Universe::getEmulated(),
 	));
 	
 	$template->show('ShowTopnavPage.tpl');

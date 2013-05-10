@@ -59,7 +59,7 @@ function ShowAccountEditorPage()
 						$SQL .= "`crystal` = `crystal` + '".$cristal."', ";
 						$SQL .= "`deuterium` = `deuterium` + '".$deut ."' ";
 						$SQL .= "WHERE ";
-						$SQL .= "`id` = '". $id ."' AND `universe` = '".$_SESSION['adminuni']."';";
+						$SQL .= "`id` = '". $id ."' AND `universe` = '".Universe::getEmulated()."';";
 						$GLOBALS['DATABASE']->query($SQL);
 						$after 		= array('metal' => ($before['metal'] + $metal), 'crystal' => ($before['crystal'] + $cristal), 'deuterium' => ($before['deuterium'] + $deut));
 					}
@@ -68,7 +68,7 @@ function ShowAccountEditorPage()
 						$SQL  = "UPDATE ".USERS." SET ";
 						$SQL .= "`darkmatter` = `darkmatter` + '". $dark ."' ";
 						$SQL .= "WHERE ";
-						$SQL .= "`id` = '". $id_dark ."' AND `universe` = '".$_SESSION['adminuni']."' ";
+						$SQL .= "`id` = '". $id_dark ."' AND `universe` = '".Universe::getEmulated()."' ";
 						$GLOBALS['DATABASE']->query($SQL);
 						$after_dm 	= array('darkmatter' => ($before_dm['darkmatter'] + $dark));
 					}
@@ -81,7 +81,7 @@ function ShowAccountEditorPage()
 						$SQL .= "`crystal` = `crystal` - '". $cristal ."', ";
 						$SQL .= "`deuterium` = `deuterium` - '". $deut ."' ";
 						$SQL .= "WHERE ";
-						$SQL .= "`id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';";
+						$SQL .= "`id` = '".$id."' AND `universe` = '".Universe::getEmulated()."';";
 						$GLOBALS['DATABASE']->query($SQL);
 						$after 		= array('metal' => ($before['metal'] - $metal), 'crystal' => ($before['crystal'] - $cristal), 'deuterium' => ($before['deuterium'] - $deut));
 					}
@@ -146,7 +146,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
+					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".Universe::getEmulated()."';";
 					$GLOBALS['DATABASE']->query($SQL);
 				}
 				elseif ($_POST['delete'])
@@ -160,7 +160,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
+					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".Universe::getEmulated()."';";
 					$GLOBALS['DATABASE']->query($SQL);
 				}
 				
@@ -214,7 +214,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
+					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".Universe::getEmulated()."';";
 					$GLOBALS['DATABASE']->query($SQL);
 				}
 				elseif ($_POST['delete'])
@@ -227,7 +227,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
+					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".Universe::getEmulated()."';";
 					$GLOBALS['DATABASE']->query( $SQL);
 					$Name	=	$LNG['log_nomoree'];
 				}
@@ -291,7 +291,7 @@ function ShowAccountEditorPage()
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= ", `field_current` = `field_current` + '".$Fields."'";
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
+					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".Universe::getEmulated()."';";
 					$GLOBALS['DATABASE']->query($SQL);
 				}
 				elseif ($_POST['delete'])
@@ -311,7 +311,7 @@ function ShowAccountEditorPage()
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= ", `field_current` = `field_current` - '".$Fields."'";
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
+					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".Universe::getEmulated()."';";
 					$GLOBALS['DATABASE']->query($SQL);
 				}
 				
@@ -365,7 +365,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
+					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".Universe::getEmulated()."';";
 					$GLOBALS['DATABASE']->query($SQL);
 				}
 				elseif ($_POST['delete'])
@@ -378,7 +378,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
+					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".Universe::getEmulated()."';";
 					$GLOBALS['DATABASE']->query($SQL);
 				}
 				
@@ -457,7 +457,7 @@ function ShowAccountEditorPage()
 				}
 				
 				$PersonalQuery    .=  "`urlaubs_modus` = '".$Answer."', `urlaubs_until` = '".$TimeAns."' ";			
-				$PersonalQuery    .= "WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."'";
+				$PersonalQuery    .= "WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."'";
 				$GLOBALS['DATABASE']->query($PersonalQuery);
 				
 				$LOG = new Log(1);
@@ -498,7 +498,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
+					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".Universe::getEmulated()."';";
 					$GLOBALS['DATABASE']->query($SQL);
 				}
 				elseif ($_POST['delete'])
@@ -511,7 +511,7 @@ function ShowAccountEditorPage()
 					}
 					$SQL .= implode(", ", $QryUpdate);
 					$SQL .= "WHERE ";
-					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".$_SESSION['adminuni']."';";
+					$SQL .= "`id` = '".HTTP::_GP('id', 0)."' AND `universe` = '".Universe::getEmulated()."';";
 					$GLOBALS['DATABASE']->query($SQL);
 				}
 				
@@ -562,7 +562,7 @@ function ShowAccountEditorPage()
 				$planet			= HTTP::_GP('p', 0);
 
 				if (!empty($name))
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `name` = '".$GLOBALS['DATABASE']->sql_escape($name)."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `name` = '".$GLOBALS['DATABASE']->sql_escape($name)."' WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."';");
 						
 				if ($buildings == 'on')
 				{
@@ -570,7 +570,7 @@ function ShowAccountEditorPage()
 						$BUILD[]	= "`".$resource[$ID]."` = '0'";
 					}
 						
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(', ',$BUILD)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(', ',$BUILD)." WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."';");
 				}
 					
 				if ($ships == 'on')
@@ -579,7 +579,7 @@ function ShowAccountEditorPage()
 						$SHIPS[]	= "`".$resource[$ID]."` = '0'";
 					}
 					
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(', ',$SHIPS)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(', ',$SHIPS)." WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."';");
 				}
 						
 				if ($defenses == 'on')
@@ -588,36 +588,36 @@ function ShowAccountEditorPage()
 						$DEFS[]	= "`".$resource[$ID]."` = '0'";
 					}
 				
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(', ',$DEFS)." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET ".implode(', ',$DEFS)." WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."';");
 				}
 
 				if ($c_hangar == 'on')
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = '' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `b_hangar` = '0', `b_hangar_plus` = '0', `b_hangar_id` = '' WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."';");
 
 				if ($c_buildings == 'on')
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `b_building` = '0', `b_building_id` = '' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `b_building` = '0', `b_building_id` = '' WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."';");
 
 				if (!empty($diameter))
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `diameter` = '".$diameter."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `diameter` = '".$diameter."' WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."';");
 
 				if (!empty($fields))
-					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `field_max` = '".$fields."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `field_max` = '".$fields."' WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."';");
 						
-				if ($change_pos == 'on' && $galaxy > 0 && $system > 0 && $planet > 0 && $galaxy <= $GLOBALS['CONFIG'][$_SESSION['adminuni']]['max_galaxy'] && $system <= $GLOBALS['CONFIG'][$_SESSION['adminuni']]['max_system'] && $planet <= $GLOBALS['CONFIG'][$_SESSION['adminuni']]['max_planets'])
+				if ($change_pos == 'on' && $galaxy > 0 && $system > 0 && $planet > 0 && $galaxy <= Config::get(Universe::getEmulated())->max_galaxy && $system <= Config::get(Universe::getEmulated())->max_system && $planet <= Config::get(Universe::getEmulated())->max_planets)
 				{
-					$P	=	$GLOBALS['DATABASE']->getFirstRow("SELECT galaxy,system,planet,planet_type FROM ".PLANETS." WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+					$P	=	$GLOBALS['DATABASE']->getFirstRow("SELECT galaxy,system,planet,planet_type FROM ".PLANETS." WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."';");
 					if ($P['planet_type'] == '1')
 					{
-						if (CheckPlanetIfExist($galaxy, $system, $planet, Universe::current(), $P['planet_type']))
+						if (PlayerUtil::checkPosition(Universe::getEmulated(), $galaxy, $system, $planet,$P['planet_type']))
 						{
 							$template->message($LNG['ad_pla_error_planets3'], '?page=accounteditor&edit=planets');
 							exit;
 						}
 
-						$GLOBALS['DATABASE']->query ("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+						$GLOBALS['DATABASE']->query ("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."';");
 
 					} else {
-						if(CheckPlanetIfExist($galaxy, $system, $planet, Universe::current(), $P['planet_type']))
+						if(PlayerUtil::checkPosition(Universe::getEmulated(), $galaxy, $system, $planet, $P['planet_type']))
 						{
 							$template->message($LNG['ad_pla_error_planets5'], '?page=accounteditor&edit=planets');
 							exit;
@@ -631,10 +631,10 @@ function ShowAccountEditorPage()
 							exit;
 						}
 							
-						$GLOBALS['DATABASE']->multi_query("UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `galaxy` = '".$P['galaxy']."' AND `system` = '".$P['system']."' AND `planet` = '".$P['planet']."' AND `planet_type` = '1';UPDATE ".PLANETS." SET `id_luna` = '".$id."'  WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND planet_type = '1';UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+						$GLOBALS['DATABASE']->multi_query("UPDATE ".PLANETS." SET `id_luna` = '0' WHERE `galaxy` = '".$P['galaxy']."' AND `system` = '".$P['system']."' AND `planet` = '".$P['planet']."' AND `planet_type` = '1';UPDATE ".PLANETS." SET `id_luna` = '".$id."'  WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."' AND planet_type = '1';UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."' WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."';");
 						
 						$QMOON2	=	$GLOBALS['DATABASE']->getFirstRow("SELECT id_owner FROM ".PLANETS." WHERE `galaxy` = '".$galaxy."' AND `system` = '".$system."' AND `planet` = '".$planet."';");
-						$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."', `id_owner` = '".$QMOON2['id_owner']."' WHERE `id` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."' AND `planet_type` = '3';");
+						$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET `galaxy` = '".$galaxy."', `system` = '".$system."', `planet` = '".$planet."', `id_owner` = '".$QMOON2['id_owner']."' WHERE `id` = '".$id."' AND `universe` = '".Universe::getEmulated()."' AND `planet_type` = '3';");
 					}
 				}
 
@@ -658,34 +658,34 @@ function ShowAccountEditorPage()
 				$delete			=	HTTP::_GP('delete', '');
 				$delete_u		=	HTTP::_GP('delete_u', '');
 
-				$QueryF	=	$GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
+				$QueryF	=	$GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `ally_universe` = '".Universe::getEmulated()."';");
 
 				if (!empty($name))
-					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_name` = '".$name."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_name` = '".$name."' WHERE `id` = '".$id."' AND `ally_universe` = '".Universe::getEmulated()."';");
 
 				if (!empty($tag))
-					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_tag` = '".$tag."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_tag` = '".$tag."' WHERE `id` = '".$id."' AND `ally_universe` = '".Universe::getEmulated()."';");
 
 				$QueryF2	=	$GLOBALS['DATABASE']->getFirstRow("SELECT ally_id FROM ".USERS." WHERE `id` = '".$changeleader."';");
-				$GLOBALS['DATABASE']->multi_query("UPDATE ".ALLIANCE." SET `ally_owner` = '".$changeleader."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_rank_id` = '0' WHERE `id` = '".$changeleader."';");
+				$GLOBALS['DATABASE']->multi_query("UPDATE ".ALLIANCE." SET `ally_owner` = '".$changeleader."' WHERE `id` = '".$id."' AND `ally_universe` = '".Universe::getEmulated()."';UPDATE ".USERS." SET `ally_rank_id` = '0' WHERE `id` = '".$changeleader."';");
 						
 				if (!empty($externo))
-					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_description` = '".$externo."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_description` = '".$externo."' WHERE `id` = '".$id."' AND `ally_universe` = '".Universe::getEmulated()."';");
 				
 				if (!empty($interno))
-					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_text` = '".$interno."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_text` = '".$interno."' WHERE `id` = '".$id."' AND `ally_universe` = '".Universe::getEmulated()."';");
 					
 				if (!empty($solicitud))
-					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_request` = '".$solicitud."' WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';");
+					$GLOBALS['DATABASE']->query("UPDATE ".ALLIANCE." SET `ally_request` = '".$solicitud."' WHERE `id` = '".$id."' AND `ally_universe` = '".Universe::getEmulated()."';");
 				
 				if ($delete == 'on')
 				{
-					$GLOBALS['DATABASE']->multi_query("DELETE FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_rank_id` = '0', `ally_register_time` = '0' WHERE `ally_id` = '".$id."';");
+					$GLOBALS['DATABASE']->multi_query("DELETE FROM ".ALLIANCE." WHERE `id` = '".$id."' AND `ally_universe` = '".Universe::getEmulated()."';UPDATE ".USERS." SET `ally_id` = '0', `ally_rank_id` = '0', `ally_register_time` = '0' WHERE `ally_id` = '".$id."';");
 				}
 
 				if (!empty($delete_u))
 				{
-					$GLOBALS['DATABASE']->multi_query("UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$id."' AND `ally_universe` = '".$_SESSION['adminuni']."';UPDATE ".USERS." SET `ally_id` = '0', `ally_rank_id` = '0', `ally_register_time` = '0' WHERE `id` = '".$delete_u."' AND `ally_id` = '".$id."';");
+					$GLOBALS['DATABASE']->multi_query("UPDATE ".ALLIANCE." SET `ally_members` = ally_members - 1 WHERE `id` = '".$id."' AND `ally_universe` = '".Universe::getEmulated()."';UPDATE ".USERS." SET `ally_id` = '0', `ally_rank_id` = '0', `ally_register_time` = '0' WHERE `id` = '".$delete_u."' AND `ally_id` = '".$id."';");
 				}
 
 

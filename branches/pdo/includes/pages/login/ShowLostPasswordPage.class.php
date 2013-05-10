@@ -46,7 +46,7 @@ class ShowLostPasswordPage extends AbstractPage
 			'universeSelect'	=> $universeSelect
 		));
 		
-		$this->render('page.lostPassword.default.tpl');
+		$this->display('page.lostPassword.default.tpl');
 	}
 	
 	function newPassword() 
@@ -66,7 +66,7 @@ class ShowLostPasswordPage extends AbstractPage
 
 		if(empty($isValid))
 		{
-			$this->printMessage($LNG['passwordValidInValid'], NULL, array(array(
+			$this->printMessage($LNG['passwordValidInValid'], array(array(
 				'label'	=> $LNG['passwordBack'],
 				'url'	=> 'index.php',
 			)));
@@ -111,7 +111,7 @@ class ShowLostPasswordPage extends AbstractPage
 			':validationKey'	=> $validationKey
 		));
 
-		$this->printMessage($LNG['passwordChangedMailSend'], NULL, array(array(
+		$this->printMessage($LNG['passwordChangedMailSend'], array(array(
 			'label'	=> $LNG['passwordNext'],
 			'url'	=> 'index.php',
 		)));
@@ -152,7 +152,7 @@ class ShowLostPasswordPage extends AbstractPage
 		if(!empty($errorMessages))
 		{
 			$message	= implode("<br>\r\n", $errorMessages);
-			$this->printMessage($message, NULL, array(array(
+			$this->printMessage($message, array(array(
 				'label'	=> $LNG['passwordBack'],
 				'url'	=> 'index.php?page=lostPassword',
 			)));
@@ -169,7 +169,7 @@ class ShowLostPasswordPage extends AbstractPage
 
 		if(empty($userID))
 		{
-			$this->printMessage($LNG['passwordErrorUnknown'], NULL, array(array(
+			$this->printMessage($LNG['passwordErrorUnknown'], array(array(
 				'label'	=> $LNG['passwordBack'],
 				'url'	=> 'index.php?page=lostPassword',
 			)));
@@ -183,7 +183,7 @@ class ShowLostPasswordPage extends AbstractPage
 
 		if(!empty($hasChanged))
 		{
-			$this->printMessage($LNG['passwordErrorOnePerDay'], NULL, array(array(
+			$this->printMessage($LNG['passwordErrorOnePerDay'], array(array(
 				'label'	=> $LNG['passwordBack'],
 				'url'	=> 'index.php?page=lostPassword',
 			)));
@@ -217,7 +217,7 @@ class ShowLostPasswordPage extends AbstractPage
 			':remoteAddr'	=> $_SERVER['REMOTE_ADDR']
 		));
 
-		$this->printMessage($LNG['passwordValidMailSend'], NULL, array(array(
+		$this->printMessage($LNG['passwordValidMailSend'], array(array(
 			'label'	=> $LNG['passwordNext'],
 			'url'	=> 'index.php',
 		)));

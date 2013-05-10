@@ -36,7 +36,7 @@ class StatBanner {
 		stat.total_points, stat.total_rank,
 		planet.name, planet.galaxy, planet.system, planet.planet, config.game_name,
 		config.users_amount, config.ttf_file
-		FROM %%.USERS%% as user, %%STATPOINTS%% as stat, %%PLANETS%% as planet, %%CONFIG%% as config
+		FROM %%USERS%% as user, %%STATPOINTS%% as stat, %%PLANETS%% as planet, %%CONFIG%% as config
 		WHERE user.id = :userId AND stat.stat_type = :statType AND stat.id_owner = :userId
 		AND planet.id = user.id_planet AND config.uni = user.universe;';
 
@@ -80,7 +80,7 @@ class StatBanner {
 		
 		imagettftext($image, 11, 0, 250, 81, $shadow, $Font, $LNG['ub_quote'].': '.html_entity_decode(shortly_number($quote, 2)).'%');
 		imagettftext($image, 11, 0, 250, 80, $color, $Font, $LNG['ub_quote'].': '.html_entity_decode(shortly_number($quote, 2)).'%');
-				
+		
 		if(!isset($_GET['debug']))
 		{
 			HTTP::sendHeader('Content-type', 'image/jpg');

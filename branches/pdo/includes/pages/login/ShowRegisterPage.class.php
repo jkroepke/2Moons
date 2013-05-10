@@ -108,7 +108,7 @@ class ShowRegisterPage extends AbstractPage
 			'registerRulesDesc'	=> sprintf($LNG['registerRulesDesc'], '<a href="index.php?page=rules">'.$LNG['menu_rules'].'</a>')
 		));
 		
-		$this->render('page.register.default.tpl');
+		$this->display('page.register.default.tpl');
 	}
 	
 	function send() 
@@ -118,7 +118,7 @@ class ShowRegisterPage extends AbstractPage
 
 		if($config->game_disable == 0 || $config->reg_closed == 1)
 		{
-			$this->printMessage($LNG['registerErrorUniClosed'], NULL, array(array(
+			$this->printMessage($LNG['registerErrorUniClosed'], array(array(
 				'label'	=> $LNG['registerBack'],
 				'url'	=> 'javascript:window.history.back()',
 			)));
@@ -239,7 +239,7 @@ class ShowRegisterPage extends AbstractPage
 		}
 						
 		if (!empty($errors)) {
-			$this->printMessage(implode("<br>\r\n", $errors), NULL, array(array(
+			$this->printMessage(implode("<br>\r\n", $errors), array(array(
 				'label'	=> $LNG['registerBack'],
 				'url'	=> 'javascript:window.history.back()',
 			)));

@@ -48,6 +48,6 @@ class ShowDisclamerPage extends AbstractPage
 			'disclamerNotice'	=> $config->disclamerNotice,
 		));
 		
-		$this->render('page.disclamer.default.tpl');
+		$this->display('page.disclamer.default.tpl');
 	}
 }

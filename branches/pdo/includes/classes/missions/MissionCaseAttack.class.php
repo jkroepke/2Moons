@@ -38,6 +38,7 @@ class MissionCaseAttack extends MissionFunctions implements Mission
 		global $resource, $reslist;
 
 		$db				= Database::get();
+		$config			= Config::get($this->_fleet['fleet_universe']);
 
 		$fleetAttack	= array();
 		$fleetDefend	= array();
@@ -185,8 +186,8 @@ HTML;
 		
 		require_once './functions/calculateAttack.php';
 
-		$fleetIntoDebris	= Config::get($this->_fleet['fleet_universe'])->Fleet_Cdr;
-		$defIntoDebris		= Config::get($this->_fleet['fleet_universe'])->Defs_Cdr;
+		$fleetIntoDebris	= $config->Fleet_Cdr;
+		$defIntoDebris		= $config->Defs_Cdr;
 		
 		$combatResult 		= calculateAttack($fleetAttack, $fleetDefend, $fleetIntoDebris, $defIntoDebris);
 
@@ -348,8 +349,8 @@ HTML;
 		
 		$debrisTotal		= array_sum($debris);
 		
-		$moonFactor			= $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['moon_factor'];
-		$maxMoonChance		= $GLOBALS['CONFIG'][$this->_fleet['fleet_universe']]['moon_chance'];
+		$moonFactor			= $config->moon_factor;
+		$maxMoonChance		= $config->moon_chance;
 		
 		if($targetPlanet['id_luna'] == 0 && $targetPlanet['planet_type'] == 1)
 		{

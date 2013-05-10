@@ -150,7 +150,7 @@ function ShowSearchPage()
 				$SName			= $LNG['se_input_admm'];}
 				
 				
-			$SpecialSpecify	.= " AND universe = '".$_SESSION['adminuni']."'";
+			$SpecialSpecify	.= " AND universe = '".Universe::getEmulated()."'";
 			
 			(($SearchFor == "name") ? $WhereItem = "WHERE username" : $WhereItem = "WHERE id");
 			$ArrayOSec		= array("id", "username", "email_2", "onlinetime", "register_time", "user_lastip", "authlevel", "bana", "urlaubs_modus");
@@ -179,7 +179,7 @@ function ShowSearchPage()
 				$SName			= $LNG['se_input_act_pla'];
 			}
 			
-			$SpecialSpecify	.= " AND p.universe = ".$_SESSION['adminuni'];
+			$SpecialSpecify	.= " AND p.universe = ".Universe::getEmulated();
 			$WhereItem = "LEFT JOIN ".USERS." u ON u.id = p.id_owner ";
 			if($SearchFor == "name") {
 				$WhereItem .= "WHERE p.name";
@@ -201,7 +201,7 @@ function ShowSearchPage()
 			$NameLang		= $LNG['se_search_banned'];
 			$SpecifyItems	= "id,who,time,longer,theme,author";
 			$SName			= $LNG['se_input_susss'];
-			$SpecialSpecify	= " AND universe = '".$_SESSION['adminuni']."'";
+			$SpecialSpecify	= " AND universe = '".Universe::getEmulated()."'";
 			
 			(($SearchFor == "name") ? $WhereItem = "WHERE who" : $WhereItem = "WHERE id");
 			
@@ -220,7 +220,7 @@ function ShowSearchPage()
 			$NameLang		= $LNG['se_search_alliance'];
 			$SpecifyItems	= "id,ally_name,ally_tag,ally_owner,ally_register_time,ally_members";
 			$SName			= $LNG['se_input_allyy'];
-			$SpecialSpecify	= " AND ally_universe = '".$_SESSION['adminuni']."'";
+			$SpecialSpecify	= " AND ally_universe = '".Universe::getEmulated()."'";
 			
 			(($SearchFor == "name") ? $WhereItem = "WHERE ally_name" : $WhereItem = "WHERE id");
 			

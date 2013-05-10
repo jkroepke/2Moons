@@ -91,9 +91,9 @@ function ShowUniversePage() {
 				LEFT JOIN ".LOSTPASSWORD." ON ".USERS.".id = ".LOSTPASSWORD.".userID
 				WHERE ".USERS.".universe = ".$universe.";");
 				$GLOBALS['DATABASE']->query("DELETE FROM ".USERS_VALID." WHERE universe = ".$universe.";");
-				if($_SESSION['adminuni'] == $universe)
+				if(Universe::getEmulated() == $universe)
 				{
-					$_SESSION['adminuni']	= $USER['universe'];
+					Universe::getEmulated()	= $USER['universe'];
 				}
 
 

@@ -1,1 +1,0 @@
-ALTER TABLE `prefix_config` ADD `dst` ENUM( '0', '1', '2' ) NOT NULL DEFAULT '0';

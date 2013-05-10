@@ -34,22 +34,41 @@ class MissionCaseTransport extends MissionFunctions implements Mission
 	
 	function TargetEvent()
 	{
-		$StartPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT name FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_start_id'] ."';");
-		$StartName		= $StartPlanet['name'];
-		$StartOwner		= $this->_fleet['fleet_owner'];
+		$sql = 'SELECT name FROM %%PLANETS%% WHERE `id` = :planetId;';
 
-		$TargetPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT name FROM ".PLANETS." WHERE `id` = '". $this->_fleet['fleet_end_id'] ."';");
-		$TargetName		= $TargetPlanet['name'];
-		$TargetOwner	= $this->_fleet['fleet_target_owner'];
+		$startPlanetName	= Database::get()->selectSingle($sql, array(
+			':planetId'	=> $this->_fleet['fleet_start_id']
+		), 'name');
+
+		$targetPlanetName	= Database::get()->selectSingle($sql, array(
+			':planetId'	=> $this->_fleet['fleet_end_id']
+		), 'name');
 		
-		$LNG			= $this->getLanguage(NULL, $StartOwner);
-		$Message		= sprintf($LNG['sys_tran_mess_owner'], $TargetName, GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]);
-		PlayerUtil::sendMessage($StartOwner, 0, $this->_fleet['fleet_start_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_mess_transport'], $Message);
-		if ($TargetOwner != $StartOwner) 
+		$LNG			= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
+
+		$Message		= sprintf($LNG['sys_tran_mess_owner'],
+			$targetPlanetName, GetTargetAdressLink($this->_fleet, ''),
+			pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901],
+			pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902],
+			pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]
+		);
+
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 5,
+			$LNG['sys_mess_tower'], $LNG['sys_mess_transport'], $Message);
+
+		if ($this->_fleet['fleet_target_owner'] != $this->_fleet['fleet_owner']) 
 		{
-			$LNG			= $this->getLanguage(NULL, $TargetOwner);
-			$Message        = sprintf($LNG['sys_tran_mess_user'], $StartName, GetStartAdressLink($this->_fleet, ''), $TargetName, GetTargetAdressLink($this->_fleet, ''), pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901], pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902], pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903] );
-			PlayerUtil::sendMessage($TargetOwner, 0, $this->_fleet['fleet_start_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_mess_transport'], $Message);
+			$LNG			= $this->getLanguage(NULL, $this->_fleet['fleet_target_owner']);
+			$Message        = sprintf($LNG['sys_tran_mess_user'],
+				$startPlanetName, GetStartAdressLink($this->_fleet, ''),
+				$targetPlanetName, GetTargetAdressLink($this->_fleet, ''),
+				pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901],
+				pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902],
+				pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]
+			);
+
+			PlayerUtil::sendMessage($this->_fleet['fleet_target_owner'], 0, $this->_fleet['fleet_start_time'], 5,
+				$LNG['sys_mess_tower'], $LNG['sys_mess_transport'], $Message);
 		}
 	
 		$this->StoreGoodsToPlanet();
@@ -71,7 +90,10 @@ class MissionCaseTransport extends MissionFunctions implements Mission
 		), 'name');
 
 		$Message	= sprintf($LNG['sys_tran_mess_back'], $planetName, GetStartAdressLink($this->_fleet, ''));
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
+
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 5,
+			$LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
+
 		$this->RestoreFleet();
 	}
 }

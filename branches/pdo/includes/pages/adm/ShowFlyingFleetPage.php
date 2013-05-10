@@ -37,7 +37,7 @@ function ShowFlyingFleetPage()
 	$id	= HTTP::_GP('id', 0);
 	if(!empty($id)){
 		$lock	= HTTP::_GP('lock', 0);
-		$GLOBALS['DATABASE']->query("UPDATE ".FLEETS." SET `fleet_busy` = '".$lock."' WHERE `fleet_id` = '".$id."' AND `fleet_universe` = '".$_SESSION['adminuni']."';");
+		$GLOBALS['DATABASE']->query("UPDATE ".FLEETS." SET `fleet_busy` = '".$lock."' WHERE `fleet_id` = '".$id."' AND `fleet_universe` = '".Universe::getEmulated()."';");
 		
 		$SQL	= ($lock == 0) ? "NULL" : "'ADM_LOCK'";
 		
@@ -62,7 +62,7 @@ function ShowFlyingFleetPage()
 	LEFT JOIN ".USERS." ustart ON ustart.id = fleet_owner
 	LEFT JOIN ".USERS." utarget ON utarget.id = fleet_target_owner
 	LEFT JOIN ".AKS." acs ON acs.id = fleet_group
-	WHERE fleet_universe = ".$_SESSION['adminuni']."
+	WHERE fleet_universe = ".Universe::getEmulated()."
 	GROUP BY event.fleetID
 	ORDER BY ".$orderBy.";");
 	

@@ -59,6 +59,6 @@ class ShowNewsPage extends AbstractPage
 			'newsList'	=> $newsList,
 		));
 		
-		$this->render('page.news.default.tpl');
+		$this->display('page.news.default.tpl');
 	}
 }

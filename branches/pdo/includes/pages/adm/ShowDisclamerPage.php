@@ -33,7 +33,7 @@ function ShowDisclamerPage()
 	global $LNG;
 
 
-	$config = Config::get($_SESSION['adminuni']);
+	$config = Config::get(Universe::getEmulated());
 
 	if (!empty($_POST))
 	{

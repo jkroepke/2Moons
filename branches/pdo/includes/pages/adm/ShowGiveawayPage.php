@@ -79,7 +79,7 @@ function ShowGiveaway()
 			$SQL	.= " AND u.onlinetime < ".(TIMESTAMP - INACTIVE);
 		}
 		
-		$SQL	.= " SET ".implode(', ', $data)." WHERE p.universe = ".$_SESSION['adminuni']." AND p.planet_type IN (".implode(',', $planetIN).")";
+		$SQL	.= " SET ".implode(', ', $data)." WHERE p.universe = ".Universe::getEmulated()." AND p.planet_type IN (".implode(',', $planetIN).")";
 		
 		$GLOBALS['DATABASE']->query($SQL);
 		

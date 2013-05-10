@@ -50,7 +50,7 @@ class ShowSupportPage
 	{
 		global $USER, $LNG;
 				
-		$ticketResult	= $GLOBALS['DATABASE']->query("SELECT t.*, u.username, COUNT(a.ticketID) as answer FROM ".TICKETS." t INNER JOIN ".TICKETS_ANSWER." a USING (ticketID) INNER JOIN ".USERS." u ON u.id = t.ownerID WHERE t.universe = ".$_SESSION['adminuni']." GROUP BY a.ticketID ORDER BY t.ticketID DESC;");
+		$ticketResult	= $GLOBALS['DATABASE']->query("SELECT t.*, u.username, COUNT(a.ticketID) as answer FROM ".TICKETS." t INNER JOIN ".TICKETS_ANSWER." a USING (ticketID) INNER JOIN ".USERS." u ON u.id = t.ownerID WHERE t.universe = ".Universe::getEmulated()." GROUP BY a.ticketID ORDER BY t.ticketID DESC;");
 		$ticketList		= array();
 		
 		while($ticketRow = $GLOBALS['DATABASE']->fetch_array($ticketResult)) {

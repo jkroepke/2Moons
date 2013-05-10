@@ -28,6 +28,7 @@
 
 class Universe {
 	private static $currentUniverse = NULL;
+	private static $emulatedUniverse = NULL;
 	private static $availableUniverses = array();
 
 	/**
@@ -44,6 +45,40 @@ class Universe {
 		}
 
 		return self::$currentUniverse;
+	}
+	
+	static public function getEmulated()
+	{
+		if(is_null(self::$emulatedUniverse))
+		{
+			$session	= Session::load();
+			if(isset($session->emulatedUniverse))
+			{
+				self::setEmulated($session->emulatedUniverse);
+			}
+			else
+			{
+				self::setEmulated(self::current());
+			}
+		}
+		
+		return self::$emulatedUniverse;
+	}
+	
+	static public function setEmulated($universeId)
+	{
+		if(!self::exists($universeId))
+		{
+			throw new Exception('Unknown universe ID: '.$universeId);
+		}
+
+		$session	= Session::load();
+		$session->emulatedUniverse	= $universeId;
+		$session->save();
+
+		self::$emulatedUniverse	= $universeId;
+		
+		return true;
 	}
 
 	/**
@@ -73,6 +108,10 @@ class Universe {
 				$universe = (int) $_REQUEST['uni'];
 			}
 		}
+		elseif(MODE == 'ADMIN' && isset($_SESSION['admin_uni']))
+		{
+			$universe = (int) $_SESSION['admin_uni'];
+		}
 
 		if(!isset($universe))
 		{
@@ -91,7 +130,6 @@ class Universe {
 			}
 			else
 			{
-
 				if(count(self::availableUniverses()) == 1)
 				{
 					$universe = ROOT_UNI;

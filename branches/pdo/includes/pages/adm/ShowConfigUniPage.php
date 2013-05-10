@@ -32,7 +32,7 @@ function ShowConfigUniPage()
 {
 	global $LNG;
 
-	$config = Config::get($_SESSION['adminuni']);
+	$config = Config::get(Universe::getEmulated());
 	
 	if (!empty($_POST))
 	{
@@ -245,7 +245,7 @@ function ShowConfigUniPage()
 		$LOG->save();
 
 		if($config->adm_attack == 0)
-			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET `authattack` = '0' WHERE `universe` = '".$_SESSION['adminuni']."';");
+			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET `authattack` = '0' WHERE `universe` = '".Universe::getEmulated()."';");
 	}
 	
 	$template	= new template();

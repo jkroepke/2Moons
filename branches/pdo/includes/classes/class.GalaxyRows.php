@@ -27,7 +27,7 @@
  */
 
 require_once 'includes/classes/class.FleetFunctions.php';
-require_once 'includes/pages/game/class.ShowPhalanxPage.php';
+require_once 'includes/pages/game/ShowPhalanxPage.class.php';
 
 class GalaxyRows
 {

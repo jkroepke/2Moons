@@ -52,7 +52,7 @@ function ShowAutoCompletePage()
 		$orderBy = " ORDER BY (IF(username = '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."', 1, 0) + IF(username LIKE '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%', 1, 0)) DESC, username";
 	}
 	
-	$userRaw		= $GLOBALS['DATABASE']->query("SELECT id, username FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND ".$where.$orderBy." LIMIT 20");
+	$userRaw		= $GLOBALS['DATABASE']->query("SELECT id, username FROM ".USERS." WHERE universe = ".Universe::getEmulated()." AND ".$where.$orderBy." LIMIT 20");
 	while($userRow = $GLOBALS['DATABASE']->fetch_array($userRaw))
 	{
 		$searchList[]	= array(

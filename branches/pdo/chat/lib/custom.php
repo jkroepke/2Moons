@@ -15,8 +15,8 @@ define('ROOT_PATH', str_replace('\\', '/', dirname(AJAX_CHAT_PATH)).'/');
 set_include_path(ROOT_PATH);
 chdir(ROOT_PATH);
 
-require 'includes/pages/game/class.AbstractPage.php';
-require 'includes/pages/game/class.ShowErrorPage.php';
+require 'includes/pages/game/AbstractPage.class.php';
+require 'includes/pages/game/ShowErrorPage.class.php';
 require 'includes/common.php';
 
 $session	= Session::load();

@@ -29,7 +29,7 @@
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__)) || $_GET['sid'] != session_id()) exit;
 function ShowRightsPage()
 {
-	global $LNG, $CONF, $USER;
+	global $LNG, $USER;
 	$mode	= HTTP::_GP('mode', '');
 	switch($mode)
 	{
@@ -86,7 +86,7 @@ function ShowRightsPage()
 				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_USR."'";			
 				
 				
-			$QueryUsers	=	$GLOBALS['DATABASE']->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".$WHEREUSERS.";");
+			$QueryUsers	=	$GLOBALS['DATABASE']->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `universe` = '".Universe::getEmulated()."'".$WHEREUSERS.";");
 				
 			$UserList	= "";
 			while ($List = $GLOBALS['DATABASE']->fetch_array($QueryUsers)) {
@@ -144,7 +144,7 @@ function ShowRightsPage()
 			elseif ($_GET['get'] == 'pla')
 				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_USR."'";	
 				
-			$QueryUsers	=	$GLOBALS['DATABASE']->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".$WHEREUSERS.";");
+			$QueryUsers	=	$GLOBALS['DATABASE']->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `universe` = '".Universe::getEmulated()."'".$WHEREUSERS.";");
 				
 			$UserList	= "";
 			while ($List = $GLOBALS['DATABASE']->fetch_array($QueryUsers)) {

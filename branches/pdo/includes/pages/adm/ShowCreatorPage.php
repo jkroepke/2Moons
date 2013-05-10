@@ -52,12 +52,12 @@ function ShowCreatorPage()
 				$Planet 	= HTTP::_GP('planet', 0);
 				$Language 	= HTTP::_GP('lang', '');
 					
-				$ExistsUser 	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND username = '".$GLOBALS['DATABASE']->sql_escape($UserName)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$_SESSION['adminuni']." AND username = '".$GLOBALS['DATABASE']->sql_escape($UserName)."')");
-				$ExistsMails	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND (email = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".$_SESSION['adminuni']." AND email = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."')");
+				$ExistsUser 	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".Universe::getEmulated()." AND username = '".$GLOBALS['DATABASE']->sql_escape($UserName)."') + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".Universe::getEmulated()." AND username = '".$GLOBALS['DATABASE']->sql_escape($UserName)."')");
+				$ExistsMails	= $GLOBALS['DATABASE']->getFirstCell("SELECT (SELECT COUNT(*) FROM ".USERS." WHERE universe = ".Universe::getEmulated()." AND (email = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."' OR email_2 = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."')) + (SELECT COUNT(*) FROM ".USERS_VALID." WHERE universe = ".Universe::getEmulated()." AND email = '".$GLOBALS['DATABASE']->sql_escape($UserMail)."')");
 
 				$errors	= "";
 
-				$config	= Config::get($_SESSION['adminuni']);
+				$config	= Config::get(Universe::getEmulated());
 
 				if (!PlayerUtil::isMailValid($UserMail))
 					$errors .= $LNG['invalid_mail_adress'];
@@ -83,7 +83,7 @@ function ShowCreatorPage()
 				if ($ExistsMails != 0)
 					$errors .= $LNG['mail_already_exists'];
 				
-				if (!PlayerUtil::isPositionFree(Universe::current(), $Galaxy, $System, $Planet)) {
+				if (!PlayerUtil::isPositionFree(Universe::getEmulated(), $Galaxy, $System, $Planet)) {
 					$errors .= $LNG['planet_already_exists'];
 				}	
 				
@@ -98,7 +98,7 @@ function ShowCreatorPage()
 
 				$Language	= array_key_exists($Language, $LNG->getAllowedLangs(false)) ? $Language : $config->lang;
 
-				PlayerUtil::createPlayer($_SESSION['adminuni'], $UserName,
+				PlayerUtil::createPlayer(Universe::getEmulated(), $UserName,
 					PlayerUtil::cryptPassword($UserPass), $UserMail, $Language, $Galaxy, $System, $Planet,
 					$LNG['fcm_planet'], $UserAuth);
 				
@@ -145,14 +145,14 @@ function ShowCreatorPage()
 				$MoonName  	= HTTP::_GP('name', '', UTF8_SUPPORT);
 				$Diameter	= HTTP::_GP('diameter', 0);
 			
-				$MoonPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT temp_max, temp_min, id_luna, galaxy, system, planet, planet_type, destruyed, id_owner FROM ".PLANETS." WHERE id = '".$PlanetID."' AND universe = '".$_SESSION['adminuni']."' AND planet_type = '1' AND destruyed = '0';");
+				$MoonPlanet	= $GLOBALS['DATABASE']->getFirstRow("SELECT temp_max, temp_min, id_luna, galaxy, system, planet, planet_type, destruyed, id_owner FROM ".PLANETS." WHERE id = '".$PlanetID."' AND universe = '".Universe::getEmulated()."' AND planet_type = '1' AND destruyed = '0';");
 
 				if (!isset($MoonPlanet)) {
 					$template->message($LNG['mo_planet_doesnt_exist'], '?page=create&mode=moon', 3, true);
 					exit;
 				}
 
-				$moonId	= PlayerUtil::createMoon($_SESSION['adminuni'], $MoonPlanet['galaxy'], $MoonPlanet['system'],
+				$moonId	= PlayerUtil::createMoon(Universe::getEmulated(), $MoonPlanet['galaxy'], $MoonPlanet['system'],
 					$MoonPlanet['planet'], $MoonPlanet['id_owner'], 20,
 					(($_POST['diameter_check'] == 'on') ? NULL : $Diameter), $MoonName);
 
@@ -196,20 +196,20 @@ function ShowCreatorPage()
 				$name        = HTTP::_GP('name', '', UTF8_SUPPORT);
 				$field_max   = HTTP::_GP('field_max', 0);
 
-				$config			= Config::get($_SESSION['adminuni']);
+				$config			= Config::get(Universe::getEmulated());
 
 				if ($Galaxy > $config->max_galaxy || $System > $config->max_system || $Planet > $config->max_planets) {
 					$template->message($LNG['po_complete_all2'], '?page=create&mode=planet', 3, true);
 					exit;					
 				}
 				
-				$ISUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT id, authlevel FROM ".USERS." WHERE id = '".$id."' AND universe = '".$_SESSION['adminuni']."';");
-				if(!PlayerUtil::checkPosition($_SESSION['adminuni'], $Galaxy, $System, $Planet) || !isset($ISUser)) {
+				$ISUser		= $GLOBALS['DATABASE']->getFirstRow("SELECT id, authlevel FROM ".USERS." WHERE id = '".$id."' AND universe = '".Universe::getEmulated()."';");
+				if(!PlayerUtil::checkPosition(Universe::getEmulated(), $Galaxy, $System, $Planet) || !isset($ISUser)) {
 					$template->message($LNG['po_complete_all'], '?page=create&mode=planet', 3, true);
 					exit;
 				}
 
-				$planetId	= PlayerUtil::createPlanet($Galaxy, $System, $Planet, $_SESSION['adminuni'], $id, NULL, false, $ISUser['authlevel']);
+				$planetId	= PlayerUtil::createPlanet($Galaxy, $System, $Planet, Universe::getEmulated(), $id, NULL, false, $ISUser['authlevel']);
 						
 				$SQL  = "UPDATE ".PLANETS." SET ";
 				

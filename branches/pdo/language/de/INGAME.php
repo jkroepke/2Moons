@@ -999,6 +999,9 @@ $LNG['sys_refferal_text']        	 		= 'Der von dir geworbene Spieler %s hat nun
 $LNG['sys_closed_game']        	 			= 'Das Universum ist zur Zeit nicht verfügbar:';
 $LNG['spec_mail_inactive_title']  			= '%s - Erinnerung';
 
+$LNG['sys_back']							= 'Zurück';
+$LNG['sys_forward']							= 'Weiter';
+
 //----------------------------------------------------------------------------//
 // CombatReport.php
 $LNG['cr_lost_contact']						= 'Der Kontakt ist mit den Flotten verloren gegangen.';

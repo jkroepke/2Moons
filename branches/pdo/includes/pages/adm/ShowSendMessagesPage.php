@@ -64,11 +64,11 @@ function ShowSendMessagesPage() {
 				$From    	= '<span class="'.$class.'">'.$LNG['user_level'][$USER['authlevel']].' '.$USER['username'].'</span>';
 				$pmSubject 	= '<span class="'.$class.'">'.$Subject.'</span>';
 				$pmMessage 	= '<span class="'.$class.'">'.BBCode::parse($Message).'</span>';
-				$USERS		= $GLOBALS['DATABASE']->query("SELECT `id`, `username` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
+				$USERS		= $GLOBALS['DATABASE']->query("SELECT `id`, `username` FROM ".USERS." WHERE `universe` = '".Universe::getEmulated()."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
 				while($UserData = $GLOBALS['DATABASE']->fetch_array($USERS))
 				{
 					$sendMessage = str_replace('{USERNAME}', $UserData['username'], $pmMessage);
-					PlayerUtil::sendMessage($UserData['id'], $USER['id'], $From, 50, $pmSubject, $sendMessage, TIMESTAMP, NULL, 0, $_SESSION['adminuni']);
+					PlayerUtil::sendMessage($UserData['id'], $USER['id'], $From, 50, $pmSubject, $sendMessage, TIMESTAMP, NULL, 0, Universe::getEmulated());
 				}
 			}
 
@@ -76,7 +76,7 @@ function ShowSendMessagesPage() {
 				require 'includes/classes/Mail.class.php';
 				$userList	= array();
 				
-				$USERS		= $GLOBALS['DATABASE']->query("SELECT `email`, `username` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
+				$USERS		= $GLOBALS['DATABASE']->query("SELECT `email`, `username` FROM ".USERS." WHERE `universe` = '".Universe::getEmulated()."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
 				while($UserData = $GLOBALS['DATABASE']->fetch_array($USERS))
 				{				
 					$userList[$UserData['email']]	= array(

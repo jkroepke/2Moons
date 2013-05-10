@@ -31,7 +31,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 function ShowConfigBasicPage()
 {
 	global $LNG;
-	$config = Config::get($_SESSION['adminuni']);
+	$config = Config::get(Universe::getEmulated());
 
 	if (!empty($_POST))
 	{

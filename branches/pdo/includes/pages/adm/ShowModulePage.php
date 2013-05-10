@@ -32,7 +32,7 @@ function ShowModulePage()
 {
 	global $LNG;
 
-	$config	= Config::get($_SESSION['adminuni']);
+	$config	= Config::get(Universe::getEmulated());
 	$module	= explode(';', $config->moduls);
 	
 	if($_GET['mode']) {
