@@ -76,16 +76,18 @@
 		<script type="text/javascript">
 		var viewShortlyNumber	= {$shortlyNumber|json};
 		var vacation			= {$vmode};
+        $(function() {
 		{foreach $resourceTable as $resourceID => $resourceData}
 		{if isset($resourceData.production)}
-		resourceTicker({
-			available: {$resourceData.current|json},
-			limit: [0, {$resourceData.max|json}],
-			production: {$resourceData.production|json},
-			valueElem: "current_{$resourceData.name}"
-		}, true);
+            resourceTicker({
+                available: {$resourceData.current|json},
+                limit: [0, {$resourceData.max|json}],
+                production: {$resourceData.production|json},
+                valueElem: "current_{$resourceData.name}"
+            }, true);
 		{/if}
 		{/foreach}
+        });
 		</script>
         <script src="scripts/game/topnav.js"></script>
         {if $hasGate}<script src="scripts/game/gate.js"></script>{/if}

@@ -320,7 +320,7 @@ class ShowOverviewPage extends AbstractPage
 		$newname        = HTTP::_GP('name', '', UTF8_SUPPORT);
 		if (!empty($newname))
 		{
-			if (PlayerUtil::isNameValid($newname)) {
+			if (!PlayerUtil::isNameValid($newname)) {
 				$this->sendJSON(array('message' => $LNG['ov_newname_specialchar'], 'error' => true));
 			} else {
 				$db = Database::get();
