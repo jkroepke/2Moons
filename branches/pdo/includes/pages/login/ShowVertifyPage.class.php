@@ -57,7 +57,7 @@ class ShowVertifyPage extends AbstractPage
 			':universe'			=> Universe::current()
 		));
 
-		if(!isset($userData))
+		if(empty($userData))
 		{
 			$this->printMessage($LNG['vertifyNoUserFound']);
 		}
