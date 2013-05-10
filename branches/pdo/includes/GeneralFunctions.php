@@ -388,7 +388,7 @@ function floattostring($Numeric, $Pro = 0, $Output = false){
 
 function isModulAvalible($ID)
 {
-	$modules	= explode(', ', $GLOBALS['CONF']['moduls']);
+	$modules	= explode(', ', Config::get()->moduls);
 
 	if(!isset($modules[$ID]))
 	{
