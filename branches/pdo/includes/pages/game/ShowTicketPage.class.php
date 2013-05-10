@@ -120,7 +120,7 @@ class ShowTicketPage extends AbstractPage
 			}
 		}
 			
-		$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], '', $message, 0);
+		$this->ticketObj->createAnswer($ticketID, $USER['id'], $USER['username'], $subject, $message, 0);
 		$this->redirectTo('game.php?page=ticket&mode=view&id='.$ticketID);
 	}
 	
@@ -151,7 +151,7 @@ class ShowTicketPage extends AbstractPage
 		$ticket_status = 0;
 
 		foreach($answerResult as $answerRow) {
-			$answerRow['time']	= _date($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
+			$answerRow['time']		= _date($LNG['php_tdformat'], $answerRow['time'], $USER['timezone']);
 			$answerRow['message']	= BBCode::parse($answerRow['message']);
 			$answerList[$answerRow['answerID']]	= $answerRow;
 			if (empty($ticket_status))

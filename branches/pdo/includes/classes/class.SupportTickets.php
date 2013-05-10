@@ -34,7 +34,7 @@ class SupportTickets
 		ownerID		= :ownerId,
 		universe	= :universe,
 		categoryID	= :categoryId,
-		subject		= :subject
+		subject		= :subject,
 		time		= :time;';
 
 		Database::get()->insert($sql, array(
@@ -54,7 +54,7 @@ class SupportTickets
 		ticketID	= :ticketId,
 		ownerID		= :ownerId,
 		ownerName	= :ownerName,
-		subject		= :aubjwct,
+		subject		= :subject,
 		message		= :message,
 		time		= :time;';
 
