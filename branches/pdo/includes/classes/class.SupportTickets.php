@@ -31,17 +31,18 @@ class SupportTickets
 	public function createTicket($ownerID, $categoryID, $subject)
 	{
 		$sql 	= 'INSERT INTO %%TICKETS%% SET
-		ownerID		= :ownerId"
+		ownerID		= :ownerId,
 		universe	= :universe,
 		categoryID	= :categoryId,
 		subject		= :subject
-		time = ".TIMESTAMP.";';
+		time		= :time;';
 
 		Database::get()->insert($sql, array(
 			':ownerId'		=> $ownerID,
 			':universe'		=> Universe::current(),
 			':categoryId'	=> $categoryID,
 			':subject'		=> $subject,
+			':time'			=> TIMESTAMP
 		));
 		
 		return Database::get()->lastInsertId();
