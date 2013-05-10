@@ -33,7 +33,7 @@ class Database
 		$database = array();
 		require 'includes/config.php';
 		//Connect
-		$db = new PDO("mysql:host=".$database['host'].":".$database['port'].";dbname=".$database['databasename'], $database['user'], $database['userpw']);
+		$db = new PDO("mysql:host=".$database['host'].";port=".$database['port'].";dbname=".$database['databasename'], $database['user'], $database['userpw']);
 		//error behaviour
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$db->query("set character set utf8");

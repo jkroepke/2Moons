@@ -65,6 +65,16 @@ class template extends Smarty
 	{		
 		parent::assign($var, NULL, $nocache);
 	}
+
+	public function loadscript($script)
+	{
+		$this->jsscript[]			= substr($script, 0, -3);
+	}
+
+	public function execscript($script)
+	{
+		$this->script[]				= $script;
+	}
 	
 	private function adm_main()
 	{

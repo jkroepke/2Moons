@@ -104,12 +104,6 @@ abstract class AbstractPage
 	protected function getNavigationData() 
     {
 		global $PLANET, $LNG, $USER, $THEME, $resource, $reslist;
-		
-		if($PLANET[$resource[43]] > 0) {
-			$this->tplObj->loadscript("gate.js");
-		}
-		
-		$this->tplObj->loadscript("topnav.js");
 
 		$config			= Config::get();
 
@@ -168,7 +162,8 @@ abstract class AbstractPage
 			'shortlyNumber'		=> $themeSettings['TOPNAV_SHORTLY_NUMBER'],
 			'closed'			=> !$config->game_disable,
 			'hasBoard'			=> filter_var($config->forum_url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED),
-			'hasAdminAccess'	=> !empty(Session::load()->adminAccess)
+			'hasAdminAccess'	=> !empty(Session::load()->adminAccess),
+			'hasGate'			=> $PLANET[$resource[43]] > 0
 		));
 	}
 	

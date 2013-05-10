@@ -239,8 +239,6 @@ class ShowOverviewPage extends AbstractPage
 			$chatOnline[]	= $chatRow['userName'];
 		}
 
-		$this->tplObj->loadscript('overview.js');
-
 		$Messages		= $USER['messages'];
 		
 		// Fehler: Wenn Spieler gelöscht werden, werden sie nicht mehr in der Tabelle angezeigt.
@@ -308,8 +306,7 @@ class ShowOverviewPage extends AbstractPage
 
 		$this->initTemplate();
 		$this->setWindow('popup');
-		
-		$this->tplObj->loadscript('overview.actions.js');
+
 		$this->assign(array(
 			'ov_security_confirm'		=> sprintf($LNG['ov_security_confirm'], $PLANET['name'].' ['.$PLANET['galaxy'].':'.$PLANET['system'].':'.$PLANET['planet'].']'),
 		));
