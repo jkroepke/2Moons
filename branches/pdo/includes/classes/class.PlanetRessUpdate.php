@@ -453,23 +453,23 @@ class ResourceUpdate
 			$Level				= $ListIDArray[1];
 			$BuildMode			= $ListIDArray[4];
 			$ForDestroy			= ($BuildMode == 'destroy') ? true : false;
-			$costRessources		= BuildFunctions::getElementPrice($this->USER, $this->PLANET, $Element, $ForDestroy);
-			$BuildTime			= BuildFunctions::getBuildingTime($this->USER, $this->PLANET, $Element, $costRessources);
-			$HaveRessources		= BuildFunctions::isElementBuyable($this->USER, $this->PLANET, $Element, $costRessources);
+			$costResources		= BuildFunctions::getElementPrice($this->USER, $this->PLANET, $Element, $ForDestroy);
+			$BuildTime			= BuildFunctions::getBuildingTime($this->USER, $this->PLANET, $Element, $costResources);
+			$HaveResources		= BuildFunctions::isElementBuyable($this->USER, $this->PLANET, $Element, $costResources);
 			$BuildEndTime		= $this->PLANET['b_building'] + $BuildTime;
 			$CurrentQueue[0]	= array($Element, $Level, $BuildTime, $BuildEndTime, $BuildMode);
 			$HaveNoMoreLevel	= false;
 				
 			if($ForDestroy && $this->PLANET[$resource[$Element]] == 0) {
-				$HaveRessources  = false;
+				$HaveResources  = false;
 				$HaveNoMoreLevel = true;
 			}
 
-			if($HaveRessources === true) {
-				if(isset($costRessources[901])) { $this->PLANET[$resource[901]]	-= $costRessources[901]; }
-				if(isset($costRessources[902])) { $this->PLANET[$resource[902]]	-= $costRessources[902]; }
-				if(isset($costRessources[903])) { $this->PLANET[$resource[903]]	-= $costRessources[903]; }
-				if(isset($costRessources[921])) { $this->USER[$resource[921]]	-= $costRessources[921]; }
+			if($HaveResources === true) {
+				if(isset($costResources[901])) { $this->PLANET[$resource[901]]	-= $costResources[901]; }
+				if(isset($costResources[902])) { $this->PLANET[$resource[902]]	-= $costResources[902]; }
+				if(isset($costResources[903])) { $this->PLANET[$resource[903]]	-= $costResources[903]; }
+				if(isset($costResources[921])) { $this->USER[$resource[921]]	-= $costResources[921]; }
 				$NewQueue               	= serialize($CurrentQueue);
 				$Loop                  		= false;
 			} else {
@@ -477,14 +477,15 @@ class ResourceUpdate
 					if ($HaveNoMoreLevel) {
 						$Message     = sprintf($LNG['sys_nomore_level'], $LNG['tech'][$Element]);
 					} else {
-						if(!isset($costRessources[901])) { $costRessources[901] = 0; }
-						if(!isset($costRessources[902])) { $costRessources[902] = 0; }
-						if(!isset($costRessources[903])) { $costRessources[903] = 0; }
+						if(!isset($costResources[901])) { $costResources[901] = 0; }
+						if(!isset($costResources[902])) { $costResources[902] = 0; }
+						if(!isset($costResources[903])) { $costResources[903] = 0; }
 						
-						$Message     = sprintf($LNG['sys_notenough_money'], $this->PLANET['name'], $this->PLANET['id'], $this->PLANET['galaxy'], $this->PLANET['system'], $this->PLANET['planet'], $LNG['tech'][$Element], pretty_number ($this->PLANET['metal']), $LNG['tech'][901], pretty_number($this->PLANET['crystal']), $LNG['tech'][902], pretty_number ($this->PLANET['deuterium']), $LNG['tech'][903], pretty_number($costRessources[901]), $LNG['tech'][901], pretty_number ($costRessources[902]), $LNG['tech'][902], pretty_number ($costRessources[903]), $LNG['tech'][903]);
+						$Message     = sprintf($LNG['sys_notenough_money'], $this->PLANET['name'], $this->PLANET['id'], $this->PLANET['galaxy'], $this->PLANET['system'], $this->PLANET['planet'], $LNG['tech'][$Element], pretty_number ($this->PLANET['metal']), $LNG['tech'][901], pretty_number($this->PLANET['crystal']), $LNG['tech'][902], pretty_number ($this->PLANET['deuterium']), $LNG['tech'][903], pretty_number($costResources[901]), $LNG['tech'][901], pretty_number ($costResources[902]), $LNG['tech'][902], pretty_number ($costResources[903]), $LNG['tech'][903]);
 					}
-					
-					PlayerUtil::sendMessage($this->USER['id'], 0, $this->TIME, 99, $LNG['sys_buildlist'], $LNG['sys_buildlist_fail'], $Message);
+
+					PlayerUtil::sendMessage($this->USER['id'], 0,$LNG['sys_buildlist'], 99,
+						$LNG['sys_buildlist_fail'], $Message, $this->TIME);
 				}
 
 				array_shift($CurrentQueue);
@@ -584,9 +585,9 @@ class ResourceUpdate
 			
 			$Element            = $ListIDArray[0];
 			$Level              = $ListIDArray[1];
-			$costRessources		= BuildFunctions::getElementPrice($this->USER, $PLANET, $Element);
-			$BuildTime			= BuildFunctions::getBuildingTime($this->USER, $PLANET, $Element, $costRessources);
-			$HaveRessources		= BuildFunctions::isElementBuyable($this->USER, $PLANET, $Element, $costRessources);
+			$costResources		= BuildFunctions::getElementPrice($this->USER, $PLANET, $Element);
+			$BuildTime			= BuildFunctions::getBuildingTime($this->USER, $PLANET, $Element, $costResources);
+			$HaveResources		= BuildFunctions::isElementBuyable($this->USER, $PLANET, $Element, $costResources);
 			$BuildEndTime       = $this->USER['b_tech'] + $BuildTime;
 			$CurrentQueue[0]	= array($Element, $Level, $BuildTime, $BuildEndTime, $PLANET['id']);
 			
@@ -600,11 +601,11 @@ class ResourceUpdate
 				list(, $PLANET)	= $RPLANET->CalcResource($this->USER, $PLANET, false, $this->USER['b_tech'], $IsHash);
 			}
 			
-			if($HaveRessources == true) {
-				if(isset($costRessources[901])) { $PLANET[$resource[901]]		-= $costRessources[901]; }
-				if(isset($costRessources[902])) { $PLANET[$resource[902]]		-= $costRessources[902]; }
-				if(isset($costRessources[903])) { $PLANET[$resource[903]]		-= $costRessources[903]; }
-				if(isset($costRessources[921])) { $this->USER[$resource[921]]	-= $costRessources[921]; }
+			if($HaveResources == true) {
+				if(isset($costResources[901])) { $PLANET[$resource[901]]		-= $costResources[901]; }
+				if(isset($costResources[902])) { $PLANET[$resource[902]]		-= $costResources[902]; }
+				if(isset($costResources[903])) { $PLANET[$resource[903]]		-= $costResources[903]; }
+				if(isset($costResources[921])) { $this->USER[$resource[921]]	-= $costResources[921]; }
 				$this->USER['b_tech_id']		= $Element;
 				$this->USER['b_tech']      		= $BuildEndTime;
 				$this->USER['b_tech_planet']	= $PLANET['id'];
@@ -613,11 +614,11 @@ class ResourceUpdate
 				$Loop                  			= false;
 			} else {
 				if($this->USER['hof'] == 1){
-					if(!isset($costRessources[901])) { $costRessources[901] = 0; }
-					if(!isset($costRessources[902])) { $costRessources[902] = 0; }
-					if(!isset($costRessources[903])) { $costRessources[903] = 0; }
+					if(!isset($costResources[901])) { $costResources[901] = 0; }
+					if(!isset($costResources[902])) { $costResources[902] = 0; }
+					if(!isset($costResources[903])) { $costResources[903] = 0; }
 					
-					$Message     = sprintf($LNG['sys_notenough_money'], $PLANET['name'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $LNG['tech'][$Element], pretty_number ($PLANET['metal']), $LNG['tech'][901], pretty_number($PLANET['crystal']), $LNG['tech'][902], pretty_number ($PLANET['deuterium']), $LNG['tech'][903], pretty_number($costRessources[901]), $LNG['tech'][901], pretty_number ($costRessources[902]), $LNG['tech'][902], pretty_number ($costRessources[903]), $LNG['tech'][903]);
+					$Message     = sprintf($LNG['sys_notenough_money'], $PLANET['name'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $LNG['tech'][$Element], pretty_number ($PLANET['metal']), $LNG['tech'][901], pretty_number($PLANET['crystal']), $LNG['tech'][902], pretty_number ($PLANET['deuterium']), $LNG['tech'][903], pretty_number($costResources[901]), $LNG['tech'][901], pretty_number ($costResources[902]), $LNG['tech'][902], pretty_number ($costResources[903]), $LNG['tech'][903]);
 					PlayerUtil::sendMessage($this->USER['id'], 0, $this->USER['b_tech'], 99, $LNG['sys_techlist'], $LNG['sys_buildlist_fail'], $Message);
 				}
 
