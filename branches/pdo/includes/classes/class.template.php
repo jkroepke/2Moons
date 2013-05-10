@@ -57,7 +57,7 @@ class template extends Smarty
 	private function getTempPath()
 	{
 		$this->force_compile 		= true;
-		include 'includes/libs/wcf/BasicFileUtil.class.php';
+		require_once 'includes/libs/wcf/BasicFileUtil.class.php';
 		return BasicFileUtil::getTempFolder();
 	}
 		
