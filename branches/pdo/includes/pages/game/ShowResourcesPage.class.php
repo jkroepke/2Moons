@@ -151,14 +151,14 @@ class ShowResourcesPage extends AbstractPage
 					continue;
 
 				$Production	= eval(ResourceUpdate::getProd($ProdGrid[$ProdID]['production'][$ID]));
-				
-				if($ID != 911)
+
+				if(in_array($ID, $reslist['resstype'][2]))
 				{
-					$Production	*= $prodLevel * $config->resource_multiplier;
+					$Production	*= $config->energySpeed;
 				}
 				else
 				{
-					$Production	*= $config->energySpeed;
+					$Production	*= $prodLevel * $config->resource_multiplier;
 				}
 				
 				$productionList[$ProdID]['production'][$ID]	= $Production;

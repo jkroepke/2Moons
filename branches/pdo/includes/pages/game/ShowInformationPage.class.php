@@ -253,7 +253,12 @@ class ShowInformationPage extends AbstractPage
 						
 					$Production	= eval(ResourceUpdate::getProd($ProdGrid[$elementID]['production'][$ID]));
 					
-					if($ID != 911) {
+					if(in_array($ID, $reslist['resstype'][2]))
+					{
+						$Production	*= Config::get()->energySpeed;
+					}
+					else
+					{
 						$Production	*= Config::get()->resource_multiplier;
 					}
 					
