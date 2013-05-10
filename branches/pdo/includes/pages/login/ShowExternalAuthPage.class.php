@@ -73,7 +73,7 @@ class ShowExternalAuthPage extends AbstractPage
 		
 		if(empty($loginData))
 		{
-			$session->save();
+			$session->delete();
 			$this->redirectTo('index.php?page=register&externalAuth[account]='.$authObj->getAccount().'&externalAuth[method]=facebook');
 		}
 
