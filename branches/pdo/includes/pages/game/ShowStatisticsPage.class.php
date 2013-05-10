@@ -143,10 +143,10 @@ class ShowStatisticsPage extends AbstractPage
 
             break;
             case 2:
-                $sql = "SELECT COUNT(*) FROM %%ALLIANCE%% WHERE `ally_universe` = :universe;";
+                $sql = "SELECT COUNT(*) as state FROM %%ALLIANCE%% WHERE `ally_universe` = :universe;";
 				$MaxAllys = $db->selectSingle($sql, array(
 					':universe'	=> Universe::current(),
-				), 'count');
+				), 'state');
 
 				$range		= min($range, $MaxAllys);
                 $LastPage 	= max(1, ceil($MaxAllys / 100));
@@ -189,6 +189,9 @@ class ShowStatisticsPage extends AbstractPage
 
         $Selector['who'] 	= array(1 => $LNG['st_player'], 2 => $LNG['st_alliance']);
         $Selector['type']	= array(1 => $LNG['st_points'], 2 => $LNG['st_fleets'], 3 => $LNG['st_researh'], 4 => $LNG['st_buildings'], 5 => $LNG['st_defenses']);
+
+
+		require_once 'includes/classes/Cronjob.class.php';
 
         $this->assign(array(
             'Selectors'				=> $Selector,
