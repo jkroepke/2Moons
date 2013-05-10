@@ -110,7 +110,7 @@ class MissionFunctions
 		}
 
 		$sql	= 'UPDATE %%PLANETS%% as p, %%USERS%% as u SET
-		'.implode(', ', $updateQuery).'
+		'.implode(', ', $updateQuery).',
 		p.`metal` = p.`metal` + :metal,
 		p.`crystal` = p.`crystal` + :crystal,
 		p.`deuterium` = p.`deuterium` + :deuterium,
