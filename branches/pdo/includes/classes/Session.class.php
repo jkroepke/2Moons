@@ -190,8 +190,6 @@ class Session
 		   ':userId'		=> $this->data['userId'],
 		));
 
-		$this->selectActivePlanet();
-
 		$this->data['lastActivity'] = TIMESTAMP;
 		$this->data['sessionId']	= session_id();
 		$this->data['userIpAdress'] = $_SERVER['REMOTE_ADDR'];
@@ -241,7 +239,7 @@ class Session
 		return true;
 	}
 
-	private function selectActivePlanet()
+	public function selectActivePlanet()
 	{
 		$httpData	= HTTP::_GP('cp', 0);
 
