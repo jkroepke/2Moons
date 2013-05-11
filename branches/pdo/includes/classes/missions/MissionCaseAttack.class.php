@@ -484,9 +484,10 @@ HTML;
 					$LNG['tech'][902],
 					pretty_number($debris[902])
 				);
-					
-				PlayerUtil::sendMessage($userID, 0, $this->_fleet['fleet_start_time'], 3, $LNG['sys_mess_tower'], $LNG['sys_mess_attack_report'], $message);
-				
+
+				PlayerUtil::sendMessage($userID, 0, $LNG['sys_mess_tower'], 3, $LNG['sys_mess_attack_report'],
+					$message, $this->_fleet['fleet_start_time'], NULL, 1, $this->_fleet['fleet_universe']);
+
 				$sql	= "INSERT INTO %%TOPKB_USERS%% SET
 				rid			= :reportId,
 				role		= :userRole,
@@ -611,8 +612,9 @@ HTML;
 			$LNG['tech'][903]
 		);
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 3,
-			$LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 3, $LNG['sys_mess_fleetback'],
+			$Message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
+
 		$this->RestoreFleet();
 	}
 }

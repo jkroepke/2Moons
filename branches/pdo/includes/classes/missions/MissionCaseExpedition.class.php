@@ -519,9 +519,9 @@ HTML;
 				}
 			break;
 		}
-			
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_stay'], 15,
-			$LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
+
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 15,
+			$LNG['sys_expe_report'], $Message, $this->_fleet['fleet_end_stay'], NULL, 1, $this->_fleet['fleet_universe']);
 
 		$this->setState(FLEET_RETURN);
 		$this->SaveFleet();
@@ -538,8 +538,8 @@ HTML;
 			$LNG['tech'][921], pretty_number($this->_fleet['fleet_resource_darkmatter'])
 		);
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15,
-			$LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 3, $LNG['sys_mess_fleetback'],
+			$Message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
 
 		$this->RestoreFleet();
 	}

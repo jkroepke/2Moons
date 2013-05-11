@@ -58,7 +58,9 @@ class MissionCaseFoundDM extends MissionFunctions implements Mission
 		}
 		$this->setState(FLEET_RETURN);
 		$this->SaveFleet();
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_stay'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
+
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 15,
+			$LNG['sys_expe_report'], $Message, $this->_fleet['fleet_end_stay'], NULL, 1, $this->_fleet['fleet_universe']);
 	}
 	
 	function ReturnEvent()
@@ -79,8 +81,8 @@ class MissionCaseFoundDM extends MissionFunctions implements Mission
 			$message	= $LNG['sys_expe_back_home_without_dm'];
 		}
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15,
-			$LNG['sys_mess_tower'], $LNG['sys_expe_report'], $message);
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 3, $LNG['sys_mess_fleetback'],
+			$message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
 
 		$this->RestoreFleet();
 	}

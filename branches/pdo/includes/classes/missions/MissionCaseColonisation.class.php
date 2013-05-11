@@ -123,7 +123,9 @@ class MissionCaseColonisation extends MissionFunctions implements Mission
 			}
 		}
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 4, $LNG['sys_colo_mess_from'], $LNG['sys_colo_mess_report'], $message);
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_colo_mess_from'], 4, $LNG['sys_colo_mess_report'],
+			$message, $this->_fleet['fleet_start_time'], NULL, 1, $this->_fleet['fleet_universe']);
+
 		$this->setState(FLEET_RETURN);
 		$this->SaveFleet();
 	}

@@ -124,9 +124,9 @@ class MissionCaseRecycling extends MissionFunctions implements Mission
 			pretty_number($collectedGoods[901]), $LNG['tech'][901],
 			pretty_number($collectedGoods[902]), $LNG['tech'][902]
 		);
-						
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 5,
-			$LNG['sys_mess_tower'], $LNG['sys_recy_report'], $Message);
+
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 5,
+			$LNG['sys_recy_report'], $Message, $this->_fleet['fleet_start_time'], NULL, 1, $this->_fleet['fleet_universe']);
 
 		$this->setState(FLEET_RETURN);
 		$this->SaveFleet();
@@ -153,8 +153,8 @@ class MissionCaseRecycling extends MissionFunctions implements Mission
 			pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]
 		);
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 5,
-			$LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 3, $LNG['sys_mess_fleetback'],
+			$Message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
 
 		$this->RestoreFleet();
 	}

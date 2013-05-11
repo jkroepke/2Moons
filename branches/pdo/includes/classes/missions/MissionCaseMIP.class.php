@@ -158,11 +158,11 @@ class MissionCaseMIP extends MissionFunctions implements Mission
 		$targetLink 		= $targetData['name']." ".GetTargetAdressLink($this->_fleet);
 		$message			= sprintf($LNG['sys_irak_mess'], $this->_fleet['fleet_amount'], $ownerLink, $targetLink).$message;
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_start_time'], 3,
-			$LNG['sys_mess_tower'], $LNG['sys_irak_subject'], $message);
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 3,
+			$LNG['sys_irak_subject'], $message, $this->_fleet['fleet_start_time'], NULL, 1, $this->_fleet['fleet_universe']);
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_target_owner'], 0, $this->_fleet['fleet_start_time'], 3,
-			$LNG['sys_mess_tower'], $LNG['sys_irak_subject'], $message);
+		PlayerUtil::sendMessage($this->_fleet['fleet_target_owner'], 0, $LNG['sys_mess_tower'], 3,
+			$LNG['sys_irak_subject'], $message, $this->_fleet['fleet_start_time'], NULL, 1, $this->_fleet['fleet_universe']);
 
 		$this->KillFleet();
 	}
