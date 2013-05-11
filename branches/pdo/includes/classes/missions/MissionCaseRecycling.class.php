@@ -58,7 +58,7 @@ class MissionCaseRecycling extends MissionFunctions implements Mission
 
 		if(!empty($targetData['total']))
 		{
-			$sql				= '"SELECT * FROM %%USERS%% WHERE id = :userId;';
+			$sql				= 'SELECT * FROM %%USERS%% WHERE id = :userId;';
 			$targetUser			= Database::get()->selectSingle($sql, array(
 				':userId'	=> $this->_fleet['fleet_owner']
 			));

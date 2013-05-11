@@ -82,7 +82,7 @@ class FleetFunctions
 	
 	public static function getDMMissionLimit($USER)
 	{
-		return Config::get()->max_dm_missions;
+		return Config::get($USER['universe'])->max_dm_missions;
 	}
 	
 	public static function getMissileRange($Level)
@@ -372,7 +372,7 @@ class FleetFunctions
 		$sql	= 'UPDATE %%LOG_FLEETS%% SET
 		fleet_end_stay	= :endStayTime,
 		fleet_end_time	= :endTime,
-		fleet_mess		= 1,
+		fleet_mess		= fleetState,
 		fleet_state		= 2
 		WHERE '.$sqlWhere.' = :id;';
 
