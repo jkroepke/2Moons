@@ -143,7 +143,7 @@ class ShowFleetStep3Page extends AbstractPage
 
 		if ($targetMission == 7)
 		{
-			if (isset($targetPlanetData)) {
+			if (!empty($targetPlanetData)) {
 				$this->printMessage($LNG['fl_target_exists'], array(array(
 					'label'	=> $LNG['sys_back'],
 					'url'	=> 'game.php?page=fleet1'
@@ -171,7 +171,7 @@ class ShowFleetStep3Page extends AbstractPage
 				)));
 			}
 				
-			if (!isset($targetPlanetData)) {
+			if (empty($targetPlanetData)) {
 				$this->printMessage($LNG['fl_no_target'], array(array(
 					'label'	=> $LNG['sys_back'],
 					'url'	=> 'game.php?page=fleet1'

@@ -60,7 +60,7 @@ class MissionCaseAttack extends MissionFunctions implements Mission
 		$debrisResource	= array(901, 902);
 		
 		$messageHTML	= <<<HTML
-<div class="reportMessage">
+<div class="raportMessage">
 	<table>
 		<tr>
 			<td colspan="2"><a href="CombatReport.php?report=%s" target="_blank"><span class="%s">%s %s (%s)</span></a></td>

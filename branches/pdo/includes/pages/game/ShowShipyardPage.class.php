@@ -140,7 +140,6 @@ class ShowShipyardPage extends AbstractPage
 			
 			$BuildArray[]			= array($Element, $Count);
 			$PLANET['b_hangar_id']	= serialize($BuildArray);
-
 		}
 	}
 	
@@ -187,6 +186,7 @@ class ShowShipyardPage extends AbstractPage
 				}
 
 				$this->BuildAuftr($buildTodo);
+				$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
 			}
 					
 			if ($action == "delete")
