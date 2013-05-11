@@ -235,12 +235,13 @@ class ShowFleetStep3Page extends AbstractPage
                 FROM %%USERS%% as user
                 LEFT JOIN %%STATPOINTS%% as stat ON stat.id_owner = user.id AND stat.stat_type = '1'
                 WHERE user.id = :ownerID;";
-            $targetPlanetData = $db->selectSingle($sql, array(
+
+			$targetPlayerData = $db->selectSingle($sql, array(
                 ':ownerID'  => $targetPlanetData['id_owner']
             ));
 		}
 
-		if(empty($targetPlanetData))
+		if(empty($targetPlayerData))
 		{
 			$this->printMessage($LNG['fl_empty_target'], array(array(
 				'label'	=> $LNG['sys_back'],
