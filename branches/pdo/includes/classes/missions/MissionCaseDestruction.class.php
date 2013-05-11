@@ -565,7 +565,7 @@ HTML;
 
 		$sql = 'INSERT INTO %%TOPKB%% SET
 		units 		= :units,
-		rid			= :reportId
+		rid			= :reportId,
 		time		= :time,
 		universe	= :universe,
 		result		= :result;';
