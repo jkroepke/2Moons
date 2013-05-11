@@ -434,7 +434,7 @@ HTML;
 		
 		$sql	= 'INSERT INTO %%RW%% SET
 		rid 		= :reportId,
-		report 		= :reportData,
+		raport 		= :reportData,
 		time 		= :time,
 		attacker	= :attackers,
 		defender	= :defenders;';
