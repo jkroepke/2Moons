@@ -92,14 +92,14 @@ class ShowOverviewPage extends AbstractPage
 		if (!empty($password))
 		{
 			$db = Database::get();
-            $sql = "SELECT COUNT(*) FROM %%FLEETS%% WHERE
+            $sql = "SELECT COUNT(*) as state FROM %%FLEETS%% WHERE
                       (fleet_owner = :userID AND (fleet_start_id = :planetID OR fleet_start_id = :lunaID)) OR
                       (fleet_target_owner = :userID AND (fleet_end_id = :planetID OR fleet_end_id = :lunaID));";
             $IfFleets = $db->selectSingle($sql, array(
                 ':userID'   => $USER['id'],
                 ':planetID' => $PLANET['id'],
                 ':lunaID'   => $PLANET['id_luna']
-            ), 'count');
+            ), 'state');
 
             if ($IfFleets > 0)
 				exit(json_encode(array('message' => $LNG['ov_abandon_planet_not_possible'])));
@@ -343,14 +343,14 @@ class ShowOverviewPage extends AbstractPage
 		if (!empty($password))
 		{
             $db = Database::get();
-            $sql = "SELECT COUNT(*) FROM %%FLEETS%% WHERE
+            $sql = "SELECT COUNT(*) as state FROM %%FLEETS%% WHERE
                       (fleet_owner = :userID AND (fleet_start_id = :planetID OR fleet_start_id = :lunaID)) OR
                       (fleet_target_owner = :userID AND (fleet_end_id = :planetID OR fleet_end_id = :lunaID));";
             $IfFleets = $db->selectSingle($sql, array(
                 ':userID'   => $USER['id'],
                 ':planetID' => $PLANET['id'],
                 ':lunaID'   => $PLANET['id_luna']
-            ), 'count');
+            ), 'state');
 
 			if ($IfFleets > 0) {
 				$this->sendJSON(array('message' => $LNG['ov_abandon_planet_not_possible']));

@@ -102,10 +102,10 @@ class ShowSettingsPage extends AbstractPage
 
 		$db = Database::get();
 
-		$sql = "SELECT COUNT(*) FROM %%FLEETS%% WHERE `fleet_owner` = :userID;";
+		$sql = "SELECT COUNT(*) as state FROM %%FLEETS%% WHERE `fleet_owner` = :userID;";
 		$fleets = $db->selectSingle($sql, array(
 			':userID'	=> $USER['id']
-		), 'count');
+		), 'state');
 
 		if($fleets != 0)
 			return false;

@@ -30,17 +30,23 @@
 
 class Session
 {
-	private static $obj = NULL;
-
+	static private $obj = NULL;
+	static private $iniSet	= false;
 	private $data = NULL;
 
 	/**
 	 * Set PHP session settings
 	 *
-	 * @return void
+	 * @return bool
 	 */
 
 	static public function init() {
+		if(self::$iniSet === true)
+		{
+			return false;
+		}
+		self::$iniSet = true;
+		
 		ini_set('session.use_cookies', '1');
 		ini_set('session.use_only_cookies', '1');
 		ini_set('session.use_trans_sid', 0);
@@ -58,6 +64,8 @@ class Session
 		session_set_cookie_params(SESSION_LIFETIME, $HTTP_ROOT, NULL, HTTPS, true);
 		session_cache_limiter('nocache');
 		session_name('2Moons');
+
+		return true;
 	}
 
 	/**

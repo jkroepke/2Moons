@@ -313,13 +313,13 @@ class ShowFleetStep3Page extends AbstractPage
 		if ($targetMission == 5)
 		{	
 			if($targetPlayerData['ally_id'] != $USER['ally_id']) {
-				$sql = "SELECT COUNT(*) FROM %%BUDDY%%
+				$sql = "SELECT COUNT(*) as state FROM %%BUDDY%%
 				WHERE id NOT IN (SELECT id FROM %%BUDDY_REQUEST%% WHERE %%BUDDY_REQUEST%%.id = %%BUDDY%%.id) AND
 				(owner = :ownerID AND sender = :userID) OR (owner = :userID AND sender = :ownerID);";
                 $buddy = $db->selectSingle($sql, array(
                     ':ownerID'  => $targetPlayerData['id'],
                     ':userID'   => $USER['id']
-                ));
+                ), 'state');
 
                 if($buddy == 0) {
 					$this->printMessage($LNG['fl_no_same_alliance'], array(array(

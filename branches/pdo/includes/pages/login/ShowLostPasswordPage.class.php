@@ -57,12 +57,12 @@ class ShowLostPasswordPage extends AbstractPage
 
 		$db = Database::get();
 
-		$sql = "SELECT COUNT(*) FROM %%LOSTPASSWORD%% WHERE userID = :userID AND key = :validationKey AND time > :time AND hasChanged = 0;";
+		$sql = "SELECT COUNT(*) as state FROM %%LOSTPASSWORD%% WHERE userID = :userID AND key = :validationKey AND time > :time AND hasChanged = 0;";
 		$isValid = $db->selectSingle($sql, array(
 			':userID'			=> $userID,
 			':validationKey'	=> $validationKey,
 			':time'				=> (TIMESTAMP - 1800)
-		), 'count');
+		), 'state');
 
 		if(empty($isValid))
 		{
@@ -177,11 +177,11 @@ class ShowLostPasswordPage extends AbstractPage
 			)));
 		}
 
-		$sql = "SELECT COUNT(*) FROM %%LOSTPASSWORD%% WHERE userID = :userID AND time > :time AND hasChanged = 0;";
+		$sql = "SELECT COUNT(*) as state FROM %%LOSTPASSWORD%% WHERE userID = :userID AND time > :time AND hasChanged = 0;";
 		$hasChanged = $db->selectSingle($sql, array(
 			':userID'	=> $userID,
 			':time'		=> (TIMESTAMP - 86400)
-		), 'count');
+		), 'state');
 
 		if(!empty($hasChanged))
 		{

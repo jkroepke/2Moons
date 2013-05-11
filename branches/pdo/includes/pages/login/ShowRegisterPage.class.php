@@ -265,11 +265,11 @@ class ShowRegisterPage extends AbstractPage
 		
 		if($config->ref_active == 1 && !empty($referralID))
 		{
-			$sql = "SELECT COUNT(*) FROM %%USERS%% WHERE id = :referralID AND universe = :universe;";
+			$sql = "SELECT COUNT(*) as state FROM %%USERS%% WHERE id = :referralID AND universe = :universe;";
 			$Count = $db->selectSingle($sql, array(
 				':referralID' 	=> $referralID,
 				':universe'		=> Universe::current()
-			), 'count');
+			), 'state');
 
 			if($Count == 0)
 			{
