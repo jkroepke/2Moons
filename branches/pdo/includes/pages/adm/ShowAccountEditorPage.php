@@ -317,8 +317,7 @@ function ShowAccountEditorPage()
 				
 				$LOG = new Log(2);
 				$LOG->target = HTTP::_GP('id', 0);
-				//TODO: Fix me!
-				$LOG->universe = $before1['universe'];
+				$LOG->universe = Universe::getEmulated();
 				$LOG->old = $before;
 				$LOG->new = $after;
 				$LOG->save();

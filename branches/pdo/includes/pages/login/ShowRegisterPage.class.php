@@ -300,7 +300,7 @@ class ShowRegisterPage extends AbstractPage
 		$db->insert($sql, array(
 			':userName'				=> $userName,
 			':validationKey'		=> $validationKey,
-			':password'				=> $password,
+			':password'				=> PlayerUtil::cryptPassword($password),
 			':mailAddress'			=> $mailAddress,
 			':timestamp'			=> TIMESTAMP,
 			':remoteAddr'			=> $_SERVER['REMOTE_ADDR'],

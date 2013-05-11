@@ -139,18 +139,16 @@ class ShowNotesPage extends AbstractPage
 	function delete()
 	{
 		global $USER;
-		if(isset($_POST['delmes']) && is_array($_POST['delmes']))
+
+		$deleteIds	= HTTP::_GP('delmes', array());
+		$deleteIds	= array_keys($deleteIds);
+		$deleteIds	= array_filter($deleteIds, 'is_numeric');
+
+		if(empty($deleteIds))
 		{
-			$db = Database::get();
-
-            //TODO: Test it!
-
-            list($IDs, ) = $_POST['delmes'];
-
-            $sql = "DELETE FROM %%NOTES%% WHERE id IN (:IDs) AND owner = :userID;";
-            $db->delete($sql, array(
+            $sql = 'DELETE FROM %%NOTES%% WHERE id IN ('.implode(', ', $deleteIds).') AND owner = :userID;';
+			Database::get()->delete($sql, array(
                 ':userID'   => $USER['id'],
-                ':IDs'      => implode(', ', $IDs)
             ));
 		}
 		$this->redirectTo('game.php?page=notes');
