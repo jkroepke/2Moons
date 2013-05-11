@@ -56,7 +56,8 @@ class MissionCaseColonisation extends MissionFunctions implements Mission
 		}
 		else
 		{
-			if(PlayerUtil::allowPlanetPosition($this->_fleet['fleet_end_planet'], $senderUser) == false)
+			$allowPlanetPosition	= PlayerUtil::allowPlanetPosition($this->_fleet['fleet_end_planet'], $senderUser);
+			if(!$allowPlanetPosition)
 			{
 				$message = sprintf($LNG['sys_colo_notech'] , GetTargetAdressLink($this->_fleet, ''));
 			}
@@ -72,7 +73,7 @@ class MissionCaseColonisation extends MissionFunctions implements Mission
 					':userId'		=> $this->_fleet['fleet_owner'],
 					':type'			=> 1,
 					':destroyed'	=> 0
-				));
+				), 'state');
 
 				$maxPlanetCount		= PlayerUtil::maxPlanetCount($senderUser);
 
