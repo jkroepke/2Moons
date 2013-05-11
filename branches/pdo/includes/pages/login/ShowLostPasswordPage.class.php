@@ -57,7 +57,7 @@ class ShowLostPasswordPage extends AbstractPage
 
 		$db = Database::get();
 
-		$sql = "SELECT COUNT(*) as state FROM %%LOSTPASSWORD%% WHERE userID = :userID AND key = :validationKey AND time > :time AND hasChanged = 0;";
+		$sql = "SELECT COUNT(*) as state FROM %%LOSTPASSWORD%% WHERE userID = :userID AND `key` = :validationKey AND `time` > :time AND hasChanged = 0;";
 		$isValid = $db->selectSingle($sql, array(
 			':userID'			=> $userID,
 			':validationKey'	=> $validationKey,
@@ -105,7 +105,7 @@ class ShowLostPasswordPage extends AbstractPage
 		$subject	= sprintf($LNG['passwordChangedMailTitle'], $config->game_name);
 		Mail::send($userData['mail'], $userData['username'], $subject, $MailContent);
 
-		$sql = "UPDATE %%LOSTPASSWORD%% SET hasChanged = 1 WHERE userID = :userID AND key = :validationKey;";
+		$sql = "UPDATE %%LOSTPASSWORD%% SET hasChanged = 1 WHERE userID = :userID AND `key` = :validationKey;";
 		$db->update($sql, array(
 			':userID'			=> $userID,
 			':validationKey'	=> $validationKey
@@ -211,7 +211,7 @@ class ShowLostPasswordPage extends AbstractPage
 
 		Mail::send($mail, $username, $subject, $MailContent);
 
-		$sql = "INSERT INTO %%LOSTPASSWORD%% SET userID = :userID, key = :validationKey, time = :timestamp, fromIP = :remoteAddr;";
+		$sql = "INSERT INTO %%LOSTPASSWORD%% SET userID = :userID, `key` = :validationKey, `time` = :timestamp, fromIP = :remoteAddr;";
 		$db->insert($sql, array(
 			':userID'		=> $userID,
 			':timestamp'	=> TIMESTAMP,
