@@ -97,7 +97,7 @@ class ShowLostPasswordPage extends AbstractPage
 		$sql = "UPDATE %%USERS%% SET password = :newPassword WHERE id = :userID;";
 		$db->update($sql, array(
 			':userID'		=> $userID,
-			':nwPassword'	=> $newPassword
+			':newPassword'	=> PlayerUtil::cryptPassword($newPassword)
 		));
 
 		require 'includes/classes/Mail.class.php';
