@@ -184,7 +184,7 @@ HTML;
 			
 		$userDefend[$fleetDefend[0]['player']['id']]	= $fleetDefend[0]['player']['username'];
 		
-		require_once './functions/calculateAttack.php';
+		require_once 'includes/classes/missions/functions/calculateAttack.php';
 
 		$fleetIntoDebris	= $config->Fleet_Cdr;
 		$defIntoDebris		= $config->Defs_Cdr;

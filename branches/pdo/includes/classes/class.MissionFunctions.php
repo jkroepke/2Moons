@@ -124,12 +124,12 @@ class MissionFunctions
 	
 	function StoreGoodsToPlanet($onStart = false)
 	{
-		$sql  = 'UPDATE %%PLANETS%%, %%USERS%% SET
+		$sql  = 'UPDATE %%PLANETS%% as p, %%USERS%% as u SET
 		`metal`			= `metal` + :metal,
 		`crystal`		= `crystal` + :crystal,
 		`deuterium` 	= `deuterium` + :deuterium,
 		`darkmatter`	= `darkmatter` + :darkmatter
-		WHERE `id` = :planetId;';
+		WHERE p.`id` = :planetId AND u.id = p.id_owner;';
 
 		Database::get()->update($sql, array(
 			':metal'		=> $this->_fleet['fleet_resource_metal'],
