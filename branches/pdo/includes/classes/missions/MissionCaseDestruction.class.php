@@ -578,7 +578,7 @@ HTML;
 			':result'	=> $combatResult['won']
 		));
 
-		$sql = 'UPDATE %%USERS% SET
+		$sql = 'UPDATE %%USERS%% SET
 		`'.$attackStatus.'` = `'.$attackStatus.'` + 1,
 		kbmetal		= kbmetal + :debrisMetal,
 		kbcrystal	= kbcrystal + :debrisCrystal,
@@ -593,7 +593,7 @@ HTML;
 			':destroyedUnits'	=> $combatResult['unitLost']['defender']
 	  	));
 
-		$sql = 'UPDATE %%USERS% SET
+		$sql = 'UPDATE %%USERS%% SET
 		`'.$defendStatus.'` = `'.$defendStatus.'` + 1,
 		kbmetal		= kbmetal + :debrisMetal,
 		kbcrystal	= kbcrystal + :debrisCrystal,
