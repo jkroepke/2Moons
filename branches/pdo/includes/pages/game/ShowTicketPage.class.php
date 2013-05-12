@@ -112,11 +112,11 @@ class ShowTicketPage extends AbstractPage
 			$db = Database::get();
 
 			$sql = "SELECT status FROM %%TICKETS%% WHERE ticketID = :ticketID;";
-			$ticketDetail = $db->selectSingle($sql, array(
+			$ticketStatus = $db->selectSingle($sql, array(
 				':ticketID'	=> $ticketID
 			), 'status');
 
-			if ($ticketDetail['status'] == 2)
+			if ($ticketStatus == 2)
 			{
 				$this->printMessage($LNG['ti_error_closed']);
 			}
@@ -143,7 +143,7 @@ class ShowTicketPage extends AbstractPage
 
 		$answerList			= array();
 
-		if($db->rowCount() == 0) {
+		if(empty($answerResult)) {
 			$this->printMessage(sprintf($LNG['ti_not_exist'], $ticketID), array(array(
 				'label'	=> $LNG['sys_back'],
 				'url'	=> 'game.php?page=ticket'
