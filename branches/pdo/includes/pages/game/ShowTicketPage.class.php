@@ -89,13 +89,6 @@ class ShowTicketPage extends AbstractPage
 		$message	= HTTP::_GP('message', '', true);
 		$subject	= HTTP::_GP('subject', '', true);
 		
-		if(empty($subject)) {
-			$this->printMessage($LNG['ti_error_no_subject'], array(array(
-				'label'	=> $LNG['sys_back'],
-				'url'	=> 'javascript:window.history.back()'
-			)));
-		}
-		
 		if(empty($message)) {
 			if(empty($ticketID)) {
 				$this->redirectTo('game.php?page=ticket&mode=create');
@@ -104,7 +97,16 @@ class ShowTicketPage extends AbstractPage
 			}
 		}
 
-		if(empty($ticketID)) {
+		if(empty($ticketID))
+		{
+			if(empty($subject))
+			{
+				$this->printMessage($LNG['ti_error_no_subject'], array(array(
+					'label'	=> $LNG['sys_back'],
+					'url'	=> 'javascript:window.history.back()'
+				)));
+			}
+
 			$ticketID	= $this->ticketObj->createTicket($USER['id'], $categoryID, $subject);
 		} else {
 			$db = Database::get();
