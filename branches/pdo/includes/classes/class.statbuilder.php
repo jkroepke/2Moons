@@ -135,8 +135,21 @@ class statbuilder
 			$userWinner		= reset($elementArray);
 			$maxAmount		= key($elementArray);
 			$userWinner		= array_unique($userWinner);
-			foreach($userWinner as $userID) {
-				$QueryData[]	= "(".$userID.",".$elementID.",".$maxAmount.")";
+
+			if(count($userWinner) > 3)
+			{
+				$keys			= array_rand($userWinner, 3);
+
+				foreach($keys as $key)
+				{
+					$QueryData[]	= "(".$userWinner[$key].",".$elementID.",".$maxAmount.")";
+				}
+			}
+			else
+			{
+				foreach($userWinner as $userID) {
+					$QueryData[]	= "(".$userID.",".$elementID.",".$maxAmount.")";
+				}
 			}
 		}
 		
