@@ -242,7 +242,8 @@ class ShowOverviewPage extends AbstractPage
 		$Messages		= $USER['messages'];
 		
 		// Fehler: Wenn Spieler gelöscht werden, werden sie nicht mehr in der Tabelle angezeigt.
-		$sql = "SELECT u.id, u.username, s.total_points FROM %%USERS%% as u LEFT JOIN %%STATPOINTS%% as s ON s.id_owner = u.id AND s.stat_type = '1' WHERE ref_id = :userID;";
+		$sql = "SELECT u.id, u.username, s.total_points FROM %%USERS%% as u
+		LEFT JOIN %%STATPOINTS%% as s ON s.id_owner = u.id AND s.stat_type = '1' WHERE ref_id = :userID;";
         $RefLinksRAW = $db->select($sql, array(
             ':userID'   => $USER['id']
         ));
@@ -258,11 +259,21 @@ class ShowOverviewPage extends AbstractPage
 				);
 			}
 		}
-		
-		if($USER['total_rank'] == 0) {
+
+		$sql	= 'SELECT total_points, total_rank
+		FROM %%STATPOINTS%%
+		WHERE id_owner = :userId AND stat_type = :statType';
+
+		$statData	= Database::get()->selectSingle($sql, array(
+			':userId'	=> $USER['id'],
+			':statType'	=> 1
+		));
+
+		if($statData['total_rank'] == 0) {
 			$rankInfo	= "-";
 		} else {
-			$rankInfo	= sprintf($LNG['ov_userrank_info'], pretty_number($USER['total_points']), $LNG['ov_place'], $USER['total_rank'], $USER['total_rank'], $LNG['ov_of'], $config->users_amount);
+			$rankInfo	= sprintf($LNG['ov_userrank_info'], pretty_number($statData['total_points']), $LNG['ov_place'],
+				$statData['total_rank'], $statData['total_rank'], $LNG['ov_of'], $config->users_amount);
 		}
 		
 		$this->assign(array(

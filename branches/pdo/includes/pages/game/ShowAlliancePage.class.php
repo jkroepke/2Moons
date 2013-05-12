@@ -152,6 +152,15 @@ class ShowAlliancePage extends AbstractPage
 			);
 		}
 
+		$sql	= 'SELECT total_points
+		FROM %%STATPOINTS%%
+		WHERE id_owner = :userId AND stat_type = :statType';
+
+		$userPoints	= Database::get()->selectSingle($sql, array(
+			':userId'	=> $USER['id'],
+			':statType'	=> 1
+		), 'total_points');
+
 		$this->assign(array(
 			'diplomaticData'				=> $diplomaticData,
 			'statisticData'					=> $statisticData,
@@ -166,7 +175,7 @@ class ShowAlliancePage extends AbstractPage
 			'ally_stats' 					=> $this->allianceData['ally_stats'],
 			'ally_diplo' 					=> $this->allianceData['ally_diplo'],
 			'ally_request'              	=> !$this->hasAlliance && !$this->hasApply && $this->allianceData['ally_request_notallow'] == 0 && $this->allianceData['ally_max_members'] > $this->allianceData['ally_members'],
-			'ally_request_min_points'		=> $USER['total_points'] >= $this->allianceData['ally_request_min_points'],
+			'ally_request_min_points'		=> $userPoints >= $this->allianceData['ally_request_min_points'],
 			'ally_request_min_points_info'  => sprintf($LNG['al_requests_min_points'], pretty_number($this->allianceData['ally_request_min_points']))
 		));
 		
@@ -353,11 +362,18 @@ class ShowAlliancePage extends AbstractPage
 		if($this->hasApply) {
 			$this->redirectToHome();
 		}
-		
-		$user_points = $USER['total_points'];
+		$sql	= 'SELECT total_points
+		FROM %%STATPOINTS%%
+		WHERE id_owner = :userId AND stat_type = :statType';
+
+		$userPoints	= Database::get()->selectSingle($sql, array(
+			':userId'	=> $USER['id'],
+			':statType'	=> 1
+		), 'total_points');
+
 		$min_points = Config::get()->alliance_create_min_points;
 		
-		if($user_points >= $min_points)
+		if($userPoints >= $min_points)
 		{
 			$action    = $this->getAction();
 			if($action == "send") {

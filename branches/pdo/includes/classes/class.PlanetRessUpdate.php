@@ -137,7 +137,7 @@ class ResourceUpdate
 				$this->ReBuildCache();
 			} else {
 				$this->HASH		= $this->CreateHash();
-				
+
 				if($this->PLANET['eco_hash'] !== $this->HASH) {
 					$this->PLANET['eco_hash'] = $this->HASH;
 					$this->ReBuildCache();

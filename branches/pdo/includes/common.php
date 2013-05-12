@@ -135,19 +135,15 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 	$db		= Database::get();
 
 	$sql	= "SELECT 
-	user.*, 
-	stat.total_points, 
-	stat.total_rank,
+	user.*,
 	COUNT(message.message_id) as messages
-	FROM %%USERS%% as user 
-	LEFT JOIN %%STATPOINTS%% as stat ON stat.id_owner = user.id AND stat.stat_type = :statType
+	FROM %%USERS%% as user
 	LEFT JOIN %%MESSAGES%% as message ON message.message_owner = user.id AND message.message_unread = :unread
 	WHERE user.id = :userId
 	GROUP BY message.message_owner;";
 	
 	$USER	= $db->selectSingle($sql, array(
 		':unread'	=> 1,
-		':statType'	=> 1,
 		':userId'	=> $session->userId
 	));
 	
@@ -202,7 +198,9 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 		
 		$USER['factor']		= getFactors($USER);
 		$USER['PLANETS']	= getPlanets($USER);
-	} elseif (MODE === 'ADMIN') {
+	}
+	elseif (MODE === 'ADMIN')
+	{
 		error_reporting(E_ERROR | E_WARNING | E_PARSE);
 		
 		$USER['rights']		= unserialize($USER['rights']);

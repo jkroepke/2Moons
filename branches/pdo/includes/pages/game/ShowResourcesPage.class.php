@@ -66,6 +66,7 @@ class ShowResourcesPage extends AbstractPage
 
 				$this->ecoObj->setData($USER, $PLANET);
 				$this->ecoObj->ReBuildCache();
+				list($USER, $PLANET)	= $this->ecoObj->getData();
 				$PLANET['eco_hash'] = $this->ecoObj->CreateHash();
 			}
 		}
