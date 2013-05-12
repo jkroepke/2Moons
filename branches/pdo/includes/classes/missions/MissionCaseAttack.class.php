@@ -222,7 +222,7 @@ HTML;
 				}
 				
 				$sql	= 'UPDATE %%LOG_FLEETS SET fleet_state = :fleetState WHERE fleet_id = :fleetId;';
-				$db->delete($sql, array(
+				$db->update($sql, array(
 					':fleetId'		=> $fleetID,
 					':fleetState'	=> FLEET_HOLD,
 				));
