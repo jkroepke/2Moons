@@ -85,7 +85,15 @@ class ShowGalaxyPage extends AbstractPage
 		{	
 			$missileSelector[$Element] = $LNG['tech'][$Element];
 		}
-				
+		$sql	= 'SELECT total_points
+		FROM %%STATPOINTS%%
+		WHERE id_owner = :userId AND stat_type = :statType';
+
+		$USER	+= Database::get()->selectSingle($sql, array(
+			':userId'	=> $USER['id'],
+			':statType'	=> 1
+		));
+
 		$galaxyRows	= new GalaxyRows;
 		$galaxyRows->setGalaxy($galaxy);
 		$galaxyRows->setSystem($system);

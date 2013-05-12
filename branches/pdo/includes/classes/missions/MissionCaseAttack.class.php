@@ -63,7 +63,7 @@ class MissionCaseAttack extends MissionFunctions implements Mission
 <div class="raportMessage">
 	<table>
 		<tr>
-			<td colspan="2"><a href="CombatReport.php?report=%s" target="_blank"><span class="%s">%s %s (%s)</span></a></td>
+			<td colspan="2"><a href="game.php?page=raport&raport=%s" target="_blank"><span class="%s">%s %s (%s)</span></a></td>
 		</tr>
 		<tr>
 			<td>%s</td><td><span class="%s">%s: %s</span>&nbsp;<span class="%s">%s: %s</span></td>
@@ -278,7 +278,7 @@ HTML;
 					));
 
 					$sql	= 'UPDATE %%LOG_FLEETS SET fleet_state = :fleetState WHERE fleet_id = :fleetId;';
-					$db->delete($sql, array(
+					$db->update($sql, array(
 						':fleetId'		=> $fleetID,
 						':fleetState'	=> FLEET_HOLD,
 					));
@@ -410,23 +410,20 @@ HTML;
 				// Win
 				$attackStatus	= 'wons';
 				$defendStatus	= 'loos';
-				$attackClass	= 'reportWin';
-				$defendClass	= 'reportLose';
+				$class			= array('raportWin', 'raportLose');
 				break;
 			case "r":
 				// Lose
 				$attackStatus	= 'loos';
 				$defendStatus	= 'wons';
-				$attackClass	= 'reportLose';
-				$defendClass	= 'reportWin';
+				$class			= array('raportLose', 'raportWin');
 				break;
 			case "w":
 			default:
 				// Draw
 				$attackStatus	= 'draws';
 				$defendStatus	= 'draws';
-				$attackClass	= 'reportDraw';
-				$defendClass	= 'reportDraw';
+				$class			= array('raportDraw', 'raportDraw');
 				break;
 		}
 		
@@ -447,15 +444,18 @@ HTML;
 			':defenders'	=> implode(',', array_keys($userDefend))
 		));
 
+		$i = 0;
+
 		foreach(array($userAttack, $userDefend) as $data)
 		{
+			$thisClass	= $class[$i];
 			foreach($data as $userID => $userName)
 			{
 				$LNG		= $this->getLanguage(NULL, $userID);
 				
 				$message	= sprintf($messageHTML,
 					$reportID,
-					$attackClass,
+					$thisClass[$i],
 					$LNG['sys_mess_attack_report'],
 					sprintf(
 						$LNG['sys_adress_planet'],
@@ -465,10 +465,10 @@ HTML;
 					),
 					$LNG['type_planet_short'][$this->_fleet['fleet_end_type']],
 					$LNG['sys_lost'],
-					$attackClass,
+					$thisClass[0],
 					$LNG['sys_attack_attacker_pos'],
 					pretty_number($combatResult['unitLost']['attacker']),
-					$defendClass,
+					$thisClass[1],
 					$LNG['sys_attack_defender_pos'],
 					pretty_number($combatResult['unitLost']['defender']),
 					$LNG['sys_gain'],
@@ -501,6 +501,8 @@ HTML;
 					':userId'	=> $userID
 				));
 			}
+
+			$i++;
 		}
 		
 		if($this->_fleet['fleet_end_type'] == 3)

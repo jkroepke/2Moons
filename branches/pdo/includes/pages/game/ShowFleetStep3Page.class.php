@@ -292,6 +292,15 @@ class ShowFleetStep3Page extends AbstractPage
 					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
+
+			$sql	= 'SELECT total_points
+			FROM %%STATPOINTS%%
+			WHERE id_owner = :userId AND stat_type = :statType';
+
+			$USER	+= Database::get()->selectSingle($sql, array(
+				':userId'	=> $USER['id'],
+				':statType'	=> 1
+			));
 		
 			$IsNoobProtec	= CheckNoobProtec($USER, $targetPlayerData, $targetPlayerData);
 			
