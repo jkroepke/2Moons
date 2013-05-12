@@ -96,7 +96,7 @@ class ShowRaportPage extends AbstractPage
 
 		$RID		= HTTP::_GP('raport', '');
 
-		$sql = "SELECT
+		$sql = "SELECT 
 			raport, time,
 			(
 				SELECT
