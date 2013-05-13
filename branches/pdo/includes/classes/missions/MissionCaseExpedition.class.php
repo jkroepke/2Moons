@@ -423,7 +423,7 @@ HTML;
 				time		= :time,
 				attacker	= :attacker;";
 
-				Database::get()->update($sql, array(
+				Database::get()->insert($sql, array(
 					':reportId'		=> $reportID,
 					':reportData'	=> serialize($reportData),
 					':time'			=> $this->_fleet['fleet_start_time'],

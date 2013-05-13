@@ -37,7 +37,7 @@ require 'includes/common.php';
 
 $page 		= HTTP::_GP('page', 'overview');
 $mode 		= HTTP::_GP('mode', 'show');
-$mode		= str_replace(array('_', '\\', '/', '.', "\0"), '', $mode);
+$page		= str_replace(array('_', '\\', '/', '.', "\0"), '', $page);
 $pageClass	= 'Show'.ucwords($page).'Page';
 
 $path		= 'includes/pages/game/'.$pageClass.'.class.php';
