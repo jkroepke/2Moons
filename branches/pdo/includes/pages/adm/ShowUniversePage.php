@@ -51,7 +51,7 @@ function ShowUniversePage() {
 			$config->save();
 		break;
 		case 'delete':
-			if(!empty($universe) && $universe != ROOT_UNI && $universe != $USER['universe'])
+			if(!empty($universe) && $universe != ROOT_UNI && $universe != Universe::current())
 			{
 				$GLOBALS['DATABASE']->query("DELETE FROM ".ALLIANCE.", ".ALLIANCE_RANK.", ".ALLIANCE_REQUEST." 
 				USING ".ALLIANCE." 
@@ -93,7 +93,7 @@ function ShowUniversePage() {
 				$GLOBALS['DATABASE']->query("DELETE FROM ".USERS_VALID." WHERE universe = ".$universe.";");
 				if(Universe::getEmulated() == $universe)
 				{
-					Universe::getEmulated()	= $USER['universe'];
+					Universe::setEmulated(Universe::current());
 				}
 
 

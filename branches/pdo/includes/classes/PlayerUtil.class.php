@@ -372,11 +372,11 @@ class PlayerUtil
 		temp_min			= :minTemperature,
 		temp_max			= :maxTemperature,
 		metal				= :metal,
-		metal_perhour		= :metalPerHour,
+		metal_perhour		= :metPerHour,
 		crystal				= :crystal,
-		crystal_perhour		= :crystalPerHour,
+		crystal_perhour		= :cryPerHour,
 		deuterium			= :deuterium,
-		deuterium_perhour	= :deuteriumPerHour;";
+		deuterium_perhour	= :deuPerHour;";
 
 		$db->insert($sql, array(
 			':name'				=> $moonName,
@@ -390,14 +390,14 @@ class PlayerUtil
 			':image'			=> 'mond',
 			':diameter'			=> $diameter,
 			':fields'			=> 1,
-			':minTemperaturep'	=> $minTemperature,
+			':minTemperature'	=> $minTemperature,
 			':maxTemperature'	=> $maxTemperature,
 			':metal'			=> 0,
-			':metalPerHour'		=> 0,
+			':metPerHour'		=> 0,
 			':crysta'			=> 0,
-			':crystalPerHour'	=> 0,
+			':cryPerHour'		=> 0,
 			':deuterium'		=> 0,
-			':deuteriumPerHour'	=> 0,
+			':deuPerHour'		=> 0,
 		));
 
 		$moonId	= $db->lastInsertId();

@@ -292,14 +292,9 @@ function pretty_number($n, $dec = 0)
 
 function GetUserByID($userId, $GetInfo = "*")
 {
-	if(is_array($GetInfo)) {
-		$GetOnSelect = "";
-		foreach($GetInfo as $col)
-		{
-			$GetOnSelect .= "´".$col."´,";
-		}
-
-		$GetOnSelect = substr($GetOnSelect, 0, -1);
+	if(is_array($GetInfo))
+	{
+		$GetOnSelect = implode(', ', $GetInfo);
 	}
 	else
 	{

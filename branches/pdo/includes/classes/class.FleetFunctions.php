@@ -372,7 +372,7 @@ class FleetFunctions
 		$sql	= 'UPDATE %%LOG_FLEETS%% SET
 		fleet_end_stay	= :endStayTime,
 		fleet_end_time	= :endTime,
-		fleet_mess		= fleetState,
+		fleet_mess		= :fleetState,
 		fleet_state		= 2
 		WHERE '.$sqlWhere.' = :id;';
 

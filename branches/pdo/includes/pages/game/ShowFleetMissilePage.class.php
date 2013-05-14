@@ -39,13 +39,13 @@ class ShowFleetMissilePage extends AbstractPage
 	{	
 		global $USER, $PLANET, $LNG, $reslist, $resource;
 		
-		$iraks 				= $PLANET['interplanetary_misil'];
+		$missileCount 		= $PLANET['interplanetary_misil'];
 		$targetGalaxy 		= HTTP::_GP('galaxy', 0);
 		$targetSystem 		= HTTP::_GP('system', 0);
 		$targetPlanet 		= HTTP::_GP('planet', 0);
 		$targetType 		= HTTP::_GP('type', 0);
-		$anz 				= min(HTTP::_GP('SendMI',0), $iraks);
-		$pziel 				= HTTP::_GP('Target', 0);
+		$anz 				= min(HTTP::_GP('SendMI',0), $missileCount);
+		$primaryTarget 		= HTTP::_GP('Target', 0);
 
         $db = Database::get();
 
@@ -75,9 +75,9 @@ class ShowFleetMissilePage extends AbstractPage
 			$error = $LNG['ma_not_send_other_galaxy'];
 		elseif (!$target)
 			$error = $LNG['ma_planet_doesnt_exists'];
-		elseif (!in_array($pziel, $reslist['defense']) && $pziel != 0)
+		elseif (!in_array($primaryTarget, $reslist['defense']) && $primaryTarget != 0)
 			$error = $LNG['ma_wrong_target'];
-		elseif ($iraks == 0)
+		elseif ($missileCount == 0)
 			$error = $LNG['ma_no_missiles'];
 		elseif ($anz <= 0)
 			$error = $LNG['ma_add_missile_number'];
@@ -108,7 +108,7 @@ class ShowFleetMissilePage extends AbstractPage
 		
 		$Duration		= FleetFunctions::GetMIPDuration($PLANET['system'], $targetSystem);
 
-		$DefenseLabel 	= ($pziel == 0) ? $LNG['ma_all'] : $LNG['tech'][$pziel];
+		$DefenseLabel 	= ($primaryTarget == 0) ? $LNG['ma_all'] : $LNG['tech'][$primaryTarget];
 		
 		if(connection_aborted())
 			exit;
@@ -125,7 +125,7 @@ class ShowFleetMissilePage extends AbstractPage
 			903	=> 0,
 		);
 		
-		FleetFunctions::sendFleet($fleetArray, 10, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $target['id_owner'], $target['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, 0, $pziel);
+		FleetFunctions::sendFleet($fleetArray, 10, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $target['id_owner'], $target['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetRessource, $fleetStartTime, $fleetStayTime, $fleetEndTime, 0, $primaryTarget);
 
 		$this->printMessage("<b>".$anz."</b>". $LNG['ma_missiles_sended'].$DefenseLabel);
 	}
