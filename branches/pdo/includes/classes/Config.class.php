@@ -91,6 +91,7 @@ class Config
 		foreach ($configResult as $configRow)
 		{
 			self::$instances[$configRow['uni']] = new self($configRow);
+			Universe::add($configRow['uni']);
 		}
 	}
 
@@ -130,19 +131,19 @@ class Config
 		}
 		$updateData = array();
 		$params     = array();
-		foreach ($this->updateRecords as $columName) {
-			$updateData[]             = '`' . $columName . '` = :' . $columName;
-			$params[':' . $columName] = $this->configData[$columName];
+		foreach ($this->updateRecords as $columnName) {
+			$updateData[]             = '`' . $columnName . '` = :' . $columnName;
+			$params[':' . $columnName] = $this->configData[$columnName];
 
 			//TODO: find a better way ...
-			if(in_array($columName, self::$globalConfigKeys))
+			if(in_array($columnName, self::$globalConfigKeys))
 			{
 				foreach(Universe::availableUniverses() as $universeId)
 				{
 					if($universeId != $this->configData['uni'])
 					{
 						$config = Config::get();
-						$config->$columName = $this->configData[$columName];
+						$config->$columnName = $this->configData[$columnName];
 						$config->save();
 					}
 				}
@@ -156,18 +157,6 @@ class Config
 		
 		$this->updateRecords = array();
 		return true;
-	}
-
-	/** OLD Functions **/
-	static function getKey($key, $universe = null)
-	{
-		if (is_null($universe)) {
-			$universe = Universe::current();
-		}
-
-		$config = self::get($universe);
-
-		return $config->{$key};
 	}
 
 	static function getAll()

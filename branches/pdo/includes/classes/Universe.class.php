@@ -46,6 +46,11 @@ class Universe {
 
 		return self::$currentUniverse;
 	}
+
+	static public function add($universe)
+	{
+		self::$availableUniverses[]	= $universe;
+	}
 	
 	static public function getEmulated()
 	{
@@ -173,13 +178,6 @@ class Universe {
 
 	static public function availableUniverses()
 	{
-		if (empty(self::$availableUniverses))
-		{
-			$cache	= Cache::get();
-			$cache->add('universe', 'UniversesBuildCache');
-			self::$availableUniverses	= $cache->getData('universe');
-		}
-
 		return self::$availableUniverses;
 	}
 
