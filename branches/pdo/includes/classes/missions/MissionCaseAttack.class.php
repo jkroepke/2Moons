@@ -221,7 +221,7 @@ HTML;
 					));
 				}
 				
-				$sql	= 'UPDATE %%LOG_FLEETS SET fleet_state = :fleetState WHERE fleet_id = :fleetId;';
+				$sql	= 'UPDATE %%LOG_FLEETS%% SET fleet_state = :fleetState WHERE fleet_id = :fleetId;';
 				$db->update($sql, array(
 					':fleetId'		=> $fleetID,
 					':fleetState'	=> FLEET_HOLD,
@@ -277,7 +277,7 @@ HTML;
 						':fleetId'	=> $fleetID
 					));
 
-					$sql	= 'UPDATE %%LOG_FLEETS SET fleet_state = :fleetState WHERE fleet_id = :fleetId;';
+					$sql	= 'UPDATE %%LOG_FLEETS%% SET fleet_state = :fleetState WHERE fleet_id = :fleetId;';
 					$db->update($sql, array(
 						':fleetId'		=> $fleetID,
 						':fleetState'	=> FLEET_HOLD,

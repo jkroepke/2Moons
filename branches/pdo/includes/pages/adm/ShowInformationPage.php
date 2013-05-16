@@ -34,7 +34,8 @@ function ShowInformationPage()
 
 	$config = Config::get();
 
-	if(file_exists(ini_get('error_log')))
+	// @ for open_basedir
+	if(@file_exists(ini_get('error_log')))
 		$Lines	= count(file(ini_get('error_log')));
 	else
 		$Lines	= 0;

@@ -72,7 +72,7 @@ function ShowGiveaway()
 		$SQL		= "UPDATE ".PLANETS." p INNER JOIN ".USERS." u ON p.id_owner = u.id";
 		
 		if ($mainplanet == true) {
-			$SQL	.= " AND CONCAT_WS(':', p.universe, p.galaxy, p.system, p.planet) = CONCAT_WS(':', u.universe, u.galaxy, u.system, u.planet)";
+			$SQL	.= " AND p.id = u.id_planet";
 		}
 		
 		if ($no_inactive == true) {
