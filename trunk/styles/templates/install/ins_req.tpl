@@ -13,8 +13,8 @@
 				<td class="transparent">{$global}</th>
 			</tr>
 			<tr>
-				<td class="transparent left"><p>{$LNG.reg_mysqli_active}</p><p class="desc">{$LNG.reg_mysqli_desc}</p></td>
-				<td class="transparent">{$mysqli}</th>
+				<td class="transparent left"><p>{$LNG.reg_pdo_active}</p><p class="desc">{$LNG.reg_pdo_desc}</p></td>
+				<td class="transparent">{$pdo}</th>
 			</tr>
 			<tr>
 				<td class="transparent left"><p>{$LNG.reg_gd_need}</p><p class="desc">{$LNG.reg_gd_desc}</p></td>

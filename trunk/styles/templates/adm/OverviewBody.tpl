@@ -24,7 +24,7 @@
         <td colspan="2"><a href="http://code.google.com/p/2moons/" target="_blank">Project Homepage</a><br>
         <a href="http://code.google.com/p/2moons/source/list" target="_blank">SVN Revision List</a><br>
 		<a href="http://www.titanspace.org/" target="_blank">Offical Betauni</a><br>
-		<a href="http://2moons.cc/" target="_blank">2moons.cc - {$LNG.ow_forum}</a></td>
+		<a target="_blank" href="http://2moons.cc/" target="_blank">2moons.cc - {$LNG.ow_forum}</a></td>
     </tr> 
 	<tr>
 		<th style="width:50%;">{$LNG.ow_donate} - Paypal</th>
@@ -89,7 +89,7 @@
 					<td class="transparent" colspan="3"><h3>{$LNG.ow_proyect_leader}</h3></td>
                 </tr>
                 <tr>
-					<td class="transparent" colspan="3"><h3><a href="https://2moons.cc/user/5-jan/" style="color:red">Jan</a></h3></td>
+					<td class="transparent" colspan="3"><h3><a target="_blank" href="http://2moons.cc/user/5-jan/" style="color:red">Jan</a></h3></td>
                 </tr>
 			</table>
 			<div style="width:100%">
@@ -100,9 +100,9 @@
 						</tr>
 						<tr>
 							<td class="transparent">
-								<a href="https://2moons.cc/user/5-jan/" style="color:red">Jan</a><br>
-								<a href="https://2moons.cc/user/64-orion/" style="color:red">Orion</a><br>
-								<a href="https://2moons.cc/user/88-fc92/" style="color:red">FC92</a>
+								<a target="_blank" href="http://2moons.cc/user/5-jan/" style="color:red">Jan</a><br>
+								<a target="_blank" href="http://2moons.cc/user/2655-megger/" style="color:red">Megger</a><br>
+								<a target="_blank" href="http://2moons.cc/user/88-fc92/" style="color:red">FC92</a>
 							</td>
 						</tr>
 					</table>
@@ -117,7 +117,7 @@
 								<table width="250px;">
 								<tr>
 									<td class="transparent">
-										<a href="https://2moons.cc/user/100-qwatakayean/" target="_blank">QwataKayean</a>
+										<a target="_blank" href="http://2moons.cc/user/100-qwatakayean/" target="_blank">QwataKayean</a>
 									</td>
 									<td class="transparent">
 										<img src="styles/resource/images/login/flags/us.png" alt="(english)">
@@ -125,23 +125,7 @@
 								</tr>
 								<tr>
 									<td class="transparent">
-										<a href="https://2moons.cc/user/529-haloraptor33/" target="_blank">HaloRaptor33</a> / <a href="http://2moons.cc/user/1231-scofield06/">scofield06</a>
-									</td>
-									<td class="transparent">
-										<img src="styles/resource/images/login/flags/fr.png" alt="(french)">
-									</td>
-								</tr>
-								<tr>
-									<td class="transparent">
-										<a href="https://2moons.cc/user/205-idro/" target="_blank">Idro</a>
-									</td>
-									<td class="transparent">
-										<img src="styles/resource/images/login/flags/it.png" alt="(italia)">
-									</td>
-								</tr>
-								<tr>
-									<td class="transparent">
-										<a href="https://2moons.cc/user/100-qwatakayean/" target="_blank">QwataKayean</a>
+										<a target="_blank" href="http://2moons.cc/user/100-qwatakayean/" target="_blank">QwataKayean</a>
 									</td>
 									<td class="transparent">
 										<img src="styles/resource/images/login/flags/pt.png" alt="(portuguese)">
@@ -149,7 +133,7 @@
 								</tr>
 								<tr>
 									<td class="transparent">
-										<a href="https://2moons.cc/user/98-inquisitorea/" target="_blank">InquisitorEA</a>
+										<a target="_blank" href="http://2moons.cc/user/98-inquisitorea/" target="_blank">InquisitorEA</a>
 									</td>
 									<td class="transparent">
 										<img src="styles/resource/images/login/flags/ru.png" alt="(russian)">
@@ -157,18 +141,10 @@
 								</tr>
 								<tr>
 									<td class="transparent">
-										<a href="https://2moons.cc/user/64-orion/" style="color:red">Orion</a>
+										<a target="_blank" href="http://2moons.cc/user/64-orion/">Orion</a>
 									</td>
 									<td class="transparent">
 										<img src="styles/resource/images/login/flags/es.png" alt="(spanish)">
-									</td>
-								</tr>
-								<tr>
-									<td class="transparent">
-										<a href="http://2moons.cc/user/853-pandorax/" target="_blank">_pandorax_ </a>
-									</td>
-									<td class="transparent">
-										<img src="styles/resource/images/login/flags/si.png" alt="(slovenian)">
 									</td>
 								</tr>
 								</table>
@@ -206,8 +182,8 @@
 								</tr>
 								<tr>
 									<td class="transparent left">Flousedid</td>
-									<td class="transparent left">&nbsp;</td>
-									<td class="transparent left">&nbsp;</td>
+									<td class="transparent left">jstar</td>
+									<td class="transparent left">scrippi</td>
 								</tr>
 								</table>
 							</td>

@@ -30,17 +30,18 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowModulePage()
 {
-	global $CONF, $LNG;
-	
-	$module	= Config::get('moduls');
+	global $LNG;
+
+	$config	= Config::get(Universe::getEmulated());
+	$module	= explode(';', $config->moduls);
 	
 	if($_GET['mode']) {
 		$module[HTTP::_GP('id', 0)]	= ($_GET['mode'] == 'aktiv') ? 1 : 0;
-		Config::update(array('moduls' => implode(";", $module)));
+		$config->moduls = implode(";", $module);
+		$config->save();
 	}
 	
 	$IDs	= range(0, MODULE_AMOUNT - 1);
-	
 	foreach($IDs as $ID => $Name) {
 		$Modules[$ID]	= array(
 			'name'	=> $LNG['modul'][$ID], 

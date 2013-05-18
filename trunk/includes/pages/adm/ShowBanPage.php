@@ -37,7 +37,7 @@ function ShowBanPage()
 	if ($_GET['view'] == 'bana')
 		$WHEREBANA	= "AND `bana` = '1'";
 
-	$UserList		= $GLOBALS['DATABASE']->query("SELECT `username`, `id`, `bana` FROM ".USERS." WHERE `id` != 1 AND `authlevel` <= '".$USER['authlevel']."' AND `universe` = '".$_SESSION['adminuni']."' ".$WHEREBANA." ORDER BY ".$ORDER." ASC;");
+	$UserList		= $GLOBALS['DATABASE']->query("SELECT `username`, `id`, `bana` FROM ".USERS." WHERE `id` != 1 AND `authlevel` <= '".$USER['authlevel']."' AND `universe` = '".Universe::getEmulated()."' ".$WHEREBANA." ORDER BY ".$ORDER." ASC;");
 
 	$UserSelect	= array('List' => '', 'ListBan' => '');
 	
@@ -53,7 +53,7 @@ function ShowBanPage()
 	$ORDER2 = $_GET['order2'] == 'id' ? "id" : "username";
 		
 	$Banneds		=0;
-	$UserListBan	= $GLOBALS['DATABASE']->query("SELECT `username`, `id` FROM ".USERS." WHERE `bana` = '1' AND `universe` = '".$_SESSION['adminuni']."' ORDER BY ".$ORDER2." ASC;");
+	$UserListBan	= $GLOBALS['DATABASE']->query("SELECT `username`, `id` FROM ".USERS." WHERE `bana` = '1' AND `universe` = '".Universe::getEmulated()."' ORDER BY ".$ORDER2." ASC;");
 	while ($b = $GLOBALS['DATABASE']->fetch_array($UserListBan))
 	{
 		$UserSelect['ListBan']	.=	'<option value="'.$b['username'].'">'.$b['username'].'&nbsp;&nbsp;(ID:&nbsp;'.$b['id'].')</option>';
@@ -66,11 +66,11 @@ function ShowBanPage()
 	$template->loadscript('filterlist.js');
 
 
+	$Name					= HTTP::_GP('ban_name', '', true);
+	$BANUSER				= $GLOBALS['DATABASE']->getFirstRow("SELECT b.theme, b.longer, u.id, u.urlaubs_modus, u.banaday FROM ".USERS." as u LEFT JOIN ".BANNED." as b ON u.`username` = b.`who` WHERE u.`username` = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND u.`universe` = '".Universe::getEmulated()."';");
+
 	if(isset($_POST['panel']))
 	{
-		$Name					= HTTP::_GP('ban_name', '', true);
-		$BANUSER				= $GLOBALS['DATABASE']->getFirstRow("SELECT b.theme, b.longer, u.id, u.urlaubs_modus, u.banaday FROM ".USERS." as u LEFT JOIN ".BANNED." as b ON u.`username` = b.`who` WHERE u.`username` = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND u.`universe` = '".$_SESSION['adminuni']."';");
-			
 		if ($BANUSER['banaday'] <= TIMESTAMP)
 		{
 			$title			= $LNG['bo_bbb_title_1'];
@@ -134,7 +134,7 @@ function ShowBanPage()
 			$SQL     .= "`longer` = '". $BannedUntil ."', ";
 			$SQL     .= "`author` = '". $admin ."', ";
 			$SQL     .= "`email` = '". $mail ."' ";
-			$SQL     .= "WHERE `who2` = '".$Name."' AND `universe` = '".$_SESSION['adminuni']."';";
+			$SQL     .= "WHERE `who2` = '".$Name."' AND `universe` = '".Universe::getEmulated()."';";
 			$GLOBALS['DATABASE']->query($SQL);
 		} else {
 			$SQL      = "INSERT INTO ".BANNED." SET ";
@@ -143,7 +143,7 @@ function ShowBanPage()
 			$SQL     .= "`time` = '".TIMESTAMP."', ";
 			$SQL     .= "`longer` = '". $BannedUntil ."', ";
 			$SQL     .= "`author` = '". $admin ."', ";
-			$SQL     .= "`universe` = '".$_SESSION['adminuni']."', ";
+			$SQL     .= "`universe` = '".Universe::getEmulated()."', ";
 			$SQL     .= "`email` = '". $mail ."';";
 			$GLOBALS['DATABASE']->query($SQL);
 		}
@@ -153,15 +153,15 @@ function ShowBanPage()
 		$SQL    .= "`banaday` = '". $BannedUntil ."', ";
 		$SQL	.= isset($_POST['vacat']) ? "`urlaubs_modus` = '1'" : "`urlaubs_modus` = '0'";
 		$SQL    .= "WHERE ";
-		$SQL    .= "`username` = '". $Name ."' AND `universe` = '".$_SESSION['adminuni']."';";
+		$SQL    .= "`username` = '". $Name ."' AND `universe` = '".Universe::getEmulated()."';";
 		$GLOBALS['DATABASE']->query($SQL);
 
 		$template->message($LNG['bo_the_player'].$Name.$LNG['bo_banned'], '?page=bans');
 		exit;
 	} elseif(isset($_POST['unban_name'])) {
 		$Name	= HTTP::_GP('unban_name', '', true);
-		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET bana = '0', banaday = '0' WHERE username = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND `universe` = '".$_SESSION['adminuni']."';");
-		#DELETE FROM ".BANNED." WHERE who = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND `universe` = '".$_SESSION['adminuni']."';
+		$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET bana = '0', banaday = '0' WHERE username = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND `universe` = '".Universe::getEmulated()."';");
+		#DELETE FROM ".BANNED." WHERE who = '".$GLOBALS['DATABASE']->sql_escape($Name)."' AND `universe` = '".Universe::getEmulated()."';
 		$template->message($LNG['bo_the_player2'].$Name.$LNG['bo_unbanned'], '?page=bans');
 		exit;
 	}

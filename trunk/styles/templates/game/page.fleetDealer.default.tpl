@@ -20,7 +20,7 @@
 					<h2 id="traderHead"></h2>
 					<p>{$LNG.ft_count}: <input type="text" id="count" name="count" onkeyup="Total();"><button onclick="MaxShips();return false;">{$LNG.ft_max}</button></p>
 					<p>{$LNG.tech.901}: <span id="metal" style="font-weight:800;"></span> &bull; {$LNG.tech.902}: <span id="crystal" style="font-weight:800;"></span> &bull; {$LNG.tech.903}: <span id="deuterium" style="font-weight:800;"></span> &bull; {$LNG.tech.921}: <span id="darkmatter" style="font-weight:800;"></span></p>
-					<p>{$LNG.ft_total}: {$LNG.tech.901}: <span id="total_metal" style="font-weight:800;"></span> &bull; {$LNG.tech.902}: <span id="total_crystal" style="font-weight:800;"></span> &bull; {$LNG.tech.903} <span id="total_deuterium" style="font-weight:800;"></span> &bull; {$LNG.tech.921}: <span id="total_darkmatter" style="font-weight:800;"></span></ü>
+					<p>{$LNG.ft_total}: {$LNG.tech.901}: <span id="total_metal" style="font-weight:800;"></span> &bull; {$LNG.tech.902}: <span id="total_crystal" style="font-weight:800;"></span> &bull; {$LNG.tech.903} <span id="total_deuterium" style="font-weight:800;"></span> &bull; {$LNG.tech.921}: <span id="total_darkmatter" style="font-weight:800;"></span></ï¿½>
 					<p><input type="submit" value="{$LNG.ft_absenden}"></p>
 					<p>{$LNG.ft_charge}: {$Charge}%</p>
 				</div>
@@ -30,8 +30,12 @@
 </form>
 {/block}
 {block name="script" append}
-<script type="text/javascript">
+<script src="scripts/game/fleettrader.js"></script>
+<script>
 var CostInfo = {$CostInfos|json};
 var Charge = {$Charge};
+$(function(
+    updateVars();
+))
 </script>
 {/block}

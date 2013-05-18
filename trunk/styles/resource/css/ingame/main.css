@@ -11,11 +11,11 @@ body {
 }
 
 body.popup {
-	min-width:0px;
+	min-width:0;
 }
 
 body,input,button,select,textarea,td,th,tr,table,button {
-	font-family:Verdana;
+	font-family:verdana;
 	font-size:10px;
 }
 
@@ -23,7 +23,7 @@ body,input,button,select,textarea,td,th,tr,table,button {
 	outline:none
 }
 
-input:invalid {
+input.invalid {
 	background-color:red;
 	border:1px solid #FFF;
 }

@@ -12,7 +12,7 @@
  * Name:     number<br>
  * Purpose:  convert string to formated number
  *
- * @author Jan Kröpke
+ * @author Jan KrÃ¶pke
  * @param array $params parameters
  * @return string with compiled code
  */

@@ -31,7 +31,6 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowVertify() 
 {
-	global $CONF, $LNG;
 	$EXT		= explode("|", HTTP::_GP("ext", ""));
 	$action 	= HTTP::_GP("action", "");
 	$file	 	= HTTP::_GP("file", "");
@@ -71,7 +70,6 @@ function ShowVertify()
 				echo 2;
 				exit;
 			}
-			exit;
 		break;
 		case 'vertify':
 			$template->loadscript('vertify.js');

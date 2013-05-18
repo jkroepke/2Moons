@@ -49,7 +49,7 @@
 		<tr>
 			<td>{$missile_count} <input type="text" name="SendMI" size="2" maxlength="7"></td>
 			<td>{$LNG.gl_objective}: 
-				{html_options name=Target options=$MissleSelector}
+				{html_options name=Target options=$missileSelector}
 			</td>
 		</tr>
 		<tr>
@@ -185,7 +185,7 @@
 		</td>
 	</tr>
 	<tr style="display: none;" id="fleetstatusrow">
-		<th colspan="8">{$LNG.cff_fleet_target}
+		<th colspan="8">{$LNG.cff_fleet_target}</th>
 	</tr>
 	</table>
 	<script type="text/javascript">
@@ -193,5 +193,4 @@
 		status_fail		= '{$LNG.gl_ajax_status_fail}';
 		MaxFleetSetting = {$settings_fleetactions};
 	</script>
-</div>
 {/block}

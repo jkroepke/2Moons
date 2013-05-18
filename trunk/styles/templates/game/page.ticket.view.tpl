@@ -15,7 +15,6 @@
 			{if $answerRow@first}
 				<br>{$LNG.ti_category}: {$categoryList[$answerRow.categoryID]}
 			{/if}
-			</p>
 			<hr>
 			<p>
 				{$answerRow.message}
@@ -29,7 +28,7 @@
 	</tr>
 	<tr>
 		<td style="width:30%"><label for="message">{$LNG.ti_message}</label></td>
-		<td style="width:70%"><textarea class="validate[required]" id="message" name="message" row="60" cols="8" style="height:100px;"></textarea></td>
+		<td style="width:70%"><textarea class="validate[required]" id="message" name="message" rows="60" cols="8" style="height:100px;"></textarea></td>
 	</tr>
 	<tr>
 		<td colspan="2"><input type="submit" value="{$LNG.ti_submit}"></td>

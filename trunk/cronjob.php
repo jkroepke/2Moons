@@ -30,16 +30,19 @@ define('MODE', 'CRON');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 set_include_path(ROOT_PATH);
 
-require('includes/common.php');
+require 'includes/common.php';
+
+$session	= Session::load();
 
 // Output transparent gif
 HTTP::sendHeader('Cache-Control', 'no-cache');
 HTTP::sendHeader('Content-Type', 'image/gif');
 HTTP::sendHeader('Expires', '0');
-$isSessionActive	= $SESSION->isActiveSession();
+
+
 echo("\x47\x49\x46\x38\x39\x61\x01\x00\x01\x00\x80\x00\x00\x00\x00\x00\x00\x00\x00\x21\xF9\x04\x01\x00\x00\x00\x00\x2C\x00\x00\x00\x00\x01\x00\x01\x00\x00\x02\x02\x44\x01\x00\x3B");
 
-if(!$isSessionActive)
+if(!$session->isValidSession())
 {
 	exit;
 }

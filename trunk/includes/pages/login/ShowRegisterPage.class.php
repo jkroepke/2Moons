@@ -37,18 +37,18 @@ class ShowRegisterPage extends AbstractPage
 	
 	function show()
 	{
+		global $LNG;
 		$universeSelect	= array();	
 		$referralData	= array('id' => 0, 'name' => '');
 		$accountName	= "";
 		
 		$externalAuth	= HTTP::_GP('externalAuth', array());
 		$referralID 	= HTTP::_GP('referralID', 0);
-		
-		$uniAllConfig	= Config::getAll('universe');
-		
-		foreach($uniAllConfig as $uniID => $uniConfig)
+
+		foreach(Universe::availableUniverses() as $uniId)
 		{
-			$universeSelect[$uniID]	= $uniConfig['uni_name'].($uniConfig['game_disable'] == 0 || $uniConfig['reg_closed'] == 1 ? t('uni_closed') : '');
+			$config = Config::get($uniId);
+			$universeSelect[$uniId]	= $config->uni_name.($config->game_disable == 0 || $config->reg_closed == 1 ? $LNG['uni_closed'] : '');
 		}
 		
 		if(!isset($externalAuth['account'], $externalAuth['method']))
@@ -63,26 +63,37 @@ class ShowRegisterPage extends AbstractPage
 		
 		if(!empty($externalAuth['account']) && file_exists('includes/extauth/'.$externalAuth['method'].'.class.php'))
 		{
-			require('includes/extauth/'.$externalAuth['method'].'.class.php');
+			$path	= 'includes/extauth/'.$externalAuth['method'].'.class.php';
+			require($path);
 			$methodClass	= ucwords($externalAuth['method']).'Auth';
+			/** @var $authObj externalAuth */
 			$authObj		= new $methodClass;
 			
-			if(!$authObj->isActiveMode()) {
+			if(!$authObj->isActiveMode())
+			{
 				$this->redirectTo('index.php?code=5');
 			}
 			
-			if(!$authObj->isVaild()) {
+			if(!$authObj->isValid())
+			{
 				$this->redirectTo('index.php?code=4');
 			}
 			
 			$accountData	= $authObj->getAccountData();
 			$accountName	= $accountData['name'];
 		}
-		
-		if(Config::get('ref_active') == 1 && !empty($referralID))
+
+		$config			= Config::get();
+		if($config->ref_active == 1 && !empty($referralID))
 		{
-			$referralAccountName	= $GLOBALS['DATABASE']->getFirstCell("SELECT username FROM ".USERS." WHERE id = ".$referralID." AND universe = ".$GLOBALS['UNI'].";");
-			
+			$db = Database::get();
+
+			$sql = "SELECT username FROM %%USERS%% WHERE id = :referralID AND universe = :universe;";
+			$referralAccountName = $db->selectSingle($sql, array(
+				':referralID'	=> $referralID,
+				':universe'		=> Universe::current()
+			), 'username');
+
 			if(!empty($referralAccountName))
 			{
 				$referralData	= array('id' => $referralID, 'name' => $referralAccountName);
@@ -94,14 +105,25 @@ class ShowRegisterPage extends AbstractPage
 			'accountName'		=> $accountName,
 			'externalAuth'		=> $externalAuth,
 			'universeSelect'	=> $universeSelect,
-			'registerRulesDesc'	=> t('registerRulesDesc', '<a href="index.php?page=rules">'.t('menu_rules').'</a>')
+			'registerRulesDesc'	=> sprintf($LNG['registerRulesDesc'], '<a href="index.php?page=rules">'.$LNG['menu_rules'].'</a>')
 		));
 		
-		$this->render('page.register.default.tpl');
+		$this->display('page.register.default.tpl');
 	}
 	
 	function send() 
-	{			
+	{
+		global $LNG;
+		$config		= Config::get();
+
+		if($config->game_disable == 0 || $config->reg_closed == 1)
+		{
+			$this->printMessage($LNG['registerErrorUniClosed'], array(array(
+				'label'	=> $LNG['registerBack'],
+				'url'	=> 'javascript:window.history.back()',
+			)));
+		}
+
 		$userName 		= HTTP::_GP('username', '', UTF8_SUPPORT);
 		$password 		= HTTP::_GP('password', '', true);
 		$password2 		= HTTP::_GP('passwordReplay', '', true);
@@ -111,7 +133,7 @@ class ShowRegisterPage extends AbstractPage
 		$language 		= HTTP::_GP('lang', '');
 		
 		$referralID 	= HTTP::_GP('referralID', 0);
-		
+
 		$externalAuth	= HTTP::_GP('externalAuth', array());
 		if(!isset($externalAuth['account'], $externalAuth['method']))
 		{
@@ -126,119 +148,129 @@ class ShowRegisterPage extends AbstractPage
 		
 		$errors 	= array();
 		
-		if(Config::get('game_disable') == 0 || Config::get('reg_closed') == 1) {
-			$this->printMessage(t('registerErrorUniClosed'), NULL, array(array(
-				'label'	=> t('registerBack'),
-				'url'	=> 'javascript:window.history.back()',
-			)));
-		}
-		
 		if(empty($userName)) {
-			$errors[]	= t('registerErrorUsernameEmpty');
+			$errors[]	= $LNG['registerErrorUsernameEmpty'];
 		}
 		
 		if(!PlayerUtil::isNameValid($userName)) {
-			$errors[]	= t('registerErrorUsernameChar');
+			$errors[]	= $LNG['registerErrorUsernameChar'];
 		}
 		
 		if(strlen($password) < 6) {
-			$errors[]	= t('registerErrorPasswordLength');
+			$errors[]	= $LNG['registerErrorPasswordLength'];
 		}
 			
 		if($password != $password2) {
-			$errors[]	= t('registerErrorPasswordSame');
+			$errors[]	= $LNG['registerErrorPasswordSame'];
 		}
 			
 		if(!PlayerUtil::isMailValid($mailAddress)) {
-			$errors[]	= t('registerErrorMailInvalid');
+			$errors[]	= $LNG['registerErrorMailInvalid'];
 		}
 			
 		if(empty($mailAddress)) {
-			$errors[]	= t('registerErrorMailEmpty');
+			$errors[]	= $LNG['registerErrorMailEmpty'];
 		}
 		
 		if($mailAddress != $mailAddress2) {
-			$errors[]	= t('registerErrorMailSame');
+			$errors[]	= $LNG['registerErrorMailSame'];
 		}
 		
 		if($rulesChecked != 1) {
-			$errors[]	= t('registerErrorRules');
+			$errors[]	= $LNG['registerErrorRules'];
 		}
 		
-		$countUsername	= $GLOBALS['DATABASE']->getFirstCell("SELECT (
-			SELECT COUNT(*) 
-			FROM ".USERS." 
-			WHERE universe = ".$GLOBALS['UNI']."
-			AND username = '".$GLOBALS['DATABASE']->escape($userName)."'
-		) + (
+		$db = Database::get();
+
+		$sql = "SELECT (
+				SELECT COUNT(*)
+				FROM %%USERS%%
+				WHERE universe = :universe
+				AND username = :userName
+			) + (
+				SELECT COUNT(*)
+				FROM %%USERS_VALID%%
+				WHERE universe = :universe
+				AND username = :userName
+			) as count;";
+
+		$countUsername = $db->selectSingle($sql, array(
+			':universe'	=> Universe::current(),
+			':userName'	=> $userName,
+		), 'count');
+
+		$sql = "SELECT (
 			SELECT COUNT(*)
-			FROM ".USERS_VALID."
-			WHERE universe = ".$GLOBALS['UNI']."
-			AND username = '".$GLOBALS['DATABASE']->escape($userName)."'
-		);");
-		
-		$countMail		= $GLOBALS['DATABASE']->getFirstCell("SELECT (
-			SELECT COUNT(*)
-			FROM ".USERS."
-			WHERE universe = ".$GLOBALS['UNI']."
+			FROM %%USERS%%
+			WHERE universe = :universe
 			AND (
-				email = '".$GLOBALS['DATABASE']->escape($mailAddress)."'
-				OR email_2 = '".$GLOBALS['DATABASE']->escape($mailAddress)."'
+				email = :mailAddress
+				OR email_2 = :mailAddress
 			)
 		) + (
 			SELECT COUNT(*)
-			FROM ".USERS_VALID."
-			WHERE universe = ".$GLOBALS['UNI']."
-			AND email = '".$GLOBALS['DATABASE']->escape($mailAddress)."'
-		);");
+			FROM %%USERS_VALID%%
+			WHERE universe = :universe
+			AND email = :mailAddress
+		) as count;";
+
+		$countMail = $db->selectSingle($sql, array(
+			':universe'		=> Universe::current(),
+			':mailAddress'	=> $mailAddress,
+		), 'count');
 		
 		if($countUsername!= 0) {
-			$errors[]	= t('registerErrorUsernameExist');
+			$errors[]	= $LNG['registerErrorUsernameExist'];
 		}
 			
 		if($countMail != 0) {
-			$errors[]	= t('registerErrorMailExist');
+			$errors[]	= $LNG['registerErrorMailExist'];
 		}
 		
-		if (Config::get('capaktiv') === '1') {
+		if ($config->capaktiv === '1') {
 			require_once('includes/libs/reCAPTCHA/recaptchalib.php');
 			
-			$resp = recaptcha_check_answer(Config::get('capprivate'), $_SERVER['REMOTE_ADDR'], $_REQUEST['recaptcha_challenge_field'], $_REQUEST['recaptcha_response_field']);
+			$recaptcha_challenge_field	= HTTP::_GP('recaptcha_challenge_field', '');
+			$recaptcha_response_field	= HTTP::_GP('recaptcha_response_field', '');
+			
+			$resp = recaptcha_check_answer($config->capprivate, $_SERVER['REMOTE_ADDR'], $recaptcha_challenge_field, $recaptcha_response_field);
 		
 			if (!$resp->is_valid)
 			{
-				$errors[]	= t('registerErrorCaptcha');
+				$errors[]	= $LNG['registerErrorCaptcha'];
 			}
 		}
 						
 		if (!empty($errors)) {
-			$this->printMessage(implode("<br>\r\n", $errors), NULL, array(array(
-				'label'	=> t('registerBack'),
+			$this->printMessage(implode("<br>\r\n", $errors), array(array(
+				'label'	=> $LNG['registerBack'],
 				'url'	=> 'javascript:window.history.back()',
 			)));
 		}
-		
-		if(!empty($externalAuth['account']) && file_exists('includes/extauth/'.$externalAuthMethod.'.class.php'))
+
+		$path	= 'includes/extauth/'.$externalAuthMethod.'.class.php';
+
+		if(!empty($externalAuth['account']) && file_exists($path))
 		{
-			require('includes/extauth/'.$externalAuthMethod.'.class.php');
-			$methodClass	= ucwords($externalAuthMethod).'Auth';
-			$authObj		= new $methodClass;
-			
-			if(!$authObj->isActiveMode()) {
-				$externalAuthUID	= 0;
+			require($path);
+
+			$methodClass		= ucwords($externalAuthMethod).'Auth';
+			/** @var $authObj externalAuth */
+			$authObj			= new $methodClass;
+			$externalAuthUID	= 0;
+			if($authObj->isActiveMode() && $authObj->isValid()) {
+				$externalAuthUID	= $authObj->getAccount();
 			}
-			
-			if(!$authObj->isVaild()) {
-				$externalAuthUID	= 0;
-			}
-			
-			$externalAuthUID	= $authObj->getAccount();
 		}
 		
-		if(Config::get('ref_active') == 1 && !empty($referralID))
+		if($config->ref_active == 1 && !empty($referralID))
 		{
-			$Count	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".USERS." WHERE id = ".$referralID." AND universe = ".$GLOBALS['UNI'].";");
-			
+			$sql = "SELECT COUNT(*) as state FROM %%USERS%% WHERE id = :referralID AND universe = :universe;";
+			$Count = $db->selectSingle($sql, array(
+				':referralID' 	=> $referralID,
+				':universe'		=> Universe::current()
+			), 'state');
+
 			if($Count == 0)
 			{
 				$referralID	= 0;
@@ -250,34 +282,46 @@ class ShowRegisterPage extends AbstractPage
 		}
 		
 		$validationKey	= md5(uniqid('2m'));
-	
-		$SQL = "INSERT INTO ".USERS_VALID." SET
-				`userName` = '".$GLOBALS['DATABASE']->escape($userName)."',
-				`validationKey` = '".$validationKey."',
-				`password` = '".PlayerUtil::cryptPassword($password)."',
-				`email` = '".$GLOBALS['DATABASE']->escape($mailAddress)."',
-				`date` = '".TIMESTAMP."',
-				`ip` = '".$_SERVER['REMOTE_ADDR']."',
-				`language` = '".$GLOBALS['DATABASE']->escape($language)."',
-				`universe` = ".$GLOBALS['UNI'].",
-				`referralID` = ".$referralID.",
-				`externalAuthUID` = '".$GLOBALS['DATABASE']->escape($externalAuthUID)."',
-				`externalAuthMethod` = '".$externalAuthMethod."';";
-				
-		$GLOBALS['DATABASE']->query($SQL);
+
+		$sql = "INSERT INTO %%USERS_VALID%% SET
+				`userName` = :userName,
+				`validationKey` = :validationKey,
+				`password` = :password,
+				`email` = :mailAddress,
+				`date` = :timestamp,
+				`ip` = :remoteAddr,
+				`language` = :language,
+				`universe` = :universe,
+				`referralID` = :referralID,
+				`externalAuthUID` = :externalAuthUID,
+				`externalAuthMethod` = :externalAuthMethod;";
+
+
+		$db->insert($sql, array(
+			':userName'				=> $userName,
+			':validationKey'		=> $validationKey,
+			':password'				=> PlayerUtil::cryptPassword($password),
+			':mailAddress'			=> $mailAddress,
+			':timestamp'			=> TIMESTAMP,
+			':remoteAddr'			=> $_SERVER['REMOTE_ADDR'],
+			':language'				=> $language,
+			':universe'				=> Universe::current(),
+			':referralID'			=> $referralID,
+			':externalAuthUID'		=> $externalAuthUID,
+			':externalAuthMethod'	=> $externalAuthMethod
+		));
+
+		$validationID	= $db->lastInsertId();
+		$verifyURL	= 'index.php?page=vertify&i='.$validationID.'&k='.$validationKey;
 		
-		$validationID	= $GLOBALS['DATABASE']->GetInsertID();
-		$vertifyURL	= 'index.php?page=vertify&i='.$validationID.'&k='.$validationKey;
-		
-		if(Config::get('user_valid') == 0 || !empty($externalAuthUID))
+		if($config->user_valid == 0 || !empty($externalAuthUID))
 		{
-			$this->redirectTo($vertifyURL);
+			$this->redirectTo($verifyURL);
 		}
 		else
 		{
-			require('includes/classes/Mail.class.php');
-			$MailSubject 	= t('registerMailVertifyTitle');
-			$MailRAW		= $GLOBALS['LNG']->getTemplate('email_vaild_reg');
+			require 'includes/classes/Mail.class.php';
+			$MailRAW		= $LNG->getTemplate('email_vaild_reg');
 			$MailContent	= str_replace(array(
 				'{USERNAME}',
 				'{PASSWORD}',
@@ -287,14 +331,15 @@ class ShowRegisterPage extends AbstractPage
 			), array(
 				$userName,
 				$password,
-				Config::get('game_name').' - '.Config::get('uni_name'),
-				HTTP_PATH.$vertifyURL,
-				Config::get('smtp_sendmail'),
+				$config->game_name.' - '.$config->uni_name,
+				HTTP_PATH.$verifyURL,
+				$config->smtp_sendmail,
 			), $MailRAW);
+
+			$subject	= sprintf($LNG['registerMailVertifyTitle'], $config->game_name);
+			Mail::send($mailAddress, $userName, $subject, $MailContent);
 			
-			Mail::send($mailAddress, $userName, t('registerMailVertifyTitle', Config::get('game_name')), $MailContent);
-			
-			$this->printMessage(t('registerSendComplete'));
+			$this->printMessage($LNG['registerSendComplete']);
 		}
 	}
 }
