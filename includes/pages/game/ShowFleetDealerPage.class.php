@@ -54,7 +54,7 @@ class ShowFleetDealerPage extends AbstractPage
 			
 			$PLANET[$resource[$shipID]]		-= $Count;
 
-            $sql = "UPDATE %%PLANETS%% SET :resourceID = :resourceID - :count WHERE id = :planetID;";
+            $sql = 'UPDATE %%PLANETS%% SET '.$resource[$shipID].' = '.$resource[$shipID].' - :count WHERE id = :planetID;';
 			Database::get()->update($sql, array(
                 ':resourceID'   => $resource[$shipID],
                 ':count'        => $Count,
