@@ -37,11 +37,11 @@ function ShowAccountDataPage()
 	$id_u	= HTTP::_GP('id_u', 0);
 	if (!empty($id_u))
 	{
-		$OnlyQueryLogin 	= $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `authlevel` FROM ".USERS." WHERE `id` = '".$id_u."' AND `universe` = '".$_SESSION['adminuni']."';");
+		$OnlyQueryLogin 	= $GLOBALS['DATABASE']->getFirstRow("SELECT `id`, `authlevel` FROM ".USERS." WHERE `id` = '".$id_u."' AND `universe` = '".Universe::getEmulated()."';");
 
 		if(!isset($OnlyQueryLogin))
 		{
-			exit($template->message($LNG['ac_username_doesnt'], '?page=accoutdata'));
+			$template->message($LNG['ac_username_doesnt'], '?page=accoutdata');
 		}
 		else
 		{
@@ -516,7 +516,7 @@ function ShowAccountDataPage()
 		exit;
 	}
 	$Userlist	= "";
-	$UserWhileLogin	= $GLOBALS['DATABASE']->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `authlevel` <= '".$USER['authlevel']."' AND `universe` = '".$_SESSION['adminuni']."' ORDER BY `username` ASC;");
+	$UserWhileLogin	= $GLOBALS['DATABASE']->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `authlevel` <= '".$USER['authlevel']."' AND `universe` = '".Universe::getEmulated()."' ORDER BY `username` ASC;");
 	while($UserList	= $GLOBALS['DATABASE']->fetch_array($UserWhileLogin))
 	{
 		$Userlist	.= "<option value=\"".$UserList['id']."\">".$UserList['username']."&nbsp;&nbsp;(".$LNG['rank'][$UserList['authlevel']].")</option>";

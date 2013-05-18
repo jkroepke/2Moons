@@ -27,14 +27,12 @@
  
 class Log
 {
-	private $mode;
 	private $data	= array();
-	private static $db = null;
 
 	function __construct($mode) {
 		$this->data['mode']		= $mode;
-		$this->data['admin']	= $_SESSION['id'];
-		$this->data['uni']		= $_SESSION['adminuni'];
+		$this->data['admin']	= Session::load()->userId;
+		$this->data['uni']		= Universe::getEmulated();
 	}
 	public function __set($key, $value){
 		$this->data[$key] = $value;

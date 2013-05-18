@@ -27,15 +27,20 @@
  */
 
 define('MODE', 'ADMIN');
+define('DATABASE_VERSION', 'OLD');
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
-require('includes/common.php');
-require_once('includes/classes/class.Log.php');
+require 'includes/common.php';
+require 'includes/classes/class.Log.php';
 
-if ($USER['authlevel'] == AUTH_USR) HTTP::redirectTo('game.php');
+if ($USER['authlevel'] == AUTH_USR)
+{
+	HTTP::redirectTo('game.php');
+}
 
-if(!isset($_SESSION['admin_login']) || $_SESSION['admin_login'] != $USER['password'])
+$session	= Session::create();
+if($session->adminAccess != 1)
 {
 	include_once('includes/pages/adm/ShowLoginPage.php');
 	ShowLoginPage();
@@ -43,12 +48,11 @@ if(!isset($_SESSION['admin_login']) || $_SESSION['admin_login'] != $USER['passwo
 }
 
 $page = HTTP::_GP('page', '');
-$uni = HTTP::_GP('uni', 0);
 
 if($USER['authlevel'] == AUTH_ADM && !empty($uni))
-	$_SESSION['adminuni'] = $uni;
-if(empty($_SESSION['adminuni']))
-	$_SESSION['adminuni'] = $UNI;
+{
+	Universe::setEmulated($uni);
+}
 
 switch($page)
 {
@@ -159,10 +163,6 @@ switch($page)
 	case 'topnav':
 		include_once('includes/pages/adm/ShowTopnavPage.php');
 		ShowTopnavPage();
-	break;
-	case 'mods':
-		include_once('includes/pages/adm/ShowModVersionPage.php');
-		ShowModVersionPage();
 	break;
 	case 'overview':
 		include_once('includes/pages/adm/ShowOverviewPage.php');

@@ -12,7 +12,7 @@
  * Name:     time<br>
  * Purpose:  convert string to lowercase
  *
- * @author Jan Kröpke
+ * @author Jan KrÃ¶pke
  * @param array $params parameters
  * @return string with compiled code
  */

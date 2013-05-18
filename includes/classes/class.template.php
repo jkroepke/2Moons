@@ -32,48 +32,48 @@ require('includes/libs/Smarty/Smarty.class.php');
 class template extends Smarty
 {
 	protected $window	= 'full';
-	protected $jsscript	= array();
-	protected $script	= array();
+	public $jsscript	= array();
+	public $script		= array();
 	
 	function __construct()
 	{	
 		parent::__construct();
 		$this->smartySettings();
 	}
-	
-	function smartySettings()
+
+	private function smartySettings()
 	{	
 		$this->force_compile 			= false;
 		$this->caching 					= true; #Set true for production!
 		$this->merge_compiled_includes	= true;
 		$this->compile_check			= true; #Set false for production!
 		$this->php_handling				= Smarty::PHP_REMOVE;
-		
-		$this->setCompileDir(is_writable(ROOT_PATH.'cache/') ? ROOT_PATH.'cache/' : $this->getTempPath());
-		$this->setCacheDir(ROOT_PATH.'cache/templates');
-		$this->setTemplateDir(ROOT_PATH.'styles/templates/');
+
+		$this->setCompileDir(is_writable(CACHE_PATH) ? CACHE_PATH : $this->getTempPath());
+		$this->setCacheDir($this->getCompileDir().'templates');
+		$this->setTemplateDir('styles/templates/');
 	}
-	
-	public function loadscript($script)
-	{
-		$this->jsscript[]			= substr($script, 0, -3);
-	}
-	
-	public function execscript($script)
-	{
-		$this->script[]				= $script;
-	}
-	
-	public function getTempPath()
+
+	private function getTempPath()
 	{
 		$this->force_compile 		= true;
-		include 'includes/libs/wcf/BasicFileUtil.class.php';
+		require_once 'includes/libs/wcf/BasicFileUtil.class.php';
 		return BasicFileUtil::getTempFolder();
 	}
 		
 	public function assign_vars($var, $nocache = true) 
 	{		
 		parent::assign($var, NULL, $nocache);
+	}
+
+	public function loadscript($script)
+	{
+		$this->jsscript[]			= substr($script, 0, -3);
+	}
+
+	public function execscript($script)
+	{
+		$this->script[]				= $script;
 	}
 	
 	private function adm_main()
@@ -90,16 +90,18 @@ class template extends Smarty
 		} else {
 			$dateTimeUser	= $dateTimeServer;
 		}
-		
+
+		$config	= Config::get();
+
 		$this->assign_vars(array(
 			'scripts'			=> $this->script,
-			'title'				=> Config::get('game_name').' - '.$LNG['adm_cp_title'],
+			'title'				=> $config->game_name.' - '.$LNG['adm_cp_title'],
 			'fcm_info'			=> $LNG['fcm_info'],
             'lang'    			=> $LNG->getLanguage(),
-			'REV'				=> substr(Config::get('VERSION'), -4),
+			'REV'				=> substr($config->VERSION, -4),
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
 			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
-			'VERSION'			=> Config::get('VERSION'),
+			'VERSION'			=> $config->VERSION,
 			'dpath'				=> 'styles/theme/gow/',
 			'bodyclass'			=> 'full'
 		));
@@ -107,11 +109,13 @@ class template extends Smarty
 	
 	public function show($file)
 	{		
-		global $USER, $PLANET, $LNG, $THEME;
+		global $LNG, $THEME;
 
 		if($THEME->isCustomTPL($file))
+		{
 			$this->setTemplateDir($THEME->getTemplatePath());
-			
+		}
+
 		$tplDir	= $this->getTemplateDir();
 			
 		if(MODE === 'INSTALL') {
@@ -182,11 +186,11 @@ class template extends Smarty
     public function __get($name)
     {
         $allowed = array(
-        'template_dir' => 'getTemplateDir',
-        'config_dir' => 'getConfigDir',
-        'plugins_dir' => 'getPluginsDir',
-        'compile_dir' => 'getCompileDir',
-        'cache_dir' => 'getCacheDir',
+			'template_dir' => 'getTemplateDir',
+			'config_dir' => 'getConfigDir',
+			'plugins_dir' => 'getPluginsDir',
+			'compile_dir' => 'getCompileDir',
+			'cache_dir' => 'getCacheDir',
         );
 
         if (isset($allowed[$name])) {
@@ -199,11 +203,11 @@ class template extends Smarty
     public function __set($name, $value)
     {
         $allowed = array(
-        'template_dir' => 'setTemplateDir',
-        'config_dir' => 'setConfigDir',
-        'plugins_dir' => 'setPluginsDir',
-        'compile_dir' => 'setCompileDir',
-        'cache_dir' => 'setCacheDir',
+			'template_dir' => 'setTemplateDir',
+			'config_dir' => 'setConfigDir',
+			'plugins_dir' => 'setPluginsDir',
+			'compile_dir' => 'setCompileDir',
+			'cache_dir' => 'setCacheDir',
         );
 
         if (isset($allowed[$name])) {

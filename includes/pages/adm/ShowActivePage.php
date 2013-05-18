@@ -33,9 +33,9 @@ function ShowActivePage()
 	global $LNG, $USER;
 	$id = HTTP::_GP('id', 0);
 	if($_GET['action'] == 'delete' && !empty($id))
-		$GLOBALS['DATABASE']->query("DELETE FROM ".USERS_VALID." WHERE `validationID` = '".$id."' AND `universe` = '".$_SESSION['adminuni']."';");
+		$GLOBALS['DATABASE']->query("DELETE FROM ".USERS_VALID." WHERE `validationID` = '".$id."' AND `universe` = '".Universe::getEmulated()."';");
 
-	$query = $GLOBALS['DATABASE']->query("SELECT * FROM ".USERS_VALID." WHERE `universe` = '".$_SESSION['adminuni']."' ORDER BY validationID ASC");
+	$query = $GLOBALS['DATABASE']->query("SELECT * FROM ".USERS_VALID." WHERE `universe` = '".Universe::getEmulated()."' ORDER BY validationID ASC");
 
 	$Users	= array();
 	while ($User = $GLOBALS['DATABASE']->fetch_array($query)) {
@@ -54,7 +54,7 @@ function ShowActivePage()
 
 	$template->assign_vars(array(	
 		'Users'				=> $Users,
-		'uni'				=> $_SESSION['adminuni'],
+		'uni'				=> Universe::getEmulated(),
 	));
 	
 	$template->show('ActivePage.tpl');

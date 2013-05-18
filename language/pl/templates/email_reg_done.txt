@@ -1,12 +1,9 @@
-﻿Witaj %1$s,
+﻿Witaj {USERNAME}
 
-
-Dziękujemy za rejstracje na %2$s
-
+Dziękujemy za rejstracje na {GAMENAME}
 
 Cieszymy się iż postanowiłeś dołączyć do naszej spoleczności.
 
-
 Pozdrowienia,
 
-%2$s - Team
+{GAMENAME}

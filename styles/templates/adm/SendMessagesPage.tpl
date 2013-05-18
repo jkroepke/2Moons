@@ -3,7 +3,7 @@
 
 function check(){
 	if($('#text').val().length == 0) {
-		Dialog.alert('{$mg_empty_text}');
+		Dialog.alert('{$LNG.mg_empty_text}');
 		return false;
 	} else {
 		$.post('admin.php?page=globalmessage&action=send&ajax=1', $('#message').serialize(), function(data) {

@@ -28,18 +28,15 @@
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
-require_once('includes/functions/DeleteSelectedUser.php');
-
-
 function ShowSearchPage()
 {
-	global $LNG;
+	global $LNG, $USER;
 	
 	if ($_GET['delete'] == 'user') {
-        DeleteSelectedUser((int) $_GET['user']);
+        PlayerUtil::deletePlayer((int) $_GET['user']);
         message($LNG['se_delete_succes_p'], '?page=search&search=users&minimize=on', 2);
 	} elseif ($_GET['delete'] == 'planet'){
-        DeleteSelectedPlanet((int) $_GET['planet']);
+		PlayerUtil::deletePlanet((int) $_GET['planet']);
         message($LNG['se_delete_succes_p'], '?page=search&search=planet&minimize=on', 2);
     }
 	
@@ -153,7 +150,7 @@ function ShowSearchPage()
 				$SName			= $LNG['se_input_admm'];}
 				
 				
-			$SpecialSpecify	.= " AND universe = '".$_SESSION['adminuni']."'";
+			$SpecialSpecify	.= " AND universe = '".Universe::getEmulated()."'";
 			
 			(($SearchFor == "name") ? $WhereItem = "WHERE username" : $WhereItem = "WHERE id");
 			$ArrayOSec		= array("id", "username", "email_2", "onlinetime", "register_time", "user_lastip", "authlevel", "bana", "urlaubs_modus");
@@ -182,7 +179,7 @@ function ShowSearchPage()
 				$SName			= $LNG['se_input_act_pla'];
 			}
 			
-			$SpecialSpecify	.= " AND p.universe = ".$_SESSION['adminuni'];
+			$SpecialSpecify	.= " AND p.universe = ".Universe::getEmulated();
 			$WhereItem = "LEFT JOIN ".USERS." u ON u.id = p.id_owner ";
 			if($SearchFor == "name") {
 				$WhereItem .= "WHERE p.name";
@@ -204,7 +201,7 @@ function ShowSearchPage()
 			$NameLang		= $LNG['se_search_banned'];
 			$SpecifyItems	= "id,who,time,longer,theme,author";
 			$SName			= $LNG['se_input_susss'];
-			$SpecialSpecify	= " AND universe = '".$_SESSION['adminuni']."'";
+			$SpecialSpecify	= " AND universe = '".Universe::getEmulated()."'";
 			
 			(($SearchFor == "name") ? $WhereItem = "WHERE who" : $WhereItem = "WHERE id");
 			
@@ -223,7 +220,7 @@ function ShowSearchPage()
 			$NameLang		= $LNG['se_search_alliance'];
 			$SpecifyItems	= "id,ally_name,ally_tag,ally_owner,ally_register_time,ally_members";
 			$SName			= $LNG['se_input_allyy'];
-			$SpecialSpecify	= " AND ally_universe = '".$_SESSION['adminuni']."'";
+			$SpecialSpecify	= " AND ally_universe = '".Universe::getEmulated()."'";
 			
 			(($SearchFor == "name") ? $WhereItem = "WHERE ally_name" : $WhereItem = "WHERE id");
 			
@@ -317,7 +314,9 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 		{
 			$BeforePage	= ($Page - 1);
 			$NextPage	= ($Page + 1);
-			
+
+			$PAGEE		= "";
+
 			for ($i = 1; $i <= $NumberOfPages; $i++)
 			{ 
 				$PAGEE .= $Page == $i ? "&nbsp;".$Page."&nbsp;" : " <a href='".$UrlForPage."&amp;side=".$i.$Minimize."'>".$i."</a> ";
@@ -325,9 +324,13 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 
 			if(($Page - 1) > 0) 
 				$BEFORE	= "<a href='".$UrlForPage."&amp;side=".$BeforePage.$Minimize."'><img src=\"./styles/resource/images/admin/arrowleft.png\" title=".$LNG['se__before']." height=10 width=14></a> ";
-		
+			else
+				$BEFORE	= "";
+
 			if(($Page + 1) <= $NumberOfPages) 
 				$NEXT	= "<a href='".$UrlForPage."&amp;side=".$NextPage.$Minimize."'><img src=\"./styles/resource/images/admin/arrowright.png\" title=".$LNG['se__next']." height=10 width=14></a>";
+			else
+				$NEXT	= "";
 		
 
 			$Search['PAGES']	= '<tr><td colspan="3" style="color:#00CC33;border: 1px lime solid;text-align:center;">'.$BEFORE.'&nbsp;'.$PAGEE.'&nbsp;'.$NEXT.'</td></tr>';

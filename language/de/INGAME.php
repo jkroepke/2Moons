@@ -670,6 +670,7 @@ $LNG['al_inside_section']					= 'Interner Bereich';
 $LNG['al_make_alliance']					= 'Eine Allianz gründen';
 $LNG['al_make_ally_tag_required']			= 'Allianz Tag (3-8 Zeichen)';
 $LNG['al_make_ally_name_required']			= 'Allianz Name (3-30 Zeichen)';
+$LNG['al_make_ally_insufficient_points']	= 'Du hast nicht genug Punkte, um eine Allianz zu gründen.<br>Du benötigst mindestenst %s Punkte, dir fehlern %s Punkte.';
 $LNG['al_make_submit']						= 'Gründen';
 $LNG['al_find_alliances']					= 'Allianz suchen';
 $LNG['al_find_text']						= 'Suche nach';
@@ -768,7 +769,9 @@ $LNG['al_rank_desc']['KICK']				= 'Kann Mitglieder entfernen';
 $LNG['al_rank_desc']['DIPLOMATIC']			= 'Kann Diplomatie verwalten';
 $LNG['al_rank_desc']['RANKS']				= 'Rangverwaltung';
 $LNG['al_rank_desc']['MANAGEUSERS']			= 'Kann Mitglieder verwalten';
-$LNG['al_rank_desc']['EVENTS']				= 'Kann Ereignisse im internen Bereich sehen';$LNG['bu_request_exists']					= 'Spieler bereits in der Buddyliste!';
+$LNG['al_rank_desc']['EVENTS']				= 'Kann Ereignisse im internen Bereich sehen';
+$LNG['al_invalid_rank_name']				= 'Im Ranknamen sind nur Zahlen, Buchstaben, Leerzeichen, _, -, . erlaubt!';
+
 
 //----------------------------------------------------------------------------//
 //BUDDY
@@ -997,6 +1000,9 @@ $LNG['sys_refferal_text']        	 		= 'Der von dir geworbene Spieler %s hat nun
 $LNG['sys_closed_game']        	 			= 'Das Universum ist zur Zeit nicht verfügbar:';
 $LNG['spec_mail_inactive_title']  			= '%s - Erinnerung';
 
+$LNG['sys_back']							= 'Zurück';
+$LNG['sys_forward']							= 'Weiter';
+
 //----------------------------------------------------------------------------//
 // CombatReport.php
 $LNG['cr_lost_contact']						= 'Der Kontakt ist mit den Flotten verloren gegangen.';
@@ -1112,7 +1118,6 @@ $LNG['ti_status_answer'] 					= 'Beantwortet';
 $LNG['ti_error_closed'] 					= 'Auf dieses Ticket kann keine Antwort erstellt werden, da es bereits geschlossen wurde!';
 $LNG['ti_admin_open'] 						= 'Ticket wurde geöffnet!';
 $LNG['ti_admin_close'] 						= 'Ticket wurde geschlossen!';
-
 $LNG['ti_create_info']						= '<p>Bitte vergeben Sie beim Erstellen einer neuen Anfrage einen möglichst aussagekräftigen Betreff und schildern Sie Ihr Anliegen so detailliert wie möglich.</p>
 <p>Eine genaue Beschreibung Ihrer Anfrage ermöglicht kurze Bearbeitungszeiten und vermeidet zeitaufwendige Rückfragen auf beiden Seiten.</p>
 <p>Bei accountbezogenen Fragen erleichtert die Angabe des entsprechenden Kundenaccounts die Zuordnung und verkürzt ebenfalls die Bearbeitungsdauer.</p>';

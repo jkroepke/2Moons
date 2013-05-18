@@ -29,22 +29,23 @@
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");
 
 function ShowTeamspeakPage() {
-	global $LNG, $USER;
-	
-	$CONF	= Config::getAll(NULL, $_SESSION['adminuni']);
+	global $LNG;
+
+
+	$config = Config::get(Universe::getEmulated());
 
 	if ($_POST)
 	{
 		$config_before = array(
-			'ts_timeout'		=> $CONF['ts_timeout'],
-			'ts_modon'			=> $CONF['ts_modon'],
-			'ts_server'			=> $CONF['ts_server'],
-			'ts_tcpport'		=> $CONF['ts_tcpport'],
-			'ts_udpport'		=> $CONF['ts_udpport'],
-			'ts_version'		=> $CONF['ts_version'],
-			'ts_login'			=> $CONF['ts_login'],
-			'ts_password'		=> $CONF['ts_password'],
-			'ts_cron_interval'	=> $CONF['ts_cron_interval']
+			'ts_timeout'		=> $config->ts_timeout,
+			'ts_modon'			=> $config->ts_modon,
+			'ts_server'			=> $config->ts_server,
+			'ts_tcpport'		=> $config->ts_tcpport,
+			'ts_udpport'		=> $config->ts_udpport,
+			'ts_version'		=> $config->ts_version,
+			'ts_login'			=> $config->ts_login,
+			'ts_password'		=> $config->ts_password,
+			'ts_cron_interval'	=> $config->ts_cron_interval
 		);
 		
 		$ts_modon 			= isset($_POST['ts_on']) && $_POST['ts_on'] == 'on' ? 1 : 0;		
@@ -68,11 +69,22 @@ function ShowTeamspeakPage() {
 			'ts_password'		=> $ts_password,
 			'ts_cron_interval'	=> $ts_cron_interval
 		);
-		
-		Config::update($config_after);
-		
-		$GLOBALS['DATABASE']->query("UPDATE ".CRONJOBS." SET isActive = ".$ts_modon.", `lock` = NULL, nextTime = 0 WHERE name = 'teamspeak';");
-		$CONF	= Config::getAll(NULL, $_SESSION['adminuni']);
+
+
+		foreach($config_after as $key => $value)
+		{
+			$config->$key	= $value;
+		}
+
+		$config->save();
+
+		$sql	= "UPDATE %%CRONJOBS%%
+		SET isActive = :isActive, `lock` = NULL, nextTime = 0
+		WHERE name = 'teamspeak';";
+
+		Database::get()->update($sql, array(
+			':isActive'	=> $ts_modon,
+		));
 		
 		$LOG = new Log(3);
 		$LOG->target = 4;
@@ -97,15 +109,15 @@ function ShowTeamspeakPage() {
 		'ts_sq_login'			=> $LNG['ts_login'],
 		'ts_sq_pass'			=> $LNG['ts_pass'],
 		'ts_lng_cron'			=> $LNG['ts_cron'],
-		'ts_to'					=> $CONF['ts_timeout'],
-		'ts_on'					=> $CONF['ts_modon'],
-		'ts_ip'					=> $CONF['ts_server'],
-		'ts_tcp'				=> $CONF['ts_tcpport'],
-		'ts_udp'				=> $CONF['ts_udpport'],
-		'ts_v'					=> $CONF['ts_version'],
-		'ts_login'				=> $CONF['ts_login'],
-		'ts_password'			=> $CONF['ts_password'],
-		'ts_cron'				=> $CONF['ts_cron_interval']
+		'ts_to'					=> $config->ts_timeout,
+		'ts_on'					=> $config->ts_modon,
+		'ts_ip'					=> $config->ts_server,
+		'ts_tcp'				=> $config->ts_tcpport,
+		'ts_udp'				=> $config->ts_udpport,
+		'ts_v'					=> $config->ts_version,
+		'ts_login'				=> $config->ts_login,
+		'ts_password'			=> $config->ts_password,
+		'ts_cron'				=> $config->ts_cron_interval
 	));
 	$template->show('TeamspeakPage.tpl');
 

@@ -72,14 +72,14 @@ function ShowGiveaway()
 		$SQL		= "UPDATE ".PLANETS." p INNER JOIN ".USERS." u ON p.id_owner = u.id";
 		
 		if ($mainplanet == true) {
-			$SQL	.= " AND CONCAT_WS(':', p.universe, p.galaxy, p.system, p.planet) = CONCAT_WS(':', u.universe, u.galaxy, u.system, u.planet)";
+			$SQL	.= " AND p.id = u.id_planet";
 		}
 		
 		if ($no_inactive == true) {
 			$SQL	.= " AND u.onlinetime < ".(TIMESTAMP - INACTIVE);
 		}
 		
-		$SQL	.= " SET ".implode(', ', $data)." WHERE p.universe = ".$_SESSION['adminuni']." AND p.planet_type IN (".implode(',', $planetIN).")";
+		$SQL	.= " SET ".implode(', ', $data)." WHERE p.universe = ".Universe::getEmulated()." AND p.planet_type IN (".implode(',', $planetIN).")";
 		
 		$GLOBALS['DATABASE']->query($SQL);
 		

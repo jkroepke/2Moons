@@ -38,15 +38,19 @@ class ShowNewsPage extends AbstractPage
 	}
 	
 	function show() 
-	{		
-		$newsResult	= $GLOBALS['DATABASE']->query("SELECT date, title, text, user FROM ".NEWS." ORDER BY id DESC;");
+	{
+		global $LNG;
+
+		$sql = "SELECT date, title, text, user FROM %%NEWS%% ORDER BY id DESC;";
+		$newsResult = Database::get()->select($sql);
+
 		$newsList	= array();
 		
-		while ($newsRow = $GLOBALS['DATABASE']->fetchArray($newsResult))
+		foreach ($newsResult as $newsRow)
 		{
 			$newsList[]	= array(
 				'title' => $newsRow['title'],
-				'from' 	=> t('news_from', _date(t('php_tdformat'), $newsRow['date']), $newsRow['user']),
+				'from' 	=> sprintf($LNG['news_from'], _date($LNG['php_tdformat'], $newsRow['date']), $newsRow['user']),
 				'text' 	=> makebr($newsRow['text']),
 			);
 		}
@@ -55,6 +59,6 @@ class ShowNewsPage extends AbstractPage
 			'newsList'	=> $newsList,
 		));
 		
-		$this->render('page.news.default.tpl');
+		$this->display('page.news.default.tpl');
 	}
 }

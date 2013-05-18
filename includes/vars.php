@@ -28,8 +28,10 @@
 
 // VARS DB -> SCRIPT WRAPPER
 
-$CACHE->add('vars', 'VarsBuildCache');
-extract($CACHE->get('vars'));
+$cache	= Cache::get();
+$cache->add('vars', 'VarsBuildCache');
+extract($cache->getData('vars'));
+
 $resource[901] = 'metal';
 $resource[902] = 'crystal';
 $resource[903] = 'deuterium';

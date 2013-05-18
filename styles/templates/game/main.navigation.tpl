@@ -11,7 +11,7 @@
 		{if isModulAvalible($smarty.const.MODULE_OFFICIER) || isModulAvalible($smarty.const.MODULE_DMEXTRAS)}<li><a href="game.php?page=officier">{$LNG.lm_officiers}</a></li>{/if}
 		{if isModulAvalible($smarty.const.MODULE_TRADER)}<li><a href="game.php?page=trader">{$LNG.lm_trader}</a></li>{/if}
 		{if isModulAvalible($smarty.const.MODULE_FLEET_TRADER)}<li><a href="game.php?page=fleetDealer">{$LNG.lm_fleettrader}</a></li>{/if}
-		{if isModulAvalible($smarty.const.MODULE_FLEET_TABLE)}<li><a href="game.php?page=fleetTable">{$LNG.lm_fleet}</a></li>{/if}
+		{if isModulAvalible($smarty.const.MODULE_TRADER)}<li><a href="game.php?page=fleetTable">{$LNG.lm_fleet}</a></li>{/if}
 		{if isModulAvalible($smarty.const.MODULE_TECHTREE)}<li><a href="game.php?page=techtree">{$LNG.lm_technology}</a></li>{/if}
 		{if isModulAvalible($smarty.const.MODULE_RESSOURCE_LIST)}<li><a href="game.php?page=resources">{$LNG.lm_resources}</a></li>{/if}
 		<li class="menucat2-head"></li>

@@ -81,11 +81,11 @@ function ShowMessageListPage()
 	
 	if ($type != 100)
 	{
-		$MessageCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MESSAGES.$countJoinSQL." WHERE message_type = ".$type." AND message_universe = ".$_SESSION['adminuni'].$dateWhereSQL.$userWhereSQL.";");
+		$MessageCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MESSAGES.$countJoinSQL." WHERE message_type = ".$type." AND message_universe = ".Universe::getEmulated().$dateWhereSQL.$userWhereSQL.";");
 	}
 	else
 	{
-		$MessageCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MESSAGES.$countJoinSQL." WHERE message_universe = ".$_SESSION['adminuni'].$dateWhereSQL.$userWhereSQL.";");
+		$MessageCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MESSAGES.$countJoinSQL." WHERE message_universe = ".Universe::getEmulated().$dateWhereSQL.$userWhereSQL.";");
 	}
 	
 	$maxPage	= max(1, ceil($MessageCount / $perSide));
@@ -99,7 +99,7 @@ function ShowMessageListPage()
 		FROM ".MESSAGES." as m 
 		LEFT JOIN ".USERS." as u ON m.message_owner = u.id 
 		LEFT JOIN ".USERS." as us ON m.message_sender = us.id
-		WHERE m.message_universe = ".$_SESSION['adminuni']." 
+		WHERE m.message_universe = ".Universe::getEmulated()."
 		".$dateWhereSQL."
 		".$userWhereSQL."
 		ORDER BY message_time DESC, message_id DESC
@@ -109,7 +109,7 @@ function ShowMessageListPage()
 		FROM ".MESSAGES." as m
 		LEFT JOIN ".USERS." as u ON m.message_owner = u.id
 		LEFT JOIN ".USERS." as us ON m.message_sender = us.id
-		WHERE m.message_type = ".$type." AND message_universe = ".$_SESSION['adminuni']."
+		WHERE m.message_type = ".$type." AND message_universe = ".Universe::getEmulated()."
 		".$dateWhereSQL."
 		".$userWhereSQL."
 		ORDER BY message_time DESC, message_id DESC
