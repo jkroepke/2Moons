@@ -26,9 +26,8 @@
  * @link http://2moons.cc/
  */
  
-class Database extends mysqli
+class Database_BC extends mysqli
 {
-	protected $con;
 	protected $exception;
 
 	/**
@@ -44,18 +43,18 @@ class Database extends mysqli
 	 */
 	public function __construct()
 	{
-		$this->con			= $GLOBALS['database'];
+		require 'includes/config.php';
 
-        if (!isset($this->con['port'])) {
-            $this->con['port'] = 3306;
+        if (!isset($database['port'])) {
+            $database['port'] = 3306;
         }
 
-		@parent::__construct($this->con['host'], $this->con['user'], $this->con['userpw'], $this->con['databasename'], $this->con['port']);
+		@parent::__construct($database['host'], $database['user'], $database['userpw'], $database['databasename'], $database['port']);
 
 		if(mysqli_connect_error())
 		{
 			throw new Exception("Connection to database failed: ".mysqli_connect_error());
-		}		
+		}
 		parent::set_charset("utf8");
 		#parent::query("SET SESSION sql_mode = '';");
 		parent::query("SET SESSION sql_mode = 'STRICT_ALL_TABLES';");

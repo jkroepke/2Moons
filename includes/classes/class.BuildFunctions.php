@@ -141,7 +141,7 @@ class BuildFunctions
 	{
 		global $resource, $reslist, $requeriments;
 		
-		$CONF	= Config::getAll(NULL, $USER['universe']);
+		$config	= Config::get($USER['universe']);
 
         $time   = 0;
 
@@ -160,11 +160,11 @@ class BuildFunctions
 		}
 		
 		if	   (in_array($Element, $reslist['build'])) {
-			$time	= $elementCost / (Config::get('game_speed') * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]) * (1 + $USER['factor']['BuildTime']);
+			$time	= $elementCost / ($config->game_speed * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]) * (1 + $USER['factor']['BuildTime']);
 		} elseif (in_array($Element, $reslist['fleet'])) {
-			$time	= $elementCost / (Config::get('game_speed') * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * (1 + $USER['factor']['ShipTime']);	
+			$time	= $elementCost / ($config->game_speed * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * (1 + $USER['factor']['ShipTime']);
 		} elseif (in_array($Element, $reslist['defense'])) {
-			$time	= $elementCost / (Config::get('game_speed') * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * (1 + $USER['factor']['DefensiveTime']);
+			$time	= $elementCost / ($config->game_speed * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * (1 + $USER['factor']['DefensiveTime']);
 		} elseif (in_array($Element, $reslist['tech'])) {
 			if(is_numeric($PLANET[$resource[31].'_inter']))
 			{
@@ -178,7 +178,7 @@ class BuildFunctions
 				}
 			}
 			
-			$time	= $elementCost / (1000 * (1 + $Level)) / (Config::get('game_speed') / 2500) * pow(1 - Config::get('factor_university') / 100, $PLANET[$resource[6]]) * (1 + $USER['factor']['ResearchTime']);
+			$time	= $elementCost / (1000 * (1 + $Level)) / ($config->game_speed / 2500) * pow(1 - $config->factor_university / 100, $PLANET[$resource[6]]) * (1 + $USER['factor']['ResearchTime']);
 		}
 		
 		if($forDestroy) {
@@ -187,7 +187,7 @@ class BuildFunctions
 			$time	= floor($time * 3600);
 		}
 		
-		return max($time, Config::get('min_build_time'));
+		return max($time, $config->min_build_time);
 	}
 	
 	public static function isElementBuyable($USER, $PLANET, $Element, $elementPrice = NULL, $forDestroy = false, $forLevel = NULL)
@@ -244,7 +244,7 @@ class BuildFunctions
 		}
 		
 		$BuildArray  	  	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
-		$MaxMissiles   		= $PLANET[$resource[44]] * 10 * max(Config::get('silo_factor'), 1);
+		$MaxMissiles   		= $PLANET[$resource[44]] * 10 * max(Config::get()->silo_factor, 1);
 
 		foreach($BuildArray as $ElementArray) {
 			if(isset($Missiles[$ElementArray[0]]))

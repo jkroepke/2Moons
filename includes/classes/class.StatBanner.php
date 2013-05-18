@@ -29,28 +29,26 @@
 class StatBanner {
 
 	private $source = "styles/resource/images/banner.jpg";
-	
-	// Function to center text in the created banner
-	private function CenterTextBanner($X, $String, $Font, $Size) {
-		
-		$boxSize	= imagettfbbox($Size, 0, $Font, $String);
-		
-		$minX 		= min(array($boxSize[0], $boxSize[2], $boxSize[4], $boxSize[6])); 
-		$maxX 		= max(array($boxSize[0], $boxSize[2], $boxSize[4], $boxSize[6])); 
-		
-		$boxWidth	= $maxX - $minX;
-		return $X - ($boxWidth * 0.7);
-	}
 
 	public function GetData($id)
 	{
-		return $GLOBALS['DATABASE']->getFirstRow("SELECT a.username, a.wons, a.loos, a.draws, b.total_points, b.total_rank, c.name, c.galaxy, c.system, c.planet, d.game_name, d.users_amount, d.ttf_file FROM ".USERS." as a, ".STATPOINTS." as b, ".PLANETS." as c ,".CONFIG." as d WHERE a.id = '".$id."' AND b.stat_type = '1' AND b.id_owner = '".$id."' AND c.id = a.id_planet AND d.uni = a.universe;");
+		$sql = 'SELECT user.username, user.wons, user.loos, user.draws,
+		stat.total_points, stat.total_rank,
+		planet.name, planet.galaxy, planet.system, planet.planet, config.game_name,
+		config.users_amount, config.ttf_file
+		FROM %%USERS%% as user, %%STATPOINTS%% as stat, %%PLANETS%% as planet, %%CONFIG%% as config
+		WHERE user.id = :userId AND stat.stat_type = :statType AND stat.id_owner = :userId
+		AND planet.id = user.id_planet AND config.uni = user.universe;';
+
+		return Database::get()->selectSingle($sql, array(
+			':userId'	=> $id,
+			':statType'	=> 1
+		));
 	}
 	
 	public function CreateUTF8Banner($data) {
 		global $LNG;
 		$image  	= imagecreatefromjpeg($this->source);
-		$date  		= _date($LNG['php_dateformat'], TIMESTAMP);
 
 		$Font		= $data['ttf_file'];
 		if(!file_exists($Font))
@@ -82,21 +80,22 @@ class StatBanner {
 		
 		imagettftext($image, 11, 0, 250, 81, $shadow, $Font, $LNG['ub_quote'].': '.html_entity_decode(shortly_number($quote, 2)).'%');
 		imagettftext($image, 11, 0, 250, 80, $color, $Font, $LNG['ub_quote'].': '.html_entity_decode(shortly_number($quote, 2)).'%');
-				
+		
 		if(!isset($_GET['debug']))
+		{
 			HTTP::sendHeader('Content-type', 'image/jpg');
-			
-		ImageJPEG($image);
+		}
+
+		imagejpeg($image);
 		imagedestroy($image);
 	}
 	
 	function BannerError($Message) {
 		HTTP::sendHeader('Content-type', 'image/jpg');
-		$im	 = ImageCreate(450, 80);
-		$background_color = ImageColorAllocate ($im, 255, 255, 255);
-		$text_color = ImageColorAllocate($im, 233, 14, 91);
-		ImageString ($im, 3, 5, 5, $Message, $text_color);
-		ImageJPEG($im);
+		$im	 = imagecreate(450, 80);
+		$text_color = imagecolorallocate($im, 233, 14, 91);
+		imagestring($im, 3, 5, 5, $Message, $text_color);
+		imagejpeg($im);
 		imagedestroy($im);
 		exit;
 	}

@@ -26,33 +26,34 @@
  * @link http://2moons.cc/
  */
 
-class LanguageBuildCache implements BuildCache
-{
-	public function buildCache()
+class CacheFile {
+	private $path;
+	public function __construct()
 	{
-		$languagePath	= ROOT_PATH.'language/';
+		$this->path	= is_writable(CACHE_PATH) ? CACHE_PATH : $this->getTempPath();
+	}
+
+	private function getTempPath()
+	{
+		require_once 'includes/libs/wcf/BasicFileUtil.class.php';
+		return BasicFileUtil::getTempFolder();
+	}
+
+	public function store($Key, $Value) {
+		return file_put_contents($this->path.'cache.'.$Key.'.php', $Value);
+	}
+	
+	public function open($Key) {
+		if(!file_exists($this->path.'cache.'.$Key.'.php'))
+			return false;
+			
+		return file_get_contents($this->path.'cache.'.$Key.'.php');
+	}
+	
+	public function flush($Key) {
+		if(!file_exists($this->path.'cache.'.$Key.'.php'))
+			return false;
 		
-		$languages	= array();
-		
-		/** @var $fileInfo SplFileObject */
-		foreach (new DirectoryIterator($languagePath) as $fileInfo)
-		{
-			if(!$fileInfo->isDir() || $fileInfo->isDot()) continue;
-
-			$Lang	= $fileInfo->getBasename();
-
-			if(!file_exists($languagePath.$Lang.'/LANG.cfg')) continue;
-
-			// Fixed BOM problems.
-			ob_start();
-			$path	 = $languagePath.$Lang.'/LANG.cfg';
-			require $path;
-			ob_end_clean();
-			if(isset($Language['name']))
-			{
-				$languages[$Lang]	= $Language['name'];
-			}
-		}
-		return $languages;
+		return unlink($this->path.'cache.'.$Key.'.php');
 	}
 }

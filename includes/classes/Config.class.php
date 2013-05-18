@@ -17,139 +17,150 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
- * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
+ * @package   2Moons
+ * @author    Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @version   1.7.2 (2013-03-18)
  * @info $Id$
- * @link http://2moons.cc/
+ * @link      http://2moons.cc/
  */
- 
 class Config
 {
-	#static private $uniConfig;
-	#static private $gameConfig;
-	static private $config;
-	
-	static function init()
-	{	
-		$configResult = $GLOBALS['DATABASE']->query("SELECT * FROM ".CONFIG.";");
+	protected $configData = array();
+	protected $updateRecords = array();
+	protected static $instances = array();
 
-		while($configRow = $GLOBALS['DATABASE']->fetch_array($configResult))
-		{
-			$configRow['moduls']		= explode(";", $configRow['moduls']);
-			self::$config[$configRow['uni']]	= $configRow;
+
+	// Global configkeys
+	protected static $globalConfigKeys	= array('VERSION', 'game_name', 'stat', 'stat_level', 'stat_last_update',
+										   'stat_settings', 'stat_update_time', 'stat_last_db_update', 'stats_fly_lock',
+										   'cron_lock', 'ts_modon', 'ts_server', 'ts_tcpport', 'ts_udpport', 'ts_timeout',
+										   'ts_version', 'ts_cron_last', 'ts_cron_interval', 'ts_login', 'ts_password',
+										   'capaktiv', 'cappublic', 'capprivate', 'mail_active', 'mail_use', 'smtp_host',
+										   'smtp_port', 'smtp_user', 'smtp_pass', 'smtp_ssl', 'smtp_sendmail',
+										   'smail_path', 'fb_on', 'fb_apikey', 'fb_skey', 'ga_active', 'ga_key',
+										   'chat_closed', 'chat_allowchan', 'chat_allowmes', 'chat_allowdelmes',
+										   'chat_logmessage', 'chat_nickchange', 'chat_botname', 'chat_channelname',
+										   'chat_socket_active', 'chat_socket_host', 'chat_socket_ip', 'chat_socket_port',
+										   'chat_socket_chatid', 'ttf_file', 'sendmail_inactive', 'del_user_sendmail',
+										   'del_user_automatic', 'del_oldstuff', 'del_user_manually', 'ref_max_referals',
+										   'disclamerAddress','disclamerPhone','disclamerMail','disclamerNotice');
+
+	public static function getGlobalConfigKeys()
+	{
+		return self::$globalConfigKeys;
+	}
+
+	/**
+	 * Return an config object for the requested universe
+	 *
+	 * @param int $universe Universe ID
+	 *
+	 * @return Config
+	 */
+
+	static public function get($universe = 0)
+	{
+		if (empty(self::$instances)) {
+			self::generateInstances();
 		}
 
-		$GLOBALS['DATABASE']->free_result($configResult);
+		if($universe === 0)
+		{
+			$universe = Universe::current();
+		}
+
+		if(!isset(self::$instances[$universe]))
+		{
+			throw new Exception("Unknown universe id: ".$universe);
+		}
+
+		return self::$instances[$universe];
 	}
-	
-	static function setGlobals()
-	{	
-		// BC Wrapper
-		$GLOBALS['CONFIG']	= self::$config;
-		$GLOBALS['CONF']	= self::$config[$GLOBALS['UNI']];
-	}
-	
-	static function get($key, $universe = NULL)
+
+	static public function reload()
 	{
-		if(is_null($universe) || !isset(self::$config[$universe]))
-		{
-			$universe	= $GLOBALS['UNI'];
-		}
-		
-		if(isset(self::$config[$universe][$key]))
-		{
-			return self::$config[$universe][$key];
-		}
-		
-		
-		/* New Config
-		if(is_null($universe) || !isset(self::$uniConfig[$universe]))
-		{
-			$universe	= $GLOBALS['UNI'];
-		}
-		
-		if(isset(self::$uniConfig[$universe][$key]))
-		{
-			return self::$uniConfig[$universe][$key];
-		}
-		
-		if(isset(self::$gameConfig[$key]))
-		{
-			return self::$gameConfig[$key];
-		}
-		*/
-		throw new Exception("Unkown Config Key ".$key."!");
+		self::generateInstances();
 	}
-	
-	static function getAll($configType, $universe = NULL)
+
+	static private function generateInstances()
 	{
-		switch($configType)
+		$db     = Database::get();
+		$configResult = $db->nativeQuery("SELECT * FROM %%CONFIG%%;");
+		foreach ($configResult as $configRow)
 		{
-			default:
-				if(is_null($universe) || !isset(self::$config[$universe])) {
-					return self::$config;
-				}
-				else {
-					return self::$config[$universe];
-				}
-			break;
-			/* New Config
-			case 'universe':
-				return self::$uniConfig;
-			break;
-			case 'global':
-				return self::$gameConfig;
-			break; */
+			self::$instances[$configRow['uni']] = new self($configRow);
+			Universe::add($configRow['uni']);
 		}
-		
-		throw new Exception("Unkown ConfigType ".$configType."!");
 	}
-	
-	static function update($newConfig, $universe = NULL)
+
+	public function __construct($configData)
 	{
-		if(is_null($universe) || !isset(self::$config[$universe])) {
-			$universe	= $GLOBALS['UNI'];
+		$this->configData = $configData;
+	}
+
+	public function __get($key)
+	{
+		if (!isset($this->configData[$key])) {
+			throw new UnexpectedValueException(sprintf("Unknown configuration key %s!", $key));
 		}
-		
-		$gameUpdate			= array();
-		$uniUpdate			= array();
-		
-		foreach($newConfig as $configKey => $value)
-		{
-			if(!isset(self::$config[$universe][$configKey]))
+
+		return $this->configData[$key];
+	}
+
+	public function __set($key, $value)
+	{
+		if (!isset($this->configData[$key])) {
+			throw new UnexpectedValueException(sprintf("Unknown configuration key %s!", $key));
+		}
+		$this->updateRecords[]  = $key;
+		$this->configData[$key] = $value;
+	}
+
+	public function __isset($key)
+	{
+		return isset($this->configData[$key]);
+	}
+
+	public function save()
+	{
+		if (empty($this->updateRecords)) {
+			// Do nothing here.
+			return true;
+		}
+		$updateData = array();
+		$params     = array();
+		foreach ($this->updateRecords as $columnName) {
+			$updateData[]             = '`' . $columnName . '` = :' . $columnName;
+			$params[':' . $columnName] = $this->configData[$columnName];
+
+			//TODO: find a better way ...
+			if(in_array($columnName, self::$globalConfigKeys))
 			{
-				throw new Exception("Unkown Config Key ".$configKey."!");
-			}
-			
-			if(in_array($configKey, $GLOBALS['BASICCONFIG']))
-			{
-				foreach(array_keys(self::$config) as $uniID)
+				foreach(Universe::availableUniverses() as $universeId)
 				{
-					self::$config[$uniID][$configKey]	= $value;
+					if($universeId != $this->configData['uni'])
+					{
+						$config = Config::get();
+						$config->$columnName = $this->configData[$columnName];
+						$config->save();
+					}
 				}
-				$gameUpdate[]	= $configKey." = '".$GLOBALS['DATABASE']->escape($value)."'";
-			}
-			else
-			{
-				self::$config[$universe][$configKey]	= $value;
-				$uniUpdate[]	= $configKey." = '".$GLOBALS['DATABASE']->escape($value)."'";
 			}
 		}
+
+		$sql = 'UPDATE %%CONFIG%% SET '.implode(', ', $updateData).' WHERE `UNI` = :universe';
+		$params[':universe'] = $this->configData['uni'];
+		$db     = Database::get();
+		$db->update($sql, $params);
 		
-		if(!empty($uniUpdate))
-		{
-			$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET ".implode(', ', $uniUpdate)." WHERE uni = ".$universe.";");
-		}
-		
-		if(!empty($gameUpdate))
-		{
-			$GLOBALS['DATABASE']->query("UPDATE ".CONFIG." SET ".implode(', ', $gameUpdate).";");
-		}
-		
-		$GLOBALS['CONFIG']	= self::$config;
-		$GLOBALS['CONF']	= self::$config[$GLOBALS['UNI']];
+		$this->updateRecords = array();
+		return true;
+	}
+
+	static function getAll()
+	{
+		throw new Exception("Config::getAll is deprecated!");
 	}
 }

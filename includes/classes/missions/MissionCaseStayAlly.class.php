@@ -26,22 +26,37 @@
  * @link http://2moons.cc/
  */
 
-class CacheFile {
-	function store($Key, $Value) {
-		file_put_contents(CACHE_PATH.'cache.'.$Key.'.php', $Value);
+class MissionCaseStayAlly extends MissionFunctions implements Mission
+{
+	function __construct($Fleet)
+	{
+		$this->_fleet	= $Fleet;
 	}
 	
-	function open($Key) {
-		if(!file_exists(CACHE_PATH.'cache.'.$Key.'.php'))
-			return false;
-			
-		return file_get_contents(CACHE_PATH.'cache.'.$Key.'.php');
+	function TargetEvent()
+	{	
+		$this->setState(FLEET_HOLD);
+		$this->SaveFleet();
 	}
 	
-	function flush($Key) {
-		if(!file_exists(CACHE_PATH.'cache.'.$Key.'.php'))
-			return false;
-		
-		unlink(CACHE_PATH.'cache.'.$Key.'.php');
+	function EndStayEvent()
+	{
+		$this->setState(FLEET_RETURN);
+		$this->SaveFleet();
+	}
+	
+	function ReturnEvent()
+	{
+		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
+		$sql		= 'SELECT name FROM %%PLANETS%% WHERE id = :planetId;';
+		$planetName	= Database::get()->selectSingle($sql, array(
+			':planetId'	=> $this->_fleet['fleet_start_id'],
+		), 'name');
+
+		$Message	= sprintf($LNG['sys_tran_mess_back'], $planetName, GetStartAdressLink($this->_fleet, ''));
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 3, $LNG['sys_mess_fleetback'],
+			$Message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
+
+		$this->RestoreFleet();
 	}
 }
