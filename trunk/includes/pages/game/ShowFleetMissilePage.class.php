@@ -95,6 +95,11 @@ class ShowFleetMissilePage extends AbstractPage
         $User2Points = $db->selectSingle($sql, array(
             ':ownerID'  => $target['id_owner']
         ));
+
+		$sql	= 'SELECT total_points
+		FROM %%STATPOINTS%%
+		WHERE id_owner = :userId AND stat_type = :statType';
+
 		$USER	+= Database::get()->selectSingle($sql, array(
 			':userId'	=> $USER['id'],
 			':statType'	=> 1
