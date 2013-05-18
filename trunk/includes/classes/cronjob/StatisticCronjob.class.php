@@ -27,16 +27,14 @@
  * @link http://code.google.com/p/2moons/
  */
 
+require_once 'includes/classes/cronjob/CronjobTask.interface.php';
 
-class StatisticCronjob
+class StatisticCronjob implements CronjobTask
 {
 	function run()
 	{
-		require_once('includes/classes/class.statbuilder.php');
-		$stat			= new Statbuilder();
-		$result			= $stat->MakeStats();
-		Config::update(array(
-			'stat_last_update'	=> TIMESTAMP			
-		));
+		require 'includes/classes/class.statbuilder.php';
+		$stat	= new Statbuilder();
+		$stat->MakeStats();
 	}
 }

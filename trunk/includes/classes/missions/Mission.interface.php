@@ -1,5 +1,4 @@
 <?php
-
 /**
  *  2Moons
  *  Copyright (C) 2012 Jan Kröpke
@@ -25,34 +24,10 @@
  * @info $Id$
  * @link http://2moons.cc/
  */
+interface Mission {
+	public function TargetEvent();
 
-class MissionCaseStayAlly extends MissionFunctions
-{
-	function __construct($Fleet)
-	{
-		$this->_fleet	= $Fleet;
-	}
-	
-	function TargetEvent()
-	{	
-		$this->setState(FLEET_HOLD);
-		$this->SaveFleet();
-	}
-	
-	function EndStayEvent()
-	{
-		$this->setState(FLEET_RETURN);
-		$this->SaveFleet();
-	}
-	
-	function ReturnEvent()
-	{
-		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
-		$StartName	= $GLOBALS['DATABASE']->getFirstCell("SELECT name FROM ".PLANETS." WHERE id = ".$this->_fleet['fleet_end_id'].";");
-	
-		$Message	= sprintf ($LNG['sys_tran_mess_back'], $StartName, GetStartAdressLink($this->_fleet, ''));
-		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 5, $LNG['sys_mess_tower'], $LNG['sys_mess_fleetback'], $Message);
+	public function EndStayEvent();
 
-		$this->RestoreFleet();
-	}
+	public function ReturnEvent();
 }

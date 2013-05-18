@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-function calculateSteal($attackFleets, $defenderPlanet, $simMode = false)
+function calculateSteal($attackFleets, $defenderPlanet, $simulate = false)
 {	
 	//Steal-Math by Slaver for 2Moons(http://www.2moons.cc) based on http://www.owiki.de/Beute
 	global $pricelist, $resource;
@@ -87,24 +87,27 @@ function calculateSteal($attackFleets, $defenderPlanet, $simMode = false)
 	// Step 5
 	$stealResource[$secondResource] 	+= min($capacity, $defenderPlanet[$resource[$secondResource]] / 2 - $stealResource[$secondResource]);
 			
-	if($simMode)
+	if($simulate)
 	{
 		return $stealResource;
 	}
 	
-	$sqlQuery	= "";
+	$db	= Database::get();
+
 	foreach($SortFleets as $FleetID => $Capacity)
 	{
 		$slotFactor	= $Capacity / $AllCapacity;
 		
-		$sqlQuery .= "UPDATE ".FLEETS." SET ";
-		$sqlQuery .= "`fleet_resource_metal` = `fleet_resource_metal` + '".($stealResource[$firstResource] * $slotFactor)."', ";
-		$sqlQuery .= "`fleet_resource_crystal` = `fleet_resource_crystal` + '".($stealResource[$secondResource] * $slotFactor)."', ";
-		$sqlQuery .= "`fleet_resource_deuterium` = `fleet_resource_deuterium` + '".($stealResource[$thirdResource] * $slotFactor)."' ";
-		$sqlQuery .= "WHERE fleet_id = '".$FleetID."';";		
+		$sql	= "UPDATE %%FLEETS%% SET
+		`fleet_resource_metal` = `fleet_resource_metal` + '".($stealResource[$firstResource] * $slotFactor)."',
+		`fleet_resource_crystal` = `fleet_resource_crystal` + '".($stealResource[$secondResource] * $slotFactor)."',
+		`fleet_resource_deuterium` = `fleet_resource_deuterium` + '".($stealResource[$thirdResource] * $slotFactor)."'
+		WHERE fleet_id = :fleetId;";
+
+		$db->update($sql, array(
+			':fleetId'	=> $FleetID,
+	  	));
 	}
-	
-	$GLOBALS['DATABASE']->multi_query($sqlQuery);
 	
 	return $stealResource;
 }

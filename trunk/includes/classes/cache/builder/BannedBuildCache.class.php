@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class BannedBuildCache
+class BannedBuildCache implements BuildCache
 {
 	function buildCache()
 	{

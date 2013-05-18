@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
+ *  Copyright (C) 2012 Jan KrÃ¶pke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @author Jan KrÃ¶pke <info@2moons.cc>
+ * @copyright 2012 Jan KrÃ¶pke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.7.2 (2013-03-18)
  * @info $Id$
@@ -27,19 +27,20 @@
  */
 
 
-class TeamspeakBuildCache
+class TeamspeakBuildCache implements BuildCache
 {
 	function buildCache()
 	{		
 		$teamspeakData	= array();
+		$config	= Config::get();
 		
-		switch(Config::get('ts_version'))
+		switch($config->ts_version)
 		{
 			case 2:
 				require 'includes/libs/teamspeak/cyts/cyts.class.php';
 				$ts = new cyts();
-				
-				if($ts->connect(Config::get('ts_server'), Config::get('ts_tcpport'), Config::get('ts_udpport'), Config::get('ts_timeout'))) {
+
+				if($ts->connect($config->ts_server, $config->ts_tcpport, $config->ts_udpport, $config->ts_timeout)) {
 					$serverInfo	= $ts->info_serverInfo();
 					$teamspeakData	= array(
 						'password'	=> '', // NO Server-API avalible.
@@ -48,25 +49,26 @@ class TeamspeakBuildCache
 					);
 					$ts->disconnect();
 				} else {
-					throw new Exception('Teamspeak-Error: '.$ts->debug());
+					$error	= $ts->debug();
+					throw new Exception('Teamspeak-Error: '.implode("<br>\r\n", $error));
 				}
 			break;
 			case 3:
-				require 'includes/libs/teamspeak/class.teamspeak3.php';
-				$tsAdmin 	= new ts3admin(Config::get('ts_server'), Config::get('ts_udpport'), Config::get('ts_timeout'));
+				require 'includes/libs/teamspeak/ts3admin/ts3admin.class.php';
+				$tsAdmin 	= new ts3admin($config->ts_server, $config->ts_udpport, $config->ts_timeout);
 				$connected	= $tsAdmin->connect();				
 				if(!$connected['success'])
 				{
 					throw new Exception('Teamspeak-Error: '.implode("<br>\r\n", $connected['errors']));
 				}
 				
-				$selected	= $tsAdmin->selectServer(Config::get('ts_tcpport'), 'port', true);
+				$selected	= $tsAdmin->selectServer($config->ts_tcpport, 'port', true);
 				if(!$selected['success'])
 				{
 					throw new Exception('Teamspeak-Error: '.implode("<br>\r\n", $selected['errors']));
 				}
 					
-				$loggedIn	= $tsAdmin->login(Config::get('ts_login'), Config::get('ts_password'));
+				$loggedIn	= $tsAdmin->login($config->ts_login, $config->ts_password);
 				if(!$loggedIn['success'])
 				{
 					throw new Exception('Teamspeak-Error: '.implode("<br>\r\n", $loggedIn['errors']));

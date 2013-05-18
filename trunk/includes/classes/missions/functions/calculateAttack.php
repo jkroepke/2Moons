@@ -35,7 +35,11 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 	$ARES 	= $DRES = array('metal' => 0, 'crystal' => 0);
 	$ROUND	= array();
 	$RF		= array();
-	
+
+	$attackAmount = array();
+	$defenseAmount = array();
+	$STARTDEF = array();
+
 	foreach ($attackers as $fleetID => $attacker) 
 	{
 		foreach ($attacker['unit'] as $element => $amount) 

@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class VarsBuildCache
+class VarsBuildCache implements BuildCache
 {
 	function buildCache()
 	{
@@ -35,6 +35,7 @@ class VarsBuildCache
 		$pricelist		= array();
 		$CombatCaps		= array();
 		$reslist		= array();
+		$ProdGrid		= array();
 
 		$reslist['prod']		= array();
 		$reslist['storage']		= array();
@@ -46,16 +47,21 @@ class VarsBuildCache
 		$reslist['tech']		= array();
 		$reslist['fleet']		= array();
 		$reslist['defense']		= array();
+		$reslist['missile']		= array();
 		$reslist['officier']	= array();
 		$reslist['dmfunc']		= array();
 		
-		$reqResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_REQUIRE.";");
-		while($reqRow = $GLOBALS['DATABASE']->fetch_array($reqResult)) {
+		$db	= Database::get();
+		
+		$reqResult		= $db->nativeQuery('SELECT * FROM %%VARS_REQUIRE%%;');
+		foreach($reqResult as $reqRow)
+		{
 			$requeriments[$reqRow['elementID']][$reqRow['requireID']]	= $reqRow['requireLevel'];
 		}
 
-		$varsResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS.";");
-		while($varsRow = $GLOBALS['DATABASE']->fetch_array($varsResult)) {
+		$varsResult		= $db->nativeQuery('SELECT * FROM %%VARS%%;');
+		foreach($varsResult as $varsRow)
+		{
 			$resource[$varsRow['elementID']]	= $varsRow['name'];
 			$CombatCaps[$varsRow['elementID']]	= array(
 				'attack'	=> $varsRow['attack'],
@@ -159,8 +165,9 @@ class VarsBuildCache
 			}
 		}
 
-		$rapidResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_RAPIDFIRE.";");
-		while($rapidRow = $GLOBALS['DATABASE']->fetch_array($rapidResult)) {
+		$rapidResult		= $db->nativeQuery('SELECT * FROM %%VARS_RAPIDFIRE%%;');
+		foreach($rapidResult as $rapidRow)
+		{
 			$CombatCaps[$rapidRow['elementID']]['sd'][$rapidRow['rapidfireID']]	= $rapidRow['shoots'];
 		}
 		

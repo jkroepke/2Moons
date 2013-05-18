@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class MissionCaseFoundDM extends MissionFunctions
+class MissionCaseFoundDM extends MissionFunctions implements Mission
 {
 	const CHANCE = 30; 
 	const CHANCE_SHIP = 0.25; 
@@ -58,18 +58,32 @@ class MissionCaseFoundDM extends MissionFunctions
 		}
 		$this->setState(FLEET_RETURN);
 		$this->SaveFleet();
-		SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_stay'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $Message);
+
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 15,
+			$LNG['sys_expe_report'], $Message, $this->_fleet['fleet_end_stay'], NULL, 1, $this->_fleet['fleet_universe']);
 	}
 	
 	function ReturnEvent()
 	{
 		$LNG	= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
-		if($this->_fleet['fleet_resource_darkmatter'] > 0) {
-			SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], sprintf($LNG['sys_expe_back_home_with_dm'], $LNG['tech'][921], pretty_number($this->_fleet['fleet_resource_darkmatter']), $LNG['tech'][921]));
+		if($this->_fleet['fleet_resource_darkmatter'] > 0)
+		{
+			$message	= sprintf($LNG['sys_expe_back_home_with_dm'],
+				$LNG['tech'][921],
+				pretty_number($this->_fleet['fleet_resource_darkmatter']),
+				$LNG['tech'][921]
+			);
+
 			$this->UpdateFleet('fleet_array', '220,0;');
-		} else {
-			SendSimpleMessage($this->_fleet['fleet_owner'], 0, $this->_fleet['fleet_end_time'], 15, $LNG['sys_mess_tower'], $LNG['sys_expe_report'], $LNG['sys_expe_back_home_without_dm']);
 		}
+		else
+		{
+			$message	= $LNG['sys_expe_back_home_without_dm'];
+		}
+
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 3, $LNG['sys_mess_fleetback'],
+			$message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
+
 		$this->RestoreFleet();
 	}
 }

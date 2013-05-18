@@ -26,22 +26,36 @@
  * @link http://2moons.cc/
  */
 
-include('includes/classes/cache/ressource/CacheFile.class.php');
+require 'includes/classes/cache/builder/BuildCache.interface.php';
+require 'includes/classes/cache/resource/CacheFile.class.php';
 
-class Cache {
-	private $cacheRessource;
+class Cache
+{
+	private $cacheResource = NULL;
 	private $cacheBuilder = array();
 	private $cacheObj = array();
-	
-	function __construct() {
-		$this->cacheRessource = new CacheFile();
+
+	static private $obj = NULL;
+
+	static public function get()
+	{
+		if(is_null(self::$obj))
+		{
+			self::$obj	= new self;
+		}
+
+		return self::$obj;
+	}
+
+	private function __construct() {
+		$this->cacheResource = new CacheFile();
 	}
 	
-	function add($Key, $ClassName) {
+	public function add($Key, $ClassName) {
 		$this->cacheBuilder[$Key]	= $ClassName;
 	}
-	
-	function get($Key, $rebuild = true) {
+
+	public function getData($Key, $rebuild = true) {
 		if(!isset($this->cacheObj[$Key]) && !$this->load($Key))
 		{
 			if($rebuild)
@@ -55,17 +69,17 @@ class Cache {
 		}
 		return $this->cacheObj[$Key];
 	}
-	
-	function flush($Key) {
+
+	public function flush($Key) {
 		if(!isset($this->cacheObj[$Key]) && !$this->load($Key))
 			$this->buildCache($Key);
 		
-		$this->cacheRessource->flush($Key);
+		$this->cacheResource->flush($Key);
 		return $this->buildCache($Key);
 	}
-	
-	function load($Key) {
-		$cacheData	= $this->cacheRessource->open($Key);
+
+	public function load($Key) {
+		$cacheData	= $this->cacheResource->open($Key);
 		
 		if($cacheData === false)
 			return false;
@@ -77,16 +91,20 @@ class Cache {
 		$this->cacheObj[$Key] = $cacheData;
 		return true;
 	}
-	
-	function buildCache($Key) {
+
+	public function buildCache($Key) {
 		$className		= $this->cacheBuilder[$Key];
-		include_once('includes/classes/cache/builder/'.$className.'.class.php');
+
+		$path			= 'includes/classes/cache/builder/'.$className.'.class.php';
+		require_once $path;
+
+		/** @var $cacheBuilder BuildCache */
 		$cacheBuilder	= new $className();
 		$cacheData		= $cacheBuilder->buildCache();
 		$cacheData		= (array) $cacheData;
 		$this->cacheObj[$Key] = $cacheData;
 		$cacheData		= serialize($cacheData);
-		$this->cacheRessource->store($Key, $cacheData);
+		$this->cacheResource->store($Key, $cacheData);
 		return true;
 	}
 }
