@@ -21,10 +21,12 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
+
+define("BETA", 0);
 
 if (isset($_POST['GLOBALS']) || isset($_GET['GLOBALS'])) {
 	exit('You cannot set the GLOBALS-array from outside the script.');
@@ -50,114 +52,101 @@ if (function_exists('mb_internal_encoding')) {
 ignore_user_abort(true);
 error_reporting(E_ALL & ~E_STRICT);
 
-// If date.timezone is invalid
+// If the guy forgot to set date.timezone on php.ini
 date_default_timezone_set(@date_default_timezone_get());
 
 ini_set('display_errors', 1);
 header('Content-Type: text/html; charset=UTF-8');
 define('TIMESTAMP',	time());
 	
-require 'includes/constants.php' ;
+require('includes/constants.php');
 
 ini_set('log_errors', 'On');
 ini_set('error_log', 'includes/error.log');
 
-require 'includes/GeneralFunctions.php';
+require('includes/GeneralFunctions.php');
 set_exception_handler('exceptionHandler');
 set_error_handler('errorHandler');
 
-require 'includes/classes/ArrayUtil.class.php';
-require 'includes/classes/Cache.class.php';
-require 'includes/classes/Database.class.php';
-require 'includes/classes/Config.class.php';
-require 'includes/classes/class.FleetFunctions.php';
-require 'includes/classes/HTTP.class.php';
-require 'includes/classes/Language.class.php';
-require 'includes/classes/PlayerUtil.class.php';
-require 'includes/classes/Session.class.php';
-require 'includes/classes/Universe.class.php';
-
-require 'includes/classes/class.theme.php';
-require 'includes/classes/class.template.php';
+require('includes/classes/class.Cache.php');
+require('includes/classes/class.Database.php');
+require('includes/classes/class.theme.php');
+require('includes/classes/class.Session.php');
+require('includes/classes/class.template.php');
+require('includes/classes/Config.class.php');
+require('includes/classes/ArrayUtil.class.php');
+require('includes/classes/Language.class.php');
+require('includes/classes/HTTP.class.php');
+require('includes/classes/PlayerUtil.class.php');
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 define('AJAX_REQUEST', HTTP::_GP('ajax', 0));
 
-$THEME		= new Theme();
+$THEME		= new Theme();	
+$CACHE		= new Cache();
 
 if (MODE === 'INSTALL')
 {
 	return;
 }
 
-if(!file_exists('includes/config.php')) {
-	HTTP::redirectTo('install/index.php');
+if(!file_exists(ROOT_PATH.'includes/config.php')) {
+	HTTP::redirectTo("install/index.php");
 }
 
-if(defined('DATABASE_VERSION') && DATABASE_VERSION === 'OLD')
-{
-	/* For our old Admin panel */
-	require 'includes/classes/Database_BC.class.php';
-	$DATABASE	= new Database_BC();
-	
-	$dbTableNames	= Database::get()->getDbTableNames();
-	$dbTableNames	= array_combine($dbTableNames['keys'], $dbTableNames['names']);
-	
-	foreach($dbTableNames as $dbAlias => $dbName)
-	{
-		define(substr($dbAlias, 2, -2), $dbName);
-	}	
-}
+require('includes/config.php');
+require('includes/dbtables.php');
 
-$config = Config::get();
+$SESSION	= new Session();
+$DATABASE	= new Database();
+unset($database);
 
-date_default_timezone_set($config->timezone);
+Config::init();
+$UNI		= getUniverse();
+Config::setGlobals();
 
-require 'includes/vars.php';
+date_default_timezone_set(Config::get('timezone'));
 
-if (MODE === 'INGAME' || MODE === 'ADMIN')
-{
-	$session	= Session::load();
+require('includes/vars.php');
 
-	if(!$session->isValidSession())
+if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CHAT')
+{	
+	if(!$SESSION->isActiveSession())
 	{
 		HTTP::redirectTo('index.php?code=3');
 	}
+	
+	$SESSION->UpdateSession();
 
-	require 'includes/classes/class.BuildFunctions.php';
-	require 'includes/classes/class.PlanetRessUpdate.php';
+	require('includes/classes/class.BuildFunctions.php');
+	require('includes/classes/class.PlanetRessUpdate.php');
 	
 	if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS)) {
 		require('includes/FleetHandler.php');
 	}
-	
-	$db		= Database::get();
-
-	$sql	= "SELECT 
-	user.*,
+		
+	$USER	= $GLOBALS['DATABASE']->getFirstRow("SELECT 
+	user.*, 
+	stat.total_points, 
+	stat.total_rank,
 	COUNT(message.message_id) as messages
-	FROM %%USERS%% as user
-	LEFT JOIN %%MESSAGES%% as message ON message.message_owner = user.id AND message.message_unread = :unread
-	WHERE user.id = :userId
-	GROUP BY message.message_owner;";
+	FROM ".USERS." as user 
+	LEFT JOIN ".STATPOINTS." as stat ON stat.id_owner = user.id AND stat.stat_type = '1' 
+	LEFT JOIN ".MESSAGES." as message ON message.message_owner = user.id AND message.message_unread = '1'
+	WHERE user.id = ".$_SESSION['id']."
+	GROUP BY message.message_owner;");
 	
-	$USER	= $db->selectSingle($sql, array(
-		':unread'	=> 1,
-		':userId'	=> $session->userId
-	));
-	
-	if(empty($USER))
-	{
-		HTTP::redirectTo('index.php?code=3');
+	if(empty($USER)) {
+		exit(header('Location: index.php'));
 	}
 	
 	$LNG	= new Language($USER['lang']);
 	$LNG->includeData(array('L18N', 'INGAME', 'TECH', 'CUSTOM'));
 	$THEME->setUserTheme($USER['dpath']);
 	
-	if($config->game_disable == 0 && $USER['authlevel'] == AUTH_USR) {
-		ShowErrorPage::printError($LNG['sys_closed_game'].'<br><br>'.$config->close_reason, false);
+	if(Config::get('game_disable') == 0 && $USER['authlevel'] == AUTH_USR) {
+		ShowErrorPage::printError($LNG['sys_closed_game'].'<br><br>'.Config::get('close_reason'), false);
 	}
 
 	if($USER['bana'] == 1) {
@@ -166,41 +155,26 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 	
 	if (MODE === 'INGAME')
 	{
-		$universeAmount	= count(Universe::availableUniverses());
-		if(Universe::current() != $USER['universe'] && $universeAmount > 1)
+		if($UNI != $USER['universe'] && count($CONFIG) > 1)
 		{
-			HTTP::redirectToUniverse($USER['universe']);
+			HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE."uni".$USER['universe']."/".HTTP_FILE, true);
 		}
-
-		$session->selectActivePlanet();
-
-		$sql	= "SELECT * FROM %%PLANETS%% WHERE id = :planetId;";
-		$PLANET	= $db->selectSingle($sql, array(
-			':planetId'	=> $session->planetId,
-		));
+		
+		$PLANET = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$_SESSION['planet'].";");
 
 		if(empty($PLANET))
 		{
-			$sql	= "SELECT * FROM %%PLANETS%% WHERE id = :planetId;";
-			$PLANET	= $db->selectSingle($sql, array(
-				':planetId'	=> $USER['id_planet'],
-			));
+			$PLANET = $GLOBALS['DATABASE']->getFirstRow("SELECT * FROM ".PLANETS." WHERE id = ".$USER['id_planet'].";");
 			
 			if(empty($PLANET))
 			{
 				throw new Exception("Main Planet does not exist!");
 			}
-			else
-			{
-				$session->planetId = $USER['id_planet'];
-			}
 		}
 		
 		$USER['factor']		= getFactors($USER);
 		$USER['PLANETS']	= getPlanets($USER);
-	}
-	elseif (MODE === 'ADMIN')
-	{
+	} elseif (MODE === 'ADMIN') {
 		error_reporting(E_ERROR | E_WARNING | E_PARSE);
 		
 		$USER['rights']		= unserialize($USER['rights']);

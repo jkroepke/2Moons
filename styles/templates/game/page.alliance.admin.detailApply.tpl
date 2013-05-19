@@ -10,7 +10,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">>{$LNG.pl_homeplanet}</td>
-		<td colspan="2">{$applyDetail.name} <a href="#" onclick="parent.location = 'game.php?page=galaxy&galaxy={$applyDetail.galaxy}&system={$applyDetail.system}';return false;">[{$applyDetail.coordinates}]</a></td>
+		<td colspan="2">{$applyDetail.name} <a href="#" onclick="parent.location = 'game.php?page=galaxy&amp;galaxy={$applyDetail.galaxy}&amp;system={$applyDetail.system}';return false;">[{$applyDetail.coordinates}]</a></td>
 	</tr>
 	<tr>
 		<td colspan="2">{$LNG.al_request_register_time}</td>
@@ -21,9 +21,9 @@
 		<td colspan="2">{$onlinetime}</td>
 	</tr>
 	<tr>
-		<th colspan="2" style="text-align:center;">&nbsp;</th>
-		<th colspan="1" style="text-align:center;">{$LNG.pl_points}</th>
-		<th colspan="1" style="text-align:center;">{$LNG.pl_range}</th>
+		<th colspan="2" style="text-align:center;">&nbsp;</td>
+		<th colspan="1" style="text-align:center;">{$LNG.pl_points}</td>
+		<th colspan="1" style="text-align:center;">{$LNG.pl_range}</td>
 	</tr>
 	<tr>
 		<td colspan="2">{$LNG.pl_tech}</td>
@@ -107,18 +107,15 @@
 <form action="game.php?page=alliance&amp;mode=admin&amp;action=sendAnswerToApply&amp;id={$applyDetail.applyID}" method="post">
 <table class="table519">
 	<tr>
-		<th colspan="4"><label for="message">{$LNG.al_reply_to_request}</label></th>
+		<th colspan="4">{$LNG.al_reply_to_request}</th>
 	</tr>
 	<tr>
-		<td colspan="4"><textarea name="text" cols="40" rows="10" class="tinymce" id="message"></textarea></td>
+		<td colspan="4"><textarea name="text" cols="40" rows="10" class="tinymce"></textarea></td>
 	</tr>
 	<tr>
 		<td colspan="4"><button type="submit" name="answer" value="yes">{$LNG.al_acept_request}</button> <button type="submit" name="answer" value="no">{$LNG.al_decline_request}</button></td>
 	</tr>
-	</table>
-{/block}
-{block name="script" append}
-<script type="text/javascript" src="scripts/base/tinymce/tiny_mce_gzip.js"></script>
+	</table><script type="text/javascript" src="scripts/base/tinymce/tiny_mce_gzip.js"></script>
 <script type="text/javascript">
 $(function() {
 	tinyMCE_GZ.init({
@@ -133,10 +130,10 @@ $(function() {
 			theme : "advanced",
 			mode : "textareas",
 			plugins : "bbcode,fullscreen",
-			theme_advanced_buttons1 : "bold,italic,underline,undo,redo,link,unlink,image,forecolor,removeformat,cleanup,code,fullscreen",
+			theme_advanced_buttons1 : "bold,italic,underline,undo,redo,link,unlink,image,forecolor,styleselect,removeformat,cleanup,code,fullscreen",
 			theme_advanced_buttons2 : "",
 			theme_advanced_buttons3 : "",
-			theme_advanced_toolbar_location : "top",
+			theme_advanced_toolbar_location : "bottom",
 			theme_advanced_toolbar_align : "center",
 			theme_advanced_styles : "Code=codeStyle;Quote=quoteStyle",
 			content_css : "{$dpath}formate.css",

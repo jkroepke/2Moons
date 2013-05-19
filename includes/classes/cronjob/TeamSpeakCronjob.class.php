@@ -27,13 +27,11 @@
  * @link http://code.google.com/p/2moons/
  */
 
-require_once 'includes/classes/cronjob/CronjobTask.interface.php';
-
-class TeamSpeakCronjob implements CronjobTask
+class TeamSpeakCronjob
 {
 	function run()
 	{
-		Cache::get()->add('teamspeak', 'TeamspeakBuildCache');
-		Cache::get()->flush('teamspeak');
+		$GLOBALS['CACHE']->add('teamspeak', 'TeamspeakBuildCache');
+		$GLOBALS['CACHE']->flush('teamspeak');
 	}
 }

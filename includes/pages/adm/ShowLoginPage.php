@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -35,18 +35,12 @@ function ShowLoginPage()
 {
 	global $USER, $LNG;
 	
-	$session	= Session::create();
-	if($session->adminAccess == 1)
-	{
-		HTTP::redirectTo('admin.php');
-	}
-	
 	if(isset($_REQUEST['admin_pw']))
 	{
-		$password	= PlayerUtil::cryptPassword($_REQUEST['admin_pw']);
+		$password	= cryptPassword($_REQUEST['admin_pw']);
 
 		if ($password == $USER['password']) {
-			$session->adminAccess	= 1;
+			$_SESSION['admin_login']	= $password;
 			HTTP::redirectTo('admin.php');
 		}
 	}

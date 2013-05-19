@@ -44,7 +44,7 @@
 		<td>
 			<table style="width:100%">
 				<tr>
-					<td class="transparent left" style="width:90%;padding:10px;"><p>{$LNG.shortDescription.{$ID}}</p><p>{foreach $Element.costResources as $RessID => $RessAmount}
+					<td class="transparent left" style="width:90%;padding:10px;"><p>{$LNG.shortDescription.{$ID}}</p><p>{foreach $Element.costRessources as $RessID => $RessAmount}
 					{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>
 					{/foreach}</p></td>
 					<td class="transparent" style="vertical-align:middle;width:100px">
@@ -86,20 +86,9 @@
 	{if $NotBuilding}<tr><th colspan="2" style="text-align:center"><input type="submit" value="{$LNG.bd_build_ships}"></th></tr>{/if}
 </table>
 </form>
-{/block}
-{block name="script" append}
 <script type="text/javascript">
 data			= {$BuildList|json};
 bd_operating	= '{$LNG.bd_operating}';
 bd_available	= '{$LNG.bd_available}';
 </script>
-{if !empty($BuildList)}
-<script src="scripts/base/bcmath.js"></script>
-<script src="scripts/game/shipyard.js"></script>
-<script type="text/javascript">
-$(function() {
-    ShipyardInit();
-});
-</script>
-{/if}
 {/block}

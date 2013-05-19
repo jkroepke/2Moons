@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2012 Jan KrÃ¶pke
+ *  Copyright (C) 2012 Jan Kröpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan KrÃ¶pke <info@2moons.cc>
- * @copyright 2012 Jan KrÃ¶pke <info@2moons.cc>
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -52,7 +52,6 @@ class SQLDumper
 	
 	private function nativeDumpToFile($dbTables, $filePath)
 	{
-		$database	= array();
 		require 'includes/config.php';
 		$dbTables	= array_map('escapeshellarg', $dbTables);
 		$sqlDump	= shell_exec("mysqldump --host='".escapeshellarg($database['host'])."' --port=".((int) $database['port'])." --user='".escapeshellarg($database['user'])."' --password='".escapeshellarg($database['userpw'])."' --no-create-db --order-by-primary --add-drop-table --comments --complete-insert --hex-blob '".escapeshellarg($database['databasename'])."' ".implode(' ', $dbTables)." 2>&1 1> ".$filePath);
@@ -60,23 +59,21 @@ class SQLDumper
 		{
 			throw new Exception($sqlDump);
 		}
-		return $sqlDump;
 	}
 	
 	private function softwareDumpToFile($dbTables, $filePath)
 	{
 		$this->setTimelimit();
-
-		$db	= Database::get();
-		$database	= array();
 		require 'includes/config.php';
-		$integerTypes	= array('tinyint', 'smallint', 'mediumint', 'int', 'bigint', 'decimal', 'float', 'double', 'real');
-		$gameVersion	= Config::get()->VERSION;
+		$intergerTypes	= array('tinyint', 'smallint', 'mediumint', 'int', 'bigint', 'decimal', 'float', 'double', 'real');
+		$gameVersion	= Config::get('VERSION');
+		$serverVersion	= $GLOBALS['DATABASE']->getServerVersion();
 		$fp	= fopen($filePath, 'w');
 		fwrite($fp, "-- MySQL dump | 2Moons dumper v{$gameVersion}
 --
 -- Host: {$database['host']}    Database: {$database['databasename']}
 -- ------------------------------------------------------
+-- Server version       {$serverVersion}
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -93,26 +90,35 @@ class SQLDumper
 
 		foreach($dbTables as $dbTable)
 		{
-			$numColumns	= array();
+			$columNames	= array();
+			$numColums	= array();
 			$firstRow	= true;
+			
+			fwrite($fp, "--
+-- Table structure for table `{$dbTable}`
+--
 
-			fwrite($fp, "--\n-- Table structure for table `{$dbTable}`\n--\n\nDROP TABLE IF EXISTS `{$dbTable}`;
+DROP TABLE IF EXISTS `{$dbTable}`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;\n\n");
+/*!40101 SET character_set_client = utf8 */;
 
-			$createTable	= $db->nativeQuery("SHOW CREATE TABLE ".$dbTable);
+");
+			$createTable	= $GLOBALS['DATABASE']->getFirstRow("SHOW CREATE TABLE ".$dbTable);
 			fwrite($fp, $createTable['Create Table'].';');
-			fwrite($fp, "\n\n/*!40101 SET character_set_client = @saved_cs_client */;");
-
-			$sql = "SELECT COUNT(*) as state FROM ".$dbTable.";";
-
-			$count	= $db->nativeQuery($sql);
-			if($count[1]['state'] == 0)
+			fwrite($fp, "
+			
+/*!40101 SET character_set_client = @saved_cs_client */;");
+			if($GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".$dbTable.";") == 0)
 			{
-				fwrite($fp, "\n\n--\n-- No data for table `{$dbTable}`\n--\n\n");
+			fwrite($fp, "
+			
+--
+-- No data for table `{$dbTable}`
+--
+
+");
 				continue;
 			}
-
 			fwrite($fp, "
 			
 --
@@ -123,27 +129,30 @@ LOCK TABLES `{$dbTable}` WRITE;
 /*!40000 ALTER TABLE `{$dbTable}` DISABLE KEYS */;
 
 ");
-			$columnsData	= $db->nativeQuery("SHOW COLUMNS FROM `".$dbTable."`");
-			$columnNames	= array();
-			foreach($columnsData as $columnData)
+			$columsData	= $GLOBALS['DATABASE']->query("SHOW COLUMNS FROM `".$dbTable."`");
+
+			$columNames	= array();
+			while($columData = $GLOBALS['DATABASE']->fetchArray($columsData))
 			{
-				$columnNames[]	= $columnData['Field'];
-				foreach($integerTypes as $type)
+				$columNames[]	= $columData['Field'];
+				foreach($intergerTypes as $type)
 				{
-					if(strpos($columnData['Type'], $type.'(') !== false)
+					if(strpos($columData['Type'], $type.'(') !== false)
 					{
-						$numColumns[]	= $columnData['Field'];
+						$numColums[]	= $columData['Field'];
 						break;
 					}
 				}
 			}
+			$GLOBALS['DATABASE']->free_result($columsData);
 			
-			$insertInto	= "INSERT INTO `{$dbTable}` (`".implode("`, `", $columnNames)."`) VALUES\r\n";
+			
+			$insertInto	= "INSERT INTO `{$dbTable}` (`".implode("`, `", $columNames)."`) VALUES\r\n";
 			
 			fwrite($fp, $insertInto);
 			$i = 0;
-			$tableData	= $db->select("SELECT * FROM ".$dbTable);
-			foreach($tableData as $tableRow)
+			$tableData	= $GLOBALS['DATABASE']->query("SELECT * FROM ".$dbTable);
+			while($tableRow = $GLOBALS['DATABASE']->fetchArray($tableData))
 			{
 				$rowData = array();
 				$i++;
@@ -165,17 +174,18 @@ LOCK TABLES `{$dbTable}` WRITE;
 				
 				foreach($tableRow as $colum => $value)
 				{
-					if(in_array($colum, $numColumns))
+					if(in_array($colum, $numColums))
 					{
 						$rowData[]	= $value === NULL ? 'NULL' : $value;
 					}
 					else
 					{
-						$rowData[]	= $value === NULL ? 'NULL' : "'".$db->quote($value)."'";
+						$rowData[]	= $value === NULL ? 'NULL' : "'".$GLOBALS['DATABASE']->escape($value)."'";
 					}
 				}
 				fwrite($fp, "(".implode(", ",$rowData).")");
 			}
+			$GLOBALS['DATABASE']->free_result($tableData);
 			fwrite($fp, ";
 			
 /*!40000 ALTER TABLE `{$dbTable}` ENABLE KEYS */;
@@ -195,8 +205,6 @@ UNLOCK TABLES;
 
 -- Dump completed on ".date("Y-d-m H:i:s"));
 		fclose($fp);
-
-		return filesize($filePath) !== 0;
 	}
 	
 	public function restoreDatabase($filePath)
@@ -206,8 +214,7 @@ UNLOCK TABLES;
 		
 		if($this->canNative('mysql'))
 		{
-			$database	= array();
-			require 'includes/config.php';
+		
 			$sqlDump	= shell_exec("mysql --host='".escapeshellarg($database['host'])."' --port=".((int) $database['port'])." --user='".escapeshellarg($database['user'])."' --password='".escapeshellarg($database['userpw'])."' '".escapeshellarg($database['databasename'])."' < ".escapeshellarg($filePath)." 2>&1 1> /dev/null");
 			if(strlen($sqlDump) !== 0) #mysql error
 			{
@@ -219,7 +226,7 @@ UNLOCK TABLES;
 			$backupQuery	= explode(";\r\n", file_get_contents($filePath));
 			foreach($backupQuery as $query)
 			{
-				Database::get()->nativeQuery($query);
+				$GLOBALS['DATABASE']->multi_query($query);
 			}
 		}
 	}

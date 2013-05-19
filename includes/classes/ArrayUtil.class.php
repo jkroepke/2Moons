@@ -31,17 +31,15 @@
 
 class ArrayUtil
 {
-	static public function combineArrayWithSingleElement($keys, $var)
-	{
+	function combineArrayWithSingleElement($keys, $var) {
 		if(empty($keys))
 		{
 			return array();
 		}
 		return array_combine($keys, array_fill(0, count($keys), $var));
 	}
-
-	static public function combineArrayWithKeyElements($keys, $var)
-	{
+	
+	function combineArrayWithKeyElements($keys, $var) {
 		$temp	= array();
 		foreach($keys as $key)
 		{
@@ -59,7 +57,7 @@ class ArrayUtil
 	}
 	
 	// http://www.php.net/manual/en/function.array-key-exists.php#81659
-	static public function arrayKeyExistsRecursive($needle, $haystack)
+	function arrayKeyExistsRecrusive($needle, $haystack)
 	{
 		$result = array_key_exists($needle, $haystack);
 		
@@ -72,7 +70,7 @@ class ArrayUtil
 		{
 			if (is_array($v))
 			{
-				$result = self::arrayKeyExistsRecursive($needle, $v);
+				$result = self::arrayKeyExistsRecrusive($needle, $v);
 			}
 			
 			if ($result)

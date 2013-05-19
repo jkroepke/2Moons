@@ -5,20 +5,20 @@
 	<th colspan="2">{$se_server_parameters}</th>
 	<th>(?)</th>
 </tr><tr>
-	<td>{$se_disclaimerAddress}</td>
-	<td><textarea name="disclaimerAddress" cols="80" rows="5">{$disclaimerAddress}</textarea></td>
+	<td>{$se_disclamerAddress}</td>
+	<td><textarea name="disclamerAddress" cols="80" rows="5">{$disclamerAddress}</textarea></td>
 	<td>&nbsp;</td>
 </tr><tr>
-	<td>{$se_disclaimerPhone}</td>
-	<td><input name="disclaimerPhone" size="40" value="{$disclaimerPhone}" type="text"></td>
+	<td>{$se_disclamerPhone}</td>
+	<td><input name="disclamerPhone" size="40" value="{$disclamerPhone}" type="text"></td>
 	<td>&nbsp;</td>
 </tr><tr>
-	<td>{$se_disclaimerMail}</td>
-	<td><input name="disclaimerMail" size="40" value="{$disclaimerMail}" type="text"></td>
+	<td>{$se_disclamerMail}</td>
+	<td><input name="disclamerMail" size="40" value="{$disclamerMail}" type="text"></td>
 	<td>&nbsp;</td>
 </tr><tr>
-	<td>{$se_disclaimerNotice}</td>
-	<td><textarea name="disclaimerNotice" cols="80" rows="5">{$disclaimerNotice}</textarea></td>
+	<td>{$se_disclamerNotice}</td>
+	<td><textarea name="disclamerNotice" cols="80" rows="5">{$disclamerNotice}</textarea></td>
 	<td>&nbsp;</td>
 </tr>
 <tr>

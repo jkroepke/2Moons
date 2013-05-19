@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -254,7 +254,7 @@ $LNG['bo_unban']				= 'Entsperren';
 
 
 //---------------	ENCRIPTADOR MD5 - ENCRIPTER MD5	------------------------//
-$LNG['et_md5_encripter']	= 'PW Generator';
+$LNG['et_md5_encripter']	= 'MD5 Generator';
 $LNG['et_pass']				= 'Eingabe';
 $LNG['et_result']			= 'Ergebniss';
 $LNG['et_encript']			= 'Generieren';
@@ -527,10 +527,10 @@ $LNG['se_dst_sel'][1]					= 'Ja';
 $LNG['se_dst_sel'][2]					= 'Automatisch';
 $LNG['se_max_dm_missions']				= 'Max. Anzahl an parralell laufenden DM-Such Missionen';
 $LNG['se_alliance_create_min_points']   = 'Mindestpunktzahl, um eine Allianz gründen zu können';
-$LNG['se_disclaimerAddress']				= 'Adresse';
-$LNG['se_disclaimerPhone']				= 'Telefonnummer';
-$LNG['se_disclaimerMail']				= 'E-Mail-Adresse';
-$LNG['se_disclaimerNotice']				= 'Weitere Informationen';
+$LNG['se_disclamerAddress']				= 'Adresse';
+$LNG['se_disclamerPhone']				= 'Telefonnummer';
+$LNG['se_disclamerMail']				= 'E-Mail-Adresse';
+$LNG['se_disclamerNotice']				= 'Weitere Informationen';
 
 //###########################################################//
 
@@ -643,7 +643,7 @@ $LNG['mu_vertify']					= 'Vertify Game Content';
 $LNG['mu_cronjob']					= 'Cronjobs'; 
 $LNG['mu_logs']						= 'Admin-Log';
 $LNG['mu_giveaway']					= 'Giveaways';
-$LNG['mu_disclaimer']				= 'Impressum-Einstellungen';
+$LNG['mu_disclamer']				= 'Impressum-Einstellungen';
 $LNG['mu_dump']						= 'Datenbank-Backup';
 
 
@@ -1010,7 +1010,6 @@ $LNG['qe_authattack']					= 'Admin Angriffschutz';
 $LNG['qe_submit']						= 'Absenden';
 $LNG['qe_resetr']						= 'Zurücksetzten';
 $LNG['qe_allowmulti']					= 'Erlaube Multi';
-$LNG['qe_name']							= 'Name';
 	
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
@@ -1032,7 +1031,7 @@ $LNG['fb_settings']						= 'Facebook Connect Einstellungen';
 $LNG['fb_active']						= 'Facebook Connect aktivieren?';
 $LNG['fb_api_key']						= 'Facebook App ID';
 $LNG['fb_secrectkey']					= 'Facebook Geheim Key';
-$LNG['fb_info']							= 'Mit Facebook Connect können User, die bei Facebook angemeldet sind, mit meinem Klick sich einloggen bzw. sich registrieren.<br><br>Um diese Funktion zu nutzen, musst du selbst bei Faceebok registriert sein. Zudem musst du eine Application erstellen. Dies kannst du auf <a href="http://www.facebook.com/developers/">http://www.facebook.com/developers/</a> erledigen. Als Connect URL musst du den URL zum Game eingeben. Dann trägst du hier die Keys ein und dein Game sollte Facebook bereit sein.<br><br><span style="color:red">Für FB Connect muss der Mail Versand verfügbar sein! (SMTP Settings)</span>';
+$LNG['fb_info']							= 'Mit Facebook Connect können User, die bei Facebook angemeldet sind, mit meinem Klick sich einloggen bzw. sich registrieren.<br><br>Um diese Funktion zu nutzen, musst du selbst bei Faceebok registriert sein. Zudem musst du eine Application erstellen. Dies kannst du auf <a href="http://www.facebook.com/developers/">http://www.facebook.com/developers/</a> erledigen. Als Connect URL musst du den URL zum Game eingeben. Dann trägst du hier die Keys ein und dein Game sollte Facebook bereit sein.<br><br><font color="red">Für FB Connect muss der Mail Versand verfügbar sein! (SMTP Settings)</font>';
 $LNG['fb_curl_yes']						= '<span style="color:green">Auf dem Server ist cURL installiert!</span>';
 $LNG['fb_curl_no']						= '<span style="color:red">Auf dem Server ist cURL nicht installiert! Facebook benötigt cURL Extension, damit es funktioniert!</span>';
 

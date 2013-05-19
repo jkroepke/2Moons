@@ -65,7 +65,7 @@
 		</tr>
 		{/if}
         <tr style="height:20px;">
-        	<td colspan="2"><input value="{$LNG.fl_continue}" type="submit" /></td>
+        	<td colspan="2"><input value="{$LNG.fl_continue}" type="submit"></input></td>
         </tr>
     </table>
 </form>

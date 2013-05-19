@@ -21,12 +21,12 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
 
-class VarsBuildCache implements BuildCache
+class VarsBuildCache
 {
 	function buildCache()
 	{
@@ -35,7 +35,6 @@ class VarsBuildCache implements BuildCache
 		$pricelist		= array();
 		$CombatCaps		= array();
 		$reslist		= array();
-		$ProdGrid		= array();
 
 		$reslist['prod']		= array();
 		$reslist['storage']		= array();
@@ -47,21 +46,16 @@ class VarsBuildCache implements BuildCache
 		$reslist['tech']		= array();
 		$reslist['fleet']		= array();
 		$reslist['defense']		= array();
-		$reslist['missile']		= array();
 		$reslist['officier']	= array();
 		$reslist['dmfunc']		= array();
 		
-		$db	= Database::get();
-		
-		$reqResult		= $db->nativeQuery('SELECT * FROM %%VARS_REQUIRE%%;');
-		foreach($reqResult as $reqRow)
-		{
+		$reqResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_REQUIRE.";");
+		while($reqRow = $GLOBALS['DATABASE']->fetch_array($reqResult)) {
 			$requeriments[$reqRow['elementID']][$reqRow['requireID']]	= $reqRow['requireLevel'];
 		}
 
-		$varsResult		= $db->nativeQuery('SELECT * FROM %%VARS%%;');
-		foreach($varsResult as $varsRow)
-		{
+		$varsResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS.";");
+		while($varsRow = $GLOBALS['DATABASE']->fetch_array($varsResult)) {
 			$resource[$varsRow['elementID']]	= $varsRow['name'];
 			$CombatCaps[$varsRow['elementID']]	= array(
 				'attack'	=> $varsRow['attack'],
@@ -165,9 +159,8 @@ class VarsBuildCache implements BuildCache
 			}
 		}
 
-		$rapidResult		= $db->nativeQuery('SELECT * FROM %%VARS_RAPIDFIRE%%;');
-		foreach($rapidResult as $rapidRow)
-		{
+		$rapidResult		= $GLOBALS['DATABASE']->query("SELECT * FROM ".VARS_RAPIDFIRE.";");
+		while($rapidRow = $GLOBALS['DATABASE']->fetch_array($rapidResult)) {
 			$CombatCaps[$rapidRow['elementID']]['sd'][$rapidRow['rapidfireID']]	= $rapidRow['shoots'];
 		}
 		

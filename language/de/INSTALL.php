@@ -73,8 +73,8 @@ $LNG['req_php_need']			= 'Installierte Version der Skriptsprache &raquo;PHP&laqu
 $LNG['req_php_need_desc']		= '<strong>Voraussetzung</strong> — PHP ist die Serverseitige Sprache, in der 2Moons geschrieben ist. Damit 2Moons ohne Einschränkungen funktioniert, wird die PHP Version 5.2.5 vorrausgesetzt.';
 $LNG['reg_gd_need']				= 'Installierte Version der Grafikbearbeitungs-Bibliothek &raquo;gdlib&laquo;';
 $LNG['reg_gd_desc']				= '<strong>Optional</strong> — Grafikbearbeitungs-Bibliothek &raquo;gdlib&laquo; ist für die dynamische Generierung von Bildern zuständig. Ohne sie werden einige Funktionalitäten der Software nicht funktionieren.';
-$LNG['reg_pdo_active']			= 'Unterstützung der &raquo;PDO&laquo; Extension';
-$LNG['reg_pdo_desc']			= '<strong>Voraussetzung</strong> — Du musst Unterstützung für PDO in PHP bereitstellen.';
+$LNG['reg_mysqli_active']		= 'Unterstützung der &raquo;MySQLi&laquo; Extension';
+$LNG['reg_mysqli_desc']			= '<strong>Voraussetzung</strong> — Du musst Unterstützung für MySQLi in PHP bereitstellen. Falls keine Datenbank-Module als verfügbar angezeigt werden, solltest du deinen Webhosting-Provider kontaktieren oder die entsprechende PHP-Dokumentation zu Rate ziehen.';
 $LNG['reg_json_need']			= 'Erweiterung &raquo;JSON&laquo; verfügbar?';
 $LNG['reg_iniset_need']			= 'PHP-Funktion &raquo;ini_set&laquo; vorhanden?';
 $LNG['reg_global_need']			= 'register_globals deaktiviert?';
@@ -123,8 +123,6 @@ $LNG['step6_head']				= 'Herzlichen Glückwunsch!';
 $LNG['step6_desc']				= 'Du hast 2Moons erfolgreich installiert.';
 $LNG['step6_info_head']			= 'Starte mit 2Moons durch!';
 $LNG['step6_info_additional']	= 'Wenn du unten auf die Schaltfläche klickst, wirst du zu einem Formular im Administrations-Bereich weitergeleitet. Anschließend solltest du dir etwas Zeit nehmen, um die verfügbaren Optionen kennen zu lernen.<br/><br/><strong>Bitte lösche die Datei &raquo;includes/ENABLE_INSTALL_TOOL&laquo; oder nenne es um, bevor du dein Spiel benutzt. Solange diese Datei existiert, ist dein Spiel potenziell gefährdet!</strong>';
-
-$LNG['step8_need_fields']		= 'Du muust alle Felder ausfüllen.';
 
 $LNG['sql_close_reason']		= 'Game ist zurzeit geschlossen';
 $LNG['sql_welcome']				= 'Herzlich Willkommen zu 2Moons v';

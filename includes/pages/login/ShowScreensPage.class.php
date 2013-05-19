@@ -42,30 +42,27 @@ class ShowScreensPage extends AbstractPage
 	{
 		$screenshots	= array();
 		$directoryIterator = new DirectoryIterator('styles/resource/images/login/screens/');
-        foreach ($directoryIterator as $fileInfo)
-		{
-			/** @var $fileInfo DirectoryIterator */
-			if (!$fileInfo->isFile())
+        foreach ($directoryIterator as $fileinfo) { 
+            if (!$fileinfo->isFile())
 			{
 				continue;
             }			
 			
-			$thumbnail = 'styles/resource/images/login/screens/'.$fileInfo->getFilename();
-			if(file_exists('styles/resource/images/login/screens/thumbnails/'.$fileInfo->getFilename()))
+			$thumbnail = 'styles/resource/images/login/screens/'.$fileinfo->getFilename();
+			if(file_exists('styles/resource/images/login/screens/thumbnails/'.$fileinfo->getFilename()))
 			{
-				$thumbnail = 'styles/resource/images/login/screens/thumbnails/'.$fileInfo->getFilename();
+				$thumbnail = 'styles/resource/images/login/screens/thumbnails/'.$fileinfo->getFilename();
 			}
 			
 			$screenshots[]	= array(
-				'path' 		=> 'styles/resource/images/login/screens/'.$fileInfo->getFilename(),
+				'path' 		=> 'styles/resource/images/login/screens/'.$fileinfo->getFilename(),
 				'thumbnail' => $thumbnail,
 			);
 		}
 		
 		$this->assign(array(
 			'screenshots' => $screenshots
-		));
-
-		$this->display('page.screens.default.tpl');
+		));;
+		$this->render('page.screens.default.tpl');
 	}
 }

@@ -21,13 +21,116 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
 
+function getUniverse()
+{
+	$gameConfig	= Config::getAll(NULL);
+	
+	if(MODE == 'ADMIN' && isset($_SESSION['adminuni']))
+	{
+		$UNI	= (int) $_SESSION['adminuni'];
+	}
+	elseif(MODE == 'LOGIN')
+	{
+		if(isset($_COOKIE['uni']))
+		{
+			$UNI	= (int) $_COOKIE['uni'];
+		}
+
+		if(isset($_REQUEST['uni']))
+		{
+			$UNI	= (int) $_REQUEST['uni'];
+		}
+	}
+	
+	if(!isset($UNI))
+	{
+		if(UNIS_WILDCAST === true) {
+			$UNI	= explode('.', $_SERVER['HTTP_HOST']);
+			$UNI	= substr($UNI[0], 3);
+			if(!is_numeric($UNI))
+			{
+				$UNI	= ROOT_UNI;
+			}
+		} else {
+			if(count($gameConfig) == 1)
+			{
+				if(HTTP_ROOT != HTTP_BASE)
+				{
+					HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE.HTTP_FILE, true);
+				}
+				
+				$UNI = ROOT_UNI;
+			}
+			else
+			{
+				if(isset($_SERVER['REDIRECT_UNI'])) {
+					// Apache - faster then preg_match
+					$UNI	= $_SERVER["REDIRECT_UNI"];
+				}
+				elseif(isset($_SERVER['REDIRECT_REDIRECT_UNI']))
+				{
+					// Patch for www.top-hoster.de - Hoster
+					$UNI	= $_SERVER["REDIRECT_REDIRECT_UNI"];
+				}
+				elseif(strpos($_SERVER['SERVER_SOFTWARE'], 'Apache/') === false)
+				{
+					preg_match('!/uni([0-9]+)/!', HTTP_PATH, $match);
+					if(isset($match[1]))
+					{
+						$UNI	= $match[1];
+					}
+				}
+				
+				if(!isset($UNI) || !isset($gameConfig[$UNI]))
+				{
+					HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE."uni".ROOT_UNI."/".HTTP_FILE, true);
+				}
+			}
+		}
+	}
+	
+	return $UNI;
+}
+
+function t($key)
+{
+	global $LNG;
+	
+	if(strpos($key, '.') === false)
+	{
+		$text = $LNG[$key];
+	}
+	else
+	{
+		$keys = explode('.', $key);
+		$text = $LNG[$keys[0]][$keys[1]];
+	}
+	
+	$args = func_get_args();
+	array_shift($args);
+	
+	switch (count($args)) {
+		case 0: return $text; break;
+		case 1: return sprintf($text, $args[0]); break;
+		case 2: return sprintf($text, $args[0], $args[1]); break;
+		case 3: return sprintf($text, $args[0], $args[1], $args[2]); break;
+		case 4: return sprintf($text, $args[0], $args[1], $args[2], $args[3]); break;
+		case 5: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4]); break;
+		case 6: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5]); break;
+		case 7: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6]); break;
+		case 8: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6], $args[7]); break;
+		case 9: return sprintf($text, $args[0], $args[1], $args[2], $args[3], $args[4], $args[5], $args[6], $args[7], $args[8]); break;
+		case 10: return call_user_func_array('sprintf', $args); break;
+	}
+}
+
 function getFactors($USER, $Type = 'basic', $TIME = NULL) {
-	global $resource, $pricelist, $reslist;
+	global $CONF, $resource, $pricelist, $reslist;
 	if(empty($TIME))
 		$TIME	= TIMESTAMP;
 	
@@ -67,66 +170,59 @@ function getFactors($USER, $Type = 'basic', $TIME = NULL) {
 
 function getPlanets($USER)
 {
-	if(isset($USER['PLANETS']))
+		if(isset($USER['PLANETS']))
 		return $USER['PLANETS'];
+		
+	$Order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
+	$Sort  = $USER['planet_sort'];
 
-	$order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
+	$QryPlanets  = "SELECT id, name, galaxy, system, planet, planet_type, image, b_building, b_building_id FROM ".PLANETS." WHERE id_owner = '".$USER['id']."' AND destruyed = '0' ORDER BY ";
 
-	$sql = "SELECT id, name, galaxy, system, planet, planet_type, image, b_building, b_building_id
-			FROM %%PLANETS%% WHERE id_owner = :userId AND destruyed = :destruyed ORDER BY ";
+	if($Sort == 0)
+		$QryPlanets .= "id ". $Order;
+	elseif($Sort == 1)
+		$QryPlanets .= "galaxy, system, planet, planet_type ". $Order;
+	elseif ($Sort == 2)
+		$QryPlanets .= "name ". $Order;
 
-	switch($USER['planet_sort'])
-	{
-		case 0:
-			$sql	.= 'id '.$order;
-			break;
-		case 1:
-			$sql	.= 'galaxy, system, planet, planet_type '.$order;
-			break;
-		case 2:
-			$sql	.= 'name '.$order;
-			break;
-	}
-
-	$planetsResult = Database::get()->select($sql, array(
-		':userId'		=> $USER['id'],
-		':destruyed'	=> 0
-   	));
+	$PlanetRAW = $GLOBALS['DATABASE']->query($QryPlanets);
 	
-	$planetsList = array();
+	$Planets	= array();
+	
+	while($Planet = $GLOBALS['DATABASE']->fetch_array($PlanetRAW))
+		$Planets[$Planet['id']]	= $Planet;
 
-	foreach($planetsResult as $planetRow) {
-		$planetsList[$planetRow['id']]	= $planetRow;
-	}
-
-	return $planetsList;
+	$GLOBALS['DATABASE']->free_result($PlanetRAW);
+	return $Planets;
 }
 
 function get_timezone_selector() {
+	global $LNG;
+	
 	// New Timezone Selector, better support for changes in tzdata (new russian timezones, e.g.)
 	// http://www.php.net/manual/en/datetimezone.listidentifiers.php
 	
 	$timezones = array();
 	$timezone_identifiers = DateTimeZone::listIdentifiers();
 
-	foreach($timezone_identifiers as $value )
+	foreach( $timezone_identifiers as $value )
 	{
 		if ( preg_match( '/^(America|Antartica|Arctic|Asia|Atlantic|Europe|Indian|Pacific)\//', $value ) )
 		{
-			$ex		= explode('/',$value); //obtain continent,city
-			$city	= isset($ex[2])? $ex[1].' - '.$ex[2]:$ex[1]; //in case a timezone has more than one
+			$ex=explode('/',$value); //obtain continent,city
+			$city = isset($ex[2])? $ex[1].' - '.$ex[2]:$ex[1]; //in case a timezone has more than one
 			$timezones[$ex[0]][$value] = str_replace('_', ' ', $city);
 		}
 	}
 	return $timezones; 
 }
 
-function locale_date_format($format, $time, $LNG = NULL)
-{
-	// Workaround for locale Names.
+function locale_date_format($format, $time, $LNG = NULL) {
+
+	//Workaound for locale Names.
 
 	if(!isset($LNG)) {
-		global $LNG;
+		$LNG	= $GLOBALS['LNG'];		
 	}
 	
 	$weekDay	= date('w', $time);
@@ -139,13 +235,14 @@ function locale_date_format($format, $time, $LNG = NULL)
 	return $format;
 }
 
-function _date($format, $time = null, $toTimeZone = null, $LNG = NULL)
-{
-	if(!isset($time))
-	{
+function _date($format, $time = null, $toTimeZone = null, $LNG = NULL) {
+	global $CONF;
+	
+	if(!isset($time)) {
 		$time	= TIMESTAMP;
 	}
-
+	
+		
 	if(isset($toTimeZone))
 	{
 		$date = new DateTime();
@@ -185,7 +282,7 @@ function ValidateAddress($address) {
 	}
 }
 
-function message($mes, $dest = "", $time = "3", $topnav = false)
+function message($mes, $dest = "", $time = "3", $topnav = false, $menu = true)
 {
 	require_once('includes/classes/class.template.php');
 	$template = new template();
@@ -270,12 +367,12 @@ function pretty_fly_time($seconds)
 	return $time;
 }
 
-function GetStartAdressLink($FleetRow, $FleetType = '')
+function GetStartAdressLink($FleetRow, $FleetType)
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$FleetRow['fleet_start_galaxy'].'&amp;system='.$FleetRow['fleet_start_system'].'" class="'. $FleetType .'">['.$FleetRow['fleet_start_galaxy'].':'.$FleetRow['fleet_start_system'].':'.$FleetRow['fleet_start_planet'].']</a>';
 }
 
-function GetTargetAdressLink($FleetRow, $FleetType = '')
+function GetTargetAdressLink($FleetRow, $FleetType)
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$FleetRow['fleet_end_galaxy'].'&amp;system='.$FleetRow['fleet_end_system'].'" class="'. $FleetType .'">['.$FleetRow['fleet_end_galaxy'].':'.$FleetRow['fleet_end_system'].':'.$FleetRow['fleet_end_planet'].']</a>';
 }
@@ -290,23 +387,20 @@ function pretty_number($n, $dec = 0)
 	return number_format(floattostring($n, $dec), $dec, ',', '.');
 }
 
-function GetUserByID($userId, $GetInfo = "*")
+function GetUserByID($UserID, $GetInfo = "*")
 {
-	if(is_array($GetInfo))
-	{
-		$GetOnSelect = implode(', ', $GetInfo);
+	if(is_array($GetInfo)) {
+		$GetOnSelect = "";
+		foreach($GetInfo as $id => $col)
+		{
+			$GetOnSelect .= "".$col.",";
+		}
+		$GetOnSelect = substr($GetOnSelect, 0, -1);
 	}
 	else
-	{
 		$GetOnSelect = $GetInfo;
-	}
-
-	$sql = 'SELECT '.$GetOnSelect.' FROM %%USERS%% WHERE id = :userId';
-
-	$User = Database::get()->selectSingle($sql, array(
-		':userId'	=> $userId
-	));
-
+	
+	$User = $GLOBALS['DATABASE']->getFirstRow("SELECT ".$GetOnSelect." FROM ".USERS." WHERE id = '". $UserID ."';");
 	return $User;
 }
 
@@ -319,13 +413,19 @@ function makebr($text)
     return (version_compare(PHP_VERSION, "5.3.0", ">=")) ? nl2br($text, false) : strtr($text, array("\r\n" => $BR, "\r" => $BR, "\n" => $BR)); 
 }
 
-function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
+function CheckPlanetIfExist($Galaxy, $System, $Planet, $Universe, $Planettype = 1)
 {
-	$config	= Config::get();
+	$QrySelectGalaxy = $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".PLANETS." WHERE universe = '".$Universe."' AND galaxy = '".$Galaxy."' AND system = '".$System."' AND planet = '".$Planet."' AND planet_type = '".$Planettype."';");
+	return $QrySelectGalaxy ? true : false;
+}
+
+function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
+{	
+	global $CONF;
 	if(
-		$config->noobprotection == 0 
-		|| $config->noobprotectiontime == 0 
-		|| $config->noobprotectionmulti == 0 
+		Config::get('noobprotection') == 0 
+		|| Config::get('noobprotectiontime') == 0 
+		|| Config::get('noobprotectionmulti') == 0 
 		|| $Player['banaday'] > TIMESTAMP
 		|| $Player['onlinetime'] < TIMESTAMP - INACTIVE
 	) {
@@ -340,18 +440,44 @@ function CheckNoobProtec($OwnerPlayer, $TargetPlayer, $Player)
 				ODER weniger als 5.000 hat.
 			*/
 			// Addional Comment: Letzteres ist eigentlich sinnfrei, bitte testen.a
-			($TargetPlayer['total_points'] <= $config->noobprotectiontime) && // Default: 25.000
-			($OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * $config->noobprotectionmulti)
+			($TargetPlayer['total_points'] <= Config::get('noobprotectiontime')) && // Default: 25.000
+			($OwnerPlayer['total_points'] > $TargetPlayer['total_points'] * Config::get('noobprotectionmulti'))
 		), 
 		'StrongPlayer' => (
 			/* WAHR: 
 				Wenn Spieler weniger als 5000 Punkte hat UND
 				Mehr als das funfache der eigende Punkte hat
 			*/
-			($OwnerPlayer['total_points'] < $config->noobprotectiontime) && // Default: 5.000
-			($OwnerPlayer['total_points'] * $config->noobprotectionmulti < $TargetPlayer['total_points'])
+			($OwnerPlayer['total_points'] < Config::get('noobprotectiontime')) && // Default: 5.000
+			($OwnerPlayer['total_points'] * Config::get('noobprotectionmulti') < $TargetPlayer['total_points'])
 		),
 	);
+}
+
+function CheckName($name)
+{
+	if(UTF8_SUPPORT) {
+		return preg_match("/^[\p{L}\p{N}_\-. ]*$/u", $name);
+	} else {
+		return preg_match("/^[A-z0-9_\-. ]*$/", $name);
+	}
+}
+
+function SendSimpleMessage($Owner, $Sender, $Time, $Type, $From, $Subject, $Message)
+{
+			
+	$SQL	= "INSERT INTO ".MESSAGES." SET 
+	message_owner = ".(int) $Owner.", 
+	message_sender = ".(int) $Sender.", 
+	message_time = ".(int) $Time.", 
+	message_type = ".(int) $Type.", 
+	message_from = '".$GLOBALS['DATABASE']->sql_escape($From) ."', 
+	message_subject = '". $GLOBALS['DATABASE']->sql_escape($Subject) ."', 
+	message_text = '".$GLOBALS['DATABASE']->sql_escape($Message)."', 
+	message_unread = '1', 
+	message_universe = ".$GLOBALS['UNI'].";";
+
+	$GLOBALS['DATABASE']->query($SQL);
 }
 
 function shortly_number($number, $decial = NULL)
@@ -383,14 +509,10 @@ function floattostring($Numeric, $Pro = 0, $Output = false){
 
 function isModulAvalible($ID)
 {
-	$modules	= explode(', ', Config::get()->moduls);
-
-	if(!isset($modules[$ID]))
-	{
-		$modules[$ID] = 1;
-	}
-
-	return $modules[$ID] == 1 || (isset($USER['authlevel']) && $USER['authlevel'] > AUTH_USR);
+	if(!isset($GLOBALS['CONF']['moduls'][$ID])) 
+		$GLOBALS['CONF']['moduls'][$ID] = 1;
+	
+	return $GLOBALS['CONF']['moduls'][$ID] == 1 || (isset($USER['authlevel']) && $USER['authlevel'] > AUTH_USR);
 }
 
 function ClearCache()
@@ -408,11 +530,7 @@ function ClearCache()
 	
 	require_once 'includes/classes/Cronjob.class.php';
 	Cronjob::reCalculateCronjobs();
-
-	$sql	= 'UPDATE %%PLANETS%% SET eco_hash = :ecoHash;';
-	Database::get()->update($sql, array(
-		':ecoHash'	=> ''
-	));
+	$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET eco_hash = '';");
 	clearstatcache();
 }
 
@@ -439,6 +557,22 @@ function isVacationMode($USER)
 	return ($USER['urlaubs_modus'] == 1) ? true : false;
 }
 
+function cryptPassword($password)
+{
+	// http://www.phpgangsta.de/schoener-hashen-mit-bcrypt
+	global $resource, $salt;
+	if(!CRYPT_BLOWFISH || !isset($salt))
+	{
+		return md5($password);
+	} else {
+		return crypt($password, '$2a$09$'.$salt.'$');
+	}
+}
+
+function combineArrayWithSingleElement($keys, $var) {
+	return array_combine($keys, array_fill(0, count($keys), $var));
+}
+
 function clearGIF() {
 	header('Cache-Control: no-cache');
 	header('Content-type: image/gif');
@@ -448,16 +582,32 @@ function clearGIF() {
 	exit;
 }
 
-/*
- * Handler for exceptions
- *
- * @param object
- * @return Exception
- */
-function exceptionHandler($exception)
+function fleetAmountToArray($fleetAmount)
 {
-	/** @var $exception ErrorException|Exception */
+	$fleetTyps		= explode(';', $fleetAmount);
+	
+	$fleetAmount	= array();
+	
+	foreach ($fleetTyps as $fleetTyp)
+	{
+		$temp = explode(',', $fleetTyp);
+		
+		if (empty($temp[0])) continue;
 
+		if (!isset($fleetAmount[$temp[0]]))
+		{
+			$fleetAmount[$temp[0]] = 0;
+		}
+		
+		$fleetAmount[$temp[0]] += $temp[1];
+	}
+	
+	return $fleetAmount;
+}
+
+function exceptionHandler($exception) 
+{
+	global $CONF;
 	if(!headers_sent()) {
 		if (!class_exists('HTTP', false)) {
 			require_once('includes/classes/HTTP.class.php');
@@ -465,7 +615,7 @@ function exceptionHandler($exception)
 		
 		HTTP::sendHeader('HTTP/1.1 503 Service Unavailable');
 	}
-
+	
 	if(method_exists($exception, 'getSeverity')) {
 		$errno	= $exception->getSeverity();
 	} else {
@@ -488,27 +638,34 @@ function exceptionHandler($exception)
 		E_RECOVERABLE_ERROR	=> 'RECOVERABLE ERROR'
 	);
 	
-	if(file_exists(ROOT_PATH.'install/VERSION'))
+	try
 	{
-		$VERSION	= file_get_contents(ROOT_PATH.'install/VERSION').' (FILE)';
-	}
-	else
-	{
-		$VERSION	= 'UNKNOWN';
-	}
-	$gameName	= '-';
-	
-	if(MODE !== 'INSTALL')
-	{
-		try
+		if(!class_exists('Config', false))
 		{
-			$config		= Config::get();
-			$gameName	= $config->game_name;
-			$VERSION	= $config->VERSION;
-		} catch(ErrorException $e) {
+			throw new Exception("No config class");
+		}
+		$VERSION	= Config::get('VERSION');
+	} catch(Exception $e) {
+		if(file_exists(ROOT_PATH.'install/VERSION'))
+		{
+			$VERSION	= file_get_contents(ROOT_PATH.'install/VERSION').' (FILE)';
+		}
+		else
+		{
+			$VERSION	= 'UNKNOWN';
 		}
 	}
 	
+	try
+	{
+		if(!class_exists('Config', false))
+		{
+			throw new Exception("No config class");
+		}
+		$gameName	= Config::get('game_name');
+	} catch(Exception $e) {
+		$gameName	= '-';
+	}
 	
 	$DIR		= MODE == 'INSTALL' ? '..' : '.';
 	ob_start();
@@ -523,7 +680,7 @@ function exceptionHandler($exception)
 	<meta name="generator" content="2Moons '.$VERSION.'">
 	<!-- 
 		This website is powered by 2Moons '.$VERSION.'
-		2Moons is a free Space Browsergame initially created by Jan Kröpke and licensed under GNU/GPL.
+		2Moons is a free Space Browsergame initially created by Jan Kr�pke and licensed under GNU/GPL.
 		2Moons is copyright 2009-2013 of Jan Kröpke. Extensions are copyright of their respective owners.
 		Information and contribution at http://2moons.cc/
 	-->
@@ -597,17 +754,11 @@ function exceptionHandler($exception)
 		file_put_contents('includes/error.log', $errorText, FILE_APPEND);
 	}
 }
-/*
- *
- * @throws ErrorException
- *
- * @return bool If its an hidden error.
- *
- */
+
 function errorHandler($errno, $errstr, $errfile, $errline)
 {
     if (!($errno & error_reporting())) {
-        return false;
+        return;
     }
 	
 	throw new ErrorException($errstr, 0, $errno, $errfile, $errline);
@@ -616,7 +767,7 @@ function errorHandler($errno, $errstr, $errfile, $errline)
 // "workaround" for PHP version pre 5.3.0
 if (!function_exists('array_replace_recursive'))
 {
-    function array_replace_recursive()
+    function array_replace_recursive($array, $array1)
     {
         if (!function_exists('recurse')) {
             function recurse($array, $array1)

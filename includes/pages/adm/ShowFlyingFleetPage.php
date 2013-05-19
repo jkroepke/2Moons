@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -37,7 +37,7 @@ function ShowFlyingFleetPage()
 	$id	= HTTP::_GP('id', 0);
 	if(!empty($id)){
 		$lock	= HTTP::_GP('lock', 0);
-		$GLOBALS['DATABASE']->query("UPDATE ".FLEETS." SET `fleet_busy` = '".$lock."' WHERE `fleet_id` = '".$id."' AND `fleet_universe` = '".Universe::getEmulated()."';");
+		$GLOBALS['DATABASE']->query("UPDATE ".FLEETS." SET `fleet_busy` = '".$lock."' WHERE `fleet_id` = '".$id."' AND `fleet_universe` = '".$_SESSION['adminuni']."';");
 		
 		$SQL	= ($lock == 0) ? "NULL" : "'ADM_LOCK'";
 		
@@ -62,7 +62,7 @@ function ShowFlyingFleetPage()
 	LEFT JOIN ".USERS." ustart ON ustart.id = fleet_owner
 	LEFT JOIN ".USERS." utarget ON utarget.id = fleet_target_owner
 	LEFT JOIN ".AKS." acs ON acs.id = fleet_group
-	WHERE fleet_universe = ".Universe::getEmulated()."
+	WHERE fleet_universe = ".$_SESSION['adminuni']."
 	GROUP BY event.fleetID
 	ORDER BY ".$orderBy.";");
 	

@@ -34,18 +34,15 @@ class ShowBoardPage extends AbstractPage
 	{
 		parent::__construct();
 	}
-
-	function show()
+	
+	function show() 
 	{
-		global $LNG;
-		$boardUrl	= Config::get()->forum_url;
-		if(filter_var($boardUrl, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED))
-		{
-			HTTP::sendHeader('Location', $boardUrl);
-		}
-		else
-		{
-			$this->printMessage($LNG['bad_forum_url']);
+		global $CONF, $LNG;
+		
+		if(filter_var($CONF['forum_url'], FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED)) {
+			HTTP::sendHeader('Location', $CONF['forum_url']);
+		} else {
+			$this->printMessage(t('bad_forum_url'));
 		}
 	}
 }

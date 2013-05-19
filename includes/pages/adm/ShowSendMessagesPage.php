@@ -22,7 +22,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -31,7 +31,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 
 function ShowSendMessagesPage() {
-	global $USER, $LNG;
+	global $USER, $LNG, $CONF;
 	
 	$ACTION	= HTTP::_GP('action', '');
 	if ($ACTION == 'send')
@@ -47,9 +47,6 @@ function ShowSendMessagesPage() {
 			case AUTH_ADM:
 				$class = 'admin';
 			break;
-			default:
-				$class = '';
-			break;
 		}
 
 		$Subject	= HTTP::_GP('subject', '', true);
@@ -59,29 +56,29 @@ function ShowSendMessagesPage() {
 
 		if (!empty($Message) && !empty($Subject))
 		{
-			require 'includes/classes/BBCode.class.php';
+			require_once('includes/functions/BBCode.php');
 			if($Mode == 0 || $Mode == 2) {
+				$Time    	= TIMESTAMP;
 				$From    	= '<span class="'.$class.'">'.$LNG['user_level'][$USER['authlevel']].' '.$USER['username'].'</span>';
 				$pmSubject 	= '<span class="'.$class.'">'.$Subject.'</span>';
-				$pmMessage 	= '<span class="'.$class.'">'.BBCode::parse($Message).'</span>';
-				$USERS		= $GLOBALS['DATABASE']->query("SELECT `id`, `username` FROM ".USERS." WHERE `universe` = '".Universe::getEmulated()."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
+				$pmMessage 	= '<span class="'.$class.'">'.bbcode($Message).'</span>';
+				$USERS		= $GLOBALS['DATABASE']->query("SELECT `id`, `username` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
 				while($UserData = $GLOBALS['DATABASE']->fetch_array($USERS))
 				{
 					$sendMessage = str_replace('{USERNAME}', $UserData['username'], $pmMessage);
-					PlayerUtil::sendMessage($UserData['id'], $USER['id'], $From, 50, $pmSubject, $sendMessage, TIMESTAMP, NULL, 1, Universe::getEmulated());
+					SendSimpleMessage($UserData['id'], $USER['id'], TIMESTAMP, 50, $From, $pmSubject, $sendMessage);
 				}
 			}
-
 			if($Mode == 1 || $Mode == 2) {
 				require 'includes/classes/Mail.class.php';
 				$userList	= array();
 				
-				$USERS		= $GLOBALS['DATABASE']->query("SELECT `email`, `username` FROM ".USERS." WHERE `universe` = '".Universe::getEmulated()."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
+				$USERS		= $GLOBALS['DATABASE']->query("SELECT `email`, `username` FROM ".USERS." WHERE `universe` = '".$_SESSION['adminuni']."'".(!empty($Lang) ? " AND `lang` = '".$GLOBALS['DATABASE']->sql_escape($Lang)."'": "").";");
 				while($UserData = $GLOBALS['DATABASE']->fetch_array($USERS))
 				{				
 					$userList[$UserData['email']]	= array(
 						'username'	=> $UserData['username'],
-						'body'		=> BBCode::parse(str_replace('{USERNAME}', $UserData['username'], $Message))
+						'body'		=> bbcode(str_replace('{USERNAME}', $UserData['username'], $Message))
 					);
 				}
 				
@@ -95,7 +92,7 @@ function ShowSendMessagesPage() {
 	
 	$sendModes	= $LNG['ma_modes'];
 	
-	if(Config::get()->mail_active == 0)
+	if(Config::get('mail_active') == 0)
 	{
 		unset($sendModes[1]);
 		unset($sendModes[2]);

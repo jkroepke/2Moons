@@ -21,18 +21,19 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
 
 if ($USER['authlevel'] == AUTH_USR)
 {
-	throw new Exception("Permission error!");
+	throw new PagePermissionException("Permission error!");
 }
 
 function ShowAutoCompletePage()
 {
+	global $LNG;
 	$searchText	= HTTP::_GP('term', '', UTF8_SUPPORT);
 	$searchList	= array();
 	
@@ -52,7 +53,7 @@ function ShowAutoCompletePage()
 		$orderBy = " ORDER BY (IF(username = '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."', 1, 0) + IF(username LIKE '".$GLOBALS['DATABASE']->sql_escape($searchText, true)."%', 1, 0)) DESC, username";
 	}
 	
-	$userRaw		= $GLOBALS['DATABASE']->query("SELECT id, username FROM ".USERS." WHERE universe = ".Universe::getEmulated()." AND ".$where.$orderBy." LIMIT 20");
+	$userRaw		= $GLOBALS['DATABASE']->query("SELECT id, username FROM ".USERS." WHERE universe = ".$_SESSION['adminuni']." AND ".$where.$orderBy." LIMIT 20");
 	while($userRow = $GLOBALS['DATABASE']->fetch_array($userRaw))
 	{
 		$searchList[]	= array(

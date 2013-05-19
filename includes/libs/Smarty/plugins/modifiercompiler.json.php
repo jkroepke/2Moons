@@ -12,7 +12,7 @@
  * Name:     json<br>
  * Purpose:  convert variable to json object
  *
- * @author Jan KrÃ¶pke
+ * @author Jan Kröpke
  * @param array $params parameters
  * @return string with compiled code
  */

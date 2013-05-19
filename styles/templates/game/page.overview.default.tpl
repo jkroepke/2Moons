@@ -90,10 +90,10 @@
 	{/if}
 	{if $ref_active}
 	<tr>
-		<th colspan="3"><label for="referral">{$LNG.ov_reflink}</label></th>
+		<th colspan="3">{$LNG.ov_reflink}</th>
 	</tr>
 	<tr>
-		<td colspan="3"><input id="referral" type="text" value="{$path}index.php?ref={$userid}" readonly="readonly" style="width:450px;" /></td>
+		<td colspan="3"><input type="text" value="{$path}index.php?ref={$userid}" readonly="readonly" style="width:450px;"></td>
 	</tr>
 	{foreach $RefLinks as $RefID => $RefLink}
 	<tr>
@@ -107,7 +107,4 @@
 	{/foreach}
 	{/if}
 </table>
-{/block}
-{block name="script" append}
-    <script src="scripts/game/overview.js"></script>
 {/block}

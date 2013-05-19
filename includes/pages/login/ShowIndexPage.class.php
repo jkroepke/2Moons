@@ -46,12 +46,12 @@ class ShowIndexPage extends AbstractPage
 			$this->redirectTo('index.php?page=register&referralID='.$referralID);
 		}
 	
-		$universeSelect	= array();
+		$universeSelect	= array();		
+		$uniAllConfig	= Config::getAll('universe');
 		
-		foreach(Universe::availableUniverses() as $uniId)
+		foreach($uniAllConfig as $uniID => $uniConfig)
 		{
-			$config = Config::get($uniId);
-			$universeSelect[$uniId]	= $config->uni_name.($config->game_disable == 0 ? $LNG['uni_closed'] : '');
+			$universeSelect[$uniID]	= $uniConfig['uni_name'].($uniConfig['game_disable'] == 0 ? t('uni_closed') : '');
 		}
 		
 		$Code	= HTTP::_GP('code', 0);
@@ -61,16 +61,33 @@ class ShowIndexPage extends AbstractPage
 			$loginCode	= $LNG['login_error_'.$Code];
 		}
 
-		$config				= Config::get();
+		$referralUniversum	= 0;
+		$referralUserID		= 0;
+					
+		if(Config::get('ref_active'))
+		{
+			$referralUserID		= HTTP::_GP('ref', 0);
+			if(!empty($referralUserID))
+			{
+				$referralUniversum	= $GLOBALS['DATABASE']->getFirstRow("SELECT universe FROM ".USERS." WHERE id = ".$referralUserID.";");
+				if(!isset($referralUniversum))
+				{
+					$referralUniversum	= 0;
+					$referralUserID		= 0;
+				}
+			}
+		}
 		
 		$this->assign(array(
+			'referralUserID'		=> $referralUserID,
+			'referralUniversum'		=> $referralUniversum,
 			'universeSelect'		=> $universeSelect,
 			'code'					=> $loginCode,
-			'descHeader'			=> sprintf($LNG['loginWelcome'], $config->game_name),
-			'descText'				=> sprintf($LNG['loginServerDesc'], $config->game_name),
-			'loginInfo'				=> sprintf($LNG['loginInfo'], '<a href="index.php?page=rules">'.$LNG['menu_rules'].'</a>')
+			'descHeader'			=> t('loginWelcome', Config::get('game_name')),
+			'descText'				=> t('loginServerDesc', Config::get('game_name')),
+			'loginInfo'				=> t('loginInfo', '<a href="index.php?page=rules">'.t('menu_rules').'</a>')
 		));
 		
-		$this->display('page.index.default.tpl');
+		$this->render('page.index.default.tpl');
 	}
 }

@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -31,7 +31,6 @@ class MissionFunctions
 	public $kill	= 0;
 	public $_fleet	= array();
 	public $_upd	= array();
-	public $eventTime	= 0;
 	
 	function UpdateFleet($Option, $Value)
 	{
@@ -63,82 +62,57 @@ class MissionFunctions
 		if($this->kill == 1)
 			return;
 			
-		$param	= array();
-
-		$updateQuery	= array();
-
+		$Qry	= array();
+		
 		foreach($this->_upd as $Opt => $Val)
 		{
-			$updateQuery[]	= "`".$Opt."` = :".$Opt;
-			$param[':'.$Opt]	= $Val;
+			$Qry[]	= "`".$Opt."` = '".$Val."'";
 		}
 		
-		if(!empty($updateQuery))
-		{
-			$sql	= 'UPDATE %%FLEETS%% SET '.implode(', ', $updateQuery).' WHERE `fleet_id` = :fleetId;';
-			$param[':fleetId']	= $this->_fleet['fleet_id'];
-			Database::get()->update($sql, $param);
-
-			$sql	= 'UPDATE %%FLEETS_EVENT%% SET time = :time WHERE `fleetID` = :fleetId;';
-			Database::get()->update($sql, array(
-				':time'		=> $this->eventTime,
-				':fleetId'	=> $this->_fleet['fleet_id']
-			));
+		if(!empty($Qry)) {
+			$GLOBALS['DATABASE']->multi_query("UPDATE ".FLEETS." SET ".implode(', ',$Qry)." WHERE `fleet_id` = ".$this->_fleet['fleet_id'].";UPDATE ".FLEETS_EVENT." SET time = ".$this->eventTime." WHERE `fleetID` = ".$this->_fleet['fleet_id'].";");
 		}
 	}
 		
-	function RestoreFleet($onStart = true)
+	function RestoreFleet($Start = true)
 	{
 		global $resource;
 
-		$fleetData		= FleetFunctions::unserialize($this->_fleet['fleet_array']);
-
-		$updateQuery	= array();
-
-		$param	= array(
-			':metal'		=> $this->_fleet['fleet_resource_metal'],
-			':crystal'		=> $this->_fleet['fleet_resource_crystal'],
-			':deuterium'	=> $this->_fleet['fleet_resource_deuterium'],
-			':darkmatter'	=> $this->_fleet['fleet_resource_darkmatter'],
-			':planetId'		=> $onStart == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id']
-		);
-
-		foreach ($fleetData as $shipId => $shipAmount)
+		$FleetRecord         = explode(';', $this->_fleet['fleet_array']);
+		$QryUpdFleet         = '';
+		foreach ($FleetRecord as $Item => $Group)
 		{
-			$updateQuery[]	= "p.`".$resource[$shipId]."` = p.`".$resource[$shipId]."` + :".$resource[$shipId];
-			$param[':'.$resource[$shipId]]	= $shipAmount;
+			if (empty($Group)) continue;
+
+			$Class			= explode(',', $Group);
+			$QryUpdFleet	.= "p.`".$resource[$Class[0]]."` = p.`".$resource[$Class[0]]."` + ".$Class[1].", ";
 		}
 
-		$sql	= 'UPDATE %%PLANETS%% as p, %%USERS%% as u SET
-		'.implode(', ', $updateQuery).',
-		p.`metal` = p.`metal` + :metal,
-		p.`crystal` = p.`crystal` + :crystal,
-		p.`deuterium` = p.`deuterium` + :deuterium,
-		u.`darkmatter` = u.`darkmatter` + :darkmatter
-		WHERE p.`id` = :planetId AND u.id = p.id_owner;';
+		$Qry   = "UPDATE ".PLANETS." as p, ".USERS." as u SET ";
+		if (!empty($QryUpdFleet))
+			$Qry  .= $QryUpdFleet;
 
-		Database::get()->update($sql, $param);
-
+		$Qry  .= "p.`metal` = p.`metal` + ".$this->_fleet['fleet_resource_metal'].", ";
+		$Qry  .= "p.`crystal` = p.`crystal` + ".$this->_fleet['fleet_resource_crystal'].", ";
+		$Qry  .= "p.`deuterium` = p.`deuterium` + ".$this->_fleet['fleet_resource_deuterium'].", ";
+		$Qry  .= "u.`darkmatter` = u.`darkmatter` + ".$this->_fleet['fleet_resource_darkmatter']." ";
+		$Qry  .= "WHERE ";
+		$Qry  .= "p.`id` = '".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])."' ";
+		$Qry  .= "AND u.id = p.id_owner;";
+		$GLOBALS['DATABASE']->multi_query($Qry);
 		$this->KillFleet();
 	}
 	
-	function StoreGoodsToPlanet($onStart = false)
+	function StoreGoodsToPlanet($Start = false)
 	{
-		$sql  = 'UPDATE %%PLANETS%% as p, %%USERS%% as u SET
-		`metal`			= `metal` + :metal,
-		`crystal`		= `crystal` + :crystal,
-		`deuterium` 	= `deuterium` + :deuterium,
-		`darkmatter`	= `darkmatter` + :darkmatter
-		WHERE p.`id` = :planetId AND u.id = p.id_owner;';
-
-		Database::get()->update($sql, array(
-			':metal'		=> $this->_fleet['fleet_resource_metal'],
-			':crystal'		=> $this->_fleet['fleet_resource_crystal'],
-			':deuterium'	=> $this->_fleet['fleet_resource_deuterium'],
-			':darkmatter'	=> $this->_fleet['fleet_resource_darkmatter'],
-		 	':planetId'		=> ($onStart == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id'])
-		));
-
+				$Qry   = "UPDATE ".PLANETS." SET ";
+		$Qry  .= "`metal` = `metal` + ".$this->_fleet['fleet_resource_metal'].", ";
+		$Qry  .= "`crystal` = `crystal` + ".$this->_fleet['fleet_resource_crystal'].", ";
+		$Qry  .= "`deuterium` = `deuterium` + ".$this->_fleet['fleet_resource_deuterium']." ";
+		$Qry  .= "WHERE ";
+		$Qry  .= "`id` = ".($Start == true ? $this->_fleet['fleet_start_id'] : $this->_fleet['fleet_end_id']).";";
+		$GLOBALS['DATABASE']->query($Qry);
+		
 		$this->UpdateFleet('fleet_resource_metal', '0');
 		$this->UpdateFleet('fleet_resource_crystal', '0');
 		$this->UpdateFleet('fleet_resource_deuterium', '0');
@@ -147,27 +121,20 @@ class MissionFunctions
 	function KillFleet()
 	{
 		$this->kill	= 1;
-		$sql	= 'DELETE %%FLEETS%%, %%FLEETS_EVENT%%
-		FROM %%FLEETS%% LEFT JOIN %%FLEETS_EVENT%% on fleet_id = fleetId
-		WHERE `fleet_id` = :fleetId';
-
-		Database::get()->delete($sql, array(
-			':fleetId'	=> $this->_fleet['fleet_id']
-		));
+		$GLOBALS['DATABASE']->multi_query("DELETE FROM ".FLEETS." WHERE `fleet_id` = ".$this->_fleet['fleet_id'].";
+		DELETE FROM ".FLEETS_EVENT." WHERE `fleetID` = ".$this->_fleet['fleet_id'].";");
 	}
 	
 	function getLanguage($language = NULL, $userID = NULL)
 	{
 		if(is_null($language) && !is_null($userID))
 		{
-			$sql		= 'SELECT lang FROM %%USERS%% WHERE id = :userId;';
-			$language	= Database::get()->selectSingle($sql, array(
-				':userId' => $this->_fleet['fleet_owner']
-			), 'lang');
+			$language = $GLOBALS['DATABASE']->getFirstCell("SELECT lang FROM ".USERS." WHERE id = ".$this->_fleet['fleet_owner'].";");
 		}
 		
 		$LNG		= new Language($language);
 		$LNG->includeData(array('L18N', 'FLEET', 'TECH', 'CUSTOM'));
+		
 		return $LNG;
 	}
 }

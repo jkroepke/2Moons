@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -40,17 +40,12 @@ class HTTP {
 		}
 		exit;
 	}
-
+	
 	static public function sendHeader($name, $value = NULL)
 	{
 		header($name.(!is_null($value) ? ': '.$value : ''));
 	}
-
-	static public function redirectToUniverse($universe)
-	{
-		HTTP::redirectToUniverse(PROTOCOL.HTTP_HOST.HTTP_BASE."uni".$universe."/".HTTP_FILE, true);
-	}
-
+	
 	static public function sendCookie($name, $value = "", $toTime = NULL)
 	{
 		setcookie($name, $value, $toTime);
@@ -62,65 +57,41 @@ class HTTP {
 		{
 			return $default;
 		}
-
-		if(is_float($default) || $highnum)
-		{
-			return (float) $_REQUEST[$name];
-		}
 		
 		if(is_int($default))
 		{
 			return (int) $_REQUEST[$name];			
 		}
-
+		
+		if(is_float($default))
+		{
+			return (float) $_REQUEST[$name];			
+		}
+		
 		if(is_string($default))
 		{
-			return self::_quote($_REQUEST[$name], $multibyte);
+			$var = trim(htmlspecialchars(str_replace(array("\r\n", "\r", "\0"), array("\n", "\n", ''), $_REQUEST[$name]), ENT_QUOTES, 'UTF-8'));
+			
+			if (empty($var)) {
+				return $default;				
+			}
+			
+			if ($multibyte) {
+				if (!preg_match('/^./u', $var)) {
+					$var = '';
+				}
+			} else {
+				$var = preg_replace('/[\x80-\xFF]/', '?', $var); // no multibyte, allow only ASCII (0-127)
+			}
+			
+			return $var;
 		}
 		
 		if(is_array($default))
 		{
-			return self::_quoteArray($_REQUEST[$name], $multibyte);
+			return (array) $_REQUEST[$name];
 		}
 		
 		return $default;
-	}
-
-	private static function _quoteArray($var, $multibyte)
-	{
-		$data	= array();
-		foreach($var as $key => $value)
-		{
-			if(is_array($value))
-			{
-				$data[$key]	= self::_quoteArray($value, $multibyte);
-			}
-			else
-			{
-				$data[$key]	= self::_quote($value, $multibyte);
-			}
-		}
-
-		return $data;
-	}
-
-	private static function _quote($var, $multibyte)
-	{
-		$var	= str_replace(array("\r\n", "\r", "\0"), array("\n", "\n", ''), $var);
-		$var	= htmlspecialchars($var, ENT_QUOTES, 'UTF-8');
-		$var	= trim($var);
-
-		if ($multibyte) {
-			if (!preg_match('/^./u', $var))
-			{
-				$var = '';
-			}
-		}
-		else
-		{
-			$var = preg_replace('/[\x80-\xFF]/', '?', $var); // no multibyte, allow only ASCII (0-127)
-		}
-
-		return $var;
 	}
 }

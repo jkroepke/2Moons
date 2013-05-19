@@ -34,10 +34,10 @@ $config['dbConnection']['link'] = null;
 
 // Database table names:
 $config['dbTableNames'] = array();
-$config['dbTableNames']['online']		= '';
-$config['dbTableNames']['messages']		= '';
-$config['dbTableNames']['bans']			= '';
-$config['dbTableNames']['invitations']	= '';
+$config['dbTableNames']['online']		= CHAT_ON;
+$config['dbTableNames']['messages']		= CHAT_MES;
+$config['dbTableNames']['bans']			= CHAT_BAN;
+$config['dbTableNames']['invitations']	= CHAT_INV;
 
 // Available languages:
 $config['langAvailable'] = array('ar','bg','bp','ca','cy','cz','de','el','en','es','et','fi','fr','gl','he','hr','hu','in','it','ka','kr','ja','nl','no','pl','ro','ru','sk','sl','sr','sv','tr','uk','zh','zh-tw');

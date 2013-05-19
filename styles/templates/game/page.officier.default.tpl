@@ -24,7 +24,7 @@
 						<td class="transparent left" style="width:90%;padding:10px;">
 							<p>{$LNG.shortDescription.{$ID}}</p>
 							{foreach $Element.elementBonus as $BonusName => $Bonus}{if $Bonus@iteration % 3 === 1}<p>{/if}{if $Bonus[0] < 0}-{else}+{/if}{if $Bonus[1] == 0}{abs($Bonus[0] * 100)}%{else}{$Bonus[0]}{/if} {$LNG.bonus.$BonusName}{if $Bonus@iteration % 3 === 0 || $Bonus@last}</p>{else}&nbsp;{/if}{/foreach}
-							<p>{foreach $Element.costResources as $RessID => $RessAmount}{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>{/foreach} | {$LNG.in_dest_durati}: <span style="color:lime">{$Element.time|time}</span></p>
+							<p>{foreach $Element.costRessources as $RessID => $RessAmount}{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>{/foreach} | {$LNG.in_dest_durati}: <span style="color:lime">{$Element.time|time}</span></p>
 						</td>
 						<td class="transparent" style="vertical-align:middle;width:100px">
 						{if $Element.timeLeft > 0}
@@ -79,7 +79,7 @@
 						<td class="transparent left" style="width:90%;padding:0px 10px 10px 10px;">
 							<p>{$LNG.shortDescription.{$ID}}</p>
 							<p>{foreach $Element.elementBonus as $BonusName => $Bonus}{if $Bonus[0] < 0}-{else}+{/if}{if $Bonus[1] == 0}{abs($Bonus[0] * 100)}%{else}{floatval($Bonus[0])}{/if} {$LNG.bonus.$BonusName}<br>{/foreach}</p>
-							<p>{foreach $Element.costResources as $RessID => $RessAmount}{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>{/foreach}</p>
+							<p>{foreach $Element.costRessources as $RessID => $RessAmount}{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>{/foreach}</p>
 						</td>
 						<td class="transparent" style="vertical-align:middle;width:100px">
 						{if $Element.maxLevel <= $Element.level}
@@ -101,7 +101,4 @@
 	{/foreach}
 </table>
 {/if}
-{/block}
-{block name="script"}
-<script src="scripts/game/officier.js"></script>
 {/block}

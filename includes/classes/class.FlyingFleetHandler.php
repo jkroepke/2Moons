@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -30,7 +30,7 @@ class FlyingFleetHandler
 {	
 	protected $token;
 	
-	public static $missionObjPattern	= array(
+	public static $MissionsPattern	= array(
 		1	=> 'MissionCaseAttack',
 		2	=> 'MissionCaseACS',
 		3	=> 'MissionCaseTransport',
@@ -50,53 +50,56 @@ class FlyingFleetHandler
 		$this->token	= $token;
 	}
 	
+	
 	function run()
 	{
-		require_once 'includes/classes/class.MissionFunctions.php';
-		require_once 'includes/classes/missions/Mission.interface.php';
-
-		$db	= Database::get();
-
-		$sql = 'SELECT %%FLEETS%%.*
-		FROM %%FLEETS_EVENT%%
-		INNER JOIN %%FLEETS%% ON fleetID = fleet_id
-		WHERE `lock` = :token;';
-
-		$fleetResult = $db->select($sql, array(
-			':token'	=> $this->token
-		));
-
-		foreach($fleetResult as $fleetRow)
+				
+		require_once('includes/classes/class.MissionFunctions.php');
+		
+		$fleetResult = $GLOBALS['DATABASE']->query("SELECT ".FLEETS.".* 
+		FROM ".FLEETS_EVENT." 
+		INNER JOIN ".FLEETS." ON fleetID = fleet_id
+		WHERE `lock` = '".$this->token."';");
+		while ($fleetRow = $GLOBALS['DATABASE']->fetch_array($fleetResult))
 		{
-			if(!isset(self::$missionObjPattern[$fleetRow['fleet_mission']])) {
-				$sql = 'DELETE FROM %%FLEETS%% WHERE fleet_id = :fleetId;';
-
-				$db->delete($sql, array(
-					':fleetId'	=> $fleetRow['fleet_id']
-			  	));
-
+			if(!isset(self::$MissionsPattern[$fleetRow['fleet_mission']])) {
+				$GLOBALS['DATABASE']->query("DELETE FROM ".FLEETS." WHERE `fleet_id` = '".$fleetRow['fleet_id']."';");
 				continue;
 			}
 			
-			$missionName	= self::$missionObjPattern[$fleetRow['fleet_mission']];
-
-			$path	= 'includes/classes/missions/'.$missionName.'.class.php';
-			require_once $path;
-			/** @var $missionObj Mission */
-			$missionObj	= new $missionName($fleetRow);
+			#if(!$this->IfFleetBusy($fleetRow['fleet_id'])) continue;
+			
+			$missionName	= self::$MissionsPattern[$fleetRow['fleet_mission']];
+			
+			require_once('includes/classes/missions/'.$missionName.'.php');
+			$Mission	= new $missionName($fleetRow);
 			
 			switch($fleetRow['fleet_mess'])
 			{
 				case 0:
-					$missionObj->TargetEvent();
+					$Mission->TargetEvent();
 				break;
 				case 1:
-					$missionObj->ReturnEvent();
+					$Mission->ReturnEvent();
 				break;
 				case 2:
-					$missionObj->EndStayEvent();
+					$Mission->EndStayEvent();
 				break;
 			}
+
+			#$GLOBALS['DATABASE']->query("UPDATE ".FLEETS." SET `fleet_busy` = '0' WHERE `fleet_id` = '".$fleetRow['fleet_id']."';");
+		}
+		$GLOBALS['DATABASE']->free_result($fleetResult);
+	}
+	
+	function IfFleetBusy($FleetID)
+	{
+		$FleetInfo	= $GLOBALS['DATABASE']->getFirstRow("SELECT fleet_busy FROM ".FLEETS." WHERE `fleet_id` = '".$FleetID."';");
+		if($FleetInfo['fleet_busy'] == 1) {
+			return false;
+		} else {
+			$GLOBALS['DATABASE']->query("UPDATE ".FLEETS." SET `fleet_busy` = '1' WHERE `fleet_id` = '".$FleetID."';");
+			return true;
 		}
 	}
 }

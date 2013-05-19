@@ -22,7 +22,7 @@
  * @author Jan <slaver7@gmail.com>
  * @copyright 2011 Jan <slaver7@gmail.com> (Fork/2Moons)
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -31,6 +31,20 @@ $LNG['Version']     = 'Version';
 $LNG['Description'] = 'Beschreibung';
 
 $LNG['changelog']   = array(
+'v1.7.3' => 'Jan 19.05.2013
+- 0000461: [User errors] Inexplicable errors (Jan) - resolved.
+- 0000459: [Admin Panal] Undefined variable: CONFIG (Jan) - resolved.
+- 0000429: [Langauge] Custom lang keys dont work (Jan) - resolved.
+- 0000437: [Admin Panal] Undefined variable: CONFIG (Jan) - resolved.
+- 0000434: [Admin Panal] unexpected ',' in InactiveMailCronjob (Jan) - resolved.
+- 0000415: [Langauge] mail error (Jan) - resolved.
+- 0000427: [User errors] Chat fell (Jan) - resolved.
+- 0000425: [User errors] Chat Bug (Jan) - resolved.
+- 0000305: [User errors] Class \'Swift_SmtpTransport\' not found (Jan) - resolved.
+- 0000388: [Spell iusses] Undefined offset: on trader (Jan) - resolved.
+- 0000387: [Spell iusses] Spionageberechte zusammenfassen unter Einstellungen (Jan) - resolved.
+- 0000363: [Admin Panal] Ticket with an empty subject (Jan) - resolved.
+',
 'v1.7.2' => 'Jan 18.03.2013
 - 0000358: [Fleet missions] Recycler mit vollem Rohstoffspeicher inkl. viel Kristall, baut TF nicht ab und geht auf Lock (Jan) - resolved.
 - 0000360: [Fleet missions] Wenn bei "Mission: Halten" Rohstoffe mitgenommen wird, werden diese dort abgeliefert und die Flotte behält diese Rohstoffe (Jan) - resolved.

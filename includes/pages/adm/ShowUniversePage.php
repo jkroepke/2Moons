@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $universe: ShowUniversePage.php 2152 2012-03-16 20:52:20Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -32,7 +32,7 @@ if ($USER['authlevel'] != AUTH_ADM || $_GET['sid'] != session_id())
 }
 
 function ShowUniversePage() {
-	global $LNG, $USER;
+	global $LNG, $UNI, $USER;
 	$template	= new template();
 	
 	$action		= HTTP::_GP('action', '');
@@ -41,17 +41,20 @@ function ShowUniversePage() {
 	switch($action)
 	{
 		case 'open':
-			$config = Config::get($universe);
-			$config->game_disable = 1;
-			$config->save();
+			try {
+				Config::update(array('game_disable' => 1), $universe);
+			}
+			catch (Exception $e) { }
 		break;
 		case 'closed':
-			$config = Config::get($universe);
-			$config->game_disable = 0;
-			$config->save();
+			try {
+				Config::update(array('game_disable' => 0), $universe);
+			}
+			catch (Exception $e) { }
 		break;
 		case 'delete':
-			if(!empty($universe) && $universe != ROOT_UNI && $universe != Universe::current())
+			$CONFIG	= Config::getAll(NULL);
+			if(!empty($universe) && $universe != ROOT_UNI && $universe != $USER['universe'] && isset($CONFIG[$universe]))
 			{
 				$GLOBALS['DATABASE']->query("DELETE FROM ".ALLIANCE.", ".ALLIANCE_RANK.", ".ALLIANCE_REQUEST." 
 				USING ".ALLIANCE." 
@@ -91,26 +94,29 @@ function ShowUniversePage() {
 				LEFT JOIN ".LOSTPASSWORD." ON ".USERS.".id = ".LOSTPASSWORD.".userID
 				WHERE ".USERS.".universe = ".$universe.";");
 				$GLOBALS['DATABASE']->query("DELETE FROM ".USERS_VALID." WHERE universe = ".$universe.";");
-				if(Universe::getEmulated() == $universe)
+				if($_SESSION['adminuni'] == $universe)
 				{
-					Universe::setEmulated(Universe::current());
+					$_SESSION['adminuni']	= $USER['universe'];
 				}
-
-
 				
-				if(count(Universe::availableUniverses()) == 2)
+				Config::init();
+				$CONFIG	= Config::getAll(NULL);
+				
+				if(count($CONFIG) == 1)
 				{
 					// Hack The Session
 					setcookie(session_name(), session_id(), SESSION_LIFETIME, HTTP_BASE, NULL, HTTPS, true);
-					HTTP::redirectTo("../admin.php?reload=r");
+					HTTP::redirectTo("admin.php?reload=r");
 				}
 			}
 		break;
 		case 'create':
-			$universeCount = count(Universe::availableUniverses());
+			Config::init();
+			$CONFIG	= Config::getAll(NULL);
+			
 			// Check Multiuniverse Support
 			$ch	= curl_init();
-			if($universeCount == 1)
+			if(count($CONFIG) == 1)
 			{
 				curl_setopt($ch, CURLOPT_URL, PROTOCOL.HTTP_HOST.HTTP_BASE."uni".ROOT_UNI."/");
 			}
@@ -122,7 +128,7 @@ function ShowUniversePage() {
 			curl_setopt($ch, CURLOPT_AUTOREFERER, true);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-			curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (compatible; 2Moons/".Config::get()->VERSION."; +http://2moons.cc)");
+			curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (compatible; 2Moons/".Config::get('VERSION')."; +http://2moons.cc)");
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
 				"Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
 				"Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3",
@@ -149,32 +155,33 @@ function ShowUniversePage() {
 				.'<a href="javascript:window.location.reload();"><button>'.$LNG['uvs_reload'].'</button></a>');
 				exit;
 			}
-
-			$config	= Config::get();
+			
+			$CONFIG	= Config::getAll(NULL);
+			$CONF	= $CONFIG[$_SESSION['adminuni']];
 			
 			$configSQL	= array();
-			foreach(Config::getGlobalConfigKeys() as $basicConfigKey)
+			foreach($GLOBALS['BASICCONFIG'] as $basicConfigKey)
 			{
-				$configSQL[]	= '`'.$basicConfigKey.'` = "'.$config->$basicConfigKey.'"';
+				$configSQL[]	= '`'.$basicConfigKey.'` = "'.$CONF[$basicConfigKey].'"';
 			}
 			
-			$configSQL[]	= '`uni_name` = "'.$LNG['fcm_universe'].' '.($universeCount + 1).'"';
+			$configSQL[]	= '`uni_name` = "'.$LNG['fcm_universe'].' '.(count($CONFIG) + 1).'"';
 			$configSQL[]	= '`close_reason` = ""';
-			$configSQL[]	= '`OverviewNewsText` = "'.$GLOBALS['DATABASE']->escape($config->OverviewNewsText).'"';
+			$configSQL[]	= '`OverviewNewsText` = "'.$GLOBALS['DATABASE']->escape($CONF['OverviewNewsText']).'"';		
 		
 			$GLOBALS['DATABASE']->query("INSERT INTO ".CONFIG." SET ".implode(', ', $configSQL).";");
 			$newUniverse	= $GLOBALS['DATABASE']->GetInsertID();
-
-			Config::reload();
-
+			Config::init();
+			$CONFIG	= Config::getAll(NULL);
+			
 			list($userID, $planetID) = PlayerUtil::createPlayer($newUniverse, $USER['username'], '', $USER['email'], $USER['lang'], 1, 1, 1, NULL, AUTH_ADM);
 			$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET password = '".$USER['password']."' WHERE id = ".$userID.";");
 
-			if($universeCount === 1)
+			if(count($CONFIG) == 2)
 			{
 				// Hack The Session
 				setcookie(session_name(), session_id(), SESSION_LIFETIME, HTTP_ROOT.'uni'.$USER['universe'].'/', NULL, HTTPS, true);
-				HTTP::redirectTo("uni".$USER['universe']."/admin.php?reload=r");
+				HTTP::redirectTo("admin.php?reload=r");
 			}
 		break;
 	}

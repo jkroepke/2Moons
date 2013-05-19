@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2012 Jan KrÃ¶pke
+ *  Copyright (C) 2012 Jan Krï¿½pke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,10 +18,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan KrÃ¶pke <info@2moons.cc>
- * @copyright 2012 Jan KrÃ¶pke <info@2moons.cc>
+ * @author Jan Kröpke <info@2moons.cc>
+ * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -29,24 +29,20 @@
 class Language implements ArrayAccess {
     private $container = array();
     private $language = array();
-    static private $allLanguages = array();
+    static private $allLangauges = array();
 	
 	static function getAllowedLangs($OnlyKey = true)
 	{
-		if(empty(self::$allLanguages))
-		{
-			$cache	= Cache::get();
-			$cache->add('language', 'LanguageBuildCache');
-			self::$allLanguages = $cache->getData('language');
+		if(count(self::$allLangauges) == 0) {
+			$GLOBALS['CACHE']->add('language', 'LanguageBuildCache');
+			self::$allLangauges = $GLOBALS['CACHE']->get('language');
 		}
 		
-		if($OnlyKey)
-		{
-			return array_keys(self::$allLanguages);
+		if($OnlyKey) {
+			return array_keys(self::$allLangauges);
 		}
-		else
-		{
-			return self::$allLanguages;
+		else {
+			return self::$allLangauges;
 		}
 	}
 	
@@ -65,18 +61,21 @@ class Language implements ArrayAccess {
 			return true;
 		}
 		
-	    if (empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
-		{
+	    if (empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
             return false;
         }
+		
+		$quality = 0;
+
 
         $accepted_languages = preg_split('/,\s*/', $_SERVER['HTTP_ACCEPT_LANGUAGE']);
 
         $language = $this->getLanguage();
+        $current_q = 0;
 
         foreach ($accepted_languages as $accepted_language)
 		{
-			$isValid = preg_match('!^([a-z]{1,8}(?:-[a-z]{1,8})*)(?:;\s*q=(0(?:\.[0-9]{1,3})?|1(?:\.0{1,3})?))?$!i', $accepted_language, $matches);
+			$isValid = preg_match('/^([a-z]{1,8}(?:-[a-z]{1,8})*)'.'(?:;\s*q=(0(?:\.[0-9]{1,3})?|1(?:\.0{1,3})?))?$/i', $accepted_language, $matches);
 
 			if ($isValid !== 1)
 			{
@@ -84,18 +83,18 @@ class Language implements ArrayAccess {
 			}
 
             list($code)	= explode('-', strtolower($matches[1]));
+			$quality	= isset($matches[2]) ? (float)$matches[2] : 1.0;
 
-			if(in_array($code, self::getAllowedLangs()))
+			if($quality > $current_q && in_array($code, self::getAllowedLangs()))
 			{
 				$language	= $code;
+				$current_q	= $quality;
 				break;
 			}
         }
 		
 		HTTP::sendCookie('lang', $language, 2147483647);
 		$this->setLanguage($language);
-
-		return $language;
 	}
 	
     public function __construct($language = NULL)
@@ -111,7 +110,7 @@ class Language implements ArrayAccess {
 		}
 		elseif(MODE !== 'INSTALL')
 		{
-			$this->language	= Config::get()->lang;
+			$this->language	= Config::get('lang');
 		}
 		else
 		{
@@ -130,9 +129,9 @@ class Language implements ArrayAccess {
 	
 	public function getTemplate($templateName)
 	{
-		if(file_exists('language/'.$this->getLanguage().'/templates/'.$templateName.'.txt'))
+		if(file_exists(ROOT_PATH.'language/'.$this->getLanguage().'/templates/'.$templateName.'.txt'))
 		{
-			return file_get_contents('language/'.$this->getLanguage().'/templates/'.$templateName.'.txt');
+			return file_get_contents(ROOT_PATH.'language/'.$this->getLanguage().'/templates/'.$templateName.'.txt');
 		}
 		else
 		{
@@ -140,27 +139,27 @@ class Language implements ArrayAccess {
 		}
 	}
 	
-	public function includeData($files)
+	public function includeData($Files)
 	{
 		// Fixed BOM problems.
 		ob_start();
-		$LNG	= array();
-
-		$path	= 'language/'.$this->getLanguage().'/';
-
-        foreach($files as $file) {
-			$filePath	= $path.$file.'.php';
-			if(file_exists($filePath))
-			{
-				require $filePath;
-			}
+		
+        foreach($Files as $File) {
+			require('language/'.$this->getLanguage().'/'.$File.'.php');
 		}
-
-		$filePath	= $path.'CUSTOM.php';
-		require $filePath;
+		
+		if(file_exists('language/'.$this->getLanguage().'/CUSTOM.php'))
+		{
+			require('language/'.$this->getLanguage().'/CUSTOM.php');
+		}
+		
 		ob_end_clean();
-
 		$this->addData($LNG);
+	}
+	
+	public function insertData($Files)
+	{
+		
 	}
 	
 	/** ArrayAccess Functions **/

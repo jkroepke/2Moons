@@ -28,17 +28,15 @@
  * @link http://code.google.com/p/2moons/
  */
 
-require_once 'includes/classes/cronjob/CronjobTask.interface.php';
-
-class DumpCronjob implements CronjobTask
+class DumpCronjob
 {
 	function run()
 	{
 		$prefixCounts	= strlen(DB_PREFIX);
 		$dbTables		= array();
-		$tableNames		= Database::get()->nativeQuery('SHOW TABLE STATUS FROM '.DB_NAME.';');
+		$sqlTableRaw	= $GLOBALS['DATABASE']->query("SHOW TABLE STATUS FROM `".DB_NAME."`;");
 
-		foreach($tableNames as $table)
+		while($table = $GLOBALS['DATABASE']->fetchArray($sqlTableRaw))
 		{
 			if(DB_PREFIX == substr($table['Name'], 0, $prefixCounts))
 			{

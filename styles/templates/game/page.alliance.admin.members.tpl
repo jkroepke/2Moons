@@ -22,9 +22,9 @@
 	{foreach $memberList as $userID => $memberListRow}
 	<tr>
 		<td>{$memberListRow@iteration}</td>
-		<td><a href="#" onclick="return Dialog.Playercard({$userID},'{$memberListRow.username}');">{$memberListRow.username}</a></td>
+		<td><a href="#" onclick="return Dialog.Playercard({$userID}, '{$memberListRow.username}');">{$memberListRow.username}</a></td>
 		<td><a href="#" onclick="return Dialog.PM({$userID});"><img src="{$dpath}img/m.gif" border="0" title="{$LNG.write_message}"></a></td>
-		<td>{if $memberListRow.rankID == -1}{$founder}{elseif(isset($rankSelectList[$memberListRow.rankID]))}{html_options name="rank[{$userID}]" options=$rankSelectList selected=$memberListRow.rankID}{else}{$rankList[$memberListRow.rankID]}{/if}</td>
+		<td>{if $memberListRow.rankID == -1}{$founder}{else}{html_options name="rank[{$userID}]" options=$rankList selected=$memberListRow.rankID}{/if}</td>
 		<td><span title="{$memberListRow.points|number}">{shortly_number($memberListRow.points)}</span></td>
 		<td><a href="game.php?page=galaxy&amp;galaxy={$memberListRow.galaxy}&amp;system={$memberListRow.system}">[{$memberListRow.galaxy}:{$memberListRow.system}:{$memberListRow.planet}]</a></td>
 		<td>{$memberListRow.register_time}</td>

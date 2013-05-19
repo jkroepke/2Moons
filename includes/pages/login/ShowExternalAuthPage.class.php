@@ -41,45 +41,33 @@ class ShowExternalAuthPage extends AbstractPage
 	{
 		$method			= HTTP::_GP('method', '');
 		$method			= strtolower(str_replace(array('_', '\\', '/', '.', "\0"), '', $method));
-		$path			= 'includes/classes/extauth/'.$method.'.class.php';
 		
-		if(!file_exists($path)) {
+		if(!file_exists('includes/extauth/'.$method.'.class.php')) {
 			HTTP::redirectTo('index.php');			
 		}
-
-		$session	= Session::create();
-
-		require 'includes/classes/extauth/externalAuth.interface.php';
-		require $path;
+		
+		Session::init();
+		
+		require('includes/extauth/'.$method.'.class.php');
 		
 		$methodClass	= ucwords($method).'Auth';
-
-		/** @var $authObj externalAuth */
 		$authObj		= new $methodClass;
 		
-		if(!$authObj->isActiveMode())
-		{
-			$session->delete();
+		if(!$authObj->isActiveMode()) {
 			$this->redirectTo('index.php?code=5');
 		}
 		
-		if(!$authObj->isValid())
-		{
-			$session->delete();
+		if(!$authObj->isVaild()) {
 			$this->redirectTo('index.php?code=4');
 		}
 		
 		$loginData	= $authObj->getLoginData();
 		
-		if(empty($loginData))
-		{
-			$session->delete();
+		if(empty($loginData)) {
 			$this->redirectTo('index.php?page=register&externalAuth[account]='.$authObj->getAccount().'&externalAuth[method]=facebook');
 		}
-
-		$session->userId		= (int) $loginData['id'];
-		$session->adminAccess	= 0;
-		$session->save();
+		
+		Session::create($loginData['id'], $loginData['id_planet']);
 		$this->redirectTo("game.php");	
 	}
 }

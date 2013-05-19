@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -81,11 +81,11 @@ function ShowMessageListPage()
 	
 	if ($type != 100)
 	{
-		$MessageCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MESSAGES.$countJoinSQL." WHERE message_type = ".$type." AND message_universe = ".Universe::getEmulated().$dateWhereSQL.$userWhereSQL.";");
+		$MessageCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MESSAGES.$countJoinSQL." WHERE message_type = ".$type." AND message_universe = ".$_SESSION['adminuni'].$dateWhereSQL.$userWhereSQL.";");
 	}
 	else
 	{
-		$MessageCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MESSAGES.$countJoinSQL." WHERE message_universe = ".Universe::getEmulated().$dateWhereSQL.$userWhereSQL.";");
+		$MessageCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MESSAGES.$countJoinSQL." WHERE message_universe = ".$_SESSION['adminuni'].$dateWhereSQL.$userWhereSQL.";");
 	}
 	
 	$maxPage	= max(1, ceil($MessageCount / $perSide));
@@ -99,7 +99,7 @@ function ShowMessageListPage()
 		FROM ".MESSAGES." as m 
 		LEFT JOIN ".USERS." as u ON m.message_owner = u.id 
 		LEFT JOIN ".USERS." as us ON m.message_sender = us.id
-		WHERE m.message_universe = ".Universe::getEmulated()."
+		WHERE m.message_universe = ".$_SESSION['adminuni']." 
 		".$dateWhereSQL."
 		".$userWhereSQL."
 		ORDER BY message_time DESC, message_id DESC
@@ -109,7 +109,7 @@ function ShowMessageListPage()
 		FROM ".MESSAGES." as m
 		LEFT JOIN ".USERS." as u ON m.message_owner = u.id
 		LEFT JOIN ".USERS." as us ON m.message_sender = us.id
-		WHERE m.message_type = ".$type." AND message_universe = ".Universe::getEmulated()."
+		WHERE m.message_type = ".$type." AND message_universe = ".$_SESSION['adminuni']."
 		".$dateWhereSQL."
 		".$userWhereSQL."
 		ORDER BY message_time DESC, message_id DESC

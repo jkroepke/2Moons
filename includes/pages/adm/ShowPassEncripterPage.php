@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -37,7 +37,7 @@ function ShowPassEncripterPage()
 
 	$template->assign_vars(array(
 		'md5_md5' 			=> $Password,
-		'md5_enc' 			=> PlayerUtil::cryptPassword($Password),
+		'md5_enc' 			=> cryptPassword($Password),
 		'et_md5_encripter' 	=> $LNG['et_md5_encripter'],
 		'et_encript' 		=> $LNG['et_encript'],
 		'et_result' 		=> $LNG['et_result'],

@@ -27,91 +27,55 @@
  * @link http://code.google.com/p/2moons/
  */
 
-require_once 'includes/classes/cronjob/CronjobTask.interface.php';
-
-class CleanerCronjob implements CronjobTask
+class CleanerCronjob
 {
 	function run()
 	{
-        $config	= Config::get(ROOT_UNI);
-
-		$unis	= Universe::availableUniverses();
+		$CONF	= Config::getAll(NULL, ROOT_UNI);
+		
+		$unis	= array_keys(Config::getAll(NULL));
+		
+		$GLOBALS['DATABASE']->query("LOCK TABLES ".ALLIANCE." WRITE, ".ALLIANCE_REQUEST." WRITE,
+									".BUDDY." WRITE, ".CONFIG." WRITE, ".FLEETS." WRITE, ".FLEETS_EVENT." WRITE, 
+									".NOTES." WRITE, ".MESSAGES." WRITE, ".PLANETS." WRITE, 
+									".RW." WRITE, ".SESSION." WRITE, ".STATPOINTS." WRITE, 
+									".TOPKB." WRITE, ".TOPKB_USERS." WRITE, ".USERS." WRITE;");
 	
 		//Delete old messages
-		$del_before 	= TIMESTAMP - ($config->del_oldstuff * 86400);
-		$del_inactive 	= TIMESTAMP - ($config->del_user_automatic * 86400);
-		$del_deleted 	= TIMESTAMP - ($config->del_user_manually * 86400);
+		$del_before 	= TIMESTAMP - ($CONF['del_oldstuff'] * 86400);
+		$del_inactive 	= TIMESTAMP - ($CONF['del_user_automatic'] * 86400);
+		$del_deleted 	= TIMESTAMP - ($CONF['del_user_manually'] * 86400);
 
-		if($del_inactive === TIMESTAMP)
+		$GLOBALS['DATABASE']->multi_query("DELETE FROM ".MESSAGES." WHERE `message_time` < '". $del_before ."';
+						  DELETE FROM ".ALLIANCE." WHERE `ally_members` = '0';
+						  DELETE FROM ".PLANETS." WHERE `destruyed` < ".TIMESTAMP." AND `destruyed` != 0;
+						  DELETE FROM ".SESSION." WHERE `lastonline` < '".(TIMESTAMP - SESSION_LIFETIME)."';
+						  DELETE FROM ".FLEETS_EVENT." WHERE fleetID NOT IN (SELECT fleet_id FROM ".FLEETS.");
+						  UPDATE ".USERS." SET `email_2` = `email` WHERE `setmail` < '".TIMESTAMP."';");
+
+		$ChooseToDelete = $GLOBALS['DATABASE']->query("SELECT `id` FROM `".USERS."` WHERE `authlevel` = '".AUTH_USR."' AND ((`db_deaktjava` != 0 AND `db_deaktjava` < '".$del_deleted."')".($del_inactive == TIMESTAMP ? "" : " OR `onlinetime` < '".$del_inactive."'").");");
+
+		if(isset($ChooseToDelete))
 		{
-			$del_inactive = 2147483647;
-		}
-
-		$sql	= 'DELETE FROM %%MESSAGES%% WHERE `message_time` < :time;';
-		Database::get()->delete($sql, array(
-			':time'	=> $del_before
-		));
-
-		$sql	= 'DELETE FROM %%ALLIANCE%% WHERE `ally_members` = 0;';
-		Database::get()->delete($sql);
-
-		$sql	= 'DELETE FROM %%PLANETS%% WHERE `destruyed` < :time AND `destruyed` != 0;';
-		Database::get()->delete($sql, array(
-			':time'	=> TIMESTAMP
-		));
-
-		$sql	= 'DELETE FROM %%SESSION%% WHERE `lastonline` < :time;';
-		Database::get()->delete($sql, array(
-			':time'	=> TIMESTAMP - SESSION_LIFETIME
-		));
-
-		$sql	= 'DELETE FROM %%FLEETS_EVENT%% WHERE fleetID NOT IN (SELECT fleet_id FROM %%FLEETS%%);';
-		Database::get()->delete($sql);
-
-		$sql	= 'UPDATE %%USERS%% SET `email_2` = `email` WHERE `setmail` < :time;';
-		Database::get()->update($sql, array(
-			':time'	=> TIMESTAMP
-		));
-
-		$sql	= 'SELECT `id` FROM %%USERS%% WHERE `authlevel` = :authlevel
-		AND ((`db_deaktjava` != 0 AND `db_deaktjava` < :timeDeleted) OR `onlinetime` < :timeInactive);';
-
-		$deleteUserIds = Database::get()->select($sql, array(
-			':authlevel'	=> AUTH_USR,
-			':timeDeleted'	=> $del_deleted,
-			':timeInactive'	=> $del_inactive
-		));
-
-		if(empty($deleteUserIds))
-		{
-			foreach($deleteUserIds as $dataRow)
+			include_once('includes/functions/DeleteSelectedUser.php');
+			while($delete = $GLOBALS['DATABASE']->fetch_array($ChooseToDelete))
 			{
-				PlayerUtil::deletePlayer($dataRow['id']);
+				DeleteSelectedUser($delete['id']);
 			}	
 		}
 		
+		$GLOBALS['DATABASE']->free_result($ChooseToDelete);
+		
 		foreach($unis as $uni)
 		{
-			$sql	= 'SELECT units FROM %%TOPKB%% WHERE `universe` = :universe ORDER BY units DESC LIMIT 99,1;';
-
-			$battleHallLowest	= Database::get()->selectSingle($sql, array(
-				':universe'	=> $uni
-			),'units');
-
-			if(!is_null($battleHallLowest))
+			$battleHallLowest	= $GLOBALS['DATABASE']->getFirstCell("SELECT units FROM ".TOPKB." WHERE `universe` = ".$uni." ORDER BY units DESC LIMIT 99,1;");
+			if(isset($battleHallLowest))
 			{
-				$sql	= 'DELETE %%TOPKB%%, %%TOPKB_USERS%%
-				FROM %%TOPKB%%
-				INNER JOIN %%TOPKB_USERS%% USING (rid)
-				WHERE `universe` = :universe AND `units` < :battleHallLowest;';
-
-				Database::get()->delete($sql);
+				$GLOBALS['DATABASE']->query("DELETE ".TOPKB.", ".TOPKB_USERS." FROM ".TOPKB." INNER JOIN ".TOPKB_USERS." USING (rid) WHERE `universe` = ".$uni." AND `units` < ".$battleHallLowest.";");
 			}
 		}
 
-		$sql	= 'DELETE FROM %%RW%% WHERE `time` < :time AND `rid` NOT IN (SELECT `rid` FROM %%TOPKB%%);';
-		Database::get()->delete($sql, array(
-			':time'	=> $del_before
-		));
+		$GLOBALS['DATABASE']->query("DELETE FROM ".RW." WHERE `time` < ". $del_before ." AND `rid` NOT IN (SELECT `rid` FROM ".TOPKB.");");
+		$GLOBALS['DATABASE']->query("UNLOCK TABLES;");
 	}
 }

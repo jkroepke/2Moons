@@ -21,12 +21,12 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
 
-$planetData	= array(
+$PlanetData		= array(
 	1	=> array('temp' => mt_rand(220, 260),	'fields' => mt_rand(95, 108),	'image' => array('trocken' => mt_rand(1, 10), 'wuesten' => mt_rand(1, 4))),
 	2	=> array('temp' => mt_rand(170, 210),	'fields' => mt_rand(97, 110),	'image' => array('trocken' => mt_rand(1, 10), 'wuesten' => mt_rand(1, 4))),
 	3	=> array('temp' => mt_rand(120, 160),	'fields' => mt_rand(98, 137),	'image' => array('trocken' => mt_rand(1, 10), 'wuesten' => mt_rand(1, 4))),
@@ -43,3 +43,5 @@ $planetData	= array(
 	14	=> array('temp' => mt_rand(-90, -50),	'fields' => mt_rand(81, 93),	'image' => array('eis' => mt_rand(1, 10))),
 	15	=> array('temp' => mt_rand(-130, -90),	'fields' => mt_rand(65, 74),	'image' => array('eis' => mt_rand(1, 10)))
 );
+
+?>

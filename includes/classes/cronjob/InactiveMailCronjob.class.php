@@ -27,42 +27,30 @@
  * @link http://code.google.com/p/2moons/
  */
 
-require_once 'includes/classes/cronjob/CronjobTask.interface.php';
-
 class InactiveMailCronjob
 {
 	function run()
 	{
 		global $LNG;
-
-		$config	= Config::get(ROOT_UNI);
+		$CONF	= Config::getAll(NULL, ROOT_UNI);
 		
-		if($config->mail_active == 1) {
-			/** @var $langObjects Language[] */
+		if($CONF['mail_active'] == 1) {
 			$langObjects	= array();
 		
 			require 'includes/classes/Mail.class.php';
-
-			$sql	= 'SELECT `id`, `username`, `lang`, `email`, `onlinetime`, `timezone`, `universe`
-			FROM %%USERS%% WHERE `inactive_mail` = 0 AND `onlinetime` < :time;';
-
-			$inactiveUsers	= Database::get()->select($sql, array(
-				':time'	=> TIMESTAMP - $config->del_user_sendmail * 24 * 60 * 60
-			));
-
-			foreach($inactiveUsers as $user)
+			$Users	= $GLOBALS['DATABASE']->query("SELECT `id`, `username`, `lang`, `email`, `onlinetime`, `timezone`, `universe` FROM ".USERS." WHERE `inactive_mail` = '0' AND `onlinetime` < '".(TIMESTAMP - $CONF['del_user_sendmail'] * 24 * 60 * 60)."';");
+			while($User	= $GLOBALS['DATABASE']->fetch_array($Users))
 			{
-				if(!isset($langObjects[$user['lang']]))
+				$CONF	= Config::getAll(NULL, $User['universe']);
+				if(!isset($langObjects[$User['lang']]))
 				{
-					$langObjects[$user['lang']]	= new Language($user['lang']);
-					$langObjects[$user['lang']]->includeData(array('L18N', 'INGAME', 'PUBLIC', 'CUSTOM'));
+					$langObjects[$User['lang']]	= new Language($User['lang']);
+					$langObjects[$User['lang']]->includeData(array('L18N', 'INGAME', 'PUBLIC', 'CUSTOM'));
 				}
-
-				$userConfig	= Config::get($user['universe']);
 				
-				$LNG			= $langObjects[$user['lang']];
+				$LNG			= $langObjects[$User['lang']];
 				
-				$MailSubject	= sprintf($LNG['spec_mail_inactive_title'], $userConfig->game_name.' - '.$userConfig->uni_name);
+				$MailSubject	= sprintf($LNG['spec_mail_inactive_title'], $CONF['game_name'].' - '.$CONF['uni_name']);
 				$MailRAW		= $LNG->getTemplate('email_inactive');
 				
 				$MailContent	= str_replace(array(
@@ -71,18 +59,14 @@ class InactiveMailCronjob
 					'{LASTDATE}',
 					'{HTTPPATH}',
 				), array(
-					$user['username'],
-					$userConfig->game_name.' - '.$userConfig->uni_name,
-					_date($LNG['php_tdformat'], $user['onlinetime'], $user['timezone']),
+					$User['username'],
+					$CONF['game_name'].' - '.$CONF['uni_name'],
+					_date($LNG['php_tdformat'], $User['onlinetime'], $User['timezone']),
 					HTTP_PATH,
 				), $MailRAW);
 						
-				Mail::send($user['email'], $user['username'], $MailSubject, $MailContent);
-
-				$sql	= 'UPDATE %%USERS%% SET `inactive_mail` = 1 WHERE `id` = :userId;';
-				Database::get()->update($sql, array(
-					':userId'	=> $user['id']
-				));
+				Mail::send($User['email'], $User['username'], $MailSubject, $MailContent);
+				$GLOBALS['DATABASE']->query("UPDATE ".USERS." SET `inactive_mail` = '1' WHERE `id` = '".$User['id']."';");
 			}
 		}
 	}

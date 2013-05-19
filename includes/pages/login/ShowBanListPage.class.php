@@ -39,43 +39,35 @@ class ShowBanListPage extends AbstractPage
 
 	function show()
 	{		
-		global $LNG;
-
-		$db = Database::get();
-
+		$universeSelect	= array();
+		
 		$page  		= HTTP::_GP('side', 1);
-
-		$sql = "SELECT COUNT(*) as count FROM %%BANNED%% WHERE universe = :universe ORDER BY time DESC;";
-		$banCount = $db->selectSingle($sql, array(
-			':universe'	=> Universe::current(),
-		), 'count');
-
+		$banCount	= $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".BANNED." WHERE universe = ".$GLOBALS['UNI']." ORDER BY time DESC;");
+		
 		$maxPage	= ceil($banCount / BANNED_USERS_PER_PAGE);
 		$page		= max(1, min($page, $maxPage));
 		
-		$sql = "SELECT * FROM %%BANNED%% WHERE universe = :universe ORDER BY time DESC LIMIT :offset, :limit;";
-		$banResult = $db->select($sql, array(
-			':universe'	=> Universe::current(),
-			':offset'	=> (($page - 1) * BANNED_USERS_PER_PAGE),
-			':limit'	=> BANNED_USERS_PER_PAGE
-		));
-
+		$banResult	= $GLOBALS['DATABASE']->query("SELECT * FROM ".BANNED." WHERE universe = ".$GLOBALS['UNI']." ORDER BY time DESC LIMIT ".(($page - 1) * BANNED_USERS_PER_PAGE).", ".BANNED_USERS_PER_PAGE.";");
 		$banList	= array();
 		
-		foreach($banResult as $banRow)
+		while($banRow = $GLOBALS['DATABASE']->fetchArray($banResult))
 		{
 			$banList[]	= array(
 				'player'	=> $banRow['who'],
 				'theme'		=> $banRow['theme'],
-				'from'		=> _date($LNG['php_tdformat'], $banRow['time'], Config::get()->timezone),
-				'to'		=> _date($LNG['php_tdformat'], $banRow['longer'], Config::get()->timezone),
+				'from'		=> _date(t('php_tdformat'), $banRow['time'], Config::get('timezone')),
+				'to'		=> _date(t('php_tdformat'), $banRow['longer'], Config::get('timezone')),
 				'admin'		=> $banRow['author'],
 				'mail'		=> $banRow['email'],
-				'info'		=> sprintf($LNG['bn_writemail'], $banRow['author']),
+				'info'		=> t('bn_writemail', $banRow['author']),
 			);
 		}
-
-		$universeSelect	= $this->getUniverseSelector();
+		
+		$uniAllConfig	= Config::getAll('universe');
+		foreach($uniAllConfig as $uniID => $uniConfig)
+		{
+			$universeSelect[$uniID]	= $uniConfig['uni_name'];
+		}
 		
 		$this->assign(array(
 			'universeSelect'	=> $universeSelect,
@@ -85,6 +77,6 @@ class ShowBanListPage extends AbstractPage
 			'maxPage'			=> $maxPage,
 		));
 		
-		$this->display('page.banList.default.tpl');
+		$this->render('page.banList.default.tpl');
 	}
 }

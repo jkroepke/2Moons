@@ -27,9 +27,7 @@
  * @link http://code.google.com/p/2moons/
  */
 
-require_once 'includes/classes/cronjob/CronjobTask.interface.php';
-
-class DailyCronJob implements CronjobTask
+class DailyCronJob
 {
 	function run()
 	{
@@ -41,25 +39,18 @@ class DailyCronJob implements CronjobTask
 	
 	function optimizeTables()
 	{
-		$sql			= "SHOW TABLE STATUS FROM `".DB_NAME."`;";
-		$sqlTableRaw	= Database::get()->nativeQuery($sql);
-
-		$prefixCounts	= strlen(DB_PREFIX);
-		$dbTables		= array();
-
-		foreach($sqlTableRaw as $table)
-		{
-			if (DB_PREFIX == substr($table['Name'], 0, $prefixCounts)) {
-				$dbTables[] = $table['Name'];
-			}
+		$tables	= $GLOBALS['DATABASE']->query("SHOW TABLE STATUS FROM ".DB_NAME.";");
+		$SQL 	= array();
+		while($table = $GLOBALS['DATABASE']->fetch_array($tables)){
+			$prefix = explode("_", $table['Name']);  
+			
+			if($prefix[0].'_' === DB_PREFIX && $prefix[1] !== 'session')
+				$SQL[]	= $table['Name'];
 		}
 
-		if(!empty($dbTables))
-		{
-			Database::get()->nativeQuery("OPTIMIZE TABLE ".implode(', ', $dbTables).";");
-		}
+		$GLOBALS['DATABASE']->query("OPTIMIZE TABLE ".implode(', ',$SQL).";");
 	}
-
+	
 	function clearCache()
 	{
 		ClearCache();
@@ -72,7 +63,6 @@ class DailyCronJob implements CronjobTask
 	
 	function clearEcoCache()
 	{
-		$sql	= "UPDATE %%PLANETS%% SET eco_hash = '';";
-		Database::get()->update($sql);
+		$GLOBALS['DATABASE']->query("UPDATE ".PLANETS." SET eco_hash = '';");
 	}
 }

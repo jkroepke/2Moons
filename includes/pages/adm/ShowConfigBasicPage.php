@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -30,36 +30,36 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowConfigBasicPage()
 {
-	global $LNG;
-	$config = Config::get(Universe::getEmulated());
-
+	global $LNG, $USER;
+	
+	$CONF	= Config::getAll(NULL, $_SESSION['adminuni']);
+	
 	if (!empty($_POST))
 	{
 		$config_before = array(
-			'ttf_file'				=> $config->ttf_file,
-			'game_name'				=> $config->game_name,
-			'mail_active'			=> $config->mail_active,
-			'mail_use'				=> $config->mail_use,
-			'smail_path'			=> $config->smail_path,
-			'smtp_host'				=> $config->smtp_host,
-			'smtp_port'				=> $config->smtp_port,
-			'smtp_user'				=> $config->smtp_user,
-			'smtp_pass'				=> $config->smtp_pass,
-			'smtp_ssl'				=> $config->smtp_ssl,
-			'smtp_sendmail'			=> $config->smtp_sendmail,
-			'ga_active'				=> $config->ga_active,
-			'ga_key'				=> $config->ga_key,
-			'capaktiv'				=> $config->capaktiv,
-			'cappublic'				=> $config->cappublic,
-			'capprivate'			=> $config->capprivate,
-			'del_oldstuff'			=> $config->del_oldstuff,
-			'del_user_manually'		=> $config->del_user_manually,
-			'del_user_automatic'	=> $config->del_user_automatic,
-			'del_user_sendmail'		=> $config->del_user_sendmail,
-			'sendmail_inactive'		=> $config->sendmail_inactive,
-			'timezone'				=> $config->timezone,
-			'dst'					=> $config->dst,
-			'close_reason'			=> $config->close_reason,
+			'ttf_file'				=> $CONF['ttf_file'],
+			'game_name'				=> $CONF['game_name'],
+			'mail_active'			=> $CONF['mail_active'],
+			'mail_use'				=> $CONF['mail_use'],
+			'smail_path'			=> $CONF['smail_path'],
+			'smtp_host'				=> $CONF['smtp_host'],
+			'smtp_port'				=> $CONF['smtp_port'],
+			'smtp_user'				=> $CONF['smtp_user'],
+			'smtp_pass'				=> $CONF['smtp_pass'],
+			'smtp_ssl'				=> $CONF['smtp_ssl'],
+			'smtp_sendmail'			=> $CONF['smtp_sendmail'],
+			'ga_active'				=> $CONF['ga_active'],
+			'ga_key'				=> $CONF['ga_key'],
+			'capaktiv'				=> $CONF['capaktiv'],
+			'cappublic'				=> $CONF['cappublic'],
+			'capprivate'			=> $CONF['capprivate'],
+			'del_oldstuff'			=> $CONF['del_oldstuff'],
+			'del_user_manually'		=> $CONF['del_user_manually'],
+			'del_user_automatic'	=> $CONF['del_user_automatic'],
+			'del_user_sendmail'		=> $CONF['del_user_sendmail'],
+			'sendmail_inactive'		=> $CONF['sendmail_inactive'],
+			'timezone'				=> $CONF['timezone'],
+			'dst'					=> $CONF['dst'],
 		);
 		
 		$capaktiv 				= isset($_POST['capaktiv']) && $_POST['capaktiv'] == 'on' ? 1 : 0;
@@ -112,15 +112,11 @@ function ShowConfigBasicPage()
 			'sendmail_inactive'		=> $sendmail_inactive,
 			'timezone'				=> $timezone,
 			'dst'					=> $dst,
-			'close_reason'			=> $close_reason
 		);
-
-		foreach($config_after as $key => $value)
-		{
-			$config->$key	= $value;
-		}
-		$config->save();
-
+		
+		Config::update($config_after, $_SESSION['adminuni']);
+		$CONF	= Config::getAll(NULL, $_SESSION['adminuni']);
+		
 		$LOG = new Log(3);
 		$LOG->target = 0;
 		$LOG->old = $config_before;
@@ -133,29 +129,29 @@ function ShowConfigBasicPage()
 	$template	= new template();
 	
 	$template->assign_vars(array(
-		'del_oldstuff'					=> $config->del_oldstuff,
-		'del_user_manually'				=> $config->del_user_manually,
-		'del_user_automatic'			=> $config->del_user_automatic,
-		'del_user_sendmail'				=> $config->del_user_sendmail,
-		'sendmail_inactive'				=> $config->sendmail_inactive,
-		'ttf_file'						=> $config->ttf_file,
-		'game_name'						=> $config->game_name,
-		'mail_active'					=> $config->mail_active,
-		'mail_use'						=> $config->mail_use,
-		'smail_path'					=> $config->smail_path,
-		'smtp_host' 					=> $config->smtp_host,
-		'smtp_port' 					=> $config->smtp_port,
-		'smtp_user' 					=> $config->smtp_user,
-		'smtp_pass' 					=> $config->smtp_pass,
-		'smtp_sendmail' 				=> $config->smtp_sendmail,
-		'smtp_ssl'						=> $config->smtp_ssl,
-		'capprivate' 					=> $config->capprivate,
-		'cappublic' 	   				=> $config->cappublic,
-		'capaktiv'      	           	=> $config->capaktiv,
-        'ga_active'               		=> $config->ga_active,
-		'ga_key'           				=> $config->ga_key,
-		'timezone'           			=> $config->timezone,
-		'dst'           				=> $config->dst,
+		'del_oldstuff'					=> $CONF['del_oldstuff'],
+		'del_user_manually'				=> $CONF['del_user_manually'],
+		'del_user_automatic'			=> $CONF['del_user_automatic'],
+		'del_user_sendmail'				=> $CONF['del_user_sendmail'],
+		'sendmail_inactive'				=> $CONF['sendmail_inactive'],
+		'ttf_file'						=> $CONF['ttf_file'],
+		'game_name'						=> $CONF['game_name'],
+		'mail_active'					=> $CONF['mail_active'],
+		'mail_use'						=> $CONF['mail_use'],
+		'smail_path'					=> $CONF['smail_path'],
+		'smtp_host' 					=> $CONF['smtp_host'],
+		'smtp_port' 					=> $CONF['smtp_port'],
+		'smtp_user' 					=> $CONF['smtp_user'],
+		'smtp_pass' 					=> $CONF['smtp_pass'],
+		'smtp_sendmail' 				=> $CONF['smtp_sendmail'],
+		'smtp_ssl'						=> $CONF['smtp_ssl'],
+		'capprivate' 					=> $CONF['capprivate'],
+		'cappublic' 	   				=> $CONF['cappublic'],
+		'capaktiv'      	           	=> $CONF['capaktiv'],
+        'ga_active'               		=> $CONF['ga_active'],
+		'ga_key'           				=> $CONF['ga_key'],
+		'timezone'           			=> $CONF['timezone'],
+		'dst'           				=> $CONF['dst'],
 		'Selector'						=> array('timezone' => $TimeZones, 'mail' => $LNG['se_mail_sel'], 'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
 	));
 	

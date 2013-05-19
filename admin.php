@@ -21,26 +21,21 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
 
 define('MODE', 'ADMIN');
-define('DATABASE_VERSION', 'OLD');
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 
-require 'includes/common.php';
-require 'includes/classes/class.Log.php';
+require('includes/common.php');
+require_once('includes/classes/class.Log.php');
 
-if ($USER['authlevel'] == AUTH_USR)
-{
-	HTTP::redirectTo('game.php');
-}
+if ($USER['authlevel'] == AUTH_USR) HTTP::redirectTo('game.php');
 
-$session	= Session::create();
-if($session->adminAccess != 1)
+if(!isset($_SESSION['admin_login']) || $_SESSION['admin_login'] != $USER['password'])
 {
 	include_once('includes/pages/adm/ShowLoginPage.php');
 	ShowLoginPage();
@@ -48,11 +43,12 @@ if($session->adminAccess != 1)
 }
 
 $page = HTTP::_GP('page', '');
+$uni = HTTP::_GP('uni', 0);
 
 if($USER['authlevel'] == AUTH_ADM && !empty($uni))
-{
-	Universe::setEmulated($uni);
-}
+	$_SESSION['adminuni'] = $uni;
+if(empty($_SESSION['adminuni']))
+	$_SESSION['adminuni'] = $UNI;
 
 switch($page)
 {
@@ -163,6 +159,10 @@ switch($page)
 	case 'topnav':
 		include_once('includes/pages/adm/ShowTopnavPage.php');
 		ShowTopnavPage();
+	break;
+	case 'mods':
+		include_once('includes/pages/adm/ShowModVersionPage.php');
+		ShowModVersionPage();
 	break;
 	case 'overview':
 		include_once('includes/pages/adm/ShowOverviewPage.php');

@@ -1,6 +1,6 @@
 /**
  *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
+ *  Copyright (C) 2012 Jan Kr�pke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,10 +16,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @author Jan Kr�pke <info@2moons.cc>
+ * @copyright 2012 Jan Kr�pke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.7.3 (2013-05-19)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -307,19 +307,11 @@ CREATE TABLE `%PREFIX%cronjobs` (
   `month` varchar(32) NOT NULL,
   `dow` varchar(32) NOT NULL,
   `class` varchar(32) NOT NULL,
-  `nextTime` int(11) DEFAULT NULL,
+  `nextTime` int(11) NOT NULL DEFAULT '0',
   `lock` varchar(32) DEFAULT NULL,
   UNIQUE KEY `cronjobID` (`cronjobID`),
   KEY `isActive` (`isActive`,`nextTime`,`lock`,`cronjobID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
-CREATE TABLE `%PREFIX%cronjobs_log` (
- `cronjobId` int(11) unsigned NOT NULL,
- `executionTime` datetime NOT NULL,
- `lockToken` varchar(32) NOT NULL,
- KEY `cronjobId` (`cronjobId`,`executionTime`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE `%PREFIX%diplo` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
