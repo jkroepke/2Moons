@@ -1,0 +1,53 @@
+<ul id="rules">
+	<li>
+		<h1>1. Contas</h1>
+		<p>Cada jogador apenas pode possuir uma conta por universo, mais do que uma será considerada multi-conta e as contas envolvidas serão sancionadas com o bloqueamento, e considerado uma infração muito grave.</p>
+		<p>Quando o jogador normal ou ocasionalmente jogar a partir de um IP público (cyber-café, universidades, escolas, etc), um operador de jogo do universo em causa deve ser obrigatoriamente notificado. </p>
+	</li>
+	<li>
+		<h1>2. Multi-Contas</h1>
+		<p>Cada jogador apenas pode possuir uma conta por universo, mais do que uma será considerada multi-conta e as contas envolvidas serão sancionadas com o bloqueamento temporário ou permanete.</p>
+		<p>Se contas de proprietários diferentes são normal, ocasional ou permanentemente jogadas a partir do mesmo IP, um Admin de jogo do universo em causa deve ser obrigatoriamente notificado.</p>
+	</li>
+	<li>
+		<h1>3. Pushing</h1>
+		<p>Não é permitido o favorecimento através de recursos de uma conta com mais pontos por uma conta mais fraca.</p>
+	</li>
+	<li>
+		<h1>4. Bashing</h1>
+		<p>Mais de 6 ataques em 24 horas, ao mesmo planeta de um jogador activo, é considerado Bashing, e por isso não é permitido. Em caso de denucio deverá ser entregue provas de concretas de tais acontecimentos.</p>
+		<p>As luas são consideradas planetas independentes.</p>
+		<p>Ataques com Mísseis Interplanetários, ataques onde a frota atacante é completamente destruída ou ataques com frota composta só com sondas de espionagem, não são considerados para a regra de bashing.</p>
+		<p>Devido ao risco de Destruição de Lua este tipo de missão não é considerado para a regra do bashing.</p>
+		<p>Frotas compostas por 1 ou várias sondas de espionagem mais outro tipo de naves em missão Espiar com o intuito de atacar devido á contra-espionagem e provocar dano na conta do defensor é considerado para a regra do Bashing.</p>
+	</li>
+	<li>
+		<h1>5. Bugusing</h1>
+		<p>Não é permitido ser favorecido através do uso de bugs e/ou erros de programação e ainda de scripts.</p>
+		<p>Se um bug for identificado por um usuário, este deverá reportá-lo o mais rapidamente possível, através do suporte do jogo ou no fórum de Bugs, ou por email.</p>
+		<p>É proibido manter a verificação de IP desligada se esta não tiver sido autorizada por o Adminstrador de Jogo.</p>
+	</li>
+	<li>
+		<h1>6. Línguagem e Atitudes</h1>
+		<p>O jogo tem multiplas linguas, mas é permitido o uso do Português. No entanto, qualquer pessoa, de qualquer nacionalidade, pode jogar no jogo, quer através de mensagens internas com outros jogadores ou informação nas páginas de alianças.</p>
+		<p>Da mesma maneira, spam, nomes ou mensagens no jogo de conteúdo obsceno, insultuoso, racista, xenófobo, nazista ou terrorista conduzem à exclusão do jogo.</p>
+	</li>
+	<li>
+		<h1>7. Sprache im Spiel</h1>
+		<p>In allen entsprechenden Universen ist Deutsch/Englisch die offizielle Sprache im Spiel. Verstöße können mit einer Sperrung des Accounts geahndet werden. Fremdsprachliche Ingame- Nachrichten/ Allypages können unter Vorbehalt zu einer Sperrung des Accounts führen.</p>
+	</li>
+	<li>
+		<h1>8. Ameaças/Insultos</h1>
+		<p>Ameaças à vida real ou insinuações sobre medidas de coação a um jogador serão sancionadas com o bloqueamento permanente do infractor.</p>
+	</li>
+	<li>
+		<h1>9. Spam e Erotismo<h1>
+		<p>Envio contínuo de sondas e mensagens sem informação relevante serão consideradas spam.</p>
+		<p>Também o envio de mensagens com carácter publicitário de outros jogos ou sites de Internet que não sejam relacionados com o jogo em si, poderam ser alvo de aviso ou em caso extremos de bloqueamento.</p>
+		<p>Qualquer mensagem, de carácter ofensivo com um conteúdo inaceitável que possa ferir a integridade individual de cada um, é estritamente proibida. Todos os jogadores devem respeitar os seus oponentes/amigos.</p>
+	</li>
+	<li>
+		<h1>10. Regras</h1>
+		<p>As regras podem mudar, e cada usuário é obrigado a constantemente verificar se ouve alteração neste mesmo sítio!</p>
+	</li>
+</ul>

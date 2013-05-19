@@ -1,0 +1,163 @@
+/*
+ * @package AJAX_Chat
+ * @author Sebastian Tschan
+ * @copyright (c) Sebastian Tschan
+ * @license GNU Affero General Public License
+ * @link https://blueimp.net/ajax/
+ * 
+ * Color palette inspired by Simple Machines Forum style "SMF Default Theme - Core":
+ * http://www.simplemachines.org/
+ */
+
+
+@import url('positions.css');
+@import url('borders.css');
+@import url('fonts.css');
+@import url('misc.css');
+@import url('print.css');
+
+
+/*
+ * Colors
+ */
+
+@media screen,projection,handheld {
+	:focus {
+		outline:0 none;
+	}
+	
+	#loginContent {
+		background-color:#E5E5E8;
+		color:#CCC;
+	}
+	#loginContent h1 {
+		color:#CCC;
+	}
+	#loginContent a {
+		color:#CCC;
+	}
+	#loginContent input, #loginContent select {
+		background-color:#FFF;
+		color:#CCC;
+	}
+	#loginContent #loginFormContainer #loginButton {
+		background-color:#F7F5F1;
+		color:#CCC;
+	}
+	#loginContent #errorContainer {
+		color:red;
+	}
+	
+	#content {
+		color:#CCC;
+	}
+	#content h1 {
+		color:#CCC;
+	}
+	#content a {
+		color:#CCC;
+	}
+	#content input, #content select, #content textarea {
+		border:1px solid #212121;
+		background: #0D1014;
+		background: rgba(13, 16, 20, 0.95);
+		color:#CCC;
+		font-family:Verdana;
+		font-size:10px;
+	}
+	#content #chatList, #content #onlineListContainer, #content #helpContainer, #content #settingsContainer, #content #bbCodeContainer, #content #colorCodesContainer, #content #emoticonsContainer {
+		background: #0D1014;
+		background: rgba(13, 16, 20, 0.95);
+		border: 0px;
+	}
+	.statusContainerOn {
+		background-image: url('../img/loading.png');
+	}
+	.statusContainerOff {
+		background-image: url('../img/loading-done.png');
+	}
+	.statusContainerAlert {
+		background-image: url('../img/loading-trouble.png');
+	}
+	#content #bbCodeContainer input, #content #logoutButton, #content #submitButton {
+		margin:2px;
+		text-align:center;
+	}
+	#content #colorCodesContainer a {
+		border-color:black;
+	}
+	#content #optionsContainer input {
+	    background-color:transparent;
+	    border:0 none;
+	}
+	#content #optionsContainer #helpButton {
+	    background:url('../img/help.png') no-repeat;
+	}
+	#content #optionsContainer #settingsButton {
+	    background:url('../img/settings.png') no-repeat;
+	}
+	#content #optionsContainer #onlineListButton {
+	    background:url('../img/users.png') no-repeat;
+	}
+	#content #optionsContainer #audioButton {
+	    background:url('../img/audio.png') no-repeat;
+	}
+	#content #optionsContainer #audioButton.off {
+	    background:url('../img/audio-off.png') no-repeat;
+	}
+	#content #optionsContainer #autoScrollButton {
+	    background:url('../img/autoscroll.png') no-repeat;
+	}
+	#content #optionsContainer #autoScrollButton.off {
+	    background:url('../img/autoscroll-off.png') no-repeat;
+	}
+	#content .rowEven {
+		background: transparent
+	}
+	#content .rowOdd {
+		background: #212428;
+		background: rgba(33, 36, 40, 0.3);
+	}
+	#content .guest {
+		color:gray;
+	}
+	#content .user {
+		color:#CCC;
+	}
+	#content .moderator {
+		color:#0000FF;
+	}
+	#content .admin {
+		color:#FF0000;
+	}
+	#content .chatBot {
+		color:#476C8E;
+	}
+	#content #chatList .chatBotErrorMessage {
+		color:red;
+	}
+	#content #chatList a {
+		color:#476C8E;
+	}
+	#content #chatList .delete {
+		background:url('../img/delete.png') no-repeat right;
+	}
+	#content #chatList .deleteSelected {
+		border-color:red;
+	}
+	#content #onlineListContainer h3, #content #helpContainer h3, #content #settingsContainer h3 {
+		background:url(../../styles/theme/gow/img/bkd_title.png);
+		color:#FFF;
+		font-weight:700;
+		height:22px;
+		line-height:18px;
+		text-align:left
+	}
+	#onlineListContainer h3 {
+		padding:2px 3px;
+	}
+	#content #settingsContainer #settingsList input.playback {
+	    background:url('../img/playback.png') no-repeat;
+	}
+	
+}
