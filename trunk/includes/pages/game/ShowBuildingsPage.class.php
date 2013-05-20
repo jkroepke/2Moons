@@ -308,13 +308,13 @@ class ShowBuildingsPage extends AbstractPage
 			if(in_array($Element, $reslist['prod']))
 			{
 				$BuildLevel	= $PLANET[$resource[$Element]];
-				$Need		= round(eval(ResourceUpdate::getProd($ProdGrid[$Element]['production'][911])));
+				$Need		= eval(ResourceUpdate::getProd($ProdGrid[$Element]['production'][911]));
 									
 				$BuildLevel	= $levelToBuild + 1;
-				$Prod		= round(eval(ResourceUpdate::getProd($ProdGrid[$Element]['production'][911])));
+				$Prod		= eval(ResourceUpdate::getProd($ProdGrid[$Element]['production'][911]));
 					
 				$requireEnergy	= $Prod - $Need;
-				$requireEnergy	*= $config->energySpeed;
+				$requireEnergy	= round($requireEnergy * $config->energySpeed);
 
 				if($requireEnergy < 0) {
 					$infoEnergy	= sprintf($LNG['bd_need_engine'], pretty_number(abs($requireEnergy)), $LNG['tech'][911]);

@@ -41,7 +41,7 @@ AddCharset utf-8 .css .js .xml .json .rss .atom
 </FilesMatch>
 
 # ----------------------------------------------------------------------
-# 2Moons: Multiuniverse support
+# 2Moons: MultiUniverse support
 # ----------------------------------------------------------------------
 
 <IfModule mod_rewrite.c>

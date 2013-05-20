@@ -47,13 +47,14 @@ if($session->adminAccess != 1)
 	exit;
 }
 
-$page = HTTP::_GP('page', '');
+$uni	= HTTP::_GP('uni', 0);
 
 if($USER['authlevel'] == AUTH_ADM && !empty($uni))
 {
 	Universe::setEmulated($uni);
 }
 
+$page	= HTTP::_GP('page', '');
 switch($page)
 {
 	case 'logout':
