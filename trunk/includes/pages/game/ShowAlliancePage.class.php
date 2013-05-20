@@ -384,7 +384,7 @@ class ShowAlliancePage extends AbstractPage
 		}
 		else
 		{
-			$diff_points = $min_points - $user_points;
+			$diff_points 	= $min_points - $userPoints;
 			$messageText	= sprintf($LNG['al_make_ally_insufficient_points'],
 				pretty_number($min_points), pretty_number($diff_points));
 
