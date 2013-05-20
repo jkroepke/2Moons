@@ -314,7 +314,8 @@ class ShowBuildingsPage extends AbstractPage
 				$Prod		= round(eval(ResourceUpdate::getProd($ProdGrid[$Element]['production'][911])));
 					
 				$requireEnergy	= $Prod - $Need;
-				
+				$requireEnergy	*= $config->energySpeed;
+
 				if($requireEnergy < 0) {
 					$infoEnergy	= sprintf($LNG['bd_need_engine'], pretty_number(abs($requireEnergy)), $LNG['tech'][911]);
 				} else {
