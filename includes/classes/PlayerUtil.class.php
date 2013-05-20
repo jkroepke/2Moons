@@ -201,9 +201,10 @@ class PlayerUtil
 			':userId'	=> $userId,
 		));
 
-		$sql 	= "SELECT MAX(total_rank) as rank FROM %%STATPOINTS%% WHERE stat_type = :type;";
+		$sql 	= "SELECT MAX(total_rank) as rank FROM %%STATPOINTS%% WHERE universe = :universe AND stat_type = :type;";
 		$rank	= $db->selectSingle($sql, array(
-			':type'	=> 1,
+			':universe'	=> $universe,
+			':type'		=> 1,
 		), 'rank');
 		
 		$sql = "INSERT INTO %%STATPOINTS%% SET

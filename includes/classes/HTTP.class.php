@@ -48,7 +48,7 @@ class HTTP {
 
 	static public function redirectToUniverse($universe)
 	{
-		HTTP::redirectToUniverse(PROTOCOL.HTTP_HOST.HTTP_BASE."uni".$universe."/".HTTP_FILE, true);
+		HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE."uni".$universe."/".HTTP_FILE, true);
 	}
 
 	static public function sendCookie($name, $value = "", $toTime = NULL)
