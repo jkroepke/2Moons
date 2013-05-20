@@ -94,50 +94,40 @@ class Universe {
 
 	static private function defineCurrentUniverse()
 	{
-		$universe = ROOT_UNI;
-
-		if(count(self::availableUniverses()) == 1 && HTTP_ROOT != HTTP_BASE)
+		$universe = NULL;
+		if(count(self::availableUniverses()) != 1)
 		{
-			HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE.HTTP_FILE, true);
-		}
-		
-		if(MODE == 'LOGIN')
-		{
-			if(isset($_COOKIE['uni']))
+			if(MODE == 'LOGIN')
 			{
-				$universe = (int) $_COOKIE['uni'];
-			}
-
-			if(isset($_REQUEST['uni']))
-			{
-				$universe = (int) $_REQUEST['uni'];
-			}
-		}
-		elseif(MODE == 'ADMIN' && isset($_SESSION['admin_uni']))
-		{
-			$universe = (int) $_SESSION['admin_uni'];
-		}
-
-		if(!isset($universe))
-		{
-			if(UNIS_WILDCAST === true)
-			{
-				$temp = explode('.', $_SERVER['HTTP_HOST']);
-				$temp = substr($temp[0], 3);
-				if(is_numeric($temp))
+				if(isset($_COOKIE['uni']))
 				{
-					$universe = $temp;
+					$universe = (int) $_COOKIE['uni'];
 				}
-				else
+
+				if(isset($_REQUEST['uni']))
 				{
-					$universe = ROOT_UNI;
+					$universe = (int) $_REQUEST['uni'];
 				}
 			}
-			else
+			elseif(MODE == 'ADMIN' && isset($_SESSION['admin_uni']))
 			{
-				if(count(self::availableUniverses()) == 1)
+				$universe = (int) $_SESSION['admin_uni'];
+			}
+
+			if(is_null($universe))
+			{
+				if(UNIS_WILDCAST === true)
 				{
-					$universe = ROOT_UNI;
+					$temp = explode('.', $_SERVER['HTTP_HOST']);
+					$temp = substr($temp[0], 3);
+					if(is_numeric($temp))
+					{
+						$universe = $temp;
+					}
+					else
+					{
+						$universe = ROOT_UNI;
+					}
 				}
 				else
 				{
@@ -150,21 +140,32 @@ class Universe {
 						// Patch for www.top-hoster.de - Hoster
 						$universe = $_SERVER["REDIRECT_REDIRECT_UNI"];
 					}
-					else
+					elseif(preg_match('!/uni([0-9]+)/!', HTTP_PATH, $match))
 					{
-						preg_match('!/uni([0-9]+)/!', HTTP_PATH, $match);
 						if(isset($match[1]))
 						{
 							$universe = $match[1];
 						}
 					}
+					else
+					{
+						$universe = ROOT_UNI;
+					}
 
-					if(!isset($universe) || self::exists($universe))
+					if(!isset($universe) || !self::exists($universe))
 					{
 						HTTP::redirectToUniverse(ROOT_UNI);
 					}
 				}
 			}
+		}
+		else
+		{
+			if(HTTP_ROOT != HTTP_BASE)
+			{
+				HTTP::redirectTo(PROTOCOL.HTTP_HOST.HTTP_BASE.HTTP_FILE, true);
+			}
+			$universe = ROOT_UNI;
 		}
 
 		return $universe;

@@ -95,8 +95,6 @@ function ShowUniversePage() {
 				{
 					Universe::setEmulated(Universe::current());
 				}
-
-
 				
 				if(count(Universe::availableUniverses()) == 2)
 				{
