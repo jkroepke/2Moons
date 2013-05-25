@@ -395,7 +395,7 @@ class PlayerUtil
 			':maxTemperature'	=> $maxTemperature,
 			':metal'			=> 0,
 			':metPerHour'		=> 0,
-			':crysta'			=> 0,
+			':crystal'			=> 0,
 			':cryPerHour'		=> 0,
 			':deuterium'		=> 0,
 			':deuPerHour'		=> 0,
