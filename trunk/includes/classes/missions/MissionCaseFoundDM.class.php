@@ -81,7 +81,7 @@ class MissionCaseFoundDM extends MissionFunctions implements Mission
 			$message	= $LNG['sys_expe_back_home_without_dm'];
 		}
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 3, $LNG['sys_mess_fleetback'],
+		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
 			$message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
 
 		$this->RestoreFleet();
