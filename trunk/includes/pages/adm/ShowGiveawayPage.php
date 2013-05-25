@@ -76,7 +76,7 @@ function ShowGiveaway()
 		}
 		
 		if ($no_inactive == true) {
-			$SQL	.= " AND u.onlinetime < ".(TIMESTAMP - INACTIVE);
+			$SQL	.= " AND u.onlinetime > ".(TIMESTAMP - INACTIVE);
 		}
 		
 		$SQL	.= " SET ".implode(', ', $data)." WHERE p.universe = ".Universe::getEmulated()." AND p.planet_type IN (".implode(',', $planetIN).")";
