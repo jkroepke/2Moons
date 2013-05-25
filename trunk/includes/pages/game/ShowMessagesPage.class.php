@@ -271,7 +271,7 @@ class ShowMessagesPage extends AbstractPage
                 }
 
                 $sql = 'DELETE FROM %%MESSAGES%% WHERE message_id NOT IN ('.implode(',', array_keys($messageIDs)).') AND message_owner = :userId;';
-                $db->update($sql, array(
+                $db->delete($sql, array(
                     ':userId'       => $USER['id'],
                 ));
 			break;

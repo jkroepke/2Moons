@@ -65,7 +65,7 @@ class MissionCaseMIP extends MissionFunctions implements Mission
 			), $resource[502]);
 		}
 
-		$sql		= 'SELECT lang, military_tech FROM %%USERS% WHERE id = :userId;';
+		$sql		= 'SELECT lang, military_tech FROM %%USERS%% WHERE id = :userId;';
 		$senderData	= $db->selectSingle($sql, array(
 			':userId'	=> $this->_fleet['fleet_owner']
 		));

@@ -44,9 +44,9 @@ class ShowFleetDealerPage extends AbstractPage
 		$Count			= max(0, round(HTTP::_GP('count', 0.0)));
 		$allowedShipIDs	= explode(',', Config::get()->trade_allowed_ships);
 		
-		if(!empty($shipID) && in_array($shipID, $allowedShipIDs) && $PLANET[$resource[$shipID]] >= $Count)
+		if(!empty($shipID) && !empty($Count) && in_array($shipID, $allowedShipIDs) && $PLANET[$resource[$shipID]] >= $Count)
 		{
-			$tradeCharge	= 1 - (Config::get()->trade_charge / 100);
+			$tradeCharge					= 1 - (Config::get()->trade_charge / 100);
 			$PLANET[$resource[901]]			+= $Count * $pricelist[$shipID]['cost'][901] * $tradeCharge;
 			$PLANET[$resource[902]]			+= $Count * $pricelist[$shipID]['cost'][902] * $tradeCharge;
 			$PLANET[$resource[903]]			+= $Count * $pricelist[$shipID]['cost'][903] * $tradeCharge;
@@ -56,7 +56,6 @@ class ShowFleetDealerPage extends AbstractPage
 
             $sql = 'UPDATE %%PLANETS%% SET '.$resource[$shipID].' = '.$resource[$shipID].' - :count WHERE id = :planetID;';
 			Database::get()->update($sql, array(
-                ':resourceID'   => $resource[$shipID],
                 ':count'        => $Count,
                 ':planetID'     => $PLANET['id']
             ));

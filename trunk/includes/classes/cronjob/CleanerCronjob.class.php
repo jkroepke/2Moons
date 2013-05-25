@@ -105,7 +105,10 @@ class CleanerCronjob implements CronjobTask
 				INNER JOIN %%TOPKB_USERS%% USING (rid)
 				WHERE `universe` = :universe AND `units` < :battleHallLowest;';
 
-				Database::get()->delete($sql);
+				Database::get()->delete($sql, array(
+					':universe'			=> $uni,
+					':battleHallLowest'	=> $battleHallLowest
+				));
 			}
 		}
 

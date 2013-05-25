@@ -91,9 +91,9 @@ class ShowFleetMissilePage extends AbstractPage
 		elseif($targetUser['urlaubs_modus'])
 			$error = $LNG['fl_in_vacation_player'];
 			
-		$sql = "SELECT total_points FROM %%STATPOINTS%% WHERE stat_type = '1' AND id_owner = :ownerID;";
+		$sql = "SELECT total_points FROM %%STATPOINTS%% WHERE stat_type = '1' AND id_owner = :ownerId;";
         $User2Points = $db->selectSingle($sql, array(
-            ':ownerID'  => $target['id_owner']
+            ':ownerId'  => $target['id_owner']
         ));
 
 		$sql	= 'SELECT total_points

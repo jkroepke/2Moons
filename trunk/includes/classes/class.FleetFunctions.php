@@ -335,10 +335,10 @@ class FleetFunctions
 
 			if($isInGroup)
 			{
-				$sql = 'DELETE %%ACS%%, %%USERS_ACS%%
-				FROM %%ACS%%
-				LEFT JOIN %%USERS_ACS%% ON acsID = %%ACS%%.id
-				WHERE %%ACS%%.id = :acsId;';
+				$sql = 'DELETE %%AKS%%, %%USERS_ACS%%
+				FROM %%AKS%%
+				LEFT JOIN %%USERS_ACS%% ON acsID = %%AKS%%.id
+				WHERE %%AKS%%.id = :acsId;';
 
 				$db->delete($sql, array(
 					':acsId'	=> $fleetResult['fleet_group']
