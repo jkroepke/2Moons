@@ -63,6 +63,8 @@ if(!defined('CACHE_PATH')) {
 	define('CACHE_PATH', ROOT_PATH.'/cache/');
 }
 
+define('COMBAT_ENGINE'				, 'xnova');
+
 // For Fatal Errors!
 define('DEFAULT_LANG'				, 'de');
 

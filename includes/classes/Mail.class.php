@@ -61,7 +61,7 @@ class Mail
 
 	static private function getMailObject()
 	{
-        require 'includes/libs/phpmailer/class.phpmailer.php';
+        require_once 'includes/libs/phpmailer/class.phpmailer.php';
 
         $mail               = new PHPMailer(true);
 		$mail->PluginDir	= 'includes/libs/phpmailer/';
