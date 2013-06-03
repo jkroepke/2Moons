@@ -332,7 +332,7 @@ switch ($mode) {
 					$error  = true;
 					$ftp    = true;
 				}
-				$directories = array('cache/', 'cache/templates/', 'includes/');
+				$directories = array('cache/', 'cache/templates/', 'cache/session/', 'includes/');
 				$dirs        = "";
 				foreach ($directories as $dir) {
 					if (is_writable(ROOT_PATH . $dir)) {

@@ -40,7 +40,8 @@ class Session
 	 * @return bool
 	 */
 
-	static public function init() {
+	static public function init()
+	{
 		if(self::$iniSet === true)
 		{
 			return false;
@@ -58,6 +59,8 @@ class Session
 		ini_set('session.bug_compat_warn', '0');
 		ini_set('session.bug_compat_42', '0');
 		ini_set('session.cookie_httponly', true);
+		ini_set('session.save_path', CACHE_PATH.'sessions');
+		ini_set('upload_tmp_dir', CACHE_PATH.'sessions');
 		
 		$HTTP_ROOT = MODE === 'INSTALL' ? dirname(HTTP_ROOT) : HTTP_ROOT;
 		
@@ -66,6 +69,12 @@ class Session
 		session_name('2Moons');
 
 		return true;
+	}
+
+	static private function getTempPath()
+	{
+		require_once 'includes/libs/wcf/BasicFileUtil.class.php';
+		return BasicFileUtil::getTempFolder();
 	}
 
 	/**
