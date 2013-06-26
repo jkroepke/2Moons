@@ -151,7 +151,7 @@ HTML;
 			$fleetID	= $fleetDetail['fleet_id'];
 
 			$sql	= "SELECT * FROM %%USERS%% WHERE id = :userId;";
-			$fleetAttack[$fleetID]['player']			= $db->selectSingle($sql, array(
+			$fleetDefend[$fleetID]['player']			= $db->selectSingle($sql, array(
 				':userId'	=> $fleetDetail['fleet_owner']
 			));
 

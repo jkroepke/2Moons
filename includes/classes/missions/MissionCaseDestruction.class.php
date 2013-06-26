@@ -150,7 +150,7 @@ HTML;
 			$fleetID	= $fleetDetail['fleet_id'];
 
 			$sql	= "SELECT * FROM %%USERS%% WHERE id = :userId;";
-			$fleetAttack[$fleetID]['player']			= $db->selectSingle($sql, array(
+			$fleetDefend[$fleetID]['player']			= $db->selectSingle($sql, array(
 				':userId'	=> $fleetDetail['fleet_owner']
 			));
 
@@ -379,7 +379,7 @@ HTML;
 
 					$sql		= 'UPDATE %%FLEETS%% SET
 					fleet_start_type		= 1,
-					fleet_start_id			= :PlanetId
+					fleet_start_id			= :planetId
 					WHERE fleet_start_id	= :moonId;';
 
 					$db->update($sql, array(

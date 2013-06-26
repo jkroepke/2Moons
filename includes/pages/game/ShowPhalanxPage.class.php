@@ -90,7 +90,7 @@ class ShowPhalanxPage extends AbstractPage
 		$TargetInfo = $db->selectSingle($sql, array(
 			':universe'	=> Universe::current(),
 			':galaxy'	=> $Galaxy,
-			':systemy'	=> $System,
+			':system'	=> $System,
 			':planet'	=> $Planet,
 			':type'		=> 1
 		));
