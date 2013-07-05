@@ -56,11 +56,11 @@ else
 }
 
 if(!defined('AJAX_CHAT_PATH')) {
-	define('AJAX_CHAT_PATH', ROOT_PATH.'/chat/');
+	define('AJAX_CHAT_PATH', ROOT_PATH.'chat/');
 }
 
 if(!defined('CACHE_PATH')) {
-	define('CACHE_PATH', ROOT_PATH.'/cache/');
+	define('CACHE_PATH', ROOT_PATH.'cache/');
 }
 
 define('COMBAT_ENGINE'				, 'xnova');

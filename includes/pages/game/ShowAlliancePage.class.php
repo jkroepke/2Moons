@@ -1204,7 +1204,7 @@ class ShowAlliancePage extends AbstractPage
 		{
 			if($this->rights[$rankName])
 			{
-				$availableRanks[$rankId]	= array($rankName);
+				$availableRanks[$rankId]	= $rankName;
 			}
 		}
 
