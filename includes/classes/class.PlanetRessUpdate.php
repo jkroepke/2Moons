@@ -567,8 +567,8 @@ class ResourceUpdate
 		$Loop       	= true;
 		while ($Loop == true)
 		{
-			$isAnotherPlanet	= $ListIDArray[4] != $this->PLANET['id'];
 			$ListIDArray        = $CurrentQueue[0];
+			$isAnotherPlanet	= $ListIDArray[4] != $this->PLANET['id'];
 			if($isAnotherPlanet)
 			{
 				$sql	= 'SELECT * FROM %%PLANETS%% WHERE id = :planetId;';
