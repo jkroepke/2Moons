@@ -414,6 +414,30 @@ function ClearCache()
 		':ecoHash'	=> ''
 	));
 	clearstatcache();
+	// Find currently Revision
+	
+	$config		= Config::get();
+	
+	$version	= explode('.', $config->VERSION);
+	$REV = 0;
+
+	$iterator = new RecursiveDirectoryIterator(ROOT_PATH);
+	foreach(new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file) {
+		if (false == $file->isDir()) {
+			$CONTENT	= file_get_contents($file->getPathname());
+			
+			preg_match('!\$Id$CONTENT, $match);
+			
+			if(isset($match[1]) && is_numeric($match[1]))
+			{
+				$REV	= max($REV, $match[1]);
+			}
+		}
+	}
+	
+	$config->VERSION	= $version[0].'.'.$version[1].'.'.$REV;
+	$config->save();
+	
 }
 
 function allowedTo($side)
