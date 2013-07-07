@@ -544,7 +544,6 @@ class ResourceUpdate
 			$this->USER['b_tech_id']		= 0;
 			$this->USER['b_tech_planet']	= 0;
 			$this->USER['b_tech_queue']		= '';
-
 			return false;
 		} else {
 			$this->USER['b_tech_queue'] 	= serialize(array_values($CurrentQueue));
@@ -568,13 +567,17 @@ class ResourceUpdate
 		$Loop       	= true;
 		while ($Loop == true)
 		{
+			$isAnotherPlanet	= $ListIDArray[4] != $this->PLANET['id'];
 			$ListIDArray        = $CurrentQueue[0];
-			if($ListIDArray[4] != $this->PLANET['id'])
+			if($isAnotherPlanet)
 			{
 				$sql	= 'SELECT * FROM %%PLANETS%% WHERE id = :planetId;';
 				$PLANET	= Database::get()->selectSingle($sql, array(
 					':planetId'	=> $ListIDArray[4],
 				));
+
+				$RPLANET 		= new ResourceUpdate(true, false);
+				list(, $PLANET)	= $RPLANET->CalcResource($this->USER, $PLANET, false, $this->USER['b_tech']);
 			}
 			else
 			{
@@ -590,16 +593,8 @@ class ResourceUpdate
 			$HaveResources		= BuildFunctions::isElementBuyable($this->USER, $PLANET, $Element, $costResources);
 			$BuildEndTime       = $this->USER['b_tech'] + $BuildTime;
 			$CurrentQueue[0]	= array($Element, $Level, $BuildTime, $BuildEndTime, $PLANET['id']);
-			
-			$isAnotherPlanet	= $ListIDArray[4] != $this->PLANET['id'];
 
 			$RPLANET			= NULL;
-
-			if($isAnotherPlanet) {
-				$IsHash			= !in_array($Element, array(131, 132, 133));
-				$RPLANET 		= new ResourceUpdate(true, false);
-				list(, $PLANET)	= $RPLANET->CalcResource($this->USER, $PLANET, false, $this->USER['b_tech'], $IsHash);
-			}
 			
 			if($HaveResources == true) {
 				if(isset($costResources[901])) { $PLANET[$resource[901]]		-= $costResources[901]; }
@@ -645,7 +640,7 @@ class ResourceUpdate
 				}
 			}
 				
-			if(is_object($RPLANET))
+			if($isAnotherPlanet)
 			{
 				$RPLANET->SavePlanetToDB($this->USER, $PLANET);
 			}
