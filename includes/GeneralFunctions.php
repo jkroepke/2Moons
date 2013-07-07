@@ -426,7 +426,7 @@ function ClearCache()
 		if (false == $file->isDir()) {
 			$CONTENT	= file_get_contents($file->getPathname());
 			
-			preg_match('!\$Id$CONTENT, $match);
+			preg_match('!\$'.'Id: [^ ]+ ([0-9]+)!', $CONTENT, $match);
 			
 			if(isset($match[1]) && is_numeric($match[1]))
 			{
