@@ -123,12 +123,22 @@ class Config
 		return isset($this->configData[$key]);
 	}
 
-	public function save()
+	public function save($options = NULL)
 	{
 		if (empty($this->updateRecords)) {
 			// Do nothing here.
 			return true;
 		}
+		
+		if(is_null($options))
+		{
+			$options	= array();
+		}
+		
+		$options	+= array(
+			'noGlobalSave' => false
+		);
+		
 		$updateData = array();
 		$params     = array();
 		foreach ($this->updateRecords as $columnName) {
@@ -136,7 +146,7 @@ class Config
 			$params[':' . $columnName] = $this->configData[$columnName];
 
 			//TODO: find a better way ...
-			if(in_array($columnName, self::$globalConfigKeys))
+			if(!$options['noGlobalSave'] && in_array($columnName, self::$globalConfigKeys))
 			{
 				foreach(Universe::availableUniverses() as $universeId)
 				{
@@ -144,7 +154,7 @@ class Config
 					{
 						$config = Config::get();
 						$config->$columnName = $this->configData[$columnName];
-						$config->save();
+						$config->save(array('noGlobalSave' => true));
 					}
 				}
 			}
