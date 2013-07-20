@@ -112,7 +112,7 @@ class ShowOverviewPage extends AbstractPage
 				if($PLANET['planet_type'] == 1) {
 					$sql = "UPDATE %%PLANETS%% SET destruyed = :time WHERE id = :planetID;";
                     $db->update($sql, array(
-                        ':time'   => TIMESTAMP+ 86400,
+                        ':time'   => TIMESTAMP + 86400,
                         ':planetID' => $PLANET['id'],
                     ));
                     $sql = "DELETE FROM %%PLANETS%% WHERE id = :lunaID;";

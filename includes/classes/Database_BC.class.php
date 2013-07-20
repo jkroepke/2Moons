@@ -30,6 +30,8 @@ class Database_BC extends mysqli
 {
 	protected $exception;
 
+    private $queryCount = 0;
+
 	/**
 	 * Constructor: Set database access data.
 	 *
@@ -63,7 +65,7 @@ class Database_BC extends mysqli
 	/**
 	 * Purpose a query on selected database.
 	 *
-	 * @param string	The SQL query
+	 * @param string
 	 *
 	 * @return resource	Results of the query
 	 */
@@ -78,7 +80,6 @@ class Database_BC extends mysqli
 		{
 			throw new Exception("SQL Error: ".$this->error."<br><br>Query Code: ".$resource);
 		}
-        return false;
 	}
 
 	public function getFirstRow($resource)
@@ -125,7 +126,7 @@ class Database_BC extends mysqli
 	{		
 		$result = $this->query($resource);
 		$Return	= array();
-		$Col	= 0;
+
 		while($Data	= $result->fetch_array(MYSQLI_ASSOC)) {
 			foreach($Data as $Key => $Store) {
 				if(in_array($Key, $encode))
@@ -140,7 +141,7 @@ class Database_BC extends mysqli
 	/**
 	 * Returns the row of a query as an array.
 	 *
-	 * @param resource	The SQL query id
+	 * @param $result mysqli_result
 	 *
 	 * @return array	The data of a row
 	 */
@@ -151,13 +152,13 @@ class Database_BC extends mysqli
 	
 	public function fetch_array($result)
 	{
-		return $result->fetch_array(MYSQLI_ASSOC);
+		return $this->fetchArray($result);
 	}
 
 	/**
 	 * Returns the row of a query as an array.
 	 *
-	 * @param resource	The SQL query id
+	 * @param $result mysqli_result
 	 *
 	 * @return array	The data of a row
 	 */
@@ -241,18 +242,18 @@ class Database_BC extends mysqli
 	/**
 	 * Frees stored result memory for the given statement handle.
 	 *
-	 * @param resource	The statement to free
+	 * @param $resource mysqli_result
 	 *
 	 * @return void
 	 */
 	public function free_result($resource)
 	{
-		return $resource->close();
+        $resource->close();
+        return;
 	}
 	
 	public function multi_query($resource)
-	{	
-		$Timer	= microtime(true);
+	{
 		if(parent::multi_query($resource))
 		{
 			do {
@@ -265,8 +266,6 @@ class Database_BC extends mysqli
 					
 			} while (parent::next_result());		
 		}
-		
-		$this->SQL[]	= $resource;
 	
 		if ($this->errno)
 		{
