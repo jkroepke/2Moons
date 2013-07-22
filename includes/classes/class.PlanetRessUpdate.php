@@ -593,8 +593,6 @@ class ResourceUpdate
 			$HaveResources		= BuildFunctions::isElementBuyable($this->USER, $PLANET, $Element, $costResources);
 			$BuildEndTime       = $this->USER['b_tech'] + $BuildTime;
 			$CurrentQueue[0]	= array($Element, $Level, $BuildTime, $BuildEndTime, $PLANET['id']);
-
-			$RPLANET			= NULL;
 			
 			if($HaveResources == true) {
 				if(isset($costResources[901])) { $PLANET[$resource[901]]		-= $costResources[901]; }
@@ -643,10 +641,12 @@ class ResourceUpdate
 			if($isAnotherPlanet)
 			{
 				$RPLANET->SavePlanetToDB($this->USER, $PLANET);
+				$RPLANET		= NULL;
+				unset($RPLANET);
 			}
 			else
 			{
-				$this->PLANET		= $PLANET;
+				$this->PLANET	= $PLANET;
 			}
 		}
 
