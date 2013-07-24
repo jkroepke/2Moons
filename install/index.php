@@ -98,7 +98,6 @@ switch ($mode) {
 
 		$CHMOD = (php_sapi_name() == 'apache2handler') ? 0777 : 0755;
 		$ftp->chmod('cache', $CHMOD);
-		$ftp->chmod('cache/sessions', $CHMOD);
 		$ftp->chmod('includes', $CHMOD);
 		$ftp->chmod('install', $CHMOD);
 		break;
@@ -332,7 +331,7 @@ switch ($mode) {
 					$error  = true;
 					$ftp    = true;
 				}
-				$directories = array('cache/', 'cache/templates/', 'cache/session/', 'includes/');
+				$directories = array('cache/', 'cache/templates/', 'cache/sessions/', 'includes/');
 				$dirs        = "";
 				foreach ($directories as $dir) {
 					if (is_writable(ROOT_PATH . $dir)) {
