@@ -95,6 +95,12 @@ class Universe {
 	static private function defineCurrentUniverse()
 	{
 		$universe = NULL;
+		if(MODE === 'INSTALL')
+		{
+			// Installer are always in the first universe.
+			return ROOT_UNI;
+		}
+		
 		if(count(self::availableUniverses()) != 1)
 		{
 			if(MODE == 'LOGIN')
