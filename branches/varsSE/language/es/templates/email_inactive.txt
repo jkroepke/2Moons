@@ -1,0 +1,9 @@
+﻿Hola %1$s,
+
+No te has conectado en %3$s, la última vez fue %2$s . Si aún deseas ser parte de la cominidad, por favor acceda a su cuenta con sus datos para evitar que la misma sea borrada.
+
+En caso de que haya perdido su contraseña, dirígase a %4$s y seleccione "Recuperar contraseña". En pocos minutos se le enviará un correo electrónico con los datos de su Nueva contraseña.
+
+Saluda atentamente
+
+El equipo de %2$s

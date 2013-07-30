@@ -1,0 +1,44 @@
+<ul id="rules">
+	<li>
+		<h1>1. Accounts</h1>
+		<p>Der Besitzer eines Accounts ist immer der Inhaber der festen E-mail Adresse. Ein Account darf ausschließlich alleine gespielt werden. Eine Ausnahme bildet nur das Sitten. Sollte es notwendig werden, dass der Account eines Anderen überwacht oder in den Urlaubsmodus gesetzt werden muss, so ist der zuständige Operator vorher zu informieren und dessen Genehmigung einzuholen. Für kurzfristiges Sitten unter 12 Stunden reicht eine Meldung an den Operator. Beim Sitten sind sämtliche Flottenbewegungen verboten, lediglich das Saven der Flotte auf Koordinaten des Gesitteten und das Verbauen der Rohstoffe auf dem Planeten, auf dem sie liegen, ist erlaubt. Ein Account darf für höchstens 72h gesittet werden. Bei Ausnahmen muss die Erlaubniss eines Operators vorliegen. Die Weitergabe eines Accounts darf max. alle 3 Monate und ausschliesslich unentgeltlich erfolgen. Ausnamhen beim Operator melden.</p>
+	</li>
+	<li>
+		<h1>2. Multiaccounts</h1>
+		<p>Es ist jedem Spieler nur erlaubt, einen Account pro Universum zu spielen. Falls zwei oder mehrere Accounts üblicherweise, gelegentlich oder dauerhaft vom selben Internetanschluss aus gespielt werden (z.B. Schulen, Universitäten oder Internetcafés), so müssen sie, dies bereits im Vorfeld einem Admin mitzuteilen. In solchen Fällen ist den betreffenden Accounts jeglicher Flottenkontakt untersagt, während sie den selben Internetanschluss nutzen. Ebenso sind weitere Gemeinsamkeiten untersagt.</p>
+	</li>
+	<li>
+		<h1>3. Pushen</h1>
+		<p>Pushen ist grundsätzlich verboten. Als Pushing werden alle Ressourcen-Lieferungen ohne angemessene Gegenleistung von punktschwächeren Accounts an punktstärkere Accounts gesehen. Ausnahmen müssen im Vorfeld vom Operator genehmigt werden. Eine fehlende Genehmigung kann eine Sperre wegen Pushens nach sich ziehen. Ein Handel muss innerhalb 24 Stunden abgeschlossen oder bei einem Operator angemeldet sein.</p>
+	</li>
+	<li>
+		<h1>4. Bashen</h1>
+		<p>Mehr als 5 Angriffe innerhalb von 24 Stunden auf den gleichen Planeten zählen als Bashen und sind verboten - der Mond zählt als eigenständiger Planet. Angriffe mit Spiosonden oder Interplanetarraketen werden dabei nicht gezählt.</p>
+		<p>Die Bashregel gilt ausschließlich für aktive Spieler. Befinden sich die Parteien im Krieg, so sind weitere Angriffe erlaubt. Der Krieg muss mindestens 24 Stunden vor weiteren Angriffen im Forum erklärt werden (im Thema der Ankündigung müssen beide Allianzen bzw. der Name des kriegserklärenden Einzelspielers in korrekter Schreibweise genannt werden). Eine Kriegserklärung kann ausschließlich an Allianzen gerichtet werden, wobei die Kriegserklärung durch eine Allianz oder eine Einzelperson erfolgen kann.</p>
+		<p>Eine Annahme des Krieges ist nicht erforderlich. Kriege, die offensichtlich nur der massiven Umgehung der Bashregel dienen, sind verboten. Dies zu beurteilen obliegt den zuständigen Moderatoren und Operatoren.</p>
+	</li>
+	<li>
+		<h1>5. Irak-Angriffe</h1>
+		<p>Es sind nur 1000 Irak-Angriffe pro 24 Stunden erlaubt. Die Anzahl der Raketen pro Angriff ist unabhängig.</p>
+	</li>
+	<li>
+		<h1>6. Bugusing</h1>
+		<p>Bugs und/oder Fehler in der Programmierung auszunutzen ist verboten. Erkannte Bugs sollten so schnell wie möglich per Post im Bugforum, IRC, Email oder ICQ gemeldet werden. Cheaten ist auch verboten.</p>
+	</li>
+	<li>
+		<h1>7. Sprache im Spiel</h1>
+		<p>In allen entsprechenden Universen ist Deutsch/Englisch die offizielle Sprache im Spiel. Verstöße können mit einer Sperrung des Accounts geahndet werden. Fremdsprachliche Ingame- Nachrichten/ Allypages können unter Vorbehalt zu einer Sperrung des Accounts führen.</p>
+	</li>
+	<li>
+		<h1>8. Bedrohungen/Beleidigungen</h1>
+		<p>RL Erpressungen und -Bedrohungen führen zum Ausschluß aus einem oder allen Spiel Bereichen. Als Real-Life-Erpressungen und -bedrohungen werden Ingamenachrichten, Forenbeiträge, IRC-Dialoge in öffentlichen Channels und ICQ-Dialoge gewertet, die eindeutige Absichten signalisieren eine Person ausfindig zu machen und ihr oder einer nahestehenden dritten Person Schaden zuzufügen.</p>
+	</li>
+	<li>
+		<h1>9. Spam und Erotik</h1>
+		<p>Spammen und Fremdwerbung ist verboten.Jeweilige Form von Erotik und Pornografischen Darstellungen ist verboten. Und wird mit einer Universums weiten und Lebenslangen Sperrung geandet!</p>
+	</li>
+	<li>
+		<h1>10. Die Regeln</h1>
+		<p>Die Regeln können sich ändern und jeder User ist verpflichtet sich ständig über den Stand zu Informieren!</p>
+	</li>
+</ul>
