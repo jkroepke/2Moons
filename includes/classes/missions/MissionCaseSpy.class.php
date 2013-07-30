@@ -61,8 +61,8 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 
 		$LNG			= $this->getLanguage($senderUser['lang']);
 
-		$senderUser['factor']	= getFactors($senderUser, 'basic', $this->_fleet['fleet_start_time']);
-		$targetUser['factor']	= getFactors($targetUser, 'basic', $this->_fleet['fleet_start_time']);
+		$senderUser['factor']	= getFactors($senderUser, $this->_fleet['fleet_start_time']);
+		$targetUser['factor']	= getFactors($targetUser, $this->_fleet['fleet_start_time']);
 
 		$planetUpdater 						= new ResourceUpdate();
 		list($targetUser, $targetPlanet)	= $planetUpdater->CalcResource($targetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
@@ -144,7 +144,7 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 		
 		// I'm use template class here, because i want to exclude HTML in PHP.
 		
-		require_once 'includes/classes/class.template.php';
+		require_once 'includes/classes/Template.class.php';
 		
 		$template	= new template;
 		

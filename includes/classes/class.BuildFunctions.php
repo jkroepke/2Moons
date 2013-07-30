@@ -29,7 +29,7 @@
 class BuildFunctions
 {
 	
-	static $bonusList	= array(
+	public static $bonusList	= array(
 		'Attack',
 		'Defensive',
 		'Shield',

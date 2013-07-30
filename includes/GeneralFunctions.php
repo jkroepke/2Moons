@@ -26,26 +26,30 @@
  * @link http://2moons.cc/
  */
 
-function getFactors($USER, $Type = 'basic', $TIME = NULL) {
-	global $resource, $pricelist, $reslist;
+function getFactors($USER, $TIME = NULL)
+{
 	if(empty($TIME))
+    {
 		$TIME	= TIMESTAMP;
-	
+    }
+
 	$bonusList	= BuildFunctions::getBonusList();
 	$factor		= ArrayUtil::combineArrayWithSingleElement($bonusList, 0);
-	
-	foreach($reslist['bonus'] as $elementID) {
-		$bonus = $pricelist[$elementID]['bonus'];
-		
-		if (isset($PLANET[$resource[$elementID]])) {
-			$elementLevel = $PLANET[$resource[$elementID]];
-		} elseif (isset($USER[$resource[$elementID]])) {
-			$elementLevel = $USER[$resource[$elementID]];
+
+    foreach(Vars::getElements(NULL, array(VARS::FLAG_BONUS)) as $elementObj)
+    {
+        $elementId  = $elementObj->elementID;
+		$bonus = $pricelist[$elemd]['bonus'];
+
+		if (isset($PLANET[$resource[$elementId]])) {
+			$elementLevel = $PLANET[$resource[$elementId]];
+		} elseif (isset($USER[$resource[$elementId]])) {
+			$elementLevel = $USER[$resource[$elementId]];
 		} else {
 			continue;
 		}
-		
-		if(in_array($elementID, $reslist['dmfunc'])) {
+
+		if(in_array($elementIdntID, $reslist['dmfunc'])) {
 			if(DMExtra($elementLevel, $TIME, false, true)) {
 				continue;
 			}
@@ -187,7 +191,7 @@ function ValidateAddress($address) {
 
 function message($mes, $dest = "", $time = "3", $topnav = false)
 {
-	require_once('includes/classes/class.template.php');
+	require_once('includes/classes/Template.class.php');
 	$template = new template();
 	$template->message($mes, $dest, $time, !$topnav);
 	exit;

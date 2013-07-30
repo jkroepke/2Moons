@@ -54,14 +54,13 @@ error_reporting(E_ALL & ~E_STRICT);
 date_default_timezone_set(@date_default_timezone_get());
 
 ini_set('display_errors', 1);
-header('Content-Type: text/html; charset=UTF-8');
-define('TIMESTAMP',	time());
-	
-require 'includes/constants.php' ;
-
 ini_set('log_errors', 'On');
 ini_set('error_log', 'includes/error.log');
 
+header('Content-Type: text/html; charset=UTF-8');
+define('TIMESTAMP',	time());
+
+require 'includes/constants.php';
 require 'includes/GeneralFunctions.php';
 set_exception_handler('exceptionHandler');
 set_error_handler('errorHandler');
@@ -78,7 +77,7 @@ require 'includes/classes/Session.class.php';
 require 'includes/classes/Universe.class.php';
 
 require 'includes/classes/class.theme.php';
-require 'includes/classes/class.template.php';
+require 'includes/classes/Template.class.php';
 
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
@@ -113,8 +112,6 @@ if(defined('DATABASE_VERSION') && DATABASE_VERSION === 'OLD')
 $config = Config::get();
 date_default_timezone_set($config->timezone);
 
-require 'includes/vars.php';
-
 if (MODE === 'INGAME' || MODE === 'ADMIN')
 {
 	$session	= Session::load();
@@ -126,9 +123,14 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 
 	require 'includes/classes/class.BuildFunctions.php';
 	require 'includes/classes/class.PlanetRessUpdate.php';
-	
+
+    require 'includes/classes/Element.class.php';
+    require 'includes/classes/Vars.class.php';
+
+    Vars::init();
+
 	if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS)) {
-		require('includes/FleetHandler.php');
+		require 'includes/FleetHandler.php';
 	}
 	
 	$db		= Database::get();

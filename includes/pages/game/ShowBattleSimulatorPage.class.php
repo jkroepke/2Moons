@@ -74,7 +74,7 @@ class ShowBattleSimulatorPage extends AbstractPage
 					'dm_attack' => 0
 				); 
 				
-				$attacker['player']['factor']	= getFactors($attacker['player'], 'attack');
+				$attacker['player']['factor']	= getFactors($attacker['player']);
 				
 				foreach($BattleSlot[0] as $ID => $Count)
 				{
@@ -116,7 +116,7 @@ class ShowBattleSimulatorPage extends AbstractPage
 					'dm_defensive' => 0,
 				); 
 				
-				$defender['player']['factor']	= getFactors($defender['player'], 'attack');
+				$defender['player']['factor']	= getFactors($defender['player']);
 				
 				foreach($BattleSlot[1] as $ID => $Count)
 				{
