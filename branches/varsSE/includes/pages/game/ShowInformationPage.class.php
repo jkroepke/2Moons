@@ -27,7 +27,7 @@
  */
 
 
-class ShowInformationPage extends AbstractPage
+class ShowInformationPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_INFORMATION;
 	
@@ -45,7 +45,7 @@ class ShowInformationPage extends AbstractPage
 
 	public function sendFleet()
 	{
-		global $PLANET, $USER, $resource, $LNG, $reslist;
+		global $PLANET, $USER, $LNG, $reslist;
 
         $db = Database::get();
 
@@ -139,7 +139,7 @@ class ShowInformationPage extends AbstractPage
 
 	private function getAvailableFleets()
 	{
-		global $reslist, $resource, $PLANET;
+		global $PLANET;
 
         $fleetList  = array();
 
@@ -156,7 +156,7 @@ class ShowInformationPage extends AbstractPage
 
 	public function destroyMissiles()
 	{
-		global $resource, $PLANET;
+		global $PLANET;
 
         $db = Database::get();
 
@@ -178,7 +178,7 @@ class ShowInformationPage extends AbstractPage
 
 	private function getTargetGates()
 	{
-		global $resource, $USER, $PLANET;
+		global $USER, $PLANET;
 
         $db = Database::get();
 
@@ -217,7 +217,7 @@ class ShowInformationPage extends AbstractPage
 
 	public function show()
 	{
-		global $USER, $PLANET, $LNG, $resource, $pricelist, $reslist, $CombatCaps, $ProdGrid;
+		global $USER, $PLANET, $LNG;
 
 		$elementID 	= HTTP::_GP('id', 0);
 		

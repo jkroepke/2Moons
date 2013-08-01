@@ -27,7 +27,7 @@
  */
  
 
-class ShowShipyardPage extends AbstractPage
+class ShowShipyardPage extends AbstractGamePage
 {
 	public static $requireModule = 0;
 	
@@ -40,7 +40,7 @@ class ShowShipyardPage extends AbstractPage
 	
 	private function CancelAuftr() 
 	{
-		global $USER, $PLANET, $resource;
+		global $USER, $PLANET;
 		$ElementQueue = unserialize($PLANET['b_hangar_id']);
 		
 		$CancelArray	= HTTP::_GP('auftr', array());
@@ -84,7 +84,7 @@ class ShowShipyardPage extends AbstractPage
 	
 	private function BuildAuftr($fmenge)
 	{
-		global $USER, $PLANET, $reslist, $resource;
+		global $USER, $PLANET;
 		
 		$Missiles	= array(
 			502	=> $PLANET[$resource[502]],
@@ -145,7 +145,7 @@ class ShowShipyardPage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $LNG, $resource, $reslist;
+		global $USER, $PLANET, $LNG;
 		
 		if ($PLANET[$resource[21]] == 0)
 		{

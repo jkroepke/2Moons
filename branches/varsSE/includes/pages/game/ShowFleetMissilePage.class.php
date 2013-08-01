@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowFleetMissilePage extends AbstractPage
+class ShowFleetMissilePage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_MISSILEATTACK;
 
@@ -37,7 +37,7 @@ class ShowFleetMissilePage extends AbstractPage
 	
 	public function show()
 	{	
-		global $USER, $PLANET, $LNG, $reslist, $resource;
+		global $USER, $PLANET, $LNG;
 		
 		$missileCount 		= $PLANET['interplanetary_misil'];
 		$targetGalaxy 		= HTTP::_GP('galaxy', 0);

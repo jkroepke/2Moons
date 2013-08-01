@@ -652,4 +652,46 @@ class PlayerUtil
 			':universe'	=> $universe,
 		));
 	}
+
+    static function getFactors($USER, $TIME = NULL)
+    {
+        if(empty($TIME))
+        {
+            $TIME	= TIMESTAMP;
+        }
+
+        $bonusList	= BuildFunctions::getBonusList();
+        $factor		= ArrayUtil::combineArrayWithSingleElement($bonusList, 0);
+
+        foreach(Vars::getElements(NULL, VARS::FLAG_BONUS) as $elementId => $elementObj)
+        {
+            $bonus = $pricelist[$elemd]['bonus'];
+
+            if (isset($PLANET[$resource[$elementId]])) {
+                $elementLevel = $PLANET[$resource[$elementId]];
+            } elseif (isset($USER[$resource[$elementId]])) {
+                $elementLevel = $USER[$resource[$elementId]];
+            } else {
+                continue;
+            }
+
+            if(in_array($elementIdntID, $reslist['dmfunc'])) {
+                if(DMExtra($elementLevel, $TIME, false, true)) {
+                    continue;
+                }
+
+                foreach($bonusList as $bonusKey)
+                {
+                    $factor[$bonusKey]	+= $bonus[$bonusKey][0];
+                }
+            } else {
+                foreach($bonusList as $bonusKey)
+                {
+                    $factor[$bonusKey]	+= $elementLevel * $bonus[$bonusKey][0];
+                }
+            }
+        }
+
+        return $factor;
+    }
 }

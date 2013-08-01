@@ -22,15 +22,18 @@
 		<div id="traderContainer" class="centerContainer">
 			<div class="outer">
 				<div class="inner">
-					{foreach $charge as $resourceID => $chageData}
+					{foreach $elementData as $elementId => $elementObj}
 					<div class="trader_col">
-						{if !$requiredDarkMatter}<form action="game.php?page=trader" method="post">
-						<input type="hidden" name="mode" value="trade">
-						<input type="hidden" name="resource" value="{$resourceID}">
-						<input type="image" id="trader_metal" src="{$dpath}images/{$resource.$resourceID}.gif" title="{$LNG.tech.$resourceID}" border="0" height="32" width="52"><br>
-						<label for="trader_metal">{$LNG.tech.$resourceID}</label>
-						</form>
-						{else}<img src="{$dpath}images/{$resource.$resourceID}.gif" title="{$LNG.tech.$resourceID}" border="0" height="32" width="52" style="margin: 3px;"><br>{$LNG.tech.$resourceID}{/if}
+						{if !$requiredDarkMatter}
+                            <form action="game.php?page=trader" method="post">
+                            <input type="hidden" name="mode" value="trade">
+                            <input type="hidden" name="resource" value="{$elementId}">
+                            <input type="image" id="trader_{$elementObj->name}" src="{$dpath}images/{$elementObj->name}.gif" title="{$LNG.tech.$elementId}" height="32" width="52"><br>
+                            <label for="trader_{$elementObj->name}">{$LNG.tech.$elementId}</label>
+                            </form>
+						{else}
+                            <img src="{$dpath}images/{$elementObj->name}.gif" title="{$LNG.tech.$elementId}" border="0" height="32" width="52" style="margin: 3px;"><br>{$LNG.tech.$elementId}
+                        {/if}
 					</div>
 					{/foreach}
 				</div>

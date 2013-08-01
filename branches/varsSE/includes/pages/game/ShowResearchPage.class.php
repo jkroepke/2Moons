@@ -26,9 +26,9 @@
  * @link http://2moons.cc/
  */
 
-require_once('AbstractPage.class.php');
+require_once('AbstractGamePage.class.php');
 
-class ShowResearchPage extends AbstractPage
+class ShowResearchPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_RESEARCH;
 
@@ -54,7 +54,7 @@ class ShowResearchPage extends AbstractPage
 	
 	private function CancelBuildingFromQueue()
 	{
-		global $PLANET, $USER, $resource;
+		global $PLANET, $USER;
 		$CurrentQueue  = unserialize($USER['b_tech_queue']);
 		if (empty($CurrentQueue) || empty($USER['b_tech']))
 		{
@@ -154,7 +154,7 @@ class ShowResearchPage extends AbstractPage
 
 	private function RemoveBuildingFromQueue($QueueID)
 	{
-		global $USER, $PLANET, $resource;
+		global $USER, $PLANET;
 		
 		$CurrentQueue  = unserialize($USER['b_tech_queue']);
 		if ($QueueID <= 1 || empty($CurrentQueue))
@@ -215,7 +215,7 @@ class ShowResearchPage extends AbstractPage
 
 	private function AddBuildingToQueue($elementId, $AddMode = true)
 	{
-		global $PLANET, $USER, $resource, $reslist, $pricelist;
+		global $PLANET, $USER;
 
 		if(!in_array($elementId, $reslist['tech'])
 			|| !BuildFunctions::isTechnologieAccessible($USER, $PLANET, $elementId)
@@ -332,7 +332,7 @@ class ShowResearchPage extends AbstractPage
 
 	public function show()
 	{
-		global $PLANET, $USER, $LNG, $resource, $reslist, $pricelist;
+		global $PLANET, $USER, $LNG;
 		
 		if ($PLANET[$resource[31]] == 0)
 		{

@@ -27,7 +27,7 @@
  */
 
 
-class ShowFleetDealerPage extends AbstractPage
+class ShowFleetDealerPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_FLEET_TRADER;
 
@@ -38,7 +38,7 @@ class ShowFleetDealerPage extends AbstractPage
 	
 	public function send()
 	{
-		global $USER, $PLANET, $LNG, $pricelist, $resource;
+		global $USER, $PLANET, $LNG;
 		
 		$shipID			= HTTP::_GP('shipID', 0);
 		$Count			= max(0, round(HTTP::_GP('count', 0.0)));
@@ -77,7 +77,7 @@ class ShowFleetDealerPage extends AbstractPage
 	
 	function show()
 	{
-		global $PLANET, $LNG, $pricelist, $resource, $reslist;
+		global $PLANET, $LNG;
 		
 		$Cost		= array();
 		

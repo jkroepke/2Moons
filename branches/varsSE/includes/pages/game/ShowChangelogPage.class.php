@@ -27,7 +27,7 @@
  */
 
 
-class ShowChangelogPage extends AbstractPage
+class ShowChangelogPage extends AbstractGamePage
 {
 	public static $requireModule = 0;
 

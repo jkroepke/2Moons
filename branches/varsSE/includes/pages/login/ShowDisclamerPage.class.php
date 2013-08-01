@@ -29,7 +29,7 @@
  */
 
 
-class ShowDisclamerPage extends AbstractPage
+class ShowDisclamerPage extends AbstractIndexPage
 {
 	public static $requireModule = 0;
 

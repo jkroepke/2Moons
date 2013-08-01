@@ -43,7 +43,7 @@ class MissionCaseColonisation extends MissionFunctions implements Mission
 			':userId'	=> $this->_fleet['fleet_owner'],
 		));
 
-		$senderUser['factor']	= getFactors($senderUser, $this->_fleet['fleet_start_time']);
+		$senderUser['factor']	= PlayerUtil::getFactors($senderUser, $this->_fleet['fleet_start_time']);
 
 		$LNG	= $this->getLanguage($senderUser['lang']);
 

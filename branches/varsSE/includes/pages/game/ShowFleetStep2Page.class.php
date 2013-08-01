@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowFleetStep2Page extends AbstractPage
+class ShowFleetStep2Page extends AbstractGamePage
 {
 	public static $requireModule = MODULE_FLEET_TABLE;
 

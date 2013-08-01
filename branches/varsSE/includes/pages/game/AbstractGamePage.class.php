@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-abstract class AbstractPage 
+abstract class AbstractGamePage 
 {
 	/**
 	 * reference of the template object
@@ -103,7 +103,7 @@ abstract class AbstractPage
 	
 	protected function getNavigationData() 
     {
-		global $PLANET, $LNG, $USER, $THEME, $resource, $reslist;
+		global $PLANET, $LNG, $USER, $THEME;
 
 		$config			= Config::get();
 
@@ -120,32 +120,35 @@ abstract class AbstractPage
 		
 		$resourceTable	= array();
 		$resourceSpeed	= $config->resource_multiplier;
-		foreach($reslist['resstype'][1] as $resourceID)
-		{
-			$resourceTable[$resourceID]['name']			= $resource[$resourceID];
-			$resourceTable[$resourceID]['current']		= $PLANET[$resource[$resourceID]];
-			$resourceTable[$resourceID]['max']			= $PLANET[$resource[$resourceID].'_max'];
-			if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
-			{
-				$resourceTable[$resourceID]['production']	= $PLANET[$resource[$resourceID].'_perhour'];
-			}
-			else
-			{
-				$resourceTable[$resourceID]['production']	= $PLANET[$resource[$resourceID].'_perhour'] + $config->{$resource[$resourceID].'_basic_income'} * $resourceSpeed;
-			}
-		}
 
-		foreach($reslist['resstype'][2] as $resourceID)
+        foreach(Vars::getElements(VARS::CLASS_RESOURCE, Vars::FLAG_TOPNAV) as $elementId => $elementObj)
 		{
-			$resourceTable[$resourceID]['name']			= $resource[$resourceID];
-			$resourceTable[$resourceID]['used']			= $PLANET[$resource[$resourceID].'_used'];
-			$resourceTable[$resourceID]['max']			= $PLANET[$resource[$resourceID]];
-		}
+            $elementName                                = $elementObj->name;
+			$resourceTable[$elementId]['name']			= $elementName;
+			$resourceTable[$elementId]['current']		= $PLANET[$elementName];
 
-		foreach($reslist['resstype'][3] as $resourceID)
-		{
-			$resourceTable[$resourceID]['name']			= $resource[$resourceID];
-			$resourceTable[$resourceID]['current']		= $USER[$resource[$resourceID]];
+            if(isset($PLANET[$elementName.'_max']))
+            {
+			    $resourceTable[$elementId]['max']			= $PLANET[$elementName.'_max'];
+            }
+
+            if(isset($PLANET[$elementName.'_used']))
+            {
+                // It's an energy
+                $resourceTable[$elementId]['used']			= $PLANET[$elementName.'_used'];
+                $resourceTable[$elementId]['max']			= $PLANET[$elementName];
+            }
+            else
+            {
+                if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
+                {
+                    $resourceTable[$elementId]['production']	= $PLANET[$elementName.'_perhour'];
+                }
+                else
+                {
+                    $resourceTable[$elementId]['production']	= $PLANET[$elementName.'_perhour'] + $config->{$elementName.'_basic_income'} * $resourceSpeed;
+                }
+            }
 		}
 
 		$themeSettings	= $THEME->getStyleSettings();
@@ -163,7 +166,7 @@ abstract class AbstractPage
 			'closed'			=> !$config->game_disable,
 			'hasBoard'			=> filter_var($config->forum_url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED),
 			'hasAdminAccess'	=> !empty(Session::load()->adminAccess),
-			'hasGate'			=> $PLANET[$resource[43]] > 0
+			'hasGate'			=> $PLANET[Vars::getElement(43)->name] > 0
 		));
 	}
 	

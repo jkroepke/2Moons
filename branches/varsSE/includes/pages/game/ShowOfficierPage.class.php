@@ -27,7 +27,7 @@
  */
 
 
-class ShowOfficierPage extends AbstractPage
+class ShowOfficierPage extends AbstractGamePage
 {
 	public static $requireModule = 0;
 
@@ -38,7 +38,7 @@ class ShowOfficierPage extends AbstractPage
 	
 	public function UpdateExtra($Element)
 	{
-		global $PLANET, $USER, $resource, $pricelist;
+		global $PLANET, $USER;
 		
 		$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
 			
@@ -66,7 +66,7 @@ class ShowOfficierPage extends AbstractPage
 
 	public function UpdateOfficier($Element)
 	{
-		global $USER, $PLANET, $resource, $pricelist;
+		global $USER, $PLANET;
 		
 		$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
 			
@@ -96,7 +96,7 @@ class ShowOfficierPage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $resource, $reslist, $LNG, $pricelist;
+		global $USER, $PLANET, $LNG;
 		
 		$updateID	  = HTTP::_GP('id', 0);
 				

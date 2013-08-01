@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowBanListPage extends AbstractPage 
+class ShowBanListPage extends AbstractGamePage 
 {
 	public static $requireModule = MODULE_SUPPORT;
 

@@ -63,7 +63,7 @@ class MissionCaseRecycling extends MissionFunctions implements Mission
 				':userId'	=> $this->_fleet['fleet_owner']
 			));
 
-			$targetUserFactors	= getFactors($targetUser);
+			$targetUserFactors	= PlayerUtil::getFactors($targetUser);
 			$shipStorageFactor	= 1 + $targetUserFactors['ShipStorage'];
 		
 			// Get fleet capacity

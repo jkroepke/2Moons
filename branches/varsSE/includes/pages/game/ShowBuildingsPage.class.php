@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowBuildingsPage extends AbstractPage
+class ShowBuildingsPage extends AbstractGamePage
 {	
 	public static $requireModule = MODULE_BUILDING;
 
@@ -37,7 +37,7 @@ class ShowBuildingsPage extends AbstractPage
 	
 	private function CancelBuildingFromQueue()
 	{
-		global $PLANET, $USER, $resource;
+		global $PLANET, $USER;
 		$CurrentQueue  = unserialize($PLANET['b_building_id']);
 		if (empty($CurrentQueue))
 		{
@@ -126,7 +126,7 @@ class ShowBuildingsPage extends AbstractPage
 
 	private function AddBuildingToQueue($Element, $AddMode = true)
 	{
-		global $PLANET, $USER, $resource, $reslist, $pricelist;
+		global $PLANET, $USER;
 		
 		if(!in_array($Element, $reslist['allow'][$PLANET['planet_type']])
 			|| !BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element) 
@@ -243,7 +243,7 @@ class ShowBuildingsPage extends AbstractPage
 
 	public function show()
 	{
-		global $ProdGrid, $LNG, $resource, $reslist, $PLANET, $USER, $pricelist;
+		global $LNG, $PLANET, $USER;
 		
 		$TheCommand		= HTTP::_GP('cmd', '');
 

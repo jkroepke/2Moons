@@ -27,7 +27,7 @@
  */
 
 
-class ShowImperiumPage extends AbstractPage
+class ShowImperiumPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_IMPERIUM;
 
@@ -38,7 +38,7 @@ class ShowImperiumPage extends AbstractPage
 
 	function show()
 	{
-		global $USER, $PLANET, $resource, $reslist;
+		global $USER, $PLANET;
 
         $db = Database::get();
 

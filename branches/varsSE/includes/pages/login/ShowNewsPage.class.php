@@ -28,7 +28,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowNewsPage extends AbstractPage
+class ShowNewsPage extends AbstractIndexPage
 {
 	public static $requireModule = 0;
 

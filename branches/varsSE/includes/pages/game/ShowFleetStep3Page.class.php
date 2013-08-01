@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowFleetStep3Page extends AbstractPage
+class ShowFleetStep3Page extends AbstractGamePage
 {
 	public static $requireModule = MODULE_FLEET_TABLE;
 
@@ -37,7 +37,7 @@ class ShowFleetStep3Page extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $resource, $LNG;
+		global $USER, $PLANET, $LNG;
 			
 		if (IsVacationMode($USER)) {
 			FleetFunctions::GotoFleetPage(0);

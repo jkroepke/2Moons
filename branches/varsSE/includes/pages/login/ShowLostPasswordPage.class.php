@@ -29,7 +29,7 @@
  */
 
 
-class ShowLostPasswordPage extends AbstractPage
+class ShowLostPasswordPage extends AbstractIndexPage
 {
 	public static $requireModule = 0;
 

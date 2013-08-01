@@ -27,7 +27,7 @@
  */
 
 
-class ShowTechtreePage extends AbstractPage
+class ShowTechtreePage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_TECHTREE;
 
@@ -38,31 +38,43 @@ class ShowTechtreePage extends AbstractPage
 	
 	function show()
 	{
-		global $resource, $requeriments, $reslist, $USER, $PLANET;
-		
-		$elementID		= array_merge(array(0), $reslist['build'], array(100), $reslist['tech'], array(200), $reslist['fleet'], array(400), $reslist['defense'], array(500), $reslist['missile'], array(600), $reslist['officier']);
+		global $USER, $PLANET;
+
+        $techTreeList   = array();
+
+        $elementList    = array(
+            Vars::CLASS_BUILDING,
+            Vars::CLASS_TECH,
+            Vars::CLASS_FLEET,
+            Vars::CLASS_DEFENSE,
+            Vars::CLASS_MISSILE,
+            Vars::CLASS_PERM_BONUS
+        );
 			
-		foreach($elementID as $Element)
-		{			
-			if(!isset($resource[$Element])) {
-				$TechTreeList[$Element]	= $Element;
-			
-			} else {
-				$RequeriList	= array();
-				if(isset($requeriments[$Element]))
-				{
-					foreach($requeriments[$Element] as $requireID => $RedCount)
-					{
-						$RequeriList[$requireID]	= array('count' => $RedCount, 'own' => (isset($PLANET[$resource[$requireID]])) ? $PLANET[$resource[$requireID]] : $USER[$resource[$requireID]]);
-					}
-				}
+		foreach($elementList as $classId)
+		{
+            $techTreeList[$classId] = $classId;
+            $elementIds = Vars::getElements($classId);
+
+            foreach($elementIds as $elementId => $elementObj)
+            {
+				$requirements   = array();
+                foreach($elementObj->requirements as $requireElementId => $requiredLevel)
+                {
+                    $requireElementName = Vars::getElement($requireElementId)->name;
+
+                    $requirements[$requireElementId]	= array(
+                        'count' => $requiredLevel,
+                        'own'   => isset($PLANET[$requireElementName]) ? $PLANET[$requireElementName] : $USER[$requireElementName]
+                    );
+                }
 				
-				$TechTreeList[$Element]	= $RequeriList;
+				$techTreeList[$elementId]	= $requirements;
 			}
 		}
 		
 		$this->assign(array(
-			'TechTreeList'		=> $TechTreeList,
+			'TechTreeList'		=> $techTreeList,
 		));
 
 		$this->display('page.techtree.default.tpl');

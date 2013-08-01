@@ -162,6 +162,27 @@ class Language implements ArrayAccess {
 
 		$this->addData($LNG);
 	}
+
+    static public function createHumanReadableList($data, $lastWord = NULL)
+    {
+        if(is_null($lastWord))
+        {
+            global $LNG;
+            $lastWord   = $LNG['d_and'];
+        }
+        $string = '';
+        $count  = count($data);
+        $i = 0;
+        foreach($data as $stringPart)
+        {
+            if($i++ == $count)
+            {
+                $string .= $lastWord.' ';
+            }
+            $string .= $stringPart.' ';
+        }
+        return $string;
+    }
 	
 	/** ArrayAccess Functions **/
 	

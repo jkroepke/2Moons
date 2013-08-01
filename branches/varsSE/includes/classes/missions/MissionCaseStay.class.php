@@ -40,7 +40,7 @@ class MissionCaseStay extends MissionFunctions implements Mission
 			':userId'	=> $this->_fleet['fleet_owner']
 		));
 
-		$senderUser['factor']	= getFactors($senderUser, $this->_fleet['fleet_start_time']);
+		$senderUser['factor']	= PlayerUtil::getFactors($senderUser, $this->_fleet['fleet_start_time']);
 		
 		$fleetArray			= FleetFunctions::unserialize($this->_fleet['fleet_array']);
 		$duration			= $this->_fleet['fleet_start_time'] - $this->_fleet['start_time'];

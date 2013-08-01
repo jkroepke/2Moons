@@ -51,29 +51,29 @@ class Element
                     $data['flags'][]  = VARS::FLAG_RESOURCE_USER;
                 break;
                 case 'energy':
-                    $data['flags'][]  = VARS::FLAG_RESOURCE_ENERGY;
+                    $data['flags'][]  = VARS::FLAG_ENERGY;
                 break;
 
             }
 
             if($data['resourceCanOnDebris'] == 1)
             {
-                $data['flags'][]  = VARS::FLAG_RESOURCE_DEBRIS;
+                $data['flags'][]  = VARS::FLAG_DEBRIS;
             }
 
             if($data['resourceCanOnShip'] == 1)
             {
-                $data['flags'][]  = VARS::FLAG_RESOURCE_CAN_STEAL;
+                $data['flags'][]  = VARS::FLAG_STEAL;
             }
 
             if($data['resourceCanStealOnAttack'] == 1)
             {
-                $data['flags'][]  = VARS::FLAG_RESOURCE_ON_SHIP;
+                $data['flags'][]  = VARS::FLAG_TRANSPORT;
             }
 
             if($data['resourceIsOnTopNav'] == 1)
             {
-                $data['flags'][]  = VARS::FLAG_RESOURCE_ON_TOPNAV;
+                $data['flags'][]  = VARS::FLAG_TOPNAV;
             }
         }
         else
@@ -106,9 +106,9 @@ class Element
 
             foreach(array_merge($resources[0], $resources[1]) as $elementObj)
             {
-                $data['calcProduction'][1][$elementObj->elementID] = $data["consumption1$elementObj->elementID"];
-                $data['calcProduction'][2][$elementObj->elementID] = $data["consumption2$elementObj->elementID"];
-                $data['calcProduction'][3][$elementObj->elementID] = $data["consumption3$elementObj->elementID"];
+                $data['consumption'][1][$elementObj->elementID] = $data["consumption1$elementObj->elementID"];
+                $data['consumption'][2][$elementObj->elementID] = $data["consumption2$elementObj->elementID"];
+                $data['consumption'][3][$elementObj->elementID] = $data["consumption3$elementObj->elementID"];
                 unset($data["consumption1$elementObj->elementID"], $data["consumption2$elementObj->elementID"], $data["consumption3$elementObj->elementID"]);
             }
 
