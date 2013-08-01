@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowFleetStep1Page extends AbstractPage
+class ShowFleetStep1Page extends AbstractGamePage
 {
 	public static $requireModule = MODULE_FLEET_TABLE;
 
@@ -37,7 +37,7 @@ class ShowFleetStep1Page extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $pricelist, $reslist, $LNG;
+		global $USER, $PLANET, $LNG;
 		
 		$targetGalaxy 			= HTTP::_GP('galaxy', (int) $PLANET['galaxy']);
 		$targetSystem 			= HTTP::_GP('system', (int) $PLANET['system']);
@@ -239,7 +239,7 @@ class ShowFleetStep1Page extends AbstractPage
 	
 	function checkTarget()
 	{
-		global $PLANET, $LNG, $USER, $resource;
+		global $PLANET, $LNG, $USER;
 
 		$targetGalaxy 		= HTTP::_GP('galaxy', 0);
 		$targetSystem 		= HTTP::_GP('system', 0);

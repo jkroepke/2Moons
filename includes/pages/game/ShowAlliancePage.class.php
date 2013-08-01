@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowAlliancePage extends AbstractPage
+class ShowAlliancePage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_ALLIANCE;
 

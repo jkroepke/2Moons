@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowMessagesPage extends AbstractPage
+class ShowMessagesPage extends AbstractGamePage
 {
     public static $requireModule = MODULE_MESSAGES;
 

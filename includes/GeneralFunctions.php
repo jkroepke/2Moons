@@ -26,49 +26,6 @@
  * @link http://2moons.cc/
  */
 
-function getFactors($USER, $TIME = NULL)
-{
-	if(empty($TIME))
-    {
-		$TIME	= TIMESTAMP;
-    }
-
-	$bonusList	= BuildFunctions::getBonusList();
-	$factor		= ArrayUtil::combineArrayWithSingleElement($bonusList, 0);
-
-    foreach(Vars::getElements(NULL, array(VARS::FLAG_BONUS)) as $elementObj)
-    {
-        $elementId  = $elementObj->elementID;
-		$bonus = $pricelist[$elemd]['bonus'];
-
-		if (isset($PLANET[$resource[$elementId]])) {
-			$elementLevel = $PLANET[$resource[$elementId]];
-		} elseif (isset($USER[$resource[$elementId]])) {
-			$elementLevel = $USER[$resource[$elementId]];
-		} else {
-			continue;
-		}
-
-		if(in_array($elementIdntID, $reslist['dmfunc'])) {
-			if(DMExtra($elementLevel, $TIME, false, true)) {
-				continue;
-			}
-			
-			foreach($bonusList as $bonusKey)
-			{
-				$factor[$bonusKey]	+= $bonus[$bonusKey][0];
-			}
-		} else {
-			foreach($bonusList as $bonusKey)
-			{
-				$factor[$bonusKey]	+= $elementLevel * $bonus[$bonusKey][0];
-			}
-		}
-	}
-	
-	return $factor;
-}
-
 function getPlanets($USER)
 {
 	if(isset($USER['PLANETS']))

@@ -27,7 +27,7 @@
  */
 
 
-class ShowErrorPage extends AbstractPage
+class ShowErrorPage extends AbstractGamePage
 {
 	public static $requireModule = 0;
 	

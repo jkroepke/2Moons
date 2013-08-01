@@ -27,7 +27,7 @@
  */
 
 
-class ShowLogoutPage extends AbstractPage
+class ShowLogoutPage extends AbstractGamePage
 {
 	public static $requireModule = 0;
 

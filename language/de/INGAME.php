@@ -1000,6 +1000,9 @@ $LNG['sys_refferal_text']        	 		= 'Der von dir geworbene Spieler %s hat nun
 $LNG['sys_closed_game']        	 			= 'Das Universum ist zur Zeit nicht verfügbar:';
 $LNG['spec_mail_inactive_title']  			= '%s - Erinnerung';
 
+$LNG['d_and']								= 'und';
+$LNG['d_or']								= 'oder';
+
 $LNG['sys_back']							= 'Zurück';
 $LNG['sys_forward']							= 'Weiter';
 
@@ -1147,8 +1150,8 @@ $LNG['rec_last_update_on']		   			= 'Letztes Update um';
 //----------------------------------------------------------------------------//
 // BattleSimulator
 
-$LNG['bs_derbis_raport']					= 'Es werden %s %s oder %s %s für das Trümmerfeld benötigt.';
-$LNG['bs_steal_raport']						= 'Für die Beute werden %s %s oder %s %s oder %s %s benötigt.';
+$LNG['bs_derbis_raport']					= 'Es werden %s für das Trümmerfeld benötigt.';
+$LNG['bs_steal_raport']						= 'Für die Beute werden %s benötigt.';
 $LNG['bs_names']							= 'Schiffname';
 $LNG['bs_atter']							= 'Angreifer';
 $LNG['bs_deffer']							= 'Verteidiger';

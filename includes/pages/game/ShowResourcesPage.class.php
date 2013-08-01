@@ -22,11 +22,11 @@
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.7.2 (2013-03-18)
- * @info $Id$
+ * @info $elementResourceId: ShowResourcesPage.class.php 2746 2013-05-18 11:38:36Z slaver7 $
  * @link http://2moons.cc/
  */
 
-class ShowResourcesPage extends AbstractPage
+class ShowResourcesPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_RESSOURCE_LIST;
 
@@ -37,7 +37,7 @@ class ShowResourcesPage extends AbstractPage
 	
 	function send()
 	{
-		global $resource, $USER, $PLANET;
+		global $USER, $PLANET;
 		if ($USER['urlaubs_modus'] == 0)
 		{
 			$updateSQL	= array();
@@ -45,17 +45,22 @@ class ShowResourcesPage extends AbstractPage
 				$_POST['prod'] = array();
 
 
-			$param	= array(':planetId' => $PLANET['id']);
-			
-			foreach($_POST['prod'] as $resourceId => $Value)
+			$param	                = array(':planetId' => $PLANET['id']);
+            $productionLevel        = HTTP::_GP('prod', array());
+            $elementResourceList    = Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_ON_ECO_OVERVIEW);
+
+			foreach($elementResourceList as $elementId => $elementObj)
 			{
-				$FieldName = $resource[$resourceId].'_porcent';
-				if (!isset($PLANET[$FieldName]) || !in_array($Value, range(0, 10)))
-					continue;
+                if(!isset($productionLevel[$elementId])) continue;
+
+                $value      = $productionLevel[$elementId];
+				$fieldName  = $elementObj->name.'_porcent';
+
+				if (!isset($PLANET[$fieldName]) || !in_array($value, range(0, 10))) continue;
 				
-				$updateSQL[]	= $FieldName." = :".$FieldName;
-				$param[':'.$FieldName]		= (int) $Value;
-				$PLANET[$FieldName]			= $Value;
+				$updateSQL[]	= $fieldName." = :".$fieldName;
+				$param[':'.$fieldName]		= (int) $value;
+				$PLANET[$fieldName]			= $value;
 			}
 
 			if(!empty($updateSQL))
@@ -67,54 +72,62 @@ class ShowResourcesPage extends AbstractPage
 				$this->ecoObj->setData($USER, $PLANET);
 				$this->ecoObj->ReBuildCache();
 				list($USER, $PLANET)	= $this->ecoObj->getData();
+
 				$PLANET['eco_hash'] = $this->ecoObj->CreateHash();
 			}
 		}
-
-		$this->save();
 		$this->redirectTo('game.php?page=resources');
 	}
+
 	function show()
 	{
-		global $LNG, $ProdGrid, $resource, $reslist, $USER, $PLANET;
+		global $LNG, $USER, $PLANET;
 
-		$config	= Config::get();
+		$config	                = Config::get();
+        $elementResourceList    = Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_ON_ECO_OVERVIEW);
+        $elementEnergyList      = Vars::getElements(NULL, Vars::FLAG_ENERGY);
+        $elementProductionList  = Vars::getElements(NULL, Vars::FLAG_PRODUCTION);
 
-		if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
+		$planetIsOnProduction   = $USER['urlaubs_modus'] == 0 && $PLANET['planet_type'] == PLANET;
+
+        $basicIncome            = array();
+        $production             = array();
+        $temp                   = array();
+        $basicProduction        = array();
+        $storage                = array();
+        $totalProduction        = array();
+        $dailyProduction        = array();
+        $weeklyProduction       = array();
+        $bonusProduction        = array();
+
+        foreach($elementResourceList as $elementId => $elementObj)
 		{
-			$basicIncome[901]	= 0;
-			$basicIncome[902]	= 0;
-			$basicIncome[903]	= 0;
-			$basicIncome[911]	= 0;
+            $basicIncome[$elementId]        = $planetIsOnProduction ? $config->{$elementObj->name.'_basic_income'} : 0;
+            $production[$elementId]         = 0;
+            $bonusProduction[$elementId]    = 0;
+            $temp[$elementId]               = array('plus' => 0, 'minus' => 0);
+
+            if(isset($PLANET[$elementObj->name.'_max']))
+            {
+                $storage[$elementId]    = shortly_number($PLANET[$elementObj->name.'_max']);
+            }
+
+            $basicProduction[$elementId]	= $basicIncome[$elementId];
+            if(in_array($elementId, array_keys($elementEnergyList)))
+            {
+                $basicProduction[$elementId]    *= $config->energySpeed;
+                $totalProduction[$elementId]    = $PLANET[$elementObj->name.'_perhour'] + $basicProduction[$elementId];
+                $dailyProduction[$elementId]    = $totalProduction[$elementId] * 24;
+                $weeklyProduction[$elementId]   = $totalProduction[$elementId] * 168;
+            }
+            else
+            {
+                $basicProduction[$elementId]    *= $config->resource_multiplier;
+                $totalProduction[$elementId]    = $PLANET[$elementObj->name] + $basicProduction[$elementId] + $PLANET[$elementObj->name.'_used'];
+                $dailyProduction[$elementId]    = $totalProduction[$elementId];
+                $weeklyProduction[$elementId]   = $totalProduction[$elementId];
+            }
 		}
-		else
-		{		
-			$basicIncome[901]	= $config->{$resource[901].'_basic_income'};
-			$basicIncome[902]	= $config->{$resource[902].'_basic_income'};
-			$basicIncome[903]	= $config->{$resource[903].'_basic_income'};
-			$basicIncome[911]	= $config->{$resource[911].'_basic_income'};
-		}
-		
-		$temp	= array(
-			901	=> array(
-				'plus'	=> 0,
-				'minus'	=> 0,
-			),
-			902	=> array(
-				'plus'	=> 0,
-				'minus'	=> 0,
-			),
-			903	=> array(
-				'plus'	=> 0,
-				'minus'	=> 0,
-			),
-			911	=> array(
-				'plus'	=> 0,
-				'minus'	=> 0,
-			)
-		);
-		
-		$ressIDs		= array_merge(array(), $reslist['resstype'][1], $reslist['resstype'][2]);
 
 		$productionList	= array();
 
@@ -125,99 +138,55 @@ class ShowResourcesPage extends AbstractPage
 		}
 
 		/* Data for eval */
-		$BuildEnergy		= $USER[$resource[113]];
+		$BuildEnergy		= $USER[Vars::getElement(113)->name];
 		$BuildTemp          = $PLANET['temp_max'];
 
-		foreach($reslist['prod'] as $ProdID)
+		foreach($elementProductionList as $elementProductionId => $elementProductionObj)
 		{
-			if(isset($PLANET[$resource[$ProdID]]) && $PLANET[$resource[$ProdID]] == 0)
-				continue;
+            $elementProductionName  = $elementProductionObj->name;
+			if(empty($PLANET[$elementProductionName]) || empty($USER[$elementProductionName])) continue;
 
-			if(isset($USER[$resource[$ProdID]]) && $USER[$resource[$ProdID]] == 0)
-				continue;
-
-			$productionList[$ProdID]	= array(
+			$productionList[$elementProductionId]	= array(
 				'production'	=> array(901 => 0, 902 => 0, 903 => 0, 911 => 0),
-				'elementLevel'	=> $PLANET[$resource[$ProdID]],
-				'prodLevel'		=> $PLANET[$resource[$ProdID].'_porcent'],
+				'elementLevel'	=> $PLANET[$elementProductionName],
+				'prodLevel'		=> $PLANET[$elementProductionName.'_porcent'],
 			);
 
 			/* Data for eval */
-			$BuildLevel			= $PLANET[$resource[$ProdID]];
-			$BuildLevelFactor	= $PLANET[$resource[$ProdID].'_porcent'];
+			$BuildLevel			= $PLANET[$elementProductionName];
+			$BuildLevelFactor	= $PLANET[$elementProductionName.'_porcent'];
 
-			foreach($ressIDs as $ID) 
+			foreach($elementResourceList as $elementResourceId => $elementResourceObj)
 			{
-				if(!isset($ProdGrid[$ProdID]['production'][$ID]))
-					continue;
+				if(!isset($elementProductionObj->calcProduction[$elementResourceId])) continue;
 
-				$Production	= eval(ResourceUpdate::getProd($ProdGrid[$ProdID]['production'][$ID]));
+				$productionAmount = eval(ResourceUpdate::getProd($elementProductionObj->calcProduction[$elementResourceId]));
 
-				if(in_array($ID, $reslist['resstype'][2]))
+                if(in_array($elementResourceId, array_keys($elementEnergyList)))
 				{
-					$Production	*= $config->energySpeed;
+                    $productionAmount *= $config->energySpeed;
+                    if($productionAmount > 0 && $PLANET[$elementResourceObj->name] == 0)
+                    {
+                        $bonusProduction[$elementProductionId]  = $productionAmount * $USER['factor']['Resource'];
+                    }
 				}
 				else
 				{
-					$Production	*= $prodLevel * $config->resource_multiplier;
+                    $productionAmount *= $prodLevel * $config->resource_multiplier;
+                    if($productionAmount > 0 && $PLANET[$elementResourceObj->name] == 0)
+                    {
+                        $bonusProduction[$elementProductionId]  = $productionAmount * $USER['factor']['Energy'];
+                    }
 				}
-				
-				$productionList[$ProdID]['production'][$ID]	= $Production;
-				
-				if($Production > 0) {
-					if($PLANET[$resource[$ID]] == 0) continue;
-					
-					$temp[$ID]['plus']	+= $Production;
-				} else {
-					$temp[$ID]['minus']	+= $Production;
-				}
+
+				$productionList[$elementProductionId]['production'][$elementResourceId]	= $productionAmount;
 			}
 		}
-				
-		$storage	= array(
-			901 => shortly_number($PLANET[$resource[901].'_max']),
-			902 => shortly_number($PLANET[$resource[902].'_max']),
-			903 => shortly_number($PLANET[$resource[903].'_max']),
-		);
-		
-		$basicProduction	= array(
-			901 => $basicIncome[901] * $config->resource_multiplier,
-			902 => $basicIncome[902] * $config->resource_multiplier,
-			903	=> $basicIncome[903] * $config->resource_multiplier,
-			911	=> $basicIncome[911] * $config->energySpeed,
-		);
-		
-		$totalProduction	= array(
-			901 => $PLANET[$resource[901].'_perhour'] + $basicProduction[901],
-			902 => $PLANET[$resource[902].'_perhour'] + $basicProduction[902],
-			903	=> $PLANET[$resource[903].'_perhour'] + $basicProduction[903],
-			911	=> $PLANET[$resource[911]] + $basicProduction[911] + $PLANET[$resource[911].'_used'],
-		);
-		
-		$bonusProduction	= array(
-			901 => $temp[901]['plus'] * ($USER['factor']['Resource'] + 0.02 * $USER[$resource[131]]),
-			902 => $temp[902]['plus'] * ($USER['factor']['Resource'] + 0.02 * $USER[$resource[132]]),
-			903	=> $temp[903]['plus'] * ($USER['factor']['Resource'] + 0.02 * $USER[$resource[133]]),
-			911	=> $temp[911]['plus'] * $USER['factor']['Energy'],
-		);
-		
-		$dailyProduction	= array(
-			901 => $totalProduction[901] * 24,
-			902 => $totalProduction[902] * 24,
-			903	=> $totalProduction[903] * 24,
-			911	=> $totalProduction[911],
-		);
-		
-		$weeklyProduction	= array(
-			901 => $totalProduction[901] * 168,
-			902 => $totalProduction[902] * 168,
-			903	=> $totalProduction[903] * 168,
-			911	=> $totalProduction[911],
-		);
 			
 		$prodSelector	= array();
 		
-		foreach(range(10, 0) as $percent) {
+		foreach(range(10, 0) as $percent)
+        {
 			$prodSelector[$percent]	= ($percent * 10).'%';
 		}
 		

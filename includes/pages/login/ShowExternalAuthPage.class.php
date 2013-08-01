@@ -28,7 +28,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowExternalAuthPage extends AbstractPage
+class ShowExternalAuthPage extends AbstractIndexPage
 {
 	public static $requireModule = 0;
 

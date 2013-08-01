@@ -27,7 +27,7 @@
  */
 
 
-class ShowFleetTablePage extends AbstractPage
+class ShowFleetTablePage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_FLEET_TABLE;
 
@@ -177,7 +177,7 @@ class ShowFleetTablePage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $reslist, $resource, $LNG;
+		global $USER, $PLANET, $LNG;
 		
 		$acsData			= array();
 		$FleetID			= HTTP::_GP('fleetID', 0);

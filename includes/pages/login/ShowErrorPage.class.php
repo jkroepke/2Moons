@@ -29,7 +29,7 @@
  */
 
 
-class ShowErrorPage extends AbstractPage
+class ShowErrorPage extends AbstractIndexPage
 {
 	public static $requireModule = 0;
 	

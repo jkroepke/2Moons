@@ -27,13 +27,13 @@
  */
 
 
-class ShowPhalanxPage extends AbstractPage
+class ShowPhalanxPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_PHALANX;
 	
 	static function allowPhalanx($toGalaxy, $toSystem)
 	{
-		global $PLANET, $resource;
+		global $PLANET;
 
 		if ($PLANET['galaxy'] != $toGalaxy || $PLANET[$resource[42]] == 0 || !isModulAvalible(MODULE_PHALANX) || $PLANET[$resource[903]] < PHALANX_DEUTERIUM) {
 			return false;
@@ -57,7 +57,7 @@ class ShowPhalanxPage extends AbstractPage
 	
 	function show()
 	{
-		global $PLANET, $LNG, $resource;
+		global $PLANET, $LNG;
 
 		$this->initTemplate();
 		$this->setWindow('popup');

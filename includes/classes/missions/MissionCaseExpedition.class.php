@@ -339,7 +339,7 @@ HTML;
 				
 				$fleetAttack[$fleetID]['fleetDetail']		= $this->_fleet;
 				$fleetAttack[$fleetID]['player']			= $senderData;
-				$fleetAttack[$fleetID]['player']['factor']	= getFactors($fleetAttack[$this->_fleet['fleet_id']]['player'], $this->_fleet['fleet_start_time']);
+				$fleetAttack[$fleetID]['player']['factor']	= PlayerUtil::getFactors($fleetAttack[$this->_fleet['fleet_id']]['player'], $this->_fleet['fleet_start_time']);
 				$fleetAttack[$fleetID]['unit']				= $fleetArray;
 				
 				$fleetDefend = array();

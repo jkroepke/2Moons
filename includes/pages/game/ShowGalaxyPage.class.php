@@ -28,7 +28,7 @@
 
 require_once('includes/classes/class.GalaxyRows.php');
 
-class ShowGalaxyPage extends AbstractPage
+class ShowGalaxyPage extends AbstractGamePage
 {
     public static $requireModule = MODULE_RESEARCH;
 
@@ -39,7 +39,7 @@ class ShowGalaxyPage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $resource, $LNG, $reslist;
+		global $USER, $PLANET, $LNG;
 
 		$config			= Config::get();
 

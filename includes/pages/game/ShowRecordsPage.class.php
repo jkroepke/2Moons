@@ -27,7 +27,7 @@
  */
 
 
-class ShowRecordsPage extends AbstractPage
+class ShowRecordsPage extends AbstractGamePage
 {
     public static $requireModule = MODULE_RECORDS;
 
@@ -38,7 +38,7 @@ class ShowRecordsPage extends AbstractPage
 	
 	function show()
 	{
-		global $USER, $LNG, $reslist;
+		global $USER, $LNG;
 
 		$db = Database::get();
 

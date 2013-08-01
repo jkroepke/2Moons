@@ -27,7 +27,7 @@
  */
 
 
-class ShowFleetAjaxPage extends AbstractPage
+class ShowFleetAjaxPage extends AbstractGamePage
 {
 	public $returnData	= array();
 
@@ -47,7 +47,7 @@ class ShowFleetAjaxPage extends AbstractPage
 	
 	public function show()
 	{
-		global $USER, $PLANET, $resource, $LNG, $pricelist;
+		global $USER, $PLANET, $LNG;
 		
 		$UserDeuterium  = $PLANET['deuterium'];
 		

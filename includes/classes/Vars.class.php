@@ -40,18 +40,27 @@ class Vars
     const CLASS_RACE        = 800;
     const CLASS_RESOURCE    = 900;
 
-    const FLAG_BUILD_ON_PLANET      = 1;
-    const FLAG_BUILD_ON_MOON        = 2;
-    const FLAG_RESOURCE_PLANET      = 4;
-    const FLAG_RESOURCE_USER        = 8;
-    const FLAG_RESOURCE_ENERGY      = 16;
-    const FLAG_RESOURCE_DEBRIS      = 32;
-    const FLAG_RESOURCE_ON_SHIP     = 64;
-    const FLAG_RESOURCE_CAN_STEAL   = 128;
-    const FLAG_RESOURCE_ON_TOPNAV   = 256;
-    const FLAG_PRODUCTION           = 512;
-    const FLAG_STORAGE              = 1024;
-    const FLAG_BONUS                = 2048;
+    const FLAG_BUILD_ON_PLANET  = 1;
+    const FLAG_BUILD_ON_MOON    = 2;
+    const FLAG_RESOURCE_PLANET  = 4;
+    const FLAG_RESOURCE_USER    = 8;
+    const FLAG_ENERGY           = 16;
+    const FLAG_DEBRIS           = 32;
+    const FLAG_TRANSPORT        = 64;
+    const FLAG_STEAL            = 128;
+    const FLAG_TOPNAV           = 256;
+    const FLAG_PRODUCTION       = 512;
+    const FLAG_STORAGE          = 1024;
+    const FLAG_BONUS            = 2048;
+    const FLAG_SPY              = 4096;
+    const FLAG_COLLECT          = 8192;
+    const FLAG_COLONIZE         = 16384;
+    const FLAG_DESTROY          = 32768;
+    const FLAG_SPEC_EXPEDITION  = 65536;
+    const FLAG_ATTACK_MISSILE   = 131072;
+    const FLAG_DEFEND_MISSILE   = 262144;
+    const FLAG_TRADE            = 524288;
+    const FLAG_ON_ECO_OVERVIEW  = 1048576;
 
 
     static function init()
@@ -119,7 +128,7 @@ class Vars
             $data['elements'][$elementId]   = new Element($varsRow, array(
                 $data['list']['flags'][self::FLAG_RESOURCE_PLANET],
                 $data['list']['flags'][self::FLAG_RESOURCE_USER],
-                $data['list']['flags'][self::FLAG_RESOURCE_ENERGY]
+                $data['list']['flags'][self::FLAG_ENERGY]
             ));
 
             if(!isset($data['list']['classes'][$data['elements'][$elementId]->class]))
@@ -164,7 +173,7 @@ class Vars
     {
         if(!is_array($flags))
         {
-            throw new Exception("#2 Argument of Vars::getElements must be an array!");
+            $flags  = array($flags);
         }
 
         $elements   = array();

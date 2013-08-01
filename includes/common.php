@@ -197,7 +197,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 			}
 		}
 		
-		$USER['factor']		= getFactors($USER);
+		$USER['factor']		= PlayerUtil::getFactors($USER);
 		$USER['PLANETS']	= getPlanets($USER);
 	}
 	elseif (MODE === 'ADMIN')

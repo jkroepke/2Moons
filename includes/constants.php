@@ -221,25 +221,6 @@ define('FLEET_OUTWARD'				, 0);
 define('FLEET_RETURN'				, 1);
 define('FLEET_HOLD'					, 2);
 
-// ELEMENT FLAGS
-define('ELEMENT_BUILD'				, 1); # ID 0 - 99
-define('ELEMENT_TECH'				, 2); # ID 101 - 199
-define('ELEMENT_FLEET'				, 4); # ID 201 - 399
-define('ELEMENT_DEFENSIVE'			, 8); # ID 401 - 599
-define('ELEMENT_OFFICIER'			, 16); # ID 601 - 699
-define('ELEMENT_BONUS'				, 32); # ID 701 - 799
-define('ELEMENT_RACE'				, 64); # ID 801 - 899
-define('ELEMENT_PLANET_RESOURCE'   , 128); # ID 901 - 949
-define('ELEMENT_USER_RESOURCE'     , 256); # ID 951 - 999
-
-// .. 512, 1024, 2048, 4096, 8192, 16384, 32768
-
-define('ELEMENT_PRODUCTION'			, 65536);
-define('ELEMENT_STORAGE'			, 131072);
-define('ELEMENT_ONEPERPLANET'		, 262144);
-define('ELEMENT_BOUNS'				, 524288);
-define('ELEMENT_BUILD_ON_PLANET'	, 1048576);
-define('ELEMENT_BUILD_ON_MOONS'		, 2097152);
-define('ELEMENT_RESOURCE_ON_TF'		, 4194304);
-define('ELEMENT_RESOURCE_ON_FLEET'	, 8388608);
-define('ELEMENT_RESOURCE_ON_STEAL'	, 16777216);
+define('PLANET'                     , 1);
+define('DEBRIS'                     , 2);
+define('MOON'                       , 3);

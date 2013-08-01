@@ -61,8 +61,8 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 
 		$LNG			= $this->getLanguage($senderUser['lang']);
 
-		$senderUser['factor']	= getFactors($senderUser, $this->_fleet['fleet_start_time']);
-		$targetUser['factor']	= getFactors($targetUser, $this->_fleet['fleet_start_time']);
+		$senderUser['factor']	= PlayerUtil::getFactors($senderUser, $this->_fleet['fleet_start_time']);
+		$targetUser['factor']	= PlayerUtil::getFactors($targetUser, $this->_fleet['fleet_start_time']);
 
 		$planetUpdater 						= new ResourceUpdate();
 		list($targetUser, $targetPlanet)	= $planetUpdater->CalcResource($targetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
