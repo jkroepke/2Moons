@@ -91,7 +91,7 @@ HTML;
 		));
 		$targetUser['factor']	= PlayerUtil::getFactors($targetUser, $this->_fleet['fleet_start_time']);
 
-		$planetUpdater	= new ResourceUpdate();
+		$planetUpdater	= new Economy();
 		
 		list($targetUser, $targetPlanet)	= $planetUpdater->CalcResource($targetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
 		

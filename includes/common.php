@@ -122,7 +122,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 	}
 
 	require 'includes/classes/class.BuildFunctions.php';
-	require 'includes/classes/class.PlanetRessUpdate.php';
+	require 'includes/classes/Economy.class.php';
 
     require 'includes/classes/Element.class.php';
     require 'includes/classes/Vars.class.php';

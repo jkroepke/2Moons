@@ -97,7 +97,7 @@ class Vars
             $elementData    = $varsRow;
             $elementData['rapidFire']       = array();
             $elementData['requirements']    = array();
-            $data['elements'][$elementId]   = new Element($varsRow);
+            $data['elements'][$elementId]   = new Element($elementData);
 
             if(!isset($data['list']['classes'][$data['elements'][$elementId]->class]))
             {
@@ -117,6 +117,8 @@ class Vars
             }
         }
 
+        self::$data = $data;
+
         $varsResult		= $db->nativeQuery('SELECT * FROM %%VARS%% WHERE class != '.self::CLASS_RESOURCE.';');
         foreach($varsResult as $varsRow)
         {
@@ -125,7 +127,7 @@ class Vars
             $elementData['rapidFire']       = isset($rapidFire[$elementId]) ? $rapidFire[$elementId] : array();
             $elementData['requirements']    = isset($requirements[$elementId]) ? $requirements[$elementId] : array();
 
-            $data['elements'][$elementId]   = new Element($varsRow, array(
+            $data['elements'][$elementId]   = new Element($elementData, array(
                 $data['list']['flags'][self::FLAG_RESOURCE_PLANET],
                 $data['list']['flags'][self::FLAG_RESOURCE_USER],
                 $data['list']['flags'][self::FLAG_ENERGY]
@@ -171,26 +173,33 @@ class Vars
 
     static function getElements($class = NULL, $flags = array())
     {
-        if(!is_array($flags))
+        if(empty($flags))
         {
-            $flags  = array($flags);
+            $elements   = self::$data['list']['classes'][$class];
         }
-
-        $elements   = array();
-
-        foreach($flags as $flag)
+        else
         {
-            if(!isset(self::$data['list']['flags'][$flag]))
+            if(!is_array($flags))
             {
-                throw new Exception("Unknown element flag '$flag'!");
+                $flags  = array($flags);
             }
 
-            $elements   += self::$data['list']['flags'][$flag];
-        }
+            $elements   = array();
 
-        if(!is_null($class) && isset(self::$data['list']['classes'][$class]))
-        {
-            $elements   = array_intersect_key($elements, self::$data['list']['classes'][$class]);
+            foreach($flags as $flag)
+            {
+                if(!isset(self::$data['list']['flags'][$flag]))
+                {
+                    throw new Exception("Unknown element flag '$flag'!");
+                }
+
+                $elements   += self::$data['list']['flags'][$flag];
+            }
+
+            if(!is_null($class) && isset(self::$data['list']['classes'][$class]))
+            {
+                $elements   = array_intersect_key($elements, self::$data['list']['classes'][$class]);
+            }
         }
 
         return $elements;

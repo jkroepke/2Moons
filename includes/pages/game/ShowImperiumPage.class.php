@@ -42,26 +42,31 @@ class ShowImperiumPage extends AbstractGamePage
 
         $db = Database::get();
 
-		if($USER['planet_sort'] == 0) {
-			$Order	= "id ";
-		} elseif($USER['planet_sort'] == 1) {
-			$Order	= "galaxy, system, planet, planet_type ";
-		} elseif ($USER['planet_sort'] == 2) {
-			$Order	= "name ";	
+		switch($USER['planet_sort'])
+        {
+            case 1:
+                $orderBy	= 'galaxy, system, planet, planet_type';
+            break;
+            case 2:
+                $orderBy    = 'name';
+            break;
+            default:
+                $orderBy    = 'id';
+            break;
 		}
-		
-		$Order .= ($USER['planet_sort_order'] == 1) ? "DESC" : "ASC" ;
+
+		$orderBy .= ' '.($USER['planet_sort_order'] == 1) ? 'DESC' : 'ASC';
 
         $sql = "SELECT * FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND destruyed = '0' ORDER BY :order;";
         $PlanetsRAW = $db->select($sql, array(
             ':planetID' => $PLANET['id'],
             ':userID'   => $USER['id'],
-            ':order'    => $Order,
+            ':order'    => $orderBy,
         ));
 
         $PLANETS	= array($PLANET);
 		
-		$PlanetRess	= new ResourceUpdate();
+		$PlanetRess	= new Economy();
 		
 		foreach ($PlanetsRAW as $CPLANET)
 		{
@@ -72,6 +77,13 @@ class ShowImperiumPage extends AbstractGamePage
 		}
 
         $planetList	= array();
+
+        $buildElements          = Vars::getElements(Vars::CLASS_BUILDING);
+        $techElements           = Vars::getElements(Vars::CLASS_TECH);
+        $fleetElements          = Vars::getElements(Vars::CLASS_FLEET);
+        $defenseElements        = Vars::getElements(Vars::CLASS_DEFENSE);
+        $resourcePlanetElements = Vars::getElements(NULL, Vars::FLAG_RESOURCE_PLANET);
+        $energyElements         = Vars::getElements(NULL, Vars::FLAG_ENERGY);
 
 		foreach($PLANETS as $Planet)
 		{
@@ -84,30 +96,36 @@ class ShowImperiumPage extends AbstractGamePage
 			
 			$planetList['field'][$Planet['id']]['current']		= $Planet['field_current'];
 			$planetList['field'][$Planet['id']]['max']			= CalculateMaxPlanetFields($Planet);
-			
-			$planetList['energy_used'][$Planet['id']]			= $Planet['energy'] + $Planet['energy_used'];
 
-           
-			$planetList['resource'][901][$Planet['id']]			= $Planet['metal'];
-			$planetList['resource'][902][$Planet['id']]			= $Planet['crystal'];
-			$planetList['resource'][903][$Planet['id']]			= $Planet['deuterium'];
-			$planetList['resource'][911][$Planet['id']]			= $Planet['energy'];
-			
-			foreach($reslist['build'] as $elementID) {
-				$planetList['build'][$elementID][$Planet['id']]	= $Planet[$resource[$elementID]];
+            foreach($resourcePlanetElements as $elementId => $elementObj)
+            {
+                $planetList['resource'][$elementId][$Planet['id']]	= $Planet[$elementObj->name];
+            }
+
+            foreach($energyElements as $elementId => $elementObj)
+            {
+				$planetList['resource'][$elementId][$Planet['id']]	= $Planet[$elementObj->name] + $Planet[$elementObj->name.'_used'];
+			}
+
+            foreach($buildElements as $elementId => $elementObj)
+            {
+				$planetList['build'][$elementId][$Planet['id']]	    = $Planet[$elementObj->name];
+			}
+
+            foreach($fleetElements as $elementId => $elementObj)
+            {
+				$planetList['fleet'][$elementId][$Planet['id']]	    = $Planet[$elementObj->name];
 			}
 			
-			foreach($reslist['fleet'] as $elementID) {
-				$planetList['fleet'][$elementID][$Planet['id']]	= $Planet[$resource[$elementID]];
-			}
-			
-			foreach($reslist['defense'] as $elementID) {
-				$planetList['defense'][$elementID][$Planet['id']]	= $Planet[$resource[$elementID]];
+			foreach($defenseElements as $elementId => $elementObj)
+            {
+				$planetList['defense'][$elementId][$Planet['id']]	= $Planet[$elementObj->name];
 			}
 		}
 
-		foreach($reslist['tech'] as $elementID){
-			$planetList['tech'][$elementID]	= $USER[$resource[$elementID]];
+        foreach($techElements as $elementId => $elementObj)
+        {
+			$planetList['tech'][$elementId]	= $USER[$elementObj->name];
 		}
 		
 		$this->assign(array(

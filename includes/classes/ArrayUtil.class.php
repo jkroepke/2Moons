@@ -37,7 +37,9 @@ class ArrayUtil
 		{
 			return array();
 		}
-		return array_combine($keys, array_fill(0, count($keys), $var));
+
+        return array_fill_keys($keys, $var);
+        #return array_combine($keys, array_fill(0, count($keys), $var));
 	}
 
 	static public function combineArrayWithKeyElements($keys, $var)
