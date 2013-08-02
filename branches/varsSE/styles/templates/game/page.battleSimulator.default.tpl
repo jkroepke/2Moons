@@ -7,8 +7,8 @@
 			<th>{$LNG.lm_battlesim}</th>
 		</tr>
 		<tr>
-			<td>{$LNG.bs_steal} {$LNG.tech.901}: <input type="text" size="10" value="{if isset($battleinput.0.1.1)}{$battleinput.0.1.1}{else}0{/if}" name="battleinput[0][1][1]"> {$LNG.tech.902}: <input type="text" size="10" value="{if isset($battleinput.0.1.2)}{$battleinput.0.1.2}{else}0{/if}" name="battleinput[0][1][2]"> {$LNG.tech.903}: <input type="text" size="10" value="{if isset($battleinput.0.1.3)}{$battleinput.0.1.3}{else}0{/if}" name="battleinput[0][1][3]"></td>
-		</tr>
+			<td>{$LNG.bs_steal}:{foreach $resourceElements as $elementResourceId} <label for="resource_{$elementResourceId}">{$LNG.tech.$elementResourceId}</label>: <input type="text" id="resource_{$elementResourceId}" size="10" value="{if isset($battleinput.0.1.$elementResourceId)}{$battleinput.0.1.$elementResourceId}{else}0{/if}" name="battleinput[0][1][{$elementResourceId}]">{/foreach}
+    	</tr>
 		<tr>
 			<td class="left"><input type="button" onClick="return add();" value="{$LNG.bs_add_acs_slot}"></td>
 		</tr>
@@ -75,7 +75,7 @@
 									<td style="width:50%" class="transparent">
 										<table>
 											<tr>
-												<th>{$LNG.bs_names}</td>
+												<th>{$LNG.bs_names}</th>
 												<th>{$LNG.bs_atter}</th>
 												<th>{$LNG.bs_deffer}</th>
 											</tr>

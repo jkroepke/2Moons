@@ -164,7 +164,7 @@ class Vars
     }
 
     /**
-     * Get Element
+     * Get Elements by class and flags
      *
      * @return Element[]
      */
@@ -188,7 +188,7 @@ class Vars
             $elements   += self::$data['list']['flags'][$flag];
         }
 
-        if(!is_null($class))
+        if(!is_null($class) && isset(self::$data['list']['classes'][$class]))
         {
             $elements   = array_intersect_key($elements, self::$data['list']['classes'][$class]);
         }

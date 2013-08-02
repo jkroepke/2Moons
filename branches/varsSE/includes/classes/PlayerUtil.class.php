@@ -653,41 +653,48 @@ class PlayerUtil
 		));
 	}
 
-    static function getFactors($USER, $TIME = NULL)
+    static function getFactors($USER, $timestamp = NULL)
     {
-        if(empty($TIME))
+        if(empty($timestamp))
         {
-            $TIME	= TIMESTAMP;
+            $timestamp	= TIMESTAMP;
         }
 
         $bonusList	= BuildFunctions::getBonusList();
-        $factor		= ArrayUtil::combineArrayWithSingleElement($bonusList, 0);
+        $factor		= ArrayUtil::combineArrayWithSingleElement($bonusList, array('percent' => 0,'static' => 0));
 
-        foreach(Vars::getElements(NULL, VARS::FLAG_BONUS) as $elementId => $elementObj)
+        $tempBonusElementIds  = array_keys(Vars::getElements(Vars::CLASS_TEMP_BONUS));
+
+        foreach(Vars::getElements(NULL, Vars::FLAG_BONUS) as $elementId => $elementObj)
         {
-            $bonus = $pricelist[$elemd]['bonus'];
+            $elementName    = $elementObj->name;
+            $elementBonus   = $elementObj->bonus;
 
-            if (isset($PLANET[$resource[$elementId]])) {
-                $elementLevel = $PLANET[$resource[$elementId]];
-            } elseif (isset($USER[$resource[$elementId]])) {
-                $elementLevel = $USER[$resource[$elementId]];
+            if (isset($PLANET[$elementName])) {
+                $elementLevel = $PLANET[$elementName];
+            } elseif (isset($USER[$elementName])) {
+                $elementLevel = $USER[$elementName];
             } else {
                 continue;
             }
 
-            if(in_array($elementIdntID, $reslist['dmfunc'])) {
-                if(DMExtra($elementLevel, $TIME, false, true)) {
+            if(in_array($elementId, $tempBonusElementIds))
+            {
+                if($elementLevel < $timestamp)
+                {
                     continue;
                 }
 
                 foreach($bonusList as $bonusKey)
                 {
-                    $factor[$bonusKey]	+= $bonus[$bonusKey][0];
+                    $factor[$bonusKey][$elementBonus[$bonusKey]['unit']]	+= $elementBonus[$bonusKey]['value'];
                 }
-            } else {
+            }
+            else
+            {
                 foreach($bonusList as $bonusKey)
                 {
-                    $factor[$bonusKey]	+= $elementLevel * $bonus[$bonusKey][0];
+                    $factor[$bonusKey][$elementBonus[$bonusKey]['unit']]	+= $elementLevel * $elementBonus[$bonusKey]['value'];
                 }
             }
         }
