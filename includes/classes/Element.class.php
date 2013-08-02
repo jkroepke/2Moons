@@ -56,45 +56,48 @@ class Element
 
             }
 
-            if($data['resourceCanOnDebris'] == 1)
+            if($data['flagDebris'] == 1)
             {
                 $data['flags'][]  = VARS::FLAG_DEBRIS;
             }
 
-            if($data['resourceCanOnShip'] == 1)
+            if($data['flagTransport'] == 1)
             {
                 $data['flags'][]  = VARS::FLAG_STEAL;
             }
 
-            if($data['resourceCanStealOnAttack'] == 1)
+            if($data['flagSteal'] == 1)
             {
                 $data['flags'][]  = VARS::FLAG_TRANSPORT;
             }
 
-            if($data['resourceIsOnTopNav'] == 1)
+            if($data['flagTopNav'] == 1)
             {
                 $data['flags'][]  = VARS::FLAG_TOPNAV;
             }
         }
         else
         {
-            if($data['elementCanBuildOnPlanet'] == 1)
+            if($data['flagBuildOnPlanet'] == 1)
             {
                 $data['flags'][]  = VARS::FLAG_BUILD_ON_PLANET;
             }
 
-            if($data['elementCanBuildOnMoon'] == 1)
+            if($data['flagBuildOnMoon'] == 1)
             {
                 $data['flags'][]  = VARS::FLAG_BUILD_ON_MOON;
             }
 
             foreach(BuildFunctions::$bonusList as $bonus)
             {
-                if($data["bonus$bonus"] != 0)
-                {
-                    $data['flags'][]  = VARS::FLAG_BONUS;
-                    break;
-                }
+                $data["bonus"][$bonus]['value']  = $data["bonus$bonus"];
+                $data["bonus"][$bonus]['unit']   = $data["bonus{$bonus}Unit"] == 0 ? 'percent' : 'static';
+                unset($data["bonus$bonus"], $data["bonus{$bonus}Unit"]);
+            }
+
+            if(array_filter($data["bonus"]))
+            {
+                $data['flags'][]  = VARS::FLAG_BONUS;
             }
 
             foreach(array_merge($resources[0], $resources[1], $resources[2]) as $elementObj)

@@ -407,14 +407,6 @@ function allowedTo($side)
 	return ($USER['authlevel'] == AUTH_ADM || (isset($USER['rights']) && $USER['rights'][$side] == 1));
 }
 
-function isactiveDMExtra($Extra, $Time) {
-	return $Time - $Extra <= 0;
-}
-
-function DMExtra($Extra, $Time, $true, $false) {
-	return isactiveDMExtra($Extra, $Time) ? $true : $false;
-}
-
 function getRandomString() {
 	return md5(uniqid());
 }
