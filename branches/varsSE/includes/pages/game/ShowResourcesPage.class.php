@@ -84,7 +84,7 @@ class ShowResourcesPage extends AbstractGamePage
 		global $LNG, $USER, $PLANET;
 
 		$config	                = Config::get();
-        $elementResourceList    = Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_ON_ECO_OVERVIEW);
+        $elementResourceList    = Vars::getElements(Vars::CLASS_RESOURCE, array(Vars::FLAG_RESOURCE_PLANET , Vars::FLAG_ENERGY));
         $elementEnergyList      = Vars::getElements(NULL, Vars::FLAG_ENERGY);
         $elementProductionList  = Vars::getElements(NULL, Vars::FLAG_PRODUCTION);
 
@@ -116,14 +116,14 @@ class ShowResourcesPage extends AbstractGamePage
             if(in_array($elementId, array_keys($elementEnergyList)))
             {
                 $basicProduction[$elementId]    *= $config->energySpeed;
-                $totalProduction[$elementId]    = $PLANET[$elementObj->name.'_perhour'] + $basicProduction[$elementId];
+                $totalProduction[$elementId]    = $PLANET[$elementObj->name] + $basicProduction[$elementId] + $PLANET[$elementObj->name.'_used'];
                 $dailyProduction[$elementId]    = $totalProduction[$elementId] * 24;
                 $weeklyProduction[$elementId]   = $totalProduction[$elementId] * 168;
             }
             else
             {
                 $basicProduction[$elementId]    *= $config->resource_multiplier;
-                $totalProduction[$elementId]    = $PLANET[$elementObj->name] + $basicProduction[$elementId] + $PLANET[$elementObj->name.'_used'];
+                $totalProduction[$elementId]    = $PLANET[$elementObj->name.'_perhour'] + $basicProduction[$elementId];
                 $dailyProduction[$elementId]    = $totalProduction[$elementId];
                 $weeklyProduction[$elementId]   = $totalProduction[$elementId];
             }
@@ -160,24 +160,26 @@ class ShowResourcesPage extends AbstractGamePage
 			{
 				if(!isset($elementProductionObj->calcProduction[$elementResourceId])) continue;
 
-				$productionAmount = eval(ResourceUpdate::getProd($elementProductionObj->calcProduction[$elementResourceId]));
+				$productionAmount = eval(Economy::getProd($elementProductionObj->calcProduction[$elementResourceId]));
 
                 if(in_array($elementResourceId, array_keys($elementEnergyList)))
 				{
                     $productionAmount *= $config->energySpeed;
-                    if($productionAmount > 0 && $PLANET[$elementResourceObj->name] == 0)
-                    {
-                        $bonusProduction[$elementProductionId]  = $productionAmount * $USER['factor']['Resource'];
-                    }
 				}
 				else
 				{
                     $productionAmount *= $prodLevel * $config->resource_multiplier;
-                    if($productionAmount > 0 && $PLANET[$elementResourceObj->name] == 0)
-                    {
-                        $bonusProduction[$elementProductionId]  = $productionAmount * $USER['factor']['Energy'];
-                    }
 				}
+
+                if($productionAmount > 0 && $PLANET[$elementResourceObj->name] == 0)
+                {
+                    $bonus  = $productionAmount;
+                    $bonus  *= (1 + $USER['factor']['Resource']['percent'] + $USER['factor']['Resource'.$elementResourceId]['percent']);
+                    $bonus  += $USER['factor']['Resource']['static'];
+                    $bonus  += $USER['factor']['Resource'.$elementResourceId]['static'];
+
+                    $bonusProduction[$elementProductionId]  += $bonus;
+                }
 
 				$productionList[$elementProductionId]['production'][$elementResourceId]	= $productionAmount;
 			}

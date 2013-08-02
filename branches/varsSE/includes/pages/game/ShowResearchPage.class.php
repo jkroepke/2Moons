@@ -343,7 +343,7 @@ class ShowResearchPage extends AbstractGamePage
 		$elementId     	= HTTP::_GP('tech', 0);
 		$ListID     	= HTTP::_GP('listid', 0);
 		
-		$PLANET[$resource[31].'_inter']	= ResourceUpdate::getNetworkLevel($USER, $PLANET);	
+		$PLANET[$resource[31].'_inter']	= Economy::getNetworkLevel($USER, $PLANET);
 
 		if(!empty($TheCommand) && $_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
 		{

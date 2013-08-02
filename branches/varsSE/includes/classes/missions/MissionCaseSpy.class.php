@@ -64,7 +64,7 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 		$senderUser['factor']	= PlayerUtil::getFactors($senderUser, $this->_fleet['fleet_start_time']);
 		$targetUser['factor']	= PlayerUtil::getFactors($targetUser, $this->_fleet['fleet_start_time']);
 
-		$planetUpdater 						= new ResourceUpdate();
+		$planetUpdater 						= new Economy();
 		list($targetUser, $targetPlanet)	= $planetUpdater->CalcResource($targetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
 
 		$sql	= 'SELECT * FROM %%FLEETS%% WHERE fleet_end_id = :planetId AND fleet_mission = 5 AND fleet_end_stay > :time;';

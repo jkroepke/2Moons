@@ -29,29 +29,38 @@
 class BuildFunctions
 {
 	
-	public static $bonusList	= array(
-		'Attack',
-		'Defensive',
-		'Shield',
-		'BuildTime',
-		'ResearchTime',
-		'ShipTime',
-		'DefensiveTime',
-		'Resource',
-		'Energy',
-		'ResourceStorage',
-		'ShipStorage',
-		'FlyTime',
-		'FleetSlots',
-		'Planets',
-		'SpyPower',
-		'Expedition',
-		'GateCoolTime',
-		'MoreFound',
-	);
+	public static $bonusList = NULL;
 
 	public static function getBonusList()
 	{
+        if(is_null(self::$bonusList))
+        {
+            self::$bonusList = array(
+                'Attack',
+                'Defensive',
+                'Shield',
+                'BuildTime',
+                'ResearchTime',
+                'ShipTime',
+                'DefensiveTime',
+                'Resource',
+                'ResourceStorage',
+                'ShipStorage',
+                'FlyTime',
+                'FleetSlots',
+                'Planets',
+                'SpyPower',
+                'Expedition',
+                'GateCoolTime',
+                'MoreFound',
+            );
+
+            foreach(array_keys(Vars::getElements(Vars::CLASS_RESOURCE, array(Vars::FLAG_RESOURCE_PLANET, Vars::FLAG_ENERGY))) as $elementId)
+            {
+                self::$bonusList[]  = 'Resource'.$elementId;
+            }
+
+        }
 		return self::$bonusList;
 	}
 	

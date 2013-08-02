@@ -251,7 +251,7 @@ class ShowInformationPage extends AbstractGamePage
 					if(!isset($ProdGrid[$elementID]['production'][$ID]))
 						continue;
 						
-					$Production	= eval(ResourceUpdate::getProd($ProdGrid[$elementID]['production'][$ID]));
+					$Production	= eval(Economy::getProd($ProdGrid[$elementID]['production'][$ID]));
 					
 					if(in_array($ID, $reslist['resstype'][2]))
 					{
@@ -280,7 +280,7 @@ class ShowInformationPage extends AbstractGamePage
 					if(!isset($ProdGrid[$elementID]['storage'][$ID]))
 						continue;
 						
-					$production = round(eval(ResourceUpdate::getProd($ProdGrid[$elementID]['storage'][$ID])));
+					$production = round(eval(Economy::getProd($ProdGrid[$elementID]['storage'][$ID])));
 					$production *= Config::get()->resource_multiplier;
 					$production *= STORAGE_FACTOR;
 

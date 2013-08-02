@@ -88,7 +88,52 @@ class Element
                 $data['flags'][]  = VARS::FLAG_BUILD_ON_MOON;
             }
 
-            foreach(BuildFunctions::$bonusList as $bonus)
+            if($data['flagAttackMissile'] == 1)
+            {
+                $data['flags'][]  = VARS::FLAG_ATTACK_MISSILE;
+            }
+
+            if($data['flagDefendMissile'] == 1)
+            {
+                $data['flags'][]  = VARS::FLAG_DEFEND_MISSILE;
+            }
+
+            if($data['flagSpy'] == 1)
+            {
+                $data['flags'][]  = VARS::FLAG_SPY;
+            }
+
+            if($data['flagCollect'] == 1)
+            {
+                $data['flags'][]  = VARS::FLAG_COLLECT;
+            }
+
+            if($data['flagColonize'] == 1)
+            {
+                $data['flags'][]  = VARS::FLAG_COLONIZE;
+            }
+
+            if($data['flagDestroy'] == 1)
+            {
+                $data['flags'][]  = VARS::FLAG_DESTROY;
+            }
+
+            if($data['flagSpecExpedition'] == 1)
+            {
+                $data['flags'][]  = VARS::FLAG_SPEC_EXPEDITION;
+            }
+
+            if($data['flagTrade'] == 1)
+            {
+                $data['flags'][]  = VARS::FLAG_TRADE;
+            }
+
+            if($data['flagOnEcoOverview'] == 1)
+            {
+                $data['flags'][]  = VARS::FLAG_ON_ECO_OVERVIEW;
+            }
+
+            foreach(BuildFunctions::getBonusList() as $bonus)
             {
                 $data["bonus"][$bonus]['value']  = $data["bonus$bonus"];
                 $data["bonus"][$bonus]['unit']   = $data["bonus{$bonus}Unit"] == 0 ? 'percent' : 'static';

@@ -36,7 +36,7 @@ abstract class AbstractGamePage
 
 	/**
 	 * reference of the template object
-	 * @var ResourceUpdate
+	 * @var Economy
 	 */
 	protected $ecoObj;
 	protected $window;
@@ -49,7 +49,7 @@ abstract class AbstractGamePage
 			$this->setWindow('full');
 			if(!$this->disableEcoSystem)
 			{
-				$this->ecoObj	= new ResourceUpdate();
+				$this->ecoObj	= new Economy();
 				$this->ecoObj->CalcResource();
 			}
 			$this->initTemplate();

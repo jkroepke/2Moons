@@ -51,30 +51,43 @@ class ShowRecordsPage extends AbstractGamePage
 			':universe'	=> Universe::current()
 		));
 
-		$defenseList	= array_fill_keys($reslist['defense'], array());
-		$fleetList		= array_fill_keys($reslist['fleet'], array());
-		$researchList	= array_fill_keys($reslist['tech'], array());
-		$buildList		= array_fill_keys($reslist['build'], array());
+        $buildingElementIds = array_keys(Vars::getElements(Vars::CLASS_BUILDING));
+        $techElementIds     = array_keys(Vars::getElements(Vars::CLASS_TECH));
+        $fleetElementIds    = array_keys(Vars::getElements(Vars::CLASS_FLEET));
+        $defenseElementIds  = array_keys(Vars::getElements(Vars::CLASS_DEFENSE));
+
+		$buildList	        = ArrayUtil::combineArrayWithSingleElement($buildingElementIds, array());
+		$techList	        = ArrayUtil::combineArrayWithSingleElement($techElementIds, array());
+		$fleetList		    = ArrayUtil::combineArrayWithSingleElement($fleetElementIds, array());
+		$defenseList        = ArrayUtil::combineArrayWithSingleElement($defenseElementIds, array());
 		
-		foreach($recordResult as $recordRow) {
-			if (in_array($recordRow['elementID'], $reslist['defense'])) {
-				$defenseList[$recordRow['elementID']][]		= $recordRow;
-			} elseif (in_array($recordRow['elementID'], $reslist['fleet'])) {
-				$fleetList[$recordRow['elementID']][]		= $recordRow;
-			} elseif (in_array($recordRow['elementID'], $reslist['tech'])) {
-				$researchList[$recordRow['elementID']][]	= $recordRow;
-			} elseif (in_array($recordRow['elementID'], $reslist['build'])) {
-				$buildList[$recordRow['elementID']][]		= $recordRow;
+		foreach($recordResult as $recordRow)
+        {
+			if (in_array($recordRow['elementID'], $buildingElementIds))
+            {
+                $buildList[$recordRow['elementID']][]   = $recordRow;
+			}
+            elseif (in_array($recordRow['elementID'], $techElementIds))
+            {
+                $techList[$recordRow['elementID']][]    = $recordRow;
+            }
+            elseif (in_array($recordRow['elementID'], $fleetElementIds))
+            {
+				$fleetList[$recordRow['elementID']][]   = $recordRow;
+			}
+            elseif (in_array($recordRow['elementID'], $defenseElementIds))
+            {
+                $defenseList[$recordRow['elementID']][] = $recordRow;
 			}
 		}
 
 		require_once 'includes/classes/Cronjob.class.php';
 		
 		$this->assign(array(
+            'buildList'		=> $buildList,
+            'researchList'	=> $techList,
+            'fleetList'		=> $fleetList,
 			'defenseList'	=> $defenseList,
-			'fleetList'		=> $fleetList,
-			'researchList'	=> $researchList,
-			'buildList'		=> $buildList,
 			'update'		=> _date($LNG['php_tdformat'], Cronjob::getLastExecutionTime('statistic'), $USER['timezone']),
 		));
 		
