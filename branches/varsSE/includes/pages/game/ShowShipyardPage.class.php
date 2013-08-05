@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.8.0 (2013-03-18)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -63,7 +63,7 @@ class ShowShipyardPage extends AbstractGamePage
 			$Element		= $ElementQueue[$Auftr][0];
 			$Count			= $ElementQueue[$Auftr][1];
 			
-			$costResources	= BuildFunctions::getElementPrice($USER, $PLANET, $Element, false, $Count);
+			$costResources	= BuildUtils::getElementPrice($USER, $PLANET, $Element, false, $Count);
 		
 			if(isset($costResources[901])) { $PLANET[$resource[901]]	+= $costResources[901] * FACTOR_CANCEL_SHIPYARD; }
 			if(isset($costResources[902])) { $PLANET[$resource[902]]	+= $costResources[902] * FACTOR_CANCEL_SHIPYARD; }
@@ -95,12 +95,12 @@ class ShowShipyardPage extends AbstractGamePage
 		{
 			if(empty($Count)
 				|| !in_array($Element, array_merge($reslist['fleet'], $reslist['defense'], $reslist['missile']))
-				|| !BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element)
+				|| !BuildUtils::requirementsAvailable($USER, $PLANET, $Element)
 			) {
 				continue;
 			}
 			
-			$MaxElements 	= BuildFunctions::getMaxConstructibleElements($USER, $PLANET, $Element);
+			$MaxElements 	= BuildUtils::getMaxConstructibleElements($USER, $PLANET, $Element);
 			$Count			= is_numeric($Count) ? round($Count) : 0;
 			$Count 			= max(min($Count, Config::get()->max_fleet_per_build), 0);
 			$Count 			= min($Count, $MaxElements);
@@ -108,7 +108,7 @@ class ShowShipyardPage extends AbstractGamePage
 			$BuildArray    	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
 			if (in_array($Element, $reslist['missile']))
 			{
-				$MaxMissiles		= BuildFunctions::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
+				$MaxMissiles		= BuildUtils::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
 				$Count 				= min($Count, $MaxMissiles[$Element]);
 
 				$Missiles[$Element] += $Count;
@@ -131,7 +131,7 @@ class ShowShipyardPage extends AbstractGamePage
 			if(empty($Count))
 				continue;
 				
-			$costResources	= BuildFunctions::getElementPrice($USER, $PLANET, $Element, false, $Count);
+			$costResources	= BuildUtils::getElementPrice($USER, $PLANET, $Element, false, $Count);
 		
 			if(isset($costResources[901])) { $PLANET[$resource[901]]	-= $costResources[901]; }
 			if(isset($costResources[902])) { $PLANET[$resource[902]]	-= $costResources[902]; }
@@ -209,7 +209,7 @@ class ShowShipyardPage extends AbstractGamePage
 					continue;
 					
 				$elementInQueue[$Element[0]]	= true;
-				$ElementTime  	= BuildFunctions::getBuildingTime($USER, $PLANET, $Element[0]);
+				$ElementTime  	= BuildUtils::getBuildingTime($USER, $PLANET, $Element[0]);
 				$QueueTime   	+= $ElementTime * $Element[1];
 				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime, $Element[0]);		
 			}
@@ -237,18 +237,18 @@ class ShowShipyardPage extends AbstractGamePage
 			$Missiles[$elementID]	= $PLANET[$resource[$elementID]];
 		}
 		
-		$MaxMissiles	= BuildFunctions::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
+		$MaxMissiles	= BuildUtils::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
 		
 		foreach($elementIDs as $Element)
 		{
-			if(!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element))
+			if(!BuildUtils::requirementsAvailable($USER, $PLANET, $Element))
 				continue;
 			
-			$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
-			$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costResources);
-			$elementTime    	= BuildFunctions::getBuildingTime($USER, $PLANET, $Element, $costResources);
-			$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costResources);
-			$maxBuildable		= BuildFunctions::getMaxConstructibleElements($USER, $PLANET, $Element, $costResources);
+			$costResources		= BuildUtils::getElementPrice($USER, $PLANET, $Element);
+			$costOverflow		= BuildUtils::getRestPrice($USER, $PLANET, $Element, $costResources);
+			$elementTime    	= BuildUtils::getBuildingTime($USER, $PLANET, $Element, $costResources);
+			$buyable			= BuildUtils::isElementBuyable($USER, $PLANET, $Element, $costResources);
+			$maxBuildable		= BuildUtils::getMaxConstructibleElements($USER, $PLANET, $Element, $costResources);
 
 			if(isset($MaxMissiles[$Element])) {
 				$maxBuildable	= min($maxBuildable, $MaxMissiles[$Element]);

@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.8.0 (2013-03-18)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -358,7 +358,7 @@ HTML;
 					'fleet_resource_deuterium'	=> 0
 				);
 
-				$bonusList	= BuildFunctions::getBonusList();
+				$bonusList	= BuildUtils::getBonusList();
 
 				$fleetDefend[0]['player']	= $targetData;
 				$fleetDefend[0]['player']['factor']	= ArrayUtil::combineArrayWithSingleElement($bonusList, 0);
