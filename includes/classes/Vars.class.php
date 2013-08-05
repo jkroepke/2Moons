@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.8.0 (2013-03-18)
  * @info $Id: Universe.class.php 2768 2013-07-24 17:20:01Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -39,28 +39,30 @@ class Vars
     const CLASS_TEMP_BONUS  = 700;
     const CLASS_RACE        = 800;
     const CLASS_RESOURCE    = 900;
+    const CLASS_QUEUE       = 1000;
 
-    const FLAG_BUILD_ON_PLANET  = 1;
-    const FLAG_BUILD_ON_MOON    = 2;
-    const FLAG_RESOURCE_PLANET  = 4;
-    const FLAG_RESOURCE_USER    = 8;
-    const FLAG_ENERGY           = 16;
-    const FLAG_DEBRIS           = 32;
-    const FLAG_TRANSPORT        = 64;
-    const FLAG_STEAL            = 128;
-    const FLAG_TOPNAV           = 256;
-    const FLAG_PRODUCTION       = 512;
-    const FLAG_STORAGE          = 1024;
-    const FLAG_BONUS            = 2048;
-    const FLAG_SPY              = 4096;
-    const FLAG_COLLECT          = 8192;
-    const FLAG_COLONIZE         = 16384;
-    const FLAG_DESTROY          = 32768;
-    const FLAG_SPEC_EXPEDITION  = 65536;
-    const FLAG_ATTACK_MISSILE   = 131072;
-    const FLAG_DEFEND_MISSILE   = 262144;
-    const FLAG_TRADE            = 524288;
-    const FLAG_ON_ECO_OVERVIEW  = 1048576;
+    const FLAG_BUILD_ON_PLANET      = 1;
+    const FLAG_BUILD_ON_MOON        = 2;
+    const FLAG_RESOURCE_PLANET      = 4;
+    const FLAG_RESOURCE_USER        = 8;
+    const FLAG_ENERGY               = 16;
+    const FLAG_DEBRIS               = 32;
+    const FLAG_TRANSPORT            = 64;
+    const FLAG_STEAL                = 128;
+    const FLAG_TOPNAV               = 256;
+    const FLAG_PRODUCTION           = 512;
+    const FLAG_STORAGE              = 1024;
+    const FLAG_BONUS                = 2048;
+    const FLAG_SPY                  = 4096;
+    const FLAG_COLLECT              = 8192;
+    const FLAG_COLONIZE             = 16384;
+    const FLAG_DESTROY              = 32768;
+    const FLAG_SPEC_EXPEDITION      = 65536;
+    const FLAG_ATTACK_MISSILE       = 131072;
+    const FLAG_DEFEND_MISSILE       = 262144;
+    const FLAG_TRADE                = 524288;
+    const FLAG_ON_ECO_OVERVIEW      = 1048576;
+    const FLAG_CALCULATE_BUILD_TIME = 2097152;
 
 
     static function init()
@@ -119,7 +121,7 @@ class Vars
 
         self::$data = $data;
 
-        $varsResult		= $db->nativeQuery('SELECT * FROM %%VARS%% WHERE class != '.self::CLASS_RESOURCE.';');
+        $varsResult		= $db->nativeQuery('SELECT * FROM %%VARS%% WHERE class NOT IN ('.self::CLASS_RESOURCE.', '.self::CLASS_QUEUE.');');
         foreach($varsResult as $varsRow)
         {
             $elementId      = $varsRow['elementID'];
@@ -139,6 +141,14 @@ class Vars
             }
 
             $data['list']['classes'][$data['elements'][$elementId]->class][$elementId] =& $data['elements'][$elementId];
+            if(!is_null($data['elements'][$elementId]->queueId))
+            {
+                if(!isset($data['list']['queue'][$data['elements'][$elementId]->queueId]))
+                {
+                    $data['list']['queue'][$data['elements'][$elementId]->queueId] = array();
+                }
+                $data['list']['queue'][$data['elements'][$elementId]->queueId][$elementId] =& $data['elements'][$elementId];
+            }
 
             foreach($data['elements'][$elementId]->flags as $flag)
             {
@@ -149,6 +159,32 @@ class Vars
 
                 $data['list']['flags'][$flag][$elementId] =& $data['elements'][$elementId];
             }
+        }
+
+        self::$data = $data;
+
+        // queue coming as last.
+        $varsResult		= $db->nativeQuery('SELECT * FROM %%VARS%% WHERE class = '.self::CLASS_QUEUE.';');
+        foreach($varsResult as $varsRow)
+        {
+            $elementId      = $varsRow['elementID'];
+            $elementData    = $varsRow;
+            $elementData['rapidFire']       = array();
+            $elementData['requirements']    = array();
+
+            if(!isset($data['list']['queue'][$elementId]))
+            {
+                $data['list']['queue'][$elementId] = array();
+            }
+            self::$data = $data;
+            $data['elements'][$elementId]   = new Element($elementData);
+
+            if(!isset($data['list']['classes'][$data['elements'][$elementId]->class]))
+            {
+                $data['list']['classes'][$data['elements'][$elementId]->class] = array();
+            }
+
+            $data['list']['classes'][$data['elements'][$elementId]->class][$elementId] =& $data['elements'][$elementId];
         }
 
         return $data;
@@ -203,5 +239,28 @@ class Vars
         }
 
         return $elements;
+    }
+
+    /**
+     * Get Elements by class and flags
+     *
+     * @return Element[]
+     */
+
+    static function getElementsByQueue($queueId, $class = NULL)
+    {
+        if(empty($class))
+        {
+            return self::$data['list']['queue'][$queueId];
+        }
+        else
+        {
+            return array_intersect_key(self::$data['list']['queue'][$queueId], self::$data['list']['classes'][$class]);
+        }
+    }
+
+    static function elementHasFlag(Element $elementObj, $flag)
+    {
+        return in_array($flag, $elementObj->flags);
     }
 }

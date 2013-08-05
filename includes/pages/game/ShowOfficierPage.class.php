@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.8.0 (2013-03-18)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -40,9 +40,9 @@ class ShowOfficierPage extends AbstractGamePage
 	{
 		global $PLANET, $USER;
 		
-		$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+		$costResources		= BuildUtils::getElementPrice($USER, $PLANET, $Element);
 			
-		if (!BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costResources)) {
+		if (!BuildUtils::isElementBuyable($USER, $PLANET, $Element, $costResources)) {
 			return;
 		}
 			
@@ -68,10 +68,10 @@ class ShowOfficierPage extends AbstractGamePage
 	{
 		global $USER, $PLANET;
 		
-		$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
+		$costResources		= BuildUtils::getElementPrice($USER, $PLANET, $Element);
 			
-		if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element) 
-			|| !BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costResources) 
+		if (!BuildUtils::requirementsAvailable($USER, $PLANET, $Element)
+			|| !BuildUtils::isElementBuyable($USER, $PLANET, $Element, $costResources)
 			|| $pricelist[$Element]['max'] <= $USER[$resource[$Element]]) {
 			return;
 		}
@@ -120,10 +120,10 @@ class ShowOfficierPage extends AbstractGamePage
 					$this->tplObj->execscript("GetOfficerTime(".$Element.", ".($USER[$resource[$Element]] - TIMESTAMP).");");
 				}
 			
-				$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
-				$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costResources);
-				$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costResources);
-				$elementBonus		= BuildFunctions::getAvalibleBonus($Element);
+				$costResources		= BuildUtils::getElementPrice($USER, $PLANET, $Element);
+				$buyable			= BuildUtils::isElementBuyable($USER, $PLANET, $Element, $costResources);
+				$costOverflow		= BuildUtils::getRestPrice($USER, $PLANET, $Element, $costResources);
+				$elementBonus		= BuildUtils::getAvalibleBonus($Element);
 
 				$darkmatterList[$Element]	= array(
 					'timeLeft'			=> max($USER[$resource[$Element]] - TIMESTAMP, 0),
@@ -140,13 +140,13 @@ class ShowOfficierPage extends AbstractGamePage
 		{
 			foreach($reslist['officier'] as $Element)
 			{
-				if (!BuildFunctions::isTechnologieAccessible($USER, $PLANET, $Element))
+				if (!BuildUtils::requirementsAvailable($USER, $PLANET, $Element))
 					continue;
 					
-				$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element);
-				$buyable			= BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costResources);
-				$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costResources);
-				$elementBonus		= BuildFunctions::getAvalibleBonus($Element);
+				$costResources		= BuildUtils::getElementPrice($USER, $PLANET, $Element);
+				$buyable			= BuildUtils::isElementBuyable($USER, $PLANET, $Element, $costResources);
+				$costOverflow		= BuildUtils::getRestPrice($USER, $PLANET, $Element, $costResources);
+				$elementBonus		= BuildUtils::getAvalibleBonus($Element);
 				
 				$officierList[$Element]	= array(
 					'level'				=> $USER[$resource[$Element]],

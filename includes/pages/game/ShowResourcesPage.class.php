@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.8.0 (2013-03-18)
  * @info $elementResourceId: ShowResourcesPage.class.php 2746 2013-05-18 11:38:36Z slaver7 $
  * @link http://2moons.cc/
  */
@@ -173,12 +173,7 @@ class ShowResourcesPage extends AbstractGamePage
 
                 if($productionAmount > 0 && $PLANET[$elementResourceObj->name] == 0)
                 {
-                    $bonus  = $productionAmount;
-                    $bonus  *= (1 + $USER['factor']['Resource']['percent'] + $USER['factor']['Resource'.$elementResourceId]['percent']);
-                    $bonus  += $USER['factor']['Resource']['static'];
-                    $bonus  += $USER['factor']['Resource'.$elementResourceId]['static'];
-
-                    $bonusProduction[$elementProductionId]  += $bonus;
+                    $bonusProduction[$elementProductionId]  += PlayerUtil::getBonusValue($productionAmount, array('Resource', 'Resource'.$elementResourceId), $USER);
                 }
 
 				$productionList[$elementProductionId]['production'][$elementResourceId]	= $productionAmount;

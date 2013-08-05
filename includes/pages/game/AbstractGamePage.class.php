@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.8.0 (2013-03-18)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -125,28 +125,35 @@ abstract class AbstractGamePage
 		{
             $elementName                                = $elementObj->name;
 			$resourceTable[$elementId]['name']			= $elementName;
-			$resourceTable[$elementId]['current']		= $PLANET[$elementName];
-
-            if(isset($PLANET[$elementName.'_max']))
+            if(Vars::elementHasFlag($elementObj, Vars::FLAG_RESOURCE_USER))
             {
-			    $resourceTable[$elementId]['max']			= $PLANET[$elementName.'_max'];
-            }
-
-            if(isset($PLANET[$elementName.'_used']))
-            {
-                // It's an energy
-                $resourceTable[$elementId]['used']			= $PLANET[$elementName.'_used'];
-                $resourceTable[$elementId]['max']			= $PLANET[$elementName];
+                $resourceTable[$elementId]['current']		= $USER[$elementName];
             }
             else
             {
-                if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
+                $resourceTable[$elementId]['current']		= $PLANET[$elementName];
+
+                if(isset($PLANET[$elementName.'_max']))
                 {
-                    $resourceTable[$elementId]['production']	= $PLANET[$elementName.'_perhour'];
+                    $resourceTable[$elementId]['max']			= $PLANET[$elementName.'_max'];
+                }
+
+                if(isset($PLANET[$elementName.'_used']))
+                {
+                    // It's an energy
+                    $resourceTable[$elementId]['used']			= $PLANET[$elementName.'_used'];
+                    $resourceTable[$elementId]['max']			= $PLANET[$elementName];
                 }
                 else
                 {
-                    $resourceTable[$elementId]['production']	= $PLANET[$elementName.'_perhour'] + $config->{$elementName.'_basic_income'} * $resourceSpeed;
+                    if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
+                    {
+                        $resourceTable[$elementId]['production']	= $PLANET[$elementName.'_perhour'];
+                    }
+                    else
+                    {
+                        $resourceTable[$elementId]['production']	= $PLANET[$elementName.'_perhour'] + $config->{$elementName.'_basic_income'} * $resourceSpeed;
+                    }
                 }
             }
 		}

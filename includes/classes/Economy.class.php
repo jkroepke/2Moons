@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.8.0 (2013-03-18)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -44,6 +44,12 @@ class Economy
 	private $USER			= array();
 	private $Builded		= array();
 
+    /**
+     * reference of the config object
+     * @var QueueManager
+     */
+    private $queueObj;
+
 	function __construct($Build = true, $Tech = true)
 	{
 		$this->Build	= $Build;
@@ -59,6 +65,11 @@ class Economy
 	public function getData()
 	{
 		return array($this->USER, $this->PLANET);
+	}
+
+	public function getQueueObj()
+	{
+		return $this->queueObj;
 	}
 	
 	public function ReturnVars() {
@@ -120,10 +131,12 @@ class Economy
 		$this->PLANET		= $this->isGlobalMode ? $GLOBALS['PLANET'] : $PLANET;
 		$this->TIME			= is_null($TIME) ? TIMESTAMP : $TIME;
 		$this->config		= Config::get($this->USER['universe']);
-		
+
 		if($this->USER['urlaubs_modus'] == 1)
 			return $this->ReturnVars();
-			
+
+        $this->queueObj		= new QueueManager($this->USER['id'], $this->PLANET['id']);
+
 		if($this->Build)
 		{
 			$this->ShipyardQueue();
@@ -157,13 +170,14 @@ class Economy
 					$this->ReBuildCache();
 				}
 			}
+
 			$this->ExecCalc();
 		}
 	}
 
     private function ExecCalc()
     {
-        if($this->PLANET['planet_type'] !== PLANET) return;
+        if($this->PLANET['planet_type'] != PLANET) return;
 
         $resourcePlanetElements = Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_RESOURCE_PLANET);
 
@@ -173,7 +187,6 @@ class Economy
             $storage        = $this->PLANET[$elementName.'_max'] * $this->config->max_overflow;
 
             $theoretical    = $this->ProductionTime * ($this->config->{$elementName.'_basic_income'} * $this->config->resource_multiplier + $this->PLANET[$elementName.'_perhour']) / 3600;
-
             $this->PLANET[$elementName] = max(min($this->PLANET[$elementName] + $theoretical, $storage), 0);
         }
     }
@@ -181,29 +194,6 @@ class Economy
 	public static function getProd($Calculation)
 	{
 		return 'return '.$Calculation.';';
-	}
-	
-	public static function getNetworkLevel($USER, $PLANET)
-	{
-		global $resource;
-
-		$researchLevelList	= array($PLANET[$resource[31]]);
-		if($USER[$resource[123]] > 0)
-		{
-			$sql = 'SELECT '.$resource[31].' FROM %%PLANETS%% WHERE id != :planetId AND id_owner = :userId AND destruyed = 0 ORDER BY '.$resource[31].' DESC LIMIT :limit;';
-			$researchResult = Database::get()->select($sql, array(
-				':limit'	=> (int) $USER[$resource[123]],
-				':planetId'	=> $PLANET['id'],
-				':userId'	=> $USER['id']
-			));
-
-			foreach($researchResult as $researchRow)
-			{
-				$researchLevelList[]	= $researchRow[$resource[31]];
-			}
-		}
-		
-		return $researchLevelList;
 	}
 	
 	public function ReBuildCache()
@@ -271,8 +261,7 @@ class Economy
         foreach($elementResourcePlanetList as $elementId => $elementObj)
         {
             $storage    = $temp[$elementId]['max'];
-            $storage    *= 1 + $this->USER['factor']['ResourceStorage']['percent'];
-            $storage    += $this->USER['factor']['ResourceStorage']['static'];
+            $storage    += PlayerUtil::getBonusValue($storage, 'ResourceStorage', $this->USER);
             $storage    *= $this->config->resource_multiplier * STORAGE_FACTOR;
 
             $this->PLANET[$elementObj->name.'_max'] = $storage;
@@ -281,9 +270,7 @@ class Economy
         foreach($elementEnergyList as $elementId => $elementObj)
         {
             $prodHour   = $temp[$elementId]['plus'];
-            $prodHour   *= 1 + $this->USER['factor']['Resource']['percent'] + $this->USER['factor']['Resource'.$elementId]['percent'];
-            $prodHour   += $this->USER['factor']['Resource']['static'];
-            $prodHour   += $this->USER['factor']['Resource'.$elementId]['static'];
+            $prodHour   += PlayerUtil::getBonusValue($prodHour, array('Resource', 'Resource'.$elementId), $this->USER);
             $prodHour   *= $this->config->energySpeed;
 
 		    $this->PLANET[$elementObj->name]	    	= round($prodHour);
@@ -330,7 +317,7 @@ class Economy
         $BuildArray					= array();
 		foreach($BuildQueue as $Item)
 		{
-			$AcumTime			= BuildFunctions::getBuildingTime($this->USER, $this->PLANET, $Item[0]);
+			$AcumTime			= BuildUtils::getBuildingTime($this->USER, $this->PLANET, $Item[0]);
 			$BuildArray[] 		= array($Item[0], $Item[1], $AcumTime);
 		}
 
@@ -455,9 +442,9 @@ class Economy
 			$Level				= $ListIDArray[1];
 			$BuildMode			= $ListIDArray[4];
 			$ForDestroy			= ($BuildMode == 'destroy') ? true : false;
-			$costResources		= BuildFunctions::getElementPrice($this->USER, $this->PLANET, $Element, $ForDestroy);
-			$BuildTime			= BuildFunctions::getBuildingTime($this->USER, $this->PLANET, $Element, $costResources);
-			$HaveResources		= BuildFunctions::isElementBuyable($this->USER, $this->PLANET, $Element, $costResources);
+			$costResources		= BuildUtils::getElementPrice($this->USER, $this->PLANET, $Element, $ForDestroy);
+			$BuildTime			= BuildUtils::getBuildingTime($this->USER, $this->PLANET, $Element, $costResources);
+			$HaveResources		= BuildUtils::isElementBuyable($this->USER, $this->PLANET, $Element, $costResources);
 			$BuildEndTime		= $this->PLANET['b_building'] + $BuildTime;
 			$CurrentQueue[0]	= array($Element, $Level, $BuildTime, $BuildEndTime, $BuildMode);
 			$HaveNoMoreLevel	= false;
@@ -501,7 +488,7 @@ class Economy
 					$NewQueue			= array();
 					foreach($CurrentQueue as $ListIDArray)
 					{
-						$ListIDArray[2]		= BuildFunctions::getBuildingTime($this->USER, $this->PLANET, $ListIDArray[0], NULL, $ListIDArray[4] == 'destroy');
+						$ListIDArray[2]		= BuildUtils::getBuildingTime($this->USER, $this->PLANET, $ListIDArray[0], NULL, $ListIDArray[4] == 'destroy');
 						$BaseTime			+= $ListIDArray[2];
 						$ListIDArray[3]		= $BaseTime;
 						$NewQueue[]			= $ListIDArray;
@@ -586,13 +573,16 @@ class Economy
 				$PLANET	= $this->PLANET;
 			}
 
-			$PLANET[$resource[31].'_inter']	= self::getNetworkLevel($this->USER, $PLANET);
+            if(!isset($this->USER['techNetwork']))
+            {
+                $this->USER['techNetwork']  = PlayerUtil::getLabLevelByNetwork($this->USER, $PLANET);
+            }
 			
 			$Element            = $ListIDArray[0];
 			$Level              = $ListIDArray[1];
-			$costResources		= BuildFunctions::getElementPrice($this->USER, $PLANET, $Element);
-			$BuildTime			= BuildFunctions::getBuildingTime($this->USER, $PLANET, $Element, $costResources);
-			$HaveResources		= BuildFunctions::isElementBuyable($this->USER, $PLANET, $Element, $costResources);
+			$costResources		= BuildUtils::getElementPrice($this->USER, $PLANET, $Element);
+			$BuildTime			= BuildUtils::getBuildingTime($this->USER, $PLANET, $Element, $costResources);
+			$HaveResources		= BuildUtils::isElementBuyable($this->USER, $PLANET, $Element, $costResources);
 			$BuildEndTime       = $this->USER['b_tech'] + $BuildTime;
 			$CurrentQueue[0]	= array($Element, $Level, $BuildTime, $BuildEndTime, $PLANET['id']);
 			
@@ -631,7 +621,7 @@ class Economy
 					$NewQueue						= array();
 					foreach($CurrentQueue as $ListIDArray)
 					{
-						$ListIDArray[2]				= BuildFunctions::getBuildingTime($this->USER, $PLANET, $ListIDArray[0]);
+						$ListIDArray[2]				= BuildUtils::getBuildingTime($this->USER, $PLANET, $ListIDArray[0]);
 						$BaseTime					+= $ListIDArray[2];
 						$ListIDArray[3]				= $BaseTime;
 						$NewQueue[]					= $ListIDArray;

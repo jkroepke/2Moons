@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.8.0 (2013-03-18)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -193,7 +193,7 @@ class ShowOverviewPage extends AbstractGamePage
 		
 		if (!empty($PLANET['b_hangar_id'])) {
 			$Queue	= unserialize($PLANET['b_hangar_id']);
-			$time	= BuildFunctions::getBuildingTime($USER, $PLANET, $Queue[0][0]) * $Queue[0][1];
+			$time	= BuildUtils::getBuildingTime($USER, $PLANET, $Queue[0][0]) * $Queue[0][1];
 			$buildInfo['fleet']	= array(
 				'id'		=> $Queue[0][0],
 				'level'		=> $Queue[0][1],

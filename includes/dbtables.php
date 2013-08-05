@@ -57,6 +57,7 @@ $dbTableNames	= array(
 	'MESSAGES'			=> DB_PREFIX.'messages',
 	'MULTI'				=> DB_PREFIX.'multi',
 	'PLANETS'			=> DB_PREFIX.'planets',
+	'QUEUE'			    => DB_PREFIX.'queue',
 	'RW'				=> DB_PREFIX.'raports',
 	'RECORDS'			=> DB_PREFIX.'records',
 	'SESSION'			=> DB_PREFIX.'session',

@@ -10,29 +10,21 @@
 				{$List@iteration}.: 
 				{if !($isBusy.research && ($ID == 6 || $ID == 31)) && !($isBusy.shipyard && ($ID == 15 || $ID == 21)) && $RoomIsOk && $CanBuildElement && $BuildInfoList[$ID].buyable}
 				<form class="build_form" action="game.php?page=buildings" method="post">
-					<input type="hidden" name="cmd" value="insert">
+					<input type="hidden" name="mode" value="build">
 					<input type="hidden" name="building" value="{$ID}">
 					<button type="submit" class="build_submit onlist">{$LNG.tech.{$ID}} {$List.level}{if $List.destroy} {$LNG.bd_dismantle}{/if}</button>
 				</form>
 				{else}{$LNG.tech.{$ID}} {$List.level} {if $List.destroy}{$LNG.bd_dismantle}{/if}{/if}
 				{if $List@first}
 				<br><br><div id="progressbar" data-time="{$List.resttime}"></div>
-			</td>
-			<td>
-				<div id="time" data-time="{$List.time}"><br></div>
-				<form action="game.php?page=buildings" method="post" class="build_form">
-					<input type="hidden" name="cmd" value="cancel">
-					<button type="submit" class="build_submit onlist">{$LNG.bd_cancel}</button>
-				</form>
-				{else}
+				{/if}
 			</td>
 			<td>
 				<form action="game.php?page=buildings" method="post" class="build_form">
-					<input type="hidden" name="cmd" value="remove">
+					<input type="hidden" name="mode" value="cancel">
 					<input type="hidden" name="listid" value="{$List@iteration}">
 					<button type="submit" class="build_submit onlist">{$LNG.bd_cancel}</button>
 				</form>
-				{/if}
 				<br><span style="color:lime" data-time="{$List.endtime}" class="timer">{$List.display}</span>
 			</td>
 		</tr>
@@ -69,8 +61,8 @@
 						{if $RoomIsOk}
 							{if $CanBuildElement && $Element.buyable}
 							<form action="game.php?page=buildings" method="post" class="build_form">
-								<input type="hidden" name="cmd" value="insert">
-								<input type="hidden" name="building" value="{$ID}">
+								<input type="hidden" name="mode" value="build">
+								<input type="hidden" name="elementId" value="{$ID}">
 								<button type="submit" class="build_submit">{if $Element.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$Element.levelToBuild + 1}{/if}</button>
 							</form>
 							{else}
@@ -124,8 +116,8 @@
 									<tr>
 										<td colspan='2'>
 											<form action='game.php?page=buildings' method='post' class='build_form'>
-												<input type='hidden' name='cmd' value='destroy'>
-												<input type='hidden' name='building' value='{$ID}'>
+												<input type='hidden' name='mode' value='destroy'>
+												<input type='hidden' name='elementId' value='{$ID}'>
 												<button type='submit' class='build_submit onlist'>{$LNG.bd_dismantle}</button>
 											</form>
 										</td>

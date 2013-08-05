@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2012 Jan Kröpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
- * @version 1.7.2 (2013-03-18)
+ * @version 1.8.0 (2013-03-18)
  * @info $Id$
  * @link http://2moons.cc/
  */
@@ -40,6 +40,35 @@ class PlayerUtil
 			return crypt($password, '$2a$09$'.$salt.'$');
 		}
 	}
+
+    static public function getBonusValue($baseValue, $bonusName, $USER)
+    {
+        return $baseValue;
+    }
+
+    public static function getLabLevelByNetwork($USER, $PLANET)
+    {
+        $techLabElementName = Vars::getElement(31)->name;
+        $researchLevelList  = array($PLANET[$techLabElementName]);
+        $networkLevel       = $USER[Vars::getElement(123)->name];
+
+        if($networkLevel > 0)
+        {
+            $sql = 'SELECT '.$techLabElementName.' FROM %%PLANETS%% WHERE id != :planetId AND id_owner = :userId AND destruyed = 0 ORDER BY '.$techLabElementName.' DESC LIMIT :limit;';
+            $researchResult = Database::get()->select($sql, array(
+                ':limit'	=> (int) $networkLevel,
+                ':planetId'	=> $PLANET['id'],
+                ':userId'	=> $USER['id']
+            ));
+
+            foreach($researchResult as $researchRow)
+            {
+                $researchLevelList[]	= $researchRow[$techLabElementName];
+            }
+        }
+
+        return $researchLevelList;
+    }
 
 	static public function isPositionFree($universe, $galaxy, $system, $position, $type = 1)
 	{
@@ -660,7 +689,7 @@ class PlayerUtil
             $timestamp	= TIMESTAMP;
         }
 
-        $bonusList	= BuildFunctions::getBonusList();
+        $bonusList	= BuildUtils::getBonusList();
         $factor		= ArrayUtil::combineArrayWithSingleElement($bonusList, array('percent' => 0,'static' => 0));
 
         $tempBonusElementIds  = array_keys(Vars::getElements(Vars::CLASS_TEMP_BONUS));
