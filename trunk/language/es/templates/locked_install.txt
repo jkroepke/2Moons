@@ -1,0 +1,7 @@
+<h1>La herramienta de instalación se bloquea</h1>
+<p>Para activar la herramienta de instalación, debe crear un archivo llamado ENABLE_INSTALL_TOOL</p>
+<ul>
+    <li>En la carpeta "includes", cree un archivo llamado ENABLE_INSTALL_TOOL. El nombre del archivo debe ser en MAYUSCULAS. El contenido del archivo no es significativo, puede ser simplemente un archivo vacío.</li>
+</ul>
+<p>Por razones de seguridad, se recomienda que el archivo sea renombrado o eliminado tras finalizar la instalación.</p>
+<p>Como medida de seguridad adicional, si el archivo tiene más de una hora, 2Moons automáticamente lo eliminará.</p>
