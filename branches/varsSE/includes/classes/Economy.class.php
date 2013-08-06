@@ -42,7 +42,7 @@ class Economy
 
 	private $PLANET			= array();
 	private $USER			= array();
-	private $Builded		= array();
+	private $save           = array();
 
     /**
      * reference of the config object
@@ -50,10 +50,15 @@ class Economy
      */
     private $queueObj;
 
-	function __construct($Build = true, $Tech = true)
+
+    static public function getProd($Calculation)
+    {
+        return 'return '.$Calculation.';';
+    }
+
+	function __construct($Build = true)
 	{
 		$this->Build	= $Build;
-		$this->Tech		= $Tech;
 	}
 
 	public function setData($USER, $PLANET)
@@ -89,8 +94,7 @@ class Economy
 
         $Hash[]	= $this->config->resource_multiplier;
         $Hash[]	= $this->config->energySpeed;
-        $Hash[]	= $this->USER['factor']['Resource']['static'];
-        $Hash[]	= $this->USER['factor']['Resource']['percent'];
+        $Hash[]	= PlayerUtil::getBonusValue(100, 'Resource', $this->USER);
 
 		foreach(Vars::getElements(NULL, Vars::FLAG_PRODUCTION) as $elementObj)
         {
@@ -111,14 +115,13 @@ class Economy
 			$Hash[]	= $this->config->{$elementObj->name.'_basic_income'};
             if(isset($this->USER['factor']['Resource'.$elementId]))
             {
-                $Hash[]	= $this->USER['factor']['Resource'.$elementId]['static'];
-                $Hash[]	= $this->USER['factor']['Resource'.$elementId]['percent'];
+                $Hash[]	= PlayerUtil::getBonusValue(100, 'Resource'.$elementId, $this->USER);
             }
 		}
 
 		foreach(Vars::getElements(NULL, Vars::FLAG_STORAGE) as $elementObj)
         {
-			$Hash[]	= isset($this->PLANET{$elementObj->name}) ? $this->PLANET{$elementObj->name}: $this->USER{$elementObj->name};
+			$Hash[]	= isset($this->PLANET{$elementObj->name}) ? $this->PLANET{$elementObj->name} : $this->USER{$elementObj->name};
 		}
 
 		return md5(implode("::", $Hash));
@@ -142,10 +145,12 @@ class Economy
 			$this->checkQueue();
 		}
 
-		$this->UpdateResource($this->TIME, false);
+		$this->UpdateResource($this->TIME, $HASH);
 
 		if($SAVE === true)
-			$this->SavePlanetToDB($this->USER, $this->PLANET);
+        {
+            $this->SavePlanetToDB($this->USER, $this->PLANET);
+        }
 			
 		return $this->ReturnVars();
 	}
@@ -171,6 +176,11 @@ class Economy
 		}
 	}
 
+    private function saveToDatabase($env, $variable)
+    {
+        $this->save[] = array('env' => $env, 'var' => $variable);
+    }
+
     private function ExecCalc()
     {
         if($this->PLANET['planet_type'] != PLANET) return;
@@ -186,11 +196,6 @@ class Economy
             $this->PLANET[$elementName] = max(min($this->PLANET[$elementName] + $theoretical, $storage), 0);
         }
     }
-	
-	public static function getProd($Calculation)
-	{
-		return 'return '.$Calculation.';';
-	}
 	
 	public function ReBuildCache()
 	{
@@ -217,7 +222,7 @@ class Economy
                     ? $this->PLANET[$elementStorageObj->name]
                     : $this->USER[$elementStorageObj->name];
 
-				$temp[$elementResourcePlanetId]['max']	+= round(eval(BuildUtils::getProd($elementStorageObj->calcStorage[$elementResourcePlanetId])));
+				$temp[$elementResourcePlanetId]['max']	+= round(eval(self::getProd($elementStorageObj->calcStorage[$elementResourcePlanetId])));
 			}
 		}
 
@@ -236,7 +241,7 @@ class Economy
 
             foreach($elementResourceProductionList as $elementResourceElementId => $elementResourceElementObj)
 			{
-				$Production	= eval(BuildUtils::getProd($elementProductionElementObj->calcProduction[$elementResourceElementId]));
+				$Production	= eval(self::getProd($elementProductionElementObj->calcProduction[$elementResourceElementId]));
 				
 				if($Production > 0) {					
 					$temp[$elementResourceElementId]['plus']	+= $Production;
@@ -297,24 +302,180 @@ class Economy
 		}
 	}
 
-    public function checkQueue()
+    private function checkQueue()
     {
-        $queueIds = $this->getQueueObj()->getReadyTaskInQueues($this->TIME);
+        $queueIds = $this->queueObj->getReadyTaskInQueues($this->TIME);
 
         foreach($queueIds as $queueId)
         {
-            $this->queue($queueId);
+            $queueData      = $this->queueObj->queryQueueIds($queueId);
+            if($queueData[0]['taskType'] === 'amount')
+            {
+                $this->procedureAmountQueue($queueData);
+            }
+            else
+            {
+                $this->procedureBuildQueue($queueData);
+            }
         }
     }
 
+    private function procedureBuildQueue($queueData)
+    {
+        foreach($queueData as $task)
+        {
+            if($task['buildEndTime'] <= TIMESTAMP)
+            {
+                $elementObj = Vars::getElement($task['elementId']);
 
-    public static function addToQueue(QueueManager $queueObj, $USER, $PLANET, Element $elementObj, $buildType, $amount = NULL)
+                if(isset($this->USER[$elementObj->name]))
+                {
+                    $this->saveToDatabase('USER', $elementObj->name);
+
+                    $this->USER[$elementObj->name] = $task['amount'];
+                    if($task['taskType'] == QueueManager::DESTROY)
+                    {
+                        $this->USER[$elementObj->name]--;
+                    }
+                }
+                else
+                {
+                    $this->saveToDatabase('PLANET', $elementObj->name);
+
+                    $this->PLANET[$elementObj->name] = $task['amount'];
+                    if($task['taskType'] == QueueManager::DESTROY)
+                    {
+                        $this->PLANET[$elementObj->name]--;
+                    }
+                }
+
+                $this->queueObj->remove($task['taskId']);
+            }
+            else
+            {
+                $isAnotherPlanet    = $task['taskType'] == QueueManager::USER && $task['planetId'] != $this->PLANET['id'];
+                $ecoObj             = new self(false);
+
+                if($isAnotherPlanet)
+                {
+                    $taskPlanet = Database::get()->selectSingle('SELECT * FROM %%PLANETS%% WHERE planetId = :planetId', array(
+                        ':planetId' => $task['planetId'],
+                    ));
+
+                    $ecoObj->CalcResource($this->USER, $taskPlanet, false, $task['endBuildTime'] - $task['endTime']);
+                    list(, $taskPlanet) = $ecoObj->ReturnVars();
+                }
+                else
+                {
+                    $taskPlanet = $this->PLANET;
+                }
+
+                $elementObj     = Vars::getElement($task['elementId']);
+                $costResources  = BuildUtils::getElementPrice($elementObj, $task['amount'], $task['taskType'] == QueueManager::DESTROY);
+                $buildTime      = BuildUtils::getBuildingTime($this->USER, $this->PLANET, $elementObj, $costResources, $task['taskType'] == QueueManager::DESTROY);
+
+                if(!BuildUtils::isElementBuyable($this->USER, $taskPlanet, $elementObj, $costResources))
+                {
+                    $this->queueObj->removeAllTaskByElementId($elementObj);
+                    if($isAnotherPlanet)
+                    {
+                        $ecoObj->SavePlanetToDB($this->USER, $taskPlanet);
+                    }
+
+                    continue;
+                }
+
+                foreach($costResources as $resourceElementId => $value)
+                {
+                    $resourceElementObj    = Vars::getElement($resourceElementId);
+                    if(Vars::elementHasFlag($resourceElementObj, Vars::FLAG_RESOURCE_PLANET))
+                    {
+                        $taskPlanet[$resourceElementObj->name]	-= $costResources[$resourceElementId];
+                    }
+                    elseif(Vars::elementHasFlag($resourceElementObj, Vars::FLAG_RESOURCE_USER))
+                    {
+                        $this->USER[$resourceElementObj->name] 	-= $costResources[$resourceElementId];
+                    }
+                }
+
+                if($buildTime != $task['buildTime'])
+                {
+                    $this->queueObj->updateQueueEndTimes($task['queueId'], $buildTime - $task['buildTime']);
+                }
+
+                if($isAnotherPlanet)
+                {
+                    $ecoObj->SavePlanetToDB($this->USER, $taskPlanet);
+                }
+                else
+                {
+                    $this->PLANET = $taskPlanet;
+                }
+
+                break;
+            }
+        }
+    }
+
+    private function procedureAmountQueue($queueData)
+    {
+        $partBuildTime = $this->TIME - $this->PLANET['last_update'];
+
+        foreach($queueData as $task)
+        {
+            $elementObj = Vars::getElement($task['elementId']);
+            if($task['buildTime'] == 0)
+            {
+                $this->PLANET[$elementObj->name]    += $task['amount'];
+                if(isset($this->USER[$elementObj->name]))
+                {
+                    $this->saveToDatabase('USER', $elementObj->name);
+                }
+                else
+                {
+                    $this->saveToDatabase('PLANET', $elementObj->name);
+                }
+                continue;
+            }
+
+            $partBuildTime  += $task['partBuildTime'];
+            $doneAmount     = max(min(floor($partBuildTime / $task['buildTime']), $task['amount']), 0);
+
+            if($doneAmount == 0) break;
+
+            if(isset($this->USER[$elementObj->name]))
+            {
+                $this->USER[$elementObj->name]    += $doneAmount;
+                $this->saveToDatabase('USER', $elementObj->name);
+            }
+            else
+            {
+                $this->PLANET[$elementObj->name]    += $doneAmount;
+                $this->saveToDatabase('PLANET', $elementObj->name);
+            }
+
+            $partBuildTime  -= $doneAmount * $task['buildTime'];
+            $task['amount']         -= $doneAmount;
+
+            if($task['amount'] != 0)
+            {
+                $this->queueObj->updateTaskAmount($task['taskId'], $task['amount']);
+                break;
+            }
+            else
+            {
+                $this->queueObj->remove($task['taskId']);
+            }
+        }
+    }
+
+    public function addToQueue(Element $elementObj, $buildType, $amount = NULL)
     {
         $elementName        = $elementObj->name;
         $queueElementObj    = Vars::getElement($elementObj->queueId);
-        $queueData          = $queueObj->queryElementIds($elementObj->elementID);
+        $queueData          = $this->queueObj->queryElementIds($elementObj->elementID);
 
-        if($buildType !== BuildUtils::AMOUNT)
+        if($buildType !== QueueManager::SHIPYARD)
         {
             if(!empty($queueData))
             {
@@ -322,14 +483,14 @@ class Economy
             }
             elseif(Vars::elementHasFlag($elementObj, Vars::FLAG_RESOURCE_USER))
             {
-                $amount = $USER[$elementName];
+                $amount = $this->USER[$elementName];
             }
             else
             {
-                $amount = $PLANET[$elementName];
+                $amount = $this->PLANET[$elementName];
             }
 
-            $amount += (int) $buildType === BuildUtils::BUILD;
+            $amount += (int) ($buildType === QueueManager::BUILD || $buildType === QueueManager::USER);
         }
 
         if(empty($amount))
@@ -342,7 +503,7 @@ class Economy
             return array('error' => true, 'code' => 2);
         }
 
-        $queueCount = count($queueObj->queryQueueIds($elementObj->queueId));
+        $queueCount = count($this->queueObj->queryQueueIds($elementObj->queueId));
         if($queueElementObj->maxCount != 0 && $queueCount >= $queueElementObj->maxCount)
         {
             return array('error' => true, 'code' => 3);
@@ -350,32 +511,32 @@ class Economy
 
         if($elementObj->class == Vars::CLASS_BUILDING)
         {
-            $totalPlanetFields  	= CalculateMaxPlanetFields($PLANET);
-            $queueBuildingData      = $queueObj->queryElementIds(array_keys(Vars::getElements(Vars::CLASS_BUILDING)));
+            $totalPlanetFields  	= CalculateMaxPlanetFields($this->PLANET);
+            $queueBuildingData      = $this->queueObj->queryElementIds(array_keys(Vars::getElements(Vars::CLASS_BUILDING)));
             $queueBuildingCount     = count($queueBuildingData);
-            if($buildType === BuildUtils::BUILD && $PLANET["field_current"] >= ($totalPlanetFields - $queueBuildingCount))
+            if($buildType === QueueManager::BUILD && $this->PLANET["field_current"] >= ($totalPlanetFields - $queueBuildingCount))
             {
                 return array('error' => true, 'code' => 4);
             }
         }
 
-        if($buildType === BuildUtils::AMOUNT)
+        if($buildType === QueueManager::SHIPYARD)
         {
-            $amount = min($amount, BuildUtils::maxBuildableElements($USER, $PLANET, $elementObj));
+            $amount = min($amount, BuildUtils::maxBuildableElements($this->USER, $this->PLANET, $elementObj));
         }
 
         if($elementObj->class == Vars::CLASS_MISSILE)
         {
-            $maxMissiles    = BuildUtils::maxBuildableMissiles($USER, $PLANET, $elementObj, $queueObj);
+            $maxMissiles    = BuildUtils::maxBuildableMissiles($this->USER, $this->PLANET, $elementObj, $this->queueObj);
             $amount         = min($amount, $maxMissiles[$elementObj->elementID]);
         }
 
-        $costResources  = BuildUtils::getElementPrice($elementObj, $amount, $buildType === BuildUtils::DESTROY);
+        $costResources  = BuildUtils::getElementPrice($elementObj, $amount, $buildType === QueueManager::DESTROY);
 
         if($elementObj->class != Vars::CLASS_FLEET && $elementObj->class != Vars::CLASS_DEFENSE
             && $elementObj->class != Vars::CLASS_MISSILE && count($queueData) === 0 )
         {
-            if($buildType !== BuildUtils::AMOUNT && !BuildUtils::isElementBuyable($USER, $PLANET, $elementObj, $costResources))
+            if($buildType !== QueueManager::SHIPYARD && !BuildUtils::isElementBuyable($this->USER, $this->PLANET, $elementObj, $costResources))
             {
                 return array('error' => true, 'code' => 5);
             }
@@ -385,33 +546,36 @@ class Economy
                 $resourceElementObj    = Vars::getElement($resourceElementId);
                 if(Vars::elementHasFlag($resourceElementObj, Vars::FLAG_RESOURCE_PLANET))
                 {
-                    $PLANET[$resourceElementObj->name]	-= $costResources[$resourceElementId];
+                    $this->PLANET[$resourceElementObj->name]	-= $costResources[$resourceElementId];
                 }
                 elseif(Vars::elementHasFlag($resourceElementObj, Vars::FLAG_RESOURCE_USER))
                 {
-                    $USER[$resourceElementObj->name] 	-= $costResources[$resourceElementId];
+                    $this->USER[$resourceElementObj->name] 	-= $costResources[$resourceElementId];
                 }
             }
         }
 
-        $elementTime    = BuildUtils::getBuildingTime($USER, $PLANET, $elementObj, $costResources);
+        $elementTime    = BuildUtils::getBuildingTime($this->USER, $this->PLANET, $elementObj, $costResources);
         if(!empty($queueData))
         {
-            $elementEndTime = $queueData[count($queueData)-1]['endBuildtime'] + $elementTime;
+            $elementEndTime = $queueData[count($queueData)-1]['endBuildTime'] + $elementTime;
         }
         else
         {
             $elementEndTime = TIMESTAMP + $elementTime;
         }
 
-        $queueObj->add($elementObj, $amount, $elementTime, $elementEndTime);
+        $this->queueObj->add($elementObj, $amount, $elementTime, $elementEndTime);
+
+        if($this->isGlobalMode)
+        {
+            $this->ReturnVars();
+        }
         return array('error' => false, 'code' => 0);
     }
     
 	public function SavePlanetToDB($USER = NULL, $PLANET = NULL)
 	{
-		global $resource, $reslist;
-		
 		if(is_null($USER))
 			global $USER;
 			
@@ -423,83 +587,60 @@ class Economy
 		$params	= array(
 			':userId'				=> $USER['id'],
 			':planetId'				=> $PLANET['id'],
-			':metal'				=> $PLANET['metal'],
-			':crystal'				=> $PLANET['crystal'],
-			':deuterium'			=> $PLANET['deuterium'],
-			':ecoHash'				=> $PLANET['eco_hash'],
-			':lastUpdateTime'		=> $PLANET['last_update'],
-			':b_building'			=> $PLANET['b_building'],
-			':b_building_id' 		=> $PLANET['b_building_id'],
-			':field_current' 		=> $PLANET['field_current'],
-			':b_hangar_id'			=> $PLANET['b_hangar_id'],
-			':metal_perhour'		=> $PLANET['metal_perhour'],
-			':crystal_perhour'		=> $PLANET['crystal_perhour'],
-			':deuterium_perhour'	=> $PLANET['deuterium_perhour'],
-			':metal_max'			=> $PLANET['metal_max'],
-			':crystal_max'			=> $PLANET['crystal_max'],
-			':deuterium_max'		=> $PLANET['deuterium_max'],
-			':energy_used'			=> $PLANET['energy_used'],
-			':energy'				=> $PLANET['energy'],
-			':b_hangar'				=> $PLANET['b_hangar'],
-			':darkmatter'			=> $USER['darkmatter'],
-			':b_tech'				=> $USER['b_tech'],
-			':b_tech_id'			=> $USER['b_tech_id'],
-			':b_tech_planet'		=> $USER['b_tech_planet'],
-			':b_tech_queue'			=> $USER['b_tech_queue']
+            ':ecoHash'				=> $PLANET['eco_hash'],
+            ':lastUpdateTime'		=> $PLANET['last_update'],
+            ':field_current' 		=> $PLANET['field_current'],
 		);
 
-		if (!empty($this->Builded))
+        foreach(Vars::getElements(Vars::CLASS_RESOURCE) as $elementId => $elementObj)
+        {
+            if(Vars::elementHasFlag($elementObj, Vars::FLAG_RESOURCE_PLANET))
+            {
+                $buildQueries[] = ', u.'.$elementObj->name.' = :'.$elementObj->name;
+                $buildQueries[] = ', u.'.$elementObj->name.'_perhour = :'.$elementObj->name.'_perhour';
+                $buildQueries[] = ', u.'.$elementObj->name.'_max = :'.$elementObj->name.'_max';
+
+                $params[':'.$elementObj->name]	            = floattostring($PLANET[$elementObj->name]);
+                $params[':'.$elementObj->name.'_perhour']	= floattostring($PLANET[$elementObj->name.'_perhour']);
+                $params[':'.$elementObj->name.'_max']	    = floattostring($PLANET[$elementObj->name.'_max']);
+            }
+            elseif(Vars::elementHasFlag($elementObj, Vars::FLAG_RESOURCE_USER))
+            {
+                $buildQueries[] = ', u.'.$elementObj->name.' = :'.$elementObj->name;
+                $params[':'.$elementObj->name]	= floattostring($USER[$elementObj->name]);
+            }
+            elseif(Vars::elementHasFlag($elementObj, Vars::FLAG_ENERGY))
+            {
+                $buildQueries[] = ', p.'.$elementObj->name.' = :'.$elementObj->name;
+                $buildQueries[] = ', p.'.$elementObj->name.'_used = :'.$elementObj->name.'_used';
+
+                $params[':'.$elementObj->name]	        = floattostring($PLANET[$elementObj->name]);
+                $params[':'.$elementObj->name.'_used']	= floattostring($PLANET[$elementObj->name.'_used']);
+            }
+        }
+
+		if (!empty($this->save))
 		{
-			foreach($this->Builded as $Element => $Count)
+            $this->save = array_unique($this->save);
+			foreach($this->save as $entry)
 			{
-				$Element	= (int) $Element;
-				
-				if(empty($resource[$Element]) || empty($Count)) {
-					continue;
-				}
-				
-				if(in_array($Element, $reslist['one']))
-				{
-					$buildQueries[]						= ', p.'.$resource[$Element].' = :'.$resource[$Element];
-					$params[':'.$resource[$Element]]	= '1';
-				}
-				elseif(isset($PLANET[$resource[$Element]]))
-				{
-					$buildQueries[]						= ', p.'.$resource[$Element].' = p.'.$resource[$Element].' + :'.$resource[$Element];
-					$params[':'.$resource[$Element]]	= floattostring($Count);
-				}
-				elseif(isset($USER[$resource[$Element]]))
-				{
-					$buildQueries[]						= ', u.'.$resource[$Element].' = u.'.$resource[$Element].' + :'.$resource[$Element];
-					$params[':'.$resource[$Element]]	= floattostring($Count);
-				}
+                if($entry['env'] === 'USER' && isset($USER[$entry['var']]))
+                {
+                    $buildQueries[] = ', u.'.$entry['var'].' = :'.$entry['var'];
+                    $params[':'.$entry['var']]	= floattostring($USER[$entry['var']]);
+                }
+                elseif($entry['env'] === 'PLANET' && isset($PLANET[$entry['var']]))
+                {
+                    $buildQueries[] = ', u.'.$entry['var'].' = :'.$entry['var'];
+                    $params[':'.$entry['var']]	= floattostring($PLANET[$entry['var']]);
+                }
 			}
 		}
 
 		$sql = 'UPDATE %%PLANETS%% as p,%%USERS%% as u SET
-		p.metal				= :metal,
-		p.crystal			= :crystal,
-		p.deuterium			= :deuterium,
 		p.eco_hash			= :ecoHash,
 		p.last_update		= :lastUpdateTime,
-		p.b_building		= :b_building,
-		p.b_building_id 	= :b_building_id,
 		p.field_current 	= :field_current,
-		p.b_hangar_id		= :b_hangar_id,
-		p.metal_perhour		= :metal_perhour,
-		p.crystal_perhour	= :crystal_perhour,
-		p.deuterium_perhour	= :deuterium_perhour,
-		p.metal_max			= :metal_max,
-		p.crystal_max		= :crystal_max,
-		p.deuterium_max		= :deuterium_max,
-		p.energy_used		= :energy_used,
-		p.energy			= :energy,
-		p.b_hangar			= :b_hangar,
-		u.darkmatter		= :darkmatter,
-		u.b_tech			= :b_tech,
-		u.b_tech_id			= :b_tech_id,
-		u.b_tech_planet		= :b_tech_planet,
-		u.b_tech_queue		= :b_tech_queue
 		'.implode("\n", $buildQueries).'
 		WHERE p.id = :planetId AND u.id = :userId;';
 
