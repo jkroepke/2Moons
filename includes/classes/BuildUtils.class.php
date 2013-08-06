@@ -28,10 +28,6 @@
 
 class BuildUtils
 {
-    const BUILD     = 1;
-    const DESTROY   = 2;
-    const AMOUNT    = 4;
-
 	public static $bonusList = NULL;
 
 	public static function getBonusList()
@@ -123,11 +119,12 @@ class BuildUtils
 	
 	public static function requirementsAvailable($USER, $PLANET, Element $elementObj)
 	{
-		if(empty($elementObj->requirements)) return true;
+		if(!count($elementObj->requirements)) return true;
 
 		foreach($elementObj->requirements as $requireElementId => $requireElementLevel)
 		{
             $requireElementObj = Vars::getElement($requireElementId);
+
             if(Vars::elementHasFlag($requireElementObj, Vars::FLAG_RESOURCE_USER))
             {
                 if ($USER[$requireElementObj->name] < $requireElementLevel) return false;
