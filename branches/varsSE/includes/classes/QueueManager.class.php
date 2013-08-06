@@ -37,17 +37,34 @@ class QueueManager
         $this->planetId = $planetId;
     }
 
-    function add(Element $elementObj, $amount, $buildTime)
+    public function add(Element $elementObj, $amount, $buildTime, $endBuildTime)
+    {
+        $sql = 'INSERT INTO %%QUEUE%% SET
+        queueId         = :queueId,
+        userId          = :userId,
+        planetId        = :planetId,
+        elementId       = :elementId,
+        buildtime       = :buildtime,
+        endBuildtime    = :endBuildtime,
+        amount          = :amount;';
+
+        return Database::get()->insert($sql, array(
+            ':queueId'      => $elementObj->queueId,
+            ':userId'       => $this->userId,
+            ':planetId'     => $this->planetId,
+            ':elementId'    => $elementObj->elementID,
+            ':buildtime'    => $buildTime,
+            ':endBuildtime' => $endBuildTime,
+            ':amount'       => $amount,
+        ));
+    }
+
+    public function remove($taskId)
     {
 
     }
 
-    function remove($taskId)
-    {
-
-    }
-
-    function queryElementIds($elementIds)
+    public function queryElementIds($elementIds)
     {
         $elementIds = (array) $elementIds;
         $elementIds = array_filter($elementIds, 'is_numeric');
@@ -57,7 +74,7 @@ class QueueManager
             throw new Exception('#1 argument of QueueManager::queryElementIds can not be empty!');
         }
 
-        $sql    = 'SELECT * FROM %%QUEUE%% WHERE userId = :userId AND planetID = :planetId AND elementId IN ('.implode(',', $elementIds).') ORDER BY taskId DESC;';
+        $sql    = 'SELECT * FROM %%QUEUE%% WHERE userId = :userId AND planetID = :planetId AND elementId IN ('.implode(',', $elementIds).') ORDER BY taskId ASC;';
 
         return Database::get()->select($sql, array(
             ':userId'       => $this->userId,
@@ -65,7 +82,7 @@ class QueueManager
         ));
     }
 
-    function queryQueueIds($queueId)
+    public function queryQueueIds($queueId)
     {
         $queueId = (array) $queueId;
         $queueId = array_filter($queueId, 'is_numeric');
@@ -75,6 +92,25 @@ class QueueManager
         return Database::get()->select($sql, array(
             ':userId'       => $this->userId,
             ':planetId'     => $this->planetId,
+        ));
+    }
+
+    public function getReadyTaskInQueues($toTime = NULL)
+    {
+        if(is_null($toTime))
+        {
+            $toTime = TIMESTAMP;
+        }
+
+        $sql = 'SELECT queueId
+        FROM  `uni1_queue`
+        WHERE userId = :userId AND endBuildtime <= :timestamp
+        GROUP BY queueId
+        ORDER BY taskId ASC;';
+
+        return Database::get()->select($sql, array(
+            ':userId'       => $this->userId,
+            ':timestamp'    => $toTime,
         ));
     }
 }

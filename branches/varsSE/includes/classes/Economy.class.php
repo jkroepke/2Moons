@@ -139,11 +139,7 @@ class Economy
 
 		if($this->Build)
 		{
-			$this->ShipyardQueue();
-			if($this->Tech == true && $this->USER['b_tech'] != 0 && $this->USER['b_tech'] < $this->TIME)
-				$this->ResearchQueue();
-			if($this->PLANET['b_building'] != 0)
-				$this->BuildingQueue();
+			$this->checkQueue();
 		}
 
 		$this->UpdateResource($this->TIME, false);
@@ -221,7 +217,7 @@ class Economy
                     ? $this->PLANET[$elementStorageObj->name]
                     : $this->USER[$elementStorageObj->name];
 
-				$temp[$elementResourcePlanetId]['max']	+= round(eval(self::getProd($elementStorageObj->calcStorage[$elementResourcePlanetId])));
+				$temp[$elementResourcePlanetId]['max']	+= round(eval(BuildUtils::getProd($elementStorageObj->calcStorage[$elementResourcePlanetId])));
 			}
 		}
 
@@ -240,7 +236,7 @@ class Economy
 
             foreach($elementResourceProductionList as $elementResourceElementId => $elementResourceElementObj)
 			{
-				$Production	= eval(self::getProd($elementProductionElementObj->calcProduction[$elementResourceElementId]));
+				$Production	= eval(BuildUtils::getProd($elementProductionElementObj->calcProduction[$elementResourceElementId]));
 				
 				if($Production > 0) {					
 					$temp[$elementResourceElementId]['plus']	+= $Production;
@@ -292,9 +288,7 @@ class Economy
             {
                 $prodHour   = $temp[$elementId]['plus'];
                 $prodHour   *= $prodLevel;
-                $prodHour   *= 1 + $this->USER['factor']['Resource']['percent'] + $this->USER['factor']['Resource'.$elementId]['percent'];
-                $prodHour   += $this->USER['factor']['Resource']['static'];
-                $prodHour   += $this->USER['factor']['Resource'.$elementId]['static'];
+                $prodHour   += PlayerUtil::getBonusValue($prodHour, array('Resource', 'Resource'.$elementId), $this->USER);
                 $prodHour   += $temp[$elementId]['minus'];
                 $prodHour   *= $this->config->resource_multiplier;
 
@@ -302,349 +296,118 @@ class Economy
             }
 		}
 	}
-	
-	private function ShipyardQueue()
-	{
-		$BuildQueue 	= unserialize($this->PLANET['b_hangar_id']);
-		if (!$BuildQueue) {
-			$this->PLANET['b_hangar'] = 0;
-			$this->PLANET['b_hangar_id'] = '';
-			return false;
-		}
 
-		$this->PLANET['b_hangar'] 	+= ($this->TIME - $this->PLANET['last_update']);
+    public function checkQueue()
+    {
+        $queueIds = $this->getQueueObj()->getReadyTaskInQueues($this->TIME);
 
-        $BuildArray					= array();
-		foreach($BuildQueue as $Item)
-		{
-			$AcumTime			= BuildUtils::getBuildingTime($this->USER, $this->PLANET, $Item[0]);
-			$BuildArray[] 		= array($Item[0], $Item[1], $AcumTime);
-		}
+        foreach($queueIds as $queueId)
+        {
+            $this->queue($queueId);
+        }
+    }
 
-		$NewQueue	= array();
-		$Done		= false;
-		foreach($BuildArray as $Item)
-		{
-			$Element   = $Item[0];
-			$Count     = $Item[1];
 
-			if($Done == false) {
-				$BuildTime = $Item[2];
-				$Element   = (int)$Element;
-				if($BuildTime == 0) {			
-					if(!isset($this->Builded[$Element]))
-						$this->Builded[$Element] = 0;
-						
-					$this->Builded[$Element]			+= $Count;
-					$this->PLANET[$resource[$Element]]	+= $Count;
-					continue;					
-				}
-				
-				$Build			= max(min(floor($this->PLANET['b_hangar'] / $BuildTime), $Count), 0);
+    public static function addToQueue(QueueManager $queueObj, $USER, $PLANET, Element $elementObj, $buildType, $amount = NULL)
+    {
+        $elementName        = $elementObj->name;
+        $queueElementObj    = Vars::getElement($elementObj->queueId);
+        $queueData          = $queueObj->queryElementIds($elementObj->elementID);
 
-				if($Build == 0) {
-					$NewQueue[]	= array($Element, $Count);
-					$Done		= true;
-					continue;
-				}
-				
-				if(!isset($this->Builded[$Element]))
-					$this->Builded[$Element] = 0;
-				
-				$this->Builded[$Element]			+= $Build;
-				$this->PLANET['b_hangar']			-= $Build * $BuildTime;
-				$this->PLANET[$resource[$Element]]	+= $Build;
-				$Count								-= $Build;
-				
-				if ($Count == 0)
-					continue;
-				else
-					$Done	= true;
-			}	
-			$NewQueue[]	= array($Element, $Count);
-		}
-		$this->PLANET['b_hangar_id']	= !empty($NewQueue) ? serialize($NewQueue) : '';
-
-		return true;
-	}
-	
-	private function BuildingQueue() 
-	{
-		while($this->CheckPlanetBuildingQueue())
-			$this->SetNextQueueElementOnTop();
-	}
-	
-	private function CheckPlanetBuildingQueue()
-	{
-		global $resource, $reslist;
-		
-		if (empty($this->PLANET['b_building_id']) || $this->PLANET['b_building'] > $this->TIME)
-			return false;
-		
-		$CurrentQueue	= unserialize($this->PLANET['b_building_id']);
-
-		$Element      	= $CurrentQueue[0][0];
-		$BuildEndTime 	= $CurrentQueue[0][3];
-		$BuildMode    	= $CurrentQueue[0][4];
-		
-		if(!isset($this->Builded[$Element]))
-			$this->Builded[$Element] = 0;
-		
-		if ($BuildMode == 'build')
-		{
-			$this->PLANET['field_current']		+= 1;
-			$this->PLANET[$resource[$Element]]	+= 1;
-			$this->Builded[$Element]			+= 1;
-		}
-		else
-		{
-			$this->PLANET['field_current'] 		-= 1;
-			$this->PLANET[$resource[$Element]] 	-= 1;
-			$this->Builded[$Element]			-= 1;
-		}
-	
-
-		array_shift($CurrentQueue);
-		$OnHash	= in_array($Element, $reslist['prod']);
-		$this->UpdateResource($BuildEndTime, !$OnHash);			
-			
-		if (count($CurrentQueue) == 0) {
-			$this->PLANET['b_building']    	= 0;
-			$this->PLANET['b_building_id'] 	= '';
-
-			return false;
-		} else {
-			$this->PLANET['b_building_id'] 	= serialize($CurrentQueue);
-			return true;
-		}
-	}	
-
-	public function SetNextQueueElementOnTop()
-	{
-		global $resource, $LNG;
-
-		if (empty($this->PLANET['b_building_id'])) {
-			$this->PLANET['b_building']    = 0;
-			$this->PLANET['b_building_id'] = '';
-			return false;
-		}
-
-		$CurrentQueue 	= unserialize($this->PLANET['b_building_id']);
-		$Loop       	= true;
-
-		$BuildEndTime	= 0;
-		$NewQueue		= '';
-
-		while ($Loop === true)
-		{
-			$ListIDArray		= $CurrentQueue[0];
-			$Element			= $ListIDArray[0];
-			$Level				= $ListIDArray[1];
-			$BuildMode			= $ListIDArray[4];
-			$ForDestroy			= ($BuildMode == 'destroy') ? true : false;
-			$costResources		= BuildUtils::getElementPrice($this->USER, $this->PLANET, $Element, $ForDestroy);
-			$BuildTime			= BuildUtils::getBuildingTime($this->USER, $this->PLANET, $Element, $costResources);
-			$HaveResources		= BuildUtils::isElementBuyable($this->USER, $this->PLANET, $Element, $costResources);
-			$BuildEndTime		= $this->PLANET['b_building'] + $BuildTime;
-			$CurrentQueue[0]	= array($Element, $Level, $BuildTime, $BuildEndTime, $BuildMode);
-			$HaveNoMoreLevel	= false;
-				
-			if($ForDestroy && $this->PLANET[$resource[$Element]] == 0) {
-				$HaveResources  = false;
-				$HaveNoMoreLevel = true;
-			}
-
-			if($HaveResources === true) {
-				if(isset($costResources[901])) { $this->PLANET[$resource[901]]	-= $costResources[901]; }
-				if(isset($costResources[902])) { $this->PLANET[$resource[902]]	-= $costResources[902]; }
-				if(isset($costResources[903])) { $this->PLANET[$resource[903]]	-= $costResources[903]; }
-				if(isset($costResources[921])) { $this->USER[$resource[921]]	-= $costResources[921]; }
-				$NewQueue               	= serialize($CurrentQueue);
-				$Loop                  		= false;
-			} else {
-				if($this->USER['hof'] == 1){
-					if ($HaveNoMoreLevel) {
-						$Message     = sprintf($LNG['sys_nomore_level'], $LNG['tech'][$Element]);
-					} else {
-						if(!isset($costResources[901])) { $costResources[901] = 0; }
-						if(!isset($costResources[902])) { $costResources[902] = 0; }
-						if(!isset($costResources[903])) { $costResources[903] = 0; }
-						
-						$Message     = sprintf($LNG['sys_notenough_money'], $this->PLANET['name'], $this->PLANET['id'], $this->PLANET['galaxy'], $this->PLANET['system'], $this->PLANET['planet'], $LNG['tech'][$Element], pretty_number ($this->PLANET['metal']), $LNG['tech'][901], pretty_number($this->PLANET['crystal']), $LNG['tech'][902], pretty_number ($this->PLANET['deuterium']), $LNG['tech'][903], pretty_number($costResources[901]), $LNG['tech'][901], pretty_number ($costResources[902]), $LNG['tech'][902], pretty_number ($costResources[903]), $LNG['tech'][903]);
-					}
-
-					PlayerUtil::sendMessage($this->USER['id'], 0,$LNG['sys_buildlist'], 99,
-						$LNG['sys_buildlist_fail'], $Message, $this->TIME);
-				}
-
-				array_shift($CurrentQueue);
-					
-				if (count($CurrentQueue) == 0) {
-					$BuildEndTime  = 0;
-					$NewQueue      = '';
-					$Loop          = false;
-				} else {
-					$BaseTime			= $BuildEndTime - $BuildTime;
-					$NewQueue			= array();
-					foreach($CurrentQueue as $ListIDArray)
-					{
-						$ListIDArray[2]		= BuildUtils::getBuildingTime($this->USER, $this->PLANET, $ListIDArray[0], NULL, $ListIDArray[4] == 'destroy');
-						$BaseTime			+= $ListIDArray[2];
-						$ListIDArray[3]		= $BaseTime;
-						$NewQueue[]			= $ListIDArray;
-					}
-					$CurrentQueue	= $NewQueue;
-				}
-			}
-		}
-			
-		$this->PLANET['b_building']    = $BuildEndTime;
-		$this->PLANET['b_building_id'] = $NewQueue;
-
-		return true;
-	}
-		
-	private function ResearchQueue()
-	{
-		while($this->CheckUserTechQueue())
-			$this->SetNextQueueTechOnTop();
-	}
-	
-	private function CheckUserTechQueue()
-	{
-		global $resource;
-		
-		if (empty($this->USER['b_tech_id']) || $this->USER['b_tech'] > $this->TIME)
-			return false;
-		
-		if(!isset($this->Builded[$this->USER['b_tech_id']]))
-			$this->Builded[$this->USER['b_tech_id']]	= 0;
-			
-		$this->Builded[$this->USER['b_tech_id']]			+= 1;
-		$this->USER[$resource[$this->USER['b_tech_id']]]	+= 1;
-	
-
-		$CurrentQueue	= unserialize($this->USER['b_tech_queue']);
-		array_shift($CurrentQueue);		
-			
-		$this->USER['b_tech_id']		= 0;
-		if (count($CurrentQueue) == 0) {
-			$this->USER['b_tech'] 			= 0;
-			$this->USER['b_tech_id']		= 0;
-			$this->USER['b_tech_planet']	= 0;
-			$this->USER['b_tech_queue']		= '';
-			return false;
-		} else {
-			$this->USER['b_tech_queue'] 	= serialize(array_values($CurrentQueue));
-			return true;
-		}
-	}	
-	
-	public function SetNextQueueTechOnTop()
-	{
-		global $resource, $LNG;
-
-		if (empty($this->USER['b_tech_queue'])) {
-			$this->USER['b_tech'] 			= 0;
-			$this->USER['b_tech_id']		= 0;
-			$this->USER['b_tech_planet']	= 0;
-			$this->USER['b_tech_queue']		= '';
-			return false;
-		}
-
-		$CurrentQueue 	= unserialize($this->USER['b_tech_queue']);
-		$Loop       	= true;
-		while ($Loop == true)
-		{
-			$ListIDArray        = $CurrentQueue[0];
-			$isAnotherPlanet	= $ListIDArray[4] != $this->PLANET['id'];
-			if($isAnotherPlanet)
-			{
-				$sql	= 'SELECT * FROM %%PLANETS%% WHERE id = :planetId;';
-				$PLANET	= Database::get()->selectSingle($sql, array(
-					':planetId'	=> $ListIDArray[4],
-				));
-
-				$RPLANET 		= new Economy(true, false);
-				list(, $PLANET)	= $RPLANET->CalcResource($this->USER, $PLANET, false, $this->USER['b_tech']);
-			}
-			else
-			{
-				$PLANET	= $this->PLANET;
-			}
-
-            if(!isset($this->USER['techNetwork']))
+        if($buildType !== BuildUtils::AMOUNT)
+        {
+            if(!empty($queueData))
             {
-                $this->USER['techNetwork']  = PlayerUtil::getLabLevelByNetwork($this->USER, $PLANET);
+                $amount = $queueData[count($queueData)-1]['amount'];
             }
-			
-			$Element            = $ListIDArray[0];
-			$Level              = $ListIDArray[1];
-			$costResources		= BuildUtils::getElementPrice($this->USER, $PLANET, $Element);
-			$BuildTime			= BuildUtils::getBuildingTime($this->USER, $PLANET, $Element, $costResources);
-			$HaveResources		= BuildUtils::isElementBuyable($this->USER, $PLANET, $Element, $costResources);
-			$BuildEndTime       = $this->USER['b_tech'] + $BuildTime;
-			$CurrentQueue[0]	= array($Element, $Level, $BuildTime, $BuildEndTime, $PLANET['id']);
-			
-			if($HaveResources == true) {
-				if(isset($costResources[901])) { $PLANET[$resource[901]]		-= $costResources[901]; }
-				if(isset($costResources[902])) { $PLANET[$resource[902]]		-= $costResources[902]; }
-				if(isset($costResources[903])) { $PLANET[$resource[903]]		-= $costResources[903]; }
-				if(isset($costResources[921])) { $this->USER[$resource[921]]	-= $costResources[921]; }
-				$this->USER['b_tech_id']		= $Element;
-				$this->USER['b_tech']      		= $BuildEndTime;
-				$this->USER['b_tech_planet']	= $PLANET['id'];
-				$this->USER['b_tech_queue'] 	= serialize($CurrentQueue);
+            elseif(Vars::elementHasFlag($elementObj, Vars::FLAG_RESOURCE_USER))
+            {
+                $amount = $USER[$elementName];
+            }
+            else
+            {
+                $amount = $PLANET[$elementName];
+            }
 
-				$Loop                  			= false;
-			} else {
-				if($this->USER['hof'] == 1){
-					if(!isset($costResources[901])) { $costResources[901] = 0; }
-					if(!isset($costResources[902])) { $costResources[902] = 0; }
-					if(!isset($costResources[903])) { $costResources[903] = 0; }
-					
-					$Message     = sprintf($LNG['sys_notenough_money'], $PLANET['name'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'], $PLANET['planet'], $LNG['tech'][$Element], pretty_number ($PLANET['metal']), $LNG['tech'][901], pretty_number($PLANET['crystal']), $LNG['tech'][902], pretty_number ($PLANET['deuterium']), $LNG['tech'][903], pretty_number($costResources[901]), $LNG['tech'][901], pretty_number ($costResources[902]), $LNG['tech'][902], pretty_number ($costResources[903]), $LNG['tech'][903]);
-					PlayerUtil::sendMessage($this->USER['id'], 0, $this->USER['b_tech'], 99, $LNG['sys_techlist'], $LNG['sys_buildlist_fail'], $Message);
-				}
+            $amount += (int) $buildType === BuildUtils::BUILD;
+        }
 
-				array_shift($CurrentQueue);
-					
-				if (count($CurrentQueue) == 0) {
-					$this->USER['b_tech'] 			= 0;
-					$this->USER['b_tech_id']		= 0;
-					$this->USER['b_tech_planet']	= 0;
-					$this->USER['b_tech_queue']		= '';
-					
-					$Loop                  			= false;
-				} else {
-					$BaseTime						= $BuildEndTime - $BuildTime;
-					$NewQueue						= array();
-					foreach($CurrentQueue as $ListIDArray)
-					{
-						$ListIDArray[2]				= BuildUtils::getBuildingTime($this->USER, $PLANET, $ListIDArray[0]);
-						$BaseTime					+= $ListIDArray[2];
-						$ListIDArray[3]				= $BaseTime;
-						$NewQueue[]					= $ListIDArray;
-					}
-					$CurrentQueue					= $NewQueue;
-				}
-			}
-				
-			if($isAnotherPlanet)
-			{
-				$RPLANET->SavePlanetToDB($this->USER, $PLANET);
-				$RPLANET		= NULL;
-				unset($RPLANET);
-			}
-			else
-			{
-				$this->PLANET	= $PLANET;
-			}
-		}
+        if(empty($amount))
+        {
+            return array('error' => true, 'code' => 1);
+        }
 
-		return true;
-	}
-	
+        if($elementObj->maxLevel != 0 && $elementObj->maxLevel <= $amount)
+        {
+            return array('error' => true, 'code' => 2);
+        }
+
+        $queueCount = count($queueObj->queryQueueIds($elementObj->queueId));
+        if($queueElementObj->maxCount != 0 && $queueCount >= $queueElementObj->maxCount)
+        {
+            return array('error' => true, 'code' => 3);
+        }
+
+        if($elementObj->class == Vars::CLASS_BUILDING)
+        {
+            $totalPlanetFields  	= CalculateMaxPlanetFields($PLANET);
+            $queueBuildingData      = $queueObj->queryElementIds(array_keys(Vars::getElements(Vars::CLASS_BUILDING)));
+            $queueBuildingCount     = count($queueBuildingData);
+            if($buildType === BuildUtils::BUILD && $PLANET["field_current"] >= ($totalPlanetFields - $queueBuildingCount))
+            {
+                return array('error' => true, 'code' => 4);
+            }
+        }
+
+        if($buildType === BuildUtils::AMOUNT)
+        {
+            $amount = min($amount, BuildUtils::maxBuildableElements($USER, $PLANET, $elementObj));
+        }
+
+        if($elementObj->class == Vars::CLASS_MISSILE)
+        {
+            $maxMissiles    = BuildUtils::maxBuildableMissiles($USER, $PLANET, $elementObj, $queueObj);
+            $amount         = min($amount, $maxMissiles[$elementObj->elementID]);
+        }
+
+        $costResources  = BuildUtils::getElementPrice($elementObj, $amount, $buildType === BuildUtils::DESTROY);
+
+        if($elementObj->class != Vars::CLASS_FLEET && $elementObj->class != Vars::CLASS_DEFENSE
+            && $elementObj->class != Vars::CLASS_MISSILE && count($queueData) === 0 )
+        {
+            if($buildType !== BuildUtils::AMOUNT && !BuildUtils::isElementBuyable($USER, $PLANET, $elementObj, $costResources))
+            {
+                return array('error' => true, 'code' => 5);
+            }
+
+            foreach($costResources as $resourceElementId => $value)
+            {
+                $resourceElementObj    = Vars::getElement($resourceElementId);
+                if(Vars::elementHasFlag($resourceElementObj, Vars::FLAG_RESOURCE_PLANET))
+                {
+                    $PLANET[$resourceElementObj->name]	-= $costResources[$resourceElementId];
+                }
+                elseif(Vars::elementHasFlag($resourceElementObj, Vars::FLAG_RESOURCE_USER))
+                {
+                    $USER[$resourceElementObj->name] 	-= $costResources[$resourceElementId];
+                }
+            }
+        }
+
+        $elementTime    = BuildUtils::getBuildingTime($USER, $PLANET, $elementObj, $costResources);
+        if(!empty($queueData))
+        {
+            $elementEndTime = $queueData[count($queueData)-1]['endBuildtime'] + $elementTime;
+        }
+        else
+        {
+            $elementEndTime = TIMESTAMP + $elementTime;
+        }
+
+        $queueObj->add($elementObj, $amount, $elementTime, $elementEndTime);
+        return array('error' => false, 'code' => 0);
+    }
+    
 	public function SavePlanetToDB($USER = NULL, $PLANET = NULL)
 	{
 		global $resource, $reslist;

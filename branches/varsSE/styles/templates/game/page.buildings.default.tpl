@@ -4,25 +4,29 @@
 <div id="buildlist" class="buildlist">
 	<table style="width:760px">
 		{foreach $Queue as $List}
-		{$ID = $List.element}
+		{$elementId = $List.element}
 		<tr>
 			<td style="width:70%;vertical-align:top;" class="left">
 				{$List@iteration}.: 
-				{if !($isBusy.research && ($ID == 6 || $ID == 31)) && !($isBusy.shipyard && ($ID == 15 || $ID == 21)) && $RoomIsOk && $CanBuildElement && $BuildInfoList[$ID].buyable}
+				{if $RoomIsOk && $CanBuildElement && $BuildInfoList[$elementId].buyable}
 				<form class="build_form" action="game.php?page=buildings" method="post">
 					<input type="hidden" name="mode" value="build">
-					<input type="hidden" name="building" value="{$ID}">
-					<button type="submit" class="build_submit onlist">{$LNG.tech.{$ID}} {$List.level}{if $List.destroy} {$LNG.bd_dismantle}{/if}</button>
+					<input type="hidden" name="building" value="{$elementId}">
+					<button type="submit" class="build_submit onlist">{$LNG.tech.{$elementId}} {$List.level}{if $List.destroy} {$LNG.bd_dismantle}{/if}</button>
 				</form>
-				{else}{$LNG.tech.{$ID}} {$List.level} {if $List.destroy}{$LNG.bd_dismantle}{/if}{/if}
+				{else}{$LNG.tech.{$elementId}} {$List.level} {if $List.destroy}{$LNG.bd_dismantle}{/if}{/if}
 				{if $List@first}
 				<br><br><div id="progressbar" data-time="{$List.resttime}"></div>
-				{/if}
 			</td>
 			<td>
+				<div id="time" data-time="{$List.time}"><br></div>
+				{else}
+			</td>
+			<td>
+				{/if}
 				<form action="game.php?page=buildings" method="post" class="build_form">
 					<input type="hidden" name="mode" value="cancel">
-					<input type="hidden" name="listid" value="{$List@iteration}">
+					<input type="hidden" name="taskId" value="{$List@key}">
 					<button type="submit" class="build_submit onlist">{$LNG.bd_cancel}</button>
 				</form>
 				<br><span style="color:lime" data-time="{$List.endtime}" class="timer">{$List.display}</span>
@@ -33,40 +37,40 @@
 </div>
 {/if}
 <table style="width:760px">
-	{foreach $BuildInfoList as $ID => $Element}
+	{foreach $BuildInfoList as $elementId => $elementData}
 	<tr>
 		<td rowspan="2" style="width:120px;">
-			<a href="#" onclick="return Dialog.info({$ID})">
-				<img src="{$dpath}gebaeude/{$ID}.gif" alt="{$LNG.tech.{$ID}}" width="120" height="120">
+			<a href="#" onclick="return Dialog.info({$elementId})">
+				<img src="{$dpath}gebaeude/{$elementId}.gif" alt="{$LNG.tech.{$elementId}}" width="120" height="120">
 			</a>
 		</td>
 		<th>
-			<a href="#" onclick="return Dialog.info({$ID})">{$LNG.tech.{$ID}}</a>{if $Element.level > 0} ({$LNG.bd_lvl} {$Element.level}{if $Element.maxLevel != 255}/{$Element.maxLevel}{/if}){/if}
+			<a href="#" onclick="return Dialog.info({$elementId})">{$LNG.tech.{$elementId}}</a>{if $elementData.level > 0} ({$LNG.bd_lvl} {$elementData.level}{if $elementData.maxLevel != 255}/{$elementData.maxLevel}{/if}){/if}
 		</th>
 	</tr>
 	<tr>
 		<td>
 			<table style="width:100%">
 				<tr>
-					<td class="transparent left" style="width:90%;padding:10px;"><p>{$LNG.shortDescription.{$ID}}</p>
-					<p>{foreach $Element.costResources as $RessID => $RessAmount}
-					{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>
+					<td class="transparent left" style="width:90%;padding:10px;"><p>{$LNG.shortDescription.{$elementId}}</p>
+					<p>{foreach $elementData.costResources as $RessID => $RessAmount}
+					{$LNG.tech.{$RessID}}: <b><span style="color:{if $elementData.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>
 					{/foreach}</p></td>
 					<td class="transparent" style="vertical-align:middle;width:100px">
-					{if $Element.maxLevel == $Element.levelToBuild}
+					{if $elementData.maxLevel == $elementData.levelToBuild}
 						<span style="color:red">{$LNG.bd_maxlevel}</span>
-					{elseif ($isBusy.research && ($ID == 6 || $ID == 31)) || ($isBusy.shipyard && ($ID == 15 || $ID == 21))}
+					{elseif ($isBusy.research && ($elementId == 6 || $elementId == 31)) || ($isBusy.shipyard && ($elementId == 15 || $elementId == 21))}
 						<span style="color:red">{$LNG.bd_working}</span>
 					{else}
 						{if $RoomIsOk}
-							{if $CanBuildElement && $Element.buyable}
+							{if $CanBuildElement && $elementData.buyable}
 							<form action="game.php?page=buildings" method="post" class="build_form">
 								<input type="hidden" name="mode" value="build">
-								<input type="hidden" name="elementId" value="{$ID}">
-								<button type="submit" class="build_submit">{if $Element.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$Element.levelToBuild + 1}{/if}</button>
+								<input type="hidden" name="elementId" value="{$elementId}">
+								<button type="submit" class="build_submit">{if $elementData.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$elementData.levelToBuild + 1}{/if}</button>
 							</form>
 							{else}
-							<span style="color:red">{if $Element.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$Element.levelToBuild + 1}{/if}</span>
+							<span style="color:red">{if $elementData.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$elementData.levelToBuild + 1}{/if}</span>
 							{/if}
 						{else}
 						<span style="color:red">{$LNG.bd_no_more_fields}</span>
@@ -83,7 +87,7 @@
 				<tr>
 					<td class="transparent left">
 						{$LNG.bd_remaining}<br>
-						{foreach $Element.costOverflow as $ResType => $ResCount}
+						{foreach $elementData.costOverflow as $ResType => $ResCount}
 						{$LNG.tech.{$ResType}}: <span style="font-weight:700">{$ResCount|number}</span><br>
 						{/foreach}
 						<br>
@@ -91,33 +95,33 @@
 				</tr>
 				<tr>		
 					<td class="transparent left" style="width:68%">
-						{if !empty($Element.infoEnergy)}
+						{if !empty($elementData.infoEnergy)}
 							{$LNG.bd_next_level}<br>
-							{$Element.infoEnergy}<br>
+							{$elementData.infoEnergy}<br>
 						{/if}
-						{if $Element.level > 0}
-							{if $ID == 43}<a href="#" onclick="return Dialog.info({$ID})">{$LNG.bd_jump_gate_action}</a>{/if}
-							{if ($ID == 44 && !$HaveMissiles) ||  $ID != 44}<br><a class="tooltip_sticky" data-tooltip-content="
+						{if $elementData.level > 0}
+							{if $elementId == 43}<a href="#" onclick="return Dialog.info({$elementId})">{$LNG.bd_jump_gate_action}</a>{/if}
+							{if ($elementId == 44 && !$HaveMissiles) ||  $elementId != 44}<br><a class="tooltip_sticky" data-tooltip-content="
 								{* Start Destruction Popup *}
 								<table style='width:300px'>
 									<tr>
-										<th colspan='2'>{$LNG.bd_price_for_destroy} {$LNG.tech.{$ID}} {$Element.level}</th>
+										<th colspan='2'>{$LNG.bd_price_for_destroy} {$LNG.tech.{$elementId}} {$elementData.level}</th>
 									</tr>
-									{foreach $Element.destroyResources as $ResType => $ResCount}
+									{foreach $elementData.destroyResources as $ResType => $ResCount}
 									<tr>
 										<td>{$LNG.tech.{$ResType}}</td>
-										<td><span style='color:{if $Element.destroyOverflow[$RessID] == 0}lime{else}red{/if}'>{$ResCount|number}</span></td>
+										<td><span style='color:{if $elementData.destroyOverflow[$RessID] == 0}lime{else}red{/if}'>{$ResCount|number}</span></td>
 									</tr>
 									{/foreach}
 									<tr>
 										<td>{$LNG.bd_destroy_time}</td>
-										<td>{$Element.destroyTime|time}</td>
+										<td>{$elementData.destroyTime|time}</td>
 									</tr>
 									<tr>
 										<td colspan='2'>
 											<form action='game.php?page=buildings' method='post' class='build_form'>
 												<input type='hidden' name='mode' value='destroy'>
-												<input type='hidden' name='elementId' value='{$ID}'>
+												<input type='hidden' name='elementId' value='{$elementId}'>
 												<button type='submit' class='build_submit onlist'>{$LNG.bd_dismantle}</button>
 											</form>
 										</td>
@@ -130,7 +134,7 @@
 						{/if}
 					</td>
 					<td class="transparent right" style="white-space:nowrap;">
-						{$LNG.fgf_time}:<br>{$Element.elementTime|time}
+						{$LNG.fgf_time}:<br>{$elementData.elementTime|time}
 					</td>
 				</tr>	
 			</table>
