@@ -191,7 +191,7 @@ class ShowFleetTablePage extends AbstractGamePage
 		{
 			switch($GetAction){
 				case "sendfleetback":
-					FleetFunctions::SendFleetBack($USER, $FleetID);
+					FleetUtil::SendFleetBack($USER, $FleetID);
 				break;
 				case "acs":
 					$acsData	= $this->getACSPageData($FleetID);
@@ -203,7 +203,7 @@ class ShowFleetTablePage extends AbstractGamePage
 
 		if ($techExpedition >= 1)
 		{
-			$activeExpedition   = FleetFunctions::GetCurrentFleets($USER['id'], 15, true);
+			$activeExpedition   = FleetUtil::GetCurrentFleets($USER['id'], 15, true);
 			$maxExpedition 		= floor(sqrt($techExpedition));
 		}
 		else
@@ -212,7 +212,7 @@ class ShowFleetTablePage extends AbstractGamePage
 			$maxExpedition 		= 0;
 		}
 
-		$maxFleetSlots	= FleetFunctions::GetMaxFleetSlots($USER);
+		$maxFleetSlots	= FleetUtil::GetMaxFleetSlots($USER);
 
 		$targetGalaxy	= HTTP::_GP('galaxy', (int) $PLANET['galaxy']);
 		$targetSystem	= HTTP::_GP('system', (int) $PLANET['system']);
@@ -231,7 +231,7 @@ class ShowFleetTablePage extends AbstractGamePage
 		
 		foreach ($fleetResult as $fleetsRow)
 		{
-			$FleetList[$fleetsRow['fleet_id']] = FleetFunctions::unserialize($fleetsRow['fleet_array']);
+			$FleetList[$fleetsRow['fleet_id']] = FleetUtil::unserialize($fleetsRow['fleet_array']);
 			
 			if($fleetsRow['fleet_mission'] == 4 && $fleetsRow['fleet_mess'] == FLEET_OUTWARD)
 			{
@@ -270,7 +270,7 @@ class ShowFleetTablePage extends AbstractGamePage
 				
 			$FleetsOnPlanet[]	= array(
 				'id'	=> $FleetID,
-				'speed'	=> FleetFunctions::GetFleetMaxSpeed($FleetID, $USER),
+				'speed'	=> FleetUtil::GetFleetMaxSpeed($FleetID, $USER),
 				'count'	=> $PLANET[$resource[$FleetID]],
 			);
 		}

@@ -54,8 +54,8 @@ class ShowFleetAjaxPage extends AbstractGamePage
 		$planetID 		= HTTP::_GP('planetID', 0);
 		$targetMission	= HTTP::_GP('mission', 0);
 		
-		$activeSlots	= FleetFunctions::GetCurrentFleets($USER['id']);
-		$maxSlots		= FleetFunctions::GetMaxFleetSlots($USER);
+		$activeSlots	= FleetUtil::GetCurrentFleets($USER['id']);
+		$maxSlots		= FleetUtil::GetMaxFleetSlots($USER);
 		
 		$this->returnData['slots']		= $activeSlots;
 		
@@ -187,11 +187,11 @@ class ShowFleetAjaxPage extends AbstractGamePage
 			}
 		}
 		
-		$SpeedFactor    	= FleetFunctions::GetGameSpeedFactor();
-		$Distance    		= FleetFunctions::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetData['galaxy'], $targetData['system'], $targetData['planet']));
-		$SpeedAllMin		= FleetFunctions::GetFleetMaxSpeed($fleetArray, $USER);
-		$Duration			= FleetFunctions::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $USER);
-		$consumption		= FleetFunctions::GetFleetConsumption($fleetArray, $Duration, $Distance, $USER, $SpeedFactor);
+		$SpeedFactor    	= FleetUtil::GetGameSpeedFactor();
+		$Distance    		= FleetUtil::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetData['galaxy'], $targetData['system'], $targetData['planet']));
+		$SpeedAllMin		= FleetUtil::GetFleetMaxSpeed($fleetArray, $USER);
+		$Duration			= FleetUtil::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $USER);
+		$consumption		= FleetUtil::GetFleetConsumption($fleetArray, $Duration, $Distance, $USER, $SpeedFactor);
 
 		$UserDeuterium   	-= $consumption;
 
@@ -199,7 +199,7 @@ class ShowFleetAjaxPage extends AbstractGamePage
 			$this->sendData(613, $LNG['fa_not_enough_fuel']);
 		}
 		
-		if($consumption > FleetFunctions::GetFleetRoom($fleetArray)) {
+		if($consumption > FleetUtil::GetFleetRoom($fleetArray)) {
 			$this->sendData(613, $LNG['fa_no_fleetroom']);
 		}
 		
@@ -220,7 +220,7 @@ class ShowFleetAjaxPage extends AbstractGamePage
 		
 		$shipID				= array_keys($fleetArray);
 		
-		FleetFunctions::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'],
+		FleetUtil::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'],
 			$PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $targetData['id_owner'], $planetID,
 			$targetData['galaxy'], $targetData['system'], $targetData['planet'], $targetData['planet_type'],
 			$fleetResource, $fleetStartTime, $fleetStayTime, $fleetEndTime);

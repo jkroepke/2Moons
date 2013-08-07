@@ -26,15 +26,21 @@
  * @link http://2moons.cc/
  */
 
-class FleetFunctions 
+class FleetUtil
 {
 	static $allowedSpeed	= array(10 => 100, 9 => 90, 8 => 80, 7 => 70, 6 => 60, 5 => 50, 4 => 40, 3 => 30, 2 => 20, 1 => 10);
 	
-	private static function GetShipConsumption($Ship, $Player)
+	private static function GetShipConsumption(Element $elementObj, $USER)
 	{
-		global $pricelist;
+        $techLevel      = self::getShipTechLevel($elementObj, $USER);
 
-		return (($Player['impulse_motor_tech'] >= 5 && $Ship == 202) || ($Player['hyperspace_motor_tech'] >= 8 && $Ship == 211)) ? $pricelist[$Ship]['consumption2'] : $pricelist[$Ship]['consumption'];
+        $consumption    = array();
+        foreach(array_keys(Vars::getElements(NULL, array(Vars::FLAG_RESOURCE_PLANET, Vars::FLAG_RESOURCE_USER))) as $elementId)
+        {
+            $consumption[$elementId]    = $elementObj->{'consumption'.$techLevel.$elementId};
+        }
+
+		return $consumption;
 	}
 
 	private static function OnlyShipByID($Ships, $ShipID)
@@ -42,33 +48,53 @@ class FleetFunctions
 		return isset($Ships[$ShipID]) && count($Ships) === 1;
 	}
 
-	private static function GetShipSpeed($Ship, $Player)
+	private static function getShipTechLevel(Element $elementObj, $USER)
 	{
-		global $pricelist;
-		
-		$techSpeed	= $pricelist[$Ship]['tech'];
-		
-		if($techSpeed == 4) {
-			$techSpeed = $Player['impulse_motor_tech'] >= 5 ? 2 : 1;
-		}
-		if($techSpeed == 5) {
-			$techSpeed = $Player['hyperspace_motor_tech'] >= 8 ? 3 : 2;
-		}
-			
-		
-		switch($techSpeed)
+        if(is_null($elementObj->speed2Tech))
+        {
+            return 1;
+        }
+
+        $tech2ElementObj    = Vars::getElement($elementObj->speed2Tech);
+
+        if($USER[$tech2ElementObj->name] < $elementObj->speed2onLevel)
+        {
+            return 1;
+        }
+
+        if(is_null($elementObj->speed3Tech))
+        {
+            return 2;
+        }
+
+        $tech3ElementObj    = Vars::getElement($elementObj->speed3Tech);
+
+        if($USER[$tech3ElementObj->name] < $elementObj->speed3onLevel)
+        {
+            return 2;
+        }
+
+        return 3;
+	}
+
+	private static function GetShipSpeed(Element $elementObj, $USER)
+	{
+        $techLevel  = self::getShipTechLevel($elementObj, $USER);
+
+        $techElementObj = $elementObj->{'speed'.$techLevel.'Tech'};
+
+        $speed	    = $elementObj->{'speed'.$techLevel};
+
+		switch($elementObj->{'speed'.$techLevel.'Tech'})
 		{
-			case 1:
-				$speed	= $pricelist[$Ship]['speed'] * (1 + (0.1 * $Player['combustion_tech']));
+			case 115:
+				$speed	*= 1 + (0.1 * $USER[$techElementObj->name]);
 			break;
-			case 2:
-				$speed	= $pricelist[$Ship]['speed'] * (1 + (0.2 * $Player['impulse_motor_tech']));
+			case 117:
+				$speed	*= 1 + (0.2 * $USER[$techElementObj->name]);
 			break;
-			case 3:
-				$speed	= $pricelist[$Ship]['speed'] * (1 + (0.3 * $Player['hyperspace_motor_tech']));
-			break;
-			default:
-				$speed	= 0;
+			case 118:
+				$speed	*= 1 + (0.3 * $USER[$techElementObj->name]);
 			break;
 		}
 
@@ -77,7 +103,7 @@ class FleetFunctions
 	
 	public static function getExpeditionLimit($USER)
 	{
-		return floor(sqrt($USER[$GLOBALS['resource'][124]]));
+		return floor(sqrt($USER[Vars::getElement(124)->name]));
 	}
 	
 	public static function getDMMissionLimit($USER)
@@ -115,13 +141,9 @@ class FleetFunctions
 		$SpeedFactor	*= pow($Distance * 10 / $MaxFleetSpeed, 0.5);
 		$SpeedFactor	+= 10;
 		$SpeedFactor	/= $GameSpeed;
+        $SpeedFactor	+= PlayerUtil::getBonusValue($SpeedFactor, 'FlyTime', $USER);
 		
-		if(isset($USER['factor']['FlyTime']))
-		{
-			$SpeedFactor	*= max(0, 1 + $USER['factor']['FlyTime']);
-		}
-		
-		return max($SpeedFactor, MIN_FLEET_TIME);
+		return max(min($SpeedFactor, 0), MIN_FLEET_TIME);
 	}
  
 	public static function GetMIPDuration($startSystem, $targetSystem)
@@ -139,44 +161,45 @@ class FleetFunctions
 	
 	public static function GetMaxFleetSlots($USER)
 	{
-		global $resource;
-		return 1 + $USER[$resource[108]] + $USER['factor']['FleetSlots'];
+		return 1 + PlayerUtil::getBonusValue(1, 'FleetSlots', $USER);
 	}
 
-	public static function GetFleetRoom($Fleet)
+	public static function GetFleetRoom($fleetArray)
 	{
-		global $pricelist;
 		$FleetRoom 				= 0;
-		foreach ($Fleet as $ShipID => $amount)
+		foreach ($fleetArray as $elementId => $count)
 		{
-			$FleetRoom		   += $pricelist[$ShipID]['capacity'] * $amount;
+			$FleetRoom		   += Vars::getElement($elementId)->capacity * $count;
 		}
+
 		return $FleetRoom;
 	}
 	
-	public static function GetFleetMaxSpeed ($Fleets, $Player)
+	public static function GetFleetMaxSpeed($fleetArray, $USER)
 	{
-		$FleetArray = (!is_array($Fleets)) ? array($Fleets => 1) : $Fleets;
-		$speedalls 	= array();
+        $fleetArray = !is_array($fleetArray) ? array($fleetArray) : array_keys($fleetArray);
+		$shipSpeeds = array();
 		
-		foreach ($FleetArray as $Ship => $Count) {
-			$speedalls[$Ship] = self::GetShipSpeed($Ship, $Player);
+		foreach ($fleetArray as $elementId)
+        {
+            $shipSpeeds[$elementId] = self::GetShipSpeed(Vars::getElement($elementId), $USER);
 		}
 		
-		return min($speedalls);
+		return min($shipSpeeds);
 	}
 
 	public static function GetFleetConsumption($FleetArray, $MissionDuration, $MissionDistance, $Player, $GameSpeed)
 	{
 		$consumption = 0;
 
-		foreach ($FleetArray as $Ship => $Count)
+		foreach ($FleetArray as $elementId => $Count)
 		{
-			$ShipSpeed          = self::GetShipSpeed($Ship, $Player);
-			$ShipConsumption    = self::GetShipConsumption($Ship, $Player);
+            $elementObj         = Vars::getElement($elementId);
+			$ShipSpeed          = self::GetShipSpeed($elementObj, $Player);
+			$ShipConsumption    = self::GetShipConsumption($elementObj, $Player);
 			
 			$spd                = 35000 / (round($MissionDuration, 0) * $GameSpeed - 10) * sqrt($MissionDistance * 10 / $ShipSpeed);
-			$basicConsumption   = $ShipConsumption * $Count;
+			$basicConsumption   = array_sum($ShipConsumption) * $Count;
 			$consumption        += $basicConsumption * $MissionDistance / 35000 * (($spd / 10) + 1) * (($spd / 10) + 1);
 		}
 		return (round($consumption) + 1);
@@ -184,14 +207,13 @@ class FleetFunctions
 
 	public static function GetFleetMissions($USER, $MisInfo, $Planet)
 	{
-		global $resource;
 		$Missions	= self::GetAvailableMissions($USER, $MisInfo, $Planet);
 		$stayBlock	= array();
 
 		$haltSpeed	= Config::get($USER['universe'])->halt_speed;
 
 		if (in_array(15, $Missions)) {
-			for($i = 1;$i <= $USER[$resource[124]];$i++)
+			for($i = 1;$i <= $USER[Vars::getElement(124)->name];$i++)
 			{
 				$stayBlock[$i]	= round($i / $haltSpeed, 2);
 			}
@@ -220,11 +242,11 @@ class FleetFunctions
 
 	public static function unserialize($fleetAmount)
 	{
-		$fleetTyps		= explode(';', $fleetAmount);
+		$fleetType		= explode(';', $fleetAmount);
 
 		$fleetAmount	= array();
 
-		foreach ($fleetTyps as $fleetTyp)
+		foreach ($fleetType as $fleetTyp)
 		{
 			$temp = explode(',', $fleetTyp);
 
@@ -389,23 +411,15 @@ class FleetFunctions
 	public static function GetFleetShipInfo($FleetArray, $Player)
 	{
 		$FleetInfo	= array();
-		foreach ($FleetArray as $ShipID => $Amount) {
-			$FleetInfo[$ShipID]	= array('consumption' => self::GetShipConsumption($ShipID, $Player), 'speed' => self::GetFleetMaxSpeed($ShipID, $Player), 'amount' => floattostring($Amount));
+		foreach ($FleetArray as $ShipID => $Amount)
+        {
+			$FleetInfo[$ShipID]	= array(
+                'consumption'   => self::GetShipConsumption($ShipID, $Player),
+                'speed'         => self::GetFleetMaxSpeed($ShipID, $Player),
+                'amount'        => floattostring($Amount)
+            );
 		}
 		return $FleetInfo;
-	}
-	
-	public static function GotoFleetPage($Code = 0)
-	{	
-		global $LNG;
-		if(Config::get()->debug == 1)
-		{
-			$temp = debug_backtrace();
-			echo str_replace($_SERVER["DOCUMENT_ROOT"],'.',$temp[0]['file'])." on ".$temp[0]['line']. " | Code: ".$Code." | Error: ".(isset($LNG['fl_send_error'][$Code]) ? $LNG['fl_send_error'][$Code] : '');
-			exit;
-		}
-		
-		HTTP::redirectTo('game.php?page=fleetTable&code='.$Code);
 	}
 	
 	public static function GetAvailableMissions($USER, $MissionInfo, $GetInfoPlanet)
@@ -453,10 +467,8 @@ class FleetFunctions
 		return $availableMissions;
 	}
 	
-	public static function CheckBash($Target)
+	public static function CheckBash($Target, $USER)
 	{
-		global $USER;
-
 		if(!BASH_ON)
 		{
 			return false;
@@ -474,7 +486,7 @@ class FleetFunctions
 			':fleetOwner'		=> $USER['id'],
 			':fleetEndId'		=> $Target,
 			':fleetState'		=> 2,
-			':fleetStartTime'	=> (TIMESTAMP - BASH_TIME),
+			':fleetStartTime'	=> TIMESTAMP - BASH_TIME,
 		));
 
 		return $Count >= BASH_COUNT;
@@ -495,6 +507,8 @@ class FleetFunctions
 		$params			= array(':planetId'	=> $fleetStartPlanetID);
 
 		$planetQuery	= "";
+        $fleetQuery	    = array();
+
 		foreach($fleetArray as $ShipID => $ShipCount) {
 			$fleetData[]	= $ShipID.','.floattostring($ShipCount);
 			$planetQuery[]	= $resource[$ShipID]." = ".$resource[$ShipID]." - :".$resource[$ShipID];
@@ -505,6 +519,36 @@ class FleetFunctions
 		$sql	= 'UPDATE %%PLANETS%% SET '.implode(', ', $planetQuery).' WHERE id = :planetId;';
 
 		$db->update($sql, $params);
+
+        $params = array(
+            ':fleetStartOwner'			=> $fleetStartOwner,
+            ':fleetTargetOwner'			=> $fleetTargetOwner,
+            ':fleetMission'				=> $fleetMission,
+            ':fleetShipCount'			=> $fleetShipCount,
+            ':fleetData'				=> implode(';', $fleetData),
+            ':fleetStartTime'			=> $fleetStartTime,
+            ':fleetStayTime'			=> $fleetStayTime,
+            ':fleetEndTime'				=> $fleetEndTime,
+            ':fleetStartPlanetID'		=> $fleetStartPlanetID,
+            ':fleetStartPlanetGalaxy'	=> $fleetStartPlanetGalaxy,
+            ':fleetStartPlanetSystem'	=> $fleetStartPlanetSystem,
+            ':fleetStartPlanetPlanet'	=> $fleetStartPlanetPlanet,
+            ':fleetStartPlanetType'		=> $fleetStartPlanetType,
+            ':fleetTargetPlanetID'		=> $fleetTargetPlanetID,
+            ':fleetTargetPlanetGalaxy'	=> $fleetTargetPlanetGalaxy,
+            ':fleetTargetPlanetSystem'	=> $fleetTargetPlanetSystem,
+            ':fleetTargetPlanetPlanet'	=> $fleetTargetPlanetPlanet,
+            ':fleetTargetPlanetType'	=> $fleetTargetPlanetType,
+            ':fleetGroup'				=> $fleetGroup,
+            ':missileTarget'			=> $missileTarget,
+            ':timestamp'				=> TIMESTAMP,
+            ':universe'	   				=> Universe::current(),
+        );
+
+        foreach(Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_TRANSPORT) as $elementId => $elementObj) {
+            $fleetQuery[]	= ', fleet_resource_'.$elementObj->name.' = :fleetResource';
+            $params[':fleetResource'.$elementId]	= floattostring($fleetResource[$elementId]);
+        }
 
 		$sql	= 'INSERT INTO %%FLEETS%% SET
 		fleet_owner					= :fleetStartOwner,
@@ -526,40 +570,12 @@ class FleetFunctions
 		fleet_end_system			= :fleetTargetPlanetSystem,
 		fleet_end_planet			= :fleetTargetPlanetPlanet,
 		fleet_end_type				= :fleetTargetPlanetType,
-		fleet_resource_metal		= :fleetResource901,
-		fleet_resource_crystal		= :fleetResource902,
-		fleet_resource_deuterium	= :fleetResource903,
 		fleet_group					= :fleetGroup,
 		fleet_target_obj			= :missileTarget,
-		start_time					= :timestamp;';
+		start_time					= :timestamp
+		'.implode("\n", $fleetQuery).';';
 
-		$db->insert($sql, array(
-			':fleetStartOwner'			=> $fleetStartOwner,
-			':fleetTargetOwner'			=> $fleetTargetOwner,
-			':fleetMission'				=> $fleetMission,
-			':fleetShipCount'			=> $fleetShipCount,
-			':fleetData'				=> implode(';', $fleetData),
-			':fleetStartTime'			=> $fleetStartTime,
-			':fleetStayTime'			=> $fleetStayTime,
-			':fleetEndTime'				=> $fleetEndTime,
-			':fleetStartPlanetID'		=> $fleetStartPlanetID,
-			':fleetStartPlanetGalaxy'	=> $fleetStartPlanetGalaxy,
-			':fleetStartPlanetSystem'	=> $fleetStartPlanetSystem,
-			':fleetStartPlanetPlanet'	=> $fleetStartPlanetPlanet,
-			':fleetStartPlanetType'		=> $fleetStartPlanetType,
-			':fleetTargetPlanetID'		=> $fleetTargetPlanetID,
-			':fleetTargetPlanetGalaxy'	=> $fleetTargetPlanetGalaxy,
-			':fleetTargetPlanetSystem'	=> $fleetTargetPlanetSystem,
-			':fleetTargetPlanetPlanet'	=> $fleetTargetPlanetPlanet,
-			':fleetTargetPlanetType'	=> $fleetTargetPlanetType,
-			':fleetResource901'			=> $fleetResource[901],
-			':fleetResource902'			=> $fleetResource[902],
-			':fleetResource903'			=> $fleetResource[903],
-			':fleetGroup'				=> $fleetGroup,
-			':missileTarget'			=> $missileTarget,
-			':timestamp'				=> TIMESTAMP,
-			':universe'	   				=> Universe::current(),
-		));
+		$db->insert($sql, $params);
 
 		$fleetId	= $db->lastInsertId();
 
@@ -568,6 +584,9 @@ class FleetFunctions
 			':fleetId'	=> $fleetId,
 			':endTime'	=> $fleetStartTime
 		));
+
+        $params[':fleetId'] = $fleetId;
+
 
 		$sql	= 'INSERT INTO %%LOG_FLEETS%% SET
 		fleet_id					= :fleetId,
@@ -595,35 +614,9 @@ class FleetFunctions
 		fleet_resource_deuterium	= :fleetResource903,
 		fleet_group					= :fleetGroup,
 		fleet_target_obj			= :missileTarget,
-		start_time					= :timestamp;';
+		start_time					= :timestamp
+		'.implode("\n", $fleetQuery).';';
 
-		$db->insert($sql, array(
-			':fleetId'					=> $fleetId,
-			':fleetStartOwner'			=> $fleetStartOwner,
-			':fleetTargetOwner'			=> $fleetTargetOwner,
-			':fleetMission'				=> $fleetMission,
-			':fleetShipCount'			=> $fleetShipCount,
-			':fleetData'				=> implode(';', $fleetData),
-			':fleetStartTime'			=> $fleetStartTime,
-			':fleetStayTime'			=> $fleetStayTime,
-			':fleetEndTime'				=> $fleetEndTime,
-			':fleetStartPlanetID'		=> $fleetStartPlanetID,
-			':fleetStartPlanetGalaxy'	=> $fleetStartPlanetGalaxy,
-			':fleetStartPlanetSystem'	=> $fleetStartPlanetSystem,
-			':fleetStartPlanetPlanet'	=> $fleetStartPlanetPlanet,
-			':fleetStartPlanetType'		=> $fleetStartPlanetType,
-			':fleetTargetPlanetID'		=> $fleetTargetPlanetID,
-			':fleetTargetPlanetGalaxy'	=> $fleetTargetPlanetGalaxy,
-			':fleetTargetPlanetSystem'	=> $fleetTargetPlanetSystem,
-			':fleetTargetPlanetPlanet'	=> $fleetTargetPlanetPlanet,
-			':fleetTargetPlanetType'	=> $fleetTargetPlanetType,
-			':fleetResource901'			=> $fleetResource[901],
-			':fleetResource902'			=> $fleetResource[902],
-			':fleetResource903'			=> $fleetResource[903],
-			':fleetGroup'				=> $fleetGroup,
-			':missileTarget'			=> $missileTarget,
-			':timestamp'				=> TIMESTAMP,
-			':universe'	   				=> Universe::current(),
-		));
+		$db->insert($sql,$params);
 	}
 }

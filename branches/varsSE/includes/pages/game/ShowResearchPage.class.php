@@ -69,7 +69,7 @@ class ShowResearchPage extends AbstractGamePage
 		$db = Database::get();
 
 		$elementId		= $USER['b_tech_id'];
-		$costResources	= BuildUtils::getElementPrice($USER, $PLANET, $elementId);
+		$costResources	= BuildUtil::getElementPrice($USER, $PLANET, $elementId);
 		
 		if($PLANET['id'] == $USER['b_tech_planet'])
 		{
@@ -132,7 +132,7 @@ class ShowResearchPage extends AbstractGamePage
 					$CPLANET		= $PLANET;
 				
 				$CPLANET[$resource[31].'_inter']	= $this->ecoObj->getNetworkLevel($USER, $CPLANET);
-				$BuildEndTime       				+= BuildUtils::getBuildingTime($USER, $CPLANET, NULL, $ListIDArray[0]);
+				$BuildEndTime       				+= BuildUtil::getBuildingTime($USER, $CPLANET, NULL, $ListIDArray[0]);
 				$ListIDArray[3]						= $BuildEndTime;
 				$NewCurrentQueue[]					= $ListIDArray;				
 			}
@@ -199,7 +199,7 @@ class ShowResearchPage extends AbstractGamePage
 				
 				$CPLANET[$resource[31].'_inter']	= $this->ecoObj->getNetworkLevel($USER, $CPLANET);
 				
-				$BuildEndTime       += BuildUtils::getBuildingTime($USER, $CPLANET, NULL, $ListIDArray[0]);
+				$BuildEndTime       += BuildUtil::getBuildingTime($USER, $CPLANET, NULL, $ListIDArray[0]);
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewCurrentQueue[]	= $ListIDArray;				
 			}
@@ -218,7 +218,7 @@ class ShowResearchPage extends AbstractGamePage
 		global $PLANET, $USER;
 
 		if(!in_array($elementId, $reslist['tech'])
-			|| !BuildUtils::requirementsAvailable($USER, $PLANET, $elementId)
+			|| !BuildUtil::requirementsAvailable($USER, $PLANET, $elementId)
 			|| !$this->CheckLabSettingsInQueue($PLANET)
 		)
 		{
@@ -247,9 +247,9 @@ class ShowResearchPage extends AbstractGamePage
 				return false;
 			}
 
-			$costResources		= BuildUtils::getElementPrice($USER, $PLANET, $elementId, !$AddMode);
+			$costResources		= BuildUtil::getElementPrice($USER, $PLANET, $elementId, !$AddMode);
 			
-			if(!BuildUtils::isElementBuyable($USER, $PLANET, $elementId, $costResources))
+			if(!BuildUtil::isElementBuyable($USER, $PLANET, $elementId, $costResources))
 			{
 				return false;
 			}
@@ -259,7 +259,7 @@ class ShowResearchPage extends AbstractGamePage
 			if(isset($costResources[903])) { $PLANET[$resource[903]]	-= $costResources[903]; }
 			if(isset($costResources[921])) { $USER[$resource[921]]		-= $costResources[921]; }
 			
-			$elementTime    			= BuildUtils::getBuildingTime($USER, $PLANET, $elementId, $costResources);
+			$elementTime    			= BuildUtil::getBuildingTime($USER, $PLANET, $elementId, $costResources);
 			$BuildEndTime				= TIMESTAMP + $elementTime;
 			
 			$USER['b_tech_queue']		= serialize(array(array($elementId, $BuildLevel, $elementTime, $BuildEndTime, $PLANET['id'])));
@@ -283,7 +283,7 @@ class ShowResearchPage extends AbstractGamePage
 				return false;
 			}
 				
-			$elementTime    			= BuildUtils::getBuildingTime($USER, $PLANET, $elementId, NULL, !$AddMode, $BuildLevel);
+			$elementTime    			= BuildUtil::getBuildingTime($USER, $PLANET, $elementId, NULL, !$AddMode, $BuildLevel);
 			
 			$BuildEndTime				= $CurrentQueue[$ActualCount - 1][3] + $elementTime;
 			$CurrentQueue[]				= array($elementId, $BuildLevel, $elementTime, $BuildEndTime, $PLANET['id']);
@@ -375,7 +375,7 @@ class ShowResearchPage extends AbstractGamePage
 
 		foreach($reslist['tech'] as $elementId)
 		{
-			if (!BuildUtils::requirementsAvailable($USER, $PLANET, $elementId))
+			if (!BuildUtil::requirementsAvailable($USER, $PLANET, $elementId))
 				continue;
 				
 			if(isset($queueData['quickinfo'][$elementId]))
@@ -387,10 +387,10 @@ class ShowResearchPage extends AbstractGamePage
 				$levelToBuild	= $USER[$resource[$elementId]];
 			}
 			
-			$costResources		= BuildUtils::getElementPrice($USER, $PLANET, $elementId, false, $levelToBuild);
-			$costOverflow		= BuildUtils::getRestPrice($USER, $PLANET, $elementId, $costResources);
-			$elementTime    	= BuildUtils::getBuildingTime($USER, $PLANET, $elementId, $costResources);
-			$buyable			= $QueueCount != 0 || BuildUtils::isElementBuyable($USER, $PLANET, $elementId, $costResources);
+			$costResources		= BuildUtil::getElementPrice($USER, $PLANET, $elementId, false, $levelToBuild);
+			$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $elementId, $costResources);
+			$elementTime    	= BuildUtil::getBuildingTime($USER, $PLANET, $elementId, $costResources);
+			$buyable			= $QueueCount != 0 || BuildUtil::isElementBuyable($USER, $PLANET, $elementId, $costResources);
 
 			$ResearchList[$elementId]	= array(
 				'id'				=> $elementId,

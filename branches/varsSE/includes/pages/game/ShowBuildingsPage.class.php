@@ -60,7 +60,7 @@ class ShowBuildingsPage extends AbstractGamePage
 				if($elementId == $ListIDArray[0] || empty($ListIDArray[0]))
 					continue;
 
-				$BuildEndTime       += BuildUtils::getBuildingTime($USER, $PLANET, $ListIDArray[0]);
+				$BuildEndTime       += BuildUtil::getBuildingTime($USER, $PLANET, $ListIDArray[0]);
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewQueueArray[]	= $ListIDArray;				
 			}
@@ -96,12 +96,12 @@ class ShowBuildingsPage extends AbstractGamePage
 				'level' 	=> $task['amount'],
 				'time' 		=> $task['buildTime'],
 				'resttime' 	=> $task['endBuildTime'] - TIMESTAMP,
-				'destroy' 	=> $task['taskType'] === 'destroy',
+				'destroy' 	=> $task['taskType'] == QueueManager::DESTROY,
 				'endtime' 	=> _date('U', $task['endBuildTime'], $USER['timezone']),
 				'display' 	=> _date($LNG['php_tdformat'], $task['endBuildTime'], $USER['timezone']),
 			);
 
-            $elementLevel[$task['elementId']]   = $task['amount'];
+            $elementLevel[$task['elementId']]   = $task['amount'] - ((int) $task['taskType'] == QueueManager::DESTROY);
             if(!isset($count[$task['queueId']]))
             {
                 $count[$task['queueId']] = 0;
@@ -110,7 +110,7 @@ class ShowBuildingsPage extends AbstractGamePage
             $count[$task['queueId']]++;
 		}
 		
-		return array('queue' => $queue, '$elementLevel' => $elementLevel, 'count' => $count);
+		return array('queue' => $queue, 'elementLevel' => $elementLevel, 'count' => $count);
 	}
 
     public function build()
@@ -171,7 +171,7 @@ class ShowBuildingsPage extends AbstractGamePage
 
 		foreach(Vars::getElements(Vars::CLASS_BUILDING, $flag) as $elementId => $elementObj)
 		{
-			if (!BuildUtils::requirementsAvailable($USER, $PLANET, $elementObj)) continue;
+			if (!BuildUtil::requirementsAvailable($USER, $PLANET, $elementObj)) continue;
 
 			$infoEnergy	= "";
 			
@@ -200,20 +200,20 @@ class ShowBuildingsPage extends AbstractGamePage
                 $infoEnergy	= sprintf($text, pretty_number(abs($requireEnergy)), $LNG['tech'][911]);
 			}
 			
-			$costResources		= BuildUtils::getElementPrice($elementObj, $levelToBuild, false);
-            $destroyResources	= BuildUtils::getElementPrice($elementObj, $PLANET[$elementObj->name], true);
+			$costResources		= BuildUtil::getElementPrice($elementObj, $levelToBuild, false);
+            $destroyResources	= BuildUtil::getElementPrice($elementObj, $PLANET[$elementObj->name], true);
 
-            $elementTime    	= BuildUtils::getBuildingTime($USER, $PLANET, $elementObj, $costResources);
-            $destroyTime		= BuildUtils::getBuildingTime($USER, $PLANET, $elementObj, $destroyResources);
+            $elementTime    	= BuildUtil::getBuildingTime($USER, $PLANET, $elementObj, $costResources);
+            $destroyTime		= BuildUtil::getBuildingTime($USER, $PLANET, $elementObj, $destroyResources);
 
             // zero cost resource do not need to display
 			$costResources		= array_filter($costResources);
 			$destroyResources	= array_filter($destroyResources);
 
-			$costOverflow		= BuildUtils::getRestPrice($USER, $PLANET, $elementObj, $costResources);
-            $destroyOverflow	= BuildUtils::getRestPrice($USER, $PLANET, $elementObj, $destroyResources);
+			$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $elementObj, $costResources);
+            $destroyOverflow	= BuildUtil::getRestPrice($USER, $PLANET, $elementObj, $destroyResources);
 
-			$buyable			= $QueueCount != 0 || BuildUtils::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
+			$buyable			= $QueueCount != 0 || BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
 
 			$BuildInfoList[$elementId]	= array(
 				'level'				=> $PLANET[$elementObj->name],

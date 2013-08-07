@@ -61,15 +61,15 @@ class ShowFleetStep1Page extends AbstractGamePage
 		$FleetRoom	*= 1 + $USER['factor']['ShipStorage'];
 		
 		if (empty($Fleet))
-			FleetFunctions::GotoFleetPage();
+			FleetUtil::GotoFleetPage();
 	
 		$FleetData	= array(
 			'fleetroom'			=> floattostring($FleetRoom),
-			'gamespeed'			=> FleetFunctions::GetGameSpeedFactor(),
+			'gamespeed'			=> FleetUtil::GetGameSpeedFactor(),
 			'fleetspeedfactor'	=> max(0, 1 + $USER['factor']['FlyTime']),
 			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
-			'maxspeed'			=> FleetFunctions::GetFleetMaxSpeed($Fleet, $USER),
-			'ships'				=> FleetFunctions::GetFleetShipInfo($Fleet, $USER),
+			'maxspeed'			=> FleetUtil::GetFleetMaxSpeed($Fleet, $USER),
+			'ships'				=> FleetUtil::GetFleetShipInfo($Fleet, $USER),
 			'fleetMinDuration'	=> MIN_FLEET_TIME,
 		);
 		
@@ -104,7 +104,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 			'system' 		=> $targetSystem,
 			'planet' 		=> $targetPlanet,
 			'type'			=> $targetType,
-			'speedSelect'	=> FleetFunctions::$allowedSpeed,
+			'speedSelect'	=> FleetUtil::$allowedSpeed,
 			'typeSelect'   	=> array(1 => $LNG['type_planet'][1], 2 => $LNG['type_planet'][2], 3 => $LNG['type_planet'][3]),
 			'fleetdata'		=> $FleetData,
 		));
@@ -320,9 +320,9 @@ class ShowFleetStep1Page extends AbstractGamePage
 				$this->sendJSON($LNG['fl_target_not_exists']);
 			}
 			
-			$activeExpedition	= FleetFunctions::GetCurrentFleets($USER['id'], 15, true);
+			$activeExpedition	= FleetUtil::GetCurrentFleets($USER['id'], 15, true);
 
-			if ($activeExpedition >= FleetFunctions::getExpeditionLimit($USER))
+			if ($activeExpedition >= FleetUtil::getExpeditionLimit($USER))
 			{
 				$this->sendJSON($LNG['fl_no_expedition_slot']);
 			}

@@ -42,16 +42,16 @@ class MissionCaseStay extends MissionFunctions implements Mission
 
 		$senderUser['factor']	= PlayerUtil::getFactors($senderUser, $this->_fleet['fleet_start_time']);
 		
-		$fleetArray			= FleetFunctions::unserialize($this->_fleet['fleet_array']);
+		$fleetArray			= FleetUtil::unserialize($this->_fleet['fleet_array']);
 		$duration			= $this->_fleet['fleet_start_time'] - $this->_fleet['start_time'];
 
-		$SpeedFactor    	= FleetFunctions::GetGameSpeedFactor();
-		$distance			= FleetFunctions::GetTargetDistance(
+		$SpeedFactor    	= FleetUtil::GetGameSpeedFactor();
+		$distance			= FleetUtil::GetTargetDistance(
 			array($this->_fleet['fleet_start_galaxy'], $this->_fleet['fleet_start_system'], $this->_fleet['fleet_start_planet']),
 			array($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet'])
 		);
 		
-		$consumption   		= FleetFunctions::GetFleetConsumption($fleetArray, $duration, $distance, $senderUser, $SpeedFactor);
+		$consumption   		= FleetUtil::GetFleetConsumption($fleetArray, $duration, $distance, $senderUser, $SpeedFactor);
 		
 		$this->UpdateFleet('fleet_resource_deuterium', $this->_fleet['fleet_resource_deuterium'] + $consumption / 2);
 		

@@ -67,7 +67,7 @@ class MissionCaseRecycling extends MissionFunctions implements Mission
 			$shipStorageFactor	= 1 + $targetUserFactors['ShipStorage'];
 		
 			// Get fleet capacity
-			$fleetData			= FleetFunctions::unserialize($this->_fleet['fleet_array']);
+			$fleetData			= FleetUtil::unserialize($this->_fleet['fleet_array']);
 
 			$recyclerStorage	= 0;
 			$otherFleetStorage	= 0;

@@ -76,7 +76,7 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 
 		foreach($targetStayFleets as $fleetRow)
 		{
-			$fleetData	= FleetFunctions::unserialize($fleetRow['fleet_array']);
+			$fleetData	= FleetUtil::unserialize($fleetRow['fleet_array']);
 			foreach($fleetData as $shipId => $shipAmount)
 			{
 				$targetPlanet[$resource[$shipId]]	+= $shipAmount;

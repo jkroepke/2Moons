@@ -40,9 +40,9 @@ class ShowOfficierPage extends AbstractGamePage
 	{
 		global $PLANET, $USER;
 		
-		$costResources		= BuildUtils::getElementPrice($USER, $PLANET, $Element);
+		$costResources		= BuildUtil::getElementPrice($USER, $PLANET, $Element);
 			
-		if (!BuildUtils::isElementBuyable($USER, $PLANET, $Element, $costResources)) {
+		if (!BuildUtil::isElementBuyable($USER, $PLANET, $Element, $costResources)) {
 			return;
 		}
 			
@@ -68,10 +68,10 @@ class ShowOfficierPage extends AbstractGamePage
 	{
 		global $USER, $PLANET;
 		
-		$costResources		= BuildUtils::getElementPrice($USER, $PLANET, $Element);
+		$costResources		= BuildUtil::getElementPrice($USER, $PLANET, $Element);
 			
-		if (!BuildUtils::requirementsAvailable($USER, $PLANET, $Element)
-			|| !BuildUtils::isElementBuyable($USER, $PLANET, $Element, $costResources)
+		if (!BuildUtil::requirementsAvailable($USER, $PLANET, $Element)
+			|| !BuildUtil::isElementBuyable($USER, $PLANET, $Element, $costResources)
 			|| $pricelist[$Element]['max'] <= $USER[$resource[$Element]]) {
 			return;
 		}
@@ -120,10 +120,10 @@ class ShowOfficierPage extends AbstractGamePage
 					$this->tplObj->execscript("GetOfficerTime(".$Element.", ".($USER[$resource[$Element]] - TIMESTAMP).");");
 				}
 			
-				$costResources		= BuildUtils::getElementPrice($USER, $PLANET, $Element);
-				$buyable			= BuildUtils::isElementBuyable($USER, $PLANET, $Element, $costResources);
-				$costOverflow		= BuildUtils::getRestPrice($USER, $PLANET, $Element, $costResources);
-				$elementBonus		= BuildUtils::getAvalibleBonus($Element);
+				$costResources		= BuildUtil::getElementPrice($USER, $PLANET, $Element);
+				$buyable			= BuildUtil::isElementBuyable($USER, $PLANET, $Element, $costResources);
+				$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $Element, $costResources);
+				$elementBonus		= BuildUtil::getAvalibleBonus($Element);
 
 				$darkmatterList[$Element]	= array(
 					'timeLeft'			=> max($USER[$resource[$Element]] - TIMESTAMP, 0),
@@ -140,13 +140,13 @@ class ShowOfficierPage extends AbstractGamePage
 		{
 			foreach($reslist['officier'] as $Element)
 			{
-				if (!BuildUtils::requirementsAvailable($USER, $PLANET, $Element))
+				if (!BuildUtil::requirementsAvailable($USER, $PLANET, $Element))
 					continue;
 					
-				$costResources		= BuildUtils::getElementPrice($USER, $PLANET, $Element);
-				$buyable			= BuildUtils::isElementBuyable($USER, $PLANET, $Element, $costResources);
-				$costOverflow		= BuildUtils::getRestPrice($USER, $PLANET, $Element, $costResources);
-				$elementBonus		= BuildUtils::getAvalibleBonus($Element);
+				$costResources		= BuildUtil::getElementPrice($USER, $PLANET, $Element);
+				$buyable			= BuildUtil::isElementBuyable($USER, $PLANET, $Element, $costResources);
+				$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $Element, $costResources);
+				$elementBonus		= BuildUtil::getAvalibleBonus($Element);
 				
 				$officierList[$Element]	= array(
 					'level'				=> $USER[$resource[$Element]],

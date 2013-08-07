@@ -160,7 +160,7 @@ class GalaxyRows
 		if ($this->galaxyRow['galaxy'] != $PLANET['galaxy'])
 			return false;
 		
-		$Range		= FleetFunctions::GetMissileRange($USER[$resource[117]]);
+		$Range		= FleetUtil::GetMissileRange($USER[$resource[117]]);
 		$systemMin	= $PLANET['system'] - $Range;
 		$systemMax	= $PLANET['system'] + $Range;
 		

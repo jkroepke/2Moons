@@ -53,7 +53,7 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 			$expeditionPoints[$shipId]	= ($pricelist[$shipId]['cost'][901] + $pricelist[$shipId]['cost'][902]) * 5 / 1000;
 		}
 			
-		$fleetArray		= FleetFunctions::unserialize($this->_fleet['fleet_array']);
+		$fleetArray		= FleetUtil::unserialize($this->_fleet['fleet_array']);
 		$fleetPoints 	= 0;
 		$fleetCapacity	= 0;
 
@@ -358,7 +358,7 @@ HTML;
 					'fleet_resource_deuterium'	=> 0
 				);
 
-				$bonusList	= BuildUtils::getBonusList();
+				$bonusList	= BuildUtil::getBonusList();
 
 				$fleetDefend[0]['player']	= $targetData;
 				$fleetDefend[0]['player']['factor']	= ArrayUtil::combineArrayWithSingleElement($bonusList, 0);

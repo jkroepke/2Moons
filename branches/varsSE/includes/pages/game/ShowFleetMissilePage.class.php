@@ -61,7 +61,7 @@ class ShowFleetMissilePage extends AbstractGamePage
             ':targetType'   => $targetType
         ));
 
-        $Range				= FleetFunctions::GetMissileRange($USER[$resource[117]]);
+        $Range				= FleetUtil::GetMissileRange($USER[$resource[117]]);
 		$systemMin			= $PLANET['system'] - $Range;
 		$systemMax			= $PLANET['system'] + $Range;
 		
@@ -117,7 +117,7 @@ class ShowFleetMissilePage extends AbstractGamePage
 			$this->printMessage($error);
 		}
 		
-		$Duration		= FleetFunctions::GetMIPDuration($PLANET['system'], $targetSystem);
+		$Duration		= FleetUtil::GetMIPDuration($PLANET['system'], $targetSystem);
 
 		$DefenseLabel 	= ($primaryTarget == 0) ? $LNG['ma_all'] : $LNG['tech'][$primaryTarget];
 
@@ -133,7 +133,7 @@ class ShowFleetMissilePage extends AbstractGamePage
 			903	=> 0,
 		);
 		
-		FleetFunctions::sendFleet($fleetArray, 10, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'],
+		FleetUtil::sendFleet($fleetArray, 10, $USER['id'], $PLANET['id'], $PLANET['galaxy'], $PLANET['system'],
 			$PLANET['planet'], $PLANET['planet_type'], $target['id_owner'], $target['id'], $targetGalaxy, $targetSystem,
 			$targetPlanet, $targetType, $fleetResource, $fleetStartTime, $fleetStayTime, $fleetEndTime, 0, $primaryTarget);
 

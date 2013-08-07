@@ -52,7 +52,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 
 		if (!isset($_SESSION['fleet'][$token]))
 		{
-			FleetFunctions::GotoFleetPage();
+			FleetUtil::GotoFleetPage();
 		}
 
 		$fleetArray    				= $_SESSION['fleet'][$token]['fleet'];
@@ -82,7 +82,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 		$MisInfo['IsAKS']			= $fleetGroup;
 		$MisInfo['Ship'] 			= $fleetArray;		
 		
-		$MissionOutput	 			= FleetFunctions::GetFleetMissions($USER, $MisInfo, $targetPlanetData);
+		$MissionOutput	 			= FleetUtil::GetFleetMissions($USER, $MisInfo, $targetPlanetData);
 		
 		if(empty($MissionOutput['MissionSelector']))
 		{
@@ -92,11 +92,11 @@ class ShowFleetStep2Page extends AbstractGamePage
 			)));
 		}
 		
-		$GameSpeedFactor   		 	= FleetFunctions::GetGameSpeedFactor();		
-		$MaxFleetSpeed 				= FleetFunctions::GetFleetMaxSpeed($fleetArray, $USER);
-		$distance      				= FleetFunctions::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetGalaxy, $targetSystem, $targetPlanet));
-		$duration      				= FleetFunctions::GetMissionDuration($fleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $USER);
-		$consumption				= FleetFunctions::GetFleetConsumption($fleetArray, $duration, $distance, $USER, $GameSpeedFactor);
+		$GameSpeedFactor   		 	= FleetUtil::GetGameSpeedFactor();
+		$MaxFleetSpeed 				= FleetUtil::GetFleetMaxSpeed($fleetArray, $USER);
+		$distance      				= FleetUtil::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetGalaxy, $targetSystem, $targetPlanet));
+		$duration      				= FleetUtil::GetMissionDuration($fleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $USER);
+		$consumption				= FleetUtil::GetFleetConsumption($fleetArray, $duration, $distance, $USER, $GameSpeedFactor);
 		
 		if($consumption > $PLANET['deuterium'])
 		{
@@ -106,9 +106,9 @@ class ShowFleetStep2Page extends AbstractGamePage
 			)));
 		}
 		
-		if(!FleetFunctions::CheckUserSpeed($fleetSpeed))
+		if(!FleetUtil::CheckUserSpeed($fleetSpeed))
 		{
-			FleetFunctions::GotoFleetPage(0);
+			FleetUtil::GotoFleetPage(0);
 		}
 		
 		$_SESSION['fleet'][$token]['speed']			= $MaxFleetSpeed;

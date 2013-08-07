@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class BuildUtils
+class BuildUtil
 {
 	public static $bonusList = NULL;
 
