@@ -372,7 +372,7 @@ class ShowInformationPage extends AbstractGamePage
 			'productionTable'	=> $productionTable,
 			'CurrentLevel'		=> $CurrentLevel,
 			'MissileList'		=> $MissileList,
-			'Bonus'				=> BuildUtils::getAvalibleBonus($elementID),
+			'Bonus'				=> BuildUtil::getAvalibleBonus($elementID),
 			'FleetInfo'			=> $FleetInfo,
 			'gateData'			=> $gateData,
 		));

@@ -42,7 +42,7 @@ class QueueManager
         $this->planetId = $planetId;
     }
 
-    public function add(Element $elementObj, $amount, $buildTime, $endBuildTime)
+    public function add(Element $elementObj, $amount, $buildTime, $endBuildTime, $taskType)
     {
         $sql = 'INSERT INTO %%QUEUE%% SET
         queueId         = :queueId,
@@ -51,7 +51,8 @@ class QueueManager
         elementId       = :elementId,
         buildTime       = :buildTime,
         endBuildTime    = :endBuildTime,
-        amount          = :amount;';
+        amount          = :amount,
+        taskType        = :taskType;';
 
         return Database::get()->insert($sql, array(
             ':queueId'      => $elementObj->queueId,
@@ -61,6 +62,7 @@ class QueueManager
             ':buildTime'    => $buildTime,
             ':endBuildTime' => $endBuildTime,
             ':amount'       => $amount,
+            ':taskType'     => $taskType,
         ));
     }
 
@@ -68,7 +70,7 @@ class QueueManager
     {
         $sql = 'DELETE FROM %%QUEUE%% WHERE taskId = :taskId;';
 
-        return Database::get()->insert($sql, array(
+        return Database::get()->delete($sql, array(
             ':taskId'   => $taskId
         ));
     }
@@ -97,7 +99,8 @@ class QueueManager
             ':userId'       => $this->userId,
             ':planetId'     => $this->planetId,
             ':queueId'      => $elementObj->queueId,
-            ':elementId'    => $elementObj->elementID
+            ':elementId'    => $elementObj->elementID,
+            ':taskType'     => self::USER,
         ));
 
         $sql    = 'UPDATE %%QUEUE%% SET endBuildTime = endBuildTime - :timeDifference
@@ -112,6 +115,7 @@ class QueueManager
                 ':userId'           => $this->userId,
                 ':planetId'         => $this->planetId,
                 ':queueId'          => $elementObj->queueId,
+                ':taskType'         => self::USER,
                 ':timeDifference'   => $time,
                 ':taskId'           => $taskId,
             ));
@@ -198,7 +202,7 @@ class QueueManager
             ':taskType'         => self::USER,
         ));
 
-        $sql = 'UPDATE %%QUEUE%% SET buildEndTime = buildEndTime + :timeDifference
+        $sql = 'UPDATE %%QUEUE%% SET endBuildTime = endBuildTime + :timeDifference
         WHERE userId = :userId
         AND queueId = :queueId
         AND (planetId = :planetId OR taskType = :taskType)

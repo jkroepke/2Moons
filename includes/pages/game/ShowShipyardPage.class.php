@@ -63,7 +63,7 @@ class ShowShipyardPage extends AbstractGamePage
 			$Element		= $ElementQueue[$Auftr][0];
 			$Count			= $ElementQueue[$Auftr][1];
 			
-			$costResources	= BuildUtils::getElementPrice($USER, $PLANET, $Element, false, $Count);
+			$costResources	= BuildUtil::getElementPrice($USER, $PLANET, $Element, false, $Count);
 		
 			if(isset($costResources[901])) { $PLANET[$resource[901]]	+= $costResources[901] * FACTOR_CANCEL_SHIPYARD; }
 			if(isset($costResources[902])) { $PLANET[$resource[902]]	+= $costResources[902] * FACTOR_CANCEL_SHIPYARD; }
@@ -95,12 +95,12 @@ class ShowShipyardPage extends AbstractGamePage
 		{
 			if(empty($Count)
 				|| !in_array($Element, array_merge($reslist['fleet'], $reslist['defense'], $reslist['missile']))
-				|| !BuildUtils::requirementsAvailable($USER, $PLANET, $Element)
+				|| !BuildUtil::requirementsAvailable($USER, $PLANET, $Element)
 			) {
 				continue;
 			}
 			
-			$MaxElements 	= BuildUtils::getMaxConstructibleElements($USER, $PLANET, $Element);
+			$MaxElements 	= BuildUtil::getMaxConstructibleElements($USER, $PLANET, $Element);
 			$Count			= is_numeric($Count) ? round($Count) : 0;
 			$Count 			= max(min($Count, Config::get()->max_fleet_per_build), 0);
 			$Count 			= min($Count, $MaxElements);
@@ -108,7 +108,7 @@ class ShowShipyardPage extends AbstractGamePage
 			$BuildArray    	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
 			if (in_array($Element, $reslist['missile']))
 			{
-				$MaxMissiles		= BuildUtils::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
+				$MaxMissiles		= BuildUtil::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
 				$Count 				= min($Count, $MaxMissiles[$Element]);
 
 				$Missiles[$Element] += $Count;
@@ -131,7 +131,7 @@ class ShowShipyardPage extends AbstractGamePage
 			if(empty($Count))
 				continue;
 				
-			$costResources	= BuildUtils::getElementPrice($USER, $PLANET, $Element, false, $Count);
+			$costResources	= BuildUtil::getElementPrice($USER, $PLANET, $Element, false, $Count);
 		
 			if(isset($costResources[901])) { $PLANET[$resource[901]]	-= $costResources[901]; }
 			if(isset($costResources[902])) { $PLANET[$resource[902]]	-= $costResources[902]; }
@@ -209,7 +209,7 @@ class ShowShipyardPage extends AbstractGamePage
 					continue;
 					
 				$elementInQueue[$Element[0]]	= true;
-				$ElementTime  	= BuildUtils::getBuildingTime($USER, $PLANET, $Element[0]);
+				$ElementTime  	= BuildUtil::getBuildingTime($USER, $PLANET, $Element[0]);
 				$QueueTime   	+= $ElementTime * $Element[1];
 				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime, $Element[0]);		
 			}
@@ -237,18 +237,18 @@ class ShowShipyardPage extends AbstractGamePage
 			$Missiles[$elementID]	= $PLANET[$resource[$elementID]];
 		}
 		
-		$MaxMissiles	= BuildUtils::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
+		$MaxMissiles	= BuildUtil::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
 		
 		foreach($elementIDs as $Element)
 		{
-			if(!BuildUtils::requirementsAvailable($USER, $PLANET, $Element))
+			if(!BuildUtil::requirementsAvailable($USER, $PLANET, $Element))
 				continue;
 			
-			$costResources		= BuildUtils::getElementPrice($USER, $PLANET, $Element);
-			$costOverflow		= BuildUtils::getRestPrice($USER, $PLANET, $Element, $costResources);
-			$elementTime    	= BuildUtils::getBuildingTime($USER, $PLANET, $Element, $costResources);
-			$buyable			= BuildUtils::isElementBuyable($USER, $PLANET, $Element, $costResources);
-			$maxBuildable		= BuildUtils::getMaxConstructibleElements($USER, $PLANET, $Element, $costResources);
+			$costResources		= BuildUtil::getElementPrice($USER, $PLANET, $Element);
+			$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $Element, $costResources);
+			$elementTime    	= BuildUtil::getBuildingTime($USER, $PLANET, $Element, $costResources);
+			$buyable			= BuildUtil::isElementBuyable($USER, $PLANET, $Element, $costResources);
+			$maxBuildable		= BuildUtil::getMaxConstructibleElements($USER, $PLANET, $Element, $costResources);
 
 			if(isset($MaxMissiles[$Element])) {
 				$maxBuildable	= min($maxBuildable, $MaxMissiles[$Element]);

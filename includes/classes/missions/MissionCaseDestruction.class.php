@@ -128,7 +128,7 @@ HTML;
 
 			$fleetAttack[$fleetID]['player']['factor']	= PlayerUtil::getFactors($fleetAttack[$fleetID]['player'],  $this->_fleet['fleet_start_time']);
 			$fleetAttack[$fleetID]['fleetDetail']		= $fleetDetail;
-			$fleetAttack[$fleetID]['unit']				= FleetFunctions::unserialize($fleetDetail['fleet_array']);
+			$fleetAttack[$fleetID]['unit']				= FleetUtil::unserialize($fleetDetail['fleet_array']);
 
 			$userAttack[$fleetAttack[$fleetID]['player']['id']]	= $fleetAttack[$fleetID]['player']['username'];
 		}
@@ -156,7 +156,7 @@ HTML;
 
 			$fleetDefend[$fleetID]['player']['factor']	= PlayerUtil::getFactors($fleetDefend[$fleetID]['player'], $this->_fleet['fleet_start_time']);
 			$fleetDefend[$fleetID]['fleetDetail']		= $fleetDetail;
-			$fleetDefend[$fleetID]['unit']				= FleetFunctions::unserialize($fleetDetail['fleet_array']);
+			$fleetDefend[$fleetID]['unit']				= FleetUtil::unserialize($fleetDetail['fleet_array']);
 
 			$userDefend[$fleetDefend[$fleetID]['player']['id']]	= $fleetDefend[$fleetID]['player']['username'];
 		}

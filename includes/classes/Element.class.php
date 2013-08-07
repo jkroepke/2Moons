@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class Element
+class Element implements Serializable
 {
     private $data;
 
@@ -154,7 +154,7 @@ class Element
                     $data['flags'][]  = VARS::FLAG_TRADE;
                 }
 
-                foreach(BuildUtils::getBonusList() as $bonus)
+                foreach(BuildUtil::getBonusList() as $bonus)
                 {
                     $data["bonus"][$bonus]['value']  = $data["bonus$bonus"];
                     $data["bonus"][$bonus]['unit']   = $data["bonus{$bonus}Unit"] == 0 ? 'percent' : 'static';
@@ -215,13 +215,11 @@ class Element
         return $this->data[$key];
     }
 
-    public function __sleep()
-    {
-        return array('data');
+    public function serialize() {
+        return json_encode($this->data);
     }
 
-    public function __wakeup()
-    {
-
+    public function unserialize($data) {
+        $this->data = json_decode($data, true);
     }
 }

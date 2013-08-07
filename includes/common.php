@@ -26,23 +26,6 @@
  * @link http://2moons.cc/
  */
 
-if (isset($_POST['GLOBALS']) || isset($_GET['GLOBALS'])) {
-	exit('You cannot set the GLOBALS-array from outside the script.');
-}
-
-// Magic Quotes work around.
-// http://www.php.net/manual/de/security.magicquotes.disabling.php#91585
-if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1) {
-    function stripslashes_gpc(&$value)
-    {
-        $value = stripslashes($value);
-    }
-    array_walk_recursive($_GET, 'stripslashes_gpc');
-    array_walk_recursive($_POST, 'stripslashes_gpc');
-    array_walk_recursive($_COOKIE, 'stripslashes_gpc');
-    array_walk_recursive($_REQUEST, 'stripslashes_gpc');
-}
-
 if (function_exists('mb_internal_encoding')) {
 	mb_internal_encoding("UTF-8");
 }
@@ -69,7 +52,7 @@ require 'includes/classes/ArrayUtil.class.php';
 require 'includes/classes/Cache.class.php';
 require 'includes/classes/Database.class.php';
 require 'includes/classes/Config.class.php';
-require 'includes/classes/class.FleetFunctions.php';
+require 'includes/classes/FleetUtil.class.php';
 require 'includes/classes/HTTP.class.php';
 require 'includes/classes/Language.class.php';
 require 'includes/classes/PlayerUtil.class.php';
@@ -121,7 +104,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 		HTTP::redirectTo('index.php?code=3');
 	}
 
-	require 'includes/classes/BuildUtils.class.php';
+	require 'includes/classes/BuildUtil.class.php';
 	require 'includes/classes/QueueManager.class.php';
 	require 'includes/classes/Economy.class.php';
 

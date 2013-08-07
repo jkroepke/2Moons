@@ -91,7 +91,7 @@ class MissionFunctions
 	{
 		global $resource;
 
-		$fleetData		= FleetFunctions::unserialize($this->_fleet['fleet_array']);
+		$fleetData		= FleetUtil::unserialize($this->_fleet['fleet_array']);
 
 		$updateQuery	= array();
 

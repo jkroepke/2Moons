@@ -193,7 +193,7 @@ class ShowOverviewPage extends AbstractGamePage
 		
 		if (!empty($PLANET['b_hangar_id'])) {
 			$Queue	= unserialize($PLANET['b_hangar_id']);
-			$time	= BuildUtils::getBuildingTime($USER, $PLANET, $Queue[0][0]) * $Queue[0][1];
+			$time	= BuildUtil::getBuildingTime($USER, $PLANET, $Queue[0][0]) * $Queue[0][1];
 			$buildInfo['fleet']	= array(
 				'id'		=> $Queue[0][0],
 				'level'		=> $Queue[0][1],

@@ -544,7 +544,7 @@ class PlayerUtil
 
 		foreach($fleetIds as $fleetId)
 		{
-			FleetFunctions::SendFleetBack($userId, $fleetId);
+			FleetUtil::SendFleetBack($userId, $fleetId);
 		}
 
 		$sql	= 'UPDATE %%UNIVERSE%% SET userAmount = userAmount - 1 WHERE universe = :universe;';
@@ -577,7 +577,7 @@ class PlayerUtil
 
 		foreach($fleetIds as $fleetId)
 		{
-			FleetFunctions::SendFleetBack($planetData['id_owner'], $fleetId);
+			FleetUtil::SendFleetBack($planetData['id_owner'], $fleetId);
 		}
 		
 		if ($planetData['planet_type'] == 3) {
@@ -689,7 +689,7 @@ class PlayerUtil
             $timestamp	= TIMESTAMP;
         }
 
-        $bonusList	= BuildUtils::getBonusList();
+        $bonusList	= BuildUtil::getBonusList();
         $factor		= ArrayUtil::combineArrayWithSingleElement($bonusList, array('percent' => 0,'static' => 0));
 
         $tempBonusElementIds  = array_keys(Vars::getElements(Vars::CLASS_TEMP_BONUS));

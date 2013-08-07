@@ -256,7 +256,7 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 		{
 			foreach($fleetElements as $elementId => $elementObj)
 			{
-				if(FleetFunctions::GetFleetMaxSpeed($elementObj, $USER) > 0)
+				if(FleetUtil::GetFleetMaxSpeed($elementObj, $USER) > 0)
 				{
 					// Add just flyable elements
 					$BattleArray[0][0][$elementId]	= $PLANET[$elementObj->name];
