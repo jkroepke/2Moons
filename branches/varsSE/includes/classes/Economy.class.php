@@ -176,7 +176,7 @@ class Economy
 		}
 	}
 
-    private function saveToDatabase($env, $variable)
+    public function saveToDatabase($env, $variable)
     {
         $this->save[md5($env.$variable)] = array('env' => $env, 'var' => $variable);
     }
@@ -191,6 +191,7 @@ class Economy
         {
             $elementName    = $elementObj->name;
             $storage        = $this->PLANET[$elementName.'_max'] * $this->config->max_overflow;
+            if ($this->PLANET[$elementName] >= $this->PLANET[$elementName.'_max']) continue;
 
             $theoretical    = $this->ProductionTime * ($this->config->{$elementName.'_basic_income'} * $this->config->resource_multiplier + $this->PLANET[$elementName.'_perhour']) / 3600;
             $this->PLANET[$elementName] = max(min($this->PLANET[$elementName] + $theoretical, $storage), 0);
@@ -218,6 +219,8 @@ class Economy
 		{
             foreach($elementResourcePlanetList as $elementResourcePlanetId => $elementResourcePlanetObj)
 			{
+                if(is_null($elementStorageObj->calcStorage[$elementResourcePlanetId])) continue;
+
 				$BuildLevel 		= isset($this->PLANET[$elementStorageObj->name])
                     ? $this->PLANET[$elementStorageObj->name]
                     : $this->USER[$elementStorageObj->name];
@@ -241,6 +244,8 @@ class Economy
 
             foreach($elementResourceProductionList as $elementResourceElementId => $elementResourceElementObj)
 			{
+                if(is_null($elementProductionElementObj->calcProduction[$elementResourceElementId])) continue;
+
 				$Production	= eval(self::getProd($elementProductionElementObj->calcProduction[$elementResourceElementId]));
 				
 				if($Production > 0) {					
@@ -390,11 +395,11 @@ class Economy
                 foreach($costResources as $resourceElementId => $value)
                 {
                     $resourceElementObj    = Vars::getElement($resourceElementId);
-                    if(Vars::elementHasFlag($resourceElementObj, Vars::FLAG_RESOURCE_PLANET))
+                    if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_PLANET))
                     {
                         $taskPlanet[$resourceElementObj->name]	-= $costResources[$resourceElementId];
                     }
-                    elseif(Vars::elementHasFlag($resourceElementObj, Vars::FLAG_RESOURCE_USER))
+                    elseif($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
                     {
                         $this->USER[$resourceElementObj->name] 	-= $costResources[$resourceElementId];
                     }
@@ -483,7 +488,7 @@ class Economy
             {
                 $amount = $queueData[count($queueData)-1]['amount'];
             }
-            elseif(Vars::elementHasFlag($elementObj, Vars::FLAG_RESOURCE_USER))
+            elseif($elementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
             {
                 $amount = $this->USER[$elementName];
             }
@@ -547,11 +552,11 @@ class Economy
             foreach($costResources as $resourceElementId => $value)
             {
                 $resourceElementObj    = Vars::getElement($resourceElementId);
-                if(Vars::elementHasFlag($resourceElementObj, Vars::FLAG_RESOURCE_PLANET))
+                if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_PLANET))
                 {
                     $this->PLANET[$resourceElementObj->name]	-= $costResources[$resourceElementId];
                 }
-                elseif(Vars::elementHasFlag($resourceElementObj, Vars::FLAG_RESOURCE_USER))
+                elseif($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
                 {
                     $this->USER[$resourceElementObj->name] 	-= $costResources[$resourceElementId];
                 }
@@ -595,9 +600,9 @@ class Economy
             ':field_current' 		=> $PLANET['field_current'],
 		);
 
-        foreach(Vars::getElements(Vars::CLASS_RESOURCE) as $elementId => $elementObj)
+        foreach(Vars::getElements(Vars::CLASS_RESOURCE) as $elementObj)
         {
-            if(Vars::elementHasFlag($elementObj, Vars::FLAG_RESOURCE_PLANET))
+            if($elementObj->hasFlag(Vars::FLAG_RESOURCE_PLANET))
             {
                 $buildQueries[] = ', p.'.$elementObj->name.' = :'.$elementObj->name.'_current';
                 $buildQueries[] = ', p.'.$elementObj->name.'_perhour = :'.$elementObj->name.'_perhour';
@@ -607,12 +612,12 @@ class Economy
                 $params[':'.$elementObj->name.'_perhour']	= floattostring($PLANET[$elementObj->name.'_perhour']);
                 $params[':'.$elementObj->name.'_max']	    = floattostring($PLANET[$elementObj->name.'_max']);
             }
-            elseif(Vars::elementHasFlag($elementObj, Vars::FLAG_RESOURCE_USER))
+            elseif($elementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
             {
                 $buildQueries[] = ', u.'.$elementObj->name.' = :'.$elementObj->name.'_current';
                 $params[':'.$elementObj->name.'_current']	= floattostring($USER[$elementObj->name]);
             }
-            elseif(Vars::elementHasFlag($elementObj, Vars::FLAG_ENERGY))
+            elseif($elementObj->hasFlag(Vars::FLAG_ENERGY))
             {
                 $buildQueries[] = ', p.'.$elementObj->name.' = :'.$elementObj->name.'_current';
                 $buildQueries[] = ', p.'.$elementObj->name.'_used = :'.$elementObj->name.'_used';

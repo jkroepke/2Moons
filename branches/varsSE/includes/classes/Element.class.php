@@ -86,6 +86,11 @@ class Element implements Serializable
                 {
                     $data['flags'][]  = VARS::FLAG_CALCULATE_BUILD_TIME;
                 }
+
+                if($data['flagCalculateFleetStructure'] == 1)
+                {
+                    $data['flags'][]  = VARS::FLAG_CALC_FLEET_STRUCTURE;
+                }
             break;
             case Vars::CLASS_QUEUE:
                 $tmp    = array();
@@ -213,6 +218,11 @@ class Element implements Serializable
             throw new Exception("Unknown key '$key'");
         }
         return $this->data[$key];
+    }
+
+    public function hasFlag($flag)
+    {
+        return in_array($flag, $this->flags);
     }
 
     public function serialize() {

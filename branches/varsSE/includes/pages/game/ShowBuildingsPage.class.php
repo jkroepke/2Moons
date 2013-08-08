@@ -184,8 +184,7 @@ class ShowBuildingsPage extends AbstractGamePage
 				$levelToBuild	= $PLANET[$elementObj->name];
 			}
 
-
-			if(Vars::elementHasFlag($elementObj, Vars::FLAG_PRODUCTION))
+			if($elementObj->hasFlag(Vars::FLAG_PRODUCTION))
 			{
 				$BuildLevel	= $PLANET[$elementObj->name];
 				$Need		= eval(Economy::getProd($elementObj->calcProduction[911]));

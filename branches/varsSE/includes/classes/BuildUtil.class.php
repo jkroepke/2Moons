@@ -62,7 +62,7 @@ class BuildUtil
         }
 		return self::$bonusList;
 	}
-	
+
 	public static function getRestPrice($USER, $PLANET, $Element, $costResources = NULL)
 	{
 		if(!isset($costResources))
@@ -75,7 +75,7 @@ class BuildUtil
         foreach($costResources as $resourceElementId => $value)
         {
             $resourceElementObj    = Vars::getElement($resourceElementId);
-            if(Vars::elementHasFlag($resourceElementObj, Vars::FLAG_RESOURCE_USER))
+            if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
             {
                 $available  = $USER[$resourceElementObj->name];
             }
@@ -125,7 +125,7 @@ class BuildUtil
 		{
             $requireElementObj = Vars::getElement($requireElementId);
 
-            if(Vars::elementHasFlag($requireElementObj, Vars::FLAG_RESOURCE_USER))
+            if(isset($USER[$requireElementObj->name]))
             {
                 if ($USER[$requireElementObj->name] < $requireElementLevel) return false;
             }
@@ -227,7 +227,7 @@ class BuildUtil
         foreach($costResources as $resourceElementId => $value)
         {
             $resourceElementObj    = Vars::getElement($resourceElementId);
-            if(Vars::elementHasFlag($resourceElementObj, Vars::FLAG_RESOURCE_USER))
+            if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
             {
                 $maxElement[]	= floor($USER[$resourceElementObj->name] / $value);
             }
@@ -246,7 +246,7 @@ class BuildUtil
         $missileElements    = Vars::getElements(Vars::CLASS_MISSILE);
 		foreach($missileElements as $missileElementObj)
         {
-            if(Vars::elementHasFlag($missileElementObj, Vars::FLAG_ATTACK_MISSILE))
+            if($missileElementObj->hasFlag(Vars::FLAG_ATTACK_MISSILE))
             {
                 $currentMissiles	+= $PLANET[$missileElementObj->name] * 2;
             }
@@ -275,7 +275,7 @@ class BuildUtil
 
         foreach($missileElements as $missileElementId => $missileElementObj)
         {
-            if(Vars::elementHasFlag($missileElementObj, Vars::FLAG_ATTACK_MISSILE))
+            if($missileElementObj->hasFlag(Vars::FLAG_ATTACK_MISSILE))
             {
                 $buildableMissiles[$missileElementId]   = $buildableMissileCount / 2;
             }

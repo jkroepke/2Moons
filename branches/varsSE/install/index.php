@@ -29,6 +29,13 @@
 
 define('MODE', 'INSTALL');
 define('ROOT_PATH', str_replace('\\', '/', dirname(dirname(__FILE__))) . '/');
+
+$mode = HTTP::_GP('mode', '');
+if($mode === 'upgrade' || $mode === 'doupgrade')
+{
+	define('DATABASE_VERSION', 'OLD');
+}
+
 set_include_path(ROOT_PATH);
 chdir(ROOT_PATH);
 
@@ -72,7 +79,6 @@ if (!empty($language) && in_array($language, $LNG->getAllowedLangs())) {
 	setcookie('lang', $language);
 }
 
-$mode = HTTP::_GP('mode', '');
 switch ($mode) {
 	case 'ajax':
 		require 'includes/libs/ftp/ftp.class.php';

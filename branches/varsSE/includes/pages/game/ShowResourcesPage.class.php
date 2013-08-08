@@ -47,12 +47,11 @@ class ShowResourcesPage extends AbstractGamePage
 
 			$param	                = array(':planetId' => $PLANET['id']);
             $productionLevel        = HTTP::_GP('prod', array());
-            $elementResourceList    = Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_ON_ECO_OVERVIEW);
+            $elementProductionList    = Vars::getElements(NULL, Vars::FLAG_PRODUCTION);
 
-			foreach($elementResourceList as $elementId => $elementObj)
+			foreach($elementProductionList as $elementId => $elementObj)
 			{
                 if(!isset($productionLevel[$elementId])) continue;
-
                 $value      = $productionLevel[$elementId];
 				$fieldName  = $elementObj->name.'_porcent';
 
@@ -76,6 +75,7 @@ class ShowResourcesPage extends AbstractGamePage
 				$PLANET['eco_hash'] = $this->ecoObj->CreateHash();
 			}
 		}
+
 		$this->redirectTo('game.php?page=resources');
 	}
 
@@ -87,7 +87,6 @@ class ShowResourcesPage extends AbstractGamePage
         $elementResourceList    = Vars::getElements(Vars::CLASS_RESOURCE, array(Vars::FLAG_RESOURCE_PLANET , Vars::FLAG_ENERGY));
         $elementEnergyList      = Vars::getElements(NULL, Vars::FLAG_ENERGY);
         $elementProductionList  = Vars::getElements(NULL, Vars::FLAG_PRODUCTION);
-
 		$planetIsOnProduction   = $USER['urlaubs_modus'] == 0 && $PLANET['planet_type'] == PLANET;
 
         $basicIncome            = array();
@@ -144,7 +143,7 @@ class ShowResourcesPage extends AbstractGamePage
 		foreach($elementProductionList as $elementProductionId => $elementProductionObj)
 		{
             $elementProductionName  = $elementProductionObj->name;
-			if(empty($PLANET[$elementProductionName]) || empty($USER[$elementProductionName])) continue;
+			if(empty($PLANET[$elementProductionName]) && empty($USER[$elementProductionName])) continue;
 
 			$productionList[$elementProductionId]	= array(
 				'production'	=> array(901 => 0, 902 => 0, 903 => 0, 911 => 0),
@@ -158,7 +157,11 @@ class ShowResourcesPage extends AbstractGamePage
 
 			foreach($elementResourceList as $elementResourceId => $elementResourceObj)
 			{
-				if(!isset($elementProductionObj->calcProduction[$elementResourceId])) continue;
+				if(is_null($elementProductionObj->calcProduction[$elementResourceId]))
+                {
+                    $productionList[$elementProductionId]['production'][$elementResourceId]	= 0;
+                    continue;
+                }
 
 				$productionAmount = eval(Economy::getProd($elementProductionObj->calcProduction[$elementResourceId]));
 
@@ -179,7 +182,6 @@ class ShowResourcesPage extends AbstractGamePage
 				$productionList[$elementProductionId]['production'][$elementResourceId]	= $productionAmount;
 			}
 		}
-			
 		$prodSelector	= array();
 		
 		foreach(range(10, 0) as $percent)

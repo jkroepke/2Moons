@@ -43,7 +43,7 @@ class PlayerUtil
 
     static public function getBonusValue($baseValue, $bonusName, $USER)
     {
-        return $baseValue;
+        return 0;
     }
 
     public static function getLabLevelByNetwork($USER, $PLANET)

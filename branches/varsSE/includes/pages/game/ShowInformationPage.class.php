@@ -45,7 +45,7 @@ class ShowInformationPage extends AbstractGamePage
 
 	public function sendFleet()
 	{
-		global $PLANET, $USER, $LNG, $reslist;
+		global $PLANET, $USER, $LNG;
 
         $db = Database::get();
 
@@ -90,21 +90,19 @@ class ShowInformationPage extends AbstractGamePage
 		$SubQueryDes	= "";
 		$Ships			= HTTP::_GP('ship', array());
 		$SubQueryParams = array();
-
-		foreach($reslist['fleet'] as $Ship)
+        foreach(Vars::getElements(Vars::CLASS_FLEET) as $elementId => $elementObj)
 		{
-			if(!isset($Ships[$Ship]) || $Ship == 212)
-				continue;
+            if (empty($Ships[$elementId]) || empty($PLANET[$elementObj->name]) || FleetUtil::GetFleetMaxSpeed($elementObj, $USER) == 0)
+                continue;
 				
-			$ShipArray[$Ship]	= max(0, min($Ships[$Ship], $PLANET[$resource[$Ship]]));
+			$ShipArray[$elementId]	= max(0, min($Ships[$elementId], $PLANET[$elementObj->name]));
 					
-			if(empty($ShipArray[$Ship]))
-				continue;
-								
-			$SubQueryOri 		.= $resource[$Ship]." = ".$resource[$Ship]." - :".$resource[$Ship].", ";
-            $SubQueryDes 		.= $resource[$Ship]." = ".$resource[$Ship]." + :".$resource[$Ship].", ";
-            $SubQueryParams[':'.$resource[$Ship]]    = $ShipArray[$Ship];
-			$PLANET[$resource[$Ship]] -= $ShipArray[$Ship];
+			if(empty($ShipArray[$elementId])) continue;
+
+            $SubQueryDes 		.= $elementObj->name." = ".$elementObj->name." + :".$elementObj->name."Element, ";
+            $SubQueryParams[':'.$elementObj->name.'Element']    = $ShipArray[$elementId];
+			$PLANET[$elementObj->name] -= $ShipArray[$elementId];
+            $this->ecoObj->saveToDatabase('PLANET', $elementObj->name);
 		}
 
 		if (empty($SubQueryOri))
@@ -115,18 +113,10 @@ class ShowInformationPage extends AbstractGamePage
 			));
 		}
 
-		$sql  = "UPDATE %%PLANETS%% SET :subquery last_jump_time = :jumptime WHERE id = :planetID;";
-		$db->update($sql, array_merge(array(
-            ':planetID' => $PLANET['id'],
-            ':jumptime' => TIMESTAMP,
-            ':subquery' => $SubQueryOri
-        ), $SubQueryParams));
-
-        $sql  = "UPDATE %%PLANETS%% SET :subquery last_jump_time = :jumptime WHERE id = :targetID;";
+        $sql  = "UPDATE %%PLANETS%% SET ".$SubQueryDes." last_jump_time = :jumptime WHERE id = :targetID;";
         $db->update($sql, array_merge(array(
             ':targetID' => $TargetPlanet,
             ':jumptime' => TIMESTAMP,
-            ':subquery' => $SubQueryDes
         ), $SubQueryParams));
 
 		$PLANET['last_jump_time'] 	= TIMESTAMP;
@@ -139,16 +129,16 @@ class ShowInformationPage extends AbstractGamePage
 
 	private function getAvailableFleets()
 	{
-		global $PLANET;
+		global $USER, $PLANET;
 
         $fleetList  = array();
 
-		foreach($reslist['fleet'] as $Ship)
+		foreach(Vars::getElements(Vars::CLASS_FLEET) as $elementId => $elementObj)
 		{
-			if ($Ship == 212 || $PLANET[$resource[$Ship]] <= 0)
+			if (empty($PLANET[$elementObj->name]) || FleetUtil::GetFleetMaxSpeed($elementObj, $USER) == 0)
 				continue;
 						
-			$fleetList[$Ship]	= $PLANET[$resource[$Ship]];
+			$fleetList[$elementId]	= $PLANET[$elementObj->name];
 		}
 				
 		return $fleetList;
@@ -157,23 +147,20 @@ class ShowInformationPage extends AbstractGamePage
 	public function destroyMissiles()
 	{
 		global $PLANET;
+		$missileList	= HTTP::_GP('missile', array());
 
-        $db = Database::get();
+        $result         = array();
 
-		$Missle	= HTTP::_GP('missile', array());
-		$PLANET[$resource[502]]	-= max(0, min($Missle[502], $PLANET[$resource[502]]));
-		$PLANET[$resource[503]]	-= max(0, min($Missle[503], $PLANET[$resource[503]]));
+        foreach(Vars::getElements(Vars::CLASS_MISSILE) as $missileElementId => $missileElementObj)
+        {
+            if(empty($missileList[$missileElementId])) continue;
 
-        $sql = "UPDATE %%PLANETS%% SET :resource502Name = :resource502Val, :resource503Name = :resource503Val WHERE id = :planetID;";
-        $db->update($sql, array(
-            ':resource502Name'  => $resource[502],
-            ':resource503Name'  => $resource[503],
-            ':resource502Val'   => $PLANET[$resource[502]],
-            ':resource503Val'   => $PLANET[$resource[503]],
-            ':planetID'         => $PLANET['id']
-        ));
+            $PLANET[$missileElementObj->name]	-= max(0, min($missileList[$missileElementId], $PLANET[$missileElementObj->name]));
+            $result[$missileElementId] = $PLANET[$missileElementObj->name];
+            $this->ecoObj->saveToDatabase('PLANET', $missileElementObj->name);
+        }
 
-        $this->sendJSON(array($PLANET[$resource[502]], $PLANET[$resource[503]]));
+        $this->sendJSON($result);
 	}
 
 	private function getTargetGates()
@@ -197,9 +184,8 @@ class ShowInformationPage extends AbstractGamePage
                 break;
         }
 				
-		$sql = "SELECT id, name, galaxy, system, planet, last_jump_time, :resource43Name FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND planet_type = '3' AND :resource43Name > 0 ORDER BY :order;";
+		$sql = "SELECT id, name, galaxy, system, planet, last_jump_time, ".Vars::getElement(43)->name." FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND planet_type = '3' AND :resource43Name > 0 ORDER BY :order;";
         $moonResult = $db->select($sql, array(
-            ':resource43Name'   => $resource[43],
             ':planetID'         => $PLANET['id'],
             ':userID'           => $USER['id'],
             ':order'            => $OrderBy
@@ -219,135 +205,96 @@ class ShowInformationPage extends AbstractGamePage
 	{
 		global $USER, $PLANET, $LNG;
 
-		$elementID 	= HTTP::_GP('id', 0);
-		
+		$elementId  = HTTP::_GP('id', 0);
+		$elementObj = Vars::getElement($elementId);
+
 		$this->setWindow('popup');
 		$this->initTemplate();
 		
 		$productionTable	= array();
-		$FleetInfo			= array();
-		$MissileList		= array();
+		$fleetData			= array();
+		$missileList		= array();
 		$gateData			= array();
 
-		$CurrentLevel		= 0;
-		
-		$ressIDs			= array_merge(array(), $reslist['resstype'][1], $reslist['resstype'][2]);
+        $resourceElements	= Vars::getElements(NULL, array(Vars::FLAG_RESOURCE_PLANET, Vars::FLAG_ENERGY));
 
-		if(in_array($elementID, $reslist['prod']) && in_array($elementID, $reslist['build']))
+		if($elementObj->class == Vars::CLASS_BUILDING && $elementObj->hasFlag(Vars::FLAG_PRODUCTION))
 		{
-
 			/* Data for eval */
-			$BuildEnergy		= $USER[$resource[113]];
+			$BuildEnergy		= $USER[Vars::getElement(113)->name];
 			$BuildTemp          = $PLANET['temp_max'];
-			$BuildLevelFactor	= $PLANET[$resource[$elementID].'_porcent'];
+			$BuildLevelFactor	= $PLANET[$elementObj->name.'_porcent'];
 
-			$CurrentLevel		= $PLANET[$resource[$elementID]];
-			$BuildStartLvl   	= max($CurrentLevel - 2, 0);
-			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++)
+			$startLevel   	    = max($PLANET[$elementObj->name] - 2, 0);
+
+			for($BuildLevel = $startLevel; $BuildLevel < $startLevel + 15; $BuildLevel++)
 			{
-				foreach($ressIDs as $ID) 
+				foreach($resourceElements as $resourceElementId => $resourceElementObj)
 				{
-
-					if(!isset($ProdGrid[$elementID]['production'][$ID]))
-						continue;
+                    if(is_null($elementObj->calcProduction[$resourceElementId])) continue;
 						
-					$Production	= eval(Economy::getProd($ProdGrid[$elementID]['production'][$ID]));
+					$production	= eval(Economy::getProd($elementObj->calcProduction[$resourceElementId]));
 					
-					if(in_array($ID, $reslist['resstype'][2]))
+					if($resourceElementObj->hasFlag(Vars::FLAG_ENERGY))
 					{
-						$Production	*= Config::get()->energySpeed;
+						$production	*= Config::get()->energySpeed;
 					}
 					else
 					{
-						$Production	*= Config::get()->resource_multiplier;
+						$production	*= Config::get()->resource_multiplier;
 					}
 					
-					$productionTable['production'][$BuildLevel][$ID]	= $Production;
+					$productionTable['production'][$BuildLevel][$resourceElementId]	= $production;
 				}
 			}
 			
-			$productionTable['usedResource']	= array_keys($productionTable['production'][$BuildStartLvl]);
+			$productionTable['usedResource']	= array_keys($productionTable['production'][$startLevel]);
 		}
-		elseif(in_array($elementID, $reslist['storage']))
+		elseif($elementObj->class == Vars::CLASS_BUILDING && $elementObj->hasFlag(Vars::FLAG_STORAGE))
 		{
-			$CurrentLevel		= $PLANET[$resource[$elementID]];
-			$BuildStartLvl   	= max($CurrentLevel - 2, 0);
-						
-			for($BuildLevel = $BuildStartLvl; $BuildLevel < $BuildStartLvl + 15; $BuildLevel++)
+            $startLevel   	    = max($PLANET[$elementObj->name] - 2, 0);
+
+            for($BuildLevel = $startLevel; $BuildLevel < $startLevel + 15; $BuildLevel++)
 			{
-				foreach($ressIDs as $ID) 
-				{
-					if(!isset($ProdGrid[$elementID]['storage'][$ID]))
-						continue;
-						
-					$production = round(eval(Economy::getProd($ProdGrid[$elementID]['storage'][$ID])));
+                foreach($resourceElements as $resourceElementId => $resourceElementObj)
+                {
+                    if(is_null($elementObj->calcProduction[$resourceElementId])) continue;
+
+                    $production	= eval(Economy::getProd($elementObj->calcProduction[$resourceElementId]));
 					$production *= Config::get()->resource_multiplier;
 					$production *= STORAGE_FACTOR;
 
-					$productionTable['storage'][$BuildLevel][$ID]	= $production;
+                    $productionTable['production'][$BuildLevel][$resourceElementId]	= $production;
 				}
 			}
-			
-			$productionTable['usedResource']	= array_keys($productionTable['storage'][$BuildStartLvl]);
+
+            $productionTable['usedResource']	= array_keys($productionTable['production'][$startLevel]);
 		}
-		elseif(in_array($elementID, $reslist['fleet']))
+		elseif($elementObj->class == Vars::CLASS_FLEET)
 		{
-			$FleetInfo	= array(
-				'structure'		=> $pricelist[$elementID]['cost'][901] + $pricelist[$elementID]['cost'][902],
-				'tech'			=> $pricelist[$elementID]['tech'],
-				'attack'		=> $CombatCaps[$elementID]['attack'],
-				'shield'		=> $CombatCaps[$elementID]['shield'],
-				'capacity'		=> $pricelist[$elementID]['capacity'],
-				'speed1'		=> $pricelist[$elementID]['speed'],
-				'speed2'		=> $pricelist[$elementID]['speed2'],
-				'consumption1'	=> $pricelist[$elementID]['consumption'],
-				'consumption2'	=> $pricelist[$elementID]['consumption2'],
-				'rapidfire'		=> array(
-					'from'	=> array(),
-					'to'	=> array(),
-				),
+			$fleetData	= array(
+				'structure'		=> FleetUtil::calcStructurePoints($elementObj),
+				'techLevel' 	=> FleetUtil::getShipTechLevel($elementObj, $USER),
+				'tech' 	        => array($elementObj->speed1Tech, $elementObj->speed2Tech, $elementObj->speed3Tech),
+				'attack'		=> $elementObj->attack,
+				'shield'		=> $elementObj->shield,
+				'capacity'		=> $elementObj->capacity,
+				'speed'		    => array($elementObj->speed1, $elementObj->speed2, $elementObj->speed3),
+				'consumption'	=> $elementObj->consumption,
+				'rapidfire'		=> $elementObj->radidfire,
 			);
-				
-			$fleetIDs	= array_merge($reslist['fleet'], $reslist['defense']);
-			
-			foreach($fleetIDs as $fleetID)
-			{
-				if (isset($CombatCaps[$elementID]['sd']) && !empty($CombatCaps[$elementID]['sd'][$fleetID])) {
-					$FleetInfo['rapidfire']['to'][$fleetID] = $CombatCaps[$elementID]['sd'][$fleetID];
-				}
-				
-				if (isset($CombatCaps[$fleetID]['sd']) && !empty($CombatCaps[$fleetID]['sd'][$elementID])) {
-					$FleetInfo['rapidfire']['from'][$fleetID] = $CombatCaps[$fleetID]['sd'][$elementID];
-				}
-			}
 		}
-		elseif (in_array($elementID, $reslist['defense']))
+		elseif($elementObj->class == Vars::CLASS_DEFENSE)
 		{
-			$FleetInfo	= array(
-				'structure'		=> $pricelist[$elementID]['cost'][901] + $pricelist[$elementID]['cost'][902],
-				'attack'		=> $CombatCaps[$elementID]['attack'],
-				'shield'		=> $CombatCaps[$elementID]['shield'],
-				'rapidfire'		=> array(
-					'from'	=> array(),
-					'to'	=> array(),
-				),
+			$fleetData	= array(
+				'structure'		=> FleetUtil::calcStructurePoints($elementObj),
+                'attack'		=> $elementObj->attack,
+                'shield'		=> $elementObj->shield,
+                'rapidfire'		=> $elementObj->radidfire,
 			);
-				
-			$fleetIDs	= array_merge($reslist['fleet'], $reslist['defense']);
-			
-			foreach($fleetIDs as $fleetID)
-			{
-				if (isset($CombatCaps[$elementID]['sd']) && !empty($CombatCaps[$elementID]['sd'][$fleetID])) {
-					$FleetInfo['rapidfire']['to'][$fleetID] = $CombatCaps[$elementID]['sd'][$fleetID];
-				}
-				
-				if (isset($CombatCaps[$fleetID]['sd']) && !empty($CombatCaps[$fleetID]['sd'][$elementID])) {
-					$FleetInfo['rapidfire']['from'][$fleetID] = $CombatCaps[$fleetID]['sd'][$elementID];
-				}
-			}
 		}
 		
-		if($elementID == 43 && $PLANET[$resource[43]] > 0)
+		if($elementId == 43 && $PLANET[$elementObj->name] > 0)
 		{
 			$this->tplObj->loadscript('gate.js');
 			$nextTime	= self::getNextJumpWaitTime($PLANET['last_jump_time']);
@@ -359,24 +306,24 @@ class ShowInformationPage extends AbstractGamePage
 				'fleetList'	=> $this->getAvailableFleets(),
 			);
 		}
-		elseif($elementID == 44 && $PLANET[$resource[44]] > 0)
-		{								
-			$MissileList	= array(
-				502	=> $PLANET[$resource[502]],
-				503	=> $PLANET[$resource[503]]
-			);
+		elseif($elementId == 44 && $PLANET[$elementObj->name] > 0)
+		{
+            foreach(Vars::getElements(Vars::CLASS_MISSILE) as $missileElementId => $missileElementObj)
+            {
+                $missileList[$missileElementId]	= $PLANET[$missileElementObj->name];
+            }
 		}
 
 		$this->assign(array(
-			'elementID'			=> $elementID,
+			'elementID'			=> $elementId,
 			'productionTable'	=> $productionTable,
-			'CurrentLevel'		=> $CurrentLevel,
-			'MissileList'		=> $MissileList,
-			'Bonus'				=> BuildUtil::getAvalibleBonus($elementID),
-			'FleetInfo'			=> $FleetInfo,
+			'CurrentLevel'		=> isset($USER[$elementObj->name]) ? $USER[$elementObj->name] : $PLANET[$elementObj->name],
+			'MissileList'		=> $missileList,
+			'elementBonus'		=> $elementObj->bonus,
+			'FleetInfo'			=> $fleetData,
 			'gateData'			=> $gateData,
 		));
 		
-		$this->display('page.infomation.default.tpl');
+		$this->display('page.information.default.tpl');
 	}
 }
