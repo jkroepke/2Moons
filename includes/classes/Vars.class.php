@@ -63,6 +63,7 @@ class Vars
     const FLAG_TRADE                = 524288;
     const FLAG_ON_ECO_OVERVIEW      = 1048576;
     const FLAG_CALCULATE_BUILD_TIME = 2097152;
+    const FLAG_CALC_FLEET_STRUCTURE = 4194304;
 
 
     static function init()
@@ -82,7 +83,8 @@ class Vars
         $rapidResult    = $db->nativeQuery('SELECT * FROM %%VARS_RAPIDFIRE%%;');
         foreach($rapidResult as $rapidRow)
         {
-            $rapidFire[$rapidRow['elementID']][$rapidRow['rapidfireID']]    = $rapidRow['shoots'];
+            $rapidFire['from'][$rapidRow['elementID']][$rapidRow['rapidfireID']]    = $rapidRow['shoots'];
+            $rapidFire['to'][$rapidRow['rapidfireID']][$rapidRow['elementID']]    = $rapidRow['shoots'];
         }
 
         $reqResult      = $db->nativeQuery('SELECT * FROM %%VARS_REQUIRE%%;');
@@ -224,10 +226,7 @@ class Vars
 
             foreach($flags as $flag)
             {
-                if(!isset(self::$data['list']['flags'][$flag]))
-                {
-                    throw new Exception("Unknown element flag '$flag'!");
-                }
+                if(!isset(self::$data['list']['flags'][$flag])) continue;
 
                 $elements   += self::$data['list']['flags'][$flag];
             }
@@ -257,10 +256,5 @@ class Vars
         {
             return array_intersect_key(self::$data['list']['queue'][$queueId], self::$data['list']['classes'][$class]);
         }
-    }
-
-    static function elementHasFlag(Element $elementObj, $flag)
-    {
-        return in_array($flag, $elementObj->flags);
     }
 }

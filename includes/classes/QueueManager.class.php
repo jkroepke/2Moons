@@ -145,7 +145,7 @@ class QueueManager
         $queueId = (array) $queueId;
         $queueId = array_filter($queueId, 'is_numeric');
 
-        $sql    = 'SELECT * FROM %%QUEUE%% WHERE userId = :userId AND planetID = :planetId AND queueId IN ('.implode(',', $queueId).') ORDER BY taskId DESC;';
+        $sql    = 'SELECT * FROM %%QUEUE%% WHERE userId = :userId AND planetID = :planetId AND queueId IN ('.implode(',', $queueId).') ORDER BY taskId ASC;';
 
         return Database::get()->select($sql, array(
             ':userId'       => $this->userId,

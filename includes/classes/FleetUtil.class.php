@@ -48,7 +48,7 @@ class FleetUtil
 		return isset($Ships[$ShipID]) && count($Ships) === 1;
 	}
 
-	private static function getShipTechLevel(Element $elementObj, $USER)
+	public static function getShipTechLevel(Element $elementObj, $USER)
 	{
         if(is_null($elementObj->speed2Tech))
         {
@@ -420,6 +420,19 @@ class FleetUtil
             );
 		}
 		return $FleetInfo;
+	}
+
+	public static function calcStructurePoints(Element $elementObj)
+	{
+        $costResources  = BuildUtil::getElementPrice($elementObj, 1);
+        $structure      = 0;
+
+        foreach(array_keys(Vars::getElements(NULL, Vars::FLAG_CALC_FLEET_STRUCTURE)) as $elementId)
+        {
+            $structure  += $costResources[$elementId];
+        }
+
+        return $structure;
 	}
 	
 	public static function GetAvailableMissions($USER, $MissionInfo, $GetInfoPlanet)

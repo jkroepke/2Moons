@@ -453,6 +453,7 @@ function exceptionHandler($exception)
 		E_WARNING			=> 'WARNING',
 		E_PARSE				=> 'PARSING ERROR',
 		E_NOTICE			=> 'NOTICE',
+        E_DEPRECATED		=> 'DEPRECATED',
 		E_CORE_ERROR		=> 'CORE ERROR',
 		E_CORE_WARNING   	=> 'CORE WARNING',
 		E_COMPILE_ERROR		=> 'COMPILE ERROR',
@@ -463,7 +464,16 @@ function exceptionHandler($exception)
 		E_STRICT			=> 'STRICT NOTICE',
 		E_RECOVERABLE_ERROR	=> 'RECOVERABLE ERROR'
 	);
-	
+
+    if(isset($errorType[$errno]))
+    {
+        $errorName  = $errorType[$errno];
+    }
+    else
+    {
+        $errorName  = 'UNKOWN ERROR #'.$errno;
+    }
+
 	if(file_exists(ROOT_PATH.'install/VERSION'))
 	{
 		$VERSION	= file_get_contents(ROOT_PATH.'install/VERSION').' (FILE)';
@@ -486,7 +496,7 @@ function exceptionHandler($exception)
 	}
 	
 	
-	$DIR		= MODE == 'INSTALL' ? '..' : '.';
+	$DIR		= MODE == 'INSTALL' || MODE == 'CHAT' ? '..' : '.';
 	ob_start();
 	echo '<!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="de" class="no-js ie6"> <![endif]-->
@@ -495,7 +505,7 @@ function exceptionHandler($exception)
 <!--[if IE 9 ]>    <html lang="de" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="de" class="no-js"> <!--<![endif]-->
 <head>
-	<title>'.$gameName.' - '.$errorType[$errno].'</title>
+	<title>'.$gameName.' - '.$errorName.'</title>
 	<meta name="generator" content="2Moons '.$VERSION.'">
 	<!-- 
 		This website is powered by 2Moons '.$VERSION.'
@@ -537,6 +547,7 @@ function exceptionHandler($exception)
 	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.validationEngine.js?v=2123"></script>
 	<script type="text/javascript" src="'.$DIR.'/scripts/base/tooltip.js?v=2123"></script>
 	<script type="text/javascript" src="'.$DIR.'/scripts/game/base.js?v=2123"></script>
+	'.(MODE == 'CHAT' ? '<style>body{background: none;}</style>': '').'
 </head>
 <body id="overview" class="full">
 <table width="960">

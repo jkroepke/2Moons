@@ -125,30 +125,24 @@ abstract class AbstractGamePage
 		{
             $elementName                                = $elementObj->name;
 			$resourceTable[$elementId]['name']			= $elementName;
-            if(Vars::elementHasFlag($elementObj, Vars::FLAG_RESOURCE_USER))
+            if($elementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
             {
                 $resourceTable[$elementId]['current']		= $USER[$elementName];
             }
             else
             {
-                $resourceTable[$elementId]['current']		= $PLANET[$elementName];
-
-                if(isset($PLANET[$elementName.'_max']))
+                if($elementObj->hasFlag(Vars::FLAG_ENERGY))
                 {
-                    $resourceTable[$elementId]['max']			= $PLANET[$elementName.'_max'];
-                }
-
-                if(isset($PLANET[$elementName.'_used']))
-                {
-                    // It's an energy
-                    $resourceTable[$elementId]['used']			= $PLANET[$elementName.'_used'];
-                    $resourceTable[$elementId]['max']			= $PLANET[$elementName];
+                    $resourceTable[$elementId]['used']		= $PLANET[$elementName.'_used'];
+                    $resourceTable[$elementId]['max']		= $PLANET[$elementName];
                 }
                 else
                 {
-                    if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != 1)
+                    $resourceTable[$elementId]['current']		= $PLANET[$elementName];
+                    $resourceTable[$elementId]['max']			= $PLANET[$elementName.'_max'];
+                    if($USER['urlaubs_modus'] == 1 || $PLANET['planet_type'] != PLANET)
                     {
-                        $resourceTable[$elementId]['production']	= $PLANET[$elementName.'_perhour'];
+                        $resourceTable[$elementId]['production']	= 0;
                     }
                     else
                     {
