@@ -506,10 +506,11 @@ $LNG['se_dst_sel'][1]                                   ='No';
 $LNG['se_dst_sel'][2]                                   ='Auto';
 $LNG['se_max_dm_missions']				='Maximum parallel missions of DM';
 $LNG['se_alliance_create_min_points']   = 'Minimum number of points, to form an Alliance';
-$LNG['se_disclamerAddress']				= 'Address';
-$LNG['se_disclamerPhone']				= 'Phone number';
-$LNG['se_disclamerMail']				= 'Email address';
-$LNG['se_disclamerNotice']				= 'More information';
+$LNG['se_disclaimerAddress']				= 'Address';
+$LNG['se_disclaimerPhone']				= 'Phone number';
+$LNG['se_disclaimerMail']				= 'Email address';
+$LNG['se_disclaimerNotice']				= 'More information';
+
 
 //###########################################################//
 
@@ -623,7 +624,7 @@ $LNG['mu_vertify']				     	='Check Game content';
 $LNG['mu_cronjob']					= 'Cronjobs'; 
 $LNG['mu_logs']						= 'Admin Log';
 $LNG['mu_giveaway']					= 'Giveaways';
-$LNG['mu_disclamer']				= 'Contact settings';
+$LNG['mu_disclaimer']				= 'Contact settings';
 $LNG['mu_dump']						= 'Database Backup';
 
 $LNG['vt_error']					='Hashfile is not available! - Run Update!';
@@ -962,6 +963,7 @@ $LNG['sp_admin_open']                   ='%s reopened the Ticket to %s';
 
 // Editor Rápido
 
+$LNG['qe_name']							= 'Name';
 $LNG['qe_send']							='Send';
 $LNG['qe_reset']						='Restart';
 $LNG['qe_build']						='Buildings';
