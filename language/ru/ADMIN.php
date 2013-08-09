@@ -1,7 +1,7 @@
 <?php
 
 // 2Moons - Copyright © 2012 Jan Kröpke <info@2moons.cc>
-// Translation into Russian - Copyright © 2012 InquisitorEA <support@moon-hunt.ru>
+// Translation into Russian - Copyright © 2010-2013 InquisitorEA <support@moon-hunt.ru>
 
 // Общее
 $LNG['adm_login']                      = 'Логин';
@@ -469,10 +469,10 @@ $LNG['se_dst_sel'][1]                  = 'Да';
 $LNG['se_dst_sel'][2]                  = 'Автоматически';
 $LNG['se_max_dm_missions']             = 'Предел одновременных заданий Поиска ТМ';
 $LNG['se_alliance_create_min_points']  = 'Очки для формирования альянса';
-$LNG['se_disclamerAddress']            = 'Адрес';
-$LNG['se_disclamerPhone']              = 'Телефон';
-$LNG['se_disclamerMail']               = 'Электронная почта';
-$LNG['se_disclamerNotice']             = 'Дополнительная информация';
+$LNG['se_disclaimerAddress']           = 'Адрес';
+$LNG['se_disclaimerPhone']             = 'Телефон';
+$LNG['se_disclaimerMail']              = 'Электронная почта';
+$LNG['se_disclaimerNotice']            = 'Дополнительная информация';
 
 // Полномочия
 $LNG['mod_title']                      = 'Полномочия Администрации';
@@ -570,7 +570,7 @@ $LNG['mu_vertify']                     = 'Сверить хэши файлов';
 $LNG['mu_cronjob']                     = 'Планировщик задач';
 $LNG['mu_logs']                        = 'Логи';
 $LNG['mu_giveaway']                    = 'Подарки';
-$LNG['mu_disclamer']                   = 'Контакты';
+$LNG['mu_disclaimer']                  = 'Контакты';
 $LNG['mu_dump']                        = 'Резервное копирование БД';
 
 $LNG['vt_error']                       = 'Хэш файл не доступен. Выполните обновление.';
@@ -926,6 +926,7 @@ $LNG['qe_authattack']                  = 'Включить защиту от а�
 $LNG['qe_submit']                      = 'Сохранить';
 $LNG['qe_resetr']                      = 'Обнулить';
 $LNG['qe_allowmulti']                  = 'Разрешить совпадение IP';
+$LNG['qe_name']                        = 'Название';
 
 // TeamSpeakSettingPage.php
 $LNG['ts_settings']                    = 'Настройки Teamspeak';

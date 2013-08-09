@@ -406,6 +406,8 @@ $LNG['sys_nomore_level'] 					= 'Estás a tentar destruir um edifício que já n
 $LNG['sys_buildlist'] 						= "Lista de construção";
 $LNG['sys_techlist'] 						= 'Lista de Pesquisa';
 $LNG['sys_buildlist_fail'] 				    = "Impossível construir";
+$LNG['sys_back']							= 'Atrás';
+$LNG['sys_forward']							= 'Próximo';
 
 //----------------------------------------------------------------------------//
 // Recursos
@@ -749,6 +751,8 @@ $LNG['al_rank_desc']['DIPLOMATIC']			= 'Pode gerenciar a Diplomacia';
 $LNG['al_rank_desc']['RANKS']				= 'Pode configurar os Ranks';
 $LNG['al_rank_desc']['MANAGEUSERS']			= 'Pode gerenciar os membros';
 $LNG['al_rank_desc']['EVENTS']			= 'Pode ver eventos';
+$LNG['al_invalid_rank_name']				= 'No nome de Rank, é apenas permitido números, letras, espaços, _, -.';
+$LNG['al_make_ally_insufficient_points']	= 'Não tens pontos suficientes para criar uma Aliança.<br>São requeridos %s pontos, mas possuis %s pontos.';
 
 //----------------------------------------------------------------------------//
 // Lista de Amigos

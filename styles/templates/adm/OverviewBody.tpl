@@ -147,6 +147,14 @@
 										<img src="styles/resource/images/login/flags/es.png" alt="(spanish)">
 									</td>
 								</tr>
+								<tr>
+									<td class="transparent">
+										<a target="_blank" href="http://2moons.cc/user/3299-romansmac/">romansmac</a>
+									</td>
+									<td class="transparent">
+										<img src="styles/resource/images/login/flags/tr.png" alt="(turkish)">
+									</td>
+								</tr>
 								</table>
 							</td>
 						</tr> 

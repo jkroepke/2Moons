@@ -751,6 +751,8 @@ $LNG['al_rank_desc']['DIPLOMATIC']			= 'Can manage the Diplomacy';
 $LNG['al_rank_desc']['RANKS']				= 'Can configure the Ranks';
 $LNG['al_rank_desc']['MANAGEUSERS']			= 'Can manage members';
 $LNG['al_rank_desc']['EVENTS']			= 'Can see events';
+$LNG['al_invalid_rank_name']				= 'In the Rank name are only numbers, letters, spaces, _, -. allowed!';
+$LNG['al_make_ally_insufficient_points']	= 'You have not enough points to create an Alliance.<br>It is required %s points, and you have %s points.';
 
 //----------------------------------------------------------------------------//
 // Lista de Amigos
@@ -979,6 +981,9 @@ $LNG['sys_refferal_title']        	 		= 'Player Bonus %s';
 $LNG['sys_refferal_text']        	 		= 'The player %s recruited by you reached %s points.<br><br>You invite a player active, will be rewarded %s %s';
 $LNG['sys_closed_game']        	 			= 'The game is currently not available:';
 $LNG['spec_mail_inactive_title']  			= '%s - Reminder';
+$LNG['sys_back']							= 'Back';
+$LNG['sys_forward']							= 'Next';
+
 //----------------------------------------------------------------------------//
 // Relatório de Combate
 $LNG['cr_lost_contact']                     = 'Lost touch with your fleet.';
