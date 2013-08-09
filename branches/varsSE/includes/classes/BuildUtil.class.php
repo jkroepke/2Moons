@@ -63,11 +63,11 @@ class BuildUtil
 		return self::$bonusList;
 	}
 
-	public static function getRestPrice($USER, $PLANET, $Element, $costResources = NULL)
+	public static function getRestPrice($USER, $PLANET, Element $elementObj, $costResources = NULL)
 	{
 		if(!isset($costResources))
         {
-			$costResources	= self::getElementPrice($USER, $PLANET, $Element);
+			$costResources	= self::getElementPrice($USER, $PLANET, $elementObj);
 		}
 		
 		$overflow	= array();
@@ -139,7 +139,7 @@ class BuildUtil
 		return true;
 	}
 	
-	public static function getBuildingTime($USER, $PLANET, Element $elementObj, $costResources = NULL, $forDestroy = false, $forLevel = NULL)
+	public static function getBuildingTime($USER, $PLANET, Element $elementObj, $costResources = NULL, $forLevel = NULL, $forDestroy = false)
 	{
 		$config	= Config::get($USER['universe']);
 
@@ -147,7 +147,7 @@ class BuildUtil
 
         if(!isset($costResources))
         {
-			$costResources	= self::getElementPrice($USER, $PLANET, $elementObj, $forDestroy, $forLevel);
+			$costResources	= self::getElementPrice($elementObj, $forDestroy, $forLevel);
 		}
 		
 		$elementCost	= 0;

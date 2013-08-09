@@ -1,14 +1,14 @@
 $(function() {
 	$('.flags').on('click', function(e) {
 		e.preventDefault();
-		var langKey = $(this).attr('class').replace(/flags(.*)/, "$1").trim();
+		var langKey = $(this).attr('hreflang').trim();
 		Login.setLanguage(langKey);
 		return false;
 	});
 	
 	$('.fancybox').fancybox({
 		'type' : 'iframe',
-		'padding' : 1,
+		'padding' : 1
 	});
 	
 	if(LoginConfig.isMultiUniverse)

@@ -35,45 +35,6 @@ class ShowBuildingsPage extends AbstractGamePage
 		parent::__construct();
 	}
 
-	private function RemoveBuildingFromQueue($QueueID)
-	{
-		global $USER, $PLANET;
-		if ($QueueID <= 1 || empty($PLANET['b_building_id'])) {
-            return false;
-        }
-
-		$CurrentQueue  = unserialize($PLANET['b_building_id']);
-		$ActualCount   = count($CurrentQueue);
-		if($ActualCount <= 1) {
-			return $this->CancelBuildingFromQueue();
-        }
-
-		$elementId		= $CurrentQueue[$QueueID - 2][0];
-		$BuildEndTime	= $CurrentQueue[$QueueID - 2][3];
-		unset($CurrentQueue[$QueueID - 1]);
-		$NewQueueArray	= array();
-		foreach($CurrentQueue as $ID => $ListIDArray)
-		{				
-			if ($ID < $QueueID - 1) {
-				$NewQueueArray[]	= $ListIDArray;
-			} else {
-				if($elementId == $ListIDArray[0] || empty($ListIDArray[0]))
-					continue;
-
-				$BuildEndTime       += BuildUtil::getBuildingTime($USER, $PLANET, $ListIDArray[0]);
-				$ListIDArray[3]		= $BuildEndTime;
-				$NewQueueArray[]	= $ListIDArray;				
-			}
-		}
-
-		if(!empty($NewQueueArray))
-			$PLANET['b_building_id'] = serialize($NewQueueArray);
-		else
-			$PLANET['b_building_id'] = "";
-
-        return true;
-	}
-
 	private function getQueueData()
 	{
 		global $LNG, $USER;
@@ -120,7 +81,10 @@ class ShowBuildingsPage extends AbstractGamePage
         if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && !empty($elementId))
         {
             $elementObj = Vars::getElement($elementId);
-            $status     = $this->ecoObj->addToQueue($elementObj, QueueManager::BUILD);
+            if($elementObj->class == Vars::CLASS_BUILDING)
+            {
+                $this->ecoObj->addToQueue($elementObj, QueueManager::BUILD);
+            }
         }
         $this->redirectTo('game.php?page=buildings');
     }
@@ -132,7 +96,10 @@ class ShowBuildingsPage extends AbstractGamePage
         if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && !empty($elementId))
         {
             $elementObj = Vars::getElement($elementId);
-            $status     = $this->ecoObj->addToQueue($elementObj, QueueManager::DESTROY);
+            if($elementObj->class == Vars::CLASS_BUILDING)
+            {
+                $this->ecoObj->addToQueue($elementObj, QueueManager::DESTROY);
+            }
         }
         $this->redirectTo('game.php?page=buildings');
     }
@@ -143,7 +110,7 @@ class ShowBuildingsPage extends AbstractGamePage
         $taskId = HTTP::_GP('taskId', 0);
         if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && !empty($taskId))
         {
-            $this->ecoObj->removeFromQueue($taskId);
+            $this->ecoObj->removeFromQueue($taskId, Vars::CLASS_BUILDING);
         }
         $this->redirectTo('game.php?page=buildings');
     }

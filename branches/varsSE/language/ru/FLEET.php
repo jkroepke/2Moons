@@ -1,7 +1,7 @@
 <?php
 
 // 2Moons - Copyright © 2012 Jan Kröpke <info@2moons.cc>
-// Translation into Russian - Copyright © 2012 InquisitorEA <support@moon-hunt.ru>
+// Translation into Russian - Copyright © 2010-2013 InquisitorEA <support@moon-hunt.ru>
 
 $LNG['and']                           = 'и';
 

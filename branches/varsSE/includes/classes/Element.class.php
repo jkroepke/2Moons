@@ -213,7 +213,7 @@ class Element implements Serializable
 
     public function __get($key)
     {
-        if(!isset($this->data[$key]))
+        if(!isset($this->data[$key]) && !is_null($this->data[$key]))
         {
             throw new Exception("Unknown key '$key'");
         }

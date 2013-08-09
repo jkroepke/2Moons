@@ -75,15 +75,16 @@ class QueueManager
         ));
     }
 
-    public function removeAllTaskByElementId(Element $elementObj)
+    public function removeAllTaskByElementObj(Element $elementObj)
     {
         $taskTimes  = array();
-        $queueData  = $this->queryQueueIds($elementObj->queueId);
+        $queueData  = $this->getTasksByQueueIds($elementObj->queueId);
+
         foreach($queueData as $task)
         {
             if($task['elementId'] == $elementObj->elementID)
             {
-                $taskTimes[$task['taskId']] = $task['buildTime'];
+                $taskTimes[$task['taskId']] = count($taskTimes) == 0 ? $task['endBuildTime'] - TIMESTAMP : $task['buildTime'];
             }
         }
 
@@ -132,24 +133,26 @@ class QueueManager
             throw new Exception('#1 argument of QueueManager::queryElementIds can not be empty!');
         }
 
-        $sql    = 'SELECT * FROM %%QUEUE%% WHERE userId = :userId AND planetID = :planetId AND elementId IN ('.implode(',', $elementIds).') ORDER BY taskId ASC;';
+        $sql    = 'SELECT * FROM %%QUEUE%% WHERE userId = :userId AND (planetId = :planetId OR taskType = :taskType) AND elementId IN ('.implode(',', $elementIds).') ORDER BY taskId ASC;';
 
         return Database::get()->select($sql, array(
             ':userId'       => $this->userId,
             ':planetId'     => $this->planetId,
+            ':taskType'     => self::USER,
         ));
     }
 
-    public function queryQueueIds($queueId)
+    public function getTasksByQueueIds($queueId)
     {
         $queueId = (array) $queueId;
         $queueId = array_filter($queueId, 'is_numeric');
 
-        $sql    = 'SELECT * FROM %%QUEUE%% WHERE userId = :userId AND planetID = :planetId AND queueId IN ('.implode(',', $queueId).') ORDER BY taskId ASC;';
+        $sql    = 'SELECT * FROM %%QUEUE%% WHERE userId = :userId AND (planetId = :planetId OR taskType = :taskType) AND queueId IN ('.implode(',', $queueId).') ORDER BY taskId ASC;';
 
         return Database::get()->select($sql, array(
             ':userId'       => $this->userId,
             ':planetId'     => $this->planetId,
+            ':taskType'     => self::USER,
         ));
     }
 
@@ -176,13 +179,14 @@ class QueueManager
         ));
     }
 
-    public function updateTaskAmount($taskId, $amount)
+    public function updateTaskAmount($taskId, $amount, $endBuildTime)
     {
-        $sql = 'UPDATE %%QUEUE%% SET amount = :amount WHERE taskId = :taskId;';
+        $sql = 'UPDATE %%QUEUE%% SET endBuildTime = :endBuildTime,  amount = :amount WHERE taskId = :taskId;';
 
         return Database::get()->update($sql, array(
-            ':amount'   => $amount,
-            ':taskId'   => $taskId,
+            ':amount'       => $amount,
+            ':endBuildTime' => $endBuildTime,
+            ':taskId'       => $taskId,
         ));
     }
 
@@ -214,6 +218,15 @@ class QueueManager
             ':userId'           => $this->userId,
             ':planetId'         => $this->planetId,
             ':taskType'         => self::USER,
+        ));
+    }
+
+    public function getTaskById($taskId)
+    {
+        $sql = 'SELECT * FROM %%QUEUE%% WHERE taskId = :taskId;';
+
+        return Database::get()->selectSingle($sql, array(
+            ':taskId'   => $taskId,
         ));
     }
 }
