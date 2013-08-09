@@ -479,35 +479,6 @@ ul#rules {
 	display: block;
     float: right;
     margin-right: 4px;
-	text-indent: -9999em;
-}
-
-.de {
-	background: url(../../images/login/flags/de.png);
-}
-.en {
-	background: url(../../images/login/flags/us.png);
-}
-.es {
-	background: url(../../images/login/flags/es.png);
-}
-.fr {
-	background: url(../../images/login/flags/fr.png);
-}
-.it {
-	background: url(../../images/login/flags/it.png);
-}
-.pt {
-	background: url(../../images/login/flags/pt.png);
-}
-.ru {
-	background: url(../../images/login/flags/ru.png);
-}
-.si {
-	background: url(../../images/login/flags/si.png);
-}
-.pl {
-	background: url(../../images/login/flags/pl.png);
 }
 
 /** FOOTER **/

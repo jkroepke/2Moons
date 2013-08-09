@@ -157,6 +157,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 			HTTP::redirectToUniverse($USER['universe']);
 		}
 
+        $session	= Session::load();
 		$session->selectActivePlanet();
 
 		$sql	= "SELECT * FROM %%PLANETS%% WHERE id = :planetId;";
@@ -178,6 +179,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 			else
 			{
 				$session->planetId = $USER['id_planet'];
+                $session->save();
 			}
 		}
 		

@@ -313,7 +313,7 @@ class Economy
 
         foreach($queueIds as $queueId)
         {
-            $queueData      = $this->queueObj->queryQueueIds($queueId);
+            $queueData      = $this->queueObj->getTasksByQueueIds($queueId);
             if($queueData[0]['taskType'] == QueueManager::SHIPYARD)
             {
                 $this->procedureAmountQueue($queueData);
@@ -379,11 +379,11 @@ class Economy
                 $priceLevel     = $task['amount'] - ((int) $task['taskType'] == QueueManager::BUILD);
                 $costResources  = BuildUtil::getElementPrice($elementObj, $priceLevel, $task['taskType'] == QueueManager::DESTROY);
 
-                $buildTime      = BuildUtil::getBuildingTime($this->USER, $this->PLANET, $elementObj, $costResources, $task['taskType'] == QueueManager::DESTROY);
+                $buildTime      = BuildUtil::getBuildingTime($this->USER, $this->PLANET, $elementObj, $costResources);
 
                 if(!BuildUtil::isElementBuyable($this->USER, $taskPlanet, $elementObj, $costResources))
                 {
-                    $this->queueObj->removeAllTaskByElementId($elementObj);
+                    $this->queueObj->removeAllTaskByElementObj($elementObj);
                     if($isAnotherPlanet)
                     {
                         $ecoObj->SavePlanetToDB($this->USER, $taskPlanet);
@@ -426,8 +426,6 @@ class Economy
 
     private function procedureAmountQueue($queueData)
     {
-        $partBuildTime = $this->TIME - $this->PLANET['last_update'];
-
         foreach($queueData as $task)
         {
             $elementObj = Vars::getElement($task['elementId']);
@@ -445,8 +443,7 @@ class Economy
                 continue;
             }
 
-            $partBuildTime  += $task['partBuildTime'];
-            $doneAmount     = max(min(floor($partBuildTime / $task['buildTime']), $task['amount']), 0);
+            $doneAmount     = 1 + floor(($this->TIME - $task['endBuildTime']) / $task['buildTime']);
 
             if($doneAmount == 0) break;
 
@@ -461,12 +458,14 @@ class Economy
                 $this->saveToDatabase('PLANET', $elementObj->name);
             }
 
-            $partBuildTime  -= $doneAmount * $task['buildTime'];
-            $task['amount']         -= $doneAmount;
+            $task['amount'] -= $doneAmount;
+
+            $lastEndBuildTime   = $task['endBuildTime'] + $task['buildTime'] * ($doneAmount - 1);
 
             if($task['amount'] != 0)
             {
-                $this->queueObj->updateTaskAmount($task['taskId'], $task['amount']);
+                $endBuildTime   = $lastEndBuildTime + $task['buildTime'];
+                $this->queueObj->updateTaskAmount($task['taskId'], $task['amount'], $endBuildTime);
                 break;
             }
             else
@@ -480,13 +479,15 @@ class Economy
     {
         $elementName        = $elementObj->name;
         $queueElementObj    = Vars::getElement($elementObj->queueId);
-        $queueData          = $this->queueObj->queryElementIds($elementObj->elementID);
+
+        $elementQueueData   = $this->queueObj->queryElementIds($elementObj->elementID);
+        $amountInQueue      = 0;
 
         if($buildType !== QueueManager::SHIPYARD)
         {
-            if(!empty($queueData))
+            if(!empty($elementQueueData))
             {
-                $amount = $queueData[count($queueData)-1]['amount'];
+                $amount = $elementQueueData[count($elementQueueData)-1]['amount'];
             }
             elseif($elementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
             {
@@ -498,6 +499,23 @@ class Economy
             }
 
             $amount += (int) ($buildType === QueueManager::BUILD || $buildType === QueueManager::USER);
+
+            if($elementObj->maxLevel != 0 && $elementObj->maxLevel < $amount)
+            {
+                return array('error' => true, 'code' => 2);
+            }
+        }
+        else
+        {
+            foreach($elementQueueData as $task)
+            {
+                $amountInQueue  += $task['amount'];
+            }
+
+            if($elementObj->maxLevel != 0 && $elementObj->maxLevel < $this->PLANET[$elementObj->name] + $amountInQueue + $amount)
+            {
+                return array('error' => true, 'code' => 2);
+            }
         }
 
         if(empty($amount))
@@ -505,13 +523,8 @@ class Economy
             return array('error' => true, 'code' => 1);
         }
 
-        if($elementObj->maxLevel != 0 && $elementObj->maxLevel <= $amount)
-        {
-            return array('error' => true, 'code' => 2);
-        }
-
-        $queueCount = count($this->queueObj->queryQueueIds($elementObj->queueId));
-        if($queueElementObj->maxCount != 0 && $queueCount >= $queueElementObj->maxCount)
+        $queueData = $this->queueObj->getTasksByQueueIds($elementObj->queueId);
+        if($queueElementObj->maxCount != 0 && count($queueData) >= $queueElementObj->maxCount)
         {
             return array('error' => true, 'code' => 3);
         }
@@ -529,13 +542,24 @@ class Economy
 
         if($buildType === QueueManager::SHIPYARD)
         {
-            $amount = min($amount, BuildUtil::maxBuildableElements($this->USER, $this->PLANET, $elementObj));
+            $amount         = min($amount, BuildUtil::maxBuildableElements($this->USER, $this->PLANET, $elementObj));
         }
 
         if($elementObj->class == Vars::CLASS_MISSILE)
         {
-            $maxMissiles    = BuildUtil::maxBuildableMissiles($this->USER, $this->PLANET, $elementObj, $this->queueObj);
-            $amount         = min($amount, $maxMissiles[$elementObj->elementID]);
+            $queueMissileData   = $this->queueObj->queryElementIds(array_keys(Vars::getElements(Vars::CLASS_MISSILE)));
+
+            $PLANET             = $this->PLANET;
+
+            foreach($queueMissileData as $task)
+            {
+                $PLANET[Vars::getElement($task['elementId'])->name]   += $task['amount'];
+            }
+
+            $maxMissiles        = BuildUtil::maxBuildableMissiles($this->USER, $PLANET, $elementObj, $this->queueObj);
+            unset($PLANET);
+
+            $amount             = min($amount, $maxMissiles[$elementObj->elementID]);
         }
 
         $priceLevel     = $amount - ((int) $buildType === QueueManager::BUILD);
@@ -558,15 +582,17 @@ class Economy
                 }
                 elseif($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
                 {
-                    $this->USER[$resourceElementObj->name] 	-= $costResources[$resourceElementId];
+                    $this->USER[$resourceElementObj->name] 	    -= $costResources[$resourceElementId];
                 }
             }
         }
 
         $elementTime    = BuildUtil::getBuildingTime($this->USER, $this->PLANET, $elementObj, $costResources);
+
         if(!empty($queueData))
         {
             $elementEndTime = $queueData[count($queueData)-1]['endBuildTime'] + $elementTime;
+
         }
         else
         {
@@ -579,7 +605,29 @@ class Economy
         {
             $this->ReturnVars();
         }
+
         return array('error' => false, 'code' => 0);
+    }
+
+
+    public function removeFromQueue($taskId, $mustHaveClass = NULL)
+    {
+        $taskData   = $this->queueObj->getTaskById($taskId);
+        if($taskData['userId'] != $this->USER['id'])
+        {
+            return false;
+        }
+
+        $elementObj = Vars::getElement($taskData['elementId']);
+
+        if(!is_null($mustHaveClass) && $elementObj->class != $mustHaveClass)
+        {
+            return false;
+        }
+
+        $this->queueObj->removeAllTaskByElementObj($elementObj);
+
+        return true;
     }
     
 	public function SavePlanetToDB($USER = NULL, $PLANET = NULL)

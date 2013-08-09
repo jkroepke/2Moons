@@ -1,7 +1,7 @@
 <?php
 
 // 2Moons - Copyright © 2012 Jan Kröpke <info@2moons.cc>
-// Translation into Russian - Copyright © 2012 InquisitorEA <support@moon-hunt.ru>
+// Translation into Russian - Copyright © 2010-2013 InquisitorEA <support@moon-hunt.ru>
 
 $LNG['Messages']                          = 'Сообщения';
 $LNG['write_message']                     = 'Написать сообщение';
@@ -380,7 +380,7 @@ $LNG['bd_next_level']                     = 'Следующий уровень:'
 $LNG['bd_need_engine']                    = 'Потребляет <span style="color:#FF0000">%s</span> энергии';
 $LNG['bd_more_engine']                    = 'Производит <span style="color:#00FF00">%s</span> энергии';
 $LNG['bd_jump_gate_action']               = 'Переместиться';
-$LNG['bd_cancel_warning']                 = 'При удалении из очереди будет возвращено только 60% ресурсов.';
+$LNG['bd_cancel_warning']                 = 'При удалении из очереди будет возвращено только 40% ресурсов.';
 $LNG['bd_cancel_send']                    = 'Выбрать - Удалить';
 $LNG['bd_destroy_time']                   = 'Время';
 $LNG['bd_max_ships']                      = 'макс';
@@ -625,6 +625,7 @@ $LNG['al_inside_section']                 = 'Внутренняя компете
 $LNG['al_make_alliance']                  = 'Создание альянса';
 $LNG['al_make_ally_tag_required']         = 'Аббревиатура (3-8 символов)';
 $LNG['al_make_ally_name_required']        = 'Название (3-30 символов)';
+$LNG['al_make_ally_insufficient_points']  = 'У Вас нет достаточно очков, чтобы сформировать альянс.<br>Необходимо иметь %s очков. Вам не хватает %s очков.';
 $LNG['al_make_submit']                    = 'Создать';
 $LNG['al_find_alliances']                 = 'Поиск альянса';
 $LNG['al_find_text']                      = 'Название';
@@ -725,6 +726,7 @@ $LNG['al_rank_desc']['DIPLOMATIC']        = 'Управлять дипломат
 $LNG['al_rank_desc']['RANKS']             = 'Управлять рангами';
 $LNG['al_rank_desc']['MANAGEUSERS']       = 'Управлять членами альянса';
 $LNG['al_rank_desc']['EVENTS']            = 'Видеть события во внутреннем тексте';
+$LNG['al_invalid_rank_name']              = 'Имя ранга может состоять только из букв, цифр, пробелов и символов "_", "-", "."';
 
 // Друзья
 $LNG['bu_request_exists']                 = 'Вы уже отправляли предложение пожружиться этому игроку.';
@@ -941,6 +943,8 @@ $LNG['sys_refferal_title']                = 'Награда за игрока %s
 $LNG['sys_refferal_text']                 = 'Игрок %s, которого Вы привлекли, достиг %s очков.<br><br>В благодарность за привлечённого игрока Вы получаете %s Тёмной материи.';
 $LNG['sys_closed_game']                   = 'Вселенная в данный момент недоступна:';
 $LNG['spec_mail_inactive_title']          = '%s - Напоминание';
+$LNG['sys_back']                          = 'Назад';
+$LNG['sys_forward']                       = 'Дальше';
 
 // Боевой доклад
 $LNG['cr_lost_contact']                   = 'Контакт с флотом потерян.';
@@ -1059,10 +1063,12 @@ $LNG['ti_submit']                         = 'Отправить';
 $LNG['ti_read']                           = 'Запрос прочитан';
 $LNG['ti_answer']                         = 'Ответ';
 $LNG['ti_create']                         = 'Запрос создан игроком';
+$LNG['ti_msgtime']                        = 'Запрос создан';
 $LNG['ti_responded']                      = 'Ответил на запрос ';
 $LNG['ti_not_exist']                      = 'Запрос #%d не существует.';
-$LNG['ti_from']                           = 'От';
+$LNG['ti_from']                           = 'Автор';
 $LNG['ti_re']                             = 'Повтор:';
+$LNG['ti_error_no_subject']               = 'Вы не указали тему запроса.';
 
 // Рекорды
 $LNG['rec_players']                       = 'Игрок';

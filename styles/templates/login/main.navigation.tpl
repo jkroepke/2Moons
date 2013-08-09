@@ -14,7 +14,7 @@
 		{if count($languages) > 1}
 		<ul id="language">
 		{foreach $languages as $langKey => $langName}
-		<li><a href="?lang={$langKey}" rel="alternate" hreflang="{$langKey}" title="{$langName}"><span class="flags {$langKey}">{$langName}</span></a></li>
+		<li><a href="?lang={$langKey}" rel="alternate" hreflang="{$langKey}" title="{$langName}" class="flags"><img src="styles/resource/images/login/flags/{$langKey}.png" title="{$langName}" alt="{$langName}"></a></li>
 		{/foreach}
 		</ul>
 		{/if}

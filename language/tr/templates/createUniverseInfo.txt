@@ -1,0 +1,12 @@
+<div class="left">
+<h2>Coklu Evren hakkinda bilgi</h2>
+<p>2Moons birden fazla evrene saglikli bir sekilde imkan saglar, fakat web sunucunuzu istenilen sekilde ayarlamalisiniz.</p>
+<p>Admin penelingdeki "Sunucu Bilgileri" kismindan gereksinimler hakkinda bilgi alabilirsiniz. Eger emin degilseniz, host formaniz ile gorusmeniz tavsiye edilir.</p>
+<h3>Apache</h3>
+<p>Eger Apache Server kullaniyorsaniz .htacces dosyasindan 48-51 arasindaki satirlari silmelisiniz.<br>
+Ilave olarak, mod_rewrite modu gerekli.</p>
+<h3>nginx</h3>
+<p>Eger nginx Server kullaniyorsaniz, chost ayarlari direk olarak rewrite(yeniden yazilabilir) seklinde ayarlanmalidir:</p>
+<p><code>{NGINX-CODE}</code></p>
+<p>Bu konudu kullanabilirsiniz "server_name".</p>
+</div>

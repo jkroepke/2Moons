@@ -148,22 +148,21 @@ class ShowOverviewPage extends AbstractGamePage
 
         $db = Database::get();
 		
-		foreach($USER['PLANETS'] as $ID => $CPLANET)
+		foreach($USER['PLANETS'] as $planetId => $planetData)
 		{		
-			if ($ID == $PLANET['id'] || $CPLANET['planet_type'] == 3)
-				continue;
+			if ($planetId == $PLANET['id'] || $planetData['planet_type'] == MOON) continue;
 
-			if (!empty($CPLANET['b_building']) && $CPLANET['b_building'] > TIMESTAMP) {
-				$Queue				= unserialize($CPLANET['b_building_id']);
+			if (!empty($planetData['b_building']) && $planetData['b_building'] > TIMESTAMP) {
+				$Queue				= unserialize($planetData['b_building_id']);
 				$BuildPlanet		= $LNG['tech'][$Queue[0][0]]." (".$Queue[0][1].")<br><span style=\"color:#7F7F7F;\">(".pretty_time($Queue[0][3] - TIMESTAMP).")</span>";
 			} else {
 				$BuildPlanet     = $LNG['ov_free'];
 			}
 			
 			$AllPlanets[] = array(
-				'id'	=> $CPLANET['id'],
-				'name'	=> $CPLANET['name'],
-				'image'	=> $CPLANET['image'],
+				'id'	=> $planetData['id'],
+				'name'	=> $planetData['name'],
+				'image'	=> $planetData['image'],
 				'build'	=> $BuildPlanet,
 			);
 		}
@@ -391,7 +390,9 @@ class ShowOverviewPage extends AbstractGamePage
                     ));
                 }
 
-                $_SESSION['planet']     = $USER['id_planet'];
+                $session	= Session::load();
+                $session->planetId = $USER['id_planet'];
+                $session->save();
 				$this->sendJSON(array('ok' => true, 'message' => $LNG['ov_planet_abandoned']));
 			}
 		}

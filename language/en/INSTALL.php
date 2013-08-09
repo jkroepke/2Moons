@@ -52,8 +52,6 @@ $LNG['req_php_need']			= 'Installed version of the scripting language &raquo;PHP
 $LNG['req_php_need_desc']		= '<strong>Required</strong> — PHP is the language code base of 2Moons. This is the required PHP version 5.2.5 or higher so that all modules work correctly';
 $LNG['reg_gd_need']				= 'Installed version of the GD PHP Script &raquo;gdlib&laquo;';
 $LNG['reg_gd_desc']				= '<strong>Optional</strong> — Graphic processing library &raquo;gdlib&laquo; Is responsible for the generation of dynamic images. They work without some of the features of the software.';
-$LNG['reg_mysqli_active']		= 'Extension support &raquo;MySQLi&laquo;';
-$LNG['reg_mysqli_desc']			= '<strong>Required</strong> — Need to have support for MySQLi in PHP. If no module of the database are shown as being available, you should contact your hosting provider (Domain Hoster) or review the documentation of PHP.';
 $LNG['reg_json_need']			= 'Extension &raquo;JSON&laquo; avaliable?';
 $LNG['reg_iniset_need']			= 'PHP function &raquo;ini_set&laquo; avaliable?';
 $LNG['reg_global_need']			= 'register_globals disabled?';
@@ -67,6 +65,8 @@ $LNG['req_ftp_dir']				= 'Directory of 2Moons';
 $LNG['req_ftp_send']			= 'Send';
 $LNG['req_ftp_error_data']		= 'The information provided does not allow you to connect to the FTP server, so this link failed';
 $LNG['req_ftp_error_dir']		= 'The story that directory you entered is invalid or not existing';
+$LNG['reg_pdo_active']			= 'Support &raquo;PDO&laquo; Extension';
+$LNG['reg_pdo_desc']			= '<strong>Prerequisite</strong> — You need to provide support for PDO in PHP.';
 
 $LNG['step1_head']				= 'Configure the installation database';
 $LNG['step1_desc']				= 'Now that it has been determined that 2Moons can be installed on your server, s should provide some information. If you dont know how to run a link database, contact your hosting provider first or with the 2Moons forum for help and support. When you insert the data, checks were introduced properly';
@@ -102,6 +102,9 @@ $LNG['step6_head']				= 'Installation completed!';
 $LNG['step6_desc']				= 'You installed with success the 2Moons system';
 $LNG['step6_info_head']			= 'Getting and using the 2Moons now!';
 $LNG['step6_info_additional']	= 'If clicking the button below, will s are redirected to the page of administration .AI will be a good advantage to get ares to explore 2Moons administrator tools.<br/><br/><strong>Please delete the &raquo;includes/ENABLE_INSTALL_TOOL&laquo; or modify the filename. With the existence of this file, you can cause your game at risk by allowing someone rewrite the installation!</strong>';
+
+$LNG['step8_need_fields']		= 'You must fill in all fields.';
+
 
 $LNG['sql_close_reason']		= 'The game is closed';
 $LNG['sql_welcome']				= 'Welcome to 2Moons v';
