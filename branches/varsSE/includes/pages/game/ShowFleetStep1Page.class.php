@@ -48,9 +48,9 @@ class ShowFleetStep1Page extends AbstractGamePage
 				
 		$Fleet		= array();
 		$FleetRoom	= 0;
-		foreach ($reslist['fleet'] as $id => $ShipID)
+		foreach (Vars::getElements(Vars::CLASS_FLEET) as $elementId => $elementObj)
 		{
-			$amount		 				= max(0, round(HTTP::_GP('ship'.$ShipID, 0.0, 0.0)));
+			$amount		 				= max(0, round(HTTP::_GP('ship'.$ShipID, 0.0, 0)));
 			
 			if ($amount < 1 || $ShipID == 212) continue;
 

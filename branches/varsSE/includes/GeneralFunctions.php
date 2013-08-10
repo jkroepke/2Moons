@@ -447,7 +447,7 @@ function exceptionHandler($exception)
 	} else {
 		$errno	= E_USER_ERROR;
 	}
-	
+
 	$errorType = array(
 		E_ERROR				=> 'ERROR',
 		E_WARNING			=> 'WARNING',
@@ -465,7 +465,11 @@ function exceptionHandler($exception)
 		E_RECOVERABLE_ERROR	=> 'RECOVERABLE ERROR'
 	);
 
-    if(isset($errorType[$errno]))
+    if($exception instanceof PDOException)
+    {
+        $errorName  = 'DATABASE ERROR';
+    }
+    elseif(isset($errorType[$errno]))
     {
         $errorName  = $errorType[$errno];
     }
@@ -482,9 +486,9 @@ function exceptionHandler($exception)
 	{
 		$VERSION	= 'UNKNOWN';
 	}
-	$gameName	= '-';
-	
-	if(MODE !== 'INSTALL')
+	$gameName	= '2Moons';
+
+	if(MODE !== 'INSTALL' && !($exception instanceof PDOException))
 	{
 		try
 		{
@@ -494,8 +498,7 @@ function exceptionHandler($exception)
 		} catch(ErrorException $e) {
 		}
 	}
-	
-	
+
 	$DIR		= MODE == 'INSTALL' || MODE == 'CHAT' ? '..' : '.';
 	ob_start();
 	echo '<!DOCTYPE html>
@@ -505,7 +508,7 @@ function exceptionHandler($exception)
 <!--[if IE 9 ]>    <html lang="de" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="de" class="no-js"> <!--<![endif]-->
 <head>
-	<title>'.$gameName.' - '.$errorName.'</title>
+	<title>'.$errorName.' - '.$gameName.'</title>
 	<meta name="generator" content="2Moons '.$VERSION.'">
 	<!-- 
 		This website is powered by 2Moons '.$VERSION.'
@@ -550,9 +553,10 @@ function exceptionHandler($exception)
 	'.(MODE == 'CHAT' ? '<style>body{background: none;}</style>': '').'
 </head>
 <body id="overview" class="full">
+<br><br>
 <table width="960">
 	<tr>
-		<th>'.$errorType[$errno].'</th>
+		<th>'.$errorName.'</th>
 	</tr>
 	<tr>
 		<td class="left">
@@ -561,8 +565,6 @@ function exceptionHandler($exception)
 			<b>Line: </b>'.$exception->getLine().'<br>
 			<b>URL: </b>'.PROTOCOL.HTTP_HOST.$_SERVER['REQUEST_URI'].'<br>
 			<b>PHP-Version: </b>'.PHP_VERSION.'<br>
-			<b>PHP-API: </b>'.php_sapi_name().'<br>
-			<b>MySQL-Cleint-Version: </b>'.mysqli_get_client_info().'<br>
 			<b>2Moons Version: </b>'.$VERSION.'<br>
 			<b>Debug Backtrace:</b><br>'.makebr(htmlspecialchars($exception->getTraceAsString())).'
 		</td>
@@ -571,8 +573,11 @@ function exceptionHandler($exception)
 </body>
 </html>';
 
-	echo str_replace(array('\\', ROOT_PATH, substr(ROOT_PATH, 0, 15)), array('/', '/', 'FILEPATH '), ob_get_clean());
-	
+	$output = str_replace(array('\\', ROOT_PATH, substr(ROOT_PATH, 0, 15)), array('/', '/', 'FILEPATH '), ob_get_clean());
+    $output = preg_replace('!PDO-&gt;__construct\(.*\)!', 'PDO-&gt;__construct()', $output);
+
+    echo $output;
+
 	$errorText	= date("[d-M-Y H:i:s]", TIMESTAMP).' '.$errorType[$errno].': "'.strip_tags($exception->getMessage())."\"\r\n";
 	$errorText	.= 'File: '.$exception->getFile().' | Line: '.$exception->getLine()."\r\n";
 	$errorText	.= 'URL: '.PROTOCOL.HTTP_HOST.$_SERVER['REQUEST_URI'].' | Version: '.$VERSION."\r\n";

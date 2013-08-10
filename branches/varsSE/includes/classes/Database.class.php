@@ -33,11 +33,23 @@ class Database
 		$database = array();
 		require 'includes/config.php';
 		//Connect
-		$db = new PDO("mysql:host=".$database['host'].";port=".$database['port'].";dbname=".$database['databasename'], $database['user'], $database['userpw']);
+
+        try
+        {
+            $db = new PDO("mysql:host=".$database['host'].";port=".$database['port'].";dbname=".$database['databasename'], $database['user'], $database['userpw']);
+        }
+        catch(PDOException $e)
+        {
+            exceptionHandler($e);
+            exit;
+        }
+
 		//error behaviour
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$db->query("set character set utf8");
 		$db->query("set names utf8");
+        $db->query("SET SESSION sql_mode = 'STRICT_ALL_TABLES';");
+
 		$this->dbHandle = $db;
 
 		$dbTableNames = array();

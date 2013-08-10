@@ -145,25 +145,35 @@ class ShowOverviewPage extends AbstractGamePage
 		$AllPlanets		= array();
 		$Moon 			= array();
 		$RefLinks		= array();
+        $currentTasks   = array();
 
-        $db = Database::get();
-		
+        $db             = Database::get();
+
+        $currentTasksResult   = $this->ecoObj->getQueueObj()->getCurrentTaskFromAllPlanetsByElementClass(Vars::CLASS_BUILDING);
+        foreach($currentTasksResult as $task)
+        {
+            $currentTasks[$task['planetId']]    = $task;
+        }
+
+
 		foreach($USER['PLANETS'] as $planetId => $planetData)
 		{		
 			if ($planetId == $PLANET['id'] || $planetData['planet_type'] == MOON) continue;
 
-			if (!empty($planetData['b_building']) && $planetData['b_building'] > TIMESTAMP) {
-				$Queue				= unserialize($planetData['b_building_id']);
-				$BuildPlanet		= $LNG['tech'][$Queue[0][0]]." (".$Queue[0][1].")<br><span style=\"color:#7F7F7F;\">(".pretty_time($Queue[0][3] - TIMESTAMP).")</span>";
-			} else {
-				$BuildPlanet     = $LNG['ov_free'];
-			}
-			
+            if(!isset($currentTasks[$planetId]) || $currentTasks[$planetId]['endBuildTime'] <= TIMESTAMP)
+            {
+                $currentTask    = false;
+            }
+            else
+            {
+                $currentTask    = $currentTasks[$planetId];
+            }
+
 			$AllPlanets[] = array(
-				'id'	=> $planetData['id'],
-				'name'	=> $planetData['name'],
-				'image'	=> $planetData['image'],
-				'build'	=> $BuildPlanet,
+				'id'	        => $planetData['id'],
+				'name'	        => $planetData['name'],
+				'image'	        => $planetData['image'],
+				'currentTask'	=> $currentTask,
 			);
 		}
 		
@@ -173,52 +183,22 @@ class ShowOverviewPage extends AbstractGamePage
                 ':lunaID'   => $PLANET['id_luna']
             ));
         }
-			
-		if ($PLANET['b_building'] - TIMESTAMP > 0) {
-			$Queue			= unserialize($PLANET['b_building_id']);
+
+        if(!isset($currentTasks[$PLANET['id']]) || $currentTasks[$PLANET['id']]['endBuildTime'] <= TIMESTAMP)
+        {
+            $buildInfo['buildings']	= false;
+        }
+        else
+        {
+            $task   = $currentTasks[$PLANET['id']];
 			$buildInfo['buildings']	= array(
-				'id'		=> $Queue[0][0],
-				'level'		=> $Queue[0][1],
-				'timeleft'	=> $PLANET['b_building'] - TIMESTAMP,
-				'time'		=> $PLANET['b_building'],
-				'starttime'	=> pretty_time($PLANET['b_building'] - TIMESTAMP),
+				'id'		=> $task['elementId'],
+				'level'		=> $task['amount'],
+				'timeleft'	=> $task['endBuildTime'] - TIMESTAMP,
+				'time'		=> $task['endBuildTime'],
+				'starttime'	=> pretty_time($task['endBuildTime'] - TIMESTAMP),
 			);
 		}
-		else {
-			$buildInfo['buildings']	= false;
-		}
-		
-		/* As FR#206 (http://tracker.2moons.cc/view.php?id=206), i added the shipyard and research status here, but i add not them the template. */
-		
-		if (!empty($PLANET['b_hangar_id'])) {
-			$Queue	= unserialize($PLANET['b_hangar_id']);
-			$time	= BuildUtil::getBuildingTime($USER, $PLANET, $Queue[0][0]) * $Queue[0][1];
-			$buildInfo['fleet']	= array(
-				'id'		=> $Queue[0][0],
-				'level'		=> $Queue[0][1],
-				'timeleft'	=> $time - $PLANET['b_hangar'],
-				'time'		=> $time,
-				'starttime'	=> pretty_time($time - $PLANET['b_hangar']),
-			);
-		}
-		else {
-			$buildInfo['fleet']	= false;
-		}
-		
-		if ($USER['b_tech'] - TIMESTAMP > 0) {
-			$Queue			= unserialize($USER['b_tech_queue']);
-			$buildInfo['tech']	= array(
-				'id'		=> $Queue[0][0],
-				'level'		=> $Queue[0][1],
-				'timeleft'	=> $USER['b_tech'] - TIMESTAMP,
-				'time'		=> $USER['b_tech'],
-				'starttime'	=> pretty_time($USER['b_tech'] - TIMESTAMP),
-			);
-		}
-		else {
-			$buildInfo['tech']	= false;
-		}
-		
 		
 		$sql = "SELECT id,username FROM %%USERS%% WHERE universe = :universe AND onlinetime >= :onlinetime AND authlevel > :authlevel;";
         $onlineAdmins = $db->select($sql, array(

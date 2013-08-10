@@ -37,243 +37,186 @@ class ShowShipyardPage extends AbstractGamePage
 	{
 		parent::__construct();
 	}
-	
-	private function CancelAuftr() 
-	{
-		global $USER, $PLANET;
-		$ElementQueue = unserialize($PLANET['b_hangar_id']);
-		
-		$CancelArray	= HTTP::_GP('auftr', array());
-		
-		if(!is_array($CancelArray))
-		{
-			return false;
-		}	
-		
-		foreach ($CancelArray as $Auftr)
-		{
-			if(!isset($ElementQueue[$Auftr])) {
-				continue;
-			}
-			
-			if($Auftr == 0) {
-				$PLANET['b_hangar']	= 0;
-			}
-			
-			$Element		= $ElementQueue[$Auftr][0];
-			$Count			= $ElementQueue[$Auftr][1];
-			
-			$costResources	= BuildUtil::getElementPrice($USER, $PLANET, $Element, false, $Count);
-		
-			if(isset($costResources[901])) { $PLANET[$resource[901]]	+= $costResources[901] * FACTOR_CANCEL_SHIPYARD; }
-			if(isset($costResources[902])) { $PLANET[$resource[902]]	+= $costResources[902] * FACTOR_CANCEL_SHIPYARD; }
-			if(isset($costResources[903])) { $PLANET[$resource[903]]	+= $costResources[903] * FACTOR_CANCEL_SHIPYARD; }
-			if(isset($costResources[921])) { $USER[$resource[921]]		+= $costResources[921] * FACTOR_CANCEL_SHIPYARD; }
-			
-			unset($ElementQueue[$Auftr]);
-		}
-		
-		if(empty($ElementQueue)) {
-			$PLANET['b_hangar_id']	= '';
-		} else {
-			$PLANET['b_hangar_id']	= serialize(array_values($ElementQueue));
-		}
+    public function build()
+    {
+        global $USER;
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
+        {
+            $elements  = HTTP::_GP('element', array());
+            foreach($elements as $elementId => $amount)
+            {
+                $elementObj = Vars::getElement($elementId);
+                if($elementObj->class == Vars::CLASS_FLEET || $elementObj->class == Vars::CLASS_DEFENSE)
+                {
+                    $this->ecoObj->addToQueue($elementObj, QueueManager::SHIPYARD, $amount);
+                }
+            }
+        }
 
-		return true;
-	}
-	
-	private function BuildAuftr($fmenge)
-	{
-		global $USER, $PLANET;
-		
-		$Missiles	= array(
-			502	=> $PLANET[$resource[502]],
-			503	=> $PLANET[$resource[503]],
-		);
+        $this->redirectTo('game.php?page=shipyard&mode='.HTTP::_GP('redirectMode', ''));
+    }
 
-		foreach($fmenge as $Element => $Count)
-		{
-			if(empty($Count)
-				|| !in_array($Element, array_merge($reslist['fleet'], $reslist['defense'], $reslist['missile']))
-				|| !BuildUtil::requirementsAvailable($USER, $PLANET, $Element)
-			) {
-				continue;
-			}
-			
-			$MaxElements 	= BuildUtil::getMaxConstructibleElements($USER, $PLANET, $Element);
-			$Count			= is_numeric($Count) ? round($Count) : 0;
-			$Count 			= max(min($Count, Config::get()->max_fleet_per_build), 0);
-			$Count 			= min($Count, $MaxElements);
-			
-			$BuildArray    	= !empty($PLANET['b_hangar_id']) ? unserialize($PLANET['b_hangar_id']) : array();
-			if (in_array($Element, $reslist['missile']))
-			{
-				$MaxMissiles		= BuildUtil::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
-				$Count 				= min($Count, $MaxMissiles[$Element]);
+    public function cancel()
+    {
+        global $USER;
+        $taskId = HTTP::_GP('taskId', 0);
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && !empty($taskId))
+        {
+            $this->ecoObj->removeFromQueue($taskId, array(Vars::CLASS_FLEET, Vars::CLASS_DEFENSE, Vars::CLASS_MISSILE));
+        }
 
-				$Missiles[$Element] += $Count;
-			} elseif(in_array($Element, $reslist['one'])) {
-				$InBuild	= false;
-				foreach($BuildArray as $ElementArray) {
-					if($ElementArray[0] == $Element) {
-						$InBuild	= true;
-						break;
-					}
-				}
-				
-				if ($InBuild)
-					continue;
+        $this->redirectTo('game.php?page=shipyard&mode='.HTTP::_GP('redirectMode', ''));
+    }
 
-				if($Count != 0 && $PLANET[$resource[$Element]] == 0 && $InBuild === false)
-					$Count =  1;
-			}
+    private function getQueueData()
+    {
+        global $LNG, $USER, $PLANET;
 
-			if(empty($Count))
-				continue;
-				
-			$costResources	= BuildUtil::getElementPrice($USER, $PLANET, $Element, false, $Count);
-		
-			if(isset($costResources[901])) { $PLANET[$resource[901]]	-= $costResources[901]; }
-			if(isset($costResources[902])) { $PLANET[$resource[902]]	-= $costResources[902]; }
-			if(isset($costResources[903])) { $PLANET[$resource[903]]	-= $costResources[903]; }
-			if(isset($costResources[921])) { $USER[$resource[921]]		-= $costResources[921]; }
-			
-			$BuildArray[]			= array($Element, $Count);
-			$PLANET['b_hangar_id']	= serialize($BuildArray);
-		}
-	}
+        $elementIds = array_keys(Vars::getElements(Vars::CLASS_FLEET));
+        $elementIds += array_keys(Vars::getElements(Vars::CLASS_DEFENSE));
+        $elementIds += array_keys(Vars::getElements(Vars::CLASS_MISSILE));
+
+        $queueData  = $this->ecoObj->getQueueObj()->getTasksByElementId($elementIds);
+
+        $queue          = array();
+        $elementLevel   = array();
+        $count          = array();
+
+
+        foreach($queueData as $task)
+        {
+            if ($task['endBuildTime'] < TIMESTAMP)
+                continue;
+
+            $queue[$task['taskId']] = array(
+                'element'	=> $task['elementId'],
+                'level' 	=> $task['amount'],
+                'time' 		=> $task['buildTime'],
+                'resttime' 	=> $task['endBuildTime'] - TIMESTAMP,
+                'destroy' 	=> $task['taskType'] == QueueManager::DESTROY,
+                'endtime' 	=> _date('U', $task['endBuildTime'], $USER['timezone']),
+                'display' 	=> _date($LNG['php_tdformat'], $task['endBuildTime'], $USER['timezone']),
+                'planet'	=> $task['planetId'] != $PLANET['id'] ? $USER['PLANETS'][$task['planetId']]['name'] : false,
+            );
+
+            if(!isset($elementLevel[$task['elementId']]))
+            {
+                $elementLevel[$task['elementId']]   = 0;
+            }
+
+            $elementLevel[$task['elementId']]   += $task['amount'];
+            if(!isset($count[$task['queueId']]))
+            {
+                $count[$task['queueId']] = 0;
+            }
+
+            $count[$task['queueId']]++;
+        }
+
+        return array('queue' => $queue, 'elementLevel' => $elementLevel, 'count' => $count);
+    }
 	
 	public function show()
 	{
 		global $USER, $PLANET, $LNG;
 		
-		if ($PLANET[$resource[21]] == 0)
+		if ($PLANET[Vars::getElement(21)->name] == 0)
 		{
 			$this->printMessage($LNG['bd_shipyard_required']);
 		}
 
+        $queueData		= $this->getQueueData();
 
-		$buildTodo	= HTTP::_GP('fmenge', array());
-		$action		= HTTP::_GP('action', '');
-								
-		$NotBuilding = true;
-		if (!empty($PLANET['b_building_id']))
-		{
-			$CurrentQueue 	= unserialize($PLANET['b_building_id']);
-			foreach($CurrentQueue as $ElementArray)
-			{
-				if($ElementArray[0] == 21 || $ElementArray[0] == 15) {
-					$NotBuilding = false;
-					break;
-				}
-			}
-		}
-		
-		$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
-		if(empty($ElementQueue))
-			$Count	= 0;
-		else
-			$Count	= count($ElementQueue);
-			
-		if($USER['urlaubs_modus'] == 0 && $NotBuilding == true)
-		{
-			if (!empty($buildTodo))
-			{
-				$maxBuildQueue	= Config::get()->max_elements_ships;
-				if ($maxBuildQueue != 0 && $Count >= $maxBuildQueue)
-				{
-					$this->printMessage(sprintf($LNG['bd_max_builds'], $maxBuildQueue));
-				}
-
-				$this->BuildAuftr($buildTodo);
-				$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
-			}
-					
-			if ($action == "delete")
-			{
-				$this->CancelAuftr();
-			}
-		}
-		
-		$elementInQueue	= array();
+        $busyQueues 	= array();
 		$buildList		= array();
 		$elementList	= array();
 
-		if(!empty($ElementQueue))
-		{
-			$Shipyard		= array();
-			$QueueTime		= 0;
-			foreach($ElementQueue as $Element)
-			{
-				if (empty($Element))
-					continue;
-					
-				$elementInQueue[$Element[0]]	= true;
-				$ElementTime  	= BuildUtil::getBuildingTime($USER, $PLANET, $Element[0]);
-				$QueueTime   	+= $ElementTime * $Element[1];
-				$Shipyard[]		= array($LNG['tech'][$Element[0]], $Element[1], $ElementTime, $Element[0]);		
-			}
-
-			$buildList	= array(
-				'Queue' 				=> $Shipyard,
-				'b_hangar_id_plus' 		=> $PLANET['b_hangar'],
-				'pretty_time_b_hangar' 	=> pretty_time(max($QueueTime - $PLANET['b_hangar'],0)),
-			);
-		}
-		
+        $isShipyardInBuild  = false;
 		
 		$mode		= HTTP::_GP('mode', 'fleet');
 		
-		if($mode == 'defense') {
-			$elementIDs	= array_merge($reslist['defense'], $reslist['missile']);
-		} else {
-			$elementIDs	= $reslist['fleet'];
+		if($mode == 'defense')
+        {
+			$elementShipyardList	= Vars::getElements(Vars::CLASS_DEFENSE) + Vars::getElements(Vars::CLASS_MISSILE);
+        }
+        else
+        {
+			$elementShipyardList	= Vars::getElements(Vars::CLASS_FLEET);
 		}
+
+        $tempPlanet = $PLANET;
+
+        foreach($queueData['elementLevel'] as $elementId => $value)
+        {
+            $tempPlanet[Vars::getElement($elementId)->name]  += $value;
+        }
+
+        $maxMissiles    = BuildUtil::maxBuildableMissiles($USER, $tempPlanet, $this->ecoObj->getQueueObj());
 		
-		$Missiles	= array();
-		
-		foreach($reslist['missile'] as $elementID)
+		foreach($elementShipyardList as $elementId => $elementObj)
 		{
-			$Missiles[$elementID]	= $PLANET[$resource[$elementID]];
-		}
-		
-		$MaxMissiles	= BuildUtil::getMaxConstructibleRockets($USER, $PLANET, $Missiles);
-		
-		foreach($elementIDs as $Element)
-		{
-			if(!BuildUtil::requirementsAvailable($USER, $PLANET, $Element))
+			if(!BuildUtil::requirementsAvailable($USER, $PLANET, $elementObj))
 				continue;
 			
-			$costResources		= BuildUtil::getElementPrice($USER, $PLANET, $Element);
-			$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $Element, $costResources);
-			$elementTime    	= BuildUtil::getBuildingTime($USER, $PLANET, $Element, $costResources);
-			$buyable			= BuildUtil::isElementBuyable($USER, $PLANET, $Element, $costResources);
-			$maxBuildable		= BuildUtil::getMaxConstructibleElements($USER, $PLANET, $Element, $costResources);
+			$costResources		= BuildUtil::getElementPrice($elementObj, 1);
+			$elementTime    	= BuildUtil::getBuildingTime($USER, $PLANET, $elementObj, $costResources);
 
-			if(isset($MaxMissiles[$Element])) {
-				$maxBuildable	= min($maxBuildable, $MaxMissiles[$Element]);
+            $maxBuildable		= BuildUtil::maxBuildableElements($USER, $PLANET, $elementObj, $costResources);
+
+            // zero cost resource do not need to display
+            $costResources		= array_filter($costResources);
+            $costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $elementObj, $costResources);
+
+			if(isset($maxMissiles[$elementId]))
+            {
+				$maxBuildable	= min($maxBuildable, $maxMissiles[$elementId]);
 			}
+
+            if(!isset($busyQueues[$elementObj->queueId]))
+            {
+                $tasks  = $this->ecoObj->getQueueObj()->getTasksByElementId(Vars::getElement($elementObj->queueId)->blocker);
+                $busyQueues[$elementObj->queueId] = count($tasks) != 0;
+            }
+
+            $isBusy             = $busyQueues[$elementObj->queueId];
+
+            if($isBusy)
+            {
+                $buyable            = false;
+                $isShipyardInBuild  = true;
+            }
+            elseif(isset($queueData['count'][$elementObj->queueId]) && $queueData['count'][$elementObj->queueId] >= Vars::getElement($elementObj->queueId)->maxCount)
+            {
+                $buyable    = false;
+            }
+            elseif(isset($queueData['count'][$elementObj->queueId]) && $queueData['count'][$elementObj->queueId] > 0)
+            {
+                $buyable    = true;
+            }
+            else
+            {
+                $buyable    = BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
+            }
 			
-			$AlreadyBuild		= in_array($Element, $reslist['one']) && (isset($elementInQueue[$Element]) || $PLANET[$resource[$Element]] != 0);
-			
-			$elementList[$Element]	= array(
-				'id'				=> $Element,
-				'available'			=> $PLANET[$resource[$Element]],
+			$elementList[$elementId]	= array(
+				'available'			=> $PLANET[$elementObj->name],
+                'maxLevel'			=> $elementObj->maxLevel,
+				'isBusy'			=> $isBusy,
 				'costResources'		=> $costResources,
 				'costOverflow'		=> $costOverflow,
 				'elementTime'    	=> $elementTime,
 				'buyable'			=> $buyable,
 				'maxBuildable'		=> floattostring($maxBuildable),
-				'AlreadyBuild'		=> $AlreadyBuild,
 			);
 		}
 		
 		$this->assign(array(
-			'elementList'	=> $elementList,
-			'NotBuilding'	=> $NotBuilding,
-			'BuildList'		=> $buildList,
-			'maxlength'		=> strlen(Config::get()->max_fleet_per_build),
-			'mode'			=> $mode,
+            'queueData'         => $queueData['queue'],
+			'elementList'	    => $elementList,
+			'isShipyardInBuild'	=> $isShipyardInBuild,
+			'BuildList'		    => $buildList,
+            'maxlength'		    => strlen(Config::get()->max_fleet_per_build),
+			'mode'			    => $mode,
 		));
 
 		$this->display('page.shipyard.default.tpl');

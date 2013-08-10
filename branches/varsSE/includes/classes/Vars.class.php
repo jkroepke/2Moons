@@ -79,6 +79,7 @@ class Vars
         $data           = array('elements' => array(), 'list' => array('classes' => array(), 'flags' => array()));
         $rapidFire      = array();
         $requirements   = array();
+        $queueBlocker   = array();
 
         $rapidResult    = $db->nativeQuery('SELECT * FROM %%VARS_RAPIDFIRE%%;');
         foreach($rapidResult as $rapidRow)
@@ -166,6 +167,12 @@ class Vars
         self::$data = $data;
 
         // queue coming as last.
+        $queueResult    = $db->nativeQuery('SELECT * FROM %%VARS_QUEUE_BLOCKER%%;');
+        foreach($queueResult as $queueRow)
+        {
+            $queueBlocker[$queueRow['queueId']][] = $queueRow['elementId'];
+        }
+
         $varsResult		= $db->nativeQuery('SELECT * FROM %%VARS%% WHERE class = '.self::CLASS_QUEUE.';');
         foreach($varsResult as $varsRow)
         {
@@ -173,12 +180,15 @@ class Vars
             $elementData    = $varsRow;
             $elementData['rapidFire']       = array();
             $elementData['requirements']    = array();
+            $elementData['blocker']         = isset($queueBlocker[$elementId]) ? $queueBlocker[$elementId] : array();
 
             if(!isset($data['list']['queue'][$elementId]))
             {
                 $data['list']['queue'][$elementId] = array();
             }
+
             self::$data = $data;
+
             $data['elements'][$elementId]   = new Element($elementData);
 
             if(!isset($data['list']['classes'][$data['elements'][$elementId]->class]))
@@ -256,5 +266,15 @@ class Vars
         {
             return array_intersect_key(self::$data['list']['queue'][$queueId], self::$data['list']['classes'][$class]);
         }
+    }
+
+    static function isUserResource(Element $elementObj)
+    {
+        if($elementObj->class == Vars::CLASS_BUILDING || $elementObj->class == Vars::CLASS_FLEET
+            || $elementObj->class == Vars::CLASS_DEFENSE) return false;
+
+        if($elementObj->class == Vars::CLASS_RESOURCE && !$elementObj->hasFlag(Vars::FLAG_RESOURCE_USER)) return false;
+
+        return true;
     }
 }

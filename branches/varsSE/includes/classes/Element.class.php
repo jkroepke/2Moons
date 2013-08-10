@@ -97,6 +97,7 @@ class Element implements Serializable
                 $tmp['elementID']   = $data['elementID'];
                 $tmp['class']       = $data['class'];
                 $tmp['maxCount']    = $data['maxLevel'];
+                $tmp['blocker']     = $data['blocker'];
                 $tmp['flags']       = array();
                 $tmp['forClasses']  = array();
                 foreach(Vars::getElementsByQueue($data['elementID']) as $elementObj)
