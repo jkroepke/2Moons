@@ -262,7 +262,7 @@ class ShowFleetTablePage extends AbstractGamePage
 			);
 		}
 		
-		$FleetsOnPlanet	= array();
+		$shipList	= array();
 		
 		foreach(Vars::getElements(Vars::CLASS_FLEET) as $elementId => $elementObj)
 		{
@@ -275,7 +275,7 @@ class ShowFleetTablePage extends AbstractGamePage
 		}
 		
 		$this->assign(array(
-			'FleetsOnPlanet'		=> $FleetsOnPlanet,
+			'shipList'		        => $shipList,
 			'FlyingFleetList'		=> $FlyingFleetList,
 			'activeExpedition'		=> $activeExpedition,
 			'maxExpedition'			=> $maxExpedition,

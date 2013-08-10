@@ -90,7 +90,7 @@ class ShowShipyardPage extends AbstractGamePage
 
             $queue[$task['taskId']] = array(
                 'element'	=> $task['elementId'],
-                'level' 	=> $task['amount'],
+                'amount' 	=> $task['amount'],
                 'time' 		=> $task['buildTime'],
                 'resttime' 	=> $task['endBuildTime'] - TIMESTAMP,
                 'destroy' 	=> $task['taskType'] == QueueManager::DESTROY,

@@ -43,7 +43,6 @@
 	<td><span style="color:lime;">{$value}</span></td>
 	{/foreach}
 	{for $i=1 to {count($basicProduction) - count($storage)}}<td>-</td>{/for}
-	<td>-</td>
 </tr>
 <tr style="height:22px">
 	<td>{$LNG.rs_sum}:</td>
