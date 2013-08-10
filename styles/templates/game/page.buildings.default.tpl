@@ -3,33 +3,33 @@
 {if !empty($Queue)}
 <div id="buildlist" class="buildlist">
 	<table style="width:760px">
-		{foreach $Queue as $List}
-		{$elementId = $List.element}
+		{foreach $Queue as $taskId => $task}
+		{$elementId = $task.element}
 		<tr>
 			<td style="width:70%;vertical-align:top;" class="left">
-				{$List@iteration}.: 
-				{if $RoomIsOk && $CanBuildElement && $BuildInfoList[$elementId].buyable}
+				{$task@iteration}.: 
+				{if !$isPlanetFull && $BuildInfoList[$elementId].buyable}
 				<form class="build_form" action="game.php?page=buildings" method="post">
 					<input type="hidden" name="mode" value="build">
-					<input type="hidden" name="building" value="{$elementId}">
-					<button type="submit" class="build_submit onlist">{$LNG.tech.{$elementId}} {$List.level}{if $List.destroy} {$LNG.bd_dismantle}{/if}</button>
+					<input type="hidden" name="elementId" value="{$elementId}">
+					<button type="submit" class="build_submit onlist">{$LNG.tech.{$elementId}} {$task.level}{if $task.destroy} {$LNG.bd_dismantle}{/if}</button>
 				</form>
-				{else}{$LNG.tech.{$elementId}} {$List.level} {if $List.destroy}{$LNG.bd_dismantle}{/if}{/if}
-				{if $List@first}
-				<br><br><div id="progressbar" data-time="{$List.resttime}"></div>
+				{else}{$LNG.tech.{$elementId}} {$task.level} {if $task.destroy}{$LNG.bd_dismantle}{/if}{/if}
+				{if $task@first}
+				<br><br><div id="progressbar" data-time="{$task.resttime}"></div>
 			</td>
 			<td>
-				<div id="time" data-time="{$List.time}"><br></div>
+				<div id="time" data-time="{$task.time}"><br></div>
 				{else}
 			</td>
 			<td>
 				{/if}
 				<form action="game.php?page=buildings" method="post" class="build_form">
 					<input type="hidden" name="mode" value="cancel">
-					<input type="hidden" name="taskId" value="{$List@key}">
+					<input type="hidden" name="taskId" value="{$taskId}">
 					<button type="submit" class="build_submit onlist">{$LNG.bd_cancel}</button>
 				</form>
-				<br><span style="color:lime" data-time="{$List.endtime}" class="timer">{$List.display}</span>
+				<br><span style="color:lime" data-time="{$task.endtime}" class="timer">{$task.display}</span>
 			</td>
 		</tr>
 	{/foreach}
@@ -53,28 +53,24 @@
 			<table style="width:100%">
 				<tr>
 					<td class="transparent left" style="width:90%;padding:10px;"><p>{$LNG.shortDescription.{$elementId}}</p>
-					<p>{foreach $elementData.costResources as $RessID => $RessAmount}
-					{$LNG.tech.{$RessID}}: <b><span style="color:{if $elementData.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>
+					<p>{foreach $elementData.costResources as $resourceId => $value}
+					{$LNG.tech.{$resourceId}}: <b><span style="color:{if $elementData.costOverflow[$resourceId] == 0}lime{else}red{/if}">{$value|number}</span></b>
 					{/foreach}</p></td>
 					<td class="transparent" style="vertical-align:middle;width:100px">
-					{if $elementData.maxLevel == $elementData.levelToBuild}
-						<span style="color:red">{$LNG.bd_maxlevel}</span>
-					{elseif ($isBusy.research && ($elementId == 6 || $elementId == 31)) || ($isBusy.shipyard && ($elementId == 15 || $elementId == 21))}
-						<span style="color:red">{$LNG.bd_working}</span>
-					{else}
-						{if $RoomIsOk}
-							{if $CanBuildElement && $elementData.buyable}
-							<form action="game.php?page=buildings" method="post" class="build_form">
-								<input type="hidden" name="mode" value="build">
-								<input type="hidden" name="elementId" value="{$elementId}">
-								<button type="submit" class="build_submit">{if $elementData.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$elementData.levelToBuild + 1}{/if}</button>
-							</form>
-							{else}
-							<span style="color:red">{if $elementData.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$elementData.levelToBuild + 1}{/if}</span>
-							{/if}
-						{else}
+					{if $isPlanetFull}
 						<span style="color:red">{$LNG.bd_no_more_fields}</span>
-						{/if}
+					{elseif $elementData.maxLevel != 0 && $elementData.maxLevel == $elementData.levelToBuild}
+						<span style="color:red">{$LNG.bd_maxlevel}</span>
+					{elseif $elementData.isBusy}
+						<span style="color:red">{$LNG.bd_working}</span>
+					{elseif !$elementData.buyable}
+						<span style="color:red">{if $elementData.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$elementData.levelToBuild + 1}{/if}</span>
+					{else}
+						<form action="game.php?page=buildings" method="post" class="build_form">
+							<input type="hidden" name="mode" value="build">
+							<input type="hidden" name="elementId" value="{$elementId}">
+							<button type="submit" class="build_submit">{if $elementData.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$elementData.levelToBuild + 1}{/if}</button>
+						</form>
 					{/if}
 					</td>
 				</tr>
@@ -110,7 +106,7 @@
 									{foreach $elementData.destroyResources as $ResType => $ResCount}
 									<tr>
 										<td>{$LNG.tech.{$ResType}}</td>
-										<td><span style='color:{if $elementData.destroyOverflow[$RessID] == 0}lime{else}red{/if}'>{$ResCount|number}</span></td>
+										<td><span style='color:{if $elementData.destroyOverflow[$resourceId] == 0}lime{else}red{/if}'>{$ResCount|number}</span></td>
 									</tr>
 									{/foreach}
 									<tr>

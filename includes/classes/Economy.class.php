@@ -346,10 +346,17 @@ class Economy
                 else
                 {
                     $this->saveToDatabase('PLANET', $elementObj->name);
-
                     $this->PLANET[$elementObj->name] = $task['amount'];
-                    if($task['taskType'] == QueueManager::DESTROY)
+
+                    if($task['taskType'] == QueueManager::BUILD)
                     {
+                        $this->saveToDatabase('PLANET', 'field_current');
+                        $this->PLANET['field_current']++;
+                    }
+                    elseif($task['taskType'] == QueueManager::DESTROY)
+                    {
+                        $this->saveToDatabase('PLANET', 'field_current');
+                        $this->PLANET['field_current']--;
                         $this->PLANET[$elementObj->name]--;
                     }
                 }
@@ -395,13 +402,13 @@ class Economy
                 foreach($costResources as $resourceElementId => $value)
                 {
                     $resourceElementObj    = Vars::getElement($resourceElementId);
-                    if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_PLANET))
+                    if(Vars::isUserResource($resourceElementObj))
                     {
-                        $taskPlanet[$resourceElementObj->name]	-= $costResources[$resourceElementId];
+                        $this->USER[$resourceElementObj->name] 	-= $costResources[$resourceElementId];
                     }
                     elseif($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
                     {
-                        $this->USER[$resourceElementObj->name] 	-= $costResources[$resourceElementId];
+                        $taskPlanet[$resourceElementObj->name]	-= $costResources[$resourceElementId];
                     }
                 }
 
@@ -440,12 +447,18 @@ class Economy
                 {
                     $this->saveToDatabase('PLANET', $elementObj->name);
                 }
+
+                $this->queueObj->remove($task['taskId']);
                 continue;
             }
 
-            $doneAmount     = 1 + floor(($this->TIME - $task['endBuildTime']) / $task['buildTime']);
+            $doneAmount     = min($task['amount'], 1 + floor(($this->TIME - $task['endBuildTime']) / $task['buildTime']));
 
-            if($doneAmount == 0) break;
+            if($doneAmount == 0)
+            {
+                $this->queueObj->remove($task['taskId']);
+                continue;
+            }
 
             if(isset($this->USER[$elementObj->name]))
             {
@@ -458,14 +471,14 @@ class Economy
                 $this->saveToDatabase('PLANET', $elementObj->name);
             }
 
-            $task['amount'] -= $doneAmount;
+            $amount     = $task['amount'] - $doneAmount;
 
             $lastEndBuildTime   = $task['endBuildTime'] + $task['buildTime'] * ($doneAmount - 1);
 
-            if($task['amount'] != 0)
+            if($amount != 0)
             {
                 $endBuildTime   = $lastEndBuildTime + $task['buildTime'];
-                $this->queueObj->updateTaskAmount($task['taskId'], $task['amount'], $endBuildTime);
+                $this->queueObj->updateTaskAmount($task['taskId'], $amount, $endBuildTime);
                 break;
             }
             else
@@ -480,7 +493,7 @@ class Economy
         $elementName        = $elementObj->name;
         $queueElementObj    = Vars::getElement($elementObj->queueId);
 
-        $elementQueueData   = $this->queueObj->queryElementIds($elementObj->elementID);
+        $elementQueueData   = $this->queueObj->getTasksByElementId($elementObj->elementID);
         $amountInQueue      = 0;
 
         if($buildType !== QueueManager::SHIPYARD)
@@ -489,7 +502,7 @@ class Economy
             {
                 $amount = $elementQueueData[count($elementQueueData)-1]['amount'];
             }
-            elseif($elementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
+            elseif(Vars::isUserResource($elementObj))
             {
                 $amount = $this->USER[$elementName];
             }
@@ -532,7 +545,7 @@ class Economy
         if($elementObj->class == Vars::CLASS_BUILDING)
         {
             $totalPlanetFields  	= CalculateMaxPlanetFields($this->PLANET);
-            $queueBuildingData      = $this->queueObj->queryElementIds(array_keys(Vars::getElements(Vars::CLASS_BUILDING)));
+            $queueBuildingData      = $this->queueObj->getTasksByElementId(array_keys(Vars::getElements(Vars::CLASS_BUILDING)));
             $queueBuildingCount     = count($queueBuildingData);
             if($buildType === QueueManager::BUILD && $this->PLANET["field_current"] >= ($totalPlanetFields - $queueBuildingCount))
             {
@@ -547,7 +560,7 @@ class Economy
 
         if($elementObj->class == Vars::CLASS_MISSILE)
         {
-            $queueMissileData   = $this->queueObj->queryElementIds(array_keys(Vars::getElements(Vars::CLASS_MISSILE)));
+            $queueMissileData   = $this->queueObj->getTasksByElementId(array_keys(Vars::getElements(Vars::CLASS_MISSILE)));
 
             $PLANET             = $this->PLANET;
 
@@ -556,13 +569,13 @@ class Economy
                 $PLANET[Vars::getElement($task['elementId'])->name]   += $task['amount'];
             }
 
-            $maxMissiles        = BuildUtil::maxBuildableMissiles($this->USER, $PLANET, $elementObj, $this->queueObj);
+            $maxMissiles        = BuildUtil::maxBuildableMissiles($this->USER, $PLANET, $this->queueObj);
             unset($PLANET);
 
             $amount             = min($amount, $maxMissiles[$elementObj->elementID]);
         }
 
-        $priceLevel     = $amount - ((int) $buildType === QueueManager::BUILD);
+        $priceLevel     = $amount - ((int) ($buildType === QueueManager::BUILD || $buildType === QueueManager::USER));
         $costResources  = BuildUtil::getElementPrice($elementObj, $priceLevel, $buildType === QueueManager::DESTROY);
 
         if($elementObj->class != Vars::CLASS_FLEET && $elementObj->class != Vars::CLASS_DEFENSE
@@ -609,7 +622,6 @@ class Economy
         return array('error' => false, 'code' => 0);
     }
 
-
     public function removeFromQueue($taskId, $mustHaveClass = NULL)
     {
         $taskData   = $this->queueObj->getTaskById($taskId);
@@ -620,9 +632,66 @@ class Economy
 
         $elementObj = Vars::getElement($taskData['elementId']);
 
-        if(!is_null($mustHaveClass) && $elementObj->class != $mustHaveClass)
+        if(!is_null($mustHaveClass) && in_array($elementObj->class, (array) $mustHaveClass))
         {
             return false;
+        }
+
+        $queueData  = $this->queueObj->getTasksByQueueIds($taskData['queueId']);
+
+        if($queueData[0]['taskId'] == $taskId)
+        {
+            $isAnotherPlanet    = $taskData['taskType'] == QueueManager::USER && $taskData['planetId'] != $this->PLANET['id'];
+
+            $amount             = $taskData['amount'] - ((int) ($taskData['taskType'] == QueueManager::BUILD || $taskData['taskType'] == QueueManager::USER));
+            $costResources      = BuildUtil::getElementPrice($elementObj, $amount, $taskData['taskType'] === QueueManager::DESTROY);
+            $ecoObj             = new self(false);
+
+            if($isAnotherPlanet)
+            {
+                $taskPlanet = Database::get()->selectSingle('SELECT * FROM %%PLANETS%% WHERE planetId = :planetId', array(
+                    ':planetId' => $taskData['planetId'],
+                ));
+
+                $ecoObj->CalcResource($this->USER, $taskPlanet, false, TIMESTAMP);
+                list(, $taskPlanet) = $ecoObj->ReturnVars();
+            }
+            else
+            {
+                $taskPlanet = $this->PLANET;
+            }
+
+            foreach($costResources as $resourceElementId => $value)
+            {
+                if($taskData['taskType'] == QueueManager::SHIPYARD)
+                {
+                    $costResources[$resourceElementId]  = round($costResources[$resourceElementId] * FACTOR_CANCEL_SHIPYARD);
+                }
+
+                $resourceElementObj    = Vars::getElement($resourceElementId);
+                if(Vars::isUserResource($resourceElementObj))
+                {
+                    $this->USER[$resourceElementObj->name] 	+= $costResources[$resourceElementId];
+                }
+                else
+                {
+                    $taskPlanet[$resourceElementObj->name]	+= $costResources[$resourceElementId];
+                }
+            }
+
+            if($isAnotherPlanet)
+            {
+                $ecoObj->SavePlanetToDB($this->USER, $taskPlanet);
+            }
+            else
+            {
+                $this->PLANET = $taskPlanet;
+            }
+
+            if($this->isGlobalMode)
+            {
+                $this->ReturnVars();
+            }
         }
 
         $this->queueObj->removeAllTaskByElementObj($elementObj);
@@ -645,7 +714,6 @@ class Economy
 			':planetId'				=> $PLANET['id'],
             ':ecoHash'				=> $PLANET['eco_hash'],
             ':lastUpdateTime'		=> $PLANET['last_update'],
-            ':field_current' 		=> $PLANET['field_current'],
 		);
 
         foreach(Vars::getElements(Vars::CLASS_RESOURCE) as $elementObj)
@@ -694,8 +762,7 @@ class Economy
 
 		$sql = 'UPDATE %%PLANETS%% as p,%%USERS%% as u SET
 		p.eco_hash			= :ecoHash,
-		p.last_update		= :lastUpdateTime,
-		p.field_current 	= :field_current
+		p.last_update		= :lastUpdateTime
 		'.implode("\n", $buildQueries).'
 		WHERE p.id = :planetId AND u.id = :userId;';
 

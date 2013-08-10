@@ -41,12 +41,12 @@
 	<td>
 	{if !$isVacation && $FlyingFleetRow.state != 1}
 		<form action="game.php?page=fleetTable&amp;action=sendfleetback" method="post">
-		<input name="fleetID" value="{$FlyingFleetRow.id}" type="hidden">
+		<input name="fleetId" value="{$FlyingFleetRow.id}" type="hidden">
 		<input value="{$LNG.fl_send_back}" type="submit">
 		</form>
 		{if $FlyingFleetRow.mission == 1}
 		<form action="game.php?page=fleetTable&amp;action=acs" method="post">
-		<input name="fleetID" value="{$FlyingFleetRow.id}" type="hidden">
+		<input name="fleetId" value="{$FlyingFleetRow.id}" type="hidden">
 		<input value="{$LNG.fl_acs}" type="submit">
 		</form>
 		{/if}
@@ -93,11 +93,11 @@
 	</tr>
 	{foreach $FleetsOnPlanet as $FleetRow}
 	<tr style="height:20px;">
-		<td>{if $FleetRow.speed != 0} <a title="{$LNG.fl_speed_title} {$FleetRow.speed}">{$LNG.tech.{$FleetRow.id}}</a>{else}{$LNG.tech.{$FleetRow.id}}{/if}</td>
+		<td>{if $FleetRow.speed != 0} <a title="{$LNG.fl_speed_title} {$FleetRow.speed}"><label for="ship{$FleetRow.id}_input">{$LNG.tech.{$FleetRow.id}}</label></a>{else}<label for="ship{$FleetRow.id}_input">{$LNG.tech.{$FleetRow.id}}</label>{/if}</td>
 		<td id="ship{$FleetRow.id}_value">{$FleetRow.count|number}</td>
 		{if $FleetRow.speed != 0}
 		<td><a href="javascript:maxShip('ship{$FleetRow.id}');">{$LNG.fl_max}</a></td>
-		<td><input name="ship{$FleetRow.id}" id="ship{$FleetRow.id}_input" size="10" value="0"></td>
+		<td><input name="ship[{$FleetRow.id}]" id="ship{$FleetRow.id}_input" size="10" value="0"></td>
 		{else}
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>

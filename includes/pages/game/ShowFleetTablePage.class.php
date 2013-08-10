@@ -36,7 +36,8 @@ class ShowFleetTablePage extends AbstractGamePage
 		parent::__construct();
 	}
 	
-	public function createACS($fleetID, $fleetData) {
+	public function createACS($fleetID, $fleetData)
+    {
 		global $USER;
 		
 		$rand 			= mt_rand(100000, 999999999);
@@ -199,7 +200,7 @@ class ShowFleetTablePage extends AbstractGamePage
 			}
 		}
 		
-		$techExpedition      = $USER[$resource[124]];
+		$techExpedition      = $USER[Vars::getElement(124)->name];
 
 		if ($techExpedition >= 1)
 		{
@@ -263,15 +264,13 @@ class ShowFleetTablePage extends AbstractGamePage
 		
 		$FleetsOnPlanet	= array();
 		
-		foreach($reslist['fleet'] as $FleetID)
+		foreach(Vars::getElements(Vars::CLASS_FLEET) as $elementId => $elementObj)
 		{
-			if ($PLANET[$resource[$FleetID]] == 0)
-				continue;
+			if ($PLANET[$elementObj->name] == 0) continue;
 				
-			$FleetsOnPlanet[]	= array(
-				'id'	=> $FleetID,
-				'speed'	=> FleetUtil::GetFleetMaxSpeed($FleetID, $USER),
-				'count'	=> $PLANET[$resource[$FleetID]],
+			$shipList[$elementId]	= array(
+				'speed'	=> FleetUtil::GetFleetMaxSpeed($elementId, $USER),
+				'count'	=> $PLANET[$elementObj->name],
 			);
 		}
 		
@@ -289,12 +288,12 @@ class ShowFleetTablePage extends AbstractGamePage
 			'targetMission'			=> $targetMission,
 			'acsData'				=> $acsData,
 			'isVacation'			=> IsVacationMode($USER),
-			'bonusAttack'			=> $USER[$resource[109]] * 10 + (1 + abs($USER['factor']['Attack'])) * 100,
-			'bonusDefensive'		=> $USER[$resource[110]] * 10 + (1 + abs($USER['factor']['Defensive'])) * 100,
-			'bonusShield'			=> $USER[$resource[111]] * 10 + (1 + abs($USER['factor']['Shield'])) * 100,
-			'bonusCombustion'		=> $USER[$resource[115]] * 10,
-			'bonusImpulse'			=> $USER[$resource[117]] * 20,
-			'bonusHyperspace'		=> $USER[$resource[118]] * 30,
+			'bonusAttack'			=> PlayerUtil::getBonusValue(100, 'Attack', $USER),
+			'bonusDefensive'		=> PlayerUtil::getBonusValue(100, 'Defensive', $USER),
+			'bonusShield'			=> PlayerUtil::getBonusValue(100, 'Shield', $USER),
+			'bonusCombustion'		=> $USER[Vars::getElement(115)->name] * 10,
+			'bonusImpulse'			=> $USER[Vars::getElement(117)->name] * 20,
+			'bonusHyperspace'		=> $USER[Vars::getElement(118)->name] * 30,
 		));
 		
 		$this->display('page.fleetTable.default.tpl');

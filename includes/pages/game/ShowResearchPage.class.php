@@ -46,10 +46,10 @@ class ShowResearchPage extends AbstractGamePage
             $elementObj = Vars::getElement($elementId);
             if($elementObj->class == Vars::CLASS_TECH)
             {
-                $this->ecoObj->addToQueue($elementObj, QueueManager::BUILD);
+                $this->ecoObj->addToQueue($elementObj, QueueManager::USER);
             }
         }
-        $this->redirectTo('game.php?page=buildings');
+        $this->redirectTo('game.php?page=research');
     }
 
     public function cancel()
@@ -60,14 +60,14 @@ class ShowResearchPage extends AbstractGamePage
         {
             $this->ecoObj->removeFromQueue($taskId, Vars::CLASS_TECH);
         }
-        $this->redirectTo('game.php?page=buildings');
+        $this->redirectTo('game.php?page=research');
     }
 
     private function getQueueData()
     {
         global $LNG, $USER, $PLANET;
 
-        $queueData  = $this->ecoObj->getQueueObj()->queryElementIds(array_keys(Vars::getElements(Vars::CLASS_TECH)));
+        $queueData  = $this->ecoObj->getQueueObj()->getTasksByElementId(array_keys(Vars::getElements(Vars::CLASS_TECH)));
 
         $queue          = array();
         $elementLevel   = array();
@@ -115,13 +115,13 @@ class ShowResearchPage extends AbstractGamePage
         {
             $USER['techNetwork']  = PlayerUtil::getLabLevelByNetwork($USER, $PLANET);
         }
-		
-		$bContinue		= $this->CheckLabSettingsInQueue($PLANET);
+
+        $busyQueues     = array();
 		
 		$queueData		= $this->getQueueData();
-        $Queue	 		= $queueData['queue'];
-        $QueueCount		= array_sum($queueData['count']);
 		$ResearchList	= array();
+
+        $isLabInBuild   = false;
 
 		foreach(Vars::getElements(Vars::CLASS_TECH) as $elementId => $elementObj)
 		{
@@ -144,24 +144,49 @@ class ShowResearchPage extends AbstractGamePage
             $costResources		= array_filter($costResources);
 
 			$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $elementObj, $costResources);
-			$buyable			= $QueueCount != 0 || BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
+
+            if(!isset($busyQueues[$elementObj->queueId]))
+            {
+                $tasks  = $this->ecoObj->getQueueObj()->getTasksByElementId(Vars::getElement($elementObj->queueId)->blocker);
+                $busyQueues[$elementObj->queueId] = count($tasks) != 0;
+            }
+
+            $isBusy             = $busyQueues[$elementObj->queueId];
+
+            if($isBusy)
+            {
+                $buyable    = false;
+                $isLabInBuild   = true;
+            }
+            elseif(isset($queueData['count'][$elementObj->queueId]) && $queueData['count'][$elementObj->queueId] >= Vars::getElement($elementObj->queueId)->maxCount)
+            {
+                $buyable    = false;
+            }
+            elseif(isset($queueData['count'][$elementObj->queueId]) && $queueData['count'][$elementObj->queueId] > 0)
+            {
+                $buyable    = true;
+            }
+            else
+            {
+                $buyable    = BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
+            }
 
 			$ResearchList[$elementId]	= array(
-                'level'				=> $PLANET[$elementObj->name],
+                'level'				=> $USER[$elementObj->name],
                 'maxLevel'			=> $elementObj->maxLevel,
 				'costResources'		=> $costResources,
 				'costOverflow'		=> $costOverflow,
 				'elementTime'    	=> $elementTime,
 				'buyable'			=> $buyable,
+                'isBusy'			=> $isBusy,
 				'levelToBuild'		=> $levelToBuild,
 			);
 		}
 		
 		$this->assign(array(
-			'ResearchList'	=> $ResearchList,
-			'IsLabinBuild'	=> !$bContinue,
-			'IsFullQueue'	=> Config::get()->max_elements_tech == 0 || Config::get()->max_elements_tech == count($TechQueue),
-			'Queue'			=> $Queue,
+			'Queue'			=> $queueData['queue'],
+            'isLabInBuild'  => $isLabInBuild,
+            'ResearchList'  => $ResearchList,
 		));
 		
 		$this->display('page.research.default.tpl');

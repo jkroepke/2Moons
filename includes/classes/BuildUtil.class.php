@@ -125,7 +125,7 @@ class BuildUtil
 		{
             $requireElementObj = Vars::getElement($requireElementId);
 
-            if(isset($USER[$requireElementObj->name]))
+            if(Vars::isUserResource($requireElementObj))
             {
                 if ($USER[$requireElementObj->name] < $requireElementLevel) return false;
             }
@@ -219,21 +219,23 @@ class BuildUtil
 	{
 		if(!isset($costResources))
         {
-			$costResources	= self::getElementPrice($USER, $PLANET, $elementObj);
+			$costResources	= self::getElementPrice($elementObj, 1);
 		}
 
-		$maxElement	= array(0);
+		$maxElement	= array();
+
+        $costResources  = array_filter($costResources);
 
         foreach($costResources as $resourceElementId => $value)
         {
             $resourceElementObj    = Vars::getElement($resourceElementId);
             if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
             {
-                $maxElement[]	= floor($USER[$resourceElementObj->name] / $value);
+                $maxElement[$resourceElementId]	= floor($USER[$resourceElementObj->name] / $value);
             }
             else
             {
-                $maxElement[]	= floor($PLANET[$resourceElementObj->name] / $value);
+                $maxElement[$resourceElementId]	= floor($PLANET[$resourceElementObj->name] / $value);
             }
         }
 		
@@ -256,9 +258,9 @@ class BuildUtil
             }
         }
 
-        $queueObj->queryElementIds(array_keys($missileElements));
+        $queueObj->getTasksByElementId(array_keys($missileElements));
 
-        $queueData      = $queueObj->queryElementIds(44);
+        $queueData      = $queueObj->getTasksByElementId(44);
         if(!empty($queueData))
         {
             $missileDepot = $queueData[count($queueData)-1]['amount'];

@@ -39,7 +39,7 @@ class ShowBuildingsPage extends AbstractGamePage
 	{
 		global $LNG, $USER;
 
-		$queueData  = $this->ecoObj->getQueueObj()->queryElementIds(array_keys(Vars::getElements(Vars::CLASS_BUILDING)));
+		$queueData  = $this->ecoObj->getQueueObj()->getTasksByElementId(array_keys(Vars::getElements(Vars::CLASS_BUILDING)));
 
         $queue          = array();
         $elementLevel   = array();
@@ -123,11 +123,10 @@ class ShowBuildingsPage extends AbstractGamePage
 		$queueData	 		= $this->getQueueData();
 		$Queue	 			= $queueData['queue'];
         $QueueCount			= array_sum($queueData['count']);
-		$CanBuildElement 	= isVacationMode($USER) || $config->max_elements_build == 0 || $QueueCount < $config->max_elements_build;
-		$CurrentMaxFields   = CalculateMaxPlanetFields($PLANET);
+		$planetMaxFields    = CalculateMaxPlanetFields($PLANET);
 		
-		$RoomIsOk 			= $PLANET['field_current'] < ($CurrentMaxFields - $QueueCount);
-				
+		$isPlanetFull 		= ($planetMaxFields - $QueueCount - $PLANET['field_current']) <= 0;
+
 		$BuildEnergy		= $USER[Vars::getElement(113)->name];
 		$BuildLevelFactor   = 10;
 		$BuildTemp          = $PLANET['temp_max'];
@@ -135,6 +134,14 @@ class ShowBuildingsPage extends AbstractGamePage
         $BuildInfoList      = array();
 
         $flag               = $PLANET['planet_type'] == PLANET ? Vars::FLAG_BUILD_ON_PLANET : Vars::FLAG_BUILD_ON_MOON;
+
+        $busyBuildings      = array();
+
+        $blockerQueueData   = $this->ecoObj->getQueueObj()->getBusyQueues();
+        foreach($blockerQueueData as $task)
+        {
+            $busyBuildings  += ArrayUtil::combineArrayWithSingleElement(Vars::getElement($task['queueId'])->blocker, true);
+        }
 
 		foreach(Vars::getElements(Vars::CLASS_BUILDING, $flag) as $elementId => $elementObj)
 		{
@@ -179,7 +186,24 @@ class ShowBuildingsPage extends AbstractGamePage
 			$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $elementObj, $costResources);
             $destroyOverflow	= BuildUtil::getRestPrice($USER, $PLANET, $elementObj, $destroyResources);
 
-			$buyable			= $QueueCount != 0 || BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
+            $isBusy             = isset($busyBuildings[$elementId]);
+
+            if($isBusy)
+            {
+                $buyable        = false;
+            }
+            elseif(isset($queueData['count'][$elementObj->queueId]) && $queueData['count'][$elementObj->queueId] >= Vars::getElement($elementObj->queueId)->maxCount)
+            {
+                $buyable    = false;
+            }
+            elseif(isset($queueData['count'][$elementObj->queueId]) && $queueData['count'][$elementObj->queueId] > 0)
+            {
+                $buyable    = true;
+            }
+            else
+            {
+                $buyable    = BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
+            }
 
 			$BuildInfoList[$elementId]	= array(
 				'level'				=> $PLANET[$elementObj->name],
@@ -192,6 +216,7 @@ class ShowBuildingsPage extends AbstractGamePage
 				'destroyTime'		=> $destroyTime,
 				'destroyOverflow'	=> $destroyOverflow,
 				'buyable'			=> $buyable,
+                'isBusy'			=> $isBusy,
 				'levelToBuild'		=> $levelToBuild,
 			);
 		}
@@ -214,10 +239,8 @@ class ShowBuildingsPage extends AbstractGamePage
 		
 		$this->assign(array(
 			'BuildInfoList'		=> $BuildInfoList,
-			'CanBuildElement'	=> $CanBuildElement,
-			'RoomIsOk'			=> $RoomIsOk,
+			'isPlanetFull'		=> $isPlanetFull,
 			'Queue'				=> $Queue,
-			'isBusy'			=> array('shipyard' => !empty($PLANET['b_hangar_id']), 'research' => $USER['b_tech_planet'] != 0),
 			'HaveMissiles'		=> $haveMissiles,
 		));
 			
