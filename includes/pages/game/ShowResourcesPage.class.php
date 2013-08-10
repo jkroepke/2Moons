@@ -85,7 +85,6 @@ class ShowResourcesPage extends AbstractGamePage
 
 		$config	                = Config::get();
         $elementResourceList    = Vars::getElements(Vars::CLASS_RESOURCE, array(Vars::FLAG_RESOURCE_PLANET , Vars::FLAG_ENERGY));
-        $elementEnergyList      = Vars::getElements(NULL, Vars::FLAG_ENERGY);
         $elementProductionList  = Vars::getElements(NULL, Vars::FLAG_PRODUCTION);
 		$planetIsOnProduction   = $USER['urlaubs_modus'] == 0 && $PLANET['planet_type'] == PLANET;
 
@@ -112,19 +111,19 @@ class ShowResourcesPage extends AbstractGamePage
             }
 
             $basicProduction[$elementId]	= $basicIncome[$elementId];
-            if(in_array($elementId, array_keys($elementEnergyList)))
+            if($elementObj->hasFlag(Vars::FLAG_ENERGY))
             {
                 $basicProduction[$elementId]    *= $config->energySpeed;
                 $totalProduction[$elementId]    = $PLANET[$elementObj->name] + $basicProduction[$elementId] + $PLANET[$elementObj->name.'_used'];
-                $dailyProduction[$elementId]    = $totalProduction[$elementId] * 24;
-                $weeklyProduction[$elementId]   = $totalProduction[$elementId] * 168;
+                $dailyProduction[$elementId]    = $totalProduction[$elementId];
+                $weeklyProduction[$elementId]   = $totalProduction[$elementId];
             }
             else
             {
                 $basicProduction[$elementId]    *= $config->resource_multiplier;
                 $totalProduction[$elementId]    = $PLANET[$elementObj->name.'_perhour'] + $basicProduction[$elementId];
-                $dailyProduction[$elementId]    = $totalProduction[$elementId];
-                $weeklyProduction[$elementId]   = $totalProduction[$elementId];
+                $dailyProduction[$elementId]    = $totalProduction[$elementId] * 24;
+                $weeklyProduction[$elementId]   = $totalProduction[$elementId] * 168;
             }
 		}
 
@@ -165,7 +164,7 @@ class ShowResourcesPage extends AbstractGamePage
 
 				$productionAmount = eval(Economy::getProd($elementProductionObj->calcProduction[$elementResourceId]));
 
-                if(in_array($elementResourceId, array_keys($elementEnergyList)))
+                if($elementObj->hasFlag(Vars::FLAG_ENERGY))
 				{
                     $productionAmount *= $config->energySpeed;
 				}

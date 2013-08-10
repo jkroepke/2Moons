@@ -36,125 +36,58 @@ class ShowOfficierPage extends AbstractGamePage
 		parent::__construct();
 	}
 	
-	public function UpdateExtra($Element)
-	{
-		global $PLANET, $USER;
-		
-		$costResources		= BuildUtil::getElementPrice($USER, $PLANET, $Element);
-			
-		if (!BuildUtil::isElementBuyable($USER, $PLANET, $Element, $costResources)) {
-			return;
-		}
-			
-		$USER[$resource[$Element]]	= max($USER[$resource[$Element]], TIMESTAMP) + $pricelist[$Element]['time'];
-			
-		if(isset($costResources[901])) { $PLANET[$resource[901]]	-= $costResources[901]; }
-		if(isset($costResources[902])) { $PLANET[$resource[902]]	-= $costResources[902]; }
-		if(isset($costResources[903])) { $PLANET[$resource[903]]	-= $costResources[903]; }
-		if(isset($costResources[921])) { $USER[$resource[921]]		-= $costResources[921]; }
-
-		$sql	= 'UPDATE %%USERS%% SET
-				'.$resource[$Element].' = :newTime
-				WHERE
-				id = :userId;';
-
-		Database::get()->update($sql, array(
-			':newTime'	=> $USER[$resource[$Element]],
-			':userId'	=> $USER['id']
-		));
-	}
-
-	public function UpdateOfficier($Element)
-	{
-		global $USER, $PLANET;
-		
-		$costResources		= BuildUtil::getElementPrice($USER, $PLANET, $Element);
-			
-		if (!BuildUtil::requirementsAvailable($USER, $PLANET, $Element)
-			|| !BuildUtil::isElementBuyable($USER, $PLANET, $Element, $costResources)
-			|| $pricelist[$Element]['max'] <= $USER[$resource[$Element]]) {
-			return;
-		}
-		
-		$USER[$resource[$Element]]	+= 1;
-		
-		if(isset($costResources[901])) { $PLANET[$resource[901]]	-= $costResources[901]; }
-		if(isset($costResources[902])) { $PLANET[$resource[902]]	-= $costResources[902]; }
-		if(isset($costResources[903])) { $PLANET[$resource[903]]	-= $costResources[903]; }
-		if(isset($costResources[921])) { $USER[$resource[921]]		-= $costResources[921]; }
-
-		$sql	= 'UPDATE %%USERS%% SET
-		'.$resource[$Element].' = :newTime
-		WHERE
-		id = :userId;';
-
-		Database::get()->update($sql, array(
-			':newTime'	=> $USER[$resource[$Element]],
-			':userId'	=> $USER['id']
-		));
-	}
-	
 	public function show()
 	{
 		global $USER, $PLANET, $LNG;
-		
-		$updateID	  = HTTP::_GP('id', 0);
-				
-		if (!empty($updateID) && $_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
-		{
-			if(isModulAvalible(MODULE_OFFICIER) && in_array($updateID, $reslist['officier'])) {
-				$this->UpdateOfficier($updateID);
-			} elseif(isModulAvalible(MODULE_DMEXTRAS) && in_array($updateID, $reslist['dmfunc'])) {
-				$this->UpdateExtra($updateID);
-			}
-		}
+
 		
 		$darkmatterList	= array();
 		$officierList	= array();
 		
 		if(isModulAvalible(MODULE_DMEXTRAS)) 
 		{
-			foreach($reslist['dmfunc'] as $Element)
+			foreach(Vars::getElements(Vars::CLASS_TEMP_BONUS) as $elementId => $elementObj)
 			{
-				if($USER[$resource[$Element]] > TIMESTAMP) {
-					$this->tplObj->execscript("GetOfficerTime(".$Element.", ".($USER[$resource[$Element]] - TIMESTAMP).");");
-				}
-			
-				$costResources		= BuildUtil::getElementPrice($USER, $PLANET, $Element);
-				$buyable			= BuildUtil::isElementBuyable($USER, $PLANET, $Element, $costResources);
-				$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $Element, $costResources);
-				$elementBonus		= BuildUtil::getAvalibleBonus($Element);
+                if (!BuildUtil::requirementsAvailable($USER, $PLANET, $elementObj))
+                    continue;
 
-				$darkmatterList[$Element]	= array(
-					'timeLeft'			=> max($USER[$resource[$Element]] - TIMESTAMP, 0),
+				$costResources		= BuildUtil::getElementPrice($elementObj, 1);
+				$buyable			= BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
+
+                // zero cost resource do not need to display
+                $costResources		= array_filter($costResources);
+
+				$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $elementObj, $costResources);
+
+				$darkmatterList[$elementId]	= array(
+					'timeLeft'			=> max($USER[$elementObj->name] - TIMESTAMP, 0),
 					'costResources'		=> $costResources,
 					'buyable'			=> $buyable,
-					'time'				=> $pricelist[$Element]['time'],
+					'time'				=> $elementObj->timeBonus,
 					'costOverflow'		=> $costOverflow,
-					'elementBonus'		=> $elementBonus,
+					'elementBonus'		=> $elementObj->bonus,
 				);
 			}
 		}
 		
 		if(isModulAvalible(MODULE_OFFICIER))
 		{
-			foreach($reslist['officier'] as $Element)
+            foreach(Vars::getElements(Vars::CLASS_PERM_BONUS) as $elementId => $elementObj)
 			{
-				if (!BuildUtil::requirementsAvailable($USER, $PLANET, $Element))
+				if (!BuildUtil::requirementsAvailable($USER, $PLANET, $elementObj))
 					continue;
-					
-				$costResources		= BuildUtil::getElementPrice($USER, $PLANET, $Element);
-				$buyable			= BuildUtil::isElementBuyable($USER, $PLANET, $Element, $costResources);
-				$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $Element, $costResources);
-				$elementBonus		= BuildUtil::getAvalibleBonus($Element);
+
+                $costResources		= BuildUtil::getElementPrice($elementObj, $USER[$elementObj->name]);
+				$buyable			= BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
+				$costOverflow		= BuildUtil::getRestPrice($USER, $PLANET, $elementObj, $costResources);
 				
-				$officierList[$Element]	= array(
-					'level'				=> $USER[$resource[$Element]],
-					'maxLevel'			=> $pricelist[$Element]['max'],
+				$officierList[$elementId]	= array(
+					'level'				=> $USER[$elementObj->name],
+					'maxLevel'			=> $elementObj->maxLevel,
 					'costResources'		=> $costResources,
 					'buyable'			=> $buyable,
 					'costOverflow'		=> $costOverflow,
-					'elementBonus'		=> $elementBonus,
+					'elementBonus'		=> $elementObj->bonus,
 				);
 			}
 		}

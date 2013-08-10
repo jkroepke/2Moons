@@ -253,7 +253,7 @@ class Economy
 				}
                 else
                 {
-					if(!in_array($elementResourceElementId, array_keys($elementEnergyList)))
+					if(!$elementResourceElementObj->hasFlag(Vars::FLAG_ENERGY))
                     {
                         $elementResourceName    = $elementResourceElementObj->name;
 					    if(isset($this->PLANET[$elementResourceName]) && $this->PLANET[$elementResourceName] == 0) continue;

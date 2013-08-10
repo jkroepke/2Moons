@@ -156,7 +156,6 @@ class BuildUtil
         {
             $elementCost	+= $costResources[$resourceElementId];
         }
-
         switch($elementObj->class)
         {
             case Vars::CLASS_BUILDING:
