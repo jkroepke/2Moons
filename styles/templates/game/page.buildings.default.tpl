@@ -45,7 +45,7 @@
 			</a>
 		</td>
 		<th>
-			<a href="#" onclick="return Dialog.info({$elementId})">{$LNG.tech.{$elementId}}</a>{if $elementData.level > 0} ({$LNG.bd_lvl} {$elementData.level}{if $elementData.maxLevel != 255}/{$elementData.maxLevel}{/if}){/if}
+			<a href="#" onclick="return Dialog.info({$elementId})">{$LNG.tech.{$elementId}}</a>{if $elementData.level > 0} ({$LNG.bd_lvl} {$elementData.level}{if $elementData.maxLevel != 0}/{$elementData.maxLevel}{/if}){/if}
 		</th>
 	</tr>
 	<tr>

@@ -495,8 +495,7 @@ function exceptionHandler($exception)
 			$config		= Config::get();
 			$gameName	= $config->game_name;
 			$VERSION	= $config->VERSION;
-		} catch(ErrorException $e) {
-		}
+		} catch(ErrorException $e) { }
 	}
 
 	$DIR		= MODE == 'INSTALL' || MODE == 'CHAT' ? '..' : '.';
@@ -521,35 +520,7 @@ function exceptionHandler($exception)
 	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/ingame/main.css?v='.$VERSION.'">
 	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/base/jquery.css?v='.$VERSION.'">
 	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/theme/gow/formate.css?v='.$VERSION.'">
-	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
-	<script type="text/javascript">
-	var ServerTimezoneOffset = -3600;
-	var serverTime 	= new Date(2012, 2, 12, 14, 43, 36);
-	var startTime	= serverTime.getTime();
-	var localTime 	= serverTime;
-	var localTS 	= startTime;
-	var Gamename	= document.title;
-	var Ready		= "Fertig";
-	var Skin		= "'.$DIR.'/styles/theme/gow/";
-	var Lang		= "de";
-	var head_info	= "Information";
-	var auth		= 3;
-	var days 		= ["So","Mo","Di","Mi","Do","Fr","Sa"] 
-	var months 		= ["Jan","Feb","Mar","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"] ;
-	var tdformat	= "[M] [D] [d] [H]:[i]:[s]";
-	var queryString	= "";
-
-	setInterval(function() {
-		serverTime.setSeconds(serverTime.getSeconds()+1);
-	}, 1000);
-	</script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.js?v=2123"></script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.ui.js?v=2123"></script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.cookie.js?v=2123"></script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.fancybox.js?v=2123"></script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/base/jquery.validationEngine.js?v=2123"></script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/base/tooltip.js?v=2123"></script>
-	<script type="text/javascript" src="'.$DIR.'/scripts/game/base.js?v=2123"></script>
+	<link rel="shortcut icon" href="'.$DIR.'/favicon.ico" type="image/x-icon">
 	'.(MODE == 'CHAT' ? '<style>body{background: none;}</style>': '').'
 </head>
 <body id="overview" class="full">
@@ -578,11 +549,11 @@ function exceptionHandler($exception)
 
     echo $output;
 
-	$errorText	= date("[d-M-Y H:i:s]", TIMESTAMP).' '.$errorType[$errno].': "'.strip_tags($exception->getMessage())."\"\r\n";
-	$errorText	.= 'File: '.$exception->getFile().' | Line: '.$exception->getLine()."\r\n";
-	$errorText	.= 'URL: '.PROTOCOL.HTTP_HOST.$_SERVER['REQUEST_URI'].' | Version: '.$VERSION."\r\n";
-	$errorText	.= "Stack trace:\r\n";
-	$errorText	.= str_replace(ROOT_PATH, '/', htmlspecialchars(str_replace('\\', '/',$exception->getTraceAsString())))."\r\n";
+	$errorText	= date("[d-M-Y H:i:s]", TIMESTAMP).' '.$errorType[$errno].': "'.strip_tags($exception->getMessage()).'"'.PHP_EOL;
+	$errorText	.= 'File: '.$exception->getFile().' | Line: '.$exception->getLine().PHP_EOL;
+	$errorText	.= 'URL: '.PROTOCOL.HTTP_HOST.$_SERVER['REQUEST_URI'].' | Version: '.$VERSION.PHP_EOL;
+	$errorText	.= "Stack trace:".PHP_EOL;
+	$errorText	.= str_replace(ROOT_PATH, '/', htmlspecialchars(str_replace('\\', '/',$exception->getTraceAsString()))).PHP_EOL;
 	
 	if(is_writable('includes/error.log'))
 	{
