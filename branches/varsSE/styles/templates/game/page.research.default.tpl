@@ -47,11 +47,11 @@
 	<tr>
 		<td rowspan="2" style="width:120px;">
 			<a href="#" onclick="return Dialog.info({$elementId})">
-				<img src="{$dpath}gebaeude/{$elementId}.gif" alt="" class="top" width="120" height="120">
+				<img src="{$dpath}gebaeude/{$elementId}.gif" alt="{$LNG.tech.$elementId}" class="top" width="120" height="120">
 			</a>
 		</td>
 		<th>
-			<a href="#" onclick="return Dialog.info({$elementId})">{$LNG.tech.{$elementId}}</a>{if $elementData.level != 0} ({$LNG.bd_lvl} {$elementData.level}{if $elementData.maxLevel != 255}/{$elementData.maxLevel}{/if}){/if}
+			<a href="#" onclick="return Dialog.info({$elementId})">{$LNG.tech.$elementId}</a>{if $elementData.level != 0} ({$LNG.bd_lvl} {$elementData.level}{if $elementData.maxLevel != 0}/{$elementData.maxLevel}{/if}){/if}
 		</th>
 	</tr>
 	<tr>

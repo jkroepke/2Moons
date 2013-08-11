@@ -28,6 +28,8 @@
 
 class Element implements Serializable
 {
+
+
     private $data;
 
 
@@ -212,13 +214,24 @@ class Element implements Serializable
         $this->data = $data;
     }
 
-    public function __get($key)
+    public function __get($var)
     {
-        if(!isset($this->data[$key]) && !is_null($this->data[$key]))
+        if(!isset($this->data[$var]) && !is_null($this->data[$var]))
         {
-            throw new Exception("Unknown key '$key'");
+            throw new Exception("Unknown var '$var'");
         }
-        return $this->data[$key];
+
+        return $this->data[$var];
+    }
+
+    public function __toString()
+    {
+        return (string) $this->data['name'];
+    }
+
+    public function __isset($var)
+    {
+        return isset($this->data[$var]);
     }
 
     public function hasFlag($flag)

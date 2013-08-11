@@ -210,6 +210,11 @@ class Vars
 
     static function getElement($elementId)
     {
+        if(!isset(self::$data['elements'][$elementId]))
+        {
+            throw new Exception('Unknown element #'.$elementId);
+        }
+
         return self::$data['elements'][$elementId];
     }
 

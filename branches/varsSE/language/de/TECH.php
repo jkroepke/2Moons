@@ -61,27 +61,6 @@ $LNG['shortNames'] = array (
 	410 => 'Gravitonenkanone',
 	411 => 'Orb. VerPla',
 );
-
-$LNG['bonus'] = array(
-	'Attack'			=> 'Angriff',
-	'Defensive'			=> 'Verteidigung',
-	'Shield'			=> 'Schild',
-	'BuildTime'			=> 'Bauzeit',
-	'ResearchTime'		=> 'Forschungszeit',
-	'ShipTime'			=> 'Schiffbauzeit',
-	'DefensiveTime'		=> 'Verteidungsbauzeit',
-	'Resource'			=> 'Mienenertrag',
-	'Energy'			=> 'Energieerzeugung',
-	'ResourceStorage'	=> 'Speicher',
-	'ShipStorage'		=> 'Flottenkapazität',
-	'FlyTime'			=> 'Flugzeit',
-	'FleetSlots'		=> 'Flottenslots',
-	'Planets'			=> 'Planeten',
-	'SpyPower'			=> 'Spionagepower',
-	'Expedition'		=> 'Expeditionen',
-	'GateCoolTime'		=> 'Sprungtoraufladungszeit',
-	'MoreFound'			=> 'Expeditionsfund',
-);
 					
 $LNG['tech'] = array(
 	0 => 'Gebäude',
@@ -197,6 +176,31 @@ $LNG['tech'] = array(
 	903 => 'Deuterium',
 	911 => 'Energie',
 	921 => 'Dunkle Materie',
+);
+
+$LNG['bonus'] = array(
+    'Attack'			=> 'Angriff',
+    'Defensive'			=> 'Verteidigung',
+    'Shield'			=> 'Schild',
+    'BuildTime'			=> 'Bauzeit',
+    'ResearchTime'		=> 'Forschungszeit',
+    'ShipTime'			=> 'Schiffbauzeit',
+    'DefensiveTime'		=> 'Verteidungsbauzeit',
+    'Resource'			=> 'Mienenertrag',
+    'Resource901'       => $LNG['tech'][901].'produktion',
+    'Resource902'       => $LNG['tech'][902].'produktion',
+    'Resource903'       => $LNG['tech'][903].'produktion',
+    'Resource911'       => $LNG['tech'][911].'produktion',
+    'Resource921'       => $LNG['tech'][921].' Produktion',
+    'ResourceStorage'	=> 'Speicher',
+	'ShipStorage'		=> 'Flottenkapazität',
+	'FlyTime'			=> 'Flugzeit',
+	'FleetSlots'		=> 'Flottenslots',
+	'Planets'			=> 'Planeten',
+	'SpyPower'			=> 'Spionagepower',
+	'Expedition'		=> 'Expeditionen',
+	'GateCoolTime'		=> 'Sprungtoraufladungszeit',
+	'MoreFound'			=> 'Expeditionsfund',
 );
 
 $LNG['shortDescription'] = array(

@@ -30,12 +30,6 @@
 define('MODE', 'INSTALL');
 define('ROOT_PATH', str_replace('\\', '/', dirname(dirname(__FILE__))) . '/');
 
-$mode = HTTP::_GP('mode', '');
-if($mode === 'upgrade' || $mode === 'doupgrade')
-{
-	define('DATABASE_VERSION', 'OLD');
-}
-
 set_include_path(ROOT_PATH);
 chdir(ROOT_PATH);
 

@@ -81,15 +81,27 @@ class ShowFleetAjaxPage extends AbstractGamePage
 				if(!isModulAvalible(MODULE_MISSION_SPY)) {
 					$this->sendData(699, $LNG['sys_module_inactive']);
 				}
-				
-				$ships	= min($USER['spio_anz'], $PLANET[$resource[210]]);
+
+                $count  = $USER['spio_anz'];
 				
 				if(empty($ships)) {
 					$this->sendData(611, $LNG['fa_no_spios']);
 				}
-				
-				$fleetArray = array(210 => $ships);
-				$this->returnData['ships'][210]	= $PLANET[$resource[210]] - $ships;
+
+                $spyElements	= array_reverse(Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_SPY), true);
+
+                $fleetArray		= array();
+                foreach($spyElements as $elementId => $elementObj)
+                {
+                    $fleetArray[$elementId] = min($count, $PLANET[$elementObj->name]);
+
+                    $this->returnData['ships'][$elementId]	= $PLANET[$elementObj->name] - $fleetArray[$elementId];
+
+                    $count  -= $fleetArray[$elementId];
+
+                    if($count == 0) break;
+
+                }
 			break;
 			case 8:
 				if(!isModulAvalible(MODULE_MISSION_RECYCLE)) {
@@ -101,17 +113,17 @@ class ShowFleetAjaxPage extends AbstractGamePage
                         ':planetID' => $planetID
                 ), 'sum');
 
-                $recElementIDs	= array(219, 209);
+                $collectElements	= array_reverse(Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_COLLECT), true);
 				
-				$fleetArray		= array();
+				$fleetArray		    = array();
 				
-				foreach($recElementIDs as $elementID)
+				foreach($collectElements as $elementId => $elementObj)
 				{
-					$shipsNeed 		= min(ceil($totalDebris / $pricelist[$elementID]['capacity']), $PLANET[$resource[$elementID]]);
-					$totalDebris	-= ($shipsNeed * $pricelist[$elementID]['capacity']);
+					$shipsNeed 		= min(ceil($totalDebris / $elementObj->capacity), $PLANET[$elementObj->name]);
+					$totalDebris	-= ($shipsNeed * $elementObj->capacity);
 					
-					$fleetArray[$elementID]	= $shipsNeed;
-					$this->returnData['ships'][$elementID]	= $PLANET[$resource[$elementID]] - $shipsNeed;
+					$fleetArray[$elementId]	= $shipsNeed;
+					$this->returnData['ships'][$elementId]	= $PLANET[$elementObj->name] - $shipsNeed;
 					
 					if($totalDebris <= 0)
 					{
@@ -129,7 +141,7 @@ class ShowFleetAjaxPage extends AbstractGamePage
 			break;
 		}
 		
-		$fleetArray						= array_filter($fleetArray);
+		$fleetArray	= array_filter($fleetArray);
 		
 		if(empty($fleetArray)) {
 			$this->sendData(610, $LNG['fa_not_enough_probes']);
