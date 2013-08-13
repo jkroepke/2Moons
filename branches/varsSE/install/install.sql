@@ -994,7 +994,7 @@ INSERT INTO `prefix_cronjobs` (`cronjobID`, `name`, `isActive`, `min`, `hours`, 
 (4, 'cleaner', 1, '45', '2', '*', '*', '6', 'CleanerCronjob', 0, NULL),
 (5, 'inactive', 1, '30', '1', '*', '*', '0,3,6', 'InactiveMailCronjob', 0, NULL),
 (6, 'teamspeak', 0, '*/3', '*', '*', '*', '*', 'TeamSpeakCronjob', 0, NULL),
-(7, 'databasedump', 1, '30', '1', '*', '*', '1', 'DumpCronjob', 0, NULL),
+(7, 'databasedump', 1, '30', '1', '*', '*', '*', 'DumpCronjob', 0, NULL),
 (8, 'tracking', 1, '12', '9', '*', '*', '0', 'TrackingCronjob', 0, NULL);
 
 INSERT INTO `prefix_ticket_category` (`categoryID`, `name`) VALUES

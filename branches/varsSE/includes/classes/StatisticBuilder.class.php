@@ -26,21 +26,21 @@
  * @link http://2moons.cc/
  */
 
-class statbuilder
+class StatisticBuilder
 {
+	private $recordData = array();
+	private $universes  = array();
+
 	function __construct()
 	{
 		$this->starttime   	= microtime(true);
 		$this->memory		= array(round(memory_get_usage() / 1024,1),round(memory_get_usage(1) / 1024,1));
 		$this->time   		= TIMESTAMP;
 
-		$this->recordData  	= array();
-		$this->Unis			= array();
-
 		$uniResult	= Database::get()->select("SELECT uni FROM %%CONFIG%% ORDER BY uni ASC;");
 		foreach($uniResult as $uni)
 		{
-			$this->Unis[]	= $uni['uni'];
+			$this->universes[]	= $uni['uni'];
 		}
 	}
 
@@ -58,7 +58,7 @@ class statbuilder
 	
 	private function CheckUniverseAccounts($UniData)
 	{
-		$UniData	= $UniData + array_combine($this->Unis, array_fill(1, count($this->Unis), 0));
+		$UniData	= $UniData + array_combine($this->universes, array_fill(1, count($this->universes), 0));
 		foreach($UniData as $Uni => $Amount) {
 			$config	= Config::get($Uni);
 			$config->users_amount = $Amount;
@@ -68,58 +68,71 @@ class statbuilder
 	
 	private function GetUsersInfosFromDB()
 	{
-		global $resource, $reslist;
-		$select_defenses	=	'';
-		$select_buildings	=	'';
-		$selected_tech		=	'';
-		$select_fleets		=	'';
+		$queryUser      = array();
+		$queryPlanet    = array();
 				
-		foreach($reslist['build'] as $Building){
-			$select_buildings	.= " p.".$resource[$Building].",";
-		}
-		
-		foreach($reslist['tech'] as $Techno){
-			$selected_tech		.= " u.".$resource[$Techno].",";
-		}	
-		
-		foreach($reslist['fleet'] as $Fleet){
-			$select_fleets		.= " SUM(p.".$resource[$Fleet].") as ".$resource[$Fleet].",";
-		}	
-		
-		foreach($reslist['defense'] as $Defense){
-			$select_defenses	.= " SUM(p.".$resource[$Defense].") as ".$resource[$Defense].",";
-		}
-		
-		foreach($reslist['missile'] as $Defense){
-			$select_defenses	.= " SUM(p.".$resource[$Defense].") as ".$resource[$Defense].",";
+		foreach(Vars::getElements(Vars::CLASS_BUILDING) as $elementObj)
+		{
+			$queryPlanet[]  = "planet.".$elementObj->name;
 		}
 
-		$database		= Database::get();
-		$FlyingFleets	= array();
-		$SQLFleets		= $database->select('SELECT fleet_array, fleet_owner FROM %%FLEETS%%;');
-		foreach($SQLFleets as $CurFleets)
+		foreach(Vars::getElements(Vars::CLASS_TECH) as $elementObj)
 		{
-			$FleetRec   	= explode(";", $CurFleets['fleet_array']);
-			
-			if(!is_array($FleetRec)) continue;
-				
-			foreach($FleetRec as $Group) {
-				if (empty($Group)) continue;
-				
-				$Ship    	   = explode(",", $Group);
-				if(!isset($FlyingFleets[$CurFleets['fleet_owner']][$Ship[0]]))
-					$FlyingFleets[$CurFleets['fleet_owner']][$Ship[0]]	= $Ship[1];
-				else
-					$FlyingFleets[$CurFleets['fleet_owner']][$Ship[0]]	+= $Ship[1];
+			$queryUser[]    = "user.".$elementObj->name;
+		}
+
+		foreach(Vars::getElements(Vars::CLASS_FLEET) as $elementObj)
+		{
+			$queryUser[]    = "SUM(planet.".$elementObj->name.") as ".$elementObj->name;
+		}
+
+		foreach(Vars::getElements(Vars::CLASS_DEFENSE) as $elementObj)
+		{
+			$queryUser[]    = "SUM(planet.".$elementObj->name.") as ".$elementObj->name;
+		}
+
+		foreach(Vars::getElements(Vars::CLASS_MISSILE) as $elementObj)
+		{
+			$queryUser[]    = "SUM(planet.".$elementObj->name.") as ".$elementObj->name;
+		}
+
+		$flyingFleets	= array();
+		$db	            = Database::get();
+
+		$fleetResult    = $db->select('SELECT %%FLEETS_ELEMENTS%%.*,fleet_owner FROM %%FLEETS_ELEMENTS%% INNER JOIN %%FLEETS%% on fleet_id = fleetId;');
+		foreach($fleetResult as $fleetRow)
+		{
+			if(!isset($flyingFleets[$fleetRow['fleet_owner']]))
+			{
+				$flyingFleets[$fleetRow['fleet_owner']] = array();
 			}
+
+			if(!isset($flyingFleets[$fleetRow['fleet_owner']][$fleetRow['elementId']]))
+			{
+				$flyingFleets[$fleetRow['fleet_owner']][$fleetRow['elementId']] = 0;
+			}
+
+			$flyingFleets[$fleetRow['fleet_owner']][$fleetRow['elementId']] += $fleetRow['amount'];
 		}
 		
-		$Return['Fleets'] 	= $FlyingFleets;		
-		$Return['Planets']	= $database->select('SELECT SQL_BIG_RESULT DISTINCT '.$select_buildings.' p.id, p.universe, p.id_owner, u.authlevel, u.bana, u.username FROM %%PLANETS%% as p LEFT JOIN %%USERS%% as u ON u.id = p.id_owner;');
-		$Return['Users']	= $database->select('SELECT SQL_BIG_RESULT DISTINCT '.$selected_tech.$select_fleets.$select_defenses.' u.id, u.ally_id, u.authlevel, u.bana, u.universe, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM %%USERS%% as u LEFT JOIN %%STATPOINTS%% as s ON s.stat_type = 1 AND s.id_owner = u.id LEFT JOIN %%PLANETS%% as p ON u.id = p.id_owner GROUP BY s.id_owner, u.id, u.authlevel;');
-		$Return['Alliance']	= $database->select('SELECT SQL_BIG_RESULT DISTINCT a.id, a.ally_universe, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM %%ALLIANCE%% as a LEFT JOIN %%STATPOINTS%% as s ON s.stat_type = 2 AND s.id_owner = a.id;');
+		$statData['Fleets'] 	= $flyingFleets;
+		$statData['Planets']	= $db->select('SELECT '.implode(',',$queryPlanet).', planet.id, planet.universe, planet.id_owner, user.authlevel, user.bana, user.username
+			FROM %%PLANETS%% as planet
+			LEFT JOIN %%USERS%% as user ON user.id = planet.id_owner;');
+
+		$statData['Users']	= $db->select('SELECT '.implode(',',$queryUser).', user.id, user.ally_id, user.authlevel, user.bana, user.universe, user.username,
+			stats.tech_rank AS old_tech_rank, stats.build_rank AS old_build_rank, stats.defs_rank AS old_defs_rank, stats.fleet_rank AS old_fleet_rank, stats.total_rank AS old_total_rank
+			FROM %%USERS%% as user
+			LEFT JOIN %%STATPOINTS%% as stats ON stats.stat_type = 1 AND stats.id_owner = user.id
+			LEFT JOIN %%PLANETS%% as planet ON user.id = planet.id_owner
+			GROUP BY stats.id_owner;');
+
+		$statData['Alliance']	= $db->select('SELECT alliance.id, alliance.ally_universe,
+		stats.tech_rank AS old_tech_rank, stats.build_rank AS old_build_rank, stats.defs_rank AS old_defs_rank, stats.fleet_rank AS old_fleet_rank, stats.total_rank AS old_total_rank
+		FROM %%ALLIANCE%% as alliance
+		LEFT JOIN %%STATPOINTS%% as stats ON stats.stat_type = 2 AND stats.id_owner = alliance.id;');
 	
-		return $Return;
+		return $statData;
 	}
 	
 	private function setRecords($userID, $elementID, $amount)
@@ -170,94 +183,49 @@ class statbuilder
 		}
 	}
 
-	private function GetTechnoPoints($USER) 
+	private function calculatePoints($data, $class)
 	{
-		global $resource, $reslist, $pricelist;
-		$TechCounts = 0;
-		$TechPoints = 0;
+		$count = 0;
+		$points = 0;
 
-		foreach($reslist['tech'] as $Techno) 
+		foreach(Vars::getElements($class) as $elementId => $elementObj)
 		{
-			if($USER[$resource[$Techno]] == 0) continue;
+			if($data[$elementObj->name] == 0) continue;
 
-			$Units	= $pricelist[$Techno]['cost'][901] + $pricelist[$Techno]['cost'][902] + $pricelist[$Techno]['cost'][903];
-			for($Level = 1; $Level <= $USER[$resource[$Techno]]; $Level++)
+			$units  = 0;
+			foreach(array_keys(Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_RESOURCE_PLANET)) as $resourceElementId)
 			{
-				$TechPoints	+= $Units * pow($pricelist[$Techno]['factor'], $Level);
+				$units  += $elementObj->cost[$resourceElementId];
+			}
+
+			$elementLevel   = $data[$elementObj->name];
+
+			if($elementObj->factor == 0 || $elementObj->factor == 1)
+			{
+				$points	+= $units * $elementLevel;
+			}
+			else
+			{
+				for($level = 1; $level <= $elementLevel; $level++)
+				{
+					$points	+= $units * pow($elementObj->factor, $level);
+				}
 			}
 			
-			$TechCounts		+= $USER[$resource[$Techno]];
+			$count		+= $elementLevel;
 			
-			$this->setRecords($USER['id'], $Techno, $USER[$resource[$Techno]]);
+			$this->setRecords(isset($data['id_owner']) ? $data['id_owner'] : $data['id'], $elementId, $elementLevel);
 		}
 		
-		return array('count' => $TechCounts, 'points' => ($TechPoints / Config::get()->stat_settings));
-	}
-
-	private function GetBuildPoints($PLANET) 
-	{
-		global $resource, $reslist, $pricelist;
-		$BuildCounts = 0;
-		$BuildPoints = 0;
-		
-		foreach($reslist['build'] as $Build)
-		{
-			if($PLANET[$resource[$Build]] == 0) continue;
-			
-			$Units			 = $pricelist[$Build]['cost'][901] + $pricelist[$Build]['cost'][902] + $pricelist[$Build]['cost'][903];
-			for($Level = 1; $Level <= $PLANET[$resource[$Build]]; $Level++)
-			{
-				$BuildPoints	+= $Units * pow($pricelist[$Build]['factor'], $Level);
-			}
-			
-			$BuildCounts	+= $PLANET[$resource[$Build]];
-			
-			$this->setRecords($PLANET['id_owner'], $Build, $PLANET[$resource[$Build]]);
-		}
-		return array('count' => $BuildCounts, 'points' => ($BuildPoints / Config::get()->stat_settings));
-	}
-
-	private function GetDefensePoints($USER) 
-	{
-		global $resource, $reslist, $pricelist;
-		$DefenseCounts = 0;
-		$DefensePoints = 0;
-				
-		foreach(array_merge($reslist['defense'], $reslist['missile']) as $Defense) {
-			if($USER[$resource[$Defense]] == 0) continue;
-			
-			$Units			= $pricelist[$Defense]['cost'][901] + $pricelist[$Defense]['cost'][902] + $pricelist[$Defense]['cost'][903];
-			$DefensePoints += $Units * $USER[$resource[$Defense]];
-			$DefenseCounts += $USER[$resource[$Defense]];
-		
-			$this->setRecords($USER['id'], $Defense, $USER[$resource[$Defense]]);
-		}
-		
-		return array('count' => $DefenseCounts, 'points' => ($DefensePoints / Config::get()->stat_settings));
-	}
-
-	private function GetFleetPoints($USER) 
-	{
-		global $resource, $reslist, $pricelist;
-		$FleetCounts = 0;
-		$FleetPoints = 0;
-	
-		foreach($reslist['fleet'] as $Fleet) {	
-			if($USER[$resource[$Fleet]] == 0) continue;
-			
-			$Units			= $pricelist[$Fleet]['cost'][901] + $pricelist[$Fleet]['cost'][902] + $pricelist[$Fleet]['cost'][903];
-			$FleetPoints   += $Units * $USER[$resource[$Fleet]];
-			$FleetCounts   += $USER[$resource[$Fleet]];
-			
-			$this->setRecords($USER['id'], $Fleet, $USER[$resource[$Fleet]]);
-		}
-		
-		return array('count' => $FleetCounts, 'points' => ($FleetPoints / Config::get()->stat_settings));
+		return array(
+			'count'     => $count,
+			'points'    => ($points / Config::get()->stat_settings)
+		);
 	}
 	
 	private function SetNewRanks()
 	{
-		foreach($this->Unis as $uni)
+		foreach($this->universes as $uni)
 		{
 			foreach(array('tech', 'build', 'defs', 'fleet', 'total') as $type)
 			{
@@ -289,7 +257,7 @@ class statbuilder
 		$UserPoints	= array();
 		$TotalData	= $this->GetUsersInfosFromDB();
 		$FinalSQL	= 'TRUNCATE TABLE %%STATPOINTS%%;';
-		$FinalSQL	.= "INSERT INTO  %%STATPOINTS%% (id_owner, id_ally, stat_type, universe, tech_old_rank, tech_points, tech_count, build_old_rank, build_points, build_count, defs_old_rank, defs_points, defs_count, fleet_old_rank, fleet_points, fleet_count, total_old_rank, total_points, total_count) VALUES ";
+		$FinalSQL	.= "INSERT INTO %%STATPOINTS%% (id_owner, id_ally, stat_type, universe, tech_old_rank, tech_points, tech_count, build_old_rank, build_points, build_count, defs_old_rank, defs_points, defs_count, fleet_old_rank, fleet_points, fleet_count, total_old_rank, total_points, total_count) VALUES ";
 
 		foreach($TotalData['Planets'] as $PlanetData)
 		{		
@@ -299,7 +267,8 @@ class statbuilder
 				$UserPoints[$PlanetData['id_owner']]['build']['count'] = $UserPoints[$PlanetData['id_owner']]['build']['points'] = 0;
 			}
 			
-			$BuildPoints												= $this->GetBuildPoints($PlanetData);
+			$BuildPoints = $this->calculatePoints($PlanetData, Vars::CLASS_BUILDING);
+
 			$UserPoints[$PlanetData['id_owner']]['build']['count'] 		+= $BuildPoints['count'];
 			$UserPoints[$PlanetData['id_owner']]['build']['points'] 	+= $BuildPoints['points'];
 		}
@@ -324,9 +293,9 @@ class statbuilder
 					$UserData[$resource[$ID]]	+= $Amount;
 			}
 			
-			$TechnoPoints		= $this->GetTechnoPoints($UserData);
-			$FleetPoints		= $this->GetFleetPoints($UserData);
-			$DefensePoints		= $this->GetDefensePoints($UserData);
+			$TechnoPoints		= $this->calculatePoints($UserData, Vars::CLASS_TECH);
+			$FleetPoints		= $this->calculatePoints($UserData, Vars::CLASS_FLEET);
+			$DefensePoints		= $this->calculatePoints($UserData, Vars::CLASS_DEFENSE) + $this->calculatePoints($UserData, Vars::CLASS_MISSILE);
 			
 			$UserPoints[$UserData['id']]['fleet']['count'] 		= $FleetPoints['count'];
 			$UserPoints[$UserData['id']]['fleet']['points'] 	= $FleetPoints['points'];
