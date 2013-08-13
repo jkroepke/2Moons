@@ -84,7 +84,6 @@ class ShowResearchPage extends AbstractGamePage
                 'level' 	=> $task['amount'],
                 'time' 		=> $task['buildTime'],
                 'resttime' 	=> $task['endBuildTime'] - TIMESTAMP,
-                'destroy' 	=> $task['taskType'] == QueueManager::DESTROY,
                 'endtime' 	=> _date('U', $task['endBuildTime'], $USER['timezone']),
                 'display' 	=> _date($LNG['php_tdformat'], $task['endBuildTime'], $USER['timezone']),
                 'planet'	=> $task['planetId'] != $PLANET['id'] ? $USER['PLANETS'][$task['planetId']]['name'] : false,
@@ -137,7 +136,7 @@ class ShowResearchPage extends AbstractGamePage
 				$levelToBuild	= $USER[$elementObj->name];
 			}
 			
-			$costResources		= BuildUtil::getElementPrice($elementObj, $levelToBuild);
+			$costResources		= BuildUtil::getElementPrice($elementObj, $levelToBuild + 1);
             $elementTime    	= BuildUtil::getBuildingTime($USER, $PLANET, $elementObj, $costResources);
 
             // zero cost resource do not need to display

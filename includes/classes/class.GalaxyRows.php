@@ -53,7 +53,7 @@ class GalaxyRows
 	
 	public function getGalaxyData()
 	{
-		global $USER;
+		global $USER, $PLANET;
 
         $sql	= 'SELECT SQL_BIG_RESULT DISTINCT
 		p.galaxy, p.system, p.planet, p.id, p.id_owner, p.name, p.image, p.last_update, p.diameter, p.temp_min, p.destruyed, p.der_metal, p.der_crystal, p.id_luna, 
@@ -86,6 +86,27 @@ class GalaxyRows
 			':planetTypePlanet'	=> 1,
 			':accept'			=> 1,
 	  	));
+
+		$PLANET['hasShipsToDestroy']	= false;
+		$PLANET['hasMissileToAttack']	= false;
+
+		foreach(Vars::getElements(NULL, Vars::FLAG_ATTACK_MISSILE) as $elementObj)
+		{
+			if($PLANET[$elementObj->name] > 0)
+			{
+				$PLANET['hasMissileToAttack'] = true;
+				break;
+			}
+		}
+
+		foreach(Vars::getElements(NULL, Vars::FLAG_DESTROY) as $elementObj)
+		{
+			if($PLANET[$elementObj->name] > 0)
+			{
+				$PLANET['hasShipsToDestroy'] = true;
+				break;
+			}
+		}
 
 		foreach ($galaxyResult as $galaxyRow)
 		{
@@ -139,8 +160,8 @@ class GalaxyRows
 	
 	protected function getAllowedMissions()
 	{
-		global $PLANET, $resource;
-		
+		global $PLANET;
+
 		$this->galaxyData[$this->galaxyRow['planet']]['missions']	= array(
 			1	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && isModulAvalible(MODULE_MISSION_ATTACK),
 			3	=> isModulAvalible(MODULE_MISSION_TRANSPORT),
@@ -148,19 +169,19 @@ class GalaxyRows
 			5	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && isModulAvalible(MODULE_MISSION_HOLD),
 			6	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && isModulAvalible(MODULE_MISSION_SPY),
 			8	=> isModulAvalible(MODULE_MISSION_RECYCLE),
-			9	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && $PLANET[$resource[214]] > 0 && isModulAvalible(MODULE_MISSION_DESTROY),
-			10	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && $PLANET[$resource[503]] > 0 && isModulAvalible(MODULE_MISSION_ATTACK) && isModulAvalible(MODULE_MISSILEATTACK) && $this->inMissileRange(),
+			9	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && $PLANET['hasShipsToDestroy'] && isModulAvalible(MODULE_MISSION_DESTROY),
+			10	=> !$this->galaxyData[$this->galaxyRow['planet']]['ownPlanet'] && $PLANET['hasMissileToAttack'] && isModulAvalible(MODULE_MISSION_ATTACK) && isModulAvalible(MODULE_MISSILEATTACK) && $this->inMissileRange(),
 		);
 	}
 
 	protected function inMissileRange()
 	{
-		global $USER, $PLANET, $resource;
+		global $USER, $PLANET;
 		
 		if ($this->galaxyRow['galaxy'] != $PLANET['galaxy'])
 			return false;
 		
-		$Range		= FleetUtil::GetMissileRange($USER[$resource[117]]);
+		$Range		= FleetUtil::GetMissileRange($USER);
 		$systemMin	= $PLANET['system'] - $Range;
 		$systemMax	= $PLANET['system'] + $Range;
 		
@@ -223,7 +244,7 @@ class GalaxyRows
 			'username'		=> htmlspecialchars($this->galaxyRow['username'], ENT_QUOTES, "UTF-8"),
 			'rank'			=> $this->galaxyRow['total_rank'],
 			'points'		=> pretty_number($this->galaxyRow['total_points']),
-			'playerrank'	=> isModulAvalible(25)?sprintf($LNG['gl_in_the_rank'], htmlspecialchars($this->galaxyRow['username'],ENT_QUOTES,"UTF-8"), $this->galaxyRow['total_rank']):htmlspecialchars($this->galaxyRow['username'],ENT_QUOTES,"UTF-8"),
+			'playerrank'	=> isModulAvalible(MODULE_STATISTICS) ? sprintf($LNG['gl_in_the_rank'], htmlspecialchars($this->galaxyRow['username'],ENT_QUOTES,"UTF-8"), $this->galaxyRow['total_rank']):htmlspecialchars($this->galaxyRow['username'],ENT_QUOTES,"UTF-8"),
 			'class'			=> $Class,
 			'isBuddy'		=> $this->galaxyRow['buddy'] == 0,
 		);
@@ -269,15 +290,16 @@ class GalaxyRows
 
 	protected function getDebrisData()
 	{
-		$total		= $this->galaxyRow['der_metal'] + $this->galaxyRow['der_crystal'];
-		if($total == 0) {
-			$this->galaxyData[$this->galaxyRow['planet']]['debris']	= false;
-		} else {
-			$this->galaxyData[$this->galaxyRow['planet']]['debris']	= array(
-				'metal'			=> $this->galaxyRow['der_metal'],
-				'crystal'		=> $this->galaxyRow['der_crystal'],
-			);
+		$debris	= array();
+
+		foreach(Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_DEBRIS) as $elementId => $elementObj)
+		{
+			if($this->galaxyRow['der_'.$elementObj->name] == 0) continue;
+
+			$debris[$elementId]	= $this->galaxyRow['der_'.$elementObj->name];
 		}
+
+		$this->galaxyData[$this->galaxyRow['planet']]['debris']	= !empty($debris) ? $debris : false;
 	}
 
 	protected function getMoonData()
@@ -296,11 +318,12 @@ class GalaxyRows
 
 	protected function getPlanetData()
 	{
+		global $PLANET;
 		$this->galaxyData[$this->galaxyRow['planet']]['planet']	= array(
 			'id'			=> $this->galaxyRow['id'],
 			'name'			=> htmlspecialchars($this->galaxyRow['name'], ENT_QUOTES, "UTF-8"),
 			'image'			=> $this->galaxyRow['image'],
-			'phalanx'		=> isModulAvalible(MODULE_PHALANX) && ShowPhalanxPage::allowPhalanx($this->galaxyRow['galaxy'], $this->galaxyRow['system']),
+			'phalanx'		=> isModulAvalible(MODULE_PHALANX) && $PLANET[Vars::getElement(903)->name] >= PHALANX_DEUTERIUM && ShowPhalanxPage::allowPhalanx($this->galaxyRow['galaxy'], $this->galaxyRow['system']),
 		);
 	}
 }

@@ -76,6 +76,6 @@ $dbTableNames	= array(
 	'VARS'	 				=> DB_PREFIX.'vars',
 	'VARS_QUEUE_BLOCKER'	=> DB_PREFIX.'vars_queue_blocker',
 	'VARS_RAPIDFIRE'		=> DB_PREFIX.'vars_rapidfire',
-	'VARS_REQUIRE'	 		=> DB_PREFIX.'vars_requriements',
+	'VARS_REQUIRE'	 		=> DB_PREFIX.'vars_requirements',
 );
 // MOD-TABLES

@@ -27,12 +27,12 @@
 							<p>{foreach $elementData.costResources as $resourceId => $value}{$LNG.tech.{$resourceId}}: <b><span style="color:{if $elementData.costOverflow[$resourceId] == 0}lime{else}red{/if}">{$value|number}</span></b> {/foreach} | {$LNG.in_dest_durati}: <span style="color:lime">{$elementData.time|time}</span></p>
 						</td>
 						<td class="transparent" style="vertical-align:middle;width:100px">
-
+						{if $elementData.timeLeft > 0}<span class="timer" data-time="{$elementData.timeLeft}">-</span><br>{/if}
 						{if $elementData.buyable}
 						<form action="game.php?page=officier" method="post" class="build_form">
 							<input type="hidden" name="elementId" value="{$elementId}">
 							<input type="hidden" name="mode" value="upgrade">
-							<button type="submit" class="build_submit">{$LNG.of_recruit}</button>
+							<button type="submit" class="build_submit">{if $elementData.timeLeft > 0}{$LNG.of_extend}{else}{$LNG.of_recruit}{/if}</button>
 						</form>
 						{else}
 						<span style="color:#FF0000">{$LNG.of_recruit}</span>

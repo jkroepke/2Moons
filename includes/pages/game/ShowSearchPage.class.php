@@ -49,16 +49,18 @@ class ShowSearchPage extends AbstractGamePage
 				INNER JOIN %%PLANETS%% as b ON b.id = a.id_planet
 				LEFT JOIN %%STATPOINTS%% as c ON c.id_owner = a.id AND c.stat_type = 1
 				LEFT JOIN %%ALLIANCE%% as d ON d.id = a.ally_id
-				WHERE a.universe = :universe AND a.username LIKE :searchText
+				WHERE a.universe = :universe AND a.username LIKE :searchTextLike
 				ORDER BY (
-				  IF(a.username = :searchText, 1, 0)
-				  + IF(a.username LIKE :searchTextLike, 1, 0)
+				  IF(a.username = :searchTextRaw, 1, 0)
+				  + IF(a.username LIKE :searchTextOrder, 1, 0)
 				) DESC, a.username ASC
 				".$limit.";";
+
 				$searchResult = $db->select($sql, array(
-					':universe'			=> Universe::current(),
-					':searchText' 		=> $searchText,
-					':searchTextLike'	=> '%'.$searchText.'%',
+				   	':universe'			=> Universe::current(),
+					':searchTextRaw' 	=> $searchText,
+					':searchTextLike' 	=> '%'.$searchText.'%',
+					':searchTextOrder' 	=> $searchText.'%',
 					':limit'			=> $maxResult
 				));
 
@@ -89,15 +91,16 @@ class ShowSearchPage extends AbstractGamePage
 				LEFT JOIN %%ALLIANCE%% as d ON d.id = b.ally_id
 				WHERE a.universe = :universe AND a.name LIKE :searchTextLike
 				ORDER BY (
-				  IF(a.name = :searchText, 1, 0)
-				  + IF(a.name LIKE :searchTextLike, 1, 0)
+				  IF(a.name = :searchTextRaw, 1, 0)
+				  + IF(a.name LIKE :searchTextOrder, 1, 0)
 				) DESC, a.name ASC
 				".$limit.";";
 
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
-					':searchText' 		=> $searchText,
-					':searchTextLike'	=> '%'.$searchText.'%',
+					':searchTextRaw' 	=> $searchText,
+					':searchTextLike' 	=> '%'.$searchText.'%',
+					':searchTextOrder' 	=> $searchText.'%',
 					':limit'			=> $maxResult
 				));
 
@@ -122,15 +125,16 @@ class ShowSearchPage extends AbstractGamePage
 				LEFT JOIN %%STATPOINTS%% as c ON c.stat_type = 1 AND c.id_owner = a.id
 				WHERE a.ally_universe = :universe AND a.ally_tag LIKE :searchTextLike
 				ORDER BY (
-				  IF(a.ally_tag = :searchText, 1, 0)
-				  + IF(a.ally_tag LIKE :searchTextLike, 1, 0)
+				  IF(a.ally_tag = :searchTextRaw, 1, 0)
+				  + IF(a.ally_tag LIKE :searchTextOrder, 1, 0)
 				) DESC, a.ally_tag ASC
 				".$limit.";";
 
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
-					':searchText' 		=> $searchText,
-					':searchTextLike'	=> '%'.$searchText.'%',
+					':searchTextRaw' 	=> $searchText,
+					':searchTextLike' 	=> '%'.$searchText.'%',
+					':searchTextOrder' 	=> $searchText.'%',
 					':limit'			=> $maxResult
 				));
 
@@ -150,15 +154,16 @@ class ShowSearchPage extends AbstractGamePage
 				LEFT JOIN %%STATPOINTS%% as b ON b.stat_type = 1 AND b.id_owner = a.id
 				WHERE a.ally_universe = :universe AND a.ally_name LIKE :searchTextLike
 				ORDER BY (
-				  IF(a.ally_name = :searchText, 1, 0)
-				  + IF(a.ally_name LIKE :searchTextLike, 1, 0)
+				  IF(a.ally_name = :searchTextRaw, 1, 0)
+				  + IF(a.ally_name LIKE :searchTextOrder, 1, 0)
 				) DESC,a.ally_name ASC
 				".$limit.";";
 
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
-					':searchText' 		=> $searchText,
-					':searchTextLike'	=> '%'.$searchText.'%',
+					':searchTextRaw' 	=> $searchText,
+					':searchTextLike' 	=> '%'.$searchText.'%',
+					':searchTextOrder' 	=> $searchText.'%',
 					':limit'			=> $maxResult
 				));
 

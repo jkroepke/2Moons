@@ -61,7 +61,7 @@ class ShowFleetMissilePage extends AbstractGamePage
             ':targetType'   => $targetType
         ));
 
-        $Range				= FleetUtil::GetMissileRange($USER[$resource[117]]);
+        $Range				= FleetUtil::GetMissileRange($USER);
 		$systemMin			= $PLANET['system'] - $Range;
 		$systemMax			= $PLANET['system'] + $Range;
 		

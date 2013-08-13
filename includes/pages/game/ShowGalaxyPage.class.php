@@ -53,7 +53,13 @@ class ShowGalaxyPage extends AbstractGamePage
 		$planet			= min(max(HTTP::_GP('planet', (int) $PLANET['planet']), 1), $config->max_planets);
 		$type			= HTTP::_GP('type', 1);
 		$current		= HTTP::_GP('current', 0);
-		
+
+		$missileSelector	= array();
+		$missileList	= array();
+		$recycleList	= array();
+		$spyList		= array();
+
+
         if (!empty($galaxyLeft))
             $galaxy	= max($galaxy - 1, 1);
         elseif (!empty($galaxyRight))
@@ -77,14 +83,32 @@ class ShowGalaxyPage extends AbstractGamePage
             }
 		}
 
-        $targetDefensive    = $reslist['defense'];
-        $targetDefensive[]	= 502;
-		$missileSelector[0]	= $LNG['gl_all_defenses'];
-		
-		foreach($targetDefensive as $Element)
-		{	
-			$missileSelector[$Element] = $LNG['tech'][$Element];
+		if($action == 'sendMissle')
+		{
+			$targetDefensive    = array_keys(Vars::getElements(Vars::CLASS_DEFENSE) + Vars::getElements(Vars::CLASS_MISSILE, Vars::FLAG_ATTACK_MISSILE));
+			$missileSelector[0]	= $LNG['gl_all_defenses'];
+
+			foreach($targetDefensive as $elementId)
+			{
+				$missileSelector[$elementId] = $LNG['tech'][$elementId];
+			}
 		}
+
+		foreach(Vars::getElements(Vars::CLASS_MISSILE, Vars::FLAG_ATTACK_MISSILE) as $elementId => $elementObj)
+		{
+			$missileList[$elementId]	= $PLANET[$elementObj->name];
+		}
+
+		foreach(Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_COLLECT) as $elementId => $elementObj)
+		{
+			$recycleList[$elementId]	= $PLANET[$elementObj->name];
+		}
+
+		foreach(Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_SPY) as $elementId => $elementObj)
+		{
+			$spyList[$elementId]	= $PLANET[$elementObj->name];
+		}
+
 		$sql	= 'SELECT total_points
 		FROM %%STATPOINTS%%
 		WHERE id_owner = :userId AND stat_type = :statType';
@@ -111,12 +135,9 @@ class ShowGalaxyPage extends AbstractGamePage
 			'current'					=> $current,
 			'maxfleetcount'				=> FleetUtil::GetCurrentFleets($USER['id']),
 			'fleetmax'					=> FleetUtil::GetMaxFleetSlots($USER),
-			'currentmip'				=> $PLANET[$resource[503]],
-			'grecyclers'   				=> $PLANET[$resource[219]],
-			'recyclers'   				=> $PLANET[$resource[209]],
-			'spyprobes'   				=> $PLANET[$resource[210]],
-			'missile_count'				=> sprintf($LNG['gl_missil_to_launch'], $PLANET[$resource[503]]),
-			'spyShips'					=> array(210 => $USER['spio_anz']),
+			'currentmip'				=> $recycleList,
+			'grecyclers'   				=> $missileList,
+			'recyclers'   				=> $spyList,
 			'settings_fleetactions'		=> $USER['settings_fleetactions'],
 			'current_galaxy'			=> $PLANET['galaxy'],
 			'current_system'			=> $PLANET['system'],

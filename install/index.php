@@ -67,7 +67,8 @@ if (!is_file($enableInstallToolFile)) {
 	$template->message($LNG->getTemplate('locked_install'), false, 0, true);
 	exit;
 }
-$language = HTTP::_GP('lang', '');
+$language	= HTTP::_GP('lang', '');
+$mode		= HTTP::_GP('mode', '');
 
 if (!empty($language) && in_array($language, $LNG->getAllowedLangs())) {
 	setcookie('lang', $language);
@@ -468,23 +469,17 @@ switch ($mode) {
 				}
 				else
 				{
-					$installRevision = (int)$installVersion[2];
+					$installRevision = (int) $installVersion[2];
 				}
 
 				$installVersion = implode('.', $installVersion);
 				try {
-					$db->query(str_replace(array(
-						'%PREFIX%',
-						'%VERSION%',
-						'%REVISION%'
-					), array(
-						 DB_PREFIX,
-						 $installVersion,
-						 $installRevision,
-						 $installSQL
-				    ), $installSQL));
+					$db->query(str_replace('prefix_', DB_PREFIX, $installSQL));
 
 					$config = Config::get(Universe::current());
+					$config->VERSION			= $installVersion;
+					$config->sql_revision		= $installRevision;
+					$config->game_name			= '2Moons';
 					$config->timezone			= @date_default_timezone_get();
 					$config->lang	 			= $LNG->getLanguage();
 					$config->OverviewNewsText	= $LNG['sql_welcome'] . $installVersion;
@@ -522,9 +517,12 @@ switch ($mode) {
 				$username	= HTTP::_GP('username', '', UTF8_SUPPORT);
 				$password	= HTTP::_GP('password', '', true);
 				$mail		= HTTP::_GP('email', '');
-				// Get Salt.
-				require 'includes/config.php';
-				require 'includes/vars.php';
+
+				require 'includes/classes/BuildUtil.class.php';
+				require 'includes/classes/Element.class.php';
+				require 'includes/classes/Vars.class.php';
+
+				Vars::init();
 
 				$hashPassword = PlayerUtil::cryptPassword($password);
 

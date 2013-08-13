@@ -111,9 +111,9 @@ class FleetUtil
 		return Config::get($USER['universe'])->max_dm_missions;
 	}
 	
-	public static function getMissileRange($Level)
+	public static function getMissileRange($USER)
 	{
-		return max(($Level * 5) - 1, 0);
+		return max(($USER[Vars::getElement(117)->name] * 5) - 1, 0);
 	}
 	
 	public static function CheckUserSpeed($speed)
