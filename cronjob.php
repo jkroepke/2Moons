@@ -30,6 +30,8 @@ define('MODE', 'CRON');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 set_include_path(ROOT_PATH);
 
+@set_time_limit(300);
+
 require 'includes/common.php';
 
 $session	= Session::load();

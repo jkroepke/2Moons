@@ -355,6 +355,8 @@ function isModulAvalible($ID)
 
 function ClearCache()
 {
+	@set_time_limit(300)
+	;
 	$DIRS	= array('cache/', 'cache/templates/');
 	foreach($DIRS as $DIR) {
 		$FILES = array_diff(scandir($DIR), array('..', '.', '.htaccess'));
@@ -381,9 +383,10 @@ function ClearCache()
 	$version	= explode('.', $config->VERSION);
 	$REV = 0;
 
-	$iterator = new RecursiveDirectoryIterator(ROOT_PATH);
-	foreach(new RecursiveIteratorIterator($iterator, RecursiveIteratorIterator::CHILD_FIRST) as $file) {
-		if (false == $file->isDir()) {
+	foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator(ROOT_PATH), RecursiveIteratorIterator::CHILD_FIRST) as $file)
+	{
+		/** @var $file DirectoryIterator */
+		if (!$file->isDir()) {
 			$CONTENT	= file_get_contents($file->getPathname());
 			
 			preg_match('!\$'.'Id: [^ ]+ ([0-9]+)!', $CONTENT, $match);
