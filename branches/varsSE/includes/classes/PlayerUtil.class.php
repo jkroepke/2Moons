@@ -170,7 +170,6 @@ class PlayerUtil
 		$params			= array(
 			':username'				=> $userName,
 			':email'				=> $userMail,
-			':email2'				=> $userMail,
 			':authlevel'			=> $authlevel,
 			':universe'				=> $universe,
 			':language'				=> $userLanguage,
@@ -182,17 +181,18 @@ class PlayerUtil
 			':timezone'				=> $config->timezone,
 			':nameLastChanged'		=> 0,
 		);
-
-		foreach($GLOBALS['reslist']['resstype'][3] as $elementID) {
-			$key				= $GLOBALS['resource'][$elementID];
-			$params[':'.$key]	= $config->{$key.'_start'};
-			$resourceQuery[]	= '`'.$key.'` = :'.$key;
+var_dump(Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_RESOURCE_USER));exit;
+		foreach(Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_RESOURCE_USER) as $elementObj)
+		{
+			$params[':'.$elementObj->name.'_start']	= $config->{$elementObj->name.'_start'};
+			$resourceQuery[]	= '`'.$elementObj->name.'` = :'.$elementObj->name.'_start,';
 		}
 
 		$sql = 'INSERT INTO %%USERS%% SET
+		'.implode("\n", $resourceQuery).'
 		username		= :username,
 		email			= :email,
-		email_2			= :email2,
+		email_2			= :email,
 		authlevel		= :authlevel,
 		universe		= :universe,
 		lang			= :language,
@@ -202,8 +202,7 @@ class PlayerUtil
 		password		= :password,
 		dpath			= :dpath,
 		timezone		= :timezone,
-		uctime			= :nameLastChanged,
-		'.implode(', ', $resourceQuery).';';
+		uctime			= :nameLastChanged;';
 
 		$db = Database::get();
 
@@ -318,11 +317,10 @@ class PlayerUtil
 		);
 
 		$resourceQuery	= array();
-
-		foreach($GLOBALS['reslist']['resstype'][1] as $elementID) {
-			$key				= $GLOBALS['resource'][$elementID];
-			$params[':'.$key]	= $config->{$key.'_start'};
-			$resourceQuery[]	= '`'.$key.'` = :'.$key;
+		foreach(Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_RESOURCE_PLANET) as $elementObj)
+		{
+			$params[':'.$elementObj->name.'_start']	= $config->{$elementObj->name.'_start'};
+			$resourceQuery[]	= '`'.$elementObj->name.'` = :'.$elementObj->name.'_start';
 		}
 
 		$sql = 'INSERT INTO %%PLANETS%% SET

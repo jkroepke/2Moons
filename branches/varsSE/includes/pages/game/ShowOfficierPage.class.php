@@ -69,19 +69,19 @@ class ShowOfficierPage extends AbstractGamePage
         {
             if($elementObj->maxLevel <= $USER[$elementObj->name])
             {
-                return false;
+				$this->redirectTo('game.php?page=officier');
             }
 
             if(!BuildUtil::requirementsAvailable($USER, $PLANET, $elementObj))
             {
-                return false;
+				$this->redirectTo('game.php?page=officier');
             }
 
-            $costResources		= BuildUtil::getElementPrice($USER, $PLANET, $elementObj);
+            $costResources		= BuildUtil::getElementPrice($elementObj, $USER[$elementObj->name] + 1);
 
             if (!BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources))
             {
-                return false;
+				$this->redirectTo('game.php?page=officier');
             }
 
             foreach($costResources as $resourceElementId => $value)
@@ -100,20 +100,19 @@ class ShowOfficierPage extends AbstractGamePage
             $USER[$elementObj->name]	+= 1;
             $this->ecoObj->saveToDatabase('USER', $elementObj->name);
 
-            return true;
-
-        }if(isModulAvalible(MODULE_OFFICIER) && $elementObj->class == Vars::CLASS_PERM_BONUS)
+        }
+		elseif(isModulAvalible(MODULE_DMEXTRAS) && $elementObj->class == Vars::CLASS_TEMP_BONUS)
         {
             if(!BuildUtil::requirementsAvailable($USER, $PLANET, $elementObj))
             {
-                return false;
+				$this->redirectTo('game.php?page=officier');
             }
 
-            $costResources		= BuildUtil::getElementPrice($USER, $PLANET, $elementObj);
+            $costResources		= BuildUtil::getElementPrice($elementObj, 1);
 
             if (!BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources))
             {
-                return false;
+				$this->redirectTo('game.php?page=officier');
             }
 
             foreach($costResources as $resourceElementId => $value)
@@ -131,11 +130,9 @@ class ShowOfficierPage extends AbstractGamePage
 
             $USER[$elementObj->name]	= max($USER[$elementObj->name], TIMESTAMP) + $elementObj->timeBonus;
             $this->ecoObj->saveToDatabase('USER', $elementObj->name);
-
-            return true;
         }
 
-        return false;
+		$this->redirectTo('game.php?page=officier');
     }
 
 	public function show()
@@ -179,7 +176,7 @@ class ShowOfficierPage extends AbstractGamePage
 				if (!BuildUtil::requirementsAvailable($USER, $PLANET, $elementObj))
 					continue;
 
-                $costResources		= BuildUtil::getElementPrice($elementObj, $USER[$elementObj->name]);
+                $costResources		= BuildUtil::getElementPrice($elementObj, $USER[$elementObj->name] + 1);
 				$buyable			= BuildUtil::isElementBuyable($USER, $PLANET, $elementObj, $costResources);
 
                 // zero cost resource do not need to display

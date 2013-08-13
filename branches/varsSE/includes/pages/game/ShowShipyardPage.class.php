@@ -46,7 +46,7 @@ class ShowShipyardPage extends AbstractGamePage
             foreach($elements as $elementId => $amount)
             {
                 $elementObj = Vars::getElement($elementId);
-                if($elementObj->class == Vars::CLASS_FLEET || $elementObj->class == Vars::CLASS_DEFENSE)
+                if($elementObj->class == Vars::CLASS_FLEET || $elementObj->class == Vars::CLASS_DEFENSE || $elementObj->class == Vars::CLASS_MISSILE)
                 {
                     $this->ecoObj->addToQueue($elementObj, QueueManager::SHIPYARD, $amount);
                 }
@@ -59,10 +59,13 @@ class ShowShipyardPage extends AbstractGamePage
     public function cancel()
     {
         global $USER;
-        $taskId = HTTP::_GP('taskId', 0);
-        if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0 && !empty($taskId))
+        if($_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
         {
-            $this->ecoObj->removeFromQueue($taskId, array(Vars::CLASS_FLEET, Vars::CLASS_DEFENSE, Vars::CLASS_MISSILE));
+			$taskIds  = HTTP::_GP('taskId', array());
+			foreach($taskIds as $taskId)
+			{
+				$this->ecoObj->removeFromQueue($taskId, array(Vars::CLASS_FLEET, Vars::CLASS_DEFENSE, Vars::CLASS_MISSILE));
+			}
         }
 
         $this->redirectTo('game.php?page=shipyard&mode='.HTTP::_GP('redirectMode', ''));
@@ -72,31 +75,29 @@ class ShowShipyardPage extends AbstractGamePage
     {
         global $LNG, $USER, $PLANET;
 
-        $elementIds = array_keys(Vars::getElements(Vars::CLASS_FLEET));
-        $elementIds += array_keys(Vars::getElements(Vars::CLASS_DEFENSE));
-        $elementIds += array_keys(Vars::getElements(Vars::CLASS_MISSILE));
+        $elementIds = array_merge(
+			array_keys(Vars::getElements(Vars::CLASS_FLEET)),
+			array_keys(Vars::getElements(Vars::CLASS_DEFENSE)),
+			array_keys(Vars::getElements(Vars::CLASS_DEFENSE))
+		);
 
-        $queueData  = $this->ecoObj->getQueueObj()->getTasksByElementId($elementIds);
+        $queueData  	= $this->ecoObj->getQueueObj()->getTasksByElementId($elementIds);
 
         $queue          = array();
         $elementLevel   = array();
         $count          = array();
-
+        $info 	        = array();
 
         foreach($queueData as $task)
         {
-            if ($task['endBuildTime'] < TIMESTAMP)
+            if (($task['endBuildTime'] + $task['buildTime'] * ($task['amount'] - 1)) < TIMESTAMP)
                 continue;
 
             $queue[$task['taskId']] = array(
-                'element'	=> $task['elementId'],
-                'amount' 	=> $task['amount'],
-                'time' 		=> $task['buildTime'],
-                'resttime' 	=> $task['endBuildTime'] - TIMESTAMP,
-                'destroy' 	=> $task['taskType'] == QueueManager::DESTROY,
-                'endtime' 	=> _date('U', $task['endBuildTime'], $USER['timezone']),
-                'display' 	=> _date($LNG['php_tdformat'], $task['endBuildTime'], $USER['timezone']),
-                'planet'	=> $task['planetId'] != $PLANET['id'] ? $USER['PLANETS'][$task['planetId']]['name'] : false,
+                'elementId'		=> $task['elementId'],
+                'amount' 		=> $task['amount'],
+                'buildTime' 	=> $task['buildTime'],
+                'endBuildTime' 	=> _date('U', $task['endBuildTime'], $USER['timezone']),
             );
 
             if(!isset($elementLevel[$task['elementId']]))
@@ -113,7 +114,15 @@ class ShowShipyardPage extends AbstractGamePage
             $count[$task['queueId']]++;
         }
 
-        return array('queue' => $queue, 'elementLevel' => $elementLevel, 'count' => $count);
+		if(!empty($queue))
+		{
+			$lastTask	= end($queue);
+			$firstTask	= reset($queue);
+			$info['restTime']		= $firstTask['endBuildTime'] - TIMESTAMP;
+			$info['endBuildTime']	= _date($LNG['php_tdformat'], $lastTask['endBuildTime'] + $lastTask['buildTime'] * ($lastTask['amount'] - 1), $USER['timezone']);
+		}
+
+        return array('queue' => $queue, 'elementLevel' => $elementLevel, 'count' => $count, 'info' => $info);
     }
 	
 	public function show()
@@ -211,7 +220,7 @@ class ShowShipyardPage extends AbstractGamePage
 		}
 		
 		$this->assign(array(
-            'queueData'         => $queueData['queue'],
+            'queueData'         => $queueData,
 			'elementList'	    => $elementList,
 			'isShipyardInBuild'	=> $isShipyardInBuild,
 			'BuildList'		    => $buildList,

@@ -101,6 +101,7 @@ class ShowBuildingsPage extends AbstractGamePage
                 $this->ecoObj->addToQueue($elementObj, QueueManager::DESTROY);
             }
         }
+
         $this->redirectTo('game.php?page=buildings');
     }
 
@@ -112,6 +113,7 @@ class ShowBuildingsPage extends AbstractGamePage
         {
             $this->ecoObj->removeFromQueue($taskId, Vars::CLASS_BUILDING);
         }
+
         $this->redirectTo('game.php?page=buildings');
     }
 
@@ -172,8 +174,8 @@ class ShowBuildingsPage extends AbstractGamePage
 				$text       = $requireEnergy < 0 ? $LNG['bd_need_engine'] : $LNG['bd_more_engine'];
                 $infoEnergy	= sprintf($text, pretty_number(abs($requireEnergy)), $LNG['tech'][911]);
 			}
-			
-			$costResources		= BuildUtil::getElementPrice($elementObj, $levelToBuild, false);
+
+			$costResources		= BuildUtil::getElementPrice($elementObj, $levelToBuild + 1);
             $destroyResources	= BuildUtil::getElementPrice($elementObj, $PLANET[$elementObj->name], true);
 
             $elementTime    	= BuildUtil::getBuildingTime($USER, $PLANET, $elementObj, $costResources);

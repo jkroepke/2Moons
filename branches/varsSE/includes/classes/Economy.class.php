@@ -383,8 +383,7 @@ class Economy
                 }
 
                 $elementObj     = Vars::getElement($task['elementId']);
-                $priceLevel     = $task['amount'] - ((int) $task['taskType'] == QueueManager::BUILD);
-                $costResources  = BuildUtil::getElementPrice($elementObj, $priceLevel, $task['taskType'] == QueueManager::DESTROY);
+                $costResources  = BuildUtil::getElementPrice($elementObj, $task['amount'], $task['taskType'] == QueueManager::DESTROY);
 
                 $buildTime      = BuildUtil::getBuildingTime($this->USER, $this->PLANET, $elementObj, $costResources);
 
@@ -575,8 +574,7 @@ class Economy
             $amount             = min($amount, $maxMissiles[$elementObj->elementID]);
         }
 
-        $priceLevel     = $amount - ((int) ($buildType === QueueManager::BUILD || $buildType === QueueManager::USER));
-        $costResources  = BuildUtil::getElementPrice($elementObj, $priceLevel, $buildType === QueueManager::DESTROY);
+        $costResources  = BuildUtil::getElementPrice($elementObj, $amount, $buildType === QueueManager::DESTROY);
 
         if($elementObj->class != Vars::CLASS_FLEET && $elementObj->class != Vars::CLASS_DEFENSE
             && $elementObj->class != Vars::CLASS_MISSILE && count($queueData) === 0 )
@@ -632,7 +630,7 @@ class Economy
 
         $elementObj = Vars::getElement($taskData['elementId']);
 
-        if(!is_null($mustHaveClass) && in_array($elementObj->class, (array) $mustHaveClass))
+        if(!is_null($mustHaveClass) && !in_array($elementObj->class, (array) $mustHaveClass))
         {
             return false;
         }
@@ -643,8 +641,7 @@ class Economy
         {
             $isAnotherPlanet    = $taskData['taskType'] == QueueManager::USER && $taskData['planetId'] != $this->PLANET['id'];
 
-            $amount             = $taskData['amount'] - ((int) ($taskData['taskType'] == QueueManager::BUILD || $taskData['taskType'] == QueueManager::USER));
-            $costResources      = BuildUtil::getElementPrice($elementObj, $amount, $taskData['taskType'] === QueueManager::DESTROY);
+            $costResources      = BuildUtil::getElementPrice($elementObj, $taskData['amount'], $taskData['taskType'] === QueueManager::DESTROY);
             $ecoObj             = new self(false);
 
             if($isAnotherPlanet)

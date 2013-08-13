@@ -97,8 +97,10 @@ class BuildUtil
 		{
 			$value  = $elementObj->cost[$resourceElementId];
 			
-			if($elementObj->factor != 0 && $elementObj->factor != 1) {
-                $value	*= pow($elementObj->factor, $elementLevel);
+			if($elementObj->factor != 0 && $elementObj->factor != 1)
+			{
+				// elementLevel - 1, because the basic values are level 1, not level 0
+                $value	*= pow($elementObj->factor, $elementLevel - 1);
 			}
 			
 			if($elementObj->class === Vars::CLASS_FLEET || $elementObj->class === Vars::CLASS_DEFENSE || $elementObj->class === Vars::CLASS_MISSILE)

@@ -1,27 +1,35 @@
 {block name="title" prepend}{if $mode == "defense"}{$LNG.lm_defenses}{else}{$LNG.lm_shipshard}{/if}{/block}
 {block name="content"}
 {if $isShipyardInBuild}<table width="70%" id="infobox" style="border: 2px solid red; text-align:center;background:transparent"><tr><td>{$LNG.bd_building_shipyard}</td></tr></table><br><br>{/if}
-{if !empty($BuildList)}
+{if !empty($queueData.queue)}
 <table style="width:760px">
 	<tr>
 		<td class="transparent">
-			<div id="bx" class="z"></div>
-			<br>
-			<form action="game.php?page=shipyard&amp;mode={$mode}" method="post">
-			<input type="hidden" name="action" value="delete">
+			<form action="game.php?page=shipyard" method="post">
+			<input type="hidden" name="mode" value="cancel">
+			<input type="hidden" name="redirectMode" value="{$mode}">
 			<table>
 			<tr>
-				<th>&nbsp;</th>
+				<th>
+					<div class="transparent" style="text-align:left;float:left;"><label for="queueList">{$LNG.bd_shipyard_queue}</label></div>
+					<div class="transparent" style="text-align:right;float:right;">{$LNG.bd_finished}: {$queueData.info.endBuildTime}</div>
+				</th>
 			</tr>
 			<tr>
-				<td><select name="auftr[]" id="auftr" size="10" multiple><option>&nbsp;</option></select><br><br>{$LNG.bd_cancel_warning}<br><input type="submit" value="{$LNG.bd_cancel_send}"></td>
+				<td>
+					<p><select style="width:70%" name="taskId[]" id="queueList" size="10" multiple>
+				{foreach $queueData.queue as $taskId => $taskData}<option value="{$taskId}" data-element="{$taskData.elementId}" data-elements="{$taskData.amount}" data-buildtime="{$taskData.buildTime}">{$taskData.amount} {$LNG.tech[$taskData.elementId]}</option>{/foreach}
+				</select></p>
+				<p><span id="currentElementTimer">-</span></p>
+				<p>{$LNG.bd_cancel_warning}</p>
+				<p><input type="submit" value="{$LNG.bd_cancel_send}"></p>
+				</td>
 			</tr>
 			<tr>
 				<th>&nbsp;</th>
 			</tr>
 			</table>
 			</form>
-			<br><span id="timeleft"></span><br><br>
 		</td>
 	</tr>
 </table>
@@ -95,17 +103,15 @@
 </form>
 {/block}
 {block name="script" append}
-<script type="text/javascript">
-data			= {$BuildList|json};
-bd_operating	= '{$LNG.bd_operating}';
-bd_available	= '{$LNG.bd_available}';
-</script>
-{if !empty($BuildList)}
+{if !empty($queueData.queue)}
 <script src="scripts/base/bcmath.js"></script>
 <script src="scripts/game/shipyard.js"></script>
 <script type="text/javascript">
+bd_operating	= '{$LNG.bd_operating}';
+bd_available	= '{$LNG.bd_available}';
+restTime		= {$queueData.info.restTime * 1000};
 $(function() {
-    ShipyardInit();
+	initTask();
 });
 </script>
 {/if}

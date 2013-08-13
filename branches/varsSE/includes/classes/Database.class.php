@@ -108,7 +108,7 @@ class Database
 				}
 				else
 				{
-					$stmt->bindValue($param, (int) $value, PDO::PARAM_STR);
+					$stmt->bindValue($param, $value, PDO::PARAM_STR);
 				}
 			}
 		}

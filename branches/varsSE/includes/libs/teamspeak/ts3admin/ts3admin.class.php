@@ -422,8 +422,8 @@ class ts3admin {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		$permissionArray = array();
 		
-		if(count($permissionIds) > 0) {
-			foreach($permissionIds AS $value) {
+		if(count($permissions) > 0) {
+			foreach($permissions AS $value) {
 				$permissionArray[] = is_numeric($value) ? 'permid='.$value : 'permsid='.$value;
 			}
 			return $this->getData('boolean', 'channelclientdelperm cid='.$cid.' cldbid='.$cldbid.' '.implode('|', $permissionArray));
@@ -684,7 +684,7 @@ class ts3admin {
 					$command_string[] = (is_numeric($key) ? "permid=" : "permsid=").$this->escapeText($key).' permvalue='.$value;
 				}
 		
-				$result = $this->getData('boolean', 'channelgroupaddperm cgid='.$cid.' '.implode('|', $command_string));
+				$result = $this->getData('boolean', 'channelgroupaddperm cgid='.$cgid.' '.implode('|', $command_string));
 		
 				if(!$result['success'])
 				{
@@ -807,8 +807,8 @@ class ts3admin {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		$permissionArray = array();
 		
-		if(count($permissionIds) > 0) {
-			foreach($permissionIds AS $value) {
+		if(count($permissions) > 0) {
+			foreach($permissions AS $value) {
 				$permissionArray[] = (is_numeric($value) ? 'permid=' : 'permsid=').$value;
 			}
 			return $this->getData('boolean', 'channelgroupdelperm cgid='.$cgid.' '.implode('|', $permissionArray));

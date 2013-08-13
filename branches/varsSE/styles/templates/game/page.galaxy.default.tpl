@@ -7,11 +7,11 @@
 			<td class="transparent">
 				<table>
 					<tr>
-						<th colspan="3">{$LNG.gl_galaxy}</th>
+						<th colspan="3"><label for="galaxy">{$LNG.gl_galaxy}</label></th>
 					</tr>
 					<tr>
 						<td><input type="button" name="galaxyLeft" value="&lt;-" onclick="galaxy_submit('galaxyLeft')"></td>
-						<td><input type="text" name="galaxy" value="{$galaxy}" size="5" maxlength="3" tabindex="1"></td>
+						<td><input type="text" name="galaxy" id="galaxy" value="{$galaxy}" size="5" maxlength="3" tabindex="1"></td>
 						<td><input type="button" name="galaxyRight" value="-&gt;" onclick="galaxy_submit('galaxyRight')"></td>
 					</tr>
 				</table>
@@ -19,11 +19,11 @@
 			<td class="transparent">
 				<table>
 					<tr>
-						<th colspan="3">{$LNG.gl_solar_system}</th>
+						<th colspan="3"><label for="system">{$LNG.gl_solar_system}</label></th>
 					</tr>
 					<tr>
 						<td><input type="button" name="systemLeft" value="&lt;-" onclick="galaxy_submit('systemLeft')"></td>
-						<td><input type="text" name="system" value="{$system}" size="5" maxlength="3" tabindex="2"></td>
+						<td><input type="text" name="system" id="system" value="{$system}" size="5" maxlength="3" tabindex="2"></td>
 						<td><input type="button" name="systemRight" value="-&gt;" onclick="galaxy_submit('systemRight')"></td>
 					</tr>
 				</table>
@@ -116,7 +116,7 @@
 		</td>
 		<td style="white-space: nowrap;">
         {if $currentPlanet.debris}
-			<a class="tooltip_sticky" data-tooltip-content="<table style='width:240px'><tr><th colspan='2'>{$LNG.gl_debris_field} [{$galaxy}:{$system}:{$planet}]</th></tr><tr><td style='width:80px'><img src='{$dpath}planeten/debris.jpg' height='75' style='width:75'></td><td><table style='width:100%'><tr><th colspan='2'>{$LNG.gl_resources}:</th></tr><tr><td>{$LNG.tech.901}: </td><td>{$currentPlanet.debris.metal|number}</td></tr><tr><td>{$LNG.tech.902}: </td><td>{$currentPlanet.debris.crystal|number}</td></tr>{if $currentPlanet.missions.8}<tr><th colspan='2'>{$LNG.gl_actions}</th></tr><tr><td colspan='2'><a href='javascript:doit(8, {$currentPlanet.planet.id});'>{$LNG.type_mission.8}</a></td></tr>{/if}</table></td></tr></table>">
+			<a class="tooltip_sticky" data-tooltip-content="<table style='width:240px'><tr><th colspan='2'>{$LNG.gl_debris_field} [{$galaxy}:{$system}:{$planet}]</th></tr><tr><td style='width:80px'><img src='{$dpath}planeten/debris.jpg' height='75' style='width:75'></td><td><table style='width:100%'><tr><th colspan='2'>{$LNG.gl_resources}:</th></tr>{foreach $currentPlanet.debris as $elementId => $value}<tr><td>{$LNG.tech.$elementId}: </td><td>{$value|number}</td></tr>{/foreach}{if $currentPlanet.missions.8}<tr><th colspan='2'>{$LNG.gl_actions}</th></tr><tr><td colspan='2'><a href='javascript:doit(8, {$currentPlanet.planet.id});'>{$LNG.type_mission.8}</a></td></tr>{/if}</table></td></tr></table>">
 			<img src="{$dpath}planeten/debris.jpg" height="22" width="22" alt="">
 			</a>
         {/if}
@@ -170,18 +170,8 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="3"><span id="missiles">{$currentmip|number}</span> {$LNG.gl_avaible_missiles}</td>
-		<td colspan="5"><span id="slots">{$maxfleetcount}</span>/{$fleetmax} {$LNG.gl_fleets}</td>
-	</tr>
-	<tr>
-		<td colspan="3">
-			<span id="elementID210">{$spyprobes|number}</span> {$LNG.gl_avaible_spyprobes}
-		</td>
-		<td colspan="3">
-			<span id="elementID209">{$recyclers|number}</span> {$LNG.gl_avaible_recyclers}
-		</td>
-		<td colspan="2">
-			<span id="elementID219">{$grecyclers|number}</span> {$LNG.gl_avaible_grecyclers}
+		<td colspan="8">
+
 		</td>
 	</tr>
 	<tr style="display: none;" id="fleetstatusrow">

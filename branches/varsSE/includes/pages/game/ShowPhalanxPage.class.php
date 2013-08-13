@@ -35,11 +35,12 @@ class ShowPhalanxPage extends AbstractGamePage
 	{
 		global $PLANET;
 
-		if ($PLANET['galaxy'] != $toGalaxy || $PLANET[$resource[42]] == 0 || !isModulAvalible(MODULE_PHALANX) || $PLANET[$resource[903]] < PHALANX_DEUTERIUM) {
+		if ($PLANET['galaxy'] != $toGalaxy || $PLANET[Vars::getElement(42)->name] == 0)
+		{
 			return false;
 		}
 		
-		$PhRange	= self::GetPhalanxRange($PLANET[$resource[42]]);
+		$PhRange	= self::GetPhalanxRange($PLANET[Vars::getElement(42)->name]);
 		$systemMin  = max(1, $PLANET['system'] - $PhRange);
 		$systemMax  = $PLANET['system'] + $PhRange;
 		
