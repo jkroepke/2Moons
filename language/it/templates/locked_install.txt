@@ -1,0 +1,7 @@
+<h1>L'installazione è bloccata</h1>
+<p>Per attivarla devi creare il file ENABLE_INSTALL_TOOL.</p>
+<ul>
+    <li>Nella cartella includes/ crea il file ENABLE_INSTALL_TOOL. Attenzione a mettere le maiuscole altrimenti non andrà. Il file deve essere vuoto!</li>
+</ul>
+<p>Per ragioni di sicurezza è consigliato cancellare questo file dopo l'installazione.</p>
+<p>Se il file sarà ancora presente dopo un ora 2moons lo cancellerà per te.</p>

@@ -1,0 +1,12 @@
+<div class="left">
+<h2>Informazioni per il multi-universo</h2>
+<p>2Moons è in grado di supportare più universi senza errore però il webserver apache deve essere configurato di conseguenza.</p>
+<p>Se non sai che tipo di webserver hai ti consigliamo di andare nel tuo ACP->Informazioni. Se non si è sicuri, è meglio chiedere al tuo hoster.</p>
+<h3>Apache</h3>
+<p>Decommentare se 2moons si lavora su un server Apache, è necessario inserire solo le righe 48-51 nel file .htaccess.<br>Richiede anche mod_rewrite!</p>
+
+<h3>nginx</h3>
+<p>Se, quando un server nginx come server back-end è in esecuzione, espandere la configurazione vhost direttamente per riscrivere le regole:</p>
+<p><code>{NGINX-CODE}</code></p>
+<p>è più semplice inserire il frammento di codice sotto la riga "server_name".</p>
+</div>

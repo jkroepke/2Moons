@@ -1,0 +1,8 @@
+Salve %1$s,
+
+Grazie per esserti registrato a %2$s
+
+Siamo felici che anche tu sei entrato nella nostra community e ti auguriamo di divertirti.
+
+Saluti,
+%2$s - Staff
