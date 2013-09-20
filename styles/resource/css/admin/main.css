@@ -9,7 +9,8 @@ body#topnav {
 body#menu {
 	background-position:0 0 !important;
 }
-body.standalone {
+body.standalone,
+body.full {
 	background-position:center center !important;
 }
 
@@ -75,10 +76,8 @@ a.out:hover {
 	color: #FFF;
 }
 
-#progressbar{border: 1px solid}
-.ui-progressbar-value { background-image: url(../images/jquery/pbar-ani.gif)};
-.button{background:url(../images/Adm/blank.gif);border:1px lime solid;color:#FFFFFF;}
-.button:hover{background:url(../images/Adm/blank.gif);border:1px aqua solid;cursor:pointer;color:#FFFFFF;}
+.button{background:url(../../images/admin/blank.gif);border:1px lime solid;color:#FFFFFF;}
+.button:hover{background:url(../../images/admin/blank.gif);border:1px aqua solid;cursor:pointer;color:#FFFFFF;}
 .span{ vertical-align:baseline}
 .gf-snippet, .gfc-resultsHeader{display:none}
 

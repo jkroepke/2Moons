@@ -272,14 +272,4 @@ class Vars
             return array_intersect_key(self::$data['list']['queue'][$queueId], self::$data['list']['classes'][$class]);
         }
     }
-
-    static function isUserResource(Element $elementObj)
-    {
-        if($elementObj->class == Vars::CLASS_BUILDING || $elementObj->class == Vars::CLASS_FLEET
-            || $elementObj->class == Vars::CLASS_DEFENSE || $elementObj->class == Vars::CLASS_MISSILE) return false;
-
-        if($elementObj->class == Vars::CLASS_RESOURCE && !$elementObj->hasFlag(Vars::FLAG_RESOURCE_USER)) return false;
-
-        return true;
-    }
 }

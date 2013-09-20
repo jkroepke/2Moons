@@ -9,4 +9,10 @@ $(function() {
 			}
 		})
 	}, 1000);
+
+    $('.maxShipCount').on('click', function(e) {
+        e.preventDefault();
+        $('#'+$(this).data('intoInput')).val($(this).data('amount'));
+        return false;
+    });
 });

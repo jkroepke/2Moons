@@ -401,7 +401,7 @@ class Economy
                 foreach($costResources as $resourceElementId => $value)
                 {
                     $resourceElementObj    = Vars::getElement($resourceElementId);
-                    if(Vars::isUserResource($resourceElementObj))
+                    if($resourceElementObj->isUserResource())
                     {
                         $this->USER[$resourceElementObj->name] 	-= $costResources[$resourceElementId];
                     }
@@ -501,7 +501,7 @@ class Economy
             {
                 $amount = $elementQueueData[count($elementQueueData)-1]['amount'];
             }
-            elseif(Vars::isUserResource($elementObj))
+            elseif($elementObj->isUserResource())
             {
                 $amount = $this->USER[$elementName];
             }
@@ -666,7 +666,7 @@ class Economy
                 }
 
                 $resourceElementObj    = Vars::getElement($resourceElementId);
-                if(Vars::isUserResource($resourceElementObj))
+                if($resourceElementObj->isUserResource())
                 {
                     $this->USER[$resourceElementObj->name] 	+= $costResources[$resourceElementId];
                 }
