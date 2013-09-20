@@ -64,6 +64,11 @@ class Element implements Serializable
                     $data['flags'][]  = VARS::FLAG_DEBRIS;
                 }
 
+                if($data['flagTrade'] == 1)
+                {
+                    $data['flags'][]  = VARS::FLAG_TRADE;
+                }
+
                 if($data['flagTransport'] == 1)
                 {
                     $data['flags'][]  = VARS::FLAG_STEAL;
@@ -237,6 +242,16 @@ class Element implements Serializable
     public function hasFlag($flag)
     {
         return in_array($flag, $this->flags);
+    }
+
+    public function isUserResource()
+    {
+        if($this->class == Vars::CLASS_BUILDING || $this->class == Vars::CLASS_FLEET
+            || $this->class == Vars::CLASS_DEFENSE || $this->class == Vars::CLASS_MISSILE) return false;
+
+        if($this->class == Vars::CLASS_RESOURCE && !$this->hasFlag(Vars::FLAG_RESOURCE_USER)) return false;
+
+        return true;
     }
 
     public function serialize() {

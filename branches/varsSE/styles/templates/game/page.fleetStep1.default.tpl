@@ -158,9 +158,15 @@
 		</tr>
 	</table>
 </form>
-<script type="text/javascript">
-data			= {$fleetdata|json};
-shortCutRows	= {$themeSettings.SHORTCUT_ROWS_ON_FLEET1};
-fl_no_shortcuts	= '{$LNG.fl_no_shortcuts}';
-</script>
 {/block}
+{block name="script" append}
+<script src="scripts/game/flotten.js"></script>
+<script type="text/javascript">
+	data			= {$fleetdata|json};
+	shortCutRows	= {$themeSettings.SHORTCUT_ROWS_ON_FLEET1};
+	fl_no_shortcuts	= '{$LNG.fl_no_shortcuts}';
+	$(function() {
+		updateVars();
+		window.setInterval(updateTimer, 1000);
+	});
+</script>{/block}

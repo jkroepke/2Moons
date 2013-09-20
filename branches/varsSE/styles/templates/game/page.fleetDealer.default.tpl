@@ -10,19 +10,27 @@
 			<td>
 				<div class="transparent" style="text-align:left;float:left;"><img id="img" alt="" data-src="{$dpath}gebaeude/"></div>
 				<div class="transparent" style="text-align:right;float:right;padding:5px">
-					<select name="shipID" id="shipID" onchange="updateVars()">
-						{foreach $shipIDs as $shipID}
-						<option value="{$shipID}">{$LNG.tech.$shipID}</option>
+					<select name="shipId" id="shipId" onchange="changeDetail()">
+						{foreach $elementsData as $elementId => $elementData}
+						<option value="{$elementId}">{$LNG.tech.$elementId}</option>
 						{/foreach}
 					</select>
 				</div>
-				<div style="clear:right;margin-top:20px;margin-left:125px;">
-					<h2 id="traderHead"></h2>
-					<p>{$LNG.ft_count}: <input type="text" id="count" name="count" onkeyup="Total();"><button onclick="MaxShips();return false;">{$LNG.ft_max}</button></p>
-					<p>{$LNG.tech.901}: <span id="metal" style="font-weight:800;"></span> &bull; {$LNG.tech.902}: <span id="crystal" style="font-weight:800;"></span> &bull; {$LNG.tech.903}: <span id="deuterium" style="font-weight:800;"></span> &bull; {$LNG.tech.921}: <span id="darkmatter" style="font-weight:800;"></span></p>
-					<p>{$LNG.ft_total}: {$LNG.tech.901}: <span id="total_metal" style="font-weight:800;"></span> &bull; {$LNG.tech.902}: <span id="total_crystal" style="font-weight:800;"></span> &bull; {$LNG.tech.903} <span id="total_deuterium" style="font-weight:800;"></span> &bull; {$LNG.tech.921}: <span id="total_darkmatter" style="font-weight:800;"></span></�>
+				<div>
+				{foreach $elementsData as $elementId => $elementData}
+				<div class="elementData" id="element{$elementId}" style="clear:right;margin-top:20px;margin-left:125px;">
+					<h2 id="traderHead">{$LNG.tech.$elementId}</h2>
+					<p><label for="count">{$LNG.ft_count}</label>: <input type="text" id="count" name="count" onkeyup="calcTotalResource();"><button onclick="MaxShips();return false;">{$LNG.ft_max}</button></p>
+					<p>{foreach $elementData.price as $resourceElementId => $resourceAmount}
+						{$LNG.tech.$resourceElementId}: <span style="font-weight:800;" class="resourceAmount resource{$resourceElementId}" data-id="{$resourceElementId}">{$resourceAmount}</span>{if !$resourceAmount@last} &bull;{/if}
+					{/foreach}</p>
+					<p>{$LNG.ft_total}: {foreach $elementData.price as $resourceElementId => $resourceAmount}
+						{$LNG.tech.$resourceElementId}: <span style="font-weight:800;" class="resourceTotal resource{$resourceElementId}" data-id="{$resourceElementId}">{$resourceAmount}</span>{if !$resourceAmount@last} &bull;{/if}
+					{/foreach}</p>
 					<p><input type="submit" value="{$LNG.ft_absenden}"></p>
 					<p>{$LNG.ft_charge}: {$Charge}%</p>
+				</div>
+				{/foreach}
 				</div>
 			</td>
 		</tr>
@@ -30,12 +38,12 @@
 </form>
 {/block}
 {block name="script" append}
-<script src="scripts/game/fleettrader.js"></script>
+<script src="scripts/game/fleetDealer.js"></script>
 <script>
-var CostInfo = {$CostInfos|json};
+var elementData = {$elementsData|json};
 var Charge = {$Charge};
-$(function(
-    updateVars();
-))
+$(function(){
+	changeDetail();
+})
 </script>
 {/block}

@@ -42,16 +42,25 @@ class template extends Smarty
 	}
 
 	private function smartySettings()
-	{	
-		$this->force_compile 			= false;
-		$this->caching 					= true; #Set true for production!
+	{
+        global $THEME;
+		$this->caching 					= true;
 		$this->merge_compiled_includes	= true;
 		$this->compile_check			= true; #Set false for production!
 		$this->php_handling				= Smarty::PHP_REMOVE;
+		
+		$this->setPluginsDir(array(
+			'includes/libs/Smarty/plugins/',
+			'includes/classes/smarty-plugins/',
+		));
 
 		$this->setCompileDir(is_writable(CACHE_PATH) ? CACHE_PATH : $this->getTempPath());
 		$this->setCacheDir($this->getCompileDir().'templates');
-		$this->setTemplateDir('styles/templates/');
+
+        $this->setTemplateDir(array(
+            $THEME->getTemplatePath().strtolower(MODE),
+            TEMPLATE_PATH.strtolower(MODE)
+        ));
 	}
 
 	private function getTempPath()
@@ -109,19 +118,9 @@ class template extends Smarty
 	
 	public function show($file)
 	{		
-		global $LNG, $THEME;
+		global $LNG;
 
-		if($THEME->isCustomTPL($file))
-		{
-			$this->setTemplateDir($THEME->getTemplatePath());
-		}
-
-		$tplDir	= $this->getTemplateDir();
-			
-		if(MODE === 'INSTALL') {
-			$this->setTemplateDir($tplDir[0].'install/');
-		} elseif(MODE === 'ADMIN') {
-			$this->setTemplateDir($tplDir[0].'adm/');
+		if(MODE === 'ADMIN') {
 			$this->adm_main();
 		}
 

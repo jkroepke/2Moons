@@ -37,15 +37,15 @@ class FleetUtil
         $consumption    = array();
         foreach(array_keys(Vars::getElements(NULL, array(Vars::FLAG_RESOURCE_PLANET, Vars::FLAG_RESOURCE_USER))) as $elementId)
         {
-            $consumption[$elementId]    = $elementObj->{'consumption'.$techLevel.$elementId};
+            $consumption[$elementId]    = $elementObj->consumption[$techLevel][$elementId];
         }
 
 		return $consumption;
 	}
 
-	private static function OnlyShipByID($Ships, $ShipID)
+	private static function OnlyShipByID($Ships, $elementId)
 	{
-		return isset($Ships[$ShipID]) && count($Ships) === 1;
+		return isset($Ships[$elementId]) && count($Ships) === 1;
 	}
 
 	public static function getShipTechLevel(Element $elementObj, $USER)
@@ -188,15 +188,15 @@ class FleetUtil
 		return min($shipSpeeds);
 	}
 
-	public static function GetFleetConsumption($FleetArray, $MissionDuration, $MissionDistance, $Player, $GameSpeed)
+	public static function GetFleetConsumption($fleetData, $MissionDuration, $MissionDistance, $USER, $GameSpeed)
 	{
 		$consumption = 0;
 
-		foreach ($FleetArray as $elementId => $Count)
+		foreach ($fleetData as $elementId => $Count)
 		{
             $elementObj         = Vars::getElement($elementId);
-			$ShipSpeed          = self::GetShipSpeed($elementObj, $Player);
-			$ShipConsumption    = self::GetShipConsumption($elementObj, $Player);
+			$ShipSpeed          = self::GetShipSpeed($elementObj, $USER);
+			$ShipConsumption    = self::GetShipConsumption($elementObj, $USER);
 			
 			$spd                = 35000 / (round($MissionDuration, 0) * $GameSpeed - 10) * sqrt($MissionDistance * 10 / $ShipSpeed);
 			$basicConsumption   = array_sum($ShipConsumption) * $Count;
@@ -408,14 +408,15 @@ class FleetUtil
 		return true;
 	}
 	
-	public static function GetFleetShipInfo($FleetArray, $Player)
+	public static function GetFleetShipInfo($fleetData, $USER)
 	{
 		$FleetInfo	= array();
-		foreach ($FleetArray as $ShipID => $Amount)
+		foreach ($fleetData as $elementId => $Amount)
         {
-			$FleetInfo[$ShipID]	= array(
-                'consumption'   => self::GetShipConsumption($ShipID, $Player),
-                'speed'         => self::GetFleetMaxSpeed($ShipID, $Player),
+
+			$FleetInfo[$elementId]	= array(
+                'consumption'   => self::GetShipConsumption(Vars::getElement($elementId), $USER),
+                'speed'         => self::GetFleetMaxSpeed($elementId, $USER),
                 'amount'        => floattostring($Amount)
             );
 		}
@@ -424,7 +425,7 @@ class FleetUtil
 
 	public static function calcStructurePoints(Element $elementObj)
 	{
-        $costResources  = BuildUtil::getElementPrice($elementObj, 1);
+        $costResources  = BuildUtil::getElementPrice($elementObj);
         $structure      = 0;
 
         foreach(array_keys(Vars::getElements(NULL, Vars::FLAG_CALC_FLEET_STRUCTURE)) as $elementId)
@@ -522,11 +523,11 @@ class FleetUtil
 		$planetQuery	= "";
         $fleetQuery	    = array();
 
-		foreach($fleetArray as $ShipID => $ShipCount) {
-			$fleetData[]	= $ShipID.','.floattostring($ShipCount);
-			$planetQuery[]	= $resource[$ShipID]." = ".$resource[$ShipID]." - :".$resource[$ShipID];
+		foreach($fleetArray as $elementId => $ShipCount) {
+			$fleetData[]	= $elementId.','.floattostring($ShipCount);
+			$planetQuery[]	= $resource[$elementId]." = ".$resource[$elementId]." - :".$resource[$elementId];
 
-			$params[':'.$resource[$ShipID]]	= floattostring($ShipCount);
+			$params[':'.$resource[$elementId]]	= floattostring($ShipCount);
 		}
 
 		$sql	= 'UPDATE %%PLANETS%% SET '.implode(', ', $planetQuery).' WHERE id = :planetId;';

@@ -282,6 +282,15 @@ div#disclamer {
 	cursor: pointer;
 }
 
+
+#fleetDealer .elementData {
+    display:none;
+}
+
+#fleetDealer .elementData:first-child {
+    display:block;
+}
+
 .trader_col {
 	margin:0 5px;
 	float:left;
@@ -405,6 +414,9 @@ table.tablesorter thead tr .headerSortUp {
 table.tablesorter thead tr .headerSortDown {
 	color:red;
 } 
+
+
+
 
 .defaultSkin table.mceLayout {
 	border-spacing: 0;

@@ -113,7 +113,8 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 
     Vars::init();
 
-	if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS)) {
+	if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS))
+    {
 		require 'includes/FleetHandler.php';
 	}
 	

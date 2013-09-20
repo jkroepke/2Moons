@@ -45,41 +45,58 @@ class ShowFleetStep1Page extends AbstractGamePage
 		$targetType 			= HTTP::_GP('type', (int) $PLANET['planet_type']);
 		
 		$mission				= HTTP::_GP('target_mission', 0);
-				
-		$Fleet		= array();
-		$FleetRoom	= 0;
+
+        $selectedShips          = HTTP::_GP('ship', array());
+
+		$fleetData		        = array();
+
+
 		foreach (Vars::getElements(Vars::CLASS_FLEET) as $elementId => $elementObj)
 		{
-			$amount		 				= max(0, round(HTTP::_GP('ship'.$ShipID, 0.0, 0)));
-			
-			if ($amount < 1 || $ShipID == 212) continue;
+            if(!isset($selectedShips[$elementId]) || $selectedShips[$elementId] <= 0) continue;
 
-			$Fleet[$ShipID]				= $amount;
-			$FleetRoom			   	   += $pricelist[$ShipID]['capacity'] * $amount;
+			$amount		 				= round($selectedShips[$elementId], 0);
+
+            if(FleetUtil::GetFleetMaxSpeed($elementId, $USER) == 0) continue;
+
+            $fleetData[$elementId]      = $amount;
 		}
+
+        $fleetRoom  = FleetUtil::GetFleetRoom($fleetData);
 		
-		$FleetRoom	*= 1 + $USER['factor']['ShipStorage'];
-		
-		if (empty($Fleet))
-			FleetUtil::GotoFleetPage();
+		if (empty($fleetData))
+        {
+            $this->redirectTo('game.php?page=fleetTable');
+        }
 	
-		$FleetData	= array(
-			'fleetroom'			=> floattostring($FleetRoom),
+		$missionData	= array(
+			'fleetroom'			=> floattostring($fleetRoom),
 			'gamespeed'			=> FleetUtil::GetGameSpeedFactor(),
-			'fleetspeedfactor'	=> max(0, 1 + $USER['factor']['FlyTime']),
+			'fleetspeedfactor'	=> max(0, PlayerUtil::getBonusValue(1, 'FlyTime', $USER)),
 			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
-			'maxspeed'			=> FleetUtil::GetFleetMaxSpeed($Fleet, $USER),
-			'ships'				=> FleetUtil::GetFleetShipInfo($Fleet, $USER),
+			'maxspeed'			=> FleetUtil::GetFleetMaxSpeed($fleetData, $USER),
+			'ships'				=> FleetUtil::GetFleetShipInfo($fleetData, $USER),
 			'fleetMinDuration'	=> MIN_FLEET_TIME,
 		);
-		
-		$token		= getRandomString();
-		
-		$_SESSION['fleet'][$token]	= array(
-			'time'		=> TIMESTAMP,
-			'fleet'		=> $Fleet,
-			'fleetRoom'	=> $FleetRoom,
+
+        $session    = Session::load();
+
+        // See: https://bugs.php.net/bug.php?id=42030
+        $sessionData    = $session->fleet;
+        if(empty($sessionData))
+        {
+            $sessionData  = array();
+        }
+
+        $token		= getRandomString();
+        $sessionData[$token]	= array(
+			'time'		    => TIMESTAMP,
+			'fleetData'		=> $fleetData,
+			'fleetRoom'	    => $fleetRoom,
 		);
+
+        $session->fleet =  $sessionData;
+        $session->save();
 
 		$shortcutList	= $this->GetUserShotcut();
 		$colonyList 	= $this->GetColonyList();
@@ -90,9 +107,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 		} else {
 			$shortcutAmount	= 0;
 		}
-		
-		$this->tplObj->loadscript('flotten.js');
-		$this->tplObj->execscript('updateVars();FleetTime();window.setInterval("FleetTime()", 1000);');
+
 		$this->assign(array(
 			'token'			=> $token,
 			'mission'		=> $mission,
@@ -106,7 +121,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 			'type'			=> $targetType,
 			'speedSelect'	=> FleetUtil::$allowedSpeed,
 			'typeSelect'   	=> array(1 => $LNG['type_planet'][1], 2 => $LNG['type_planet'][2], 3 => $LNG['type_planet'][3]),
-			'fleetdata'		=> $FleetData,
+			'fleetdata'		=> $missionData,
 		));
 		
 		$this->display('page.fleetStep1.default.tpl');
@@ -172,17 +187,17 @@ class ShowFleetStep1Page extends AbstractGamePage
 		
 		$ColonyList	= array();
 		
-		foreach($USER['PLANETS'] as $CurPlanetID => $CurPlanet)
+		foreach($USER['PLANETS'] as $planet)
 		{
-			if ($PLANET['id'] == $CurPlanet['id'])
+			if ($PLANET['id'] == $planet['id'])
 				continue;
 			
 			$ColonyList[] = array(
-				'name'		=> $CurPlanet['name'],
-				'galaxy'	=> $CurPlanet['galaxy'],
-				'system'	=> $CurPlanet['system'],
-				'planet'	=> $CurPlanet['planet'],
-				'type'		=> $CurPlanet['planet_type'],
+				'name'		=> $planet['name'],
+				'galaxy'	=> $planet['galaxy'],
+				'system'	=> $planet['system'],
+				'planet'	=> $planet['planet'],
+				'type'		=> $planet['planet_type'],
 			);	
 		}
 			
@@ -315,7 +330,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 		}
 		else
 		{
-			if ($USER[$resource[124]] == 0)
+			if ($USER[Vars::getElement(124)->name] == 0)
 			{
 				$this->sendJSON($LNG['fl_target_not_exists']);
 			}

@@ -90,7 +90,7 @@ class BuildUtil
 		return $overflow;
 	}
 	
-	public static function getElementPrice(Element $elementObj, $elementLevel, $forDestroy = false)
+	public static function getElementPrice(Element $elementObj, $elementLevel = 1, $forDestroy = false)
     {
 		$price	= array();
 		foreach(Vars::getElements(Vars::CLASS_RESOURCE) as $resourceElementId => $resourceElementObj)
@@ -127,7 +127,7 @@ class BuildUtil
 		{
             $requireElementObj = Vars::getElement($requireElementId);
 
-            if(Vars::isUserResource($requireElementObj))
+            if($requireElementObj->isUserResource())
             {
                 if ($USER[$requireElementObj->name] < $requireElementLevel) return false;
             }
