@@ -60,7 +60,7 @@ function ShowRightsPage()
 					$Rights['rights']	= array();
 				}
 				
-				$Files	= array_map('prepare', array_diff(scandir('includes/pages/adm/'), array('.', '..', '.svn', 'index.html', '.htaccess', 'ShowIndexPage.php', 'ShowOverviewPage.php', 'ShowMenuPage.php', 'ShowTopnavPage.php')));
+				$Files	= array_map('prepare', array_diff(scandir('includes/pages/admin/'), array('.', '..', '.svn', 'index.html', '.htaccess', 'ShowIndexPage.php', 'ShowOverviewPage.php', 'ShowMenuPage.php', 'ShowTopnavPage.php')));
 				
 				$template->assign_vars(array(	
 					'Files'						=> $Files, 
@@ -76,7 +76,7 @@ function ShowRightsPage()
 				exit;
 			}
 							
-			if ($_GET['get'] == 'adm')
+			if ($_GET['get'] == 'admin')
 				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_ADM."'";
 			elseif ($_GET['get'] == 'ope')
 				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_OPS."'";
@@ -135,7 +135,7 @@ function ShowRightsPage()
 				exit;
 			}
 							
-			if ($_GET['get'] == 'adm')
+			if ($_GET['get'] == 'admin')
 				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_ADM."'";
 			elseif ($_GET['get'] == 'ope')
 				$WHEREUSERS	=	"AND `authlevel` = '".AUTH_OPS."'";

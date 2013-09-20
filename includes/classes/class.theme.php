@@ -50,6 +50,7 @@ class Theme
 		$this->skin		= $Theme;
 		$this->parseStyleCFG();
 		$this->setStyleSettings();
+        return true;
 	}
 		
 	function getTheme() {
@@ -61,7 +62,7 @@ class Theme
 	}
 	
 	function getTemplatePath() {
-		return ROOT_PATH.'/styles/templates/'.$this->skin.'/';
+		return ROOT_PATH.$this->getTheme().'templates/';
 	}
 		
 	function isCustomTPL($tpl) {

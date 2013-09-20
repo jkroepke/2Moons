@@ -65,8 +65,6 @@ abstract class AbstractIndexPage
 			return true;
 			
 		$this->tplObj	= new template;
-		list($tplDir)	= $this->tplObj->getTemplateDir();
-		$this->tplObj->setTemplateDir($tplDir.'login/');
 		return true;
 	}
 	

@@ -36,5 +36,5 @@ function ShowIndexPage()
 		'adm_cp_title'	=> $LNG['adm_cp_title'],
 	));
 	
-	$template->display('adm/ShowIndexPage.tpl');
+	$template->display('ShowIndexPage.tpl');
 }
