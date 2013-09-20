@@ -63,6 +63,8 @@ if(!defined('CACHE_PATH')) {
 	define('CACHE_PATH', ROOT_PATH.'cache/');
 }
 
+define('TEMPLATE_PATH', ROOT_PATH.'styles/templates/');
+
 define('COMBAT_ENGINE'				, 'xnova');
 
 // For Fatal Errors!
