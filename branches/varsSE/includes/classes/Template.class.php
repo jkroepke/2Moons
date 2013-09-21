@@ -132,16 +132,15 @@ class template extends Smarty
 		$this->assign_vars(array(
 			'LNG'			=> $LNG,
 		), false);
+
 		
-		$this->compile_id	= $LNG->getLanguage();
-		
-		parent::display($file);
+		$this->display($file);
 	}
-	
+
 	public function display($file)
 	{
-		global $LNG;
-		$this->compile_id	= $LNG->getLanguage();
+		global $LNG, $THEME;
+		$this->compile_id	= $LNG->getLanguage().'_'.$THEME->getThemeName();
 		parent::display($file);
 	}
 	
