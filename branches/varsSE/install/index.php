@@ -408,13 +408,18 @@ switch ($mode) {
 					$template->show('ins_step4.tpl');
 					exit;
 				}
-				if (is_file(ROOT_PATH . "includes/config.php") && filesize(ROOT_PATH . "includes/config.php") != 0) {
+
+				if (is_file(ROOT_PATH . "includes/config.php") && filesize(ROOT_PATH . "includes/config.php") != 0)
+				{
 					$template->assign(array(
-										   'class'   => 'fatalerror',
-										   'message' => $LNG['step2_config_exists'],));
+						'class'   => 'fatalerror',
+						'message' => $LNG['step2_config_exists'],
+					));
+
 					$template->show('ins_step4.tpl');
 					exit;
 				}
+
 				@touch(ROOT_PATH . "includes/config.php");
 				if (!is_writable(ROOT_PATH . "includes/config.php")) {
 					$template->assign(array(

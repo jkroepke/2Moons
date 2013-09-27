@@ -50,7 +50,6 @@ class ShowFleetStep1Page extends AbstractGamePage
 
 		$fleetData		        = array();
 
-
 		foreach (Vars::getElements(Vars::CLASS_FLEET) as $elementId => $elementObj)
 		{
             if(!isset($selectedShips[$elementId]) || $selectedShips[$elementId] <= 0) continue;
@@ -68,27 +67,27 @@ class ShowFleetStep1Page extends AbstractGamePage
         {
             $this->redirectTo('game.php?page=fleetTable');
         }
-	
+
 		$missionData	= array(
-			'fleetroom'			=> floattostring($fleetRoom),
-			'gamespeed'			=> FleetUtil::GetGameSpeedFactor(),
-			'fleetspeedfactor'	=> max(0, PlayerUtil::getBonusValue(1, 'FlyTime', $USER)),
-			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
-			'maxspeed'			=> FleetUtil::GetFleetMaxSpeed($fleetData, $USER),
-			'ships'				=> FleetUtil::GetFleetShipInfo($fleetData, $USER),
-			'fleetMinDuration'	=> MIN_FLEET_TIME,
+			'fleetRoom'	=> floattostring($fleetRoom),
+			'data'		=> $this->_calculateCost($fleetData, array(
+				'galaxy' 	=> $PLANET['galaxy'],
+				'system' 	=> $PLANET['system'],
+				'planet' 	=> $PLANET['planet'],
+				'type' 		=> $PLANET['planet_type']
+			), 100)
 		);
 
         $session    = Session::load();
 
         // See: https://bugs.php.net/bug.php?id=42030
         $sessionData    = $session->fleet;
-        if(empty($sessionData))
+        if (empty($sessionData))
         {
             $sessionData  = array();
         }
 
-        $token		= getRandomString();
+        $token	= getRandomString();
         $sessionData[$token]	= array(
 			'time'		    => TIMESTAMP,
 			'fleetData'		=> $fleetData,
@@ -98,30 +97,20 @@ class ShowFleetStep1Page extends AbstractGamePage
         $session->fleet =  $sessionData;
         $session->save();
 
-		$shortcutList	= $this->GetUserShotcut();
-		$colonyList 	= $this->GetColonyList();
-		$ACSList 		= $this->GetAvalibleACS();
-		
-		if(!empty($shortcutList)) {
-			$shortcutAmount	= max(array_keys($shortcutList));
-		} else {
-			$shortcutAmount	= 0;
-		}
+		$shortcutList	= $this->getUserShortcuts();
+		$shortcutAmount	= count($shortcutList);
 
 		$this->assign(array(
-			'token'			=> $token,
-			'mission'		=> $mission,
-			'shortcutList'	=> $shortcutList,
-			'shortcutMax'	=> $shortcutAmount,
-			'colonyList' 	=> $colonyList,
-			'ACSList' 		=> $ACSList,
-			'galaxy' 		=> $targetGalaxy,
-			'system' 		=> $targetSystem,
-			'planet' 		=> $targetPlanet,
-			'type'			=> $targetType,
-			'speedSelect'	=> FleetUtil::$allowedSpeed,
-			'typeSelect'   	=> array(1 => $LNG['type_planet'][1], 2 => $LNG['type_planet'][2], 3 => $LNG['type_planet'][3]),
-			'fleetdata'		=> $missionData,
+			'token'				=> $token,
+			'mission'			=> $mission,
+			'shortcutList'		=> $shortcutList,
+			'shortcutMax'		=> $shortcutAmount,
+			'colonyList' 		=> $this->getColonyList(),
+			'fleetGroupList' 	=> $this->getAvailableFleetGroups(),
+			'target' 			=> array('galaxy' => $targetGalaxy, 'system' => $targetSystem, 'planet' => $targetPlanet, 'type' => $targetType),
+			'speedSelect'		=> FleetUtil::$allowedSpeed,
+			'typeSelect'   		=> ArrayUtil::filterArrayWithKeys($LNG['type_planet'], array(1, 2, 3)),
+			'missionData'		=> $missionData,
 		));
 		
 		$this->display('page.fleetStep1.default.tpl');
@@ -138,40 +127,47 @@ class ShowFleetStep1Page extends AbstractGamePage
         $db = Database::get();
 
 		$ShortcutData	= $_REQUEST['shortcut'];
-		$ShortcutUser	= $this->GetUserShotcut();
+		$ShortcutUser	= $this->getUserShortcuts();
+
 		foreach($ShortcutData as $ID => $planetData) {
-			if(!isset($ShortcutUser[$ID])) {
+			if(!isset($ShortcutUser[$ID]))
+			{
 				if(empty($planetData['name']) || empty($planetData['galaxy']) || empty($planetData['system']) || empty($planetData['planet'])) {
 					continue;
 				}
 
-                $sql = "INSERT INTO %%SHORTCUTS%% SET ownerID = :userID, name = :name, galaxy = :galaxy, system = :system, planet = :planet, type = :type;";
+                $sql = "INSERT INTO %%SHORTCUTS%% SET ownerID = :userId, name = :name, galaxy = :galaxy, system = :system, planet = :planet, type = :type;";
                 $db->insert($sql, array(
-                    ':userID'   => $USER['id'],
+                    ':userId'   => $USER['id'],
                     ':name'     => $planetData['name'],
                     ':galaxy'   => $planetData['galaxy'],
                     ':system'   => $planetData['system'],
                     ':planet'   => $planetData['planet'],
                     ':type'     => $planetData['type']
                 ));
-			} elseif(empty($planetData['name'])) {
-				$sql = "DELETE FROM %%SHORTCUTS%% WHERE shortcutID = :shortcutID AND ownerID = :userID;";
+			}
+			elseif(empty($planetData['name']))
+			{
+				$sql = "DELETE FROM %%SHORTCUTS%% WHERE shortcutID = :shortcutID AND ownerID = :userId;";
                 $db->delete($sql, array(
                     ':shortcutID'   => $ID,
-                    ':userID'       => $USER['id']
+                    ':userId'       => $USER['id']
                 ));
-            } else {
+            }
+			else
+			{
 				$planetData['ownerID']		= $USER['id'];
-				$planetData['shortcutID']		= $ID;
-				if($planetData != $ShortcutUser[$ID]) {
-                    $sql = "UPDATE %%SHORTCUTS%% SET name = :name, galaxy = :galaxy, system = :system, planet = :planet, type = :type WHERE shortcutID = :shortcutID AND ownerID = :userID;";
+				$planetData['shortcutID']	= $ID;
+				if($planetData != $ShortcutUser[$ID])
+				{
+                    $sql = "UPDATE %%SHORTCUTS%% SET name = :name, galaxy = :galaxy, system = :system, planet = :planet, type = :type WHERE shortcutID = :shortcutID AND ownerID = :userId;";
                     $db->update($sql, array(
-                        ':userID'   => $USER['id'],
-                        ':name'     => $planetData['name'],
-                        ':galaxy'   => $planetData['galaxy'],
-                        ':system'   => $planetData['system'],
-                        ':planet'   => $planetData['planet'],
-                        ':type'     => $planetData['type'],
+                        ':userId'  		=> $USER['id'],
+                        ':name'     	=> $planetData['name'],
+                        ':galaxy'   	=> $planetData['galaxy'],
+                        ':system'   	=> $planetData['system'],
+                        ':planet'   	=> $planetData['planet'],
+                        ':type'     	=> $planetData['type'],
                         ':shortcutID'   => $ID
                     ));
                 }
@@ -181,7 +177,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 		$this->sendJSON($LNG['fl_shortcut_saved']);
 	}
 	
-	private function GetColonyList()
+	private function getColonyList()
 	{
 		global $PLANET, $USER;
 		
@@ -204,7 +200,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 		return $ColonyList;
 	}
 	
-	private function GetUserShotcut()
+	private function getUserShortcuts()
 	{
 		global $USER;
 		
@@ -213,9 +209,9 @@ class ShowFleetStep1Page extends AbstractGamePage
 
         $db = Database::get();
 
-        $sql = "SELECT * FROM %%SHORTCUTS%% WHERE ownerID = :userID;";
+        $sql = "SELECT * FROM %%SHORTCUTS%% WHERE ownerID = :userId;";
         $ShortcutResult = $db->select($sql, array(
-            ':userID'   => $USER['id']
+            ':userId'   => $USER['id']
         ));
 
         $ShortcutList	= array();
@@ -227,29 +223,24 @@ class ShowFleetStep1Page extends AbstractGamePage
 		return $ShortcutList;
 	}
 	
-	private function GetAvalibleACS()
+	private function getAvailableFleetGroups()
 	{
 		global $USER;
 		
 		$db = Database::get();
 
-        $sql = "SELECT acs.id, acs.name, planet.galaxy, planet.system, planet.planet, planet.planet_type
+        $sql = "SELECT acs.id, acs.name, planet.galaxy, planet.system, planet.planet, planet.planet_type as type
 		FROM %%USERS_ACS%%
 		INNER JOIN %%AKS%% acs ON acsID = acs.id
 		INNER JOIN %%PLANETS%% planet ON planet.id = acs.target
-		WHERE userID = :userID AND :maxFleets > (SELECT COUNT(*) FROM %%FLEETS%% WHERE fleet_group = acsID);";
-        $ACSResult = $db->select($sql, array(
-            ':userID'       => $USER['id'],
+		WHERE userID = :userId AND :maxFleets > (SELECT COUNT(*) FROM %%FLEETS%% WHERE fleet_group = acsID);";
+
+		$fleetGroupList = $db->select($sql, array(
+            ':userId'       => $USER['id'],
             ':maxFleets'    => Config::get()->max_fleets_per_acs,
         ));
-
-        $ACSList	= array();
 		
-		foreach ($ACSResult as $ACSRow) {
-			$ACSList[]	= $ACSRow;
-		}
-		
-		return $ACSList;
+		return $fleetGroupList;
 	}
 	
 	function checkTarget()
@@ -308,18 +299,18 @@ class ShowFleetStep1Page extends AbstractGamePage
 				$this->sendJSON($LNG['fl_error_not_avalible']);
 			}
 
-			if($targetPlanetType == 2 && $planetData['der_metal'] == 0 && $planetData['der_crystal'] == 0)
+			if ($targetPlanetType == 2 && $planetData['der_metal'] == 0 && $planetData['der_crystal'] == 0)
 			{
 				$this->sendJSON($LNG['fl_error_empty_derbis']);
 			}
 
 			$sql	= 'SELECT (
-				(SELECT COUNT(*) FROM %%MULTI%% WHERE userID = :userID) +
-				(SELECT COUNT(*) FROM %%MULTI%% WHERE userID = :dataID)
+				(SELECT COUNT(*) FROM %%MULTI%% WHERE userId = :userId) +
+				(SELECT COUNT(*) FROM %%MULTI%% WHERE userId = :dataID)
 			) as count;';
 
 			$multiCount	= $db->selectSingle($sql ,array(
-				':userID' => $USER['id'],
+				':userId' => $USER['id'],
 				':dataID' => $planetData['id']
 			), 'count');
 
@@ -344,5 +335,32 @@ class ShowFleetStep1Page extends AbstractGamePage
 		}
 
 		$this->sendJSON('OK');	
+	}
+
+	private function _calculateCost($fleetData, $planetPosition, $fleetSpeed)
+	{
+		global $USER, $PLANET;
+
+		$distance   	= FleetUtil::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array_values($planetPosition));
+		$fleetMaxSpeed 	= FleetUtil::GetFleetMaxSpeed($fleetData, $USER);
+		$SpeedFactor    = FleetUtil::GetGameSpeedFactor();
+		$duration      	= FleetUtil::GetMissionDuration($fleetSpeed, $fleetMaxSpeed, $distance, $SpeedFactor, $USER);
+		$consumption   	= FleetUtil::GetFleetConsumption($fleetData, $duration, $distance, $USER, $SpeedFactor);
+		return array(
+			'distance'			=> $distance,
+			'fleetMaxSpeed'		=> $fleetMaxSpeed * $fleetSpeed / 100,
+			'flyTime'			=> $duration,
+			'consumption'		=> array_filter($consumption),
+			'consumptionTotal'	=> array_sum($consumption)
+		);
+	}
+
+	public function getMissionData()
+	{
+		$planetPosition	= HTTP::_GP('planetPosition', array());
+		$fleetSpeed		= HTTP::_GP('fleetSpeed', 0);
+		$token			= HTTP::_GP('token', '');
+
+		$this->sendJSON($this->_calculateCost(Session::load()->fleet[$token]['fleetData'], $planetPosition, $fleetSpeed));
 	}
 }

@@ -28,7 +28,7 @@
 
 class FleetUtil
 {
-	static $allowedSpeed	= array(10 => 100, 9 => 90, 8 => 80, 7 => 70, 6 => 60, 5 => 50, 4 => 40, 3 => 30, 2 => 20, 1 => 10);
+	static $allowedSpeed	= array(100, 90, 80, 70, 60, 50, 40, 30, 20, 10);
 	
 	private static function GetShipConsumption(Element $elementObj, $USER)
 	{
@@ -116,9 +116,9 @@ class FleetUtil
 		return max(($USER[Vars::getElement(117)->name] * 5) - 1, 0);
 	}
 	
-	public static function CheckUserSpeed($speed)
+	public static function isValidCustomFleetSpeed($speed)
 	{
-		return isset(self::$allowedSpeed[$speed]);
+		return in_array($speed, self::$allowedSpeed);
 	}
 
 	public static function GetTargetDistance($start, $target)
@@ -137,16 +137,14 @@ class FleetUtil
 
 	public static function GetMissionDuration($SpeedFactor, $MaxFleetSpeed, $Distance, $GameSpeed, $USER)
 	{
-		$SpeedFactor	= (3500 / ($SpeedFactor * 0.1));
-		$SpeedFactor	*= pow($Distance * 10 / $MaxFleetSpeed, 0.5);
-		$SpeedFactor	+= 10;
-		$SpeedFactor	/= $GameSpeed;
-        $SpeedFactor	+= PlayerUtil::getBonusValue($SpeedFactor, 'FlyTime', $USER);
-		
-		return max(min($SpeedFactor, 0), MIN_FLEET_TIME);
+		$duration	= (3500 / ($SpeedFactor / 100)) * pow($Distance * 10 / $MaxFleetSpeed, 0.5) + 10;
+		$duration	/= $GameSpeed;
+		$duration	+= PlayerUtil::getBonusValue($SpeedFactor, 'FlyTime', $USER);
+
+		return max(round($duration), MIN_FLEET_TIME);
 	}
  
-	public static function GetMIPDuration($startSystem, $targetSystem)
+	public static function getMissileDuration($startSystem, $targetSystem)
 	{
 		$Distance = abs($startSystem - $targetSystem);
 		$Duration = max(round((30 + 60 * $Distance) / self::GetGameSpeedFactor()), MIN_FLEET_TIME);
@@ -190,19 +188,24 @@ class FleetUtil
 
 	public static function GetFleetConsumption($fleetData, $MissionDuration, $MissionDistance, $USER, $GameSpeed)
 	{
-		$consumption = 0;
+		$elementResourceIds	= array_keys(Vars::getElements(Vars::CLASS_RESOURCE, array(Vars::FLAG_RESOURCE_PLANET, Vars::FLAG_RESOURCE_USER)));
+		$missionConsumption = ArrayUtil::combineArrayWithSingleElement($elementResourceIds, 0);
 
-		foreach ($fleetData as $elementId => $Count)
+		foreach ($fleetData as $elementId => $shipAmount)
 		{
             $elementObj         = Vars::getElement($elementId);
-			$ShipSpeed          = self::GetShipSpeed($elementObj, $USER);
-			$ShipConsumption    = self::GetShipConsumption($elementObj, $USER);
-			
-			$spd                = 35000 / (round($MissionDuration, 0) * $GameSpeed - 10) * sqrt($MissionDistance * 10 / $ShipSpeed);
-			$basicConsumption   = array_sum($ShipConsumption) * $Count;
-			$consumption        += $basicConsumption * $MissionDistance / 35000 * (($spd / 10) + 1) * (($spd / 10) + 1);
+			$shipSpeed          = self::GetShipSpeed($elementObj, $USER);
+			$shipConsumption    = self::GetShipConsumption($elementObj, $USER);
+
+			$basicValue			= 35000 / (round($MissionDuration, 0) * $GameSpeed - 10) * sqrt($MissionDistance * 10 / $shipSpeed);
+
+			foreach($shipConsumption as $elementResourceId => $consumption)
+			{
+				$missionConsumption[$elementResourceId]	+= round($consumption * $shipAmount * $MissionDistance / 35000 * pow($basicValue / 10 + 1, 2));
+			}
 		}
-		return (round($consumption) + 1);
+
+		return $missionConsumption;
 	}
 
 	public static function GetFleetMissions($USER, $MisInfo, $Planet)
@@ -212,7 +215,8 @@ class FleetUtil
 
 		$haltSpeed	= Config::get($USER['universe'])->halt_speed;
 
-		if (in_array(15, $Missions)) {
+		if (in_array(15, $Missions))
+		{
 			for($i = 1;$i <= $USER[Vars::getElement(124)->name];$i++)
 			{
 				$stayBlock[$i]	= round($i / $haltSpeed, 2);

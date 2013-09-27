@@ -2,8 +2,8 @@
 {block name="content"}
 <form action="game.php?page=fleetStep2" method="post" onsubmit="return CheckTarget()" id="form">
 	<input type="hidden" name="token" value="{$token}">
-	<input type="hidden" name="fleet_group" value="0">
-	<input type="hidden" name="target_mission" value="{$mission}">
+	<input type="hidden" name="fleetGroup" value="0">
+	<input type="hidden" name="targetMission" value="{$mission}">
 	<table class="table519" style="table-layout: fixed;">
 		<tr style="height:20px;">
 			<th colspan="2">{$LNG.fl_send_fleet}</th>
@@ -11,42 +11,38 @@
 		<tr style="height:20px;">
 			<td style="width:50%">{$LNG.fl_destiny}</td>
 			<td>
-				<input type="text" id="galaxy" name="galaxy" size="3" maxlength="2" onkeyup="updateVars()" value="{$galaxy}">
-				<input type="text" id="system" name="system" size="3" maxlength="3" onkeyup="updateVars()" value="{$system}">
-				<input type="text" id="planet" name="planet" size="3" maxlength="2" onkeyup="updateVars()" value="{$planet}">
-				<select id="type" name="type" onchange="updateVars()">
-					{html_options options=$typeSelect selected=$type}
-				</select>
+				<input class="updateOnChange" type="text" id="targetGalaxy" name="targetGalaxy" size="3" maxlength="2" value="{$target.galaxy}">
+				<input class="updateOnChange" type="text" id="targetSystem" name="targetSystem" size="3" maxlength="3" value="{$target.system}">
+				<input class="updateOnChange" type="text" id="targetPlanet" name="targetPlanet" size="3" maxlength="2" value="{$target.planet}">
+				{html_options options=$typeSelect selected=$target.type id="targetType" name="targetType" class="updateOnChange"}
 			</td>
 		</tr>
 		<tr style="height:20px;">
 			<td>{$LNG.fl_fleet_speed}</td>
-			<td>
-				<select id="speed" name="speed" onChange="updateVars()">
-					{html_options options=$speedSelect}
-				</select> %
-			</td>
+			<td>{html_options values=$speedSelect output=$speedSelect id=fleetSpeed name=fleetSpeed class=updateOnChange}%</td>
 		</tr>
 		<tr style="height:20px;">
 			<td>{$LNG.fl_distance}</td>
 			<td id="distance">-</td>
 		</tr>
 		<tr style="height:20px;">
-			<td>{$LNG.fl_flying_time}</th>
+			<td>{$LNG.fl_flying_time}</td>
 			<td id="duration">-</td>
 		</tr>
 		<tr style="height:20px;">
-			<td>{$LNG.fl_flying_arrival}</th>
+			<td>{$LNG.fl_flying_arrival}</td>
 			<td id="arrival">-</td>
 		</tr>
 		<tr style="height:20px;">
-			<td>{$LNG.fl_flying_return}</th>
+			<td>{$LNG.fl_flying_return}</td>
 			<td id="return">-</td>
 		</tr>
-		<tr style="height:20px;">
-			<td>{$LNG.fl_fuel_consumption}</td>
-			<td id="consumption">-</td>
-		</tr>
+		{foreach $missionData.data.consumption as $elementConsumptionId => $amount}
+			<tr style="height:20px;">
+				<td>{$LNG.fl_fuel_consumption} - {$LNG.tech.$elementConsumptionId}</td>
+				<td id="consumption_{$elementConsumptionId}">{$amount}</td>
+			</tr>
+		{/foreach}
 		<tr style="height:20px;">
 			<td>{$LNG.fl_max_speed}</td>
 			<td id="maxspeed">-</td>
@@ -65,7 +61,7 @@
 			{if ($shortcutRow@iteration % $themeSettings.SHORTCUT_ROWS_ON_FLEET1) === 1}<tr style="height:20px;" class="shortcut-row">{/if}			
 			<td style="width:{100 / $themeSettings.SHORTCUT_ROWS_ON_FLEET1}%" class="shortcut-colum shortcut-isset">
 				<div class="shortcut-link">
-					<a href="javascript:setTarget({$shortcutRow.galaxy},{$shortcutRow.system},{$shortcutRow.planet},{$shortcutRow.type});updateVars();">{$shortcutRow.name}{if $shortcutRow.type == 1}{$LNG.fl_planet_shortcut}{elseif $shortcutRow.type == 2}{$LNG.fl_debris_shortcut}{elseif $shortcutRow.type == 3}{$LNG.fl_moon_shortcut}{/if} [{$shortcutRow.galaxy}:{$shortcutRow.system}:{$shortcutRow.planet}]</a>
+					<a href="#" class="setTarget" data-galaxy="{$shortcutRow.galaxy}" data-system="{$shortcutRow.system}" data-planet="{$shortcutRow.planet}" data-type="{$shortcutRow.type}">{$shortcutRow.name}{if $shortcutRow.type == 1}{$LNG.fl_planet_shortcut}{elseif $shortcutRow.type == 2}{$LNG.fl_debris_shortcut}{elseif $shortcutRow.type == 3}{$LNG.fl_moon_shortcut}{/if} [{$shortcutRow.galaxy}:{$shortcutRow.system}:{$shortcutRow.planet}]</a>
 				</div>
 				<div class="shortcut-edit">
 					<input type="text" class="shortcut-input" name="shortcut[{$shortcutID}][name]" value="{$shortcutRow.name}">
@@ -121,7 +117,7 @@
 		{foreach $colonyList as $ColonyRow}
 		{if ($ColonyRow@iteration % $themeSettings.COLONY_ROWS_ON_FLEET1) === 1}<tr style="height:20px;">{/if}
 		<td>
-			<a href="javascript:setTarget({$ColonyRow.galaxy},{$ColonyRow.system},{$ColonyRow.planet},{$ColonyRow.type});updateVars();">{$ColonyRow.name}{if $ColonyRow.type == 3}{$LNG.fl_moon_shortcut}{/if} [{$ColonyRow.galaxy}:{$ColonyRow.system}:{$ColonyRow.planet}]</a>
+			<a href="#" class="setTarget" data-galaxy="{$ColonyRow.galaxy}" data-system="{$ColonyRow.system}" data-planet="{$ColonyRow.planet}" data-type="{$ColonyRow.type}">{$ColonyRow.name}{if $ColonyRow.type == 3}{$LNG.fl_moon_shortcut}{/if} [{$ColonyRow.galaxy}:{$ColonyRow.system}:{$ColonyRow.planet}]</a>
 		</td>
 		{if $ColonyRow@last && ($ColonyRow@iteration % $themeSettings.COLONY_ROWS_ON_FLEET1) !== 0}
 		{$to = $themeSettings.COLONY_ROWS_ON_FLEET1 - ($ColonyRow@iteration % $themeSettings.COLONY_ROWS_ON_FLEET1)}
@@ -134,15 +130,15 @@
 		</tr>
 		{/foreach}	
 	</table>
-	{if $ACSList}
+	{if $fleetGroupList}
 	<table class="table519" style="table-layout: fixed;">
 		<tr style="height:20px;">
 			<th colspan="{$themeSettings.COLONY_ROWS_ON_FLEET1}">{$LNG.fl_acs_title}</th>
 		</tr>
-		{foreach $ACSList as $ACSRow}
+		{foreach $fleetGroupList as $ACSRow}
 		{if ($ACSRow@iteration % $themeSettings.ACS_ROWS_ON_FLEET1) === 1}<tr style="height:20px;">{/if}
 		<tr style="height:20px;">
-			<td><a href="javascript:setACSTarget({$ACSRow.galaxy},{$ACSRow.system},{$ACSRow.planet},{$ACSRow.planet_type},{$ACSRow.id});">{$ACSRow.name} - [{$ACSRow.galaxy}:{$ACSRow.system}:{$ACSRow.planet}]</a></td>
+			<td><a href="#" class="setTarget setFleetGroup" data-galaxy="{$ACSRow.galaxy}" data-system="{$ACSRow.system}" data-planet="{$ACSRow.planet}" data-type="{$ACSRow.type}" data-fleet-group="{$ACSRow.id}">{$ACSRow.name}{if $ACSRow.type == 3}{$LNG.fl_moon_shortcut}{/if}  - [{$ACSRow.galaxy}:{$ACSRow.system}:{$ACSRow.planet}]</a></td>
 		</tr>
 		{if $ACSRow@last && ($ACSRow@iteration % $themeSettings.ACS_ROWS_ON_FLEET1) !== 0}
 		{$to = $themeSettings.ACS_ROWS_ON_FLEET1 - ($ACSRow@iteration % $themeSettings.ACS_ROWS_ON_FLEET1)}
@@ -160,13 +156,17 @@
 </form>
 {/block}
 {block name="script" append}
-<script src="scripts/game/flotten.js"></script>
+<script src="scripts/game/fleet.js"></script>
 <script type="text/javascript">
-	data			= {$fleetdata|json};
-	shortCutRows	= {$themeSettings.SHORTCUT_ROWS_ON_FLEET1};
-	fl_no_shortcuts	= '{$LNG.fl_no_shortcuts}';
-	$(function() {
-		updateVars();
-		window.setInterval(updateTimer, 1000);
-	});
+var missionData		= {$missionData|json};
+var shortCutRows	= {$themeSettings.SHORTCUT_ROWS_ON_FLEET1};
+var fl_no_shortcuts	= '{$LNG.fl_no_shortcuts}';
+var endDateInterval	= 0;
+
+$(function() {
+	updateScreen();
+	$('.updateOnChange').live('change', updateData);
+	$('.setTarget').live('click', setTarget);
+	$('.setFleetGroup').live('click', setFleetGroup);
+});
 </script>{/block}

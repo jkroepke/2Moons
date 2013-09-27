@@ -16,3 +16,13 @@ $(function() {
         return false;
     });
 });
+
+function maxShips() {
+    $('.maxShipCount').trigger('click');
+}
+
+function noShips() {
+    $('.inputShipCount').val(function() {
+        return 0;
+    });
+}
