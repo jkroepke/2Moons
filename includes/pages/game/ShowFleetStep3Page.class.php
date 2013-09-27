@@ -259,21 +259,24 @@ class ShowFleetStep3Page extends AbstractGamePage
 		
 		$availableMissions		= FleetUtil::GetFleetMissions($USER, $MisInfo, $targetPlanetData);
 		
-		if (!in_array($targetMission, $availableMissions['MissionSelector'])) {
+		if (!in_array($targetMission, $availableMissions['MissionSelector']))
+		{
 			$this->printMessage($LNG['fl_invalid_mission'], array(array(
 				'label'	=> $LNG['sys_back'],
 				'url'	=> 'game.php?page=fleet2'
 			)));
 		}
 		
-		if ($targetMission != 8 && IsVacationMode($targetPlayerData)) {
+		if ($targetMission != 8 && IsVacationMode($targetPlayerData))
+		{
 			$this->printMessage($LNG['fl_target_exists'], array(array(
 				'label'	=> $LNG['sys_back'],
 				'url'	=> 'game.php?page=fleet1'
 			)));
 		}
 		
-		if($targetMission == 1 || $targetMission == 2 || $targetMission == 9) {
+		if($targetMission == 1 || $targetMission == 2 || $targetMission == 9)
+		{
 			if(FleetUtil::CheckBash($targetPlanetData['id']))
 			{
 				$this->printMessage($LNG['fl_bash_protection'], array(array(
@@ -345,7 +348,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 		$duration      	= FleetUtil::GetMissionDuration($fleetSpeed, $fleetMaxSpeed, $distance, $SpeedFactor, $USER);
 		$consumption   	= FleetUtil::GetFleetConsumption($fleetArray, $duration, $distance, $USER, $SpeedFactor);
 	
-		if ($PLANET[$resource[903]] < $consumption) {
+		if ($PLANET[Vars::g903]] < $consumption) {
 			$this->printMessage($LNG['fl_not_enough_deuterium'], array(array(
 				'label'	=> $LNG['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'

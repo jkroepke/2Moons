@@ -97,7 +97,7 @@
 		<td id="ship{$elementId}_value">{$fleetData.count|number}</td>
 		{if $fleetData.speed != 0}
 		<td><a href="#" class="maxShipCount" data-into-input="ship{$elementId}_input" data-amount="{$fleetData.count}">{$LNG.fl_max}</a></td>
-		<td><input name="ship[{$elementId}]" id="ship{$elementId}_input" size="10" value="0"></td>
+		<td><input class="inputShipCount" name="ship[{$elementId}]" id="ship{$elementId}_input" size="10" value="0"></td>
 		{else}
 		<td>&nbsp;</td>
 		<td>&nbsp;</td>
@@ -125,4 +125,7 @@
 	<tr><th style="width:33%">{$LNG.tech.115}</th><th style="width:33%">{$LNG.tech.117}</th><th style="width:33%">{$LNG.tech.118}</th></tr>
 	<tr><td>+{$bonusCombustion} %</td><td>+{$bonusImpulse} %</td><td>+{$bonusHyperspace} %</td></tr>
 </table>
+{/block}
+{block name="script" append}
+<script src="scripts/game/fleetTable.js"></script>
 {/block}

@@ -150,7 +150,7 @@ class ShowFleetMissilePage extends AbstractGamePage
 			$this->printMessage($error);
 		}
 		
-		$Duration		= FleetUtil::GetMIPDuration($PLANET['system'], $targetSystem);
+		$Duration		= FleetUtil::getMissileDuration($PLANET['system'], $targetSystem);
 
 		$DefenseLabel 	= ($primaryTarget == 0) ? $LNG['ma_all'] : $LNG['tech'][$primaryTarget];
 		

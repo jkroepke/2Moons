@@ -185,8 +185,6 @@ class ShowFleetTablePage extends AbstractGamePage
 		$GetAction			= HTTP::_GP('action', "");
 
         $db = Database::get();
-
-		$this->tplObj->loadscript('flotten.js');
 		
 		if(!empty($FleetID) && !IsVacationMode($USER))
 		{

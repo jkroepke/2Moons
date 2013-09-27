@@ -38,24 +38,27 @@ class ShowFleetStep2Page extends AbstractGamePage
 	public function show()
 	{
 		global $USER, $PLANET, $LNG;
-	
-		$this->tplObj->loadscript('flotten.js');
 		
-		$targetGalaxy  				= HTTP::_GP('galaxy', 0);
-		$targetSystem   			= HTTP::_GP('system', 0);
-		$targetPlanet   			= HTTP::_GP('planet', 0);
-		$targetType 				= HTTP::_GP('type', 0);
-		$targetMission 				= HTTP::_GP('target_mission', 0);
-		$fleetSpeed  				= HTTP::_GP('speed', 0);		
-		$fleetGroup 				= HTTP::_GP('fleet_group', 0);
-		$token						= HTTP::_GP('token', '');
+		$targetGalaxy	= HTTP::_GP('targetGalaxy', 0);
+		$targetSystem	= HTTP::_GP('targetSystem', 0);
+		$targetPlanet	= HTTP::_GP('targetPlanet', 0);
+		$targetType 	= HTTP::_GP('targetType', 0);
+		$targetMission	= HTTP::_GP('targetMission', 0);
+		$fleetSpeed 	= HTTP::_GP('fleetSpeed', 0);
+		$fleetGroup 	= HTTP::_GP('fleetGroup', 0);
+		$token			= HTTP::_GP('token', '');
 
-		if (!isset($_SESSION['fleet'][$token]))
+		$session		= Session::load();
+
+		if (!isset($session->fleet[$token]))
 		{
-			FleetUtil::GotoFleetPage();
+			$this->printMessage($LNG['invalid_action'], array(array(
+				'label'	=> $LNG['sys_back'],
+				'url'	=> 'game.php?page=fleetTable'
+			)));
 		}
 
-		$fleetArray    				= $_SESSION['fleet'][$token]['fleet'];
+		$missionData	= $session->fleet[$token];
 
         $db = Database::get();
         $sql = "SELECT id, id_owner, der_metal, der_crystal FROM %%PLANETS%% WHERE universe = :universe AND galaxy = :targetGalaxy AND system = :targetSystem AND planet = :targetPlanet AND planet_type = '1';";
@@ -68,6 +71,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 
         if($targetType == 2 && $targetPlanetData['der_metal'] == 0 && $targetPlanetData['der_crystal'] == 0)
 		{
+			unset($session->fleet[$token]);
 			$this->printMessage($LNG['fl_error_empty_derbis'], array(array(
 				'label'	=> $LNG['sys_back'],
 				'url'	=> 'game.php?page=fleet1'
@@ -86,29 +90,40 @@ class ShowFleetStep2Page extends AbstractGamePage
 		
 		if(empty($MissionOutput['MissionSelector']))
 		{
+			unset($session->fleet[$token]);
 			$this->printMessage($LNG['fl_empty_target'], array(array(
 				'label'	=> $LNG['sys_back'],
-				'url'	=> 'game.php?page=fleet1'
+				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
 		
 		$GameSpeedFactor   		 	= FleetUtil::GetGameSpeedFactor();
 		$MaxFleetSpeed 				= FleetUtil::GetFleetMaxSpeed($fleetArray, $USER);
-		$distance      				= FleetUtil::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($targetGalaxy, $targetSystem, $targetPlanet));
+
+		$distance      				= FleetUtil::GetTargetDistance(
+			array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']),
+			array($targetGalaxy, $targetSystem, $targetPlanet)
+		);
+
 		$duration      				= FleetUtil::GetMissionDuration($fleetSpeed, $MaxFleetSpeed, $distance, $GameSpeedFactor, $USER);
 		$consumption				= FleetUtil::GetFleetConsumption($fleetArray, $duration, $distance, $USER, $GameSpeedFactor);
 		
 		if($consumption > $PLANET['deuterium'])
 		{
+			unset($session->fleet[$token]);
 			$this->printMessage($LNG['fl_not_enough_deuterium'], array(array(
 				'label'	=> $LNG['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
 		
-		if(!FleetUtil::CheckUserSpeed($fleetSpeed))
+		if(!FleetUtil::isValidCustomFleetSpeed($fleetSpeed))
 		{
-			FleetUtil::GotoFleetPage(0);
+			unset($session->fleet[$token]);
+			$this->printMessage($LNG['invalid_action'], array(array(
+				'label'	=> $LNG['sys_back'],
+				'url'	=> 'game.php?page=fleetTable'
+			)));
 		}
 		
 		$_SESSION['fleet'][$token]['speed']			= $MaxFleetSpeed;
@@ -127,8 +142,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 			'fleetroom'			=> floattostring($_SESSION['fleet'][$token]['fleetRoom']),
 			'consumption'		=> floattostring($consumption),
 		);
-			
-		$this->tplObj->execscript('calculateTransportCapacity();');
+
 		$this->assign(array(
 			'fleetdata'						=> $fleetData,
 			'consumption'					=> floattostring($consumption),

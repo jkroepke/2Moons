@@ -39,6 +39,22 @@ class ArrayUtil
 		}
 
         return array_fill_keys($keys, $var);
-        #return array_combine($keys, array_fill(0, count($keys), $var));
+	}
+
+	static public function filterArrayWithKeys($array, $keys)
+	{
+		if(empty($keys))
+		{
+			return array();
+		}
+
+		$return	= array();
+
+		foreach($keys as $key)
+		{
+			$return[$key]	= $array[$key];
+		}
+
+        return $return;
 	}
 }

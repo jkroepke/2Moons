@@ -34,15 +34,7 @@ class Database
 		require 'includes/config.php';
 		//Connect
 
-        try
-        {
-            $db = new PDO("mysql:host=".$database['host'].";port=".$database['port'].";dbname=".$database['databasename'], $database['user'], $database['userpw']);
-        }
-        catch(PDOException $e)
-        {
-            exceptionHandler($e);
-            exit;
-        }
+        $db = new PDO("mysql:host=".$database['host'].";port=".$database['port'].";dbname=".$database['databasename'], $database['user'], $database['userpw']);
 
 		//error behaviour
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

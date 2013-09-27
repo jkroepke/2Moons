@@ -181,7 +181,7 @@ class PlayerUtil
 			':timezone'				=> $config->timezone,
 			':nameLastChanged'		=> 0,
 		);
-var_dump(Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_RESOURCE_USER));exit;
+
 		foreach(Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_RESOURCE_USER) as $elementObj)
 		{
 			$params[':'.$elementObj->name.'_start']	= $config->{$elementObj->name.'_start'};

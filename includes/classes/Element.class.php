@@ -191,6 +191,7 @@ class Element implements Serializable
                     $data['consumption'][1][$elementObj->elementID] = $data["consumption1$elementObj->elementID"];
                     $data['consumption'][2][$elementObj->elementID] = $data["consumption2$elementObj->elementID"];
                     $data['consumption'][3][$elementObj->elementID] = $data["consumption3$elementObj->elementID"];
+
                     unset($data["consumption1$elementObj->elementID"], $data["consumption2$elementObj->elementID"], $data["consumption3$elementObj->elementID"]);
                 }
 
