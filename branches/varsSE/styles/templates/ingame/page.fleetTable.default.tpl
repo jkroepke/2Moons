@@ -18,35 +18,35 @@
 		<td>{$LNG.fl_objective}</td>
 		<td>{$LNG.fl_order}</td>
 	</tr>
-	{foreach name=FlyingFleets item=FlyingfleetData from=$FlyingFleetList}
+	{foreach $FlyingFleetList as $fleetId => $fleet}
 	<tr>
-	<td>{$smarty.foreach.FlyingFleets.iteration}</td>
-	<td>{$LNG.type_mission.{$FlyingfleetData.mission}}
-	{if $FlyingfleetData.state == 1}
+	<td>{$fleet@iteration}</td>
+	<td>{$LNG.type_mission.{$fleet.mission}}
+	{if $fleet.state == 1}
 		<br><a title="{$LNG.fl_returning}">{$LNG.fl_r}</a>
 	{else}
 		<br><a title="{$LNG.fl_onway}">{$LNG.fl_a}</a>
 	{/if}
 	</td>
-	<td><a class="tooltip_sticky" data-tooltip-content="<table width='100%'><tr><th colspan='2' style='text-align:center;'>{$LNG.fl_info_detail}</th></tr>{foreach $FlyingfleetData.FleetList as $shipID => $shipCount}<tr><td class='transparent'>{$LNG.tech.{$shipID}}:</td><td class='transparent'>{$shipCount}</td></tr>{/foreach}</table>">{$FlyingfleetData.amount}</a></td>
-	<td><a href="game.php?page=galaxy&amp;galaxy={$FlyingfleetData.startGalaxy}&amp;system={$FlyingfleetData.startSystem}">[{$FlyingfleetData.startGalaxy}:{$FlyingfleetData.startSystem}:{$FlyingfleetData.startPlanet}]</a></td>
-	<td{if $FlyingfleetData.state == 0} style="color:lime"{/if}>{$FlyingfleetData.startTime}</td>
-	<td><a href="game.php?page=galaxy&amp;galaxy={$FlyingfleetData.endGalaxy}&amp;system={$FlyingfleetData.endSystem}">[{$FlyingfleetData.endGalaxy}:{$FlyingfleetData.endSystem}:{$FlyingfleetData.endPlanet}]</a></td>
-	{if $FlyingfleetData.mission == 4 && $FlyingfleetData.state == 0}
+	<td><a class="tooltip_sticky" data-tooltip-content="<table width='100%'><tr><th colspan='2' style='text-align:center;'>{$LNG.fl_info_detail}</th></tr>{foreach $fleet.FleetList as $shipID => $shipCount}<tr><td class='transparent'>{$LNG.tech.{$shipID}}:</td><td class='transparent'>{$shipCount}</td></tr>{/foreach}</table>">{$fleet.amount}</a></td>
+	<td><a href="game.php?page=galaxy&amp;galaxy={$fleet.startGalaxy}&amp;system={$fleet.startSystem}">[{$fleet.startGalaxy}:{$fleet.startSystem}:{$fleet.startPlanet}]</a></td>
+	<td{if $fleet.state == 0} style="color:lime"{/if}>{$fleet.startTime}</td>
+	<td><a href="game.php?page=galaxy&amp;galaxy={$fleet.endGalaxy}&amp;system={$fleet.endSystem}">[{$fleet.endGalaxy}:{$fleet.endSystem}:{$fleet.endPlanet}]</a></td>
+	{if $fleet.mission == 4 && $fleet.state == 0}
 	<td>-</td>
 	{else}
-	<td{if $FlyingfleetData.state != 0} style="color:lime"{/if}>{$FlyingfleetData.endTime}</td>
+	<td{if $fleet.state != 0} style="color:lime"{/if}>{$fleet.endTime}</td>
 	{/if}
-	<td id="fleettime_{$smarty.foreach.FlyingFleets.iteration}" class="fleets" data-fleet-end-time="{$FlyingfleetData.returntime}" data-fleet-time="{$FlyingfleetData.resttime}">{pretty_fly_time({$FlyingfleetData.resttime})}</td>
+	<td id="fleettime_{$smarty.foreach.FlyingFleets.iteration}" class="fleets" data-fleet-end-time="{$fleet.returntime}" data-fleet-time="{$fleet.resttime}">{pretty_fly_time({$fleet.resttime})}</td>
 	<td>
-	{if !$isVacation && $FlyingfleetData.state != 1}
+	{if !$isVacation && $fleet.state != 1}
 		<form action="game.php?page=fleetTable&amp;action=sendfleetback" method="post">
-		<input name="fleetId" value="{$FlyingelementId}" type="hidden">
+		<input name="fleetId" value="{$fleetId}" type="hidden">
 		<input value="{$LNG.fl_send_back}" type="submit">
 		</form>
-		{if $FlyingfleetData.mission == 1}
+		{if $fleet.mission == 1}
 		<form action="game.php?page=fleetTable&amp;action=acs" method="post">
-		<input name="fleetId" value="{$FlyingelementId}" type="hidden">
+		<input name="fleetId" value="{$fleetId}" type="hidden">
 		<input value="{$LNG.fl_acs}" type="submit">
 		</form>
 		{/if}
@@ -68,9 +68,6 @@
 		<td>-</td>
 	</tr>
 	{/foreach}
-	{if $maxFleetSlots == $activeFleetSlots}
-	<tr><td colspan="9">{$LNG.fl_no_more_slots}</td></tr>
-	{/if}
 </table>
 {if !empty($acsData)}
 {include file="shared.fleetTable.acsTable.tpl"}
@@ -112,7 +109,11 @@
 		<td colspan="2"><a class="jsLink removeSelectedShips">{$LNG.fl_remove_all_ships}</a></td>
 		<td colspan="2"><a class="jsLink selectedAllShips">{$LNG.fl_select_all_ships}</a></td>
 		</tr>
-		{if $maxFleetSlots != $activeFleetSlots}<tr style="height:20px;"><td colspan="4"><input type="submit" value="{$LNG.fl_continue}"></td>{/if}
+		{if $maxFleetSlots != $activeFleetSlots}
+			<tr style="height:20px;"><td colspan="4"><input type="submit" value="{$LNG.fl_continue}"></td>
+		{else}
+			<tr style="height:20px;"><td colspan="4">{$LNG.fl_no_more_slots}</td></tr>
+		{/if}
 	{/if}
 </table>	
 </form>

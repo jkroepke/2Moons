@@ -126,7 +126,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 			$holdDuration    = round($stayTimes[$holdTime] * 3600, 0);
 		}
 
-		$usedFleetSlots	= FleetUtil::GetCurrentFleets($USER['id']);
+		$usedFleetSlots	= FleetUtil::getUsedSlots($USER['id']);
 
 		if (FleetUtil::GetMaxFleetSlots($USER) <= $usedFleetSlots)
 		{
@@ -200,7 +200,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 
 		if ($targetMission == 11)
 		{
-			$activeExpedition	= FleetUtil::GetCurrentFleets($USER['id'], 11);
+			$activeExpedition	= FleetUtil::getUsedSlots($USER['id'], 11);
 			$maxExpedition		= FleetUtil::getDMMissionLimit($USER);
 
 			if ($activeExpedition >= $maxExpedition) {
@@ -212,7 +212,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 		}
 		elseif ($targetMission == 15)
 		{
-			$activeExpedition	= FleetUtil::GetCurrentFleets($USER['id'], 15, true);
+			$activeExpedition	= FleetUtil::getUsedSlots($USER['id'], 15, true);
 			$maxExpedition		= FleetUtil::getExpeditionLimit($USER);
 
 			if ($activeExpedition >= $maxExpedition) {

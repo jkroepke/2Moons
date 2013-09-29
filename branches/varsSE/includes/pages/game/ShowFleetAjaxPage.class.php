@@ -54,7 +54,7 @@ class ShowFleetAjaxPage extends AbstractGamePage
 		$planetID 		= HTTP::_GP('planetID', 0);
 		$targetMission	= HTTP::_GP('mission', 0);
 		
-		$activeSlots	= FleetUtil::GetCurrentFleets($USER['id']);
+		$activeSlots	= FleetUtil::getUsedSlots($USER['id']);
 		$maxSlots		= FleetUtil::GetMaxFleetSlots($USER);
 		
 		$this->returnData['slots']		= $activeSlots;

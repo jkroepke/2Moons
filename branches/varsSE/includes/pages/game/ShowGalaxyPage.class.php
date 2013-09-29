@@ -133,7 +133,7 @@ class ShowGalaxyPage extends AbstractGamePage
 			'planet'					=> $planet,
 			'type'						=> $type,
 			'current'					=> $current,
-			'maxfleetcount'				=> FleetUtil::GetCurrentFleets($USER['id']),
+			'maxfleetcount'				=> FleetUtil::getUsedSlots($USER['id']),
 			'fleetmax'					=> FleetUtil::GetMaxFleetSlots($USER),
 			'currentmip'				=> $recycleList,
 			'grecyclers'   				=> $missileList,
