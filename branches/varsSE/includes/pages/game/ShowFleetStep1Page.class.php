@@ -252,7 +252,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 		{
 			$db = Database::get();
             $sql = "SELECT u.id, u.urlaubs_modus, u.user_lastip, u.authattack,
-            	p.destruyed, p.der_metal, p.der_crystal, p.destruyed
+            	p.destroyed, p.der_metal, p.der_crystal, p.destroyed
                 FROM %%USERS%% as u, %%PLANETS%% as p WHERE
                 p.universe = :universe AND
                 p.galaxy = :targetGalaxy AND
@@ -284,7 +284,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 				$this->sendJSON($LNG['fl_admin_attack']);
 			}
 
-			if ($planetData['destruyed'] != 0)
+			if ($planetData['destroyed'] != 0)
 			{
 				$this->sendJSON($LNG['fl_error_not_avalible']);
 			}

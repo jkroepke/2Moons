@@ -497,7 +497,7 @@ CREATE TABLE `prefix_planets` (
   `planet` tinyint(3) NOT NULL DEFAULT '0',
   `last_update` int(11) DEFAULT NULL,
   `planet_type` enum('1','3') NOT NULL DEFAULT '1',
-  `destruyed` int(11) NOT NULL DEFAULT '0',
+  `destroyed` int(11) NOT NULL DEFAULT '0',
   `b_building` int(11) NOT NULL DEFAULT '0',
   `b_building_id` text,
   `b_hangar` int(11) NOT NULL DEFAULT '0',

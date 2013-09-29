@@ -6,7 +6,7 @@
 	</tr>
     <tr style="height:20px">
         <td>{$LNG.fl_mission}</td>
-        <td>{$LNG.type_mission.{$targetMission}}</td>
+        <td>{$LNG.type_mission[$targetMission]}</td>
 	</tr>
     <tr style="height:20px">
         <td>{$LNG.fl_distance}</td>
@@ -14,7 +14,7 @@
     </tr>
     <tr style="height:20px">
         <td>{$LNG.fl_fleet_speed}</td>
-        <td>{$MaxFleetSpeed|number}</td>
+        <td>{$fleetSpeed|number}</td>
     </tr>
     <tr style="height:20px">
         <td>{$LNG.fl_fuel_consumption}</td>
@@ -39,10 +39,10 @@
     <tr style="height:20px">
         <th colspan="2">{$LNG.fl_fleet}</th>
     </tr>
-	{foreach $FleetList as $ShipID => $ShipCount}
+	{foreach $fleetList as $elementId => $amount}
 	<tr>
-		<td>{$LNG.tech.{$ShipID}}</td>
-		<td>{$ShipCount|number}</td>
+		<td>{$LNG.tech[$elementId]}</td>
+		<td>{$amount|number}</td>
 	</tr>
 	{/foreach}
 </table>

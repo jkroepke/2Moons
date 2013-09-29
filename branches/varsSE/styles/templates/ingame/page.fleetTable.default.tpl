@@ -106,14 +106,13 @@
 	{/foreach}
 	<tr style="height:20px;">
 	{if count($shipList) == 0}
-	<td colspan="4">{$LNG.fl_no_ships}</td>
+		<td colspan="4">{$LNG.fl_no_ships}</td>
+		</tr>
 	{else}
-	<td colspan="2"><a href="javascript:noShips();">{$LNG.fl_remove_all_ships}</a></td>
-	<td colspan="2"><a href="javascript:maxShips();">{$LNG.fl_select_all_ships}</a></td>
-	{/if}
-	</tr>
-	{if $maxFleetSlots != $activeFleetSlots}
-	<tr style="height:20px;"><td colspan="4"><input type="submit" value="{$LNG.fl_continue}"></td>
+		<td colspan="2"><a class="jsLink removeSelectedShips">{$LNG.fl_remove_all_ships}</a></td>
+		<td colspan="2"><a class="jsLink selectedAllShips">{$LNG.fl_select_all_ships}</a></td>
+		</tr>
+		{if $maxFleetSlots != $activeFleetSlots}<tr style="height:20px;"><td colspan="4"><input type="submit" value="{$LNG.fl_continue}"></td>{/if}
 	{/if}
 </table>	
 </form>
