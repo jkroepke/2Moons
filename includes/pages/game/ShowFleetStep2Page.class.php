@@ -88,6 +88,15 @@ class ShowFleetStep2Page extends AbstractGamePage
 
 		$missionData	= $session->{"fleet_$token"};
 
+		if($missionData['userId'] != $USER['id'] || $missionData['planetId'] != $PLANET['id'])
+		{
+			unset($session->{"fleet_$token"});
+			$this->printMessage($LNG['invalid_action'], array(array(
+				'label'	=> $LNG['sys_back'],
+				'url'	=> 'game.php?page=fleetTable'
+			)));
+		}
+
         $db = Database::get();
         $sql = "SELECT id, id_owner, der_metal, der_crystal FROM %%PLANETS%% WHERE universe = :universe AND galaxy = :targetGalaxy AND system = :targetSystem AND planet = :targetPlanet AND planet_type = '1';";
         $targetPlanetData = $db->selectSingle($sql, array(
@@ -138,6 +147,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 		$consumption		= FleetUtil::GetFleetConsumption($missionData['fleetData'], $duration, $distance, $USER, $GameSpeedFactor);
 
 		$restResources		= array();
+		$missingResources	= array();
 
 		foreach($consumption as $elementResourceId => $value)
 		{
@@ -151,18 +161,20 @@ class ShowFleetStep2Page extends AbstractGamePage
 				$currentAmount = $PLANET[$elementResourceObj->name];
 			}
 
-			$restResources[$elementResourceId]	= max($currentAmount - $value, 0);
+			$restResources[$elementResourceId]	= $currentAmount - $value;
+			if($restResources[$elementResourceId] < 0)
+			{
+				$missingResources[$elementResourceId] = abs($currentAmount - $value);
+			}
 		}
 
-		if(count(array_filter($restResources)) === 0)
+		if(!empty($missingResources))
 		{
 			unset($session->{"fleet_$token"});
 
 			$missingList	= array();
-			foreach($restResources as $elementResourceId => $value)
+			foreach($missingResources as $elementResourceId => $value)
 			{
-				if(empty($value)) continue;
-
 				$missingList[]	= $value.' '.$LNG['tech'][$elementResourceId];
 			}
 
@@ -172,13 +184,19 @@ class ShowFleetStep2Page extends AbstractGamePage
 			)));
 		}
 
-		$missionData['distance']		= $distance;
-		$missionData['targetGalaxy']	= $targetGalaxy;
-		$missionData['targetSystem']	= $targetSystem;
-		$missionData['targetPlanet']	= $targetPlanet;
-		$missionData['targetType']		= $targetType;
-		$missionData['fleetGroup']		= $fleetGroup;
-		$missionData['fleetSpeed']		= $MaxFleetSpeed;
+		$stayTimes	= FleetUtil::getStayTimes($USER, $availableMissions);
+
+		$missionData['distance']			= $distance;
+		$missionData['duration']			= $duration;
+		$missionData['targetGalaxy']		= $targetGalaxy;
+		$missionData['targetSystem']		= $targetSystem;
+		$missionData['targetPlanet']		= $targetPlanet;
+		$missionData['targetType']			= $targetType;
+		$missionData['fleetGroup']		    = $fleetGroup;
+		$missionData['fleetSpeed']			= $MaxFleetSpeed;
+        $missionData['availableMissions']	= $availableMissions;
+        $missionData['consumption']			= $consumption;
+        $missionData['stayTimes']			= $stayTimes;
 
 		$session->{"fleet_$token"}		= $missionData;
 
@@ -196,15 +214,15 @@ class ShowFleetStep2Page extends AbstractGamePage
 		$this->assign(array(
 			'token' 				=> $token,
 			'ownPlanet'			 	=> array(
-				'galaxy' => $PLANET['galaxy'],
-				'system' => $PLANET['system'],
-				'planet' => $PLANET['planet'],
-				'type' => $PLANET['planet_type']
+				'galaxy'	=> $PLANET['galaxy'],
+				'system'	=> $PLANET['system'],
+				'planet'	=> $PLANET['planet'],
+				'type'		=> $PLANET['planet_type']
 			),
 			'fleetData'				=> $fleetData,
 			'targetMission'			=> $targetMission,
 			'availableMissions' 	=> $availableMissions,
-			'StaySelector' 			=> FleetUtil::getStayTimes($USER, $availableMissions),
+			'StaySelector' 			=> $stayTimes,
 			'fl_dm_alert_message'	=> sprintf($LNG['fl_dm_alert_message'], $LNG['type_mission'][11], $LNG['tech'][921]),
 		));
 

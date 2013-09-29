@@ -39,16 +39,16 @@ class ShowFleetStep1Page extends AbstractGamePage
 	{
 		global $USER, $PLANET, $LNG;
 		
-		$targetGalaxy 			= HTTP::_GP('galaxy', (int) $PLANET['galaxy']);
-		$targetSystem 			= HTTP::_GP('system', (int) $PLANET['system']);
-		$targetPlanet			= HTTP::_GP('planet', (int) $PLANET['planet']);
-		$targetType 			= HTTP::_GP('type', (int) $PLANET['planet_type']);
+		$targetGalaxy 	= HTTP::_GP('galaxy', (int) $PLANET['galaxy']);
+		$targetSystem 	= HTTP::_GP('system', (int) $PLANET['system']);
+		$targetPlanet	= HTTP::_GP('planet', (int) $PLANET['planet']);
+		$targetType 	= HTTP::_GP('type', (int) $PLANET['planet_type']);
 		
-		$mission				= HTTP::_GP('target_mission', 0);
+		$targetMission	= HTTP::_GP('target_mission', 0);
 
-        $selectedShips          = HTTP::_GP('ship', array());
+        $selectedShips	= HTTP::_GP('ship', array());
 
-		$fleetData		        = array();
+		$fleetData		= array();
 
 		foreach (Vars::getElements(Vars::CLASS_FLEET) as $elementId => $elementObj)
 		{
@@ -82,7 +82,9 @@ class ShowFleetStep1Page extends AbstractGamePage
         $token		= getRandomString();
 
         $session->{"fleet_$token"} = array(
-			'time'		    => TIMESTAMP,
+			'userId'		=> $USER['id'],
+			'planetId'		=> $PLANET['id'],
+			'time'			=> TIMESTAMP,
 			'fleetData'		=> $fleetData,
 			'fleetRoom'	    => $fleetRoom,
 		);
@@ -92,7 +94,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 
 		$this->assign(array(
 			'token'				=> $token,
-			'mission'			=> $mission,
+			'mission'			=> $targetMission,
 			'shortcutList'		=> $shortcutList,
 			'shortcutMax'		=> $shortcutAmount,
 			'colonyList' 		=> $this->getColonyList(),
