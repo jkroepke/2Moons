@@ -142,7 +142,6 @@ class ShowVertifyPage extends AbstractIndexPage
 		$session	= Session::create();
 		$session->userId		= (int) $userData['userID'];
 		$session->adminAccess	= 0;
-		$session->save();
 
 		HTTP::redirectTo('game.php');
 	}

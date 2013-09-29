@@ -73,12 +73,12 @@ class ShowShipyardPage extends AbstractGamePage
 
     private function getQueueData()
     {
-        global $LNG, $USER, $PLANET;
+        global $LNG, $USER;
 
         $elementIds = array_merge(
 			array_keys(Vars::getElements(Vars::CLASS_FLEET)),
 			array_keys(Vars::getElements(Vars::CLASS_DEFENSE)),
-			array_keys(Vars::getElements(Vars::CLASS_DEFENSE))
+			array_keys(Vars::getElements(Vars::CLASS_MISSILE))
 		);
 
         $queueData  	= $this->ecoObj->getQueueObj()->getTasksByElementId($elementIds);
@@ -137,7 +137,6 @@ class ShowShipyardPage extends AbstractGamePage
         $queueData		= $this->getQueueData();
 
         $busyQueues 	= array();
-		$buildList		= array();
 		$elementList	= array();
 
         $isShipyardInBuild  = false;
@@ -223,7 +222,6 @@ class ShowShipyardPage extends AbstractGamePage
             'queueData'         => $queueData,
 			'elementList'	    => $elementList,
 			'isShipyardInBuild'	=> $isShipyardInBuild,
-			'BuildList'		    => $buildList,
             'maxlength'		    => strlen(Config::get()->max_fleet_per_build),
 			'mode'			    => $mode,
 		));

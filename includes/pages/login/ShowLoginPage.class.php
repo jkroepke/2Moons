@@ -75,7 +75,6 @@ class ShowLoginPage extends AbstractIndexPage
 			$session	= Session::create();
 			$session->userId		= (int) $loginData['id'];
 			$session->adminAccess	= 0;
-			$session->save();
 
 			HTTP::redirectTo('game.php');	
 		}

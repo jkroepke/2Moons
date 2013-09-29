@@ -19,6 +19,10 @@ body,input,button,select,textarea,td,th,tr,table,button {
 	font-size:10px;
 }
 
+a.jsLink {
+    cursor: pointer;
+}
+
 :focus {
 	outline:none
 }

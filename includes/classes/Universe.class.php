@@ -79,7 +79,6 @@ class Universe {
 
 		$session	= Session::load();
 		$session->emulatedUniverse	= $universeId;
-		$session->save();
 
 		self::$emulatedUniverse	= $universeId;
 		

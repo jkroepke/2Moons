@@ -96,7 +96,7 @@
 		<td>{if $fleetData.speed != 0} <a title="{$LNG.fl_speed_title} {$fleetData.speed}"><label for="ship{$elementId}_input">{$LNG.tech.{$elementId}}</label></a>{else}<label for="ship{$elementId}_input">{$LNG.tech.{$elementId}}</label>{/if}</td>
 		<td id="ship{$elementId}_value">{$fleetData.count|number}</td>
 		{if $fleetData.speed != 0}
-		<td><a href="#" class="maxShipCount" data-into-input="ship{$elementId}_input" data-amount="{$fleetData.count}">{$LNG.fl_max}</a></td>
+		<td><a class="jsLink maxShipCount" data-into-input="ship{$elementId}_input" data-amount="{$fleetData.count}">{$LNG.fl_max}</a></td>
 		<td><input class="inputShipCount" name="ship[{$elementId}]" id="ship{$elementId}_input" size="10" value="0"></td>
 		{else}
 		<td>&nbsp;</td>

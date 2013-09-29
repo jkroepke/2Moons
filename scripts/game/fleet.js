@@ -56,18 +56,18 @@ function setTarget(e)
     return false;
 }
 
+function setFleetGroup(e)
+{
+    e.preventDefault();
 
-
-
-
-
-
-
-function setACSTarget(galaxy, solarsystem, planet, type, tacs) {
-	setTarget(galaxy, solarsystem, planet, type);
-	updateVars();
-	document.getElementsByName("fleet_group")[0].value = tacs;
+    $('#fleetGroup').val($(this).data('fleetGroup'));
+    return false;
 }
+
+
+
+
+
 
 function maxResource(id) {
 	var thisresource = getRessource(id);
@@ -121,13 +121,25 @@ function calculateTransportCapacity() {
 	return transportCapacity;
 }
 
-function CheckTarget()
+function checkTarget(e)
 {
-	$.getJSON('game.php?page=fleetStep1&mode=checkTarget&galaxy='+document.getElementsByName("galaxy")[0].value+'&system='+document.getElementsByName("system")[0].value+'&planet='+document.getElementsByName("planet")[0].value+'&planet_type='+document.getElementsByName("type")[0].value+'&lang='+Lang+'&kolo='+kolo, function(data) {
-		if(data == "OK") {
-			document.getElementById('form').submit();
+    e.preventDefault();
+
+    var getParameter = $.param({
+        'token'  : $('input[name="token"]').val(),
+        'galaxy' : $('#targetGalaxy').val(),
+        'system' : $('#targetSystem').val(),
+        'planet' : $('#targetPlanet').val(),
+        'type'   : $('#targetType').val()
+    });
+
+    $this = $(this);
+
+	$.getJSON('game.php?page=fleetStep1&mode=checkTarget&'+getParameter, function(error) {
+		if(error == false) {
+            $this[0].submit();
 		} else {
-			NotifyBox(data);
+			NotifyBox(error);
 		}
 	});
 

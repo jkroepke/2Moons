@@ -1,6 +1,6 @@
 {block name="title" prepend}{$LNG.lm_fleet}{/block}
 {block name="content"}
-<form action="game.php?page=fleetStep2" method="post" onsubmit="return CheckTarget()" id="form">
+<form action="game.php?page=fleetStep2" method="post" id="form">
 	<input type="hidden" name="token" value="{$token}">
 	<input type="hidden" name="fleetGroup" value="0">
 	<input type="hidden" name="targetMission" value="{$mission}">
@@ -61,7 +61,7 @@
 			{if ($shortcutRow@iteration % $themeSettings.SHORTCUT_ROWS_ON_FLEET1) === 1}<tr style="height:20px;" class="shortcut-row">{/if}			
 			<td style="width:{100 / $themeSettings.SHORTCUT_ROWS_ON_FLEET1}%" class="shortcut-colum shortcut-isset">
 				<div class="shortcut-link">
-					<a href="#" class="setTarget" data-galaxy="{$shortcutRow.galaxy}" data-system="{$shortcutRow.system}" data-planet="{$shortcutRow.planet}" data-type="{$shortcutRow.type}">{$shortcutRow.name}{if $shortcutRow.type == 1}{$LNG.fl_planet_shortcut}{elseif $shortcutRow.type == 2}{$LNG.fl_debris_shortcut}{elseif $shortcutRow.type == 3}{$LNG.fl_moon_shortcut}{/if} [{$shortcutRow.galaxy}:{$shortcutRow.system}:{$shortcutRow.planet}]</a>
+					<a class="jsLink setTarget" data-galaxy="{$shortcutRow.galaxy}" data-system="{$shortcutRow.system}" data-planet="{$shortcutRow.planet}" data-type="{$shortcutRow.type}">{$shortcutRow.name}{if $shortcutRow.type == 1}{$LNG.fl_planet_shortcut}{elseif $shortcutRow.type == 2}{$LNG.fl_debris_shortcut}{elseif $shortcutRow.type == 3}{$LNG.fl_moon_shortcut}{/if} [{$shortcutRow.galaxy}:{$shortcutRow.system}:{$shortcutRow.planet}]</a>
 				</div>
 				<div class="shortcut-edit">
 					<input type="text" class="shortcut-input" name="shortcut[{$shortcutID}][name]" value="{$shortcutRow.name}">
@@ -117,7 +117,7 @@
 		{foreach $colonyList as $ColonyRow}
 		{if ($ColonyRow@iteration % $themeSettings.COLONY_ROWS_ON_FLEET1) === 1}<tr style="height:20px;">{/if}
 		<td>
-			<a href="#" class="setTarget" data-galaxy="{$ColonyRow.galaxy}" data-system="{$ColonyRow.system}" data-planet="{$ColonyRow.planet}" data-type="{$ColonyRow.type}">{$ColonyRow.name}{if $ColonyRow.type == 3}{$LNG.fl_moon_shortcut}{/if} [{$ColonyRow.galaxy}:{$ColonyRow.system}:{$ColonyRow.planet}]</a>
+			<a class="jsLink setTarget" data-galaxy="{$ColonyRow.galaxy}" data-system="{$ColonyRow.system}" data-planet="{$ColonyRow.planet}" data-type="{$ColonyRow.type}">{$ColonyRow.name}{if $ColonyRow.type == 3}{$LNG.fl_moon_shortcut}{/if} [{$ColonyRow.galaxy}:{$ColonyRow.system}:{$ColonyRow.planet}]</a>
 		</td>
 		{if $ColonyRow@last && ($ColonyRow@iteration % $themeSettings.COLONY_ROWS_ON_FLEET1) !== 0}
 		{$to = $themeSettings.COLONY_ROWS_ON_FLEET1 - ($ColonyRow@iteration % $themeSettings.COLONY_ROWS_ON_FLEET1)}
@@ -138,7 +138,7 @@
 		{foreach $fleetGroupList as $ACSRow}
 		{if ($ACSRow@iteration % $themeSettings.ACS_ROWS_ON_FLEET1) === 1}<tr style="height:20px;">{/if}
 		<tr style="height:20px;">
-			<td><a href="#" class="setTarget setFleetGroup" data-galaxy="{$ACSRow.galaxy}" data-system="{$ACSRow.system}" data-planet="{$ACSRow.planet}" data-type="{$ACSRow.type}" data-fleet-group="{$ACSRow.id}">{$ACSRow.name}{if $ACSRow.type == 3}{$LNG.fl_moon_shortcut}{/if}  - [{$ACSRow.galaxy}:{$ACSRow.system}:{$ACSRow.planet}]</a></td>
+			<td><a class="jsLink setTarget setFleetGroup" data-galaxy="{$ACSRow.galaxy}" data-system="{$ACSRow.system}" data-planet="{$ACSRow.planet}" data-type="{$ACSRow.type}" data-fleet-group="{$ACSRow.id}">{$ACSRow.name}{if $ACSRow.type == 3}{$LNG.fl_moon_shortcut}{/if}  - [{$ACSRow.galaxy}:{$ACSRow.system}:{$ACSRow.planet}]</a></td>
 		</tr>
 		{if $ACSRow@last && ($ACSRow@iteration % $themeSettings.ACS_ROWS_ON_FLEET1) !== 0}
 		{$to = $themeSettings.ACS_ROWS_ON_FLEET1 - ($ACSRow@iteration % $themeSettings.ACS_ROWS_ON_FLEET1)}
@@ -165,6 +165,7 @@ var endDateInterval	= 0;
 
 $(function() {
 	updateScreen();
+	$('#form').on('submit', checkTarget);
 	$('.updateOnChange').live('change', updateData);
 	$('.setTarget').live('click', setTarget);
 	$('.setFleetGroup').live('click', setFleetGroup);

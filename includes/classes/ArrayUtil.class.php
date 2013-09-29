@@ -57,4 +57,35 @@ class ArrayUtil
 
         return $return;
 	}
+
+	static public function checkIfOneKeyExists($array, $keys)
+	{
+		foreach($keys as $key)
+		{
+			if(isset($array[$key]))
+			{
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	static public function hasOnlyAllowedKeys($array, $keys)
+	{
+		if(count($array) > count($keys))
+		{
+			return false;
+		}
+
+		foreach($keys as $key)
+		{
+			if(isset($array[$key]))
+			{
+				unset($array[$key]);
+			}
+		}
+
+		return !empty($array);
+	}
 }

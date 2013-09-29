@@ -170,6 +170,11 @@ class Session
 		return isset($this->data[$name]);
 	}
 
+	public function __unset($name)
+	{
+		unset($this->data[$name]);
+	}
+
 	public function save()
 	{
 		$sql	= 'REPLACE INTO %%SESSION%% SET
@@ -205,7 +210,6 @@ class Session
 		$this->data['requestPath']	= $this->getRequestPath();
 
 		$_SESSION['obj']	= serialize($this);
-
 		@session_write_close();
 	}
 
