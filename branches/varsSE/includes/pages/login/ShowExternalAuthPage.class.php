@@ -79,7 +79,6 @@ class ShowExternalAuthPage extends AbstractIndexPage
 
 		$session->userId		= (int) $loginData['id'];
 		$session->adminAccess	= 0;
-		$session->save();
 		$this->redirectTo("game.php");	
 	}
 }

@@ -170,6 +170,7 @@ class Language implements ArrayAccess {
             global $LNG;
             $lastWord   = $LNG['d_and'];
         }
+
         $string = '';
         $count  = count($data);
         $i = 0;

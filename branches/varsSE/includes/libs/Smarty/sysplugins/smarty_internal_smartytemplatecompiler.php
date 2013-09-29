@@ -12,7 +12,7 @@
 /**
  * @ignore
  */
-include("smarty_internal_parsetree.php");
+include 'smarty_internal_parsetree.php';
 
 /**
  * Class SmartyTemplateCompiler
@@ -20,8 +20,8 @@ include("smarty_internal_parsetree.php");
  * @package Smarty
  * @subpackage Compiler
  */
-class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCompilerBase {
-
+class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCompilerBase
+{
     /**
      * Lexer class name
      *
@@ -84,7 +84,7 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
      * Methode to compile a Smarty template
      *
      * @param  mixed $_content template source
-     * @return bool true if compiling succeeded, false if it failed
+     * @return bool  true if compiling succeeded, false if it failed
      */
     protected function doCompile($_content)
     {
@@ -94,6 +94,10 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
         // init the lexer/parser to compile the template
         $this->lex = new $this->lexer_class($_content, $this);
         $this->parser = new $this->parser_class($this->lex, $this);
+        if ($this->inheritance_child) {
+            // start state on child templates
+            $this->lex->yypushstate(Smarty_Internal_Templatelexer::CHILDBODY);
+        }
         if ($this->smarty->_parserdebug)
             $this->parser->PrintTrace();
         // get tokens from lexer and parse them
@@ -123,5 +127,3 @@ class Smarty_Internal_SmartyTemplateCompiler extends Smarty_Internal_TemplateCom
     }
 
 }
-
-?>

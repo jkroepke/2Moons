@@ -180,7 +180,6 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 			else
 			{
 				$session->planetId = $USER['id_planet'];
-                $session->save();
 			}
 		}
 		

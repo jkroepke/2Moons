@@ -284,7 +284,7 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 			'fleetList'		    => array_keys($fleetElements),
 			'defensiveList'	    => array_keys($defendElements),
 			'resourceElements'	=> array_keys($resourceElements),
-		));
+		), false);
 		
 		$this->display('page.battleSimulator.default.tpl');   
 	}

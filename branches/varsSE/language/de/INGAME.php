@@ -374,7 +374,7 @@ $LNG['fl_only_planets_colonizable']			= 'Nur Planeten können kolonisiert werden
 $LNG['fl_player_is_noob']					= 'Spieler befindest sich im Noobschutz!';
 $LNG['fl_player_is_strong']					= 'Spieler ist zu stark!';
 $LNG['fl_no_hold_depot']					= 'Am Ziel befindet sich kein Allianzdepot.';
-$LNG['fl_not_enough_deuterium']				= 'Nicht genügend Deuterium vorhanden.';
+$LNG['fl_not_enough_consumption']			= 'Nicht genügend Treibstoff vorhanden. Es fehlt:';
 $LNG['fl_not_enough_space']					= 'Sie haben nicht genügend Laderaum vorhanden.';
 $LNG['fl_hold_time_not_exists']				= 'Ungültige Haltezeit.';
 

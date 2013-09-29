@@ -79,23 +79,13 @@ class ShowFleetStep1Page extends AbstractGamePage
 		);
 
         $session    = Session::load();
+        $token		= getRandomString();
 
-        // See: https://bugs.php.net/bug.php?id=42030
-        $sessionData    = $session->fleet;
-        if (empty($sessionData))
-        {
-            $sessionData  = array();
-        }
-
-        $token	= getRandomString();
-        $sessionData[$token]	= array(
+        $session->{"fleet_$token"} = array(
 			'time'		    => TIMESTAMP,
 			'fleetData'		=> $fleetData,
 			'fleetRoom'	    => $fleetRoom,
 		);
-
-        $session->fleet =  $sessionData;
-        $session->save();
 
 		$shortcutList	= $this->getUserShortcuts();
 		$shortcutAmount	= count($shortcutList);
@@ -250,9 +240,9 @@ class ShowFleetStep1Page extends AbstractGamePage
 		$targetGalaxy 		= HTTP::_GP('galaxy', 0);
 		$targetSystem 		= HTTP::_GP('system', 0);
 		$targetPlanet		= HTTP::_GP('planet', 0);
-		$targetPlanetType	= HTTP::_GP('planet_type', 1);
+		$targetType			= HTTP::_GP('type', 1);
 	
-		if($targetGalaxy == $PLANET['galaxy'] && $targetSystem == $PLANET['system'] && $targetPlanet == $PLANET['planet'] && $targetPlanetType == $PLANET['planet_type'])
+		if($targetGalaxy == $PLANET['galaxy'] && $targetSystem == $PLANET['system'] && $targetPlanet == $PLANET['planet'] && $targetType == $PLANET['planet_type'])
 		{
 			$this->sendJSON($LNG['fl_error_same_planet']);
 		}
@@ -276,15 +266,15 @@ class ShowFleetStep1Page extends AbstractGamePage
                 ':targetGalaxy' => $targetGalaxy,
                 ':targetSystem' => $targetSystem,
                 ':targetPlanet' => $targetPlanet,
-                ':targetType' => (($targetPlanetType == 2) ? 1 : $targetPlanetType),
+                ':targetType' 	=> $targetType == 2 ? 1 : $targetType,
             ));
 
-            if ($targetPlanetType == 3 && !isset($planetData))
+            if ($targetType == MOON && !isset($planetData))
 			{
 				$this->sendJSON($LNG['fl_error_no_moon']);
 			}
 
-			if ($targetPlanetType != 2 && $planetData['urlaubs_modus'])
+			if ($targetType != DEBRIS && $planetData['urlaubs_modus'])
 			{
 				$this->sendJSON($LNG['fl_in_vacation_player']);
 			}
@@ -299,7 +289,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 				$this->sendJSON($LNG['fl_error_not_avalible']);
 			}
 
-			if ($targetPlanetType == 2 && $planetData['der_metal'] == 0 && $planetData['der_crystal'] == 0)
+			if ($targetType == DEBRIS && $planetData['der_metal'] == 0 && $planetData['der_crystal'] == 0)
 			{
 				$this->sendJSON($LNG['fl_error_empty_derbis']);
 			}
@@ -334,7 +324,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 			}
 		}
 
-		$this->sendJSON('OK');	
+		$this->sendJSON(false);
 	}
 
 	private function _calculateCost($fleetData, $planetPosition, $fleetSpeed)
@@ -360,7 +350,6 @@ class ShowFleetStep1Page extends AbstractGamePage
 		$planetPosition	= HTTP::_GP('planetPosition', array());
 		$fleetSpeed		= HTTP::_GP('fleetSpeed', 0);
 		$token			= HTTP::_GP('token', '');
-
-		$this->sendJSON($this->_calculateCost(Session::load()->fleet[$token]['fleetData'], $planetPosition, $fleetSpeed));
+		$this->sendJSON($this->_calculateCost(Session::load()->{"fleet_$token"}['fleetData'], $planetPosition, $fleetSpeed));
 	}
 }
