@@ -43,11 +43,6 @@ class FleetUtil
 		return $consumption;
 	}
 
-	private static function OnlyShipByID($Ships, $elementId)
-	{
-		return isset($Ships[$elementId]) && count($Ships) === 1;
-	}
-
 	public static function getShipTechLevel(Element $elementObj, $USER)
 	{
         if(is_null($elementObj->speed2Tech))
@@ -162,10 +157,10 @@ class FleetUtil
 		return 1 + PlayerUtil::getBonusValue(1, 'FleetSlots', $USER);
 	}
 
-	public static function GetFleetRoom($fleetArray)
+	public static function GetFleetRoom($fleetData)
 	{
 		$FleetRoom 				= 0;
-		foreach ($fleetArray as $elementId => $count)
+		foreach ($fleetData as $elementId => $count)
 		{
 			$FleetRoom		   += Vars::getElement($elementId)->capacity * $count;
 		}
@@ -173,12 +168,12 @@ class FleetUtil
 		return $FleetRoom;
 	}
 	
-	public static function GetFleetMaxSpeed($fleetArray, $USER)
+	public static function GetFleetMaxSpeed($fleetData, $USER)
 	{
-        $fleetArray = !is_array($fleetArray) ? array($fleetArray) : array_keys($fleetArray);
+        $fleetData = !is_array($fleetData) ? array($fleetData) : array_keys($fleetData);
 		$shipSpeeds = array();
 		
-		foreach ($fleetArray as $elementId)
+		foreach ($fleetData as $elementId)
         {
             $shipSpeeds[$elementId] = self::GetShipSpeed(Vars::getElement($elementId), $USER);
 		}
@@ -527,40 +522,21 @@ class FleetUtil
 		return $Count >= BASH_COUNT;
 	}
 	
-	public static function sendFleet($fleetArray, $fleetMission, $fleetStartOwner, $fleetStartPlanetID,
+	public static function sendFleet($fleetData, $fleetMission, $fleetStartOwner, $fleetStartPlanetID,
 		$fleetStartPlanetGalaxy, $fleetStartPlanetSystem, $fleetStartPlanetPlanet, $fleetStartPlanetType,
 		$fleetTargetOwner, $fleetTargetPlanetID, $fleetTargetPlanetGalaxy, $fleetTargetPlanetSystem,
 		$fleetTargetPlanetPlanet, $fleetTargetPlanetType, $fleetResource, $fleetStartTime, $fleetStayTime,
 		$fleetEndTime, $fleetGroup = 0, $missileTarget = 0)
 	{
-		global $resource;
-		$fleetShipCount	= array_sum($fleetArray);
-		$fleetData		= array();
+		$fleetShipCount	= array_sum($fleetData);
 
 		$db				= Database::get();
-
-		$params			= array(':planetId'	=> $fleetStartPlanetID);
-
-		$planetQuery	= "";
-        $fleetQuery	    = array();
-
-		foreach($fleetArray as $elementId => $ShipCount) {
-			$fleetData[]	= $elementId.','.floattostring($ShipCount);
-			$planetQuery[]	= $resource[$elementId]." = ".$resource[$elementId]." - :".$resource[$elementId];
-
-			$params[':'.$resource[$elementId]]	= floattostring($ShipCount);
-		}
-
-		$sql	= 'UPDATE %%PLANETS%% SET '.implode(', ', $planetQuery).' WHERE id = :planetId;';
-
-		$db->update($sql, $params);
 
         $params = array(
             ':fleetStartOwner'			=> $fleetStartOwner,
             ':fleetTargetOwner'			=> $fleetTargetOwner,
             ':fleetMission'				=> $fleetMission,
             ':fleetShipCount'			=> $fleetShipCount,
-            ':fleetData'				=> implode(';', $fleetData),
             ':fleetStartTime'			=> $fleetStartTime,
             ':fleetStayTime'			=> $fleetStayTime,
             ':fleetEndTime'				=> $fleetEndTime,
@@ -580,17 +556,11 @@ class FleetUtil
             ':universe'	   				=> Universe::current(),
         );
 
-        foreach(Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_TRANSPORT) as $elementId => $elementObj) {
-            $fleetQuery[]	= ', fleet_resource_'.$elementObj->name.' = :fleetResource';
-            $params[':fleetResource'.$elementId]	= floattostring($fleetResource[$elementId]);
-        }
-
 		$sql	= 'INSERT INTO %%FLEETS%% SET
 		fleet_owner					= :fleetStartOwner,
 		fleet_target_owner			= :fleetTargetOwner,
 		fleet_mission				= :fleetMission,
 		fleet_amount				= :fleetShipCount,
-		fleet_array					= :fleetData,
 		fleet_universe				= :universe,
 		fleet_start_time			= :fleetStartTime,
 		fleet_end_stay				= :fleetStayTime,
@@ -607,21 +577,13 @@ class FleetUtil
 		fleet_end_type				= :fleetTargetPlanetType,
 		fleet_group					= :fleetGroup,
 		fleet_target_obj			= :missileTarget,
-		start_time					= :timestamp
-		'.implode("\n", $fleetQuery).';';
+		start_time					= :timestamp;';
 
 		$db->insert($sql, $params);
 
 		$fleetId	= $db->lastInsertId();
 
-		$sql	= 'INSERT INTO %%FLEETS_EVENT%% SET fleetID	= :fleetId, `time` = :endTime;';
-		$db->insert($sql, array(
-			':fleetId'	=> $fleetId,
-			':endTime'	=> $fleetStartTime
-		));
-
-        $params[':fleetId'] = $fleetId;
-
+		$params[':fleetId'] = $fleetId;
 
 		$sql	= 'INSERT INTO %%LOG_FLEETS%% SET
 		fleet_id					= :fleetId,
@@ -629,7 +591,6 @@ class FleetUtil
 		fleet_target_owner			= :fleetTargetOwner,
 		fleet_mission				= :fleetMission,
 		fleet_amount				= :fleetShipCount,
-		fleet_array					= :fleetData,
 		fleet_universe				= :universe,
 		fleet_start_time			= :fleetStartTime,
 		fleet_end_stay				= :fleetStayTime,
@@ -644,14 +605,36 @@ class FleetUtil
 		fleet_end_system			= :fleetTargetPlanetSystem,
 		fleet_end_planet			= :fleetTargetPlanetPlanet,
 		fleet_end_type				= :fleetTargetPlanetType,
-		fleet_resource_metal		= :fleetResource901,
-		fleet_resource_crystal		= :fleetResource902,
-		fleet_resource_deuterium	= :fleetResource903,
 		fleet_group					= :fleetGroup,
 		fleet_target_obj			= :missileTarget,
-		start_time					= :timestamp
-		'.implode("\n", $fleetQuery).';';
+		start_time					= :timestamp;';
 
 		$db->insert($sql,$params);
+
+		$sql	= 'INSERT INTO %%FLEETS_ELEMENTS%% SET fleetId = :fleetId, elementId = :elementId, amount = :amount;';
+
+		foreach($fleetResource as $elementId => $amount)
+		{
+			$db->insert($sql, array(
+				':fleetId'		=> $fleetId,
+				':elementId'	=> $elementId,
+				':amount'		=> floattostring($amount),
+			));
+		}
+
+		foreach($fleetData as $elementId => $amount)
+		{
+			$db->insert($sql, array(
+				':fleetId'		=> $fleetId,
+				':elementId'	=> $elementId,
+				':amount'		=> floattostring($amount),
+			));
+		}
+
+		$sql	= 'INSERT INTO %%FLEETS_EVENT%% SET fleetID	= :fleetId, `time` = :endTime;';
+		$db->insert($sql, array(
+			':fleetId'	=> $fleetId,
+			':endTime'	=> $fleetStartTime
+		));
 	}
 }

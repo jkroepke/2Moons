@@ -30,7 +30,7 @@
     </tr>
     <tr style="height:20px">
         <td>{$LNG.fl_arrival_time}</td>
-        <td>{$fleetStartTime}</td>
+        <td>{$fleetArrivalTime}</td>
     </tr>
     <tr style="height:20px">
         <td>{$LNG.fl_return_time}</td>
