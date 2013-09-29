@@ -318,7 +318,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 				$this->sendJSON($LNG['fl_target_not_exists']);
 			}
 			
-			$activeExpedition	= FleetUtil::GetCurrentFleets($USER['id'], 15, true);
+			$activeExpedition	= FleetUtil::getUsedSlots($USER['id'], 15, true);
 
 			if ($activeExpedition >= FleetUtil::getExpeditionLimit($USER))
 			{

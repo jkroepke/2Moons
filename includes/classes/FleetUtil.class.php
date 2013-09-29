@@ -310,7 +310,7 @@ class FleetUtil
         return true;
 	}
 
-	public static function GetCurrentFleets($userId, $fleetMission = 10, $thisMission = false)
+	public static function getUsedSlots($userId, $fleetMission = 10, $thisMission = false)
 	{
 		if($thisMission)
 		{
@@ -636,5 +636,34 @@ class FleetUtil
 			':fleetId'	=> $fleetId,
 			':endTime'	=> $fleetStartTime
 		));
+	}
+
+	static public function getCurrentFleets($userId)
+	{
+		$db	= Database::get();
+
+		$sql = "SELECT * FROM %%FLEETS%% WHERE fleet_owner = :userID ORDER BY fleet_end_time ASC;";
+		$fleetResult = $db->select($sql, array(
+			':userID'   => $userId
+		));
+
+		$currentFleets	= array();
+
+		foreach($fleetResult as $fleetRow)
+		{
+			$currentFleets[$fleetRow['fleet_id']]	= $fleetRow;
+		}
+
+		$sql = "SELECT * FROM %%FLEETS_ELEMENTS%% WHERE fleetId IN (".implode(',', array_keys($currentFleets)).");";
+		$elementResult = $db->select($sql);
+
+		foreach($elementResult as $elementRow)
+		{
+			if(!isset($currentFleets[$elementRow['fleetId']])) continue;
+
+			$currentFleets[$elementRow['fleetId']]['elements'][Vars::getElement($elementRow['elementId'])->class][$elementRow['elementId']]	= $elementRow['amount'];
+		}
+
+		return $currentFleets;
 	}
 }

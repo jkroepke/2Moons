@@ -202,7 +202,7 @@ class ShowFleetTablePage extends AbstractGamePage
 
 		if ($techExpedition >= 1)
 		{
-			$activeExpedition   = FleetUtil::GetCurrentFleets($USER['id'], 15, true);
+			$activeExpedition   = FleetUtil::getUsedSlots($USER['id'], 15, true);
 			$maxExpedition 		= floor(sqrt($techExpedition));
 		}
 		else
@@ -219,19 +219,18 @@ class ShowFleetTablePage extends AbstractGamePage
 		$targetType		= HTTP::_GP('planettype', (int) $PLANET['planet_type']);
 		$targetMission	= HTTP::_GP('target_mission', 0);
 
-        $sql = "SELECT * FROM %%FLEETS%% WHERE fleet_owner = :userID AND fleet_mission <> 10 ORDER BY fleet_end_time ASC;";
-        $fleetResult = $db->select($sql, array(
-            ':userID'   => $USER['id']
-        ));
+        $activeFleetSlots	= 0;
 
-        $activeFleetSlots	= $db->rowCount();
+		$currentFleets		= FleetUtil::getCurrentFleets($USER['id']);
 
 		$FlyingFleetList	= array();
 		
-		foreach ($fleetResult as $fleetsRow)
+		foreach ($currentFleets as $fleetId => $fleetsRow)
 		{
-			$FleetList[$fleetsRow['fleet_id']] = FleetUtil::unserialize($fleetsRow['fleet_array']);
-			
+			if($fleetsRow['fleet_mission'] == 11) continue;
+
+			$activeFleetSlots++;
+
 			if($fleetsRow['fleet_mission'] == 4 && $fleetsRow['fleet_mess'] == FLEET_OUTWARD)
 			{
 				$returnTime	= $fleetsRow['fleet_start_time'];
@@ -241,8 +240,7 @@ class ShowFleetTablePage extends AbstractGamePage
 				$returnTime	= $fleetsRow['fleet_end_time'];
 			}
 			
-			$FlyingFleetList[]	= array(
-				'id'			=> $fleetsRow['fleet_id'],
+			$FlyingFleetList[$fleetId]	= array(
 				'mission'		=> $fleetsRow['fleet_mission'],
 				'state'			=> $fleetsRow['fleet_mess'],
 				'startGalaxy'	=> $fleetsRow['fleet_start_galaxy'],
@@ -256,7 +254,7 @@ class ShowFleetTablePage extends AbstractGamePage
 				'amount'		=> pretty_number($fleetsRow['fleet_amount']),
 				'returntime'	=> $returnTime,
 				'resttime'		=> $returnTime - TIMESTAMP,
-				'FleetList'		=> $FleetList[$fleetsRow['fleet_id']],
+				'FleetList'		=> $fleetsRow['elements'][Vars::CLASS_FLEET],
 			);
 		}
 		
