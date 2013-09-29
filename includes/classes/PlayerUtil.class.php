@@ -54,7 +54,7 @@ class PlayerUtil
 
         if($networkLevel > 0)
         {
-            $sql = 'SELECT '.$techLabElementName.' FROM %%PLANETS%% WHERE id != :planetId AND id_owner = :userId AND destruyed = 0 ORDER BY '.$techLabElementName.' DESC LIMIT :limit;';
+            $sql = 'SELECT '.$techLabElementName.' FROM %%PLANETS%% WHERE id != :planetId AND id_owner = :userId AND destroyed = 0 ORDER BY '.$techLabElementName.' DESC LIMIT :limit;';
             $researchResult = Database::get()->select($sql, array(
                 ':limit'	=> (int) $networkLevel,
                 ':planetId'	=> $PLANET['id'],

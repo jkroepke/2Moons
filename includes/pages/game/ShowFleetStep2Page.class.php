@@ -49,6 +49,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 		$token			= HTTP::_GP('token', '');
 
 		$session		= Session::load();
+        $config		    = Config::get();
 
 		if (!isset($session->{"fleet_$token"}))
 		{
@@ -57,6 +58,24 @@ class ShowFleetStep2Page extends AbstractGamePage
 				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
+
+        if ($PLANET['galaxy'] == $targetGalaxy && $PLANET['system'] == $targetSystem && $PLANET['planet'] == $targetPlanet && $PLANET['planet_type'] == $targetType)
+        {
+            $this->printMessage($LNG['fl_error_same_planet'], array(array(
+                'label'	=> $LNG['sys_back'],
+                'url'	=> 'game.php?page=fleetTable'
+            )));
+        }
+
+        if ($targetGalaxy < 1 || $targetGalaxy > $config->max_galaxy ||
+            $targetSystem < 1 || $targetSystem > $config->max_system ||
+            $targetPlanet < 1 || $targetPlanet > ($config->max_planets + 1) ||
+            ($targetType !== 1 && $targetType !== 2 && $targetType !== 3)) {
+            $this->printMessage($LNG['fl_invalid_target'], array(array(
+                'label'	=> $LNG['sys_back'],
+                'url'	=> 'game.php?page=fleetTable'
+            )));
+        }
 
 		if(!FleetUtil::isValidCustomFleetSpeed($fleetSpeed))
 		{

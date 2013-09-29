@@ -110,7 +110,7 @@ class ShowSettingsPage extends AbstractGamePage
 		if($fleets != 0)
 			return false;
 
-		$sql = "SELECT * FROM %%PLANETS%% WHERE id_owner = :userID AND id != :planetID AND destruyed = 0;";
+		$sql = "SELECT * FROM %%PLANETS%% WHERE id_owner = :userID AND id != :planetID AND destroyed = 0;";
 		$query = $db->select($sql, array(
 			':userID'	=> $USER['id'],
 			':planetID'	=> $PLANET['id']

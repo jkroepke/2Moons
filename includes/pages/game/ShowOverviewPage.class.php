@@ -110,7 +110,7 @@ class ShowOverviewPage extends AbstractGamePage
 			else
 			{
 				if($PLANET['planet_type'] == 1) {
-					$sql = "UPDATE %%PLANETS%% SET destruyed = :time WHERE id = :planetID;";
+					$sql = "UPDATE %%PLANETS%% SET destroyed = :time WHERE id = :planetID;";
                     $db->update($sql, array(
                         ':time'   => TIMESTAMP + 86400,
                         ':planetID' => $PLANET['id'],
@@ -350,7 +350,7 @@ class ShowOverviewPage extends AbstractGamePage
 				$this->sendJSON(array('message' => $LNG['ov_wrong_pass']));
 			} else {
                 if($PLANET['planet_type'] == 1) {
-                    $sql = "UPDATE %%PLANETS%% SET destruyed = :time WHERE id = :planetID;";
+                    $sql = "UPDATE %%PLANETS%% SET destroyed = :time WHERE id = :planetID;";
                     $db->update($sql, array(
                         ':time'   => TIMESTAMP+ 86400,
                         ':planetID' => $PLANET['id'],

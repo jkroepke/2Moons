@@ -30,7 +30,7 @@
                     <tr style="height:20px;">
         				<td class="transparent"><label for="resource_{$elementId}">{$LNG.tech.$elementId}</label></td>
         				<td class="transparent"><a class="maxButton jsLink" data-resource-id="{$elementId}">{$LNG.fl_max}</a></td>
-        				<td class="transparent"><input data-resource-id="{$elementId}" id="resource_{$elementId}" name="resource[{$elementId}]" size="10" type="text" class="fleetTransportResourceInput"></td>
+        				<td class="transparent"><input data-resource-id="{$elementId}" id="resource_{$elementId}" name="transportResource[{$elementId}]" size="10" type="text" class="fleetTransportResourceInput"></td>
         			</tr>
 					{/foreach}
                     <tr style="height:20px;">

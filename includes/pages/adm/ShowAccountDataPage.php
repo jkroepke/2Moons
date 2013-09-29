@@ -253,7 +253,7 @@ function ShowAccountDataPage()
 			$names	= "<tr><th class=\"center\" width=\"150\">&nbsp;</th>";
 			
 			// COMIENZA EL SAQUEO DE DATOS DE LOS PLANETAS
-			$SpecifyItemsP	= "planet_type,id,name,galaxy,system,planet,destruyed,diameter,field_current,field_max,temp_min,temp_max,metal,crystal,deuterium,energy,".$SpecifyItemsPQ."energy_used";
+			$SpecifyItemsP	= "planet_type,id,name,galaxy,system,planet,destroyed,diameter,field_current,field_max,temp_min,temp_max,metal,crystal,deuterium,energy,".$SpecifyItemsPQ."energy_used";
 				
 			$PlanetsQuery	= $GLOBALS['DATABASE']->query("SELECT ".$SpecifyItemsP." FROM ".PLANETS." WHERE `id_owner` = '".$id_u."';");
 			
@@ -277,7 +277,7 @@ function ShowAccountDataPage()
 					
 					
 					
-				if ($PlanetsWhile["destruyed"] == 0)
+				if ($PlanetsWhile["destroyed"] == 0)
 				{	
 					$planets_moons	.= "
 					<tr>
@@ -318,14 +318,14 @@ function ShowAccountDataPage()
 				}
 				
 				$DestruyeD	= 0;
-				if ($PlanetsWhile["destruyed"] > 0)
+				if ($PlanetsWhile["destroyed"] > 0)
 				{
 					$destroyed	.= "
 						<tr>
 							<td>".$PlanetsWhile['name']."</td>
 							<td>".$PlanetsWhile['id']."</td>
 							<td>[".$PlanetsWhile['galaxy'].":".$PlanetsWhile['system'].":".$PlanetsWhile['planet']."]</td>
-							<td>".date("d-m-Y   H:i:s", $PlanetsWhile['destruyed'])."</td>
+							<td>".date("d-m-Y   H:i:s", $PlanetsWhile['destroyed'])."</td>
 						</tr>";	
 					$DestruyeD++;
 				}
@@ -439,7 +439,7 @@ function ShowAccountDataPage()
 				'ships_title'					=> $LNG['ships_title'],
 				'defenses_title'				=> $LNG['defenses_title'],
 				'ac_recent_destroyed_planets'	=> $LNG['ac_recent_destroyed_planets'],
-				'ac_isnodestruyed'				=> $LNG['ac_isnodestruyed'],
+				'ac_isnodestroyed'				=> $LNG['ac_isnodestroyed'],
 				'ac_note_k'						=> $LNG['ac_note_k'],
 				'ac_leyend'						=> $LNG['ac_leyend'],
 				'ac_account_data'				=> $LNG['ac_account_data'],
@@ -509,7 +509,7 @@ function ShowAccountDataPage()
 				'ac_name'						=> $LNG['ac_name'],
 				'input_id'						=> $LNG['input_id'],
 				'ac_coords'						=> $LNG['ac_coords'],
-				'ac_time_destruyed'				=> $LNG['ac_time_destruyed'],
+				'ac_time_destroyed'				=> $LNG['ac_time_destroyed'],
 			));					
 			$template->show('AccountDataPageDetail.tpl');
 		}

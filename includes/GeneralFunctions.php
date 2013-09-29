@@ -34,7 +34,7 @@ function getPlanets($USER)
 	$order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
 
 	$sql = "SELECT id, name, galaxy, system, planet, planet_type, image, b_building, b_building_id
-			FROM %%PLANETS%% WHERE id_owner = :userId AND destruyed = :destruyed ORDER BY ";
+			FROM %%PLANETS%% WHERE id_owner = :userId AND destroyed = :destroyed ORDER BY ";
 
 	switch($USER['planet_sort'])
 	{
@@ -51,7 +51,7 @@ function getPlanets($USER)
 
 	$planetsResult = Database::get()->select($sql, array(
 		':userId'		=> $USER['id'],
-		':destruyed'	=> 0
+		':destroyed'	=> 0
    	));
 	
 	$planetsList = array();

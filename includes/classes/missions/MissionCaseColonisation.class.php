@@ -67,7 +67,7 @@ class MissionCaseColonisation extends MissionFunctions implements Mission
 				FROM %%PLANETS%%
 				WHERE `id_owner`	= :userId
 				AND `planet_type`	= :type
-				AND `destruyed`		= :destroyed;';
+				AND `destroyed`		= :destroyed;';
 
 				$currentPlanetCount	= $db->selectSingle($sql, array(
 					':userId'		=> $this->_fleet['fleet_owner'],
