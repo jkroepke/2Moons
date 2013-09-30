@@ -43,11 +43,11 @@ $LNG->includeData(array('L18N', 'INGAME', 'INSTALL', 'CUSTOM'));
 
 $template = new template();
 $template->assign(array(
-   'lang'       => $LNG->getLanguage(),
-   'Selector'   => $LNG->getAllowedLangs(false),
-   'title'      => $LNG['title_install'] . ' &bull; 2Moons',
-   'header'     => $LNG['menu_install'],
-   'canUpgrade' => file_exists('includes/config.php') && filesize('includes/config.php') !== 0
+    'lang' => $LNG->getLanguage(),
+    'Selector' => $LNG->getAllowedLangs(false),
+    'title' => $LNG['title_install'] . ' &bull; 2Moons',
+    'header' => $LNG['menu_install'],
+    'canUpgrade' => file_exists('includes/config.php') && filesize('includes/config.php') !== 0
 ));
 
 $db = Database::get();
@@ -58,14 +58,14 @@ require 'includes/classes/Element.class.php';
 require 'includes/classes/Vars.class.php';
 Vars::init();
 
-function execQuery($data, $type) {
-    switch ($type)
-    {
+function execQuery($data, $type)
+{
+    switch ($type) {
         case 'queue':
-            $query = "INSERT INTO  `uni1_queue` (`queueId` ,`userId` ,`planetId` ,`elementId` ,`buildTime` ,`endBuildTime` ,`amount` ,`taskType`) VALUES ".implode(', ',$data).";";
+            $query = "INSERT INTO  `uni1_queue` (`queueId` ,`userId` ,`planetId` ,`elementId` ,`buildTime` ,`endBuildTime` ,`amount` ,`taskType`) VALUES " . implode(', ', $data) . ";";
             break;
         case 'fleet':
-            $query = "INSERT INTO  `uni1_fleet_elements` (`fleetId` ,`elemenId` ,`amount`) VALUES ".implode(', ',$data).";";
+            $query = "INSERT INTO  `uni1_fleet_elements` (`fleetId` ,`elemenId` ,`amount`) VALUES " . implode(', ', $data) . ";";
             break;
     }
     echo($query);
@@ -77,29 +77,27 @@ $sql = "SELECT * FROM %%PLANETS%% ORDER BY id_owner ASC;";
 $Rows = $db->select($sql);
 
 foreach ($Rows as $Row) {
-    $userId             = $Row['id_owner'];
-    $planetId           = $Row['id'];
-    $partTime           = $Row['b_hangar'];
-    $buildingdata       = unserialize($Row['b_building_id']);
-    $hangardata         = unserialize($Row['b_hangar_id']);
+    $userId = $Row['id_owner'];
+    $planetId = $Row['id'];
+    $partTime = $Row['b_hangar'];
+    $buildingdata = unserialize($Row['b_building_id']);
+    $hangardata = unserialize($Row['b_hangar_id']);
     if (!isset($userData) || $userData['id'] != $userId)
         $userData = $db->selectSingle("SELECT * FROM %%USERS%% WHERE id = :userID;", array(':userID' => $userId));
     $endTime = $Row['last_update'];
-    if (is_array($buildingdata))
-    {
+    if (is_array($buildingdata)) {
         foreach ($buildingdata as $data) {
             list($elementId, $amount, $time, , $mode) = $data;
             $time = BuildUtil::getBuildingTime($userData, $Row, Vars::getElement($elementId), NULL, false, 1);
             $endTime += $time;
-            $insertData[] = "(1001,  $userId,  $planetId,  $elementId,  $time,  $endTime,  $amount,  ".($mode=='build'?1:2).")";
-        }
-        if (count($insertData) >= 100) {
-            execQuery($insertData,'queue');
-            $insertData = array();
+            $insertData[] = "(1001,  $userId,  $planetId,  $elementId,  $time,  $endTime,  $amount,  " . ($mode == 'build' ? 1 : 2) . ")";
+            if (count($insertData) >= 100) {
+                execQuery($insertData, 'queue');
+                $insertData = array();
+            }
         }
     }
-    if (is_array($hangardata))
-    {
+    if (is_array($hangardata)) {
         $first = true;
         foreach ($hangardata as $data) {
             list($elementId, $amount) = $data;
@@ -107,9 +105,12 @@ foreach ($Rows as $Row) {
             $endTime = ($first ? $Row['last_update'] + $time - $partTime : 0);
             $first = false;
             $insertData[] = "(1003,  $userId,  $planetId,  $elementId,  $time,  $endTime,  $amount,  4)";
+            if (count($insertData) >= 100) {
+                execQuery($insertData, 'queue');
+                $insertData = array();
+            }
         }
     }
-
 }
 
 
@@ -118,44 +119,46 @@ $sql = "SELECT * FROM %%USERS%%;";
 $Rows = $db->select($sql);
 
 foreach ($Rows as $Row) {
-    if(!empty($Row['b_tech_queue']))
-    {
-        $userId     = $Row['id'];
-        $datas      = unserialize($Row['b_tech_queue']);
+    if (!empty($Row['b_tech_queue'])) {
+        $userId = $Row['id'];
+        $datas = unserialize($Row['b_tech_queue']);
         foreach ($datas as $data) {
             list($elementId, $amount, $time, $endTime, $planetId) = $data;
-            #$planetData = $db->selectSingle("SELECT * FROM %%PLANETS%% WHERE id = :planetID;", array(':planetID' => $planetId));
             $insertData[] = "(1002,  $userId,  $planetId,  $elementId,  $time,  $endTime,  $amount,  3)";
-        }
-        if (count($insertData) >= 100) {
-            execQuery($insertData,'queue');
-            $insertData = array();
+            if (count($insertData) >= 100) {
+                execQuery($insertData, 'queue');
+                $insertData = array();
+            }
         }
     }
 }
 
-execQuery($insertData,'queue');
+execQuery($insertData, 'queue');
 
 
 ## FlEET ##
-$insertData = array();
+if (!empty($insertData)) {
+    $insertData = array();
+}
 $sql = "SELECT * FROM %%FLEETS%%;";
 $Rows = $db->select($sql);
 
 foreach ($Rows as $Row) {
     {
         $fleetId = $Row['fleet_id'];
-        $datas = explode(';',$Row['fleet_array']);
+        $insertData[] = "($fleetId,  901,  " . $Row['fleet_resource_metal'] . ")";
+        $insertData[] = "($fleetId,  902,  " . $Row['fleet_resource_crystal'] . ")";
+        $insertData[] = "($fleetId,  903,  " . $Row['fleet_resource_deuterium'] . ")";
+        $datas = explode(';', $Row['fleet_array']);
         foreach ($datas as $data) {
-            list($elementId, $amount) = explode(',',$data);
+            list($elementId, $amount) = explode(',', $data);
             $insertData[] = "($fleetId,  $elementId,  $amount)";
-        }
-        if (count($insertData) >= 100) {
-            execQuery($insertData,'fleet');
-            $insertData = array();
+            if (count($insertData) >= 100) {
+                execQuery($insertData, 'fleet');
+                $insertData = array();
+            }
         }
     }
 }
 
-$query = "INSERT INTO  `uni1_fleet_elements` (`fleetId` ,`elemenId` ,`amount`) VALUES ".implode(', ',$insertData).";";
-echo($query);
+execQuery($insertData, 'fleet');
