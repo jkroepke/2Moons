@@ -188,9 +188,6 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 	}
 	elseif (MODE === 'ADMIN')
 	{
-		error_reporting(E_ERROR | E_WARNING | E_PARSE);
-		
-		$USER['rights']		= unserialize($USER['rights']);
 		$LNG->includeData(array('ADMIN', 'CUSTOM'));
 	}
 }

@@ -149,6 +149,10 @@ foreach ($Rows as $Row) {
         $insertData[] = "($fleetId,  901,  " . $Row['fleet_resource_metal'] . ")";
         $insertData[] = "($fleetId,  902,  " . $Row['fleet_resource_crystal'] . ")";
         $insertData[] = "($fleetId,  903,  " . $Row['fleet_resource_deuterium'] . ")";
+		if(!empty($Row['fleet_resource_deuterium']))
+		{
+			$insertData[] = "($fleetId,  921,  " . $Row['fleet_resource_darkmatter'] . ")";
+		}
         $datas = explode(';', $Row['fleet_array']);
         foreach ($datas as $data) {
             list($elementId, $amount) = explode(',', $data);
