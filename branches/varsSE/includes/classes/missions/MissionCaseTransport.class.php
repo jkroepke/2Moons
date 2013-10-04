@@ -25,12 +25,9 @@
  * @info $Id$
  * @link http://2moons.cc/
  */
-class MissionCaseTransport extends MissionFunctions implements Mission
-{		
-	function __construct($Fleet)
-	{
-		$this->_fleet	= $Fleet;
-	}
+
+class MissionCaseTransport extends AbstractMission
+{
 	
 	function TargetEvent()
 	{

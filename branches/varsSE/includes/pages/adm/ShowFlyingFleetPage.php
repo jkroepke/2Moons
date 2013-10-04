@@ -37,33 +37,33 @@ function ShowFlyingFleetPage()
 	$id	= HTTP::_GP('id', 0);
 	if(!empty($id)){
 		$lock	= HTTP::_GP('lock', 0);
-		$GLOBALS['DATABASE']->query("UPDATE ".FLEETS." SET `fleet_busy` = '".$lock."' WHERE `fleet_id` = '".$id."' AND `fleet_universe` = '".Universe::getEmulated()."';");
+		$GLOBALS['DATABASE']->query("UPDATE ".FLEETS." SET `fleet_busy` = '".$lock."' WHERE `fleetId` = '".$id."' AND `fleet_universe` = '".Universe::getEmulated()."';");
 		
 		$SQL	= ($lock == 0) ? "NULL" : "'ADM_LOCK'";
 		
-		$GLOBALS['DATABASE']->query("UPDATE ".FLEETS_EVENT." SET `lock` = ".$SQL." WHERE `fleetID` = ".$id.";");
+		$GLOBALS['DATABASE']->query("UPDATE ".FLEETS_EVENT." SET `lock` = ".$SQL." WHERE `fleetId` = ".$id.";");
 	} 
 	
-	$orderBy		= "fleet_id";
+	$orderBy		= "fleetId";
 
 	$fleetResult	= $GLOBALS['DATABASE']->query("SELECT 
 	fleet.*,
 	event.`lock`,
-	COUNT(event.fleetID) as error,
+	COUNT(event.fleetId) as error,
 	pstart.name as startPlanetName,
 	ptarget.name as targetPlanetName,
 	ustart.username as startUserName,
 	utarget.username as targetUserName,
 	acs.name as acsName
 	FROM ".FLEETS." fleet
-	LEFT JOIN ".FLEETS_EVENT." event ON fleetID = fleet_id
+	LEFT JOIN ".FLEETS_EVENT." event ON fleetId = fleetId
 	LEFT JOIN ".PLANETS." pstart ON pstart.id = fleet_start_id
 	LEFT JOIN ".PLANETS." ptarget ON ptarget.id = fleet_end_id
 	LEFT JOIN ".USERS." ustart ON ustart.id = fleet_owner
 	LEFT JOIN ".USERS." utarget ON utarget.id = fleet_target_owner
 	LEFT JOIN ".AKS." acs ON acs.id = fleet_group
 	WHERE fleet_universe = ".Universe::getEmulated()."
-	GROUP BY event.fleetID
+	GROUP BY event.fleetId
 	ORDER BY ".$orderBy.";");
 	
 	$FleetList	= array();
@@ -77,7 +77,7 @@ function ShowFlyingFleetPage()
 		}
 		
 		$FleetList[]	= array(
-			'fleetID'				=> $fleetRow['fleet_id'],
+			'fleetId'				=> $fleetRow['fleetId'],
 			'lock'					=> !empty($fleetRow['lock']),
 			'count'					=> $fleetRow['fleet_amount'],
 			'error'					=> !$fleetRow['error'],

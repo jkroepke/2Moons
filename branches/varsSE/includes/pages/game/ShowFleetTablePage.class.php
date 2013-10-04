@@ -36,7 +36,7 @@ class ShowFleetTablePage extends AbstractGamePage
 		parent::__construct();
 	}
 	
-	public function createACS($fleetID, $fleetData)
+	public function createACS($fleetId, $fleetData)
     {
 		global $USER;
 		
@@ -60,10 +60,10 @@ class ShowFleetTablePage extends AbstractGamePage
             ':userID'	=> $acsCreator
         ));
 
-        $sql = "UPDATE %%FLEETS%% SET fleet_group = :acsID WHERE fleet_id = :fleetID;";
+        $sql = "UPDATE %%FLEETS%% SET fleet_group = :acsID WHERE fleetId = :fleetId;";
         $db->update($sql, array(
             ':acsID'	=> $acsID,
-            ':fleetID'	=> $fleetID
+            ':fleetId'	=> $fleetId
         ));
 
 		return array(
@@ -85,15 +85,15 @@ class ShowFleetTablePage extends AbstractGamePage
 		return $acsResult;
 	}
 	
-	public function getACSPageData($fleetID)
+	public function getACSPageData($fleetId)
 	{
 		global $USER, $LNG;
 		
 		$db = Database::get();
 
-        $sql = "SELECT fleet_start_time, fleet_end_id, fleet_group, fleet_mess FROM %%FLEETS%% WHERE fleet_id = :fleetID;";
+        $sql = "SELECT fleet_start_time, fleet_end_id, fleet_group, fleet_mess FROM %%FLEETS%% WHERE fleetId = :fleetId;";
         $fleetData = $db->selectSingle($sql, array(
-            ':fleetID'  => $fleetID
+            ':fleetId'  => $fleetId
         ));
 
         if ($db->rowCount() != 1)
@@ -103,7 +103,7 @@ class ShowFleetTablePage extends AbstractGamePage
 			return array();
 				
 		if ($fleetData['fleet_group'] == 0)
-			$acsData	= $this->createACS($fleetID, $fleetData);
+			$acsData	= $this->createACS($fleetId, $fleetData);
 		else
 			$acsData	= $this->loadACS($fleetData);
 	
@@ -171,7 +171,7 @@ class ShowFleetTablePage extends AbstractGamePage
 		return array(
 			'invitedUsers'	=> $invitedUsers,
 			'acsName'		=> $acsData['name'],
-			'mainFleetID'	=> $fleetID,
+			'mainFleetID'	=> $fleetId,
 			'statusMessage'	=> $statusMessage,
 		);
 	}
@@ -181,7 +181,7 @@ class ShowFleetTablePage extends AbstractGamePage
 		global $USER, $PLANET, $LNG;
 		
 		$acsData			= array();
-		$FleetID			= HTTP::_GP('fleetID', 0);
+		$FleetID			= HTTP::_GP('fleetId', 0);
 		$GetAction			= HTTP::_GP('action', "");
 
         $db = Database::get();
@@ -221,7 +221,7 @@ class ShowFleetTablePage extends AbstractGamePage
 
         $activeFleetSlots	= 0;
 
-		$currentFleets		= FleetUtil::getCurrentFleets($USER['id']);
+		$currentFleets		= FleetUtil::getCurrentFleetsByUserId($USER['id']);
 
 		$FlyingFleetList	= array();
 		

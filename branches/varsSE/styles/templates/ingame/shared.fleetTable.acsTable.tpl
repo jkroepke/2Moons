@@ -1,5 +1,5 @@
 <form action="?page=fleetTable&amp;action=acs" method="post">
-<input name="fleetID" value="{$acsData.mainFleetID}" type="hidden">
+<input name="fleetId" value="{$acsData.mainFleetID}" type="hidden">
 	<table class="table519">
 		<tr style="height:20px;">
 			<th colspan="2">{$LNG.fl_sac_of_fleet}</th>
@@ -37,7 +37,7 @@
 <script type="text/javascript">
 function Rename(){
 	var Name = prompt("{$LNG.fl_acs_change_name}", "{$acsData.acsName}");
-	$.getJSON('?page=fleetTable&action=acs&fleetID={$acsData.mainFleetID}&acsName='+Name, function(data) {
+	$.getJSON('?page=fleetTable&action=acs&fleetId={$acsData.mainFleetID}&acsName='+Name, function(data) {
 		if(data != "") {
 			alert(data);
 			return;

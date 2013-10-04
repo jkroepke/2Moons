@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class MissionCaseStay extends MissionFunctions implements Mission
+class MissionCaseStay extends AbstractMission
 {
 	function __construct($Fleet)
 	{

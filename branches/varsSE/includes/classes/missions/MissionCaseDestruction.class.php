@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class MissionCaseDestruction extends MissionFunctions implements Mission
+class MissionCaseDestruction extends AbstractMission
 {
 	function __construct($Fleet)
 	{
@@ -109,28 +109,28 @@ HTML;
 
 			foreach($incomingFleetsResult as $incomingFleetRow)
 			{
-				$incomingFleets[$incomingFleetRow['fleet_id']] = $incomingFleetRow;
+				$incomingFleets[$incomingFleetRow['fleetId']] = $incomingFleetRow;
 			}
 
 			unset($incomingFleetsResult);
 		}
 		else
 		{
-			$incomingFleets = array($this->_fleet['fleet_id'] => $this->_fleet);
+			$incomingFleets = array($this->_fleet['fleetId'] => $this->_fleet);
 		}
 
-		foreach($incomingFleets as $fleetID => $fleetDetail)
+		foreach($incomingFleets as $fleetId => $fleetDetail)
 		{
 			$sql	= "SELECT * FROM %%USERS%% WHERE id = :userId;";
-			$fleetAttack[$fleetID]['player']	= $db->selectSingle($sql, array(
+			$fleetAttack[$fleetId]['player']	= $db->selectSingle($sql, array(
 				':userId'	=> $fleetDetail['fleet_owner']
 			));
 
-			$fleetAttack[$fleetID]['player']['factor']	= PlayerUtil::getFactors($fleetAttack[$fleetID]['player'],  $this->_fleet['fleet_start_time']);
-			$fleetAttack[$fleetID]['fleetDetail']		= $fleetDetail;
-			$fleetAttack[$fleetID]['unit']				= FleetUtil::unserialize($fleetDetail['fleet_array']);
+			$fleetAttack[$fleetId]['player']['factor']	= PlayerUtil::getFactors($fleetAttack[$fleetId]['player'],  $this->_fleet['fleet_start_time']);
+			$fleetAttack[$fleetId]['fleetDetail']		= $fleetDetail;
+			$fleetAttack[$fleetId]['unit']				= FleetUtil::unserialize($fleetDetail['fleet_array']);
 
-			$userAttack[$fleetAttack[$fleetID]['player']['id']]	= $fleetAttack[$fleetID]['player']['username'];
+			$userAttack[$fleetAttack[$fleetId]['player']['id']]	= $fleetAttack[$fleetId]['player']['username'];
 		}
 
 		$sql	= "SELECT * FROM %%FLEETS%%
@@ -147,18 +147,18 @@ HTML;
 
 		foreach($targetFleetsResult as $fleetDetail)
 		{
-			$fleetID	= $fleetDetail['fleet_id'];
+			$fleetId	= $fleetDetail['fleetId'];
 
 			$sql	= "SELECT * FROM %%USERS%% WHERE id = :userId;";
-			$fleetDefend[$fleetID]['player']			= $db->selectSingle($sql, array(
+			$fleetDefend[$fleetId]['player']			= $db->selectSingle($sql, array(
 				':userId'	=> $fleetDetail['fleet_owner']
 			));
 
-			$fleetDefend[$fleetID]['player']['factor']	= PlayerUtil::getFactors($fleetDefend[$fleetID]['player'], $this->_fleet['fleet_start_time']);
-			$fleetDefend[$fleetID]['fleetDetail']		= $fleetDetail;
-			$fleetDefend[$fleetID]['unit']				= FleetUtil::unserialize($fleetDetail['fleet_array']);
+			$fleetDefend[$fleetId]['player']['factor']	= PlayerUtil::getFactors($fleetDefend[$fleetId]['player'], $this->_fleet['fleet_start_time']);
+			$fleetDefend[$fleetId]['fleetDetail']		= $fleetDetail;
+			$fleetDefend[$fleetId]['unit']				= FleetUtil::unserialize($fleetDetail['fleet_array']);
 
-			$userDefend[$fleetDefend[$fleetID]['player']['id']]	= $fleetDefend[$fleetID]['player']['username'];
+			$userDefend[$fleetDefend[$fleetId]['player']['id']]	= $fleetDefend[$fleetId]['player']['username'];
 		}
 
 		unset($targetFleetsResult);
@@ -190,7 +190,7 @@ HTML;
 
 		$combatResult 		= calculateAttack($fleetAttack, $fleetDefend, $fleetIntoDebris, $defIntoDebris);
 
-		foreach ($fleetAttack as $fleetID => $fleetDetail)
+		foreach ($fleetAttack as $fleetId => $fleetDetail)
 		{
 			$fleetArray = '';
 			$totalCount = 0;
@@ -204,7 +204,7 @@ HTML;
 
 			if($totalCount == 0)
 			{
-				if($this->_fleet['fleet_id'] == $fleetID)
+				if($this->_fleet['fleetId'] == $fleetId)
 				{
 					$this->KillFleet();
 				}
@@ -212,21 +212,21 @@ HTML;
 				{
 					$sql	= 'DELETE %%FLEETS%%, %%FLEETS_EVENT%%
 					FROM %%FLEETS%%
-					INNER JOIN %%FLEETS_EVENT%% ON fleetID = fleet_id
-					WHERE fleet_id = :fleetId;';
+					INNER JOIN %%FLEETS_EVENT%% ON fleetId = fleetId
+					WHERE fleetId = :fleetId;';
 
 					$db->delete($sql, array(
-						':fleetId'	=> $fleetID
+						':fleetId'	=> $fleetId
 					));
 				}
 
-				$sql	= 'UPDATE %%LOG_FLEETS%% SET fleet_state = :fleetState WHERE fleet_id = :fleetId;';
+				$sql	= 'UPDATE %%LOG_FLEETS%% SET fleet_state = :fleetState WHERE fleetId = :fleetId;';
 				$db->update($sql, array(
-					':fleetId'		=> $fleetID,
+					':fleetId'		=> $fleetId,
 					':fleetState'	=> FLEET_HOLD,
 				));
 
-				unset($fleetAttack[$fleetID]);
+				unset($fleetAttack[$fleetId]);
 			}
 			elseif($totalCount > 0)
 			{
@@ -235,12 +235,12 @@ HTML;
 				fleet.fleet_amount	= :fleetCount,
 				log.fleet_array		= :fleetData,
 				log.fleet_amount	= :fleetCount
-				WHERE log.fleet_id = :fleetId AND log.fleet_id = :fleetId;";
+				WHERE log.fleetId = :fleetId AND log.fleetId = :fleetId;";
 
 				$db->update($sql, array(
 					':fleetData'	=> substr($fleetArray, 0, -1),
 					':fleetCount'	=> $totalCount,
-					':fleetId'		=> $fleetID
+					':fleetId'		=> $fleetId
 			  	));
 			}
 			else
@@ -249,9 +249,9 @@ HTML;
 			}
 		}
 
-		foreach ($fleetDefend as $fleetID => $fleetDetail)
+		foreach ($fleetDefend as $fleetId => $fleetDetail)
 		{
-			if($fleetID != 0)
+			if($fleetId != 0)
 			{
 				// Stay fleet
 				$fleetArray = '';
@@ -269,20 +269,20 @@ HTML;
 				{
 					$sql	= 'DELETE %%FLEETS%%, %%FLEETS_EVENT%%
 					FROM %%FLEETS%%
-					INNER JOIN %%FLEETS_EVENT%% ON fleetID = fleet_id
-					WHERE fleet_id = :fleetId;';
+					INNER JOIN %%FLEETS_EVENT%% ON fleetId = fleetId
+					WHERE fleetId = :fleetId;';
 
 					$db->delete($sql, array(
-						':fleetId'	=> $fleetID
+						':fleetId'	=> $fleetId
 					));
 
-					$sql	= 'UPDATE %%LOG_FLEETS%% SET fleet_state = :fleetState WHERE fleet_id = :fleetId;';
+					$sql	= 'UPDATE %%LOG_FLEETS%% SET fleet_state = :fleetState WHERE fleetId = :fleetId;';
 					$db->update($sql, array(
-						':fleetId'		=> $fleetID,
+						':fleetId'		=> $fleetId,
 						':fleetState'	=> FLEET_HOLD,
 					));
 
-					unset($fleetAttack[$fleetID]);
+					unset($fleetAttack[$fleetId]);
 				}
 				elseif($totalCount > 0)
 				{
@@ -291,12 +291,12 @@ HTML;
 					fleet.fleet_amount	= :fleetCount,
 					log.fleet_array		= :fleetData,
 					log.fleet_amount	= :fleetCount
-					WHERE log.fleet_id = :fleetId AND log.fleet_id = :fleetId;";
+					WHERE log.fleetId = :fleetId AND log.fleetId = :fleetId;";
 
 					$db->update($sql, array(
 	   					':fleetData'	=> substr($fleetArray, 0, -1),
 						':fleetCount'	=> $totalCount,
-						':fleetId'		=> $fleetID
+						':fleetId'		=> $fleetId
 					));
 				}
 				else
@@ -362,7 +362,7 @@ HTML;
 		switch($combatResult['won'])
 		{
 			case "a":
-				$moonDestroyChance	= round((100 - sqrt($targetPlanet['diameter'])) * sqrt($fleetAttack[$this->_fleet['fleet_id']]['unit'][214]), 1);
+				$moonDestroyChance	= round((100 - sqrt($targetPlanet['diameter'])) * sqrt($fleetAttack[$this->_fleet['fleetId']]['unit'][214]), 1);
 
 				// Max 100% | Min 0%
 				$moonDestroyChance	= min($moonDestroyChance, 100);
@@ -392,12 +392,12 @@ HTML;
 					fleet_end_id	= :moonId,
 					fleet_mission	= IF(fleet_mission = 9, 1, fleet_mission)
 					WHERE fleet_end_id = :planetId
-					AND fleet_id != :fleetId;';
+					AND fleetId != :fleetId;';
 
 					$db->update($sql, array(
 						':planetId'	=> $planetID,
 						':moonId'	=> $targetPlanet['id'],
-						':fleetId'	=> $this->_fleet['fleet_id']
+						':fleetId'	=> $this->_fleet['fleetId']
 					));
 
 					$sql = "UPDATE %%AKS%% SET target = :planetId WHERE target = :moonId;";

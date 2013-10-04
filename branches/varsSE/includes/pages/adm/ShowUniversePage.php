@@ -67,9 +67,9 @@ function ShowUniversePage() {
 				$GLOBALS['DATABASE']->query("DELETE FROM ".DIPLO." WHERE universe = ".$universe.";");
 				$GLOBALS['DATABASE']->query("DELETE FROM ".FLEETS.", ".FLEETS_EVENT.", ".AKS.", ".LOG_FLEETS."
 				USING ".FLEETS."
-				LEFT JOIN ".FLEETS_EVENT." ON ".FLEETS.".fleet_id = ".FLEETS_EVENT.".fleetID
+				LEFT JOIN ".FLEETS_EVENT." ON ".FLEETS.".fleetId = ".FLEETS_EVENT.".fleetId
 				LEFT JOIN ".AKS." ON ".FLEETS.".fleet_group = ".AKS.".id
-				LEFT JOIN ".LOG_FLEETS." ON ".FLEETS.".fleet_id = ".LOG_FLEETS.".fleet_id
+				LEFT JOIN ".LOG_FLEETS." ON ".FLEETS.".fleetId = ".LOG_FLEETS.".fleetId
 				WHERE ".FLEETS.".fleet_universe = ".$universe.";");
 				$GLOBALS['DATABASE']->query("DELETE FROM ".MESSAGES." WHERE message_universe = ".$universe.";");
 				$GLOBALS['DATABASE']->query("DELETE FROM ".NOTES." WHERE universe = ".$universe.";");

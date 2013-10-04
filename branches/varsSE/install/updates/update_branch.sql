@@ -19,22 +19,53 @@ CREATE TABLE `prefix_vars_queue_blocker` (
  `elementId` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-CREATE TABLE `prefix_fleet_elements`  (
+CREATE TABLE `prefix_fleet_elements` (
  `fleetId` int(10) unsigned NOT NULL,
  `elementId` int(10) unsigned NOT NULL,
  `amount` bigint(20) unsigned NOT NULL,
  KEY `fleetId` (`fleetId`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
-ALTER TABLE `prefix_planets` CHANGE `destruyed` `destroyed` INT( 11 ) NOT NULL DEFAULT '0';
+ALTER TABLE `prefix_fleet_event`
+	CHANGE `fleetId` `fleetId` INT( 10 ) UNSIGNED NOT NULL ,
+	CHANGE `time` `time` DATETIME NOT NULL ,
+	CHANGE `lock` `lockToken` VARCHAR( 32 ) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ;
 
+ALTER TABLE `prefix_fleets`
+	CHANGE `fleet_id` `fleetId` INT UNSIGNED NOT NULL AUTO_INCREMENT;	
+	
+ALTER TABLE `prefix_planets`
+	CHANGE `destruyed` `destroyed` INT NOT NULL DEFAULT '0';
+
+ALTER TABLE `prefix_log_fleets`
+	CHANGE `fleet_id` `fleetId` INT UNSIGNED NOT NULL ;
+
+/* AFTER CONVERTER
+
+	
+ALTER TABLE `prefix_fleets`
+  DROP `fleet_amount`,
+  DROP `fleet_array`,
+  DROP `fleet_resource_metal`,
+  DROP `fleet_resource_crystal`,
+  DROP `fleet_resource_deuterium`,
+  DROP `fleet_resource_darkmatter`;
+  
+  
+  
+  
+
+*/
+	
+	
+	
 RENAME TABLE `prefix_vars_requriements` TO `prefix_vars_requirements`;
 
 INSERT INTO `prefix_vars_queue_blocker` (`queueId`, `elementId`) VALUES
-('1002',  '6'),
-('1002',  '31'),
-('1003',  '15'),
-('1003',  '21');
+('1002', '6'),
+('1002', '31'),
+('1003', '15'),
+('1003', '21');
 
 ALTER TABLE `prefix_vars`
 	ADD `flagBuildOnPlanet` ENUM( '0', '1' ) NOT NULL DEFAULT '0' AFTER `bonusMoreFoundUnit`,

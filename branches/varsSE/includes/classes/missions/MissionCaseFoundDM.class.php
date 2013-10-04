@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class MissionCaseFoundDM extends MissionFunctions implements Mission
+class MissionCaseFoundDM extends AbstractMission
 {
 	const CHANCE = 30; 
 	const CHANCE_SHIP = 0.25; 
