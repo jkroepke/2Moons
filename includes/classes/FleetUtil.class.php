@@ -300,7 +300,7 @@ class FleetUtil
 		fleet_end_stay   = fleet_end_stay + :time,
 		fleet_end_time   = fleet_end_time + :time,
 		time             = time + :time
-		WHERE fleet_group = :acsId AND fleet_id = fleetID;';
+		WHERE fleet_group = :acsId AND fleetId = fleetId;';
 
 		$db->update($sql, array(
 			':time'		=> $timeDifference,
@@ -338,7 +338,7 @@ class FleetUtil
 	{
 		$db				= Database::get();
 
-		$sql			= 'SELECT start_time, fleet_mission, fleet_group, fleet_owner, fleet_mess FROM %%FLEETS%% WHERE fleet_id = :fleetId;';
+		$sql			= 'SELECT start_time, fleet_mission, fleet_group, fleet_owner, fleet_mess FROM %%FLEETS%% WHERE fleetId = :fleetId;';
 		$fleetResult	= $db->selectSingle($sql, array(
 			':fleetId'	=> $FleetID,
 		));
@@ -348,7 +348,7 @@ class FleetUtil
 			return false;
 		}
 
-		$sqlWhere	= 'fleet_id';
+		$sqlWhere	= 'fleetId';
 
 		if($fleetResult['fleet_mission'] == 1 && $fleetResult['fleet_group'] != 0)
 		{
@@ -382,7 +382,7 @@ class FleetUtil
 		fleet_mess			= :fleetState,
 		hasCanceled			= :hasCanceled,
 		time				= :endTime
-		WHERE '.$sqlWhere.' = :id AND fleet_id = fleetID;';
+		WHERE '.$sqlWhere.' = :id AND fleetId = fleetId;';
 
 		$db->update($sql, array(
 			':id'			=> $FleetID,
@@ -586,7 +586,7 @@ class FleetUtil
 		$params[':fleetId'] = $fleetId;
 
 		$sql	= 'INSERT INTO %%LOG_FLEETS%% SET
-		fleet_id					= :fleetId,
+		fleetId						= :fleetId,
 		fleet_owner					= :fleetStartOwner,
 		fleet_target_owner			= :fleetTargetOwner,
 		fleet_mission				= :fleetMission,
@@ -631,14 +631,14 @@ class FleetUtil
 			));
 		}
 
-		$sql	= 'INSERT INTO %%FLEETS_EVENT%% SET fleetID	= :fleetId, `time` = :endTime;';
+		$sql	= 'INSERT INTO %%FLEETS_EVENT%% SET fleetId	= :fleetId, `time` = :endTime;';
 		$db->insert($sql, array(
 			':fleetId'	=> $fleetId,
-			':endTime'	=> $fleetStartTime
+			':endTime'	=> Database::formatDate($fleetStartTime)
 		));
 	}
 
-	static public function getCurrentFleets($userId)
+	static public function getCurrentFleetsByUserId($userId)
 	{
 		$db	= Database::get();
 
@@ -651,9 +651,15 @@ class FleetUtil
 
 		foreach($fleetResult as $fleetRow)
 		{
-			$currentFleets[$fleetRow['fleet_id']]	= $fleetRow;
+			$currentFleets[$fleetRow['fleetId']]	= $fleetRow;
 		}
 
+		return self::getFleetElements($currentFleets);
+	}
+
+	static public function getFleetElements($currentFleets)
+	{
+		$db	= Database::get();
 		$sql = "SELECT * FROM %%FLEETS_ELEMENTS%% WHERE fleetId IN (".implode(',', array_keys($currentFleets)).");";
 		$elementResult = $db->select($sql);
 

@@ -504,7 +504,7 @@ class PlayerUtil
 		));
 
 		$sql	= 'DELETE %%FLEETS%%, %%FLEETS_EVENT%%
-		FROM %%FLEETS%% LEFT JOIN %%FLEETS_EVENT%% on fleet_id = fleetId
+		FROM %%FLEETS%% LEFT JOIN %%FLEETS_EVENT%% on fleetId = fleetId
 		WHERE fleet_owner = :userId;';
 		$db->delete($sql, array(
 			':userId'	=> $userId
@@ -536,7 +536,7 @@ class PlayerUtil
 			':type'		=> 1
 		));
 		
-		$fleetIds	= $db->select('SELECT fleet_id FROM %%FLEETS%% WHERE fleet_target_owner = :userId;', array(
+		$fleetIds	= $db->select('SELECT fleetId FROM %%FLEETS%% WHERE fleet_target_owner = :userId;', array(
 			':userId'	=> $userId
 		));
 
@@ -568,7 +568,7 @@ class PlayerUtil
 			return false;
 		}
 
-		$sql		= 'SELECT fleet_id FROM %%FLEETS%% WHERE fleet_end_id = :planetId;';
+		$sql		= 'SELECT fleetId FROM %%FLEETS%% WHERE fleet_end_id = :planetId;';
 		$fleetIds	= $db->select($sql, array(
 			':planetId'	=> $planetId
 		));

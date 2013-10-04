@@ -26,67 +26,8 @@
  * @link http://2moons.cc/
  */
 
-class MissionFunctions
-{	
-	public $kill	= 0;
-	public $_fleet	= array();
-	public $_upd	= array();
-	public $eventTime	= 0;
-	
-	function UpdateFleet($Option, $Value)
-	{
-		$this->_fleet[$Option] = $Value;
-		$this->_upd[$Option] = $Value;
-	}
-
-	function setState($Value)
-	{
-		$this->_fleet['fleet_mess'] = $Value;
-		$this->_upd['fleet_mess']	= $Value;
-		
-		switch($Value)
-		{
-			case FLEET_OUTWARD:
-				$this->eventTime = $this->_fleet['fleet_start_time'];
-			break;
-			case FLEET_RETURN:
-				$this->eventTime = $this->_fleet['fleet_end_time'];
-			break;
-			case FLEET_HOLD:
-				$this->eventTime = $this->_fleet['fleet_end_stay'];
-			break;
-		}
-	}
-	
-	function SaveFleet()
-	{
-		if($this->kill == 1)
-			return;
-			
-		$param	= array();
-
-		$updateQuery	= array();
-
-		foreach($this->_upd as $Opt => $Val)
-		{
-			$updateQuery[]	= "`".$Opt."` = :".$Opt;
-			$param[':'.$Opt]	= $Val;
-		}
-		
-		if(!empty($updateQuery))
-		{
-			$sql	= 'UPDATE %%FLEETS%% SET '.implode(', ', $updateQuery).' WHERE `fleet_id` = :fleetId;';
-			$param[':fleetId']	= $this->_fleet['fleet_id'];
-			Database::get()->update($sql, $param);
-
-			$sql	= 'UPDATE %%FLEETS_EVENT%% SET time = :time WHERE `fleetID` = :fleetId;';
-			Database::get()->update($sql, array(
-				':time'		=> $this->eventTime,
-				':fleetId'	=> $this->_fleet['fleet_id']
-			));
-		}
-	}
-		
+class MissionUtil
+{
 	function RestoreFleet($onStart = true)
 	{
 		global $resource;
@@ -142,18 +83,6 @@ class MissionFunctions
 		$this->UpdateFleet('fleet_resource_metal', '0');
 		$this->UpdateFleet('fleet_resource_crystal', '0');
 		$this->UpdateFleet('fleet_resource_deuterium', '0');
-	}
-	
-	function KillFleet()
-	{
-		$this->kill	= 1;
-		$sql	= 'DELETE %%FLEETS%%, %%FLEETS_EVENT%%
-		FROM %%FLEETS%% LEFT JOIN %%FLEETS_EVENT%% on fleet_id = fleetId
-		WHERE `fleet_id` = :fleetId';
-
-		Database::get()->delete($sql, array(
-			':fleetId'	=> $this->_fleet['fleet_id']
-		));
 	}
 	
 	function getLanguage($language = NULL, $userID = NULL)

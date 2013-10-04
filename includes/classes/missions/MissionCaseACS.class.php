@@ -26,27 +26,16 @@
  * @link http://2moons.cc/
  */
 
-class MissionCaseACS extends MissionFunctions implements Mission
+class MissionCaseACS extends AbstractMission
 {
-		
-	function __construct($Fleet)
-	{
-		$this->_fleet	= $Fleet;
-	}
-	
-	function TargetEvent()
+	public function arrivalEndTargetEvent()
 	{
 		$this->setState(FLEET_RETURN);
 		$this->SaveFleet();
 		return;
 	}
-	
-	function EndStayEvent()
-	{
-		return;
-	}
-	
-	function ReturnEvent()
+
+	public function arrivalStartTargetEvent()
 	{
 		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
 		$sql		= 'SELECT name FROM %%PLANETS%% WHERE id = :planetId;';

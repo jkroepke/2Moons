@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class MissionCaseStayAlly extends MissionFunctions implements Mission
+class MissionCaseStayAlly extends AbstractMission
 {
 	function __construct($Fleet)
 	{

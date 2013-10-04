@@ -145,7 +145,7 @@ $Rows = $db->select($sql);
 
 foreach ($Rows as $Row) {
     {
-        $fleetId = $Row['fleet_id'];
+        $fleetId = $Row['fleetId'];
         $insertData[] = "($fleetId,  901,  " . $Row['fleet_resource_metal'] . ")";
         $insertData[] = "($fleetId,  902,  " . $Row['fleet_resource_crystal'] . ")";
         $insertData[] = "($fleetId,  903,  " . $Row['fleet_resource_deuterium'] . ")";

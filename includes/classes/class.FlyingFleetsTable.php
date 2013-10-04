@@ -96,7 +96,7 @@ class FlyingFleetsTable
 
 		foreach($fleetResult as $fleetRow)
 		{
-			$currentFleets[$fleetRow['fleet_id']]	= $fleetRow;
+			$currentFleets[$fleetRow['fleetId']]	= $fleetRow;
 		}
 
 		$sql = "SELECT * FROM %%FLEETS_ELEMENTS%% WHERE fleetId IN (".implode(',', array_keys($currentFleets)).");";
@@ -123,20 +123,20 @@ class FlyingFleetsTable
 			if ($fleetRow['fleet_mess'] == 0 && $fleetRow['fleet_start_time'] > TIMESTAMP && ($fleetRow['fleet_group'] == 0 || !isset($ACSDone[$fleetRow['fleet_group']])))
 			{
 				$ACSDone[$fleetRow['fleet_group']]		= true;
-				$FleetData[$fleetRow['fleet_start_time'].$fleetRow['fleet_id']] = $this->BuildFleetEventTable($fleetRow, 0);
+				$FleetData[$fleetRow['fleet_start_time'].$fleetRow['fleetId']] = $this->BuildFleetEventTable($fleetRow, 0);
 			}
 				
 			if ($fleetRow['fleet_mission'] == 10 || ($fleetRow['fleet_mission'] == 4 && $fleetRow['fleet_mess'] == 0))
 				continue;
 				
 			if ($fleetRow['fleet_end_stay'] != $fleetRow['fleet_start_time'] && $fleetRow['fleet_end_stay'] > TIMESTAMP && ($this->IsPhalanx && $fleetRow['fleet_end_id'] == $this->planetId))
-				$FleetData[$fleetRow['fleet_end_stay'].$fleetRow['fleet_id']] = $this->BuildFleetEventTable($fleetRow, 2);
+				$FleetData[$fleetRow['fleet_end_stay'].$fleetRow['fleetId']] = $this->BuildFleetEventTable($fleetRow, 2);
 		
 			if ($fleetRow['fleet_owner'] != $this->userId)
 				continue;
 		
 			if ($fleetRow['fleet_end_time'] > TIMESTAMP)
-				$FleetData[$fleetRow['fleet_end_time'].$fleetRow['fleet_id']] = $this->BuildFleetEventTable($fleetRow, 1);
+				$FleetData[$fleetRow['fleet_end_time'].$fleetRow['fleetId']] = $this->BuildFleetEventTable($fleetRow, 1);
 		}
 		
 		ksort($FleetData);

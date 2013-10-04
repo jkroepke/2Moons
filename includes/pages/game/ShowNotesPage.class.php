@@ -90,8 +90,7 @@ class ShowNotesPage extends AbstractGamePage
 				'title'		=> ''
 			);
 		}
-		
-		$this->tplObj->execscript("$('#cntChars').text($('#text').val().length);");
+
 		$this->assign(array(
 			'PriorityList'	=> array(2 => $LNG['nt_important'], 1 => $LNG['nt_normal'], 0 => $LNG['nt_unimportant']),
 			'noteDetail'	=> $noteDetail,

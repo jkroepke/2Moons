@@ -29,19 +29,16 @@
 $token	= getRandomString();
 $db		= Database::get();
 
-$fleetResult	= $db->update("UPDATE %%FLEETS_EVENT%% SET `lock` = :token WHERE `lock` IS NULL AND `time` <= :time;", array(
-	':time'		=> TIMESTAMP,
-	':token'	=> $token
+$db->update("UPDATE %%FLEETS_EVENT%% SET `lockToken` = :lockToken WHERE `lockToken` IS NULL AND `time` <= :time;", array(
+	':time'			=> Database::formatDate(TIMESTAMP),
+	':lockToken'	=> $token
 ));
 
-if($db->rowCount() !== 0) {
+if($db->rowCount() !== 0)
+{
 	require 'includes/classes/class.FlyingFleetHandler.php';
 	
 	$fleetObj	= new FlyingFleetHandler();
 	$fleetObj->setToken($token);
 	$fleetObj->run();
-
-	$db->update("UPDATE %%FLEETS_EVENT%% SET `lock` = NULL WHERE `lock` = :token;", array(
-		':token' => $token
-	));
 }

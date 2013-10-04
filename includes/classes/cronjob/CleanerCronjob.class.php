@@ -65,7 +65,7 @@ class CleanerCronjob implements CronjobTask
 			':time'	=> TIMESTAMP - SESSION_LIFETIME
 		));
 
-		$sql	= 'DELETE FROM %%FLEETS_EVENT%% WHERE fleetID NOT IN (SELECT fleet_id FROM %%FLEETS%%);';
+		$sql	= 'DELETE FROM %%FLEETS_EVENT%% WHERE fleetId NOT IN (SELECT fleetId FROM %%FLEETS%%);';
 		Database::get()->delete($sql);
 
 		$sql	= 'UPDATE %%USERS%% SET `email_2` = `email` WHERE `setmail` < :time;';

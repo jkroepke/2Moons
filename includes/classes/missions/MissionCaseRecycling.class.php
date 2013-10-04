@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class MissionCaseRecycling extends MissionFunctions implements Mission
+class MissionCaseRecycling extends AbstractMission
 {
 	function __construct($Fleet)
 	{

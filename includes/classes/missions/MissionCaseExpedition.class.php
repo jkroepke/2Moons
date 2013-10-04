@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class MissionCaseExpedition extends MissionFunctions implements Mission
+class MissionCaseExpedition extends AbstractMission
 {
 	function __construct($fleet)
 	{
@@ -335,12 +335,12 @@ HTML;
 					'dm_attack' 	=> 0
 				);
 				
-				$fleetID	= $this->_fleet['fleet_id'];
+				$fleetId	= $this->_fleet['fleetId'];
 				
-				$fleetAttack[$fleetID]['fleetDetail']		= $this->_fleet;
-				$fleetAttack[$fleetID]['player']			= $senderData;
-				$fleetAttack[$fleetID]['player']['factor']	= PlayerUtil::getFactors($fleetAttack[$this->_fleet['fleet_id']]['player'], $this->_fleet['fleet_start_time']);
-				$fleetAttack[$fleetID]['unit']				= $fleetArray;
+				$fleetAttack[$fleetId]['fleetDetail']		= $this->_fleet;
+				$fleetAttack[$fleetId]['player']			= $senderData;
+				$fleetAttack[$fleetId]['player']['factor']	= PlayerUtil::getFactors($fleetAttack[$this->_fleet['fleetId']]['player'], $this->_fleet['fleet_start_time']);
+				$fleetAttack[$fleetId]['unit']				= $fleetArray;
 				
 				$fleetDefend = array();
 
@@ -370,8 +370,8 @@ HTML;
 				$fleetArray = '';
 				$totalCount = 0;
 				
-				$fleetAttack[$fleetID]['unit']	= array_filter($fleetAttack[$fleetID]['unit']);
-				foreach ($fleetAttack[$fleetID]['unit'] as $element => $amount)
+				$fleetAttack[$fleetId]['unit']	= array_filter($fleetAttack[$fleetId]['unit']);
+				foreach ($fleetAttack[$fleetId]['unit'] as $element => $amount)
 				{
 					$fleetArray .= $element.','.$amount.';';
 					$totalCount += $amount;

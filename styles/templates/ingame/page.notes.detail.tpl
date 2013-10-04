@@ -7,19 +7,19 @@
 			<th colspan="2">{if $noteDetail.id == 0}{$LNG.nt_create_note}{else}{$LNG.nt_edit_note}{/if}</th>
 		</tr>
 		<tr>
-			<td><labal for="priority">{$LNG.nt_priority}</label></td>
+			<td><label for="priority">{$LNG.nt_priority}</label></td>
 			<td>
 				{html_options id=priority name=priority options=$PriorityList selected=$noteDetail.priority}
 			</td>
 		</tr>
 		<tr>
-			<td><labal for="title">{$LNG.nt_subject_note}</label></td>
+			<td><label for="title">{$LNG.nt_subject_note}</label></td>
 			<td>
 				<input type="text" id="title" name="title" size="30" maxlength="30" value="{$noteDetail.title}">
 			</td>
 		</tr>
 		<tr>
-			<td><labal for="text">{$LNG.nt_note}</label> (<span id="cntChars">0</span>&nbsp;/&nbsp;5.000&nbsp;{$LNG.nt_characters})</th>
+			<td><label for="text">{$LNG.nt_note}</label> (<span id="cntChars">0</span>&nbsp;/&nbsp;5.000&nbsp;{$LNG.nt_characters})</td>
 			<td>
 				<textarea name="text" id="text" cols="60" rows="10" onkeyup="$('#cntChars').text($(this).val().length);">{$noteDetail.text}</textarea>
 			</td>
@@ -33,4 +33,9 @@
 		</tr>
 	</table>
 </form>
+{/block}
+{block name="script" append}
+<script>$(function() {
+	$('#cntChars').text($('#text').val().length);
+});</script>
 {/block}

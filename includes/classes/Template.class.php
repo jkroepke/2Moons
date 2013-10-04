@@ -54,8 +54,10 @@ class template extends Smarty
 			'includes/classes/smarty-plugins/',
 		));
 
-		$this->setCompileDir(is_writable(CACHE_PATH) ? CACHE_PATH : $this->getTempPath());
-		$this->setCacheDir($this->getCompileDir().'templates');
+		$baseCachePath	= is_writable(CACHE_PATH.'templates/') ? CACHE_PATH.'templates/' : $this->getTempPath();
+
+		$this->setCompileDir($baseCachePath.'compile/');
+		$this->setCacheDir($baseCachePath.'cache/');
 
         $this->setTemplateDir(array(
             $THEME->getTemplatePath().strtolower(MODE),
