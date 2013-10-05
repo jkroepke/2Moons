@@ -26,12 +26,13 @@
  * @link http://2moons.cc/
  */
 
-class Language implements ArrayAccess {
+class Language implements ArrayAccess
+{
     private $container = array();
     private $language = array();
     static private $allLanguages = array();
 	
-	static function getAllowedLangs($OnlyKey = true)
+	static function getAvailableLanguages($onlyKeys = true)
 	{
 		if(empty(self::$allLanguages))
 		{
@@ -40,7 +41,7 @@ class Language implements ArrayAccess {
 			self::$allLanguages = $cache->getData('language');
 		}
 		
-		if($OnlyKey)
+		if($onlyKeys)
 		{
 			return array_keys(self::$allLanguages);
 		}
@@ -52,14 +53,14 @@ class Language implements ArrayAccess {
 	
 	public function getUserAgentLanguage()
 	{
-   		if (isset($_REQUEST['lang']) && in_array($_REQUEST['lang'], self::getAllowedLangs()))
+   		if (isset($_REQUEST['lang']) && in_array($_REQUEST['lang'], self::getAvailableLanguages()))
 		{
 			HTTP::sendCookie('lang', $_REQUEST['lang'], 2147483647);
 			$this->setLanguage($_REQUEST['lang']);
 			return true;
 		}
 		
-   		if ((MODE === 'LOGIN' || MODE === 'INSTALL') && isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], self::getAllowedLangs()))
+   		if ((MODE === 'LOGIN' || MODE === 'INSTALL') && isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], self::getAvailableLanguages()))
 		{
 			$this->setLanguage($_COOKIE['lang']);
 			return true;
@@ -85,7 +86,7 @@ class Language implements ArrayAccess {
 
             list($code)	= explode('-', strtolower($matches[1]));
 
-			if(in_array($code, self::getAllowedLangs()))
+			if(in_array($code, self::getAvailableLanguages()))
 			{
 				$language	= $code;
 				break;
@@ -105,7 +106,7 @@ class Language implements ArrayAccess {
 	
     public function setLanguage($language)
 	{
-		if(!is_null($language) && in_array($language, self::getAllowedLangs()))
+		if(!is_null($language) && in_array($language, self::getAvailableLanguages()))
 		{
 			$this->language = $language;
 		}
@@ -174,14 +175,20 @@ class Language implements ArrayAccess {
         $string = '';
         $count  = count($data);
         $i = 0;
-        foreach($data as $stringPart)
+        foreach($data as $name => $value)
         {
+			$value	= is_numeric($value) ? pretty_number($value) : $value;
+
             if($i++ == $count)
             {
-                $string .= $lastWord.' ';
+                $string .= $lastWord.' '.$value.' '.$name;
             }
-            $string .= $stringPart.' ';
+			else
+			{
+				$string .= $value.' '.$name.' ';
+			}
         }
+
         return $string;
     }
 	

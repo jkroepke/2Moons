@@ -30,34 +30,35 @@ class MissionCaseACS extends AbstractMission
 {
 	public function arrivalEndTargetEvent()
 	{
-		$this->setState(FLEET_RETURN);
-		$this->SaveFleet();
-		return;
+		$this->setNextState(FLEET_RETURN);
 	}
 
 	public function arrivalStartTargetEvent()
 	{
-		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
-		$sql		= 'SELECT name FROM %%PLANETS%% WHERE id = :planetId;';
-		$planetName	= Database::get()->selectSingle($sql, array(
-			':planetId'	=> $this->_fleet['fleet_start_id'],
-		), 'name');
+		$sql		= 'SELECT name, lang FROM %%PLANETS%% INNER JOIN %%USERS%% ON id = id_owner WHERE id = :planetId;';
+		$userData	= Database::get()->selectSingle($sql, array(
+			':planetId'	=> $this->fleetData['fleet_start_id'],
+		));
 
-		$Message 	= sprintf(
+		$LNG		= $this->getLanguage($userData['language']);
+
+		$resourceList	= array();
+		foreach($this->fleetData['elements'][Vars::CLASS_RESOURCE] as $resourceElementId => $value)
+		{
+			$resourceList[$LNG['tech'][$resourceElementId]]	= $value;
+		}
+
+		$playerMessage 	= sprintf(
 			$LNG['sys_fleet_won'],
-			$planetName,
-			GetTargetAdressLink($this->_fleet, ''),
-			pretty_number($this->_fleet['fleet_resource_metal']),
-			$LNG['tech'][901],
-			pretty_number($this->_fleet['fleet_resource_crystal']),
-			$LNG['tech'][902],
-			pretty_number($this->_fleet['fleet_resource_deuterium']),
-			$LNG['tech'][903]
+			$userData['name'],
+			GetTargetAdressLink($this->fleetData, ''),
+			Language::createHumanReadableList($resourceList)
 		);
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
-			$Message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
+		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
+			$playerMessage, $this->fleetData['fleet_end_time'], NULL, 1, $this->fleetData['fleet_universe']);
 
-		$this->RestoreFleet();
+		$this->arrivalTo($this->fleetData['fleet_start_id'],
+			$this->fleetData['elements'][Vars::CLASS_FLEET], $this->fleetData['elements'][Vars::CLASS_RESOURCE]);
 	}
 }

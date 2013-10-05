@@ -232,39 +232,6 @@ class FleetUtil
 		return $stayTimes;
 	}
 
-	/*
-	 *
-	 * Unserialize an Fleetstring to an array
-	 *
-	 * @param string
-	 *
-	 * @return array
-	 *
-	 */
-
-	public static function unserialize($fleetAmount)
-	{
-		$fleetType		= explode(';', $fleetAmount);
-
-		$fleetAmount	= array();
-
-		foreach ($fleetType as $fleetTyp)
-		{
-			$temp = explode(',', $fleetTyp);
-
-			if (empty($temp[0])) continue;
-
-			if (!isset($fleetAmount[$temp[0]]))
-			{
-				$fleetAmount[$temp[0]] = 0;
-			}
-
-			$fleetAmount[$temp[0]] += $temp[1];
-		}
-
-		return $fleetAmount;
-	}
-
 	public static function GetACSDuration($acsId)
 	{
 		if(empty($acsId))
@@ -642,9 +609,28 @@ class FleetUtil
 	{
 		$db	= Database::get();
 
-		$sql = "SELECT * FROM %%FLEETS%% WHERE fleet_owner = :userID ORDER BY fleet_end_time ASC;";
+		$sql = "SELECT * FROM %%FLEETS%% WHERE fleet_owner = :userId ORDER BY fleet_end_time ASC;";
 		$fleetResult = $db->select($sql, array(
-			':userID'   => $userId
+			':userId'   => $userId
+		));
+
+		$currentFleets	= array();
+
+		foreach($fleetResult as $fleetRow)
+		{
+			$currentFleets[$fleetRow['fleetId']]	= $fleetRow;
+		}
+
+		return self::getFleetElements($currentFleets);
+	}
+
+	static public function getHoldFleetsOnPlanet($planetId)
+	{
+		$db	= Database::get();
+
+		$sql = "SELECT * FROM %%FLEETS%% WHERE fleet_owner = :userId ORDER BY fleet_end_time ASC;";
+		$fleetResult = $db->select($sql, array(
+			':planetId'   => $planetId
 		));
 
 		$currentFleets	= array();

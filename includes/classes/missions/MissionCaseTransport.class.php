@@ -29,68 +29,78 @@
 class MissionCaseTransport extends AbstractMission
 {
 	
-	function TargetEvent()
+	public function arrivalEndTargetEvent()
 	{
-		$sql = 'SELECT name FROM %%PLANETS%% WHERE `id` = :planetId;';
+		$sql	= 'SELECT name, lang FROM %%PLANETS%% INNER JOIN %%USERS%% ON id = id_owner WHERE id = :planetId;';
 
-		$startPlanetName	= Database::get()->selectSingle($sql, array(
-			':planetId'	=> $this->_fleet['fleet_start_id']
-		), 'name');
-
-		$targetPlanetName	= Database::get()->selectSingle($sql, array(
-			':planetId'	=> $this->_fleet['fleet_end_id']
-		), 'name');
+		$targetUserData	= Database::get()->selectSingle($sql, array(
+			':planetId'	=> $this->fleetData['fleet_end_id']
+		));
 		
-		$LNG			= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
+		$LNG			= $this->getLanguage($targetUserData['lang']);
 
-		$Message		= sprintf($LNG['sys_tran_mess_owner'],
-			$targetPlanetName, GetTargetAdressLink($this->_fleet, ''),
-			pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901],
-			pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902],
-			pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]
+		$resourceList	= array();
+		foreach($this->fleetData['elements'][Vars::CLASS_RESOURCE] as $resourceElementId => $value)
+		{
+			$resourceList[$LNG['tech'][$resourceElementId]]	= $value;
+		}
+
+		$playerMessage		= sprintf($LNG['sys_tran_mess_owner'],
+			$targetUserData['name'], GetTargetAdressLink($this->fleetData, ''),
+			Language::createHumanReadableList($resourceList)
 		);
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 5,
-			$LNG['sys_mess_transport'], $Message, $this->_fleet['fleet_start_time'], NULL, 1, $this->_fleet['fleet_universe']);
+		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 5,
+			$LNG['sys_mess_transport'], $playerMessage, $this->fleetData['fleet_start_time'], NULL, 1, $this->fleetData['fleet_universe']);
 
-		if ($this->_fleet['fleet_target_owner'] != $this->_fleet['fleet_owner']) 
+		if ($this->fleetData['fleet_target_owner'] != $this->fleetData['fleet_owner'])
 		{
-			$LNG			= $this->getLanguage(NULL, $this->_fleet['fleet_target_owner']);
-			$Message        = sprintf($LNG['sys_tran_mess_user'],
-				$startPlanetName, GetStartAdressLink($this->_fleet, ''),
-				$targetPlanetName, GetTargetAdressLink($this->_fleet, ''),
-				pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901],
-				pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902],
-				pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]
+			$startUserData	= Database::get()->selectSingle($sql, array(
+				':planetId'	=> $this->fleetData['fleet_start_id'],
+			));
+
+			if($startUserData['lang'] != $targetUserData['lang'])
+			{
+				$LNG			= $this->getLanguage($targetUserData['lang']);
+
+				$resourceList	= array();
+				foreach($this->fleetData['elements'][Vars::CLASS_RESOURCE] as $resourceElementId => $value)
+				{
+					$resourceList[$LNG['tech'][$resourceElementId]]	= $value;
+				}
+			}
+
+			$playerMessage        = sprintf($LNG['sys_tran_mess_user'],
+				$startUserData['name'], GetStartAdressLink($this->fleetData, ''),
+				$targetUserData['name'], GetTargetAdressLink($this->fleetData, ''),
+				Language::createHumanReadableList($resourceList)
 			);
 
-			PlayerUtil::sendMessage($this->_fleet['fleet_target_owner'], 0, $LNG['sys_mess_tower'], 5,
-				$LNG['sys_mess_transport'], $Message, $this->_fleet['fleet_start_time'], NULL, 1, $this->_fleet['fleet_universe']);
+			PlayerUtil::sendMessage($this->fleetData['fleet_target_owner'], 0, $LNG['sys_mess_tower'], 5,
+				$LNG['sys_mess_transport'], $playerMessage, $this->fleetData['fleet_start_time'], NULL, 1, $this->fleetData['fleet_universe']);
 		}
-	
-		$this->StoreGoodsToPlanet();
-		$this->setState(FLEET_RETURN);
-		$this->SaveFleet();
+
+		$this->arrivalTo($this->fleetData['fleet_end_id'],
+			array(), $this->fleetData['elements'][Vars::CLASS_RESOURCE]);
+
+		$this->setNextState(FLEET_RETURN);
 	}
 	
-	function EndStayEvent()
+	public function arrivalStartTargetEvent()
 	{
-		return;
-	}
-	
-	function ReturnEvent()
-	{
-		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
-		$sql		= 'SELECT name FROM %%PLANETS%% WHERE id = :planetId;';
-		$planetName	= Database::get()->selectSingle($sql, array(
-			':planetId'	=> $this->_fleet['fleet_start_id'],
-		), 'name');
+		$sql		= 'SELECT name, lang FROM %%PLANETS%% INNER JOIN %%USERS%% ON id = id_owner WHERE id = :planetId;';
+		$userData	= Database::get()->selectSingle($sql, array(
+			':planetId'	=> $this->fleetData['fleet_start_id'],
+		));
 
-		$Message	= sprintf($LNG['sys_tran_mess_back'], $planetName, GetStartAdressLink($this->_fleet, ''));
+		$LNG		= $this->getLanguage($userData['language']);
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
-			$Message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
+		$playerMessage	= sprintf($LNG['sys_tran_mess_back'], $userData['name'], GetStartAdressLink($this->fleetData, ''));
 
-		$this->RestoreFleet();
+		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
+			$playerMessage, $this->fleetData['fleet_end_time'], NULL, 1, $this->fleetData['fleet_universe']);
+
+		$this->arrivalTo($this->fleetData['fleet_start_id'],
+			$this->fleetData['elements'][Vars::CLASS_FLEET], $this->fleetData['elements'][Vars::CLASS_RESOURCE]);
 	}
 }

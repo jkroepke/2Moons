@@ -28,38 +28,33 @@
 
 class MissionCaseColonisation extends AbstractMission
 {
-	function __construct($Fleet)
-	{
-		$this->_fleet	= $Fleet;
-	}
-	
-	function TargetEvent()
+	public function arrivalEndTargetEvent()
 	{
 		$db		= Database::get();
 
 		$sql	= 'SELECT * FROM %%USERS%% WHERE `id` = :userId;';
 
 		$senderUser		= $db->selectSingle($sql, array(
-			':userId'	=> $this->_fleet['fleet_owner'],
+			':userId'	=> $this->fleetData['fleet_owner'],
 		));
 
-		$senderUser['factor']	= PlayerUtil::getFactors($senderUser, $this->_fleet['fleet_start_time']);
+		$senderUser['factor']	= PlayerUtil::getFactors($senderUser, $this->fleetData['fleet_start_time']);
 
 		$LNG	= $this->getLanguage($senderUser['lang']);
 
-		$isPositionFree	= PlayerUtil::checkPosition($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'],
-			$this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']);
+		$isPositionFree	= PlayerUtil::checkPosition($this->fleetData['fleet_universe'], $this->fleetData['fleet_end_galaxy'],
+			$this->fleetData['fleet_end_system'], $this->fleetData['fleet_end_planet']);
 
 		if (!$isPositionFree)
 		{
-			$message = sprintf($LNG['sys_colo_notfree'], GetTargetAdressLink($this->_fleet, ''));
+			$message = sprintf($LNG['sys_colo_notfree'], GetTargetAdressLink($this->fleetData, ''));
 		}
 		else
 		{
-			$allowPlanetPosition	= PlayerUtil::allowPlanetPosition($this->_fleet['fleet_end_planet'], $senderUser);
+			$allowPlanetPosition	= PlayerUtil::allowPlanetPosition($this->fleetData['fleet_end_planet'], $senderUser);
 			if(!$allowPlanetPosition)
 			{
-				$message = sprintf($LNG['sys_colo_notech'] , GetTargetAdressLink($this->_fleet, ''));
+				$message = sprintf($LNG['sys_colo_notech'] , GetTargetAdressLink($this->fleetData, ''));
 			}
 			else
 			{
@@ -70,7 +65,7 @@ class MissionCaseColonisation extends AbstractMission
 				AND `destroyed`		= :destroyed;';
 
 				$currentPlanetCount	= $db->selectSingle($sql, array(
-					':userId'		=> $this->_fleet['fleet_owner'],
+					':userId'		=> $this->fleetData['fleet_owner'],
 					':type'			=> 1,
 					':destroyed'	=> 0
 				), 'state');
@@ -79,65 +74,80 @@ class MissionCaseColonisation extends AbstractMission
 
 				if($currentPlanetCount >= $maxPlanetCount)
 				{
-					$message = sprintf($LNG['sys_colo_maxcolo'], GetTargetAdressLink($this->_fleet, ''), $maxPlanetCount);
+					$message = sprintf($LNG['sys_colo_maxcolo'], GetTargetAdressLink($this->fleetData, ''), $maxPlanetCount);
 				}
 				else
 				{
-					$NewOwnerPlanet = PlayerUtil::createPlanet($this->_fleet['fleet_end_galaxy'], $this->_fleet['fleet_end_system'],
-						$this->_fleet['fleet_end_planet'], $this->_fleet['fleet_universe'], $this->_fleet['fleet_owner'],
+					$newPlanetId = PlayerUtil::createPlanet($this->fleetData['fleet_end_galaxy'], $this->fleetData['fleet_end_system'],
+						$this->fleetData['fleet_end_planet'], $this->fleetData['fleet_universe'], $this->fleetData['fleet_owner'],
 						$LNG['fcp_colony'], false, $senderUser['authlevel']);
 
-					if($NewOwnerPlanet === false)
+					if($newPlanetId === false)
 					{
-						$message = sprintf($LNG['sys_colo_badpos'], GetTargetAdressLink($this->_fleet, ''));
-						$this->setState(FLEET_RETURN);
+						$message = sprintf($LNG['sys_colo_badpos'], GetTargetAdressLink($this->fleetData, ''));
 					}
 					else
 					{
-						$this->_fleet['fleet_end_id']	= $NewOwnerPlanet;
-						$message = sprintf($LNG['sys_colo_allisok'], GetTargetAdressLink($this->_fleet, ''));
-						$this->StoreGoodsToPlanet();
-						if ($this->_fleet['fleet_amount'] == 1) {
-							$this->KillFleet();
-						} else {
-							$CurrentFleet = explode(";", $this->_fleet['fleet_array']);
-							$NewFleet     = '';
-							foreach ($CurrentFleet as $Group)
-							{
-								if (empty($Group)) continue;
-
-								$Class = explode (",", $Group);
-								if ($Class[0] == 208 && $Class[1] > 1)
-									$NewFleet  .= $Class[0].",".($Class[1] - 1).";";
-								elseif ($Class[0] != 208 && $Class[1] > 0)
-									$NewFleet  .= $Class[0].",".$Class[1].";";
-							}
-
-							$this->UpdateFleet('fleet_array', $NewFleet);
-							$this->UpdateFleet('fleet_amount', ($this->_fleet['fleet_amount'] - 1));
-							$this->UpdateFleet('fleet_resource_metal', 0);
-							$this->UpdateFleet('fleet_resource_crystal', 0);
-							$this->UpdateFleet('fleet_resource_deuterium', 0);
+						$message = sprintf($LNG['sys_colo_allisok'], GetTargetAdressLink($this->fleetData, ''));
+						if (array_sum($this->fleetData['elements'][Vars::CLASS_FLEET]) == 1)
+						{
+							$this->killFleet();
 						}
+						else
+						{
+							foreach(array_keys(Vars::getElements(Vars::CLASS_FLEET, Vars::FLAG_COLONIZE)) as $elementShipId)
+							{
+								if(isset($this->fleetData['elements'][Vars::CLASS_FLEET][$elementShipId]))
+								{
+									if($this->fleetData['elements'][Vars::CLASS_FLEET][$elementShipId] == 1)
+									{
+										unset($this->fleetData['elements'][Vars::CLASS_FLEET][$elementShipId]);
+									}
+									else
+									{
+										$this->fleetData['elements'][Vars::CLASS_FLEET][$elementShipId] -= 1;
+									}
+									break;
+								}
+							}
+						}
+
+						$this->arrivalTo($newPlanetId, array(), $this->fleetData['elements'][Vars::CLASS_RESOURCE]);
+						$this->fleetData['elements'][Vars::CLASS_RESOURCE]	= array();
 					}
 				}
 			}
 		}
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_colo_mess_from'], 4, $LNG['sys_colo_mess_report'],
-			$message, $this->_fleet['fleet_start_time'], NULL, 1, $this->_fleet['fleet_universe']);
+		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_colo_mess_from'], 4, $LNG['sys_colo_mess_report'],
+			$message, $this->fleetData['fleet_start_time'], NULL, 1, $this->fleetData['fleet_universe']);
 
-		$this->setState(FLEET_RETURN);
-		$this->SaveFleet();
+		$this->setNextState(FLEET_RETURN);
 	}
-	
-	function EndStayEvent()
+
+	public function arrivalStartTargetEvent()
 	{
-		return;
-	}
-	
-	function ReturnEvent()
-	{
-		$this->RestoreFleet();
+		$sql		= 'SELECT name, lang FROM %%PLANETS%% INNER JOIN %%USERS%% ON id = id_owner WHERE id = :planetId;';
+		$userData	= Database::get()->selectSingle($sql, array(
+			':planetId'	=> $this->fleetData['fleet_start_id'],
+		));
+
+		$LNG		= $this->getLanguage($userData['language']);
+
+		$resourceList	= array();
+		foreach($this->fleetData['elements'][Vars::CLASS_RESOURCE] as $resourceElementId => $value)
+		{
+			$resourceList[$LNG['tech'][$resourceElementId]]	= $value;
+		}
+
+		$playerMessage 	= sprintf(
+			$LNG['sys_fleet_won'],
+			$userData['name'],
+			GetTargetAdressLink($this->fleetData, ''),
+			Language::createHumanReadableList($resourceList)
+		);
+
+		$this->arrivalTo($this->fleetData['fleet_start_id'],
+			$this->fleetData['elements'][Vars::CLASS_FLEET], $this->fleetData['elements'][Vars::CLASS_RESOURCE]);
 	}
 }

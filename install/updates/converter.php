@@ -44,7 +44,7 @@ $LNG->includeData(array('L18N', 'INGAME', 'INSTALL', 'CUSTOM'));
 $template = new template();
 $template->assign(array(
     'lang' => $LNG->getLanguage(),
-    'Selector' => $LNG->getAllowedLangs(false),
+    'Selector' => $LNG->getAvailableLanguages(false),
     'title' => $LNG['title_install'] . ' &bull; 2Moons',
     'header' => $LNG['menu_install'],
     'canUpgrade' => file_exists('includes/config.php') && filesize('includes/config.php') !== 0

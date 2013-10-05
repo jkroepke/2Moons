@@ -96,7 +96,7 @@ function ShowCreatorPage()
 					exit;
 				}
 
-				$Language	= array_key_exists($Language, $LNG->getAllowedLangs(false)) ? $Language : $config->lang;
+				$Language	= array_key_exists($Language, $LNG->getAvailableLanguages(false)) ? $Language : $config->lang;
 
 				PlayerUtil::createPlayer(Universe::getEmulated(), $UserName,
 					PlayerUtil::cryptPassword($UserPass), $UserMail, $Language, $Galaxy, $System, $Planet,
@@ -134,7 +134,7 @@ function ShowCreatorPage()
 				'new_range'				=> $LNG['new_range'],
 				'lang_reg'				=> $LNG['lang_reg'],		
 				'new_title'				=> $LNG['new_title'],
-				'Selector'				=> array('auth' => $AUTH, 'lang' => $LNG->getAllowedLangs(false)),  
+				'Selector'				=> array('auth' => $AUTH, 'lang' => $LNG->getAvailableLanguages(false)),
 			));
 			$template->show('CreatePageUser.tpl');
 		break;

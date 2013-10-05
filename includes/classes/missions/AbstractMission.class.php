@@ -28,7 +28,8 @@
 
 class AbstractMission
 {
-	private $fleetData;
+	protected $fleetData;
+
 	private $ships;
 	private $resources;
 
@@ -43,8 +44,6 @@ class AbstractMission
 		$this->fleetData	= $fleet;
 		$this->ships		= $fleet['elements'][Vars::CLASS_FLEET];
 		$this->resources	= $fleet['elements'][Vars::CLASS_RESOURCE];
-
-		unset($this->fleetData['elements'][Vars::CLASS_FLEET], $this->fleetData['elements'][Vars::CLASS_RESOURCE]);
 	}
 
 	public function arrivalEndTargetEvent()
@@ -61,8 +60,6 @@ class AbstractMission
 	{
 		return true;
 	}
-
-
 
 	public function saveFleet()
 	{
@@ -107,13 +104,13 @@ class AbstractMission
 		return false;
 	}
 
-	private function updateData($key, $value)
+	protected function updateData($key, $value)
 	{
 		$this->fleetData[$key]	= $value;
 		$this->todoSave[$key]	= $value;
 	}
 
-	private function setState($state)
+	protected function setNextState($state)
 	{
 		$this->updateData('fleet_mess', $state);
 
@@ -131,8 +128,55 @@ class AbstractMission
 		}
 	}
 
-	private function killFleet()
+	protected function killFleet()
 	{
 		$this->fleetKilled	= true;
+	}
+
+
+	protected function getLanguage($languageId)
+	{
+		$LNG = new Language($languageId);
+		$LNG->includeData(array('L18N', 'FLEET', 'TECH', 'CUSTOM'));
+
+		return $LNG;
+	}
+
+	protected function arrivalTo($planetId, $fleetData, $resources)
+	{
+		$updateQuery	= array();
+
+		$param	= array(
+			':planetId'		=> $planetId
+		);
+
+		$fleetData	= array_filter($fleetData);
+		$resources	= array_filter($resources);
+
+		foreach($resources as $elementResourceId => $value)
+		{
+			$elementResourceObj	= Vars::getElement($elementResourceId);
+			$shortKey	= $elementResourceObj->isUserResource() ? 'u' : 'p';
+
+			$updateQuery[]	= sprintf('%1$s.`%2$s` = %1$s.`%2$s` + :%2$s', $shortKey, $elementResourceObj->name);
+			$param[':'.$elementResourceObj->name]	= floattostring($value);
+
+			$this->fleetData['elements'][Vars::CLASS_RESOURCE][$elementResourceId] = 0;
+		}
+
+		foreach($fleetData as $elementShipId => $value)
+		{
+			$elementShipObj	= Vars::getElement($elementShipId);
+			$updateQuery[]	= sprintf('p.`%s` = p.`%s` + :%s', $elementShipObj->name);
+			$param[':'.$elementShipObj->name]	= floattostring($value);
+
+			$this->fleetData['elements'][Vars::CLASS_FLEET][$elementShipId] = 0;
+		}
+
+		$sql	= 'UPDATE %%PLANETS%% as p, %%USERS%% as u SET
+		'.implode(', ', $updateQuery).',
+		WHERE p.`id` = :planetId AND u.id = p.id_owner;';
+
+		Database::get()->update($sql, $param);
 	}
 }

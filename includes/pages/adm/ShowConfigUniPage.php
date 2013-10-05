@@ -435,7 +435,7 @@ function ShowConfigUniPage()
 		'trade_allowed_ships'        	=> $config->trade_allowed_ships,
 		'trade_charge'		        	=> $config->trade_charge,
 		'Selector'						=> array(
-			'langs' => $LNG->getAllowedLangs(false), 
+			'langs' => $LNG->getAvailableLanguages(false),
 			'mail' => $LNG['se_mail_sel'], 
 			'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])
 		),

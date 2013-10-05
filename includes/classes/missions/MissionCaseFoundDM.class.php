@@ -32,45 +32,38 @@ class MissionCaseFoundDM extends AbstractMission
 	const CHANCE_SHIP = 0.25; 
 	const MIN_FOUND = 423; 
 	const MAX_FOUND = 1278; 
-	const MAX_CHANCE = 50; 
-		
-	function __construct($Fleet)
+	const MAX_CHANCE = 50;
+
+	public function arrivalEndTargetEvent()
 	{
-		$this->_fleet	= $Fleet;
+		$this->setNextState(FLEET_HOLD);
 	}
 	
-	function TargetEvent()
+	public function EndStayEvent()
 	{
-		$this->setState(FLEET_HOLD);
-		$this->SaveFleet();
-	}
-	
-	function EndStayEvent()
-	{
-		$LNG	= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
+		$LNG	= $this->getLanguage(NULL, $this->fleetData['fleet_owner']);
 		$chance	= mt_rand(0, 100);
-		if($chance <= min(self::MAX_CHANCE, (self::CHANCE + $this->_fleet['fleet_amount'] * self::CHANCE_SHIP))) {
+		if($chance <= min(self::MAX_CHANCE, (self::CHANCE + array_sum($this->fleetData['elements'][Vars::CLASS_FLEET]) * self::CHANCE_SHIP))) {
 			$FoundDark 	= mt_rand(self::MIN_FOUND, self::MAX_FOUND);
 			$this->UpdateFleet('fleet_resource_darkmatter', $FoundDark);
-			$Message 	= $LNG['sys_expe_found_dm_'.mt_rand(1, 3).'_'.mt_rand(1, 2).''];
+			$playerMessage 	= $LNG['sys_expe_found_dm_'.mt_rand(1, 3).'_'.mt_rand(1, 2).''];
 		} else {
-			$Message 	= $LNG['sys_expe_nothing_'.mt_rand(1, 9)];
+			$playerMessage 	= $LNG['sys_expe_nothing_'.mt_rand(1, 9)];
 		}
-		$this->setState(FLEET_RETURN);
-		$this->SaveFleet();
+		$this->setNextState(FLEET_RETURN);
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 15,
-			$LNG['sys_expe_report'], $Message, $this->_fleet['fleet_end_stay'], NULL, 1, $this->_fleet['fleet_universe']);
+		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 15,
+			$LNG['sys_expe_report'], $playerMessage, $this->fleetData['fleet_end_stay'], NULL, 1, $this->fleetData['fleet_universe']);
 	}
 	
-	function ReturnEvent()
+	public function arrivalStartTargetEvent()
 	{
-		$LNG	= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
-		if($this->_fleet['fleet_resource_darkmatter'] > 0)
+		$LNG	= $this->getLanguage(NULL, $this->fleetData['fleet_owner']);
+		if($this->fleetData['fleet_resource_darkmatter'] > 0)
 		{
 			$message	= sprintf($LNG['sys_expe_back_home_with_dm'],
 				$LNG['tech'][921],
-				pretty_number($this->_fleet['fleet_resource_darkmatter']),
+				pretty_number($this->fleetData['fleet_resource_darkmatter']),
 				$LNG['tech'][921]
 			);
 
@@ -81,9 +74,10 @@ class MissionCaseFoundDM extends AbstractMission
 			$message	= $LNG['sys_expe_back_home_without_dm'];
 		}
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
-			$message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
+		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
+			$message, $this->fleetData['fleet_end_time'], NULL, 1, $this->fleetData['fleet_universe']);
 
-		$this->RestoreFleet();
+		$this->arrivalTo($this->fleetData['fleet_start_id'],
+			$this->fleetData['elements'][Vars::CLASS_FLEET], $this->fleetData['elements'][Vars::CLASS_RESOURCE]);
 	}
 }
