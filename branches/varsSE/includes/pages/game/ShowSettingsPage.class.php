@@ -62,7 +62,7 @@ class ShowSettingsPage extends AbstractGamePage
 						1 => $LNG['op_sort_down']
 					), 
 					'Skins' => Theme::getAvalibleSkins(), 
-					'lang' => $LNG->getAllowedLangs(false)
+					'lang' => $LNG->getAvailableLanguages(false)
 					),
 				'adminProtection'	=> $USER['authattack'],	
 				'userAuthlevel'		=> $USER['authlevel'],
@@ -237,7 +237,7 @@ class ShowSettingsPage extends AbstractGamePage
 		$spycount			= min(max(round($spycount), 1), 4294967295);
 		$fleetactions		= min(max($fleetactions, 1), 99);
 		
-		$language			= array_key_exists($language, $LNG->getAllowedLangs(false)) ? $language : $LNG->getLanguage();		
+		$language			= array_key_exists($language, $LNG->getAvailableLanguages(false)) ? $language : $LNG->getLanguage();
 		$theme				= array_key_exists($theme, Theme::getAvalibleSkins()) ? $theme : $THEME->getThemeName();
 		
 		$db = Database::get();

@@ -28,35 +28,30 @@
 
 class MissionCaseStayAlly extends AbstractMission
 {
-	function __construct($Fleet)
-	{
-		$this->_fleet	= $Fleet;
-	}
-	
-	function TargetEvent()
+	public function arrivalEndTargetEvent()
 	{	
-		$this->setState(FLEET_HOLD);
-		$this->SaveFleet();
+		$this->setNextState(FLEET_HOLD);
 	}
 	
-	function EndStayEvent()
+	public function EndStayEvent()
 	{
-		$this->setState(FLEET_RETURN);
-		$this->SaveFleet();
+		$this->setNextState(FLEET_RETURN);
 	}
 	
-	function ReturnEvent()
+	public function arrivalStartTargetEvent()
 	{
-		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
-		$sql		= 'SELECT name FROM %%PLANETS%% WHERE id = :planetId;';
-		$planetName	= Database::get()->selectSingle($sql, array(
-			':planetId'	=> $this->_fleet['fleet_start_id'],
-		), 'name');
+		$sql		= 'SELECT name, lang FROM %%PLANETS%% INNER JOIN %%USERS%% ON id = id_owner WHERE id = :planetId;';
+		$userData	= Database::get()->selectSingle($sql, array(
+			':planetId'	=> $this->fleetData['fleet_start_id'],
+		));
 
-		$Message	= sprintf($LNG['sys_tran_mess_back'], $planetName, GetStartAdressLink($this->_fleet, ''));
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
-			$Message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
+		$LNG		= $this->getLanguage($userData['language']);
 
-		$this->RestoreFleet();
+		$playerMessage	= sprintf($LNG['sys_tran_mess_back'], $userData['name'], GetStartAdressLink($this->fleetData, ''));
+		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
+			$playerMessage, $this->fleetData['fleet_end_time'], NULL, 1, $this->fleetData['fleet_universe']);
+
+		$this->arrivalTo($this->fleetData['fleet_start_id'],
+			$this->fleetData['elements'][Vars::CLASS_FLEET], $this->fleetData['elements'][Vars::CLASS_RESOURCE]);
 	}
 }

@@ -185,7 +185,7 @@ class ShowBattleSimulatorPage extends AbstractGamePage
         $shipData           = array();
         foreach($debrisShipIds as $elementId => $elementObj)
         {
-            $shipData[] = pretty_number(ceil($debrisTotal / $elementObj->capacity)).' '.$LNG['tech'][$elementId];
+            $shipData[$LNG['tech'][$elementId]] = ceil($debrisTotal / $elementObj->capacity);
         }
 
 		$stealResourceInformation	= sprintf($LNG['bs_derbis_raport'], Language::createHumanReadableList($shipData), $LNG['d_or']);
@@ -193,9 +193,9 @@ class ShowBattleSimulatorPage extends AbstractGamePage
         $stealResourceInformation	.= '<br>';
 		
 		$stealResourceInformation	.= sprintf($LNG['bs_steal_raport'], Language::createHumanReadableList(array(
-			pretty_number(ceil($sumSteal / Vars::getElement(202)->capacity)), $LNG['tech'][202],
-			pretty_number(ceil($sumSteal / Vars::getElement(203)->capacity)), $LNG['tech'][203],
-			pretty_number(ceil($sumSteal / Vars::getElement(217)->capacity)), $LNG['tech'][217]
+			$LNG['tech'][202]	=> ceil($sumSteal / Vars::getElement(202)->capacity),
+			$LNG['tech'][203]	=> ceil($sumSteal / Vars::getElement(203)->capacity),
+			$LNG['tech'][217]	=> ceil($sumSteal / Vars::getElement(217)->capacity),
         )), $LNG['d_or']);
 
 		$reportInfo	= array(

@@ -113,7 +113,7 @@ abstract class AbstractIndexPage
 			'UNI'					=> Universe::current(),
 			'VERSION'				=> $config->VERSION,
 			'REV'					=> substr($config->VERSION, -4),
-			'languages'				=> Language::getAllowedLangs(false),
+			'languages'				=> Language::getAvailableLanguages(false),
 		));
 	}
 	

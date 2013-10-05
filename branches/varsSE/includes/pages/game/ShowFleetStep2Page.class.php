@@ -175,7 +175,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 			$missingList	= array();
 			foreach($missingResources as $elementResourceId => $value)
 			{
-				$missingList[]	= $value.' '.$LNG['tech'][$elementResourceId];
+				$missingList[$LNG['tech'][$elementResourceId]]	= $value;
 			}
 
 			$this->printMessage($LNG['fl_not_enough_consumption'].' '.Language::createHumanReadableList($missingList), array(array(

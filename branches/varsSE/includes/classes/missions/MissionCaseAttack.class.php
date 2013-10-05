@@ -28,17 +28,10 @@
 
 class MissionCaseAttack extends AbstractMission
 {
-	function __construct($Fleet)
+	public function arrivalEndTargetEvent()
 	{
-		$this->_fleet	= $Fleet;
-	}
-	
-	function TargetEvent()
-	{	
-		global $resource, $reslist;
-
 		$db				= Database::get();
-		$config			= Config::get($this->_fleet['fleet_universe']);
+		$config			= Config::get($this->fleetData['fleet_universe']);
 
 		$fleetAttack	= array();
 		$fleetDefend	= array();
@@ -82,30 +75,30 @@ HTML;
 
 		$sql			= "SELECT * FROM %%PLANETS%% WHERE id = :planetId;";
 		$targetPlanet 	= $db->selectSingle($sql, array(
-			':planetId'	=> $this->_fleet['fleet_end_id']
+			':planetId'	=> $this->fleetData['fleet_end_id']
 		));
 
 		$sql			= "SELECT * FROM %%USERS%% WHERE id = :userId;";
 		$targetUser		= $db->selectSingle($sql, array(
 			':userId'	=> $targetPlanet['id_owner']
 		));
-		$targetUser['factor']	= PlayerUtil::getFactors($targetUser, $this->_fleet['fleet_start_time']);
+		$targetUser['factor']	= PlayerUtil::getFactors($targetUser, $this->fleetData['fleet_start_time']);
 
 		$planetUpdater	= new Economy();
 		
-		list($targetUser, $targetPlanet)	= $planetUpdater->CalcResource($targetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
+		list($targetUser, $targetPlanet)	= $planetUpdater->CalcResource($targetUser, $targetPlanet, true, $this->fleetData['fleet_start_time']);
 		
-		if($this->_fleet['fleet_group'] != 0)
+		if($this->fleetData['fleet_group'] != 0)
 		{
 			$sql	= "DELETE FROM %%AKS%% WHERE id = :acsId;";
 			$db->delete($sql, array(
-				':acsId'	=> $this->_fleet['fleet_group'],
+				':acsId'	=> $this->fleetData['fleet_group'],
 			));
 
 			$sql	= "SELECT * FROM %%FLEETS%% WHERE fleet_group = :acsId;";
 
 			$incomingFleetsResult = $db->select($sql, array(
-				':acsId'	=> $this->_fleet['fleet_group'],
+				':acsId'	=> $this->fleetData['fleet_group'],
 			));
 		
 			foreach($incomingFleetsResult as $incomingFleetRow)
@@ -117,7 +110,7 @@ HTML;
 		}
 		else
 		{
-			$incomingFleets = array($this->_fleet['fleetId'] => $this->_fleet);
+			$incomingFleets = array($this->fleetData['fleetId'] => $this->fleetData);
 		}
 		
 		foreach($incomingFleets as $fleetId => $fleetDetail)
@@ -127,7 +120,7 @@ HTML;
 				':userId'	=> $fleetDetail['fleet_owner']
 			));
 
-			$fleetAttack[$fleetId]['player']['factor']	= PlayerUtil::getFactors($fleetAttack[$fleetId]['player'], $this->_fleet['fleet_start_time']);
+			$fleetAttack[$fleetId]['player']['factor']	= PlayerUtil::getFactors($fleetAttack[$fleetId]['player'], $this->fleetData['fleet_start_time']);
 			$fleetAttack[$fleetId]['fleetDetail']		= $fleetDetail;
 			$fleetAttack[$fleetId]['unit']				= FleetUtil::unserialize($fleetDetail['fleet_array']);
 			
@@ -142,7 +135,7 @@ HTML;
 
 		$targetFleetsResult = $db->select($sql, array(
 			':mission'		=> 5,
-			':fleetEndId'	=> $this->_fleet['fleet_end_id'],
+			':fleetEndId'	=> $this->fleetData['fleet_end_id'],
 			':timeStamp'	=> TIMESTAMP
 		));
 
@@ -155,7 +148,7 @@ HTML;
 				':userId'	=> $fleetDetail['fleet_owner']
 			));
 
-			$fleetDefend[$fleetId]['player']['factor']	= PlayerUtil::getFactors($fleetDefend[$fleetId]['player'], $this->_fleet['fleet_start_time']);
+			$fleetDefend[$fleetId]['player']['factor']	= PlayerUtil::getFactors($fleetDefend[$fleetId]['player'], $this->fleetData['fleet_start_time']);
 			$fleetDefend[$fleetId]['fleetDetail']		= $fleetDetail;
 			$fleetDefend[$fleetId]['unit']				= FleetUtil::unserialize($fleetDetail['fleet_array']);
 			
@@ -165,7 +158,7 @@ HTML;
 		unset($targetFleetsResult);
 		
 		$fleetDefend[0]['player']			= $targetUser;
-		$fleetDefend[0]['player']['factor']	= PlayerUtil::getFactors($fleetDefend[0]['player'], $this->_fleet['fleet_start_time']);
+		$fleetDefend[0]['player']['factor']	= PlayerUtil::getFactors($fleetDefend[0]['player'], $this->fleetData['fleet_start_time']);
 		$fleetDefend[0]['fleetDetail']		= array(
 			'fleet_start_galaxy'	=> $targetPlanet['galaxy'], 
 			'fleet_start_system'	=> $targetPlanet['system'], 
@@ -205,7 +198,7 @@ HTML;
 			
 			if($totalCount == 0)
 			{
-				if($this->_fleet['fleetId'] == $fleetId)
+				if($this->fleetData['fleetId'] == $fleetId)
 				{
 					$this->KillFleet();
 				}
@@ -307,7 +300,7 @@ HTML;
 			}
 			else
 			{
-				$params	= array(':planetId' => $this->_fleet['fleet_end_id']);
+				$params	= array(':planetId' => $this->fleetData['fleet_end_id']);
 
 				// Planet fleet
 				$fleetArray = array();
@@ -331,12 +324,12 @@ HTML;
 			$stealResource = calculateSteal($fleetAttack, $targetPlanet);
 		}
 		
-		if($this->_fleet['fleet_end_type'] == 3)
+		if($this->fleetData['fleet_end_type'] == 3)
 		{
 			// Use planet debris, if attack on moons
 			$sql			= "SELECT der_metal, der_crystal FROM %%PLANETS%% WHERE id_luna = :moonId;";
 			$targetDebris	= $db->selectSingle($sql, array(
-				':moonId'	=> $this->_fleet['fleet_end_id']
+				':moonId'	=> $this->fleetData['fleet_end_id']
 			));
 			$targetPlanet 	+= $targetDebris;
 		}
@@ -363,7 +356,7 @@ HTML;
 		}
 
 		$reportInfo	= array(
-			'thisFleet'				=> $this->_fleet,
+			'thisFleet'				=> $this->fleetData,
 			'debris'				=> $debris,
 			'stealResource'			=> $stealResource,
 			'moonChance'			=> $chanceCreateMoon,
@@ -382,17 +375,17 @@ HTML;
 			$reportInfo['moonName']	= $LNG['type_planet'][3];
 			
 			PlayerUtil::createMoon(
-				$this->_fleet['fleet_universe'],
-				$this->_fleet['fleet_end_galaxy'],
-				$this->_fleet['fleet_end_system'],
-				$this->_fleet['fleet_end_planet'],
+				$this->fleetData['fleet_universe'],
+				$this->fleetData['fleet_end_galaxy'],
+				$this->fleetData['fleet_end_system'],
+				$this->fleetData['fleet_end_planet'],
 				$targetUser['id'],
 				$reportInfo['moonName'],
 				$chanceCreateMoon,
-				$this->_fleet['fleet_start_time']
+				$this->fleetData['fleet_start_time']
 			);
 			
-			if(Config::get($this->_fleet['fleet_universe'])->debris_moon == 1)
+			if(Config::get($this->fleetData['fleet_universe'])->debris_moon == 1)
 			{
 				foreach($debrisResource as $elementID)
 				{
@@ -439,7 +432,7 @@ HTML;
 		$db->insert($sql, array(
 			':reportId'		=> $reportID,
 			':reportData'	=> serialize($reportData),
-			':time'			=> $this->_fleet['fleet_start_time'],
+			':time'			=> $this->fleetData['fleet_start_time'],
 			':attackers'	=> implode(',', array_keys($userAttack)),
 			':defenders'	=> implode(',', array_keys($userDefend))
 		));
@@ -459,11 +452,11 @@ HTML;
 					$LNG['sys_mess_attack_report'],
 					sprintf(
 						$LNG['sys_adress_planet'],
-						$this->_fleet['fleet_end_galaxy'],
-						$this->_fleet['fleet_end_system'],
-						$this->_fleet['fleet_end_planet']
+						$this->fleetData['fleet_end_galaxy'],
+						$this->fleetData['fleet_end_system'],
+						$this->fleetData['fleet_end_planet']
 					),
-					$LNG['type_planet_short'][$this->_fleet['fleet_end_type']],
+					$LNG['type_planet_short'][$this->fleetData['fleet_end_type']],
 					$LNG['sys_lost'],
 					$thisClass[0],
 					$LNG['sys_attack_attacker_pos'],
@@ -486,7 +479,7 @@ HTML;
 				);
 
 				PlayerUtil::sendMessage($userID, 0, $LNG['sys_mess_tower'], 3, $LNG['sys_mess_attack_report'],
-					$message, $this->_fleet['fleet_start_time'], NULL, 1, $this->_fleet['fleet_universe']);
+					$message, $this->fleetData['fleet_start_time'], NULL, 1, $this->fleetData['fleet_universe']);
 
 				$sql	= "INSERT INTO %%TOPKB_USERS%% SET
 				rid			= :reportId,
@@ -505,7 +498,7 @@ HTML;
 			$i++;
 		}
 		
-		if($this->_fleet['fleet_end_type'] == 3)
+		if($this->fleetData['fleet_end_type'] == 3)
 		{
 			$debrisType	= 'id_luna';
 		}
@@ -522,7 +515,7 @@ HTML;
 		$db->update($sql, array(
 			':metal'	=> $planetDebris[901],
 			':crystal'	=> $planetDebris[902],
-			':planetId'	=> $this->_fleet['fleet_end_id']
+			':planetId'	=> $this->fleetData['fleet_end_id']
 		));
 
 		$sql = 'UPDATE %%PLANETS%% SET
@@ -535,7 +528,7 @@ HTML;
 			':metal'		=> $stealResource[901],
 			':crystal'		=> $stealResource[902],
 			':deuterium'	=> $stealResource[903],
-			':planetId'		=> $this->_fleet['fleet_end_id']
+			':planetId'		=> $this->fleetData['fleet_end_id']
 		));
 
 		$sql = 'INSERT INTO %%TOPKB%% SET
@@ -548,8 +541,8 @@ HTML;
 		$db->insert($sql, array(
 			':units'	=> $combatResult['unitLost']['attacker'] + $combatResult['unitLost']['defender'],
 			':reportId'	=> $reportID,
-			':time'		=> $this->_fleet['fleet_start_time'],
-			':universe'	=> $this->_fleet['fleet_universe'],
+			':time'		=> $this->fleetData['fleet_start_time'],
+			':universe'	=> $this->fleetData['fleet_universe'],
 			':result'	=> $combatResult['won']
 		));
 
@@ -583,40 +576,35 @@ HTML;
 			':destroyedUnits'	=> $combatResult['unitLost']['attacker']
 		));
 
-		$this->setState(FLEET_RETURN);
-		$this->SaveFleet();
+		$this->setNextState(FLEET_RETURN);
 	}
-	
-	function EndStayEvent()
+
+	public function arrivalStartTargetEvent()
 	{
-		return;
-	}
-	
-	function ReturnEvent()
-	{
-		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
+		$sql		= 'SELECT name, lang FROM %%PLANETS%% INNER JOIN %%USERS%% ON id = id_owner WHERE id = :planetId;';
+		$userData	= Database::get()->selectSingle($sql, array(
+			':planetId'	=> $this->fleetData['fleet_start_id'],
+		));
 
+		$LNG		= $this->getLanguage($userData['language']);
 
-		$sql		= 'SELECT name FROM %%PLANETS%% WHERE id = :planetId;';
-		$planetName	= Database::get()->selectSingle($sql, array(
-			':planetId'	=> $this->_fleet['fleet_start_id'],
-		), 'name');
+		$resourceList	= array();
+		foreach($this->fleetData['elements'][Vars::CLASS_RESOURCE] as $resourceElementId => $value)
+		{
+			$resourceList[$LNG['tech'][$resourceElementId]]	= $value;
+		}
 
-		$Message	= sprintf(
+		$playerMessage 	= sprintf(
 			$LNG['sys_fleet_won'],
-			$planetName,
-			GetTargetAdressLink($this->_fleet, ''),
-			pretty_number($this->_fleet['fleet_resource_metal']),
-			$LNG['tech'][901],
-			pretty_number($this->_fleet['fleet_resource_crystal']),
-			$LNG['tech'][902],
-			pretty_number($this->_fleet['fleet_resource_deuterium']),
-			$LNG['tech'][903]
+			$userData['name'],
+			GetTargetAdressLink($this->fleetData, ''),
+			Language::createHumanReadableList($resourceList)
 		);
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
-			$Message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
+		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
+			$playerMessage, $this->fleetData['fleet_end_time'], NULL, 1, $this->fleetData['fleet_universe']);
 
-		$this->RestoreFleet();
+		$this->arrivalTo($this->fleetData['fleet_start_id'],
+			$this->fleetData['elements'][Vars::CLASS_FLEET], $this->fleetData['elements'][Vars::CLASS_RESOURCE]);
 	}
 }

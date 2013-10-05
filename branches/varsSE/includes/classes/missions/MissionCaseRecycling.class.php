@@ -28,89 +28,83 @@
 
 class MissionCaseRecycling extends AbstractMission
 {
-	function __construct($Fleet)
+	public function arrivalEndTargetEvent()
 	{
-		$this->_fleet	= $Fleet;
-	}
-	
-	function TargetEvent()
-	{	
-		global $pricelist, $resource;
-		
-		$resourceIDs	= array(901, 902, 903, 921);
-		$debrisIDs		= array(901, 902);
+		$debrisElements		= Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_DEBRIS);
+
 		$resQuery		= array();
 		$collectQuery	= array();
 		
 		$collectedGoods = array();
-		foreach($debrisIDs as $debrisID)
+		foreach($debrisElements as $debrisElementId => $debrisElementObj)
 		{
-			$collectedGoods[$debrisID] = 0;
-			$resQuery[]	= 'der_'.$resource[$debrisID];
+			$collectedGoods[$debrisElementId] = 0;
+			$resQuery[]	= 'der_'.$debrisElementObj->name;
 		}
 
 		$sql	= 'SELECT '.implode(',', $resQuery).', ('.implode(' + ', $resQuery).') as total
 		FROM %%PLANETS%% WHERE id = :planetId';
 
 		$targetData	= Database::get()->selectSingle($sql, array(
-			':planetId'	=> $this->_fleet['fleet_end_id']
+			':planetId'	=> $this->fleetData['fleet_end_id']
 		));
 
 		if(!empty($targetData['total']))
 		{
 			$sql				= 'SELECT * FROM %%USERS%% WHERE id = :userId;';
 			$targetUser			= Database::get()->selectSingle($sql, array(
-				':userId'	=> $this->_fleet['fleet_owner']
+				':userId'	=> $this->fleetData['fleet_owner']
 			));
 
 			$targetUserFactors	= PlayerUtil::getFactors($targetUser);
 			$shipStorageFactor	= 1 + $targetUserFactors['ShipStorage'];
 		
 			// Get fleet capacity
-			$fleetData			= FleetUtil::unserialize($this->_fleet['fleet_array']);
+			$fleetData			= $this->fleetData['elements'][Vars::CLASS_FLEET];
 
 			$recyclerStorage	= 0;
 			$otherFleetStorage	= 0;
 
-			foreach ($fleetData as $shipId => $shipAmount)
+			foreach ($fleetData as $recyclerElementId => $shipAmount)
 			{
-				if ($shipId == 209 ||  $shipId == 219)
+				$recyclerElementObj	= Vars::getElement($recyclerElementId);
+
+				if ($recyclerElementObj->hasFlag(Vars::FLAG_DEBRIS))
 				{
-					$recyclerStorage   += $pricelist[$shipId]['capacity'] * $shipAmount;
+					$recyclerStorage   += $recyclerElementObj->capacity * $shipAmount;
 				}
 				else
 				{
-					$otherFleetStorage += $pricelist[$shipId]['capacity'] * $shipAmount;
+					$otherFleetStorage += $recyclerElementObj->capacity * $shipAmount;
 				}
 			}
 			
 			$recyclerStorage	*= $shipStorageFactor;
 			$otherFleetStorage	*= $shipStorageFactor;
 
-			$incomingGoods		= 0;
-			foreach($resourceIDs as $resourceID)
-			{
-				$incomingGoods	+= $this->_fleet['fleet_resource_'.$resource[$resourceID]];
-			}
-
-			$totalStorage = $recyclerStorage + min(0, $otherFleetStorage - $incomingGoods);
+			$incomingGoods		= array_sum($this->fleetData['elements'][Vars::CLASS_RESOURCE]);
+			$totalStorage		= $recyclerStorage + min(0, $otherFleetStorage - $incomingGoods);
 
 			$param	= array(
-				':planetId'	=> $this->_fleet['fleet_end_id']
+				':planetId'	=> $this->fleetData['fleet_end_id']
 			);
 
 			// fast way
 			$collectFactor	= min(1, $totalStorage / $targetData['total']);
-			foreach($debrisIDs as $debrisID)
+			foreach($debrisElements as $debrisElementId => $debrisElementObj)
 			{
-				$fleetColName	= 'fleet_resource_'.$resource[$debrisID];
-				$debrisColName	= 'der_'.$resource[$debrisID];
+				$debrisColName	= 'der_'.$debrisElementObj->name;
 
-				$collectedGoods[$debrisID]			= ceil($targetData[$debrisColName] * $collectFactor);
-				$collectQuery[]						= $debrisColName.' = GREATEST(0, '.$debrisColName.' - :'.$resource[$debrisID].')';
-				$param[':'.$resource[$debrisID]]	= $collectedGoods[$debrisID];
+				$collectedGoods[$debrisElementId]	= ceil($targetData[$debrisColName] * $collectFactor);
+				$collectQuery[]						= $debrisColName.' = GREATEST(0, '.$debrisColName.' - :'.$debrisElementObj->name.')';
+				$param[':'.$debrisElementObj->name]	= $collectedGoods[$debrisElementId];
 
-				$this->UpdateFleet($fleetColName, $this->_fleet[$fleetColName] + $collectedGoods[$debrisID]);
+				if(!isset($this->fleetData['elements'][Vars::CLASS_RESOURCE][$debrisElementId]))
+				{
+					$this->fleetData['elements'][Vars::CLASS_RESOURCE][$debrisElementId]	= 0;
+				}
+
+				$this->fleetData['elements'][Vars::CLASS_RESOURCE][$debrisElementId]	+= $collectedGoods[$debrisElementId];
 			}
 
 			$sql	= 'UPDATE %%PLANETS%% SET '.implode(',', $collectQuery).' WHERE id = :planetId;';
@@ -118,44 +112,48 @@ class MissionCaseRecycling extends AbstractMission
 			Database::get()->update($sql, $param);
 		}
 		
-		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
-		
-		$Message 	= sprintf($LNG['sys_recy_gotten'], 
-			pretty_number($collectedGoods[901]), $LNG['tech'][901],
-			pretty_number($collectedGoods[902]), $LNG['tech'][902]
+		$LNG		= $this->getLanguage(NULL, $this->fleetData['fleet_owner']);
+
+		$resourceList	= array();
+		foreach($collectedGoods as $resourceElementId => $value)
+		{
+			$resourceList[$LNG['tech'][$resourceElementId]]	= $value;
+		}
+
+		$playerMessage 	= sprintf($LNG['sys_recy_gotten'], Language::createHumanReadableList($resourceList));
+
+		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 5,
+			$LNG['sys_recy_report'], $playerMessage, $this->fleetData['fleet_start_time'], NULL, 1, $this->fleetData['fleet_universe']);
+
+		$this->setNextState(FLEET_RETURN);
+	}
+
+	public function arrivalStartTargetEvent()
+	{
+		$sql		= 'SELECT name, lang FROM %%PLANETS%% INNER JOIN %%USERS%% ON id = id_owner WHERE id = :planetId;';
+		$userData	= Database::get()->selectSingle($sql, array(
+			':planetId'	=> $this->fleetData['fleet_start_id'],
+		));
+
+		$LNG		= $this->getLanguage($userData['language']);
+
+		$resourceList	= array();
+		foreach($this->fleetData['elements'][Vars::CLASS_RESOURCE] as $resourceElementId => $value)
+		{
+			$resourceList[$LNG['tech'][$resourceElementId]]	= $value;
+		}
+
+		$playerMessage 	= sprintf(
+			$LNG['sys_tran_mess_owner'],
+			$userData['name'],
+			GetTargetAdressLink($this->fleetData, ''),
+			Language::createHumanReadableList($resourceList)
 		);
 
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 5,
-			$LNG['sys_recy_report'], $Message, $this->_fleet['fleet_start_time'], NULL, 1, $this->_fleet['fleet_universe']);
+		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
+			$playerMessage, $this->fleetData['fleet_end_time'], NULL, 1, $this->fleetData['fleet_universe']);
 
-		$this->setState(FLEET_RETURN);
-		$this->SaveFleet();
-	}
-	
-	function EndStayEvent()
-	{
-		return;
-	}
-	
-	function ReturnEvent()
-	{
-		$LNG		= $this->getLanguage(NULL, $this->_fleet['fleet_owner']);
-
-		$sql		= 'SELECT name FROM %%PLANETS%% WHERE id = :planetId;';
-		$planetName	= Database::get()->selectSingle($sql, array(
-			':planetId'	=> $this->_fleet['fleet_start_id'],
-		), 'name');
-	
-		$Message	= sprintf($LNG['sys_tran_mess_owner'],
-			$planetName, GetStartAdressLink($this->_fleet, ''),
-			pretty_number($this->_fleet['fleet_resource_metal']), $LNG['tech'][901],
-			pretty_number($this->_fleet['fleet_resource_crystal']), $LNG['tech'][902],
-			pretty_number($this->_fleet['fleet_resource_deuterium']), $LNG['tech'][903]
-		);
-
-		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
-			$Message, $this->_fleet['fleet_end_time'], NULL, 1, $this->_fleet['fleet_universe']);
-
-		$this->RestoreFleet();
+		$this->arrivalTo($this->fleetData['fleet_start_id'],
+			$this->fleetData['elements'][Vars::CLASS_FLEET], $this->fleetData['elements'][Vars::CLASS_RESOURCE]);
 	}
 }
