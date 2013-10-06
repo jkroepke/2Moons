@@ -79,7 +79,7 @@ class MissionCaseColonisation extends AbstractMission
 				else
 				{
 					$newPlanetId = PlayerUtil::createPlanet($this->fleetData['fleet_end_galaxy'], $this->fleetData['fleet_end_system'],
-						$this->fleetData['fleet_end_planet'], $this->fleetData['fleet_universe'], $this->fleetData['fleet_owner'],
+						$this->fleetData['fleet_end_planet'], $senderUser['universe'], $this->fleetData['fleet_owner'],
 						$LNG['fcp_colony'], false, $senderUser['authlevel']);
 
 					if($newPlanetId === false)
@@ -140,12 +140,13 @@ class MissionCaseColonisation extends AbstractMission
 			$resourceList[$LNG['tech'][$resourceElementId]]	= $value;
 		}
 
-		$playerMessage 	= sprintf(
-			$LNG['sys_fleet_won'],
-			$userData['name'],
-			GetTargetAdressLink($this->fleetData, ''),
+		$playerMessage	= sprintf($LNG['sys_stat_mess'],
+			GetStartAdressLink($this->fleetData, ''),
 			Language::createHumanReadableList($resourceList)
 		);
+
+		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
+			$playerMessage, $this->fleetData['fleet_end_time'], NULL, 1, $this->fleetData['fleet_universe']);
 
 		$this->arrivalTo($this->fleetData['fleet_start_id'],
 			$this->fleetData['elements'][Vars::CLASS_FLEET], $this->fleetData['elements'][Vars::CLASS_RESOURCE]);

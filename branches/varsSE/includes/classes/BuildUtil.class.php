@@ -32,57 +32,57 @@ class BuildUtil
 
 	public static function getBonusList()
 	{
-        if(is_null(self::$bonusList))
-        {
-            self::$bonusList = array(
-                'Attack',
-                'Defensive',
-                'Shield',
-                'BuildTime',
-                'ResearchTime',
-                'ShipTime',
-                'DefensiveTime',
-                'Resource',
-                'ResourceStorage',
-                'ShipStorage',
-                'FlyTime',
-                'FleetSlots',
-                'Planets',
-                'SpyPower',
-                'Expedition',
-                'GateCoolTime',
-                'MoreFound',
-            );
+		if(is_null(self::$bonusList))
+		{
+			self::$bonusList = array(
+				'Attack',
+				'Defensive',
+				'Shield',
+				'BuildTime',
+				'ResearchTime',
+				'ShipTime',
+				'DefensiveTime',
+				'Resource',
+				'ResourceStorage',
+				'ShipStorage',
+				'FlyTime',
+				'FleetSlots',
+				'Planets',
+				'SpyPower',
+				'Expedition',
+				'GateCoolTime',
+				'MoreFound',
+			);
 
-            foreach(array_keys(Vars::getElements(Vars::CLASS_RESOURCE, array(Vars::FLAG_RESOURCE_PLANET, Vars::FLAG_ENERGY))) as $elementId)
-            {
-                self::$bonusList[]  = 'Resource'.$elementId;
-            }
+			foreach(array_keys(Vars::getElements(Vars::CLASS_RESOURCE, array(Vars::FLAG_RESOURCE_PLANET, Vars::FLAG_ENERGY))) as $elementId)
+			{
+				self::$bonusList[]  = 'Resource'.$elementId;
+			}
 
-        }
+		}
 		return self::$bonusList;
 	}
 
 	public static function getRestPrice($USER, $PLANET, Element $elementObj, $costResources = NULL)
 	{
 		if(!isset($costResources))
-        {
+		{
 			$costResources	= self::getElementPrice($USER, $PLANET, $elementObj);
 		}
 		
 		$overflow	= array();
 		
-        foreach($costResources as $resourceElementId => $value)
-        {
-            $resourceElementObj    = Vars::getElement($resourceElementId);
-            if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
-            {
-                $available  = $USER[$resourceElementObj->name];
-            }
-            else
-            {
-                $available  = $PLANET[$resourceElementObj->name];
-            }
+		foreach($costResources as $resourceElementId => $value)
+		{
+			$resourceElementObj	= Vars::getElement($resourceElementId);
+			if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
+			{
+				$available  = $USER[$resourceElementObj->name];
+			}
+			else
+			{
+				$available  = $PLANET[$resourceElementObj->name];
+			}
 
 			$overflow[$resourceElementId] = max($value - $available, 0);
 		}
@@ -91,7 +91,7 @@ class BuildUtil
 	}
 	
 	public static function getElementPrice(Element $elementObj, $elementLevel = 1, $forDestroy = false)
-    {
+	{
 		$price	= array();
 		foreach(Vars::getElements(Vars::CLASS_RESOURCE) as $resourceElementId => $resourceElementObj)
 		{
@@ -100,20 +100,20 @@ class BuildUtil
 			if($elementObj->factor != 0 && $elementObj->factor != 1)
 			{
 				// elementLevel - 1, because the basic values are level 1, not level 0
-                $value	*= pow($elementObj->factor, $elementLevel - 1);
+				$value	*= pow($elementObj->factor, $elementLevel - 1);
 			}
 			
 			if($elementObj->class === Vars::CLASS_FLEET || $elementObj->class === Vars::CLASS_DEFENSE || $elementObj->class === Vars::CLASS_MISSILE)
-            {
-                $value	*= $elementLevel;
+			{
+				$value	*= $elementLevel;
 			}
 			
 			if($forDestroy === true)
-            {
-                $value	= round($value / 2);
+			{
+				$value	= round($value / 2);
 			}
 
-            $price[$resourceElementId]	= $value;
+			$price[$resourceElementId]	= $value;
 		}
 		
 		return $price; 
@@ -125,16 +125,16 @@ class BuildUtil
 
 		foreach($elementObj->requirements as $requireElementId => $requireElementLevel)
 		{
-            $requireElementObj = Vars::getElement($requireElementId);
+			$requireElementObj = Vars::getElement($requireElementId);
 
-            if($requireElementObj->isUserResource())
-            {
-                if ($USER[$requireElementObj->name] < $requireElementLevel) return false;
-            }
-            else
-            {
-                if ($PLANET[$requireElementObj->name] < $requireElementLevel) return false;
-            }
+			if($requireElementObj->isUserResource())
+			{
+				if ($USER[$requireElementObj->name] < $requireElementLevel) return false;
+			}
+			else
+			{
+				if ($PLANET[$requireElementObj->name] < $requireElementLevel) return false;
+			}
 
 		}
 
@@ -145,61 +145,61 @@ class BuildUtil
 	{
 		$config	= Config::get($USER['universe']);
 
-        $time   = 0;
+		$time   = 0;
 
-        if(!isset($costResources))
-        {
+		if(!isset($costResources))
+		{
 			$costResources	= self::getElementPrice($elementObj, $forDestroy, $forLevel);
 		}
 		
 		$elementCost	= 0;
 
 		foreach(array_keys(Vars::getElements(Vars::CLASS_RESOURCE, Vars::FLAG_CALCULATE_BUILD_TIME)) as $resourceElementId)
-        {
-            $elementCost	+= $costResources[$resourceElementId];
-        }
-        switch($elementObj->class)
-        {
-            case Vars::CLASS_BUILDING:
-                $time = $elementCost / ($config->game_speed * (1 + $PLANET[Vars::getElement(14)->name]));
-                $time *= pow(0.5, $PLANET[Vars::getElement(15)->name]);
-                $time += PlayerUtil::getBonusValue($time, 'BuildTime', $USER);
-            break;
-            case Vars::CLASS_FLEET:
-                $time = $elementCost / $config->game_speed;
-                $time *= 1 + $PLANET[Vars::getElement(21)->name];
-                $time *= pow(0.5, $PLANET[Vars::getElement(15)->name]);
-                $time += PlayerUtil::getBonusValue($time, 'ShipTime', $USER);
-            break;
-            case Vars::CLASS_DEFENSE:
-                $time = $elementCost / $config->game_speed;
-                $time *= 1 + $PLANET[Vars::getElement(21)->name];
-                $time *= pow(0.5, $PLANET[Vars::getElement(15)->name]);
-                $time += PlayerUtil::getBonusValue($time, 'DefensiveTime', $USER);
-            break;
-            case Vars::CLASS_TECH:
-                if(!isset($USER['techNetwork']))
-                {
-                    $USER['techNetwork']  = PlayerUtil::getLabLevelByNetwork($USER, $PLANET);
-                }
+		{
+			$elementCost	+= $costResources[$resourceElementId];
+		}
+		switch($elementObj->class)
+		{
+			case Vars::CLASS_BUILDING:
+				$time = $elementCost / ($config->game_speed * (1 + $PLANET[Vars::getElement(14)->name]));
+				$time *= pow(0.5, $PLANET[Vars::getElement(15)->name]);
+				$time += PlayerUtil::getBonusValue($time, 'BuildTime', $USER);
+			break;
+			case Vars::CLASS_FLEET:
+				$time = $elementCost / $config->game_speed;
+				$time *= 1 + $PLANET[Vars::getElement(21)->name];
+				$time *= pow(0.5, $PLANET[Vars::getElement(15)->name]);
+				$time += PlayerUtil::getBonusValue($time, 'ShipTime', $USER);
+			break;
+			case Vars::CLASS_DEFENSE:
+				$time = $elementCost / $config->game_speed;
+				$time *= 1 + $PLANET[Vars::getElement(21)->name];
+				$time *= pow(0.5, $PLANET[Vars::getElement(15)->name]);
+				$time += PlayerUtil::getBonusValue($time, 'DefensiveTime', $USER);
+			break;
+			case Vars::CLASS_TECH:
+				if(!isset($USER['techNetwork']))
+				{
+					$USER['techNetwork']  = PlayerUtil::getLabLevelByNetwork($USER, $PLANET);
+				}
 
-                $techLabLevel = 0;
+				$techLabLevel = 0;
 
-                foreach($USER['techNetwork'] as $planetTechLevel)
-                {
-                    if(!isset($elementObj->requirements[31]) || $planetTechLevel >= $elementObj->requirements[31])
-                    {
-                        $techLabLevel += $planetTechLevel;
-                    }
-                }
+				foreach($USER['techNetwork'] as $planetTechLevel)
+				{
+					if(!isset($elementObj->requirements[31]) || $planetTechLevel >= $elementObj->requirements[31])
+					{
+						$techLabLevel += $planetTechLevel;
+					}
+				}
 
-                $time = $elementCost / (1000 * (1 + $techLabLevel)) / ($config->game_speed / 2500);
-                $time += PlayerUtil::getBonusValue($time, 'ResearchTime', $USER);
-            break;
-            case Vars::CLASS_PERM_BONUS:
-                $time = $elementCost / $config->game_speed;
-            break;
-        }
+				$time = $elementCost / (1000 * (1 + $techLabLevel)) / ($config->game_speed / 2500);
+				$time += PlayerUtil::getBonusValue($time, 'ResearchTime', $USER);
+			break;
+			case Vars::CLASS_PERM_BONUS:
+				$time = $elementCost / $config->game_speed;
+			break;
+		}
 		
 		if($forDestroy) {
 			$time	= floor($time * 1300);
@@ -219,74 +219,74 @@ class BuildUtil
 	public static function maxBuildableElements($USER, $PLANET, Element $elementObj, $costResources = NULL)
 	{
 		if(!isset($costResources))
-        {
+		{
 			$costResources	= self::getElementPrice($elementObj, 1);
 		}
 
 		$maxElement	= array();
 
-        $costResources  = array_filter($costResources);
+		$costResources  = array_filter($costResources);
 
-        foreach($costResources as $resourceElementId => $value)
-        {
-            $resourceElementObj    = Vars::getElement($resourceElementId);
-            if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
-            {
-                $maxElement[$resourceElementId]	= floor($USER[$resourceElementObj->name] / $value);
-            }
-            else
-            {
-                $maxElement[$resourceElementId]	= floor($PLANET[$resourceElementObj->name] / $value);
-            }
-        }
+		foreach($costResources as $resourceElementId => $value)
+		{
+			$resourceElementObj	= Vars::getElement($resourceElementId);
+			if($resourceElementObj->hasFlag(Vars::FLAG_RESOURCE_USER))
+			{
+				$maxElement[$resourceElementId]	= floor($USER[$resourceElementObj->name] / $value);
+			}
+			else
+			{
+				$maxElement[$resourceElementId]	= floor($PLANET[$resourceElementObj->name] / $value);
+			}
+		}
 		
 		return min($maxElement);
 	}
 	
 	public static function maxBuildableMissiles($USER, $PLANET, QueueManager $queueObj)
 	{
-        $currentMissiles    = 0;
-        $missileElements    = Vars::getElements(Vars::CLASS_MISSILE);
+		$currentMissiles	= 0;
+		$missileElements	= Vars::getElements(Vars::CLASS_MISSILE);
 		foreach($missileElements as $missileElementObj)
-        {
-            if($missileElementObj->hasFlag(Vars::FLAG_ATTACK_MISSILE))
-            {
-                $currentMissiles	+= $PLANET[$missileElementObj->name] * 2;
-            }
-            else
-            {
-                $currentMissiles	+= $PLANET[$missileElementObj->name];
-            }
-        }
+		{
+			if($missileElementObj->hasFlag(Vars::FLAG_ATTACK_MISSILE))
+			{
+				$currentMissiles	+= $PLANET[$missileElementObj->name] * 2;
+			}
+			else
+			{
+				$currentMissiles	+= $PLANET[$missileElementObj->name];
+			}
+		}
 
-        $queueObj->getTasksByElementId(array_keys($missileElements));
+		$queueObj->getTasksByElementId(array_keys($missileElements));
 
-        $queueData      = $queueObj->getTasksByElementId(44);
-        if(!empty($queueData))
-        {
-            $missileDepot = $queueData[count($queueData)-1]['amount'];
-        }
-        else
-        {
-            $missileDepot = $PLANET[Vars::getElement(44)->name];
-        }
+		$queueData	  = $queueObj->getTasksByElementId(44);
+		if(!empty($queueData))
+		{
+			$missileDepot = $queueData[count($queueData)-1]['amount'];
+		}
+		else
+		{
+			$missileDepot = $PLANET[Vars::getElement(44)->name];
+		}
 
-        $maxMissiles        = $missileDepot * 10 * max(Config::get($USER['universe'])->silo_factor, 1);
+		$maxMissiles		= $missileDepot * 10 * max(Config::get($USER['universe'])->silo_factor, 1);
 
 		$buildableMissileCount  = max(0, $maxMissiles, $currentMissiles);
-        $buildableMissiles    = array();
+		$buildableMissiles	= array();
 
-        foreach($missileElements as $missileElementId => $missileElementObj)
-        {
-            if($missileElementObj->hasFlag(Vars::FLAG_ATTACK_MISSILE))
-            {
-                $buildableMissiles[$missileElementId]   = $buildableMissileCount / 2;
-            }
-            else
-            {
-                $buildableMissiles[$missileElementId]	= $buildableMissileCount;
-            }
-        }
+		foreach($missileElements as $missileElementId => $missileElementObj)
+		{
+			if($missileElementObj->hasFlag(Vars::FLAG_ATTACK_MISSILE))
+			{
+				$buildableMissiles[$missileElementId]   = $buildableMissileCount / 2;
+			}
+			else
+			{
+				$buildableMissiles[$missileElementId]	= $buildableMissileCount;
+			}
+		}
 
 		return $buildableMissiles;
 	}

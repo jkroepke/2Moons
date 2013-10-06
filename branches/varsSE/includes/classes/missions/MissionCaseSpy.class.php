@@ -47,7 +47,7 @@ class MissionCaseSpy extends AbstractMission
 			':planetId'	=> $this->fleetData['fleet_end_id']
 		));
 
-		$sql				= 'SELECT name FROM %%PLANETS%% WHERE id = :planetId;';
+		$sql			= 'SELECT name FROM %%PLANETS%% WHERE id = :planetId;';
 		$senderPlanetName	= $db->selectSingle($sql, array(
 			':planetId'	=> $this->fleetData['fleet_start_id']
 		), 'name');
@@ -60,11 +60,16 @@ class MissionCaseSpy extends AbstractMission
 		$planetUpdater 						= new Economy();
 		list($targetUser, $targetPlanet)	= $planetUpdater->CalcResource($targetUser, $targetPlanet, true, $this->fleetData['fleet_start_time']);
 
-		$sql	= 'SELECT * FROM %%FLEETS%% WHERE fleet_end_id = :planetId AND fleet_mission = 5 AND fleet_end_stay > :time;';
+		$sql	= "SELECT * FROM %%FLEETS%%
+		WHERE fleet_mission		= :mission
+		AND fleet_end_id		= :fleetEndId
+		AND fleet_start_time 	<= :timeStamp
+		AND fleet_end_stay 		>= :timeStamp;";
 
 		$targetStayFleets	= $db->select($sql, array(
-			':planetId'	=> $this->fleetData['fleet_end_id'],
-			':time'		=> $this->fleetData['fleet_start_time'],
+			':mission'		=> 5,
+			':fleetEndId'	=> $this->fleetData['fleet_end_id'],
+			':timeStamp'	=> $this->fleetData['fleet_start_time'],
 		));
 
 		$currentFleets	= array();
@@ -144,16 +149,7 @@ class MissionCaseSpy extends AbstractMission
 		}
 		
 		// I'm use template class here, because i want to exclude HTML in PHP.
-		
-		require_once 'includes/classes/Template.class.php';
-		
-		$template	= new template;
-		
-		$template->caching		= true;
-		$template->compile_id	= $senderUser['lang'];
-		$template->loadFilter('output', 'trimwhitespace');
-		list($tplDir)	= $template->getTemplateDir();
-		$template->setTemplateDir($tplDir.'game/');
+		$template	= $this->getTplObj($LNG);
 		$template->assign_vars(array(
 			'spyData'		=> $spyData,
 			'targetPlanet'	=> $targetPlanet,
@@ -162,11 +158,7 @@ class MissionCaseSpy extends AbstractMission
 			'isBattleSim'	=> ENABLE_SIMULATOR_LINK == true && isModulAvalible(MODULE_SIMULATOR),
 			'title'			=> sprintf($LNG['sys_mess_head'], $targetPlanet['name'], $targetPlanet['galaxy'], $targetPlanet['system'], $targetPlanet['planet'], _date($LNG['php_tdformat'], $this->fleetData['fleet_end_time'], $targetUser['timezone'], $LNG)),
 		));
-		
-		$template->assign_vars(array(
-			'LNG'			=> $LNG
-		), false);
-				
+
 		$spyReport	= $template->fetch('shared.mission.spyReport.tpl');
 
 		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_qg'], 0, $LNG['sys_mess_spy_report'],

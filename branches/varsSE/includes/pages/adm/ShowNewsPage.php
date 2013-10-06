@@ -54,7 +54,7 @@ function ShowNewsPage(){
 		);
 	}
 	
-	$template	= new template();
+	$template	= new Template();
 
 
 	if($_GET['action'] == 'edit' && isset($_GET['id'])) {

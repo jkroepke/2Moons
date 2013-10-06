@@ -52,7 +52,7 @@ function ShowFacebookPage() {
 		$config->save();
 	}
 	
-	$template	= new template();
+	$template	= new Template();
 	$template->assign_vars(array(
 		'se_save_parameters'	=> $LNG['se_save_parameters'],
 		'fb_info'				=> $LNG['fb_info'],

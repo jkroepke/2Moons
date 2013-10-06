@@ -30,7 +30,7 @@ abstract class AbstractGamePage
 {
 	/**
 	 * reference of the template object
-	 * @var template
+	 * @var Template
 	 */
 	protected $tplObj;
 
@@ -62,7 +62,7 @@ abstract class AbstractGamePage
 		if(isset($this->tplObj))
 			return true;
 			
-		$this->tplObj	= new template;
+		$this->tplObj	= new Template;
 		return true;
 	}
 	

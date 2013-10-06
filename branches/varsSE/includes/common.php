@@ -115,7 +115,26 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 
 	if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS))
     {
-		require 'includes/FleetHandler.php';
+		$token	= getRandomString();
+		$db		= Database::get();
+
+		$sql	= 'UPDATE %%FLEETS_EVENT%% SET `lockToken` = :lockToken WHERE `lockToken` IS NULL AND `time` <= :time;';
+
+		$db->update($sql, array(
+			':time'			=> Database::formatDate(TIMESTAMP),
+			':lockToken'	=> $token
+		));
+
+		if($db->rowCount() !== 0)
+		{
+			require 'includes/classes/FleetHandler.class.php';
+
+			$fleetObj	= new FleetHandler();
+			$fleetObj->setToken($token);
+			$fleetObj->run();
+
+			$fleetObj = NULL;
+		}
 	}
 	
 	$db		= Database::get();
@@ -197,3 +216,5 @@ elseif(MODE === 'LOGIN')
 	$LNG->getUserAgentLanguage();
 	$LNG->includeData(array('L18N', 'INGAME', 'PUBLIC', 'CUSTOM'));
 }
+
+unset($db, $config, $universeAmount, $sql, $fleetObj);

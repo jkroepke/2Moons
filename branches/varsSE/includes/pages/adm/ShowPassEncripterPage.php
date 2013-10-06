@@ -33,7 +33,7 @@ function ShowPassEncripterPage()
 	global $LNG;
 	$Password	= HTTP::_GP('md5q', '', true);
 	
-	$template	= new template();
+	$template	= new Template();
 
 	$template->assign_vars(array(
 		'md5_md5' 			=> $Password,

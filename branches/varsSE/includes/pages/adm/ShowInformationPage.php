@@ -62,7 +62,7 @@ function ShowInformationPage()
 	$dateTimeUser		= new DateTime("now", $dateTimeZoneUser);
 	$dateTimePHP		= new DateTime("now", $dateTimeZonePHP);
 	
-	$template	= new template();
+	$template	= new Template();
 	$template->assign_vars(array(
 		'info_information'	=> sprintf($LNG['info_information'], 'http://tracker.2moons.cc/'),
 		'info'				=> $_SERVER['SERVER_SOFTWARE'],

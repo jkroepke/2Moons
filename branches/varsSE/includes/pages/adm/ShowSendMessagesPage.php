@@ -101,7 +101,7 @@ function ShowSendMessagesPage() {
 		unset($sendModes[2]);
 	}
 	
-	$template	= new template();
+	$template	= new Template();
 	$template->assign_vars(array(
 		'langSelector' => array_merge(array('' => $LNG['ma_all']), $LNG->getAvailableLanguages(false)),
 		'modes' => $sendModes,

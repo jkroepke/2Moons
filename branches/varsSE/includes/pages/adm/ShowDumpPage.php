@@ -39,7 +39,7 @@ function ShowDumpPage()
 		case 'dump':
 			$dbTables	= HTTP::_GP('dbtables', array());
 			if(empty($dbTables)) {
-				$template	= new template();
+				$template	= new Template();
 				$template->message($LNG['du_not_tables_selected']);
 				exit;
 			}
@@ -52,7 +52,7 @@ function ShowDumpPage()
 			$dump	= new SQLDumper;
 			$dump->dumpTablesToFile($dbTables, $filePath);
 			
-			$template	= new template();
+			$template	= new Template();
 			$template->message(sprintf($LNG['du_success'], 'includes/backups/'.$fileName));
 		break;
 		default:
@@ -73,7 +73,7 @@ function ShowDumpPage()
 				}
 			}
 
-			$template	= new template();
+			$template	= new Template();
 
 			$template->assign_vars(array(	
 				'dumpData'	=> $dumpData,

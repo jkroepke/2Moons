@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class FlyingFleetHandler
+class FleetHandler
 {	
 	protected $token;
 	
@@ -52,7 +52,6 @@ class FlyingFleetHandler
 	
 	function run()
 	{
-		require_once 'includes/classes/MissionUtil.class.php';
 		$db	= Database::get();
 
 		$sql = 'SELECT %%FLEETS%%.*

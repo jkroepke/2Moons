@@ -81,7 +81,7 @@ function ShowChatConfigPage()
 		$LOG->save();
 	}
 
-	$template	= new template();
+	$template	= new Template();
 
 	$template->assign_vars(array(
 		'chat_closed'			=> $config->chat_closed,

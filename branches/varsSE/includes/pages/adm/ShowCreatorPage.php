@@ -33,7 +33,7 @@ function ShowCreatorPage()
 {
 	global $LNG, $USER;
 
-	$template	= new template();
+	$template	= new Template();
 
 	switch ($_GET['mode'])
 	{

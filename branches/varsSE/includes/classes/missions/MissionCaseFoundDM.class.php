@@ -38,14 +38,23 @@ class MissionCaseFoundDM extends AbstractMission
 	{
 		$this->setNextState(FLEET_HOLD);
 	}
-	
-	public function EndStayEvent()
+
+	public function endStayTimeEvent()
 	{
 		$LNG	= $this->getLanguage(NULL, $this->fleetData['fleet_owner']);
-		$chance	= mt_rand(0, 100);
-		if($chance <= min(self::MAX_CHANCE, (self::CHANCE + array_sum($this->fleetData['elements'][Vars::CLASS_FLEET]) * self::CHANCE_SHIP))) {
-			$FoundDark 	= mt_rand(self::MIN_FOUND, self::MAX_FOUND);
-			$this->UpdateFleet('fleet_resource_darkmatter', $FoundDark);
+
+		$chance	= min(self::MAX_CHANCE, (self::CHANCE + array_sum($this->fleetData['elements'][Vars::CLASS_FLEET]) * self::CHANCE_SHIP));
+		if(mt_rand(0, 100) <= $chance)
+		{
+			$foundDarkMatter 	= mt_rand(self::MIN_FOUND, self::MAX_FOUND);
+
+			if(!isset($this->fleetData['elements'][Vars::CLASS_RESOURCE][921]))
+			{
+				$this->fleetData['elements'][Vars::CLASS_RESOURCE][921] = 0;
+			}
+
+			$this->fleetData['elements'][Vars::CLASS_RESOURCE][921] += $foundDarkMatter;
+
 			$playerMessage 	= $LNG['sys_expe_found_dm_'.mt_rand(1, 3).'_'.mt_rand(1, 2).''];
 		} else {
 			$playerMessage 	= $LNG['sys_expe_nothing_'.mt_rand(1, 9)];
@@ -58,8 +67,14 @@ class MissionCaseFoundDM extends AbstractMission
 	
 	public function arrivalStartTargetEvent()
 	{
-		$LNG	= $this->getLanguage(NULL, $this->fleetData['fleet_owner']);
-		if($this->fleetData['fleet_resource_darkmatter'] > 0)
+		$sql			= 'SELECT lang FROM %%USERS%% WHERE id = :userId;';
+		$userLanguage	= Database::get()->selectSingle($sql, array(
+			':userId'	=> $this->fleetData['fleet_owner'],
+		), 'lang');
+
+		$LNG			= $this->getLanguage($userLanguage);
+
+		if($this->fleetData['elements'][Vars::CLASS_RESOURCE][921] > 0)
 		{
 			$message	= sprintf($LNG['sys_expe_back_home_with_dm'],
 				$LNG['tech'][921],
@@ -67,17 +82,17 @@ class MissionCaseFoundDM extends AbstractMission
 				$LNG['tech'][921]
 			);
 
-			$this->UpdateFleet('fleet_array', '220,0;');
+			$fleetData	= array();
 		}
 		else
 		{
 			$message	= $LNG['sys_expe_back_home_without_dm'];
+			$fleetData	= $this->fleetData['elements'][Vars::CLASS_FLEET];
 		}
 
 		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 4, $LNG['sys_mess_fleetback'],
 			$message, $this->fleetData['fleet_end_time'], NULL, 1, $this->fleetData['fleet_universe']);
 
-		$this->arrivalTo($this->fleetData['fleet_start_id'],
-			$this->fleetData['elements'][Vars::CLASS_FLEET], $this->fleetData['elements'][Vars::CLASS_RESOURCE]);
+		$this->arrivalTo($this->fleetData['fleet_start_id'], $fleetData, $this->fleetData['elements'][Vars::CLASS_RESOURCE]);
 	}
 }

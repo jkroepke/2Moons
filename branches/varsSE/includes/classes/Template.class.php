@@ -29,37 +29,49 @@
 
 require('includes/libs/Smarty/Smarty.class.php');
 		
-class template extends Smarty
+class Template
 {
 	protected $window	= 'full';
 	public $jsscript	= array();
 	public $script		= array();
-	
+
+
+	/**
+	 * reference of the Smarty object
+	 * @var Smarty
+	 */
+	private $smarty;
+
 	function __construct()
-	{	
-		parent::__construct();
+	{
+		$this->smarty	= new Smarty();
 		$this->smartySettings();
+	}
+
+	public function getSmartyObj()
+	{
+		return $this->smarty;
 	}
 
 	private function smartySettings()
 	{
         global $THEME;
-		$this->caching 					= true;
-		$this->merge_compiled_includes	= true;
-		$this->compile_check			= true; #Set false for production!
-		$this->php_handling				= Smarty::PHP_REMOVE;
-		
-		$this->setPluginsDir(array(
+		$this->smarty->caching 					= true;
+		$this->smarty->merge_compiled_includes	= true;
+		$this->smarty->compile_check			= true; #Set false for production!
+		$this->smarty->php_handling				= Smarty::PHP_REMOVE;
+
+		$this->smarty->setPluginsDir(array(
 			'includes/libs/Smarty/plugins/',
 			'includes/classes/smarty-plugins/',
 		));
 
 		$baseCachePath	= is_writable(CACHE_PATH.'templates/') ? CACHE_PATH.'templates/' : $this->getTempPath();
 
-		$this->setCompileDir($baseCachePath.'compile/');
-		$this->setCacheDir($baseCachePath.'cache/');
+		$this->smarty->setCompileDir($baseCachePath.'compile/');
+		$this->smarty->setCacheDir($baseCachePath.'cache/');
 
-        $this->setTemplateDir(array(
+		$this->smarty->setTemplateDir(array(
             $THEME->getTemplatePath().strtolower(MODE),
             TEMPLATE_PATH.strtolower(MODE)
         ));
@@ -67,14 +79,14 @@ class template extends Smarty
 
 	private function getTempPath()
 	{
-		$this->force_compile 		= true;
+		$this->smarty->force_compile 		= true;
 		require_once 'includes/libs/wcf/BasicFileUtil.class.php';
 		return BasicFileUtil::getTempFolder();
 	}
 		
 	public function assign_vars($var, $nocache = true) 
-	{		
-		parent::assign($var, NULL, $nocache);
+	{
+		$this->smarty->assign($var, NULL, $nocache);
 	}
 
 	public function loadscript($script)
@@ -142,8 +154,8 @@ class template extends Smarty
 	public function display($file)
 	{
 		global $LNG, $THEME;
-		$this->compile_id	= $LNG->getLanguage().'_'.$THEME->getThemeName();
-		parent::display($file);
+		$this->smarty->compile_id	= $LNG->getLanguage().'_'.$THEME->getThemeName();
+		$this->smarty->display($file);
 	}
 	
 	public function gotoside($dest, $time = 3)
@@ -178,42 +190,4 @@ class template extends Smarty
 		$template->message($Message, $redirect[0], $redirect[1], !$fullSide);
 		exit;
 	}
-	
-    /**
-    * Workaround  for new Smarty Method to add custom props...
-    */
-
-    public function __get($name)
-    {
-        $allowed = array(
-			'template_dir' => 'getTemplateDir',
-			'config_dir' => 'getConfigDir',
-			'plugins_dir' => 'getPluginsDir',
-			'compile_dir' => 'getCompileDir',
-			'cache_dir' => 'getCacheDir',
-        );
-
-        if (isset($allowed[$name])) {
-            return $this->{$allowed[$name]}();
-        } else {
-            return $this->{$name};
-        }
-    }
-	
-    public function __set($name, $value)
-    {
-        $allowed = array(
-			'template_dir' => 'setTemplateDir',
-			'config_dir' => 'setConfigDir',
-			'plugins_dir' => 'setPluginsDir',
-			'compile_dir' => 'setCompileDir',
-			'cache_dir' => 'setCacheDir',
-        );
-
-        if (isset($allowed[$name])) {
-            $this->{$allowed[$name]}($value);
-        } else {
-            $this->{$name} = $value;
-        }
-    }
 }

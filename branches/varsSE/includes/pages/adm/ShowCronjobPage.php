@@ -127,7 +127,7 @@ function ShowCronjobOverview()
 	
 	$data    = $GLOBALS['DATABASE']->query("SELECT * FROM ".CRONJOBS.";");
 
-	$template	= new template();	
+	$template	= new Template();
 	if(!$data)
 		$template->message($LNG['cronjob_no_data']);
 	
@@ -148,7 +148,7 @@ function ShowCronjobOverview()
 			'lock'			=> !empty($CronjobRow['lock']),
 		);
 	}
-	$template	= new template();	
+	$template	= new Template();
 	$template->assign_vars(array(	
 		'CronjobArray'	=> $CronjobArray,
 	));
@@ -157,7 +157,7 @@ function ShowCronjobOverview()
 
 function ShowCronjobDetail($detail,$error_msg=NULL) 
 {
-	$template	= new template();
+	$template	= new Template();
 	
 	
 	$avalibleCrons	= array();

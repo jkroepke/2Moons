@@ -35,8 +35,9 @@ class MissionCaseMIP extends AbstractMission
 		$sqlFields	= array();
 		$elements	= Vars::getElements(Vars::CLASS_DEFENSE) + Vars::getElements(Vars::CLASS_FLEET);
 
-		$missileAmount	= array_sum($this->fleetData['elements'][Vars::CLASS_FLEET]);
-		
+		$missileData	= $this->fleetData['elements'][Vars::CLASS_FLEET];
+		$missileAmount	= array_sum($missileData);
+
 		foreach($elements as $elementObj)
 		{
 			$sqlFields[]	= '%%PLANETS%%.`'.$elementObj->name.'`';
@@ -96,95 +97,82 @@ class MissionCaseMIP extends AbstractMission
 			unset($targetDefensive[$missileElementId]);
 		}
 
-		$LNG	= $this->getLanguage(Config::get($this->fleetData['fleet_universe'])->lang);
-
-		$missileAttack	= $missileAmount;
-
 		$updateQuery	= array();
+		$param			= array(
+			':planetId'	=> $targetData['id']
+		);
 
 		foreach(Vars::getElements(Vars::CLASS_MISSILE, Vars::FLAG_DEFEND_MISSILE) as $missileElementObj)
 		{
 			if (empty($targetData[$missileElementObj->name])) continue;
 
-			if ($targetData[$missileElementObj->name] >= $missileAttack)
+			$missileDestroyed	= 0;
+
+			foreach($targetData as $attackElementId => $value)
 			{
-				$message 	= $LNG['sys_irak_no_att'];
-				$where 		= $this->fleetData['fleet_end_type'] == 3 ? 'id_luna' : 'id';
+				if (empty($value)) continue;
 
-				$sql		= 'UPDATE %%PLANETS%% SET '.$targetData[$missileElementObj->name].' = '.$targetData[$missileElementObj->name].' - :amount WHERE '.$where.' = :planetId;';
+				$missileDestroyed	+= min($missileData[$attackElementId], $targetData[$missileElementObj->name]);
 
-				$db->update($sql, array(
-					':amount'	=> $missileAmount,
-					':planetId'	=> $targetData['id']
-				));
+				$missileData[$attackElementId]	-= $missileDestroyed;
+				$missileAmount 					-= $missileDestroyed;
+
+				if($missileAmount <= 0) break 2;
 			}
 
-			$missileAttack -= $targetData[$missileElementObj->name];
+			$updateQuery[]		= sprintf('%1$s = %1$s - :%1$s', $missileElementObj->name);
+			$param[':'.$missileElementObj->name]	= $missileDestroyed;
 		}
-
 
 		if(!empty($updateQuery))
 		{
+			$where 		= $this->fleetData['fleet_end_type'] == 3 ? 'id_luna' : 'id';
 			$sql		= 'UPDATE %%PLANETS%% SET '.implode(',', $updateQuery).' WHERE '.$where.' = :planetId;';
 
-			$db->update($sql, array(
-				':amount'	=> $missileAmount,
-				':planetId'	=> $targetData['id']
-			));
+			$db->update($sql, $param);
 		}
 
+		$LNG	= $this->getLanguage($targetData->lang);
 
-
-
-
-		if ($targetData[Vars::getElement(502)->name] >= $missileAmount)
+		if ($missileAmount <= 0)
 		{
 			$message 	= $LNG['sys_irak_no_att'];
-			$where 		= $this->fleetData['fleet_end_type'] == 3 ? 'id_luna' : 'id';
-			
-			$sql		= 'UPDATE %%PLANETS%% SET '.Vars::getElement(502)->name.' = '.Vars::getElement(502)->name.' - :amount WHERE '.$where.' = :planetId;';
-
-			$db->update($sql, array(
-				':amount'	=> $missileAmount,
-				':planetId'	=> $targetData['id']
-			));
 		}
 		else
 		{
-			if ($targetData[Vars::getElement(502)->name] > 0)
-			{
-				$where 	= $this->fleetData['fleet_end_type'] == 3 ? 'id_luna' : 'id';
-				$sql	= 'UPDATE %%PLANETS%% SET '.Vars::getElement(502)->name.' = :amount WHERE '.$where.' = :planetId;';
-
-				$db->update($sql, array(
-					':amount'	=> 0,
-					':planetId'	=> $targetData['id']
-				));
-			}
-			
 			$targetDefensive = array_filter($targetDefensive);
 			
 			if(!empty($targetDefensive))
 			{
 				require_once 'includes/classes/missions/functions/calculateMIPAttack.php';
 				$result   	= calculateMIPAttack($targetData["shield_tech"], $senderData["military_tech"],
-					$missileAmount, $targetDefensive, $primaryTarget, $targetData[Vars::getElement(502)->name]);
+					$missileData, $targetDefensive, $primaryTarget);
 
 				$result		= array_filter($result);
-				
-				$message	= sprintf($LNG['sys_irak_def'], $targetData[Vars::getElement(502)->name]).'<br><br>';
-				
-				ksort($result, SORT_NUMERIC);
-				
-				foreach ($result as $Element => $destroy)
-				{
-					$message .= sprintf('%s (- %d)<br>', $LNG['tech'][$Element], $destroy);
 
-					$sql	= 'UPDATE %%PLANETS%% SET '.$resource[$Element].' = '.$resource[$Element].' - :amount WHERE id = :planetId;';
-					$db->update($sql, array(
-						':planetId' => $targetData['id'],
-						':amount'	=> $destroy
-					));
+				$message	= sprintf($LNG['sys_irak_def'], abs($missileAmount - array_sum($missileData))).'<br><br>';
+
+				ksort($result, SORT_NUMERIC);
+
+
+				$updateQuery	= array();
+				$param			= array(
+					':planetId' => $targetData['id'],
+				);
+
+				foreach ($result as $elementId => $value)
+				{
+					$message .= sprintf('%s (- %d)<br>', $LNG['tech'][$elementId], $value);
+
+					$elementName	= Vars::getElement($elementId)->name;
+					$updateQuery[]	= sprintf('%1$s = %1$s - :%1$s', $elementName);
+					$param[':'.$elementName]	= $value;
+				}
+
+				if(!empty($updateQuery))
+				{
+					$sql	= 'UPDATE %%PLANETS%% SET '.implode(',', $updateQuery).' WHERE id = :planetId;';
+					$db->update($sql, $param);
 				}
 			}
 			else
@@ -201,9 +189,6 @@ class MissionCaseMIP extends AbstractMission
 		$ownerLink			= $planetName." ".GetStartAdressLink($this->fleetData);
 		$targetLink 		= $targetData['name']." ".GetTargetAdressLink($this->fleetData);
 		$message			= sprintf($LNG['sys_irak_mess'], $missileAmount, $ownerLink, $targetLink).$message;
-
-		PlayerUtil::sendMessage($this->fleetData['fleet_owner'], 0, $LNG['sys_mess_tower'], 3,
-			$LNG['sys_irak_subject'], $message, $this->fleetData['fleet_start_time'], NULL, 1, $this->fleetData['fleet_universe']);
 
 		PlayerUtil::sendMessage($this->fleetData['fleet_target_owner'], 0, $LNG['sys_mess_tower'], 3,
 			$LNG['sys_irak_subject'], $message, $this->fleetData['fleet_start_time'], NULL, 1, $this->fleetData['fleet_universe']);

@@ -33,7 +33,7 @@ if ($USER['authlevel'] != AUTH_ADM || $_GET['sid'] != session_id())
 
 function ShowUniversePage() {
 	global $LNG, $USER;
-	$template	= new template();
+	$template	= new Template();
 	
 	$action		= HTTP::_GP('action', '');
 	$universe	= HTTP::_GP('uniID', 0);
@@ -132,7 +132,7 @@ function ShowUniversePage() {
 			curl_close($ch);
 			if($httpCode != 302)
 			{
-				$template = new template();
+				$template = new Template();
 				$template->message(str_replace(
 					array(
 						'{NGINX-CODE}'

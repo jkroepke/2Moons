@@ -62,6 +62,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 		}
 
         $fleetRoom  = FleetUtil::GetFleetRoom($fleetData);
+		$fleetRoom	+= PlayerUtil::getBonusValue($fleetRoom, 'ShipStorage', $USER);
 		
 		if (empty($fleetData))
         {

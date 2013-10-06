@@ -35,7 +35,7 @@ function ShowRightsPage()
 	{
 		case 'rights':
 
-			$template	= new template();
+			$template	= new Template();
 			$template->loadscript('filterlist.js');
 			
 			if ($_POST)
@@ -114,7 +114,7 @@ function ShowRightsPage()
 			$template->show('ModerrationRightsPage.tpl');
 		break;
 		case 'users':
-			$template	= new template();
+			$template	= new Template();
 			$template->loadscript('filterlist.js');
 			
 			if ($_POST)

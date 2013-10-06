@@ -133,13 +133,26 @@ class AbstractMission
 		$this->fleetKilled	= true;
 	}
 
-
 	protected function getLanguage($languageId)
 	{
 		$LNG = new Language($languageId);
 		$LNG->includeData(array('L18N', 'FLEET', 'TECH', 'CUSTOM'));
 
 		return $LNG;
+	}
+
+	protected function getTplObj(Language $LNG)
+	{
+		require_once 'includes/classes/Template.class.php';
+
+		$tplObj	= new Template;
+		$tplObj->getSmartyObj()->compile_id	= $LNG->getLanguage();
+		$tplObj->getSmartyObj()->loadFilter('output', 'trimwhitespace');
+		$tplObj->assign_vars(array(
+			'LNG'			=> $LNG
+		), false);
+
+		return $tplObj;
 	}
 
 	protected function arrivalTo($planetId, $fleetData, $resources)

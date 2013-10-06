@@ -40,7 +40,7 @@ class ShowScreensPage extends AbstractIndexPage
 	
 	function show() 
 	{
-		$screenshots	= array();
+		$images	= array();
 		$directoryIterator = new DirectoryIterator('styles/resource/images/login/screens/');
         foreach ($directoryIterator as $fileInfo)
 		{
@@ -49,21 +49,23 @@ class ShowScreensPage extends AbstractIndexPage
 			{
 				continue;
             }			
-			
-			$thumbnail = 'styles/resource/images/login/screens/'.$fileInfo->getFilename();
-			if(file_exists('styles/resource/images/login/screens/thumbnails/'.$fileInfo->getFilename()))
+
+			$fileName	= $fileInfo->getFilename();
+
+			$thumbnail	= 'styles/resource/images/login/screens/'.$fileName;
+			if(file_exists('styles/resource/images/login/screens/thumbnails/'.$fileName))
 			{
-				$thumbnail = 'styles/resource/images/login/screens/thumbnails/'.$fileInfo->getFilename();
+				$thumbnail = 'styles/resource/images/login/screens/thumbnails/'.$fileName;
 			}
 			
-			$screenshots[]	= array(
-				'path' 		=> 'styles/resource/images/login/screens/'.$fileInfo->getFilename(),
+			$images[]	= array(
+				'path' 		=> 'styles/resource/images/login/screens/'.$fileName,
 				'thumbnail' => $thumbnail,
 			);
 		}
 		
 		$this->assign(array(
-			'screenshots' => $screenshots
+			'images' => $images
 		));
 
 		$this->display('page.screens.default.tpl');
