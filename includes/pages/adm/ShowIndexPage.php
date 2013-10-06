@@ -29,7 +29,7 @@
 function ShowIndexPage()
 {
 	global $LNG;
-	$template	= new template();
+	$template	= new Template();
 
 	$template->assign_vars(array(	
 		'game_name'		=> Config::get()->game_name,

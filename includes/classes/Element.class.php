@@ -28,10 +28,7 @@
 
 class Element implements Serializable
 {
-
-
     private $data;
-
 
     public function __construct($data, $resources = NULL)
     {
@@ -56,7 +53,6 @@ class Element implements Serializable
                     case 'energy':
                         $data['flags'][]  = VARS::FLAG_ENERGY;
                     break;
-
                 }
 
                 if($data['flagDebris'] == 1)
@@ -213,9 +209,13 @@ class Element implements Serializable
             break;
         }
 
-        unset($data['resourceCanBuildOnPlanet'],$data['resourceCanBuildOnMoons'], $data['resourceCanOnDebris'],
-        $data['resourceIsPlanetResource'], $data['resourceIsUserResource'], $data['resourceIsEnergy'],
-        $data['resourceCanOnShip'], $data['resourceCanStealOnAttack'], $data['resourceIsOnTopNav']);
+		foreach($data as $key => $value)
+		{
+			if(preg_match('/flag[A-Z]/', $key))
+			{
+				unset($data[$key]);
+			}
+		}
 
         $this->data = $data;
     }

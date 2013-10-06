@@ -149,7 +149,7 @@ function ValidateAddress($address) {
 function message($mes, $dest = "", $time = "3", $topnav = false)
 {
 	require_once('includes/classes/Template.class.php');
-	$template = new template();
+	$template = new Template();
 	$template->message($mes, $dest, $time, !$topnav);
 	exit;
 }

@@ -31,7 +31,7 @@ if ($USER['id'] != ROOT_USER || $_GET['sid'] != session_id()) exit;
 function ShowResetPage()
 {
 	global $LNG, $reslist, $resource;
-	$template	= new template();
+	$template	= new Template();
 	$config	= Config::get(ROOT_UNI);
 	
 	if ($_POST)

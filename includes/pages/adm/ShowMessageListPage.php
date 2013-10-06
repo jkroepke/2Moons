@@ -128,7 +128,7 @@ function ShowMessageListPage()
 		);
 	}	
 	
-	$template 	= new template();
+	$template 	= new Template();
 
 	$template->assign_vars(array(
 		'categories'	=> $categories,

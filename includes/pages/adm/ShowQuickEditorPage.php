@@ -124,7 +124,7 @@ function ShowQuickEditorPage()
 				);
 			}
 
-			$template	= new template();
+			$template	= new Template();
 			$template->assign_vars(array(	
 				'build'			=> $build,
 				'fleet'			=> $fleet,
@@ -236,7 +236,7 @@ function ShowQuickEditorPage()
 				);
 			}
 
-			$template	= new template();
+			$template	= new Template();
 			$template->assign_vars(array(	
 				'tech'			=> $tech,
 				'officier'		=> $officier,

@@ -29,7 +29,7 @@
 function ShowTopnavPage()
 {
 	global $LNG, $USER;
-	$template	= new template();
+	$template	= new Template();
 
 	$universeSelect	= array();
 	foreach(Universe::availableUniverses() as $uniId)

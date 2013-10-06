@@ -5,8 +5,8 @@
  *   begin                : 18. December 2009
  *   copyright            : (C) 2009-2013 Par0noid Solutions
  *   email                : contact@ts3admin.info
- *   version              : 0.6.8.1
- *   last modified        : 03. March 2013
+ *   version              : 0.6.9.0
+ *   last modified        : 17. August 2013
  *
  *
  *  This file is a powerful library for querying TeamSpeak3 servers.
@@ -36,7 +36,7 @@
  * Take a look on the project website where you can find code examples, a manual and some other stuff.
  * 
  * @author      Par0noid Solutions <contact@ts3admin.info>
- * @version     0.6.8.1
+ * @version     0.6.9.0
  * @copyright   Copyright (c) 2009-2013, Stefan Z.
  * @package		ts3admin
  * @link        http://ts3admin.info
@@ -422,8 +422,8 @@ class ts3admin {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		$permissionArray = array();
 		
-		if(count($permissions) > 0) {
-			foreach($permissions AS $value) {
+		if(count($permissionIds) > 0) {
+			foreach($permissionIds AS $value) {
 				$permissionArray[] = is_numeric($value) ? 'permid='.$value : 'permsid='.$value;
 			}
 			return $this->getData('boolean', 'channelclientdelperm cid='.$cid.' cldbid='.$cldbid.' '.implode('|', $permissionArray));
@@ -807,8 +807,8 @@ class ts3admin {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
 		$permissionArray = array();
 		
-		if(count($permissions) > 0) {
-			foreach($permissions AS $value) {
+		if(count($permissionIds) > 0) {
+			foreach($permissionIds AS $value) {
 				$permissionArray[] = (is_numeric($value) ? 'permid=' : 'permsid=').$value;
 			}
 			return $this->getData('boolean', 'channelgroupdelperm cgid='.$cgid.' '.implode('|', $permissionArray));
@@ -2412,7 +2412,7 @@ class ts3admin {
   *         [group_id_end] => 0
   *         [pcount] => 0
   *     )
-
+  *
   * [1] => Array
   *     (
   *         [num] => 2
@@ -2427,7 +2427,7 @@ class ts3admin {
   *                         [permdesc] => Retrieve information about ServerQuery commands
   *                         [grantpermid] => 32769
   *                     )
-
+  *
   *                 [1] => Array
   *                     (
   *                         [permid] => 2
@@ -2435,7 +2435,7 @@ class ts3admin {
   *                         [permdesc] => Retrieve global server version (including platform and build number)
   *                         [grantpermid] => 32770
   *                     )
-
+  *
   *                 [2] => Array
   *                     (
   *                         [permid] => 3
@@ -2443,7 +2443,7 @@ class ts3admin {
   *                         [permdesc] => Retrieve global server information
   *                         [grantpermid] => 32771
   *                     )
-
+  *
   *                 [3] => Array
   *                     (
   *                         [permid] => 4
@@ -2607,18 +2607,32 @@ class ts3admin {
 /**
   * sendMessage
   * 
-  * Sends a text message a specified target. The type of the target is determined by targetmode while target specifies the ID of the recipient, whether it be a virtual server, a channel or a client.
+  * Sends a text message a specified target. The type of the target is determined by targetmode while target specifies the ID of the recipient, whether it be a virtual server, a channel or a client.<br>
+  * <b>Hint:</b> You can just write to the channel the query client is in. See link in description for details.
+  *
+  * <b>Modes:</b>
+  * <ul>
+  * 	<li><b>1:</b> send to client</li>
+  * 	<li><b>2:</b> send to channel</li>
+  * 	<li><b>3:</b> send to server</li>
+  * </ul><br>
+  * <b>Targets:</b>
+  * <ul>
+  * 	<li>clientID</li>
+  * 	<li>channelID</li>
+  * 	<li>serverID</li>
+  * </ul>
   *
   * @author     Par0noid Solutions
   * @access		public
-  * @param		integer $mode	{3: server| 2: channel|1: client}
-  * @param		integer $target	{serverID|channelID|clientID}
-  * @param		string	$msg	message
+  * @param		integer $mode
+  * @param		integer $target
+  * @param		string	$msg	Message
+  * @see		http://forum.teamspeak.com/showthread.php/84280-Sendtextmessage-by-query-client http://forum.teamspeak.com/showthread.php/84280-Sendtextmessage-by-query-client
   * @return     boolean	success
   */
 	function sendMessage($mode, $target, $msg) {
 		if(!$this->runtime['selected']) { return $this->checkSelected(); }
-
 		return $this->getData('boolean', 'sendtextmessage targetmode='.$mode.' target='.$target.' msg='.$this->escapeText($msg));
 	}
 
@@ -3478,7 +3492,7 @@ class ts3admin {
 			$settingsString = array();
 		
 			foreach($customFieldSet as $key => $value) {
-				$settingsString[] = 'ident='.$this->escapeText($key).' value='.$this->escapeText($value);
+				$settingsString[] = 'ident='.$this->escapeText($key).'\svalue='.$this->escapeText($value);
 			}
 			
 			$customFieldSet = ' tokencustomset='.implode('|', $settingsString);

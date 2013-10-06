@@ -32,8 +32,8 @@ class MissionCaseStayAlly extends AbstractMission
 	{	
 		$this->setNextState(FLEET_HOLD);
 	}
-	
-	public function EndStayEvent()
+
+	public function endStayTimeEvent()
 	{
 		$this->setNextState(FLEET_RETURN);
 	}

@@ -26,20 +26,25 @@
  * @link http://2moons.cc/
  */
 
-function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $missiles, $targetDefensive, $firstTarget, $defenseMissles)
+function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $missileData, $targetDefensive, $firstTarget)
 {
-	global $pricelist, $CombatCaps;
-	
 	$destroyShips		= array();
-	$countMissles 		= $missiles - $defenseMissles;
+	$countMissiles 		= array_sum($missileData);
 	
-	if($countMissles == 0)
+	if($countMissiles == 0)
 	{
 		return $destroyShips;
 	}
 
-	$totalAttack 		= $countMissles * $CombatCaps[503]['attack'] * (1 +  0.1 * $OwnerAttTech);
-	
+	$totalAttack	= 0;
+
+	foreach($missileData as $missileElementId => $value)
+	{
+		$totalAttack	= $countMissiles * Vars::getElement($missileElementId)->attack;
+	}
+
+	$totalAttack	*= (1 + 0.1 * $OwnerAttTech);
+
 	// Select primary target, if exists
 	if(isset($targetDefensive[$firstTarget]))
 	{
@@ -48,21 +53,16 @@ function calculateMIPAttack($TargetDefTech, $OwnerAttTech, $missiles, $targetDef
 		$targetDefensive	= $firstTargetData + $targetDefensive;
 	}
 	
-	foreach($targetDefensive as $element => $count)
+	foreach($targetDefensive as $defenseElementId => $count)
 	{
-		if($element == 0)
-		{
-			throw new Exception("Unknown error. Please report this error on tracker.2moons.cc. Debuginforations:<br><br>".serialize(array($TargetDefTech, $OwnerAttTech, $missiles, $targetDefensive, $firstTarget, $defenseMissles)));
-		}
-		$elementStructurePoints = ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]) * (1 + 0.1 * $TargetDefTech) / 10;
-		$destroyCount           = floor($totalAttack / $elementStructurePoints);
-		$destroyCount           = min($destroyCount, $count);
+		$elementStructurePoints = FleetUtil::calcStructurePoints(Vars::getElement($defenseElementId));
+		$destroyCount           = min(floor($totalAttack / $elementStructurePoints), $count);
 		$totalAttack  	       -= $destroyCount * $elementStructurePoints;
 		
-		$destroyShips[$element]	= $destroyCount;
+		$destroyShips[$defenseElementId]	= $destroyCount;
 		if($totalAttack <= 0)
 		{
-			return $destroyShips;
+			break;
 		}
 	}
 		

@@ -69,7 +69,7 @@ function ShowDisclamerPage()
 		$LOG->save();
 	}
 
-	$template	= new template();
+	$template	= new Template();
 	$template->loadscript('../base/jquery.autosize-min.js');
 	$template->execscript('$(\'textarea\').autosize();');
 

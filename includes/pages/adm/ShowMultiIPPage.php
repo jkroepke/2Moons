@@ -55,7 +55,7 @@ function ShowMultiIPPage()
 		$IPs[$Data['user_lastip']][$Data['id']]	= $Data;
 	}
 	
-	$template	= new template();
+	$template	= new Template();
 	$template->assign_vars(array(
 		'multiGroups'	=> $IPs,
 	));

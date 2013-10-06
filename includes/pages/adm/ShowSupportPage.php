@@ -36,7 +36,7 @@ class ShowSupportPage
 	{
 		require('includes/classes/class.SupportTickets.php');
 		$this->ticketObj	= new SupportTickets;
-		$this->tplObj		= new template();
+		$this->tplObj		= new Template();
 		// 2Moons 1.7TO1.6 PageClass Wrapper
 		$ACTION = HTTP::_GP('mode', 'show');
 		if(is_callable(array($this, $ACTION))) {

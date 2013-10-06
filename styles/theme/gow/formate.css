@@ -307,7 +307,7 @@ select {
 	vertical-align:top
 }
 
-.transparent,#header td, .tip td, .tip th, .raportMessage td {
+.transparent,#header td, .tip td, .tip th, .reportMessage td {
 	background: transparent;
 	border:none;
 	filter: none !important;
@@ -335,11 +335,11 @@ th a,.res_current{
 	border: 0 none
 }
 
-.raportWin {
+.reportWin {
 	color:lime;
 }
 
-.raportLose {
+.reportLose {
 	color:red;
 }
 

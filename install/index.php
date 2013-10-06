@@ -39,7 +39,7 @@ $LNG = new Language;
 $LNG->getUserAgentLanguage();
 $LNG->includeData(array('L18N', 'INGAME', 'INSTALL', 'CUSTOM'));
 
-$template = new template();
+$template = new Template();
 $template->assign(array(
    'lang'       => $LNG->getLanguage(),
    'Selector'   => $LNG->getAvailableLanguages(false),

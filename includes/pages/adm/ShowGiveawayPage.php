@@ -30,7 +30,7 @@
 function ShowGiveaway()
 {
 	global $LNG, $resource, $reslist;
-	$template	= new template();	
+	$template	= new Template();
 	$action	= HTTP::_GP('action', '');
 	if ($action == 'send') {
 		$planet			= HTTP::_GP('planet', 0);
