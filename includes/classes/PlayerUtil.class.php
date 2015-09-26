@@ -145,7 +145,7 @@ class PlayerUtil
 			':authlevel'			=> $authlevel,
 			':universe'				=> $universe,
 			':language'				=> $userLanguage,
-			':registerAddress'		=> (!empty($userIpAddress) ? $userIpAddress : $_SERVER['REMOTE_ADDR']),
+			':registerAddress'		=> !empty($userIpAddress) ? $userIpAddress : Session::getClientIp(),
 			':onlinetime'			=> TIMESTAMP,
 			':registerTimestamp'	=> TIMESTAMP,
 			':password'				=> $userPassword,

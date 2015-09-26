@@ -77,6 +77,47 @@ class Session
 		return BasicFileUtil::getTempFolder();
 	}
 
+
+	/**
+	 * Create an empty session
+	 *
+	 * @return String
+	 */
+
+	static public function getClientIp() {
+		$ipAddress = '';
+
+		if ($_SERVER['HTTP_CLIENT_IP'])
+        {
+            $ipAddress = $_SERVER['HTTP_CLIENT_IP'];
+        }
+		else if($_SERVER['HTTP_X_FORWARDED_FOR'])
+        {
+			$ipAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        else if($_SERVER['HTTP_X_FORWARDED'])
+        {
+			$ipAddress = $_SERVER['HTTP_X_FORWARDED'];
+        }
+        else if($_SERVER['HTTP_FORWARDED_FOR'])
+        {
+			$ipAddress = $_SERVER['HTTP_FORWARDED_FOR'];
+        }
+        else if($_SERVER['HTTP_FORWARDED'])
+        {
+			$ipAddress = $_SERVER['HTTP_FORWARDED'];
+        }
+        else if($_SERVER['REMOTE_ADDR'])
+        {
+			$ipAddress = $_SERVER['REMOTE_ADDR'];
+        }
+        else
+        {
+			$ipAddress = 'UNKNOWN';
+        }
+        return $ipAddress;
+	}
+
 	/**
 	 * Create an empty session
 	 *
@@ -172,6 +213,8 @@ class Session
 
 	public function save()
 	{
+        $userIpAddress = self::getClientIp();
+
 		$sql	= 'REPLACE INTO %%SESSION%% SET
 		sessionID	= :sessionId,
 		userID		= :userId,
@@ -184,7 +227,7 @@ class Session
 			':sessionId'	=> session_id(),
 			':userId'		=> $this->data['userId'],
 			':lastActivity'	=> TIMESTAMP,
-			':userAddress'	=> $_SERVER['REMOTE_ADDR'],
+			':userAddress'	=> $userIpAddress,
 		));
 
 		$sql = 'UPDATE %%USERS%% SET
@@ -194,15 +237,15 @@ class Session
 		id = :userId;';
 
 		$db->update($sql, array(
-		   ':userAddress'	=> $_SERVER['REMOTE_ADDR'],
+		   ':userAddress'	=> $userIpAddress,
 		   ':lastActivity'	=> TIMESTAMP,
 		   ':userId'		=> $this->data['userId'],
 		));
 
-		$this->data['lastActivity'] = TIMESTAMP;
-		$this->data['sessionId']	= session_id();
-		$this->data['userIpAdress'] = $_SERVER['REMOTE_ADDR'];
-		$this->data['requestPath']	= $this->getRequestPath();
+		$this->data['lastActivity']  = TIMESTAMP;
+		$this->data['sessionId']	 = session_id();
+		$this->data['userIpAddress'] = $userIpAddress;
+		$this->data['requestPath']	 = $this->getRequestPath();
 
 		$_SESSION['obj']	= serialize($this);
 
@@ -223,7 +266,7 @@ class Session
 
 	public function isValidSession()
 	{
-		if($this->compareIpAddress($this->data['userIpAdress'], $_SERVER['REMOTE_ADDR'], COMPARE_IP_BLOCKS) === false)
+		if($this->compareIpAddress($this->data['userIpAddress'], self::getClientIp(), COMPARE_IP_BLOCKS) === false)
 		{
 			return false;
 		}

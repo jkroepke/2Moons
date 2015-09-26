@@ -143,7 +143,7 @@ class ShowLostPasswordPage extends AbstractPage
 			$recaptcha_challenge_field	= HTTP::_GP('recaptcha_challenge_field', '');
 			$recaptcha_response_field	= HTTP::_GP('recaptcha_response_field', '');
 			
-			$resp = recaptcha_check_answer($config->capprivate, $_SERVER['REMOTE_ADDR'], $recaptcha_challenge_field, $recaptcha_response_field);
+			$resp = recaptcha_check_answer($config->capprivate, Session::getClientIp(), $recaptcha_challenge_field, $recaptcha_response_field);
 		
 			if (!$resp->is_valid)
 			{
@@ -216,7 +216,7 @@ class ShowLostPasswordPage extends AbstractPage
 			':userID'		=> $userID,
 			':timestamp'	=> TIMESTAMP,
 			':validationKey'=> $validationKey,
-			':remoteAddr'	=> $_SERVER['REMOTE_ADDR']
+			':remoteAddr'	=> Session::getClientIp()
 		));
 
 		$this->printMessage($LNG['passwordValidMailSend'], array(array(
