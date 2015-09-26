@@ -4,7 +4,7 @@
  * @author s8s8
  * @author Massimiliano Tiraboschi
  * @copyright (c) Sebastian Tschan
- * @license GNU Affero General Public License
+ * @license Modified MIT License
  * @link https://blueimp.net/ajax/
  */
 
@@ -26,7 +26,7 @@ var ajaxChatLang = {
 	uninviteto: 'Rimosso invito per %s per il canale %s.',
 	queryOpen: 'Canale privato aperto con %s.',
 	queryClose: 'Canale privato con %s chiuso.',
-	ignoreAdded: '%s aggiunto agli ingorati.',
+	ignoreAdded: '%s aggiunto agli ignorati.',
 	ignoreRemoved: '%s rimosso dagli ignorati.',
 	ignoreList: 'Utenti Ignorati:',
 	ignoreListEmpty: 'Utenti permessi.',

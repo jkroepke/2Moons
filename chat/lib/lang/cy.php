@@ -4,7 +4,7 @@
  * @author Sebastian Tschan
  * @author Alan Davies
  * @copyright (c) Sebastian Tschan
- * @license GNU Affero General Public License
+ * @license Modified MIT License
  * @link https://blueimp.net/ajax/
  */
 
@@ -34,6 +34,7 @@ $lang['bbCodeLabelCode'] = 'Cod';
 $lang['bbCodeLabelURL'] = 'URL';
 $lang['bbCodeLabelImg'] = 'Delwedd';
 $lang['bbCodeLabelColor'] = 'Lliw Ffont';
+$lang['bbCodeLabelEmoticon'] = 'Gwenogluniau';
 $lang['bbCodeTitleBold'] = 'Testun bras: [b]testun[/b]';
 $lang['bbCodeTitleItalic'] = 'Testun italig: [i]testun[/i]';
 $lang['bbCodeTitleUnderline'] = 'Tanlinellu testun: [u]testun[/u]';
@@ -42,6 +43,7 @@ $lang['bbCodeTitleCode'] = 'Dangos cod: [code]cod[/code]';
 $lang['bbCodeTitleURL'] = 'Mewnosod URL: [url]http://example.org[/url] neu [url=http://example.org]testun[/url]';
 $lang['bbCodeTitleImg'] = 'Mewnosod delwedd: [img]http://example.org/image.jpg[/img]';
 $lang['bbCodeTitleColor'] = 'Lliw Ffont: [color=red]testun[/color]';
+$lang['bbCodeTitleEmoticon'] = 'Gwenogluniau list';
 $lang['help'] = 'Cymorth';
 $lang['helpItemDescJoin'] = 'Ymunwch â sianel:';
 $lang['helpItemCodeJoin'] = '/join EnwSianel';
@@ -105,6 +107,7 @@ $lang['settingsSoundEnter'] = 'Sain am fewngofnodi a negeseuon myned i sianeli:'
 $lang['settingsSoundLeave'] = 'Sain am allgofnodi a negeseuon gadael sianeli:';
 $lang['settingsSoundChatBot'] = 'Sain am negeseuon sgwrsbot:';
 $lang['settingsSoundError'] = 'Sain am wallnegeseuon:';
+$lang['settingsSoundPrivate'] = 'Sain am negeseuon preifat:';
 $lang['settingsBlink'] = 'Fflachio teitl y ffenestr ar negeseuon newydd:';
 $lang['settingsBlinkInterval'] = 'Cyfwng fflachio mewn milieiliadau:';
 $lang['settingsBlinkIntervalNumber'] = 'Nifer y cyfyngau fflachio:';

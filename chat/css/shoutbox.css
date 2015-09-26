@@ -2,7 +2,7 @@
  * @package AJAX_Chat
  * @author Sebastian Tschan
  * @copyright (c) Sebastian Tschan
- * @license GNU Affero General Public License
+ * @license Modified MIT License
  * @link https://blueimp.net/ajax/
  */
 
@@ -45,6 +45,9 @@
 #ajaxChatContent #ajaxChatCopyright {
 	margin-top:5px;
 }
+#ajaxChatContent #ajaxChatInputFieldContainer.write_forbidden {
+	display:none;
+}
 
 
 /*
@@ -84,6 +87,10 @@
 	font-weight:bold;
 }
 #ajaxChatContent #ajaxChatChatList span.user {
+	font-size:0.9em;
+	font-weight:bold;
+}
+#ajaxChatContent #ajaxChatChatList span.customUser {
 	font-size:0.9em;
 	font-weight:bold;
 }

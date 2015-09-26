@@ -3,7 +3,7 @@
  * @package AJAX_Chat
  * @author Sebastian Tschan
  * @copyright (c) Sebastian Tschan
- * @license GNU Affero General Public License
+ * @license Modified MIT License
  * @link https://blueimp.net/ajax/
  */
 
@@ -15,7 +15,7 @@ class AJAXChatLanguage {
 	var $_strictMode;
 	var $_langCode;
 
-	function AJAXChatLanguage($availableLangCodes, $defaultLangCode, $langCode=null, $strictMode=false) {
+	function __construct($availableLangCodes, $defaultLangCode, $langCode=null, $strictMode=false) {
 		$this->_regExpAcceptLangCode = '/^([a-z]{1,8}(?:-[a-z]{1,8})*)(?:;\s*q=(0(?:\.[0-9]{1,3})?|1(?:\.0{1,3})?))?$/i';
 		$this->_availableLangCodes = $availableLangCodes;
 		$this->_defaultLangCode = $defaultLangCode;

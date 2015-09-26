@@ -3,7 +3,7 @@
  * @package AJAX_Chat
  * @author Sebastian Tschan
  * @copyright (c) Sebastian Tschan
- * @license GNU Affero General Public License
+ * @license Modified MIT License
  * @link https://blueimp.net/ajax/
  */
 
@@ -24,7 +24,7 @@ class AJAXChat {
 	var $_onlineUsersData;
 	var $_bannedUsersData;
 	
-	function AJAXChat() {
+	function __construct() {
 		$this->initialize();
 	}
 
@@ -67,7 +67,7 @@ class AJAXChat {
 		$this->_requestVars['text']			= isset($_POST['text'])				? $_POST['text']				: null;
 		$this->_requestVars['lastID']		= isset($_REQUEST['lastID'])		? (int)$_REQUEST['lastID']		: 0;
 		$this->_requestVars['login']		= isset($_REQUEST['login'])			? true							: false;
-		$this->_requestVars['logout']		= isset($_POST['logout'])			? true							: false;
+		$this->_requestVars['logout']		= isset($_REQUEST['logout'])		? true							: false;
 		$this->_requestVars['password']		= isset($_REQUEST['password'])		? $_REQUEST['password']			: null;
 		$this->_requestVars['view']			= isset($_REQUEST['view'])			? $_REQUEST['view']				: null;
 		$this->_requestVars['year']			= isset($_REQUEST['year'])			? (int)$_REQUEST['year']		: null;
@@ -1613,9 +1613,6 @@ class AJAXChat {
 	}
 	
 	function rollDice($sides) {
-		// seed with microseconds since last "whole" second:
-		mt_srand((double)microtime()*1000000);
-		
 		return mt_rand(1, $sides);
 	}
 	
@@ -1627,7 +1624,7 @@ class AJAXChat {
 			return;
 		}
 
-		$banMinutes = $banMinutes ? $banMinutes : $this->getConfig('defaultBanTime');
+		$banMinutes = ($banMinutes !== null) ? $banMinutes : $this->getConfig('defaultBanTime');
 
 		if($banMinutes) {
 			// Ban User for the given time in minutes:
@@ -1924,7 +1921,7 @@ class AJAXChat {
 			($this->getConfig('requestMessagesPriorChannelEnterList') && in_array($this->getChannel(), $this->getConfig('requestMessagesPriorChannelEnterList')))) {
 			$condition .= 'NOW() < DATE_ADD(dateTime, interval '.$this->getConfig('requestMessagesTimeDiff').' HOUR)';
 		} else {
-			$condition .= 'dateTime >= \''.date('Y-m-d H:i:s', $this->getChannelEnterTimeStamp()).'\'';	
+			$condition .= 'dateTime >= FROM_UNIXTIME(' . $this->getChannelEnterTimeStamp() . ')';
 		}
 		return $condition;
 	}
@@ -2389,7 +2386,7 @@ class AJAXChat {
 					FROM
 						'.$this->getDataBaseTable('online').'
 					ORDER BY
-						userName;';
+						LOWER(userName);';
 			
 			// Create a new SQL query:
 			$result = $this->db->sqlQuery($sql);

@@ -3,7 +3,7 @@
  * @package AJAX_Chat
  * @author Sebastian Tschan
  * @copyright (c) Sebastian Tschan
- * @license GNU Affero General Public License
+ * @license Modified MIT License
  * @link https://blueimp.net/ajax/
  */
 
@@ -17,7 +17,7 @@ class AJAXChatMySQLiQuery {
 	var $_error = '';
 
 	// Constructor:
-	function AJAXChatMySQLiQuery($sql, $connectionID) {
+	function __construct($sql, $connectionID) {
 		$this->_sql = trim($sql);
 		$this->_connectionID = $connectionID;
 		$this->_result = $this->_connectionID->query($this->_sql);

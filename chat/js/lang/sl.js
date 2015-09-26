@@ -1,9 +1,9 @@
-﻿/*
+/*
  * @package AJAX_Chat
  * @author Sebastian Tschan
  * @author Valter Pepelkoˇ
  * @copyright (c) Sebastian Tschan
- * @license GNU Affero General Public License
+ * @license Modified MIT License
  * @link https://blueimp.net/ajax/
  */
 
