@@ -122,8 +122,17 @@ class Database
 
 	protected function getQueryType($qry)
 	{
-		list($type, ) = explode(" ", trim(strtolower($qry)), 2);
-		return $type;
+		if(!preg_match('^(\S+)', $qry, $match))
+        {
+            throw new Exception("Invalid query $qry!");
+        }
+
+		if(!isset($match[1]))
+        {
+            throw new Exception("Invalid query $qry!");
+        }
+
+		return strtolower($match[1]);
 	}
 
 	public function delete($qry, array $params = array())

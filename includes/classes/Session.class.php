@@ -84,9 +84,8 @@ class Session
 	 * @return String
 	 */
 
-	static public function getClientIp() {
-		$ipAddress = '';
-
+	static public function getClientIp()
+    {
 		if ($_SERVER['HTTP_CLIENT_IP'])
         {
             $ipAddress = $_SERVER['HTTP_CLIENT_IP'];
