@@ -44,7 +44,7 @@ class template extends Smarty
 	private function smartySettings()
 	{	
 		$this->force_compile 			= false;
-		$this->caching 					= true; #Set true for production!
+		$this->caching 					= Smarty::CACHING_LIFETIME_SAVED;
 		$this->merge_compiled_includes	= true;
 		$this->compile_check			= true; #Set false for production!
 		$this->php_handling				= Smarty::PHP_REMOVE;
@@ -56,7 +56,8 @@ class template extends Smarty
 
 	private function getTempPath()
 	{
-		$this->force_compile 		= true;
+		$this->force_compile = true;
+		$this->caching       = Smarty::CACHING_OFF;
 		require_once 'includes/libs/wcf/BasicFileUtil.class.php';
 		return BasicFileUtil::getTempFolder();
 	}
