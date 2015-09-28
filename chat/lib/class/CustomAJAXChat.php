@@ -80,6 +80,10 @@ class CustomAJAXChat extends AJAXChat
 
 	function initCustomConfig()
 	{
+		define('MODE', 'CHAT');
+		define('ROOT_PATH', str_replace('\\', '/',dirname(dirname(__FILE__))).'/');
+		set_include_path(ROOT_PATH);
+
 		$database		= array();
 		require 'includes/config.php';
 
