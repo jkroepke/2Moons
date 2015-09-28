@@ -67,6 +67,7 @@ $dbTableNames	= array(
 	'TICKETS_CATEGORY'	=> DB_PREFIX.'ticket_category',
 	'TOPKB'				=> DB_PREFIX.'topkb',
 	'TOPKB_USERS'		=> DB_PREFIX.'users_to_topkb',
+	'UNIVERSE'			=> DB_PREFIX.'universe',
 	'USERS'				=> DB_PREFIX.'users',
 	'USERS_ACS'			=> DB_PREFIX.'users_to_acs',
 	'USERS_AUTH'		=> DB_PREFIX.'users_to_extauth',
