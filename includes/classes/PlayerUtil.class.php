@@ -112,15 +112,23 @@ class PlayerUtil
 			$galaxy	= $config->LastSettedGalaxyPos;
 			$system = $config->LastSettedSystemPos;
 			$planet	= $config->LastSettedPlanetPos;
+
+			if($galaxy > $config->max_galaxy) {
+				$galaxy	= 1;
+			}
+
+			if($system > $config->max_system) {
+				$system	= 1;
+			}
 			
 			do {
 				$position = mt_rand(round($config->max_planets * 0.2), round($config->max_planets * 0.8));
 				if ($planet < 3) {
 					$planet += 1;
 				} else {
-					if ($system >= $config->max_system) {
+					if ($system > $config->max_system) {
 						$system = 1;
-						if($galaxy >= $config->max_galaxy) {
+						if($galaxy > $config->max_galaxy) {
 							$galaxy	= 1;
 						} else {
 							$galaxy += 1;
