@@ -231,8 +231,8 @@ abstract class AbstractPage
 		}
 	}
 
-	protected function assign($array) {
-		$this->tplObj->assign_vars($array);
+	protected function assign($array, $nocache = true) {
+		$this->tplObj->assign_vars($array, $nocache);
 	}
 
 	protected function display($file) {
