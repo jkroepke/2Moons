@@ -28,7 +28,7 @@
 
 class ShowBanListPage extends AbstractPage 
 {
-	public static $requireModule = MODULE_SUPPORT;
+	public static $requireModule = MODULE_BANLIST;
 
 	function __construct() 
 	{
