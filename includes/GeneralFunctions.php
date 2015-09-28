@@ -384,7 +384,7 @@ function floattostring($Numeric, $Pro = 0, $Output = false){
 function isModulAvalible($ID)
 {
 	global $USER;
-	$modules	= explode(', ', Config::get()->moduls);
+	$modules	= explode(';', Config::get()->moduls);
 
 	if(!isset($modules[$ID]))
 	{
