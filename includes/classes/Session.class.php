@@ -86,27 +86,27 @@ class Session
 
 	static public function getClientIp()
     {
-		if ($_SERVER['HTTP_CLIENT_IP'])
+		if(!empty($_SERVER['HTTP_CLIENT_IP']))
         {
             $ipAddress = $_SERVER['HTTP_CLIENT_IP'];
         }
-		else if($_SERVER['HTTP_X_FORWARDED_FOR'])
+		elseif(!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
         {
 			$ipAddress = $_SERVER['HTTP_X_FORWARDED_FOR'];
         }
-        else if($_SERVER['HTTP_X_FORWARDED'])
+        elseif(!empty($_SERVER['HTTP_X_FORWARDED']))
         {
 			$ipAddress = $_SERVER['HTTP_X_FORWARDED'];
         }
-        else if($_SERVER['HTTP_FORWARDED_FOR'])
+        elseif(!empty($_SERVER['HTTP_FORWARDED_FOR']))
         {
 			$ipAddress = $_SERVER['HTTP_FORWARDED_FOR'];
         }
-        else if($_SERVER['HTTP_FORWARDED'])
+        elseif(!empty($_SERVER['HTTP_FORWARDED']))
         {
 			$ipAddress = $_SERVER['HTTP_FORWARDED'];
         }
-        else if($_SERVER['REMOTE_ADDR'])
+        elseif(!empty($_SERVER['REMOTE_ADDR']))
         {
 			$ipAddress = $_SERVER['REMOTE_ADDR'];
         }
