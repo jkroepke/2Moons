@@ -42,7 +42,7 @@ function ShowVertify()
 			$REV	= $REV[2];
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_AUTOREFERER, true);
-			curl_setopt($ch, CURLOPT_URL, 'http://2moons.googlecode.com/svn-history/r'.$REV.'/trunk/'.$file);
+			curl_setopt($ch, CURLOPT_URL, 'https://raw.githubusercontent.com/jkroepke/2Moons/master/'.$file);
 			curl_setopt($ch, CURLOPT_HEADER, false);
 			curl_setopt($ch, CURLOPT_USERAGENT, "2Moons Update API");
 			curl_setopt($ch, CURLOPT_CRLF, true);
