@@ -27,7 +27,7 @@
  */
 
 
-class ShowFleetDealerPage extends AbstractPage
+class ShowFleetDealerPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_FLEET_TRADER;
 

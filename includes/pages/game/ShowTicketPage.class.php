@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowTicketPage extends AbstractPage 
+class ShowTicketPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_SUPPORT;
 

@@ -26,9 +26,9 @@
  * @link http://2moons.cc/
  */
 
-require_once('AbstractPage.class.php');
+require_once('AbstractGamePage.class.php');
 
-class ShowResearchPage extends AbstractPage
+class ShowResearchPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_RESEARCH;
 

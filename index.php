@@ -30,7 +30,7 @@ define('MODE', 'LOGIN');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
 set_include_path(ROOT_PATH);
 
-require 'includes/pages/login/AbstractPage.class.php';
+require 'includes/pages/login/AbstractLoginPage.class.php';
 require 'includes/pages/login/ShowErrorPage.class.php';
 require 'includes/common.php';
 /** @var $LNG Language */

@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowBattleSimulatorPage extends AbstractPage 
+class ShowBattleSimulatorPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_SIMULATOR;
 

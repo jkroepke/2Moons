@@ -27,7 +27,7 @@
  */
 
 
-class ShowPhalanxPage extends AbstractPage
+class ShowPhalanxPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_PHALANX;
 	

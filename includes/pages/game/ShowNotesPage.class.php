@@ -27,7 +27,7 @@
  */
 
  
-class ShowNotesPage extends AbstractPage
+class ShowNotesPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_NOTICE;
 

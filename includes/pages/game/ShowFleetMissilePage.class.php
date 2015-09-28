@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowFleetMissilePage extends AbstractPage
+class ShowFleetMissilePage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_MISSILEATTACK;
 

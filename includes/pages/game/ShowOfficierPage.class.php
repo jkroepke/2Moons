@@ -27,7 +27,7 @@
  */
 
 
-class ShowOfficierPage extends AbstractPage
+class ShowOfficierPage extends AbstractGamePage
 {
 	public static $requireModule = 0;
 

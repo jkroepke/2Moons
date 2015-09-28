@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowBuddyListPage extends AbstractPage
+class ShowBuddyListPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_BUDDYLIST;
 

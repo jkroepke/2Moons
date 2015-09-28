@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-abstract class AbstractPage 
+abstract class AbstractLoginPage
 {
 
 	/**

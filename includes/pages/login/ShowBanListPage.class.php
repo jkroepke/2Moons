@@ -28,7 +28,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowBanListPage extends AbstractPage 
+class ShowBanListPage extends AbstractLoginPage
 {
 	public static $requireModule = MODULE_BANLIST;
 

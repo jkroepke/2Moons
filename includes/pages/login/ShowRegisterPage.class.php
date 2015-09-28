@@ -28,7 +28,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowRegisterPage extends AbstractPage
+class ShowRegisterPage extends AbstractLoginPage
 {
 	function __construct() 
 	{

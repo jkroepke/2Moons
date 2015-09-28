@@ -26,22 +26,23 @@
  * @link http://2moons.cc/
  */
 
-class ShowBattleHallPage extends AbstractPage
+class ShowBattleHallPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_BATTLEHALL;
-	
-	function __construct() {
+
+	function __construct()
+    {
 		parent::__construct();
 	}
-	
+
 	function show()
 	{
 		global $USER, $LNG;
-		$order = HTTP::_GP('order', 'units');
-		$sort = HTTP::_GP('sort', 'desc');
-		$sort = strtoupper($sort);
+		$order  = HTTP::_GP('order', 'units');
+		$sort   = HTTP::_GP('sort', 'desc');
+		$sort   = strtoupper($sort);
 
-        $db = Database::get();
+		$db = Database::get();
 		$sql = "SELECT *, (
 			SELECT DISTINCT
 			IF(%%TOPKB_USERS%%.username = '', GROUP_CONCAT(%%USERS%%.username SEPARATOR ' & '), GROUP_CONCAT(%%TOPKB_USERS%%.username SEPARATOR ' & '))
@@ -57,29 +58,29 @@ class ShowBattleHallPage extends AbstractPage
 		) as defender
 		,@rank:=@rank+1 as rank
 		FROM %%TOPKB%% WHERE universe = :universe ORDER BY units DESC LIMIT 100;";
-        $top = $db->select($sql, array(
-            ':universe' => Universe::current()
-        ));
 
-        $TopKBList	= array();
-		$i = 1;
+		$top = $db->select($sql, array(
+			':universe' => Universe::current()
+		));
+
+		$TopKBList	= array();
 		foreach($top as $data)
 		{
 			switch($order)
 			{
 				case 'date':
 					$key = $data['time'];
-				break;
+					break;
 				case 'owner':
 					$key = $data['attacker'].$data['defender'];
-				break;
+					break;
 				case 'units':
 				default:
 					$key = $data['units'];
-				break;
+					break;
 			}
-			
-			$TopKBList[$key][$i]	= array(
+
+			$TopKBList[$key][]	= array(
 				'result'	=> $data['result'],
 				'date'		=> _date($LNG['php_tdformat'], $data['time'], $USER['timezone']),
 				'time'		=> TIMESTAMP - $data['time'],
@@ -88,9 +89,8 @@ class ShowBattleHallPage extends AbstractPage
 				'attacker'	=> $data['attacker'],
 				'defender'	=> $data['defender'],
 			);
-            $i++;
 		}
-		
+
 		ksort($TopKBList);
 
 		if($sort === "DESC")
@@ -98,7 +98,7 @@ class ShowBattleHallPage extends AbstractPage
 			$TopKBList	= array_reverse($TopKBList);
 		}
 		else
-		{	
+		{
 			$sort = "ASC";
 		}
 
@@ -107,7 +107,7 @@ class ShowBattleHallPage extends AbstractPage
 			'sort'			=> $sort,
 			'order'			=> $order,
 		));
-		
-		$this->display('page.battlehall.default.tpl');
+
+		$this->display('page.battleHall.default.tpl');
 	}
 }

@@ -26,11 +26,11 @@
  * @link http://2moons.cc/
  */
 
-class ShowBanListPage extends AbstractPage 
+class ShowBanListPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_BANLIST;
 
-	function __construct() 
+	function __construct()
 	{
 		parent::__construct();
 	}
@@ -38,27 +38,27 @@ class ShowBanListPage extends AbstractPage
 	function show()
 	{
 		global $USER, $LNG;
-		
-		$page  		= HTTP::_GP('side', 1);
-		$db = Database::get();
+
+		$page  	= HTTP::_GP('side', 1);
+		$db 	= Database::get();
 
 		$sql = "SELECT COUNT(*) as count FROM %%BANNED%% WHERE universe = :universe ORDER BY time DESC;";
-        $banCount = $db->selectSingle($sql, array(
-            ':universe'	=> Universe::current()
-        ), 'count');
+		$banCount = $db->selectSingle($sql, array(
+			':universe'	=> Universe::current()
+		), 'count');
 
-        $maxPage	= ceil($banCount / BANNED_USERS_PER_PAGE);
+		$maxPage	= ceil($banCount / BANNED_USERS_PER_PAGE);
 		$page		= max(1, min($page, $maxPage));
-		
-		$sql = "SELECT * FROM %%BANNED%% WHERE universe = :universe ORDER BY time DESC LIMIT :offset, :limit;";
-        $banResult = $db->select($sql, array(
-            ':universe'	=> Universe::current(),
-            ':offset'   => (($page - 1) * BANNED_USERS_PER_PAGE),
-            ':limit'    => BANNED_USERS_PER_PAGE,
-        ));
 
-        $banList	= array();
-		
+		$sql = "SELECT * FROM %%BANNED%% WHERE universe = :universe ORDER BY time DESC LIMIT :offset, :limit;";
+		$banResult = $db->select($sql, array(
+			':universe'	=> Universe::current(),
+			':offset'   => (($page - 1) * BANNED_USERS_PER_PAGE),
+			':limit'    => BANNED_USERS_PER_PAGE,
+		));
+
+		$banList	= array();
+
 		foreach ($banResult as $banRow)
 		{
 			$banList[]	= array(
@@ -71,14 +71,14 @@ class ShowBanListPage extends AbstractPage
 				'info'		=> sprintf($LNG['bn_writemail'], $banRow['author']),
 			);
 		}
-		
+
 		$this->assign(array(
 			'banList'	=> $banList,
 			'banCount'	=> $banCount,
 			'page'		=> $page,
 			'maxPage'	=> $maxPage,
 		));
-		
+
 		$this->display('page.banList.default.tpl');
 	}
 }

@@ -27,7 +27,7 @@
  */
 
 
-class ShowFleetTablePage extends AbstractPage
+class ShowFleetTablePage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_FLEET_TABLE;
 

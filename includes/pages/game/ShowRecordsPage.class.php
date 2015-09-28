@@ -27,7 +27,7 @@
  */
 
 
-class ShowRecordsPage extends AbstractPage
+class ShowRecordsPage extends AbstractGamePage
 {
     public static $requireModule = MODULE_RECORDS;
 

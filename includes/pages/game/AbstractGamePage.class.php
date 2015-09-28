@@ -26,7 +26,7 @@
  * @link http://2moons.cc/
  */
 
-abstract class AbstractPage 
+abstract class AbstractGamePage
 {
 	/**
 	 * reference of the template object
@@ -41,9 +41,9 @@ abstract class AbstractPage
 	protected $ecoObj;
 	protected $window;
 	protected $disableEcoSystem = false;
-	
+
 	protected function __construct() {
-		
+
 		if(!AJAX_REQUEST)
 		{
 			$this->setWindow('full');
@@ -57,67 +57,67 @@ abstract class AbstractPage
 			$this->setWindow('ajax');
 		}
 	}
-	
+
 	protected function initTemplate() {
 		if(isset($this->tplObj))
 			return true;
-			
+
 		$this->tplObj	= new template;
 		list($tplDir)	= $this->tplObj->getTemplateDir();
 		$this->tplObj->setTemplateDir($tplDir.'game/');
 		return true;
 	}
-	
+
 	protected function setWindow($window) {
 		$this->window	= $window;
 	}
-		
+
 	protected function getWindow() {
 		return $this->window;
 	}
-	
+
 	protected function getQueryString() {
 		$queryString	= array();
 		$page			= HTTP::_GP('page', '');
-		
+
 		if(!empty($page)) {
 			$queryString['page']	= $page;
 		}
-		
+
 		$mode			= HTTP::_GP('mode', '');
 		if(!empty($mode)) {
 			$queryString['mode']	= $mode;
 		}
-		
+
 		return http_build_query($queryString);
 	}
-	
+
 	protected function getCronjobsTodo()
 	{
 		require_once 'includes/classes/Cronjob.class.php';
-		
+
 		$this->assign(array(
 			'cronjobs'		=> Cronjob::getNeedTodoExecutedJobs()
 		));
 	}
-	
-	protected function getNavigationData() 
-    {
+
+	protected function getNavigationData()
+	{
 		global $PLANET, $LNG, $USER, $THEME, $resource, $reslist;
 
 		$config			= Config::get();
 
 		$PlanetSelect	= array();
-		
+
 		if(isset($USER['PLANETS'])) {
 			$USER['PLANETS']	= getPlanets($USER);
 		}
-		
+
 		foreach($USER['PLANETS'] as $PlanetQuery)
 		{
 			$PlanetSelect[$PlanetQuery['id']]	= $PlanetQuery['name'].(($PlanetQuery['planet_type'] == 3) ? " (" . $LNG['fcm_moon'] . ")":"")." [".$PlanetQuery['galaxy'].":".$PlanetQuery['system'].":".$PlanetQuery['planet']."]";
 		}
-		
+
 		$resourceTable	= array();
 		$resourceSpeed	= $config->resource_multiplier;
 		foreach($reslist['resstype'][1] as $resourceID)
@@ -149,7 +149,7 @@ abstract class AbstractPage
 		}
 
 		$themeSettings	= $THEME->getStyleSettings();
-		
+
 		$this->assign(array(
 			'PlanetSelect'		=> $PlanetSelect,
 			'new_message' 		=> $USER['messages'],
@@ -166,16 +166,16 @@ abstract class AbstractPage
 			'hasGate'			=> $PLANET[$resource[43]] > 0
 		));
 	}
-	
-	protected function getPageData() 
-    {
+
+	protected function getPageData()
+	{
 		global $USER, $THEME;
-		
+
 		if($this->getWindow() === 'full') {
 			$this->getNavigationData();
 			$this->getCronjobsTodo();
 		}
-		
+
 		$dateTimeServer		= new DateTime("now");
 		if(isset($USER['timezone'])) {
 			try {
@@ -189,13 +189,13 @@ abstract class AbstractPage
 
 		$config	= Config::get();
 
-        $this->assign(array(
-            'vmode'				=> $USER['urlaubs_modus'],
+		$this->assign(array(
+			'vmode'				=> $USER['urlaubs_modus'],
 			'authlevel'			=> $USER['authlevel'],
 			'userID'			=> $USER['id'],
 			'bodyclass'			=> $this->getWindow(),
-            'game_name'			=> $config->game_name,
-            'uni_name'			=> $config->uni_name,
+			'game_name'			=> $config->game_name,
+			'uni_name'			=> $config->uni_name,
 			'ga_active'			=> $config->ga_active,
 			'ga_key'			=> $config->ga_key,
 			'debug'				=> $config->debug,
@@ -210,8 +210,8 @@ abstract class AbstractPage
 	protected function printMessage($message, $redirectButtons = NULL, $redirect = NULL, $fullSide = true)
 	{
 		$this->assign(array(
-		'message'			=> $message,
-		'redirectButtons'	=> $redirectButtons,
+			'message'			=> $message,
+			'redirectButtons'	=> $redirectButtons,
 		));
 
 		if(isset($redirect)) {
@@ -224,8 +224,8 @@ abstract class AbstractPage
 
 		$this->display('error.default.tpl');
 	}
-	
-	protected function save() {		
+
+	protected function save() {
 		if(isset($this->ecoObj)) {
 			$this->ecoObj->SavePlanetToDB();
 		}
@@ -237,16 +237,16 @@ abstract class AbstractPage
 
 	protected function display($file) {
 		global $THEME, $LNG;
-		
+
 		$this->save();
-		
+
 		if($this->getWindow() !== 'ajax') {
 			$this->getPageData();
 		}
-		
+
 		$this->assign(array(
-            'lang'    		=> $LNG->getLanguage(),
-            'dpath'			=> $THEME->getTheme(),
+			'lang'    		=> $LNG->getLanguage(),
+			'dpath'			=> $THEME->getTheme(),
 			'scripts'		=> $this->tplObj->jsscript,
 			'execscript'	=> implode("\n", $this->tplObj->script),
 			'basepath'		=> PROTOCOL.HTTP_HOST.HTTP_BASE,
@@ -255,17 +255,17 @@ abstract class AbstractPage
 		$this->assign(array(
 			'LNG'			=> $LNG,
 		), false);
-		
+
 		$this->tplObj->display('extends:layout.'.$this->getWindow().'.tpl|'.$file);
 		exit;
 	}
-	
+
 	protected function sendJSON($data) {
 		$this->save();
 		echo json_encode($data);
 		exit;
 	}
-	
+
 	protected function redirectTo($url) {
 		$this->save();
 		HTTP::redirectTo($url);

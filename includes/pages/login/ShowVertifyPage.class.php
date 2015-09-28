@@ -28,7 +28,7 @@
  * @link http://2moons.cc/
  */
 
-class ShowVertifyPage extends AbstractPage
+class ShowVertifyPage extends AbstractLoginPage
 {
 	public static $requireModule = 0;
 

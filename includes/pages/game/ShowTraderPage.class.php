@@ -27,7 +27,7 @@
  */
 
 
-class ShowTraderPage extends AbstractPage
+class ShowTraderPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_TRADER;
 

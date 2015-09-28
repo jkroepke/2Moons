@@ -27,7 +27,7 @@
  */
 
 
-class ShowStatisticsPage extends AbstractPage
+class ShowStatisticsPage extends AbstractGamePage
 {
     public static $requireModule = MODULE_STATISTICS;
 

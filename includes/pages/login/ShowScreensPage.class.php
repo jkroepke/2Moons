@@ -29,7 +29,7 @@
  */
 
 
-class ShowScreensPage extends AbstractPage
+class ShowScreensPage extends AbstractLoginPage
 {
 	public static $requireModule = 0;
 

@@ -27,7 +27,7 @@
  */
 
 
-class ShowImperiumPage extends AbstractPage
+class ShowImperiumPage extends AbstractGamePage
 {
 	public static $requireModule = MODULE_IMPERIUM;
 
@@ -42,21 +42,26 @@ class ShowImperiumPage extends AbstractPage
 
         $db = Database::get();
 
-		if($USER['planet_sort'] == 0) {
-			$Order	= "id ";
-		} elseif($USER['planet_sort'] == 1) {
-			$Order	= "galaxy, system, planet, planet_type ";
-		} elseif ($USER['planet_sort'] == 2) {
-			$Order	= "name ";	
+		switch($USER['planet_sort'])
+		{
+			case 2:
+				$orderBy = 'name';
+				break;
+			case 1:
+				$orderBy = 'galaxy, system, planet, planet_type';
+				break;
+			default:
+				$orderBy = 'id';
+				break;
 		}
 		
-		$Order .= ($USER['planet_sort_order'] == 1) ? "DESC" : "ASC" ;
+		$orderBy .= ' '.($USER['planet_sort_order'] == 1) ? 'DESC' : 'ASC';
 
         $sql = "SELECT * FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND destruyed = '0' ORDER BY :order;";
         $PlanetsRAW = $db->select($sql, array(
             ':planetID' => $PLANET['id'],
             ':userID'   => $USER['id'],
-            ':order'    => $Order,
+            ':order'    => $orderBy,
         ));
 
         $PLANETS	= array($PLANET);
