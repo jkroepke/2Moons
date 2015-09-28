@@ -127,7 +127,7 @@ class ShowBuddyListPage extends AbstractPage
             ':friendID'  => $id,
         ), 'username');
 
-        PlayerUtil::sendMessage($id, $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_new_request_title'], sprintf($LNG['bu_new_request_body'], $username, $USER['username']));
+        PlayerUtil::sendMessage($id, $USER['id'], $USER['username'], 4, $LNG['bu_new_request_title'], sprintf($LNG['bu_new_request_body'], $username, $USER['username']), TIMESTAMP);
 
 		$this->printMessage($LNG['bu_request_send']);
 	}
@@ -160,7 +160,7 @@ class ShowBuddyListPage extends AbstractPage
                     'userID'    => $USER['id']
                 ));
 
-                PlayerUtil::sendMessage($requestData['id'], $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_rejected_request_title'], sprintf($LNG['bu_rejected_request_body'], $requestData['username'], $USER['username']));
+				PlayerUtil::sendMessage($requestData['id'], $USER['id'], $USER['username'], 4, $LNG['bu_rejected_request_title'], sprintf($LNG['bu_rejected_request_body'], $requestData['username'], $USER['username']), TIMESTAMP);
 			}
 
             $sql = "DELETE b.*, r.* FROM %%BUDDY%% b LEFT JOIN %%BUDDY_REQUEST%% r USING (id) WHERE b.id = :id;";
@@ -188,8 +188,8 @@ class ShowBuddyListPage extends AbstractPage
             ':id'       => $id
         ));
 
-		PlayerUtil::sendMessage($sender['sender'], $USER['id'], TIMESTAMP, 4, $USER['username'], $LNG['bu_accepted_request_title'], sprintf($LNG['bu_accepted_request_body'], $sender['username'], $USER['username']));
-		
+		PlayerUtil::sendMessage($sender['sender'], $USER['id'], $USER['username'], 4, $LNG['bu_accepted_request_title'], sprintf($LNG['bu_accepted_request_body'], $sender['username'], $USER['username']), TIMESTAMP);
+
 		$this->redirectTo("game.php?page=buddyList");
 	}
 	
