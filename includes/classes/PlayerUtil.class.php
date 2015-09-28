@@ -132,9 +132,9 @@ class PlayerUtil
 			} while (self::isPositionFree($universe, $galaxy, $system, $position) === false);
 
 			// Update last coordinates to config table
-			$config->LastSettedGalaxyPos = $planet;
+			$config->LastSettedGalaxyPos = $galaxy;
 			$config->LastSettedSystemPos = $system;
-			$config->LastSettedPlanetPos = $galaxy;
+			$config->LastSettedPlanetPos = $planet;
 		}
 
 		$resourceQuery	= array();
