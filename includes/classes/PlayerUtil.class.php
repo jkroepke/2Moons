@@ -526,12 +526,14 @@ class PlayerUtil
 			FleetFunctions::SendFleetBack($userId, $fleetId);
 		}
 
+        /*
 		$sql	= 'UPDATE %%UNIVERSE%% SET userAmount = userAmount - 1 WHERE universe = :universe;';
 		$db->update($sql, array(
 			':universe' => $userData['universe']
 		));
 		
 		Cache::get()->flush('universe');
+        */
 
 		return true;
 	}
