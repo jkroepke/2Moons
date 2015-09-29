@@ -123,7 +123,7 @@
 			<td><a title="{$LNG.op_dlte_account_descrip}">{$LNG.op_dlte_account}</a></td>
 			<td><input name="delete" type="checkbox" value="1" {if $delete > 0}checked="checked"{/if}></td>
 		</tr>
-		{if extension_loaded('gd') && isModulAvalible($smarty.const.MODULE_BANNER)}
+		{if isModulAvalible($smarty.const.MODULE_BANNER)}
 		<tr>
 			<th colspan="3">{$LNG.ov_userbanner}</th>
 		</tr>
