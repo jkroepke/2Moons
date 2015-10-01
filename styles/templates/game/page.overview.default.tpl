@@ -82,12 +82,10 @@
 		<td>{$LNG.ov_position}</td>
 		<td colspan="2"><a href="game.php?page=galaxy&amp;galaxy={$galaxy}&amp;system={$system}">[{$galaxy}:{$system}:{$planet}]</a></td>
 	</tr>
-	{if isModulAvalible($smarty.const.MODULE_BANNER)}
 	<tr>
 		<td>{$LNG.ov_points}</td>
 		<td colspan="2">{$rankInfo}</td>
 	</tr>
-	{/if}
 	{if $ref_active}
 	<tr>
 		<th colspan="3"><label for="referral">{$LNG.ov_reflink}</label></th>
