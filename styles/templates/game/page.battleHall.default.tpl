@@ -17,7 +17,7 @@
 {foreach $TopKBList as $hallCat}
     {foreach $hallCat as $hallRow}
     <tr class="day{floor($hallRow.date / 86400)} week{floor($hallRow.date / 604800)}">
-        <td>{$hallRow@index}</td>
+        <td>{$hallRow@iteration}</td>
         <td><a href="game.php?page=raport&amp;mode=battlehall&amp;raport={$hallRow.rid}" target="_blank">
         {if $hallRow.result == "a"}
         <span style="color:#00FF00">{$hallRow.attacker}</span> VS <span style="color:#FF0000">{$hallRow.defender}</span>
