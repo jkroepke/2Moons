@@ -496,7 +496,7 @@ HTML;
 
 				$db->insert($sql, array(
 					':reportId'	=> $reportID,
-					':userRole'	=> 1,
+					':userRole'	=> $i + 1,
 					':username'	=> $userName,
 					':userId'	=> $userID
 				));
