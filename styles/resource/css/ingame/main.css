@@ -423,6 +423,7 @@ table.tablesorter thead tr .headerSortDown {
 
 #overview #planetList td {
     vertical-align: top;
+    white-space: nowrap;
 }
 
 @media screen and (max-width: 1165px) {
