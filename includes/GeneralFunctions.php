@@ -229,9 +229,9 @@ function pretty_time($seconds)
 	}
 	
 	if($second >= 10) {
-		$time .= $second.$LNG['short_second'].' ';
+		$time .= $second.$LNG['short_second'];
 	} else {
-		$time .= '0'.$second.$LNG['short_second'].' ';
+		$time .= '0'.$second.$LNG['short_second'];
 	}
 
 	return $time;
