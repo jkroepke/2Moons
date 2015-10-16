@@ -235,7 +235,7 @@ HTML;
 				fleet.fleet_amount	= :fleetCount,
 				log.fleet_array		= :fleetData,
 				log.fleet_amount	= :fleetCount
-				WHERE log.fleet_id = :fleetId AND log.fleet_id = :fleetId;";
+				WHERE fleet.fleet_id = :fleetId AND log.fleet_id = :fleetId;";
 
 				$db->update($sql, array(
 					':fleetData'	=> substr($fleetArray, 0, -1),
@@ -291,7 +291,7 @@ HTML;
 					fleet.fleet_amount	= :fleetCount,
 					log.fleet_array		= :fleetData,
 					log.fleet_amount	= :fleetCount
-					WHERE log.fleet_id = :fleetId AND log.fleet_id = :fleetId;";
+					WHERE fleet.fleet_id = :fleetId AND log.fleet_id = :fleetId;";
 
 					$db->update($sql, array(
 	   					':fleetData'	=> substr($fleetArray, 0, -1),
