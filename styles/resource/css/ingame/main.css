@@ -421,6 +421,10 @@ table.tablesorter thead tr .headerSortDown {
 	cursor:pointer;
 }
 
+#overview #planetList td {
+    vertical-align: top;
+}
+
 @media screen and (max-width: 1165px) {
 	body {
 		min-width: 0;
