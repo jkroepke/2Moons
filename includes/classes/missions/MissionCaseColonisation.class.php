@@ -47,10 +47,12 @@ class MissionCaseColonisation extends MissionFunctions implements Mission
 
 		$LNG	= $this->getLanguage($senderUser['lang']);
 
-		$isPositionFree	= PlayerUtil::checkPosition($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'],
+		$checkPosition	= PlayerUtil::checkPosition($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'],
+			$this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']);
+		$isPositionFree	= PlayerUtil::isPositionFree($this->_fleet['fleet_universe'], $this->_fleet['fleet_end_galaxy'],
 			$this->_fleet['fleet_end_system'], $this->_fleet['fleet_end_planet']);
 
-		if (!$isPositionFree)
+		if (!$isPositionFree || !$checkPosition)
 		{
 			$message = sprintf($LNG['sys_colo_notfree'], GetTargetAdressLink($this->_fleet, ''));
 		}
