@@ -41,6 +41,7 @@
 	var months 		= {$LNG.months|json|default:'[]'} ;
 	var tdformat	= "{$LNG.js_tdformat}";
 	var queryString	= "{$queryString|escape:'javascript'}";
+	var isPlayerCardActive	= "{$isPlayerCardActive|json}";
 
 	setInterval(function() {
 		serverTime.setSeconds(serverTime.getSeconds()+1);

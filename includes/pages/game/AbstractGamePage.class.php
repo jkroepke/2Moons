@@ -201,6 +201,7 @@ abstract class AbstractGamePage
 			'debug'				=> $config->debug,
 			'VERSION'			=> $config->VERSION,
 			'date'				=> explode("|", date('Y\|n\|j\|G\|i\|s\|Z', TIMESTAMP)),
+			'isPlayerCardActive' => isModuleAvailable(MODULE_PLAYERCARD),
 			'REV'				=> substr($config->VERSION, -4),
 			'Offset'			=> $dateTimeUser->getOffset() - $dateTimeServer->getOffset(),
 			'queryString'		=> $this->getQueryString(),

@@ -167,7 +167,7 @@ var Dialog	= {
 	},
 	
 	Playercard: function(ID) {
-		return Dialog.open('game.php?page=playerCard&id='+ID, 650, 600);
+		return isPlayerCardActive && Dialog.open('game.php?page=playerCard&id='+ID, 650, 600);
 	},
 	
 	Buddy: function(ID) {

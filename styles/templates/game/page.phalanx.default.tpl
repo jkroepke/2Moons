@@ -1,4 +1,4 @@
-{block name="title" prepend}{$LNG.lm_playercard}{/block}
+{block name="title" prepend}{$LNG.gl_phalanx}{/block}
 {block name="content"}
 <table width="90%">
 <tr>
