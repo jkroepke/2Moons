@@ -57,7 +57,7 @@ class MissionCaseACS extends MissionFunctions implements Mission
 		$Message 	= sprintf(
 			$LNG['sys_fleet_won'],
 			$planetName,
-			GetTargetAdressLink($this->_fleet, ''),
+			GetTargetAddressLink($this->_fleet, ''),
 			pretty_number($this->_fleet['fleet_resource_metal']),
 			$LNG['tech'][901],
 			pretty_number($this->_fleet['fleet_resource_crystal']),

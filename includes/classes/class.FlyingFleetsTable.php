@@ -189,21 +189,21 @@ class FlyingFleetsTable
 	
 		if ($MissionType == 8) {
 			if ($Status == FLEET_OUTWARD)
-				$EventString = sprintf($LNG['cff_mission_own_recy_0'], $FleetContent, $StartType, $fleetRow['own_planetname'], GetStartAdressLink($fleetRow, $FleetType), GetTargetAdressLink($fleetRow, $FleetType), $FleetCapacity);
+				$EventString = sprintf($LNG['cff_mission_own_recy_0'], $FleetContent, $StartType, $fleetRow['own_planetname'], GetStartAddressLink($fleetRow, $FleetType), GetTargetAddressLink($fleetRow, $FleetType), $FleetCapacity);
 			else
-				$EventString = sprintf($LNG['cff_mission_own_recy_1'], $FleetContent, GetTargetAdressLink($fleetRow, $FleetType), $StartType, $fleetRow['own_planetname'], GetStartAdressLink($fleetRow, $FleetType), $FleetCapacity);
+				$EventString = sprintf($LNG['cff_mission_own_recy_1'], $FleetContent, GetTargetAddressLink($fleetRow, $FleetType), $StartType, $fleetRow['own_planetname'], GetStartAddressLink($fleetRow, $FleetType), $FleetCapacity);
 		} elseif ($MissionType == 10) {
 			if ($Owner)
-				$EventString = sprintf($LNG['cff_mission_own_mip'], $fleetRow['fleet_amount'], $StartType, $fleetRow['own_planetname'], GetStartAdressLink($fleetRow, $FleetType), $TargetType, $fleetRow['target_planetname'], GetTargetAdressLink($fleetRow, $FleetType));
+				$EventString = sprintf($LNG['cff_mission_own_mip'], $fleetRow['fleet_amount'], $StartType, $fleetRow['own_planetname'], GetStartAddressLink($fleetRow, $FleetType), $TargetType, $fleetRow['target_planetname'], GetTargetAddressLink($fleetRow, $FleetType));
 			else
-				$EventString = sprintf($LNG['cff_mission_target_mip'], $fleetRow['fleet_amount'], $this->BuildHostileFleetPlayerLink($fleetRow, $fleetRow), $StartType, $fleetRow['own_planetname'], GetStartAdressLink($fleetRow, $FleetType), $TargetType, $fleetRow['target_planetname'], GetTargetAdressLink($fleetRow, $FleetType));
+				$EventString = sprintf($LNG['cff_mission_target_mip'], $fleetRow['fleet_amount'], $this->BuildHostileFleetPlayerLink($fleetRow, $fleetRow), $StartType, $fleetRow['own_planetname'], GetStartAddressLink($fleetRow, $FleetType), $TargetType, $fleetRow['target_planetname'], GetTargetAddressLink($fleetRow, $FleetType));
 		} elseif ($MissionType == 11 || $MissionType == 15) {		
 			if ($Status == FLEET_OUTWARD)
-				$EventString = sprintf($LNG['cff_mission_own_expo_0'], $FleetContent, $StartType, $fleetRow['own_planetname'], GetStartAdressLink($fleetRow, $FleetType), GetTargetAdressLink($fleetRow, $FleetType), $FleetCapacity);
+				$EventString = sprintf($LNG['cff_mission_own_expo_0'], $FleetContent, $StartType, $fleetRow['own_planetname'], GetStartAddressLink($fleetRow, $FleetType), GetTargetAddressLink($fleetRow, $FleetType), $FleetCapacity);
 			elseif ($Status == FLEET_HOLD)
-				$EventString = sprintf($LNG['cff_mission_own_expo_2'], $FleetContent, $StartType, $fleetRow['own_planetname'], GetStartAdressLink($fleetRow, $FleetType), GetTargetAdressLink($fleetRow, $FleetType), $FleetCapacity);	
+				$EventString = sprintf($LNG['cff_mission_own_expo_2'], $FleetContent, $StartType, $fleetRow['own_planetname'], GetStartAddressLink($fleetRow, $FleetType), GetTargetAddressLink($fleetRow, $FleetType), $FleetCapacity);
 			else
-				$EventString = sprintf($LNG['cff_mission_own_expo_1'], $FleetContent, GetTargetAdressLink($fleetRow, $FleetType), $StartType, $fleetRow['own_planetname'], GetStartAdressLink($fleetRow, $FleetType), $FleetCapacity);	
+				$EventString = sprintf($LNG['cff_mission_own_expo_1'], $FleetContent, GetTargetAddressLink($fleetRow, $FleetType), $StartType, $fleetRow['own_planetname'], GetStartAddressLink($fleetRow, $FleetType), $FleetCapacity);
 		} else {
 			if ($Owner == true) {
 				if ($Status == FLEET_OUTWARD) {
@@ -212,11 +212,11 @@ class FlyingFleetsTable
 					else
 						$Message  = $LNG['cff_mission_own_0'];
 						
-					$EventString  = sprintf($Message, $FleetContent, $StartType, $fleetRow['own_planetname'], GetStartAdressLink($fleetRow, $FleetType), $TargetType, $fleetRow['target_planetname'], GetTargetAdressLink($fleetRow, $FleetType), $FleetCapacity);
+					$EventString  = sprintf($Message, $FleetContent, $StartType, $fleetRow['own_planetname'], GetStartAddressLink($fleetRow, $FleetType), $TargetType, $fleetRow['target_planetname'], GetTargetAddressLink($fleetRow, $FleetType), $FleetCapacity);
 				} elseif($Status == FLEET_RETURN)
-					$EventString  = sprintf($LNG['cff_mission_own_1'], $FleetContent, $TargetType, $fleetRow['target_planetname'], GetTargetAdressLink($fleetRow, $FleetType), $StartType, $fleetRow['own_planetname'], GetStartAdressLink($fleetRow, $FleetType), $FleetCapacity);		
+					$EventString  = sprintf($LNG['cff_mission_own_1'], $FleetContent, $TargetType, $fleetRow['target_planetname'], GetTargetAddressLink($fleetRow, $FleetType), $StartType, $fleetRow['own_planetname'], GetStartAddressLink($fleetRow, $FleetType), $FleetCapacity);
 				else
-					$EventString  = sprintf($LNG['cff_mission_own_2'], $FleetContent, $StartType, $fleetRow['own_planetname'], GetStartAdressLink($fleetRow, $FleetType), $TargetType, $fleetRow['target_planetname'], GetTargetAdressLink($fleetRow, $FleetType), $FleetCapacity);	
+					$EventString  = sprintf($LNG['cff_mission_own_2'], $FleetContent, $StartType, $fleetRow['own_planetname'], GetStartAddressLink($fleetRow, $FleetType), $TargetType, $fleetRow['target_planetname'], GetTargetAddressLink($fleetRow, $FleetType), $FleetCapacity);
 			} else {
 				if ($Status == FLEET_HOLD)
 					$Message	= $LNG['cff_mission_target_stay'];
@@ -225,7 +225,7 @@ class FlyingFleetsTable
 				else
 					$Message	= $LNG['cff_mission_target_bad'];
 
-				$EventString	= sprintf($Message, $FleetContent, $this->BuildHostileFleetPlayerLink($fleetRow, $fleetRow), $StartType, $fleetRow['own_planetname'], GetStartAdressLink($fleetRow, $FleetType), $TargetType, $fleetRow['target_planetname'], GetTargetAdressLink($fleetRow, $FleetType), $FleetCapacity);
+				$EventString	= sprintf($Message, $FleetContent, $this->BuildHostileFleetPlayerLink($fleetRow, $fleetRow), $StartType, $fleetRow['own_planetname'], GetStartAddressLink($fleetRow, $FleetType), $TargetType, $fleetRow['target_planetname'], GetTargetAddressLink($fleetRow, $FleetType), $FleetCapacity);
 			}		       
 		}
 		$EventString = '<span class="'.$FleetStatus[$Status].' '.$FleetType.'">'.$EventString.'</span>';
@@ -256,11 +256,11 @@ class FlyingFleetsTable
 		if ($FleetTotalC != 0)
 		{
 			$textForBlind = $LNG['tech'][900].': ';
-			$textForBlind .= floattostring($fleetRow['fleet_resource_metal']).' '.$LNG['tech'][901];
-			$textForBlind .= '; '.floattostring($fleetRow['fleet_resource_crystal']).' '.$LNG['tech'][902];
-			$textForBlind .= '; '.floattostring($fleetRow['fleet_resource_deuterium']).' '.$LNG['tech'][903];
+			$textForBlind .= floatToString($fleetRow['fleet_resource_metal']).' '.$LNG['tech'][901];
+			$textForBlind .= '; '.floatToString($fleetRow['fleet_resource_crystal']).' '.$LNG['tech'][902];
+			$textForBlind .= '; '.floatToString($fleetRow['fleet_resource_deuterium']).' '.$LNG['tech'][903];
 			if($fleetRow['fleet_resource_darkmatter'] > 0)
-				$textForBlind .= '; '.floattostring($fleetRow['fleet_resource_darkmatter']).' '.$LNG['tech'][921];
+				$textForBlind .= '; '.floatToString($fleetRow['fleet_resource_darkmatter']).' '.$LNG['tech'][921];
 			
 			$FRessource   = '<table style=\'width:200px\'>';
 			$FRessource  .= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][901].'</td><td style=\'width:50%;color:white\'>'. pretty_number($fleetRow['fleet_resource_metal']).'</td></tr>';
@@ -303,12 +303,12 @@ class FlyingFleetsTable
 				$Ship    = explode(',', $Group);
 				if($Owner) {
 					$FleetPopup 	.= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][$Ship[0]].':</td><td style=\'width:50%;color:white\'>'.pretty_number($Ship[1]).'</td></tr>';
-						$shipsData[]	= floattostring($Ship[1]).' '.$LNG['tech'][$Ship[0]];
+						$shipsData[]	= floatToString($Ship[1]).' '.$LNG['tech'][$Ship[0]];
 				} else {
 					if($SpyTech >= 8)
 					{
 						$FleetPopup 	.= '<tr><td style=\'width:50%;color:white\'>'.$LNG['tech'][$Ship[0]].':</td><td style=\'width:50%;color:white\'>'.pretty_number($Ship[1]).'</td></tr>';
-						$shipsData[]	= floattostring($Ship[1]).' '.$LNG['tech'][$Ship[0]];
+						$shipsData[]	= floatToString($Ship[1]).' '.$LNG['tech'][$Ship[0]];
 					}
 					else
 					{

@@ -199,7 +199,7 @@ HTML;
 			$fleetDetail['unit']	= array_filter($fleetDetail['unit']);
 			foreach ($fleetDetail['unit'] as $elementID => $amount)
 			{				
-				$fleetArray .= $elementID.','.floattostring($amount).';';
+				$fleetArray .= $elementID.','.floatToString($amount).';';
 				$totalCount += $amount;
 			}
 			
@@ -262,7 +262,7 @@ HTML;
 				
 				foreach ($fleetDetail['unit'] as $elementID => $amount)
 				{				
-					$fleetArray .= $elementID.','.floattostring($amount).';';
+					$fleetArray .= $elementID.','.floatToString($amount).';';
 					$totalCount += $amount;
 				}
 				
@@ -605,7 +605,7 @@ HTML;
 		$Message	= sprintf(
 			$LNG['sys_fleet_won'],
 			$planetName,
-			GetTargetAdressLink($this->_fleet, ''),
+			GetTargetAddressLink($this->_fleet, ''),
 			pretty_number($this->_fleet['fleet_resource_metal']),
 			$LNG['tech'][901],
 			pretty_number($this->_fleet['fleet_resource_crystal']),

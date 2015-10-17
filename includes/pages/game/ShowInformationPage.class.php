@@ -354,7 +354,7 @@ class ShowInformationPage extends AbstractGamePage
 			$gateData	= array(
 				'nextTime'	=> _date($LNG['php_tdformat'], $nextTime, $USER['timezone']),
 				'restTime'	=> max(0, $nextTime - TIMESTAMP),
-				'startLink'	=> $PLANET['name'].' '.strip_tags(BuildPlanetAdressLink($PLANET)),
+				'startLink'	=> $PLANET['name'].' '.strip_tags(BuildPlanetAddressLink($PLANET)),
 				'gateList' 	=> $this->getTargetGates(),
 				'fleetList'	=> $this->getAvailableFleets(),
 			);

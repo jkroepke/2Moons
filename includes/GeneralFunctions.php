@@ -230,24 +230,24 @@ function pretty_fly_time($seconds)
 	return sprintf('%02d:%02d:%02d', $hour, $minute, $second);
 }
 
-function GetStartAdressLink($FleetRow, $FleetType = '')
+function GetStartAddressLink($FleetRow, $FleetType = '')
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$FleetRow['fleet_start_galaxy'].'&amp;system='.$FleetRow['fleet_start_system'].'" class="'. $FleetType .'">['.$FleetRow['fleet_start_galaxy'].':'.$FleetRow['fleet_start_system'].':'.$FleetRow['fleet_start_planet'].']</a>';
 }
 
-function GetTargetAdressLink($FleetRow, $FleetType = '')
+function GetTargetAddressLink($FleetRow, $FleetType = '')
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$FleetRow['fleet_end_galaxy'].'&amp;system='.$FleetRow['fleet_end_system'].'" class="'. $FleetType .'">['.$FleetRow['fleet_end_galaxy'].':'.$FleetRow['fleet_end_system'].':'.$FleetRow['fleet_end_planet'].']</a>';
 }
 
-function BuildPlanetAdressLink($CurrentPlanet)
+function BuildPlanetAddressLink($CurrentPlanet)
 {
 	return '<a href="game.php?page=galaxy&amp;galaxy='.$CurrentPlanet['galaxy'].'&amp;system='.$CurrentPlanet['system'].'">['.$CurrentPlanet['galaxy'].':'.$CurrentPlanet['system'].':'.$CurrentPlanet['planet'].']</a>';
 }
 
 function pretty_number($n, $dec = 0)
 {
-	return number_format(floattostring($n, $dec), $dec, ',', '.');
+	return number_format(floatToString($n, $dec), $dec, ',', '.');
 }
 
 function GetUserByID($userId, $GetInfo = "*")
@@ -337,7 +337,7 @@ function shortly_number($number, $decial = NULL)
 	return pretty_number($negate * $number, $decial).'&nbsp;'.$unit[$key];
 }
 
-function floattostring($number, $Pro = 0, $output = false){
+function floatToString($number, $Pro = 0, $output = false){
 	return $output ? str_replace(",",".", sprintf("%.".$Pro."f", $number)) : sprintf("%.".$Pro."f", $number);
 }
 

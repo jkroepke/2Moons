@@ -263,7 +263,7 @@ class ShowShipyardPage extends AbstractGamePage
 				'costOverflow'		=> $costOverflow,
 				'elementTime'    	=> $elementTime,
 				'buyable'			=> $buyable,
-				'maxBuildable'		=> floattostring($maxBuildable),
+				'maxBuildable'		=> floatToString($maxBuildable),
 				'AlreadyBuild'		=> $AlreadyBuild,
 			);
 		}

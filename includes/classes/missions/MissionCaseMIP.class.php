@@ -154,8 +154,8 @@ class MissionCaseMIP extends MissionFunctions implements Mission
 			':planetId'	=> $this->_fleet['fleet_start_id'],
 		), 'name');
 
-		$ownerLink			= $planetName." ".GetStartAdressLink($this->_fleet);
-		$targetLink 		= $targetData['name']." ".GetTargetAdressLink($this->_fleet);
+		$ownerLink			= $planetName." ".GetStartAddressLink($this->_fleet);
+		$targetLink 		= $targetData['name']." ".GetTargetAddressLink($this->_fleet);
 		$message			= sprintf($LNG['sys_irak_mess'], $this->_fleet['fleet_amount'], $ownerLink, $targetLink).$message;
 
 		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 3,

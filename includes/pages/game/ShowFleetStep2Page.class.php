@@ -124,14 +124,14 @@ class ShowFleetStep2Page extends AbstractGamePage
 			$targetMission	= 2;
 
 		$fleetData	= array(
-			'fleetroom'			=> floattostring($_SESSION['fleet'][$token]['fleetRoom']),
-			'consumption'		=> floattostring($consumption),
+			'fleetroom'			=> floatToString($_SESSION['fleet'][$token]['fleetRoom']),
+			'consumption'		=> floatToString($consumption),
 		);
 			
 		$this->tplObj->execscript('calculateTransportCapacity();');
 		$this->assign(array(
 			'fleetdata'						=> $fleetData,
-			'consumption'					=> floattostring($consumption),
+			'consumption'					=> floatToString($consumption),
 			'mission'						=> $targetMission,
 			'galaxy'			 			=> $PLANET['galaxy'],
 			'system'			 			=> $PLANET['system'],

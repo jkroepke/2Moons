@@ -256,7 +256,7 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 		{
 			foreach($_REQUEST['im'] as $ID => $Count)
 			{
-				$BattleArray[0][1][$ID]	= floattostring($Count);
+				$BattleArray[0][1][$ID]	= floatToString($Count);
 			}
 		}
 		

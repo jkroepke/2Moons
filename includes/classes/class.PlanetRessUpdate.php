@@ -711,12 +711,12 @@ class ResourceUpdate
 				elseif(isset($PLANET[$resource[$Element]]))
 				{
 					$buildQueries[]						= ', p.'.$resource[$Element].' = p.'.$resource[$Element].' + :'.$resource[$Element];
-					$params[':'.$resource[$Element]]	= floattostring($Count);
+					$params[':'.$resource[$Element]]	= floatToString($Count);
 				}
 				elseif(isset($USER[$resource[$Element]]))
 				{
 					$buildQueries[]						= ', u.'.$resource[$Element].' = u.'.$resource[$Element].' + :'.$resource[$Element];
-					$params[':'.$resource[$Element]]	= floattostring($Count);
+					$params[':'.$resource[$Element]]	= floatToString($Count);
 				}
 			}
 		}

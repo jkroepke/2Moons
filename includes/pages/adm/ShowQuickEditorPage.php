@@ -140,9 +140,9 @@ function ShowQuickEditorPage()
 				'field_max'		=> $PlanetData['field_max'],
 				'temp_min'		=> $PlanetData['temp_min'],
 				'temp_max'		=> $PlanetData['temp_max'],
-				'metal'			=> floattostring($PlanetData['metal']),
-				'crystal'		=> floattostring($PlanetData['crystal']),
-				'deuterium'		=> floattostring($PlanetData['deuterium']),
+				'metal'			=> floatToString($PlanetData['metal']),
+				'crystal'		=> floatToString($PlanetData['crystal']),
+				'deuterium'		=> floatToString($PlanetData['deuterium']),
 				'metal_c'		=> pretty_number($PlanetData['metal']),
 				'crystal_c'		=> pretty_number($PlanetData['crystal']),
 				'deuterium_c'	=> pretty_number($PlanetData['deuterium']),
@@ -251,7 +251,7 @@ function ShowQuickEditorPage()
 				'authattack'	=> $UserData['authattack'],
 				'multi'			=> $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$id.";"),
 				'ChangePW'		=> $ChangePW,
-				'darkmatter'	=> floattostring($UserData['darkmatter']),
+				'darkmatter'	=> floatToString($UserData['darkmatter']),
 				'darkmatter_c'	=> pretty_number($UserData['darkmatter']),
 			));
 			$template->show('QuickEditorUser.tpl');

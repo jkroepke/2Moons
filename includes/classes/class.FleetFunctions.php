@@ -390,7 +390,7 @@ class FleetFunctions
 	{
 		$FleetInfo	= array();
 		foreach ($FleetArray as $ShipID => $Amount) {
-			$FleetInfo[$ShipID]	= array('consumption' => self::GetShipConsumption($ShipID, $Player), 'speed' => self::GetFleetMaxSpeed($ShipID, $Player), 'amount' => floattostring($Amount));
+			$FleetInfo[$ShipID]	= array('consumption' => self::GetShipConsumption($ShipID, $Player), 'speed' => self::GetFleetMaxSpeed($ShipID, $Player), 'amount' => floatToString($Amount));
 		}
 		return $FleetInfo;
 	}
@@ -496,10 +496,10 @@ class FleetFunctions
 
 		$planetQuery	= "";
 		foreach($fleetArray as $ShipID => $ShipCount) {
-			$fleetData[]	= $ShipID.','.floattostring($ShipCount);
+			$fleetData[]	= $ShipID.','.floatToString($ShipCount);
 			$planetQuery[]	= $resource[$ShipID]." = ".$resource[$ShipID]." - :".$resource[$ShipID];
 
-			$params[':'.$resource[$ShipID]]	= floattostring($ShipCount);
+			$params[':'.$resource[$ShipID]]	= floatToString($ShipCount);
 		}
 
 		$sql	= 'UPDATE %%PLANETS%% SET '.implode(', ', $planetQuery).' WHERE id = :planetId;';

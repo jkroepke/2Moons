@@ -64,7 +64,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 			FleetFunctions::GotoFleetPage();
 	
 		$FleetData	= array(
-			'fleetroom'			=> floattostring($FleetRoom),
+			'fleetroom'			=> floatToString($FleetRoom),
 			'gamespeed'			=> FleetFunctions::GetGameSpeedFactor(),
 			'fleetspeedfactor'	=> max(0, 1 + $USER['factor']['FlyTime']),
 			'planet'			=> array('galaxy' => $PLANET['galaxy'], 'system' => $PLANET['system'], 'planet' => $PLANET['planet'], 'planet_type' => $PLANET['planet_type']),
