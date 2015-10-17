@@ -39,6 +39,7 @@ function ShowModulePage()
 		$module[HTTP::_GP('id', 0)]	= ($_GET['mode'] == 'aktiv') ? 1 : 0;
 		$config->moduls = implode(";", $module);
 		$config->save();
+		ClearCache();
 	}
 	
 	$IDs	= range(0, MODULE_AMOUNT - 1);
