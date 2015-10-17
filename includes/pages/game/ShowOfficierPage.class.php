@@ -102,9 +102,9 @@ class ShowOfficierPage extends AbstractGamePage
 				
 		if (!empty($updateID) && $_SERVER['REQUEST_METHOD'] === 'POST' && $USER['urlaubs_modus'] == 0)
 		{
-			if(isModulAvalible(MODULE_OFFICIER) && in_array($updateID, $reslist['officier'])) {
+			if(isModuleAvailable(MODULE_OFFICIER) && in_array($updateID, $reslist['officier'])) {
 				$this->UpdateOfficier($updateID);
-			} elseif(isModulAvalible(MODULE_DMEXTRAS) && in_array($updateID, $reslist['dmfunc'])) {
+			} elseif(isModuleAvailable(MODULE_DMEXTRAS) && in_array($updateID, $reslist['dmfunc'])) {
 				$this->UpdateExtra($updateID);
 			}
 		}
@@ -112,7 +112,7 @@ class ShowOfficierPage extends AbstractGamePage
 		$darkmatterList	= array();
 		$officierList	= array();
 		
-		if(isModulAvalible(MODULE_DMEXTRAS)) 
+		if(isModuleAvailable(MODULE_DMEXTRAS))
 		{
 			foreach($reslist['dmfunc'] as $Element)
 			{
@@ -136,7 +136,7 @@ class ShowOfficierPage extends AbstractGamePage
 			}
 		}
 		
-		if(isModulAvalible(MODULE_OFFICIER))
+		if(isModuleAvailable(MODULE_OFFICIER))
 		{
 			foreach($reslist['officier'] as $Element)
 			{

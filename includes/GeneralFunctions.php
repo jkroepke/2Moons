@@ -207,34 +207,18 @@ function pretty_time($seconds)
 	$hour	= floor($seconds / 3600 % 24);
 	$minute	= floor($seconds / 60 % 60);
 	$second	= floor($seconds % 60);
-	
+
 	$time  = '';
-	
-	if($day >= 10) {
-		$time .= $day.$LNG['short_day'].' ';
-	} elseif($day > 0) {
-		$time .= '0'.$day.$LNG['short_day'].' ';
-	}
-	
-	if($hour >= 10) {
-		$time .= $hour.$LNG['short_hour'].' ';
-	} else {
-		$time .= '0'.$hour.$LNG['short_hour'].' ';
-	}
-	
-	if($minute >= 10) {
-		$time .= $minute.$LNG['short_minute'].' ';
-	} else {
-		$time .= '0'.$minute.$LNG['short_minute'].' ';
-	}
-	
-	if($second >= 10) {
-		$time .= $second.$LNG['short_second'];
-	} else {
-		$time .= '0'.$second.$LNG['short_second'];
+
+	if($day > 0) {
+		$time .= sprintf('%d%s', $day, $LNG['short_day']);
 	}
 
-	return $time;
+	return $time.sprintf('%02d%s %02d%s %02d%s',
+		$minute, $LNG['short_minute'],
+		$hour, $LNG['short_hour'],
+		$second, $LNG['short_second']
+	);
 }
 
 function pretty_fly_time($seconds)
@@ -242,32 +226,8 @@ function pretty_fly_time($seconds)
 	$hour	= floor($seconds / 3600);
 	$minute	= floor($seconds / 60 % 60);
 	$second	= floor($seconds % 60);
-	
-	$time  = '';
-	
-	if($hour >= 10) {
-		$time .= $hour;
-	} else {
-		$time .= '0'.$hour;
-	}
-	
-	$time .= ':';
-	
-	if($minute >= 10) {
-		$time .= $minute;
-	} else {
-		$time .= '0'.$minute;
-	}
-	
-	$time .= ':';
-	
-	if($second >= 10) {
-		$time .= $second;
-	} else {
-		$time .= '0'.$second;
-	}
 
-	return $time;
+	return sprintf('%02d:%02d:%02d', $hour, $minute, $second);
 }
 
 function GetStartAdressLink($FleetRow, $FleetType = '')
@@ -377,11 +337,11 @@ function shortly_number($number, $decial = NULL)
 	return pretty_number($negate * $number, $decial).'&nbsp;'.$unit[$key];
 }
 
-function floattostring($Numeric, $Pro = 0, $Output = false){
-	return ($Output) ? str_replace(",",".", sprintf("%.".$Pro."f", $Numeric)) : sprintf("%.".$Pro."f", $Numeric);
+function floattostring($number, $Pro = 0, $output = false){
+	return $output ? str_replace(",",".", sprintf("%.".$Pro."f", $number)) : sprintf("%.".$Pro."f", $number);
 }
 
-function isModulAvalible($ID)
+function isModuleAvailable($ID)
 {
 	global $USER;
 	$modules	= explode(';', Config::get()->moduls);

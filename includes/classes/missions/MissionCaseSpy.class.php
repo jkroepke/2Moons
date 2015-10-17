@@ -158,7 +158,7 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 			'targetPlanet'	=> $targetPlanet,
 			'targetChance'	=> $targetChance,
 			'spyChance'		=> $spyChance,
-			'isBattleSim'	=> ENABLE_SIMULATOR_LINK == true && isModulAvalible(MODULE_SIMULATOR),
+			'isBattleSim'	=> ENABLE_SIMULATOR_LINK == true && isModuleAvailable(MODULE_SIMULATOR),
 			'title'			=> sprintf($LNG['sys_mess_head'], $targetPlanet['name'], $targetPlanet['galaxy'], $targetPlanet['system'], $targetPlanet['planet'], _date($LNG['php_tdformat'], $this->_fleet['fleet_end_time'], $targetUser['timezone'], $LNG)),
 		));
 		

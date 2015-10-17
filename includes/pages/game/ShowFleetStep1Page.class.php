@@ -193,7 +193,7 @@ class ShowFleetStep1Page extends AbstractGamePage
 	{
 		global $USER;
 		
-		if (!isModulAvalible(MODULE_SHORTCUTS))
+		if (!isModuleAvailable(MODULE_SHORTCUTS))
 			return array();
 
         $db = Database::get();

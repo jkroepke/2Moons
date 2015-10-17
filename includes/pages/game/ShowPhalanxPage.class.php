@@ -35,7 +35,7 @@ class ShowPhalanxPage extends AbstractGamePage
 	{
 		global $PLANET, $resource;
 
-		if ($PLANET['galaxy'] != $toGalaxy || $PLANET[$resource[42]] == 0 || !isModulAvalible(MODULE_PHALANX) || $PLANET[$resource[903]] < PHALANX_DEUTERIUM) {
+		if ($PLANET['galaxy'] != $toGalaxy || $PLANET[$resource[42]] == 0 || !isModuleAvailable(MODULE_PHALANX) || $PLANET[$resource[903]] < PHALANX_DEUTERIUM) {
 			return false;
 		}
 		
@@ -50,9 +50,9 @@ class ShowPhalanxPage extends AbstractGamePage
 	{
 		return ($PhalanxLevel == 1) ? 1 : pow($PhalanxLevel, 2) - 1;
 	}
-	
+
 	function __construct() {
-		
+
 	}
 	
 	function show()

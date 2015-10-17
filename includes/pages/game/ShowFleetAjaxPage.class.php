@@ -79,7 +79,7 @@ class ShowFleetAjaxPage extends AbstractGamePage
 		switch($targetMission)
 		{
 			case 6:
-				if(!isModulAvalible(MODULE_MISSION_SPY)) {
+				if(!isModuleAvailable(MODULE_MISSION_SPY)) {
 					$this->sendData(699, $LNG['sys_module_inactive']);
 				}
 
@@ -93,7 +93,7 @@ class ShowFleetAjaxPage extends AbstractGamePage
 				$this->returnData['ships'][210]	= $PLANET[$resource[210]] - $ships;
 				break;
 			case 8:
-				if(!isModulAvalible(MODULE_MISSION_RECYCLE)) {
+				if(!isModuleAvailable(MODULE_MISSION_RECYCLE)) {
 					$this->sendData(699, $LNG['sys_module_inactive']);
 				}
 

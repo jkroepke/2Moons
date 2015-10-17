@@ -54,7 +54,7 @@ $pageObj	= new $pageClass;
 // can't use $pageObj::$requireModule
 $pageProps	= get_class_vars(get_class($pageObj));
 
-if(isset($pageProps['requireModule']) && $pageProps['requireModule'] !== 0 && !isModulAvalible($pageProps['requireModule'])) {
+if(isset($pageProps['requireModule']) && $pageProps['requireModule'] !== 0 && !isModuleAvailable($pageProps['requireModule'])) {
 	ShowErrorPage::printError($LNG['sys_module_inactive']);
 }
 

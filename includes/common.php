@@ -127,7 +127,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 	require 'includes/classes/class.BuildFunctions.php';
 	require 'includes/classes/class.PlanetRessUpdate.php';
 	
-	if(!AJAX_REQUEST && MODE === 'INGAME' && isModulAvalible(MODULE_FLEET_EVENTS)) {
+	if(!AJAX_REQUEST && MODE === 'INGAME' && isModuleAvailable(MODULE_FLEET_EVENTS)) {
 		require('includes/FleetHandler.php');
 	}
 	

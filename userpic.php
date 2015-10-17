@@ -37,7 +37,7 @@ if(!extension_loaded('gd')) {
 require 'includes/common.php';
 $id = HTTP::_GP('id', 0);
 
-if(!isModulAvalible(MODULE_BANNER) || $id == 0) {
+if(!isModuleAvailable(MODULE_BANNER) || $id == 0) {
 	clearGIF();
 }
 
