@@ -36,6 +36,7 @@ class Database
 		$db = new PDO("mysql:host=".$database['host'].";port=".$database['port'].";dbname=".$database['databasename'], $database['user'], $database['userpw']);
 		//error behaviour
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		$db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
 		$db->query("set character set utf8");
 		$db->query("set names utf8");
 		$this->dbHandle = $db;
