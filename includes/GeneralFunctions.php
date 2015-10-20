@@ -215,8 +215,8 @@ function pretty_time($seconds)
 	}
 
 	return $time.sprintf('%02d%s %02d%s %02d%s',
-		$minute, $LNG['short_minute'],
 		$hour, $LNG['short_hour'],
+		$minute, $LNG['short_minute'],
 		$second, $LNG['short_second']
 	);
 }
