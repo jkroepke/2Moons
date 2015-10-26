@@ -40,7 +40,22 @@ class ShowBattleHallPage extends AbstractGamePage
 		global $USER, $LNG;
 		$order  = HTTP::_GP('order', 'units');
 		$sort   = HTTP::_GP('sort', 'desc');
-		$sort   = strtoupper($sort);
+		$sort   = strtoupper($sort) === "DESC" ? "DESC" : "ASC";
+
+
+		switch($order)
+		{
+			case 'date':
+				$key = '%%TOPKB%%.time '.$sort;
+				break;
+			case 'owner':
+				$key = '%%TOPKB%%.attacker '.$sort.',%%TOPKB%%.defender '.$sort;
+				break;
+			case 'units':
+			default:
+				$key = '%%TOPKB%%.units '.$sort;
+				break;
+		}
 
 		$db = Database::get();
 		$sql = "SELECT *, (
@@ -56,8 +71,7 @@ class ShowBattleHallPage extends AbstractGamePage
 			FROM %%TOPKB_USERS%% INNER JOIN %%USERS%% ON uid = id
 			WHERE %%TOPKB_USERS%%.rid = %%TOPKB%%.`rid` AND `role` = 2
 		) as defender
-		,@rank:=@rank+1 as rank
-		FROM %%TOPKB%% WHERE universe = :universe ORDER BY units DESC LIMIT 100;";
+		FROM %%TOPKB%% WHERE universe = :universe ORDER BY ".$key." LIMIT 100;";
 
 		$top = $db->select($sql, array(
 			':universe' => Universe::current()
@@ -66,21 +80,7 @@ class ShowBattleHallPage extends AbstractGamePage
 		$TopKBList	= array();
 		foreach($top as $data)
 		{
-			switch($order)
-			{
-				case 'date':
-					$key = $data['time'];
-					break;
-				case 'owner':
-					$key = $data['attacker'].$data['defender'];
-					break;
-				case 'units':
-				default:
-					$key = $data['units'];
-					break;
-			}
-
-			$TopKBList[$key][]	= array(
+			$TopKBList[]	= array(
 				'result'	=> $data['result'],
 				'date'		=> _date($LNG['php_tdformat'], $data['time'], $USER['timezone']),
 				'time'		=> TIMESTAMP - $data['time'],
@@ -89,17 +89,6 @@ class ShowBattleHallPage extends AbstractGamePage
 				'attacker'	=> $data['attacker'],
 				'defender'	=> $data['defender'],
 			);
-		}
-
-		ksort($TopKBList);
-
-		if($sort === "DESC")
-		{
-			$TopKBList	= array_reverse($TopKBList);
-		}
-		else
-		{
-			$sort = "ASC";
 		}
 
 		$this->assign(array(

@@ -26,9 +26,14 @@
  * @link http://2moons.cc/
  */
 
- 
+if ($USER['authlevel'] == AUTH_USR)
+{
+    throw new PagePermissionException("Permission error!");
+}
+
 function ShowLogoutPage()
 {
-	unset($_SESSION['admin_login']);
+	$session	= Session::create();
+	$session->adminAccess	= 0;
 }
 

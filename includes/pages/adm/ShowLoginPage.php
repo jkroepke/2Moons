@@ -33,7 +33,7 @@ if ($USER['authlevel'] == AUTH_USR)
 
 function ShowLoginPage()
 {
-	global $USER, $LNG;
+	global $USER;
 	
 	$session	= Session::create();
 	if($session->adminAccess == 1)
