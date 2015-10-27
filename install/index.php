@@ -40,11 +40,11 @@ $LNG->includeData(array('L18N', 'INGAME', 'INSTALL', 'CUSTOM'));
 
 $template = new template();
 $template->assign(array(
-   'lang'       => $LNG->getLanguage(),
-   'Selector'   => $LNG->getAllowedLangs(false),
-   'title'      => $LNG['title_install'] . ' &bull; 2Moons',
-   'header'     => $LNG['menu_install'],
-   'canUpgrade' => file_exists('includes/config.php') && filesize('includes/config.php') !== 0
+	'lang'       => $LNG->getLanguage(),
+	'Selector'   => $LNG->getAllowedLangs(false),
+	'title'      => $LNG['title_install'] . ' &bull; 2Moons',
+	'header'     => $LNG['menu_install'],
+	'canUpgrade' => file_exists('includes/config.php') && filesize('includes/config.php') !== 0
 ));
 
 $enableInstallToolFile = 'includes/ENABLE_INSTALL_TOOL';
@@ -239,9 +239,9 @@ switch ($mode) {
 		Database::get()->update("UPDATE %%CONFIG%% SET VERSION = '" . implode('.', $gameVersion) . "', sql_revision = " . $revision . ";");
 		ClearCache();
 		$template->assign_vars(array(
-									'update'   => !empty($fileList),
-									'revision' => $revision,
-									'header'   => $LNG['menu_upgrade'],));
+			'update'   => !empty($fileList),
+			'revision' => $revision,
+			'header'   => $LNG['menu_upgrade'],));
 		$template->show('ins_doupdate.tpl');
 		break;
 	case 'install':
@@ -254,7 +254,7 @@ switch ($mode) {
 					}
 					else {
 						$template->assign(array(
-											   'accept' => false,));
+							'accept' => false,));
 					}
 				}
 				$template->show('ins_license.tpl');
@@ -334,15 +334,19 @@ switch ($mode) {
 				$directories = array('cache/', 'cache/templates/', 'cache/sessions/', 'includes/');
 				$dirs        = "";
 				foreach ($directories as $dir) {
-					if (is_writable(ROOT_PATH . $dir)) {
-						$chmod = "<span class=\"yes\"> - " . $LNG['reg_writable'] . "</span>";
+					if (file_exists(ROOT_PATH . $dir) || @mkdir(ROOT_PATH . $dir)) {
+						if (is_writable(ROOT_PATH . $dir)) {
+							$chmod = "<span class=\"yes\"> - " . $LNG['reg_writable'] . "</span>";
+						} else {
+							$chmod = " - <span class=\"no\">" . $LNG['reg_not_writable'] . "</span>";
+							$error = true;
+							$ftp = true;
+						}
+						$dirs .= "<tr><td class=\"transparent left\"><p>" . sprintf($LNG['reg_dir'], $dir) . "</p></td><td class=\"transparent\"><span class=\"yes\">" . $LNG['reg_found'] . "</span>" . $chmod . "</td></tr>";
 					}
 					else {
-						$chmod = " - <span class=\"no\">" . $LNG['reg_not_writable'] . "</span>";
-						$error = true;
-						$ftp   = true;
+						$dirs .= "<tr><td class=\"transparent left\"><p>" . sprintf($LNG['reg_dir'], $dir) . "</p></td><td class=\"transparent\"><span class=\"no\">" . $LNG['reg_not_found'] . "</span></td></tr>";
 					}
-					$dirs .= "<tr><td class=\"transparent left\"><p>" . sprintf($LNG['reg_dir'], $dir) . "</p></td><td class=\"transparent\"><span class=\"yes\">" . $LNG['reg_found'] . "</span>" . $chmod . "</td></tr>";
 				}
 				if ($error == false) {
 					$done = '<tr class="noborder"><td colspan="2" class="transparent"><a href="index.php?mode=install&step=3"><button style="cursor: pointer;">' . $LNG['continue'] . '</button></a></td></tr>';
@@ -351,16 +355,16 @@ switch ($mode) {
 					$done = '';
 				}
 				$template->assign(array(
-									   'dir'    => $dirs,
-									   'json'   => $json,
-									   'done'   => $done,
-									   'config' => $config,
-									   'gdlib'  => $gdlib,
-									   'PHP'    => $PHP,
-									   'pdo'    => $pdo,
-									   'ftp'    => $ftp,
-									   'iniset' => $iniset,
-									   'global' => $global));
+					'dir'    => $dirs,
+					'json'   => $json,
+					'done'   => $done,
+					'config' => $config,
+					'gdlib'  => $gdlib,
+					'PHP'    => $PHP,
+					'pdo'    => $pdo,
+					'ftp'    => $ftp,
+					'iniset' => $iniset,
+					'global' => $global));
 				$template->show('ins_req.tpl');
 				break;
 			case 3:
@@ -374,51 +378,51 @@ switch ($mode) {
 				$dbname = HTTP::_GP('dbname', '', true);
 				$prefix = HTTP::_GP('prefix', 'uni1_');
 				$template->assign(array(
-									   'host'   => $host,
-									   'port'   => $port,
-									   'user'   => $user,
-									   'dbname' => $dbname,
-									   'prefix' => $prefix,));
+					'host'   => $host,
+					'port'   => $port,
+					'user'   => $user,
+					'dbname' => $dbname,
+					'prefix' => $prefix,));
 				if (empty($dbname)) {
 					$template->assign(array(
-										   'class'   => 'fatalerror',
-										   'message' => $LNG['step2_db_no_dbname'],));
+						'class'   => 'fatalerror',
+						'message' => $LNG['step2_db_no_dbname'],));
 					$template->show('ins_step4.tpl');
 					exit;
 				}
 				if (strlen($prefix) > 36) {
 					$template->assign(array(
-										   'class'   => 'fatalerror',
-										   'message' => $LNG['step2_db_too_long'],));
+						'class'   => 'fatalerror',
+						'message' => $LNG['step2_db_too_long'],));
 					$template->show('ins_step4.tpl');
 					exit;
 				}
 				if (strspn($prefix, '-./\\') !== 0) {
 					$template->assign(array(
-										   'class'   => 'fatalerror',
-										   'message' => $LNG['step2_prefix_invalid'],));
+						'class'   => 'fatalerror',
+						'message' => $LNG['step2_prefix_invalid'],));
 					$template->show('ins_step4.tpl');
 					exit;
 				}
 				if (preg_match('!^[0-9]!', $prefix) !== 0) {
 					$template->assign(array(
-										   'class'   => 'fatalerror',
-										   'message' => $LNG['step2_prefix_invalid'],));
+						'class'   => 'fatalerror',
+						'message' => $LNG['step2_prefix_invalid'],));
 					$template->show('ins_step4.tpl');
 					exit;
 				}
 				if (is_file(ROOT_PATH . "includes/config.php") && filesize(ROOT_PATH . "includes/config.php") != 0) {
 					$template->assign(array(
-										   'class'   => 'fatalerror',
-										   'message' => $LNG['step2_config_exists'],));
+						'class'   => 'fatalerror',
+						'message' => $LNG['step2_config_exists'],));
 					$template->show('ins_step4.tpl');
 					exit;
 				}
 				@touch(ROOT_PATH . "includes/config.php");
 				if (!is_writable(ROOT_PATH . "includes/config.php")) {
 					$template->assign(array(
-										   'class'   => 'fatalerror',
-										   'message' => $LNG['step2_conf_op_fail'],));
+						'class'   => 'fatalerror',
+						'message' => $LNG['step2_conf_op_fail'],));
 					$template->show('ins_step4.tpl');
 					exit;
 				}
@@ -436,17 +440,17 @@ switch ($mode) {
 				}
 				catch (Exception $e) {
 					$template->assign(array(
-										   'class'   => 'fatalerror',
-										   'message' => $LNG['step2_db_con_fail'] . '</p><p>' . $e->getMessage(),));
+						'class'   => 'fatalerror',
+						'message' => $LNG['step2_db_con_fail'] . '</p><p>' . $e->getMessage(),));
 					$template->show('ins_step4.tpl');
-					
+
 					unlink(ROOT_PATH . 'includes/config.php');
 					exit;
 				}
 				@touch(ROOT_PATH . "includes/error.log");
 				$template->assign(array(
-									   'class'   => 'noerror',
-									   'message' => $LNG['step2_db_done'],));
+					'class'   => 'noerror',
+					'message' => $LNG['step2_db_done'],));
 				$template->show('ins_step4.tpl');
 				exit;
 				break;
@@ -478,11 +482,11 @@ switch ($mode) {
 						'%VERSION%',
 						'%REVISION%'
 					), array(
-						 DB_PREFIX,
-						 $installVersion,
-						 $installRevision,
-						 $installSQL
-				    ), $installSQL));
+						DB_PREFIX,
+						$installVersion,
+						$installRevision,
+						$installSQL
+					), $installSQL));
 
 					$config = Config::get(Universe::current());
 					$config->timezone			= @date_default_timezone_get();
@@ -510,7 +514,7 @@ switch ($mode) {
 						'prefix'  => $database['tableprefix'],
 						'class'   => 'fatalerror',
 						'message' => $LNG['step3_db_error'] . '</p><p>' . $error,
-				  	));
+					));
 					$template->show('ins_step4.tpl');
 					exit;
 				}
@@ -551,9 +555,9 @@ switch ($mode) {
 		break;
 	default:
 		$template->assign(array(
-							   'intro_text'    => $LNG['intro_text'],
-							   'intro_welcome' => $LNG['intro_welcome'],
-							   'intro_install' => $LNG['intro_install'],));
+			'intro_text'    => $LNG['intro_text'],
+			'intro_welcome' => $LNG['intro_welcome'],
+			'intro_install' => $LNG['intro_install'],));
 		$template->show('ins_intro.tpl');
 		break;
 }
