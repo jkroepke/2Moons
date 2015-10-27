@@ -66,8 +66,8 @@ class BuildFunctions
 		$overflow	= array();
 		
 		foreach ($elementPrice as $resType => $resPrice) {
-			$avalible			= isset($PLANET[$resource[$resType]]) ? $PLANET[$resource[$resType]] : $USER[$resource[$resType]];
-			$overflow[$resType] = max($resPrice - $avalible, 0);
+			$available			= isset($PLANET[$resource[$resType]]) ? $PLANET[$resource[$resType]] : $USER[$resource[$resType]];
+			$overflow[$resType] = max($resPrice - floor($available), 0);
 		}
 
 		return $overflow;
