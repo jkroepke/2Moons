@@ -375,11 +375,13 @@ function ClearCache()
 		':ecoHash'	=> ''
 	));
 	clearstatcache();
+
+	/* does no work on git.
+
 	// Find currently Revision
-	
-	$config		= Config::get();
-	
-	$version	= explode('.', $config->VERSION);
+
+
+
 	$REV = 0;
 
 	$iterator = new RecursiveDirectoryIterator(ROOT_PATH);
@@ -397,6 +399,11 @@ function ClearCache()
 	}
 	
 	$config->VERSION	= $version[0].'.'.$version[1].'.'.$REV;
+	*/
+
+	$config		= Config::get();
+	$version	= explode('.', $config->VERSION);
+	$config->VERSION	= $version[0].'.'.$version[1].'.'.'git';
 	$config->save();
 	
 }
