@@ -319,7 +319,7 @@ class ShowSettingsPage extends AbstractGamePage
 				$sql = "SELECT
 							(SELECT COUNT(*) FROM %%USERS%% WHERE id != :userID AND universe = :universe AND (email = :email OR email_2 = :email)) +
 							(SELECT COUNT(*) FROM %%USERS_VALID%% WHERE universe = :universe AND email = :email)
-						as COUNT";
+						as count";
 				$Count = $db->selectSingle($sql, array(
 					':universe'	=> Universe::current(),
 					':userID'	=> $USER['id'],
