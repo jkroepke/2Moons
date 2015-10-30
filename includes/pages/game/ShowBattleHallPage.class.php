@@ -48,9 +48,6 @@ class ShowBattleHallPage extends AbstractGamePage
 			case 'date':
 				$key = '%%TOPKB%%.time '.$sort;
 				break;
-			case 'owner':
-				$key = '%%TOPKB%%.attacker '.$sort.',%%TOPKB%%.defender '.$sort;
-				break;
 			case 'units':
 			default:
 				$key = '%%TOPKB%%.units '.$sort;
