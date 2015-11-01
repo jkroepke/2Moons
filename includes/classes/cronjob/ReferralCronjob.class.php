@@ -49,6 +49,7 @@ class ReferralCronJob implements CronjobTask
 		WHERE user.`ref_bonus` = 1;';
 
 		$userArray	= $db->select($sql, array(
+			':type'		=> 1,
 			':points'	=> Config::get(ROOT_UNI)->ref_minpoints
 		));
 
