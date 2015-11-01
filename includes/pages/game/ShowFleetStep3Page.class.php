@@ -193,13 +193,13 @@ class ShowFleetStep3Page extends AbstractGamePage
 		
 		if ($targetMission == 11)
 		{
-			$activeExpedition	= FleetFunctions::GetCurrentFleets($USER['id'], 11);
+			$activeExpedition	= FleetFunctions::GetCurrentFleets($USER['id'], 11, true);
 			$maxExpedition		= FleetFunctions::getDMMissionLimit($USER);
 
 			if ($activeExpedition >= $maxExpedition) {
 				$this->printMessage($LNG['fl_no_expedition_slot'], array(array(
 					'label'	=> $LNG['sys_back'],
-					'url'	=> 'game.php?page=fleet'
+					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
 		}
@@ -211,7 +211,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 			if ($activeExpedition >= $maxExpedition) {
 				$this->printMessage($LNG['fl_no_expedition_slot'], array(array(
 					'label'	=> $LNG['sys_back'],
-					'url'	=> 'game.php?page=fleet'
+					'url'	=> 'game.php?page=fleetTable'
 				)));
 			}
 		}

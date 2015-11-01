@@ -70,7 +70,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 		{
 			$this->printMessage($LNG['fl_error_empty_derbis'], array(array(
 				'label'	=> $LNG['sys_back'],
-				'url'	=> 'game.php?page=fleet1'
+				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
 			
@@ -88,7 +88,7 @@ class ShowFleetStep2Page extends AbstractGamePage
 		{
 			$this->printMessage($LNG['fl_empty_target'], array(array(
 				'label'	=> $LNG['sys_back'],
-				'url'	=> 'game.php?page=fleet1'
+				'url'	=> 'game.php?page=fleetTable'
 			)));
 		}
 		
