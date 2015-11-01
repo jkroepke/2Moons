@@ -50,6 +50,7 @@
 	
 	#content {
 		color:#CCC;
+        position: inherit;
 	}
 	#content h1 {
 		color:#CCC;
@@ -70,6 +71,12 @@
 		background: rgba(13, 16, 20, 0.95);
 		border: 0px;
 	}
+
+    #content #onlineListContainer #onlineList div > a {
+        padding-bottom: 2px;
+        padding-top: 4px;
+    }
+
 	.statusContainerOn {
 		background-image: url('../img/loading.png');
 	}
@@ -79,10 +86,14 @@
 	.statusContainerAlert {
 		background-image: url('../img/loading-trouble.png');
 	}
-	#content #bbCodeContainer input, #content #logoutButton, #content #submitButton {
+	#content #bbCodeContainer input, #content #submitButton {
 		margin:2px;
 		text-align:center;
 	}
+    #content #logoutChannelContainer {
+        display:none;
+    }
+
 	#content #colorCodesContainer a {
 		border-color:black;
 	}

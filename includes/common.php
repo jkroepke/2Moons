@@ -113,8 +113,6 @@ if(defined('DATABASE_VERSION') && DATABASE_VERSION === 'OLD')
 $config = Config::get();
 date_default_timezone_set($config->timezone);
 
-require 'includes/vars.php';
-
 if (MODE === 'INGAME' || MODE === 'ADMIN')
 {
 	$session	= Session::load();
@@ -124,6 +122,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 		HTTP::redirectTo('index.php?code=3');
 	}
 
+	require 'includes/vars.php';
 	require 'includes/classes/class.BuildFunctions.php';
 	require 'includes/classes/class.PlanetRessUpdate.php';
 	
@@ -211,4 +210,13 @@ elseif(MODE === 'LOGIN')
 	$LNG	= new Language();
 	$LNG->getUserAgentLanguage();
 	$LNG->includeData(array('L18N', 'INGAME', 'PUBLIC', 'CUSTOM'));
+}
+elseif(MODE === 'CHAT')
+{
+	$session	= Session::load();
+
+	if(!$session->isValidSession())
+	{
+		HTTP::redirectTo('index.php?code=3');
+	}
 }

@@ -81,11 +81,13 @@ class CustomAJAXChat extends AJAXChat
 	function initCustomConfig()
 	{
 		define('MODE', 'CHAT');
-		define('ROOT_PATH', str_replace('\\', '/',dirname(dirname(__FILE__))).'/');
+		define('ROOT_PATH', str_replace('\\', '/',dirname(dirname(dirname(dirname(__FILE__))))).'/');
 		set_include_path(ROOT_PATH);
+		chdir(ROOT_PATH);
 
 		$database		= array();
 		require 'includes/config.php';
+		require 'includes/common.php';
 
 		$this->setConfig('dbConnection', 'type', 'mysqli');
 		$this->setConfig('dbConnection', 'host', $database['host']);
@@ -115,6 +117,11 @@ class CustomAJAXChat extends AJAXChat
 		$this->setConfig('langNames', false, Language::getAllowedLangs(false));
 		$this->setConfig('forceAutoLogin', false, true);
 		$this->setConfig('contentType', false, 'text/html');
+		$this->setConfig('langDefault', false, DEFAULT_LANG);
+		$this->setConfig('allowGuestLogins', false, false);
+		$this->setConfig('showChannelMessages', false, false);
+		$this->setConfig('styleDefault', false, '2Moons');
+		$this->setConfig('styleAvailable', false, array('2Moons'));
 	}
 	
 	function initCustomSession()
@@ -174,7 +181,7 @@ class CustomAJAXChat extends AJAXChat
 
 	// Store all existing channels
 	// Make sure channel names don't contain any whitespace
-	function getAllChannels() {
+	function &getAllChannels() {
 		if($this->_allChannels === NULL) {
 			$this->_allChannels = array(
 				$this->trimChannelName($this->getConfig('defaultChannelName')) => $this->getConfig('defaultChannelID')

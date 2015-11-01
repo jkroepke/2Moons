@@ -573,7 +573,7 @@ class PlayerUtil
 				':planetId'	=> $planetId
 			));
 		} else {
-			$sql	= 'DELETE FROM %%PLANETS%% WHERE id = :planetId; OR id_luna = :planetId;';
+			$sql	= 'DELETE FROM %%PLANETS%% WHERE id = :planetId OR id_luna = :planetId;';
 			$db->delete($sql, array(
 			   ':planetId'	=> $planetId
 			));
