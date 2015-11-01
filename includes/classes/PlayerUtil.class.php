@@ -541,26 +541,27 @@ class PlayerUtil
 	static public function deletePlanet($planetId)
 	{
 		$db			= Database::get();
-		$sql		= 'SELECT id_owner, planet_type FROM %%PLANETS%% WHERE id = :planetId AND id NOT IN (SELECT id_planet FROM %%USERS%%);';
+		$sql		= 'SELECT id_owner, planet_type, id_luna FROM %%PLANETS%% WHERE id = :planetId AND id NOT IN (SELECT id_planet FROM %%USERS%%);';
 		$planetData = $db->selectSingle($sql, array(
 			':planetId'	=> $planetId
 		));
 		
-		if(empty($planetType))
+		if(empty($planetData))
 		{
-			return false;
+			throw new Exception("Can not found planet #".$planetId."!");
 		}
 
-		$sql		= 'SELECT fleet_id FROM %%FLEETS%% WHERE fleet_end_id = :planetId;';
+		$sql		= 'SELECT fleet_id FROM %%FLEETS%% WHERE fleet_end_id = :planetId OR (fleet_end_type = 3 AND fleet_end_id = :moondId);';
 		$fleetIds	= $db->select($sql, array(
-			':planetId'	=> $planetId
+			':planetId'	=> $planetId,
+			':moondId'	=> $planetData['id_luna']
 		));
 
 		foreach($fleetIds as $fleetId)
 		{
-			FleetFunctions::SendFleetBack($planetData['id_owner'], $fleetId);
+			FleetFunctions::SendFleetBack(array('id' => $planetData['id_owner']), $fleetId['fleet_id']);
 		}
-		
+
 		if ($planetData['planet_type'] == 3) {
 			$sql	= 'DELETE FROM %%PLANETS%% WHERE id = :planetId;';
 			$db->delete($sql, array(
