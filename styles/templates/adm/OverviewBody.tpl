@@ -15,7 +15,12 @@
     	<th colspan="2">{$LNG.ow_overview}</th>
     </tr>
 	<tr>
-    	<td style="height:50px" colspan="2">{$LNG.ow_welcome_text}<br><iframe src="https://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2F2Moons%2F129282307106646&amp;width=292&amp;connections=0&amp;stream=false&amp;header=false&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe></td>
+    	<td style="height:50px" colspan="2">{$LNG.ow_welcome_text}
+            <!--
+            <br>
+            <iframe src="https://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2F2Moons%2F129282307106646&amp;width=292&amp;connections=0&amp;stream=false&amp;header=false&amp;height=62" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:292px; height:62px;" allowTransparency="true"></iframe>
+            -->
+        </td>
     </tr>
     <tr>
         <th colspan="2">{$LNG.ow_support}</th>
@@ -25,7 +30,8 @@
         <a href="http://code.google.com/p/2moons/source/list" target="_blank">SVN Revision List</a><br>
 		<a href="http://www.titanspace.org/" target="_blank">Offical Betauni</a><br>
 		<a target="_blank" href="http://2moons.cc/" target="_blank">2moons.cc - {$LNG.ow_forum}</a></td>
-    </tr> 
+    </tr>
+    <!--
 	<tr>
 		<th style="width:50%;">{$LNG.ow_donate} - Paypal</th>
 		<th style="width:50%;">{$LNG.ow_donate} - Moneybookers</th>
@@ -63,6 +69,7 @@
 		</form>
 		</td>
 	</tr>
+	-->
 	<tr>
 		<th colspan="2">{$LNG.ow_updates}</th>
 	</tr>
@@ -70,7 +77,8 @@
 		<td align="center" colspan="2">
 			<div id="feed"></div>
 		</td>
-	</tr> 
+	</tr>
+    <!--
 	<tr>
 		<th colspan="2"><a href="https://www.facebook.com/2Moons.Game">{$LNG.ow_news}</a></th>
 	</tr>
@@ -78,7 +86,8 @@
 		<td align="center" colspan="2">
 			<div id="news"></div>
 		</td>
-	</tr>  
+	</tr>
+    -->
     <tr>
     	<th colspan="2">{$LNG.ow_credits}</th>
     </tr>
@@ -209,7 +218,8 @@ google.load("feeds", "1");
 google.setOnLoadCallback(initialize);
 function initialize() {
 	var feedControl = new google.feeds.FeedControl();
-	feedControl.addFeed("http://code.google.com/feeds/p/2moons/svnchanges/basic", "");
+	feedControl.addFeed("https://github.com/jkroepke/2Moons/commits/master.atom", "");
+	//feedControl.addFeed("http://code.google.com/feeds/p/2moons/svnchanges/basic", "");
 	feedControl.draw(document.getElementById("feed"));
 	var feedControl = new google.feeds.FeedControl();
 	feedControl.addFeed("https://www.facebook.com/feeds/page.php?id=129282307106646&format=rss20", "");
