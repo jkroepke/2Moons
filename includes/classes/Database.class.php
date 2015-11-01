@@ -186,6 +186,42 @@ class Database
 		$res = $stmt->fetch(PDO::FETCH_ASSOC);
 		return ($field === false || is_null($res)) ? $res : $res[$field];
 	}
+	
+	/**
+	 * Lists column values of a table
+	 * with desired key from the
+	 * database as an array.
+	 *
+	 * @param  string 		$table
+	 * @param  string 		$column
+	 * @param  string|null 	$key
+	 * @return array
+	 */
+	public function lists($table, $column, $key = null)
+	{
+		$selects = implode(', ', is_null($key) ? [$column] : [$column, $key]);
+		
+		$qry = "SELECT {$selects} FROM %%{$table}%%;";
+		$stmt = $this->_query($qry, array(), 'select');
+
+		$results = [];
+		if (is_null($key))
+		{
+			while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+			{
+				$results[] = $row[$column];
+			}
+		}
+		else
+		{
+			while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
+			{
+				$results[$row[$key]] = $row[$column];
+			}
+		}
+
+		return $results;
+	}
 
 	public function query($qry)
 	{
