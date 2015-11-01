@@ -60,17 +60,19 @@ class ShowFleetStep3Page extends AbstractGamePage
 			unset($_SESSION['fleet'][$token]);
 			FleetFunctions::GotoFleetPage(0);
 		}
-		
-		$distance		= $_SESSION['fleet'][$token]['distance'];
-		$targetGalaxy	= $_SESSION['fleet'][$token]['targetGalaxy'];
-		$targetSystem	= $_SESSION['fleet'][$token]['targetSystem'];
-		$targetPlanet	= $_SESSION['fleet'][$token]['targetPlanet'];
-		$targetType		= $_SESSION['fleet'][$token]['targetType'];
-		$fleetGroup		= $_SESSION['fleet'][$token]['fleetGroup'];
-		$fleetArray  	= $_SESSION['fleet'][$token]['fleet'];
-		$fleetStorage	= $_SESSION['fleet'][$token]['fleetRoom'];
-		$fleetSpeed		= $_SESSION['fleet'][$token]['fleetSpeed'];
-		unset($_SESSION['fleet'][$token]);
+
+		$formData		= $_SESSION['fleet'][$token];
+        unset($_SESSION['fleet'][$token]);
+
+		$distance		= $formData['distance'];
+		$targetGalaxy	= $formData['targetGalaxy'];
+		$targetSystem	= $formData['targetSystem'];
+		$targetPlanet	= $formData['targetPlanet'];
+		$targetType		= $formData['targetType'];
+		$fleetGroup		= $formData['fleetGroup'];
+		$fleetArray  	= $formData['fleet'];
+		$fleetStorage	= $formData['fleetRoom'];
+		$fleetSpeed		= $formData['fleetSpeed'];
 		
 		if($targetMission != 2)
 		{
