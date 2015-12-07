@@ -56,7 +56,7 @@ function ShowAccountDataPage()
 			 urlaubs_until,u.ally_id,a.ally_name,".$SpecifyItemsUQ."
 			 u.ally_register_time,u.ally_rank_id,u.bana,u.banaday";
 			
-			$UserQuery 	= 	$GLOBALS['DATABASE']->getFirstRow("SELECT ".$SpecifyItemsU." FROM ".USERS." as u LEFT JOIN ".SESSION." as s ON s.userID = u.id LEFT JOIN ".ALLIANCE." a ON a.id = u.ally_id WHERE u.`id` = '".$id_u."';");
+			$UserQuery 	= 	$GLOBALS['DATABASE']->getFirstRow("SELECT ".$SpecifyItemsU." FROM ".USERS." as u LEFT JOIN ".ALLIANCE." a ON a.id = u.ally_id WHERE u.`id` = '".$id_u."';");
 
 			
 			$reg_time		= _date($LNG['php_tdformat'], $UserQuery['register_time'], $USER['timezone']);
@@ -151,7 +151,7 @@ function ShowAccountDataPage()
 			}
 			elseif ($alianza != NULL && $AliID != 0)
 			{
-				include_once('includes/functions/BBCode.php');	
+				include_once('includes/classes/BBCode.class.php');	
 				
 				$AllianceHave	= '<a href="#" onclick="$(\'#alianza\').slideToggle();return false" class="link">
 							<img src="./styles/resource/images/admin/arrowright.png" width="16" height="10"> '.$LNG['ac_alliance'].'</a>';
@@ -177,7 +177,7 @@ function ShowAccountDataPage()
 					
 				if($AllianceQuery['ally_description'] != NULL)
 				{
-					$ali_ext2 = bbcode($AllianceQuery['ally_description']);
+					$ali_ext2 = BBCode::parse($AllianceQuery['ally_description']);
 					$ali_ext  = "<a href=\"#\" rel=\"toggle[externo]\">".$LNG['ac_view_text_ext']."</a>";
 				}
 				else
@@ -188,7 +188,7 @@ function ShowAccountDataPage()
 					
 				if($AllianceQuery['ally_text'] != NULL)
 				{
-					$ali_int2 = bbcode($AllianceQuery['ally_text']);
+					$ali_int2 = BBCode::parse($AllianceQuery['ally_text']);
 					$ali_int  = "<a href=\"#\" rel=\"toggle[interno]\">".$LNG['ac_view_text_int']."</a>";
 				}
 				else
@@ -199,7 +199,7 @@ function ShowAccountDataPage()
 					
 				if($AllianceQuery['ally_request'] != NULL)
 				{
-					$ali_sol2 = bbcode($AllianceQuery['ally_request']);
+					$ali_sol2 = BBCode::parse($AllianceQuery['ally_request']);
 					$ali_sol  = "<a href=\"#\" rel=\"toggle[solicitud]\">".$LNG['ac_view_text_sol']."</a>";
 				}
 				else
