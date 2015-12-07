@@ -34,8 +34,8 @@
 <script>
 var CostInfo = {$CostInfos|json};
 var Charge = {$Charge};
-$(function(
+$(function(){
     updateVars();
-))
+});
 </script>
 {/block}

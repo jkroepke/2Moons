@@ -80,6 +80,8 @@ require 'includes/classes/Universe.class.php';
 require 'includes/classes/class.theme.php';
 require 'includes/classes/class.template.php';
 
+require 'includes/vars.php';
+
 // Say Browsers to Allow ThirdParty Cookies (Thanks to morktadela)
 HTTP::sendHeader('P3P', 'CP="IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT"');
 define('AJAX_REQUEST', HTTP::_GP('ajax', 0));
@@ -122,7 +124,6 @@ if (MODE === 'INGAME' || MODE === 'ADMIN')
 		HTTP::redirectTo('index.php?code=3');
 	}
 
-	require 'includes/vars.php';
 	require 'includes/classes/class.BuildFunctions.php';
 	require 'includes/classes/class.PlanetRessUpdate.php';
 	
