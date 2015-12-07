@@ -243,7 +243,7 @@ class FlyingFleetsTable
 		return array($Rest, $EventString, $Time);
 	}
 
-	private function BuildHostileFleetPlayerLink($fleetRow, $fleetRow)
+	private function BuildHostileFleetPlayerLink($fleetRow)
     {
 		global $LNG;
 		return $fleetRow['own_username'].' <a href="#" onclick="return Dialog.PM('.$fleetRow['fleet_owner'].')">'.$LNG['PM'].'</a>';
