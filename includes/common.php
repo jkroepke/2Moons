@@ -113,7 +113,7 @@ if(defined('DATABASE_VERSION') && DATABASE_VERSION === 'OLD')
 $config = Config::get();
 date_default_timezone_set($config->timezone);
 
-if (MODE === 'INGAME' || MODE === 'ADMIN')
+if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'cron')
 {
 	$session	= Session::load();
 
