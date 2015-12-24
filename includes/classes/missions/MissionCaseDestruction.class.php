@@ -429,7 +429,10 @@ HTML;
 
 				$reportInfo['moonDestroyChance']	= $moonDestroyChance;
 				$reportInfo['fleetDestroyChance']	= $fleetDestroyChance;
-
+		
+			switch($combatResult['won'])
+			{
+			case "a":
 				// Win
 				$attackStatus	= 'wons';
 				$defendStatus	= 'loos';
