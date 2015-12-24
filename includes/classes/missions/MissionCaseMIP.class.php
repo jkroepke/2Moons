@@ -50,7 +50,7 @@ class MissionCaseMIP extends MissionFunctions implements Mission
 		$sql = 'SELECT lang, shield_tech,
 		%%PLANETS%%.id, name, id_owner, '.implode(', ', $sqlFields).'
 		FROM %%PLANETS%%
-		INNER JOIN %%USERS%% ON id_owner = %%PLANETS%%.id
+		INNER JOIN %%USERS%% ON id_owner = %%USERS%%.id
 		WHERE %%PLANETS%%.id = :planetId;';
 
 		$targetData	= $db->selectSingle($sql, array(
