@@ -49,7 +49,7 @@ class ShowSearchPage extends AbstractGamePage
 				INNER JOIN %%PLANETS%% as b ON b.id = a.id_planet
 				LEFT JOIN %%STATPOINTS%% as c ON c.id_owner = a.id AND c.stat_type = 1
 				LEFT JOIN %%ALLIANCE%% as d ON d.id = a.ally_id
-				WHERE a.universe = :universe AND a.username LIKE :searchText
+				WHERE a.universe = :universe AND a.username LIKE :searchTextLike
 				ORDER BY (
 				  IF(a.username = :searchText, 1, 0)
 				  + IF(a.username LIKE :searchTextLike, 1, 0)
