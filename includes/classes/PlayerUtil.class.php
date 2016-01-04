@@ -2,7 +2,7 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
+ *  Copyright (C) 2012 Jan KrĂśpke
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,8 +18,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @author Jan KrĂśpke <info@2moons.cc>
+ * @copyright 2012 Jan KrĂśpke <info@2moons.cc>
  * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
  * @version 1.7.2 (2013-03-18)
  * @info $Id$
@@ -145,7 +145,6 @@ class PlayerUtil
 			$config->LastSettedPlanetPos = $planet;
 		}
 
-		$resourceQuery	= array();
 		$params			= array(
 			':username'				=> $userName,
 			':email'				=> $userMail,
@@ -160,13 +159,8 @@ class PlayerUtil
 			':dpath'				=> DEFAULT_THEME,
 			':timezone'				=> $config->timezone,
 			':nameLastChanged'		=> 0,
+			':darkmatter_start'		=> $config->darkmatter_start,
 		);
-
-		foreach($GLOBALS['reslist']['resstype'][3] as $elementID) {
-			$key				= $GLOBALS['resource'][$elementID];
-			$params[':'.$key]	= $config->{$key.'_start'};
-			$resourceQuery[]	= '`'.$key.'` = :'.$key;
-		}
 
 		$sql = 'INSERT INTO %%USERS%% SET
 		username		= :username,
@@ -182,7 +176,7 @@ class PlayerUtil
 		dpath			= :dpath,
 		timezone		= :timezone,
 		uctime			= :nameLastChanged,
-		'.implode(', ', $resourceQuery).';';
+		darkmatter		= :darkmatter_start;';
 
 		$db = Database::get();
 
@@ -294,15 +288,10 @@ class PlayerUtil
 			':maxFields'		=> $maxFields,
 			':minTemperature'	=> $minTemperature,
 			':maxTemperature'	=> $maxTemperature,
+			':metal_start'		=> $config->metal_start,
+			':crystal_start'	=> $config->crystal_start,
+			':deuterium_start'	=> $config->deuterium_start
 		);
-
-		$resourceQuery	= array();
-
-		foreach($GLOBALS['reslist']['resstype'][1] as $elementID) {
-			$key				= $GLOBALS['resource'][$elementID];
-			$params[':'.$key]	= $config->{$key.'_start'};
-			$resourceQuery[]	= '`'.$key.'` = :'.$key;
-		}
 
 		$sql = 'INSERT INTO %%PLANETS%% SET
 		name		= :name,
@@ -318,7 +307,9 @@ class PlayerUtil
 		field_max	= :maxFields,
 		temp_min 	= :minTemperature,
 		temp_max 	= :maxTemperature,
-		'.implode(', ', $resourceQuery).';';
+		metal		= :metal_start,
+		crystal		= :crystal_start,
+		deuterium	= :deuterium_start;';
 
 		$db = Database::get();
 		$db->insert($sql, $params);
