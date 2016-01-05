@@ -35,16 +35,16 @@ $LNG['login']					= 'Login';
 $LNG['menu_intro']				= 'Intro';
 $LNG['menu_install']			= 'Instalacja';
 $LNG['menu_license']			= 'Licencja';
-$LNG['menu_upgrade']			= 'Uktualizacja';
+$LNG['menu_upgrade']			= 'Aktualizacja';
 
 $LNG['title_install']			= 'Instalator';
 
 $LNG['intro_lang']				= 'Język';
 $LNG['intro_install']			= 'Przejdź do instalacji';
 $LNG['intro_welcome']			= 'Serdecznie witamy w 2Moons!';
-$LNG['intro_text']				= '2Moons to najlepszy klon Ogame.<br>2Moons to najnowsza i najbardziej stabilna wersja Xnova, jaka kiedykolwiek powstała. Cechuje ją przyjazność, elastyczność i dynamiczność jak również jakość obsługi. Mamy nadzieję że jak zawsze sprawimy się lepiej niż oczekiwaliście. System przeprowadzi Cię przez proces instalacji, lub też aktualizacji aktualnej wersji do najnowszej. Jeśli masz jakiekolwiek problemy nie wachaj się zadać pytania na naszym forum poświęconemu rozwojowi i wsparciu.<br><br>2Moons podlega licencji GNU GPL v3. Licencje przeczytasz po kliknięciu odpowiedniego linku w menu.<br><br>Przed instalacją skrypt sprawdzi czy twój serwer spełnia minimalne wymagania.';
+$LNG['intro_text']				= '2Moons to najlepszy klon Ogame.<br>2Moons to najnowsza i najbardziej stabilna wersja Xnova, jaka kiedykolwiek powstała. Cechuje ją przyjazność, elastyczność i dynamiczność, jak również najwyższa jakość obsługi. System przeprowadzi Cię przez proces instalacji lub też aktualizacji aktualnej wersji do najnowszej. Jeśli masz jakiekolwiek problemy nie wahaj się zadać pytania na naszym forum poświęconemu rozwojowi i wsparciu.<br><br>2Moons podlega licencji GNU GPL v3. Licencje przeczytasz po kliknięciu odpowiedniego linku w menu.<br><br>Przed instalacją skrypt sprawdzi, czy twój serwer spełnia minimalne wymagania.';
 $LNG['intro_upgrade_head']		= 'Zainstalować 2Moons?';
-$LNG['intro_upgrade_text']		= '<p>2Moons zainstalowane, chcesz teraz sprawdzić aktualizację?</p><p>Aktulizacje!</p>';
+$LNG['intro_upgrade_text']		= '<p>2Moons zainstalowane, chcesz teraz sprawdzić aktualizacje?</p><p>Aktualizacje!</p>';
 
 $LNG['upgrade_success']			= 'Aktualizacja przebiegła pomyślnie, baza danych została zaktualizowana do %s.';
 $LNG['upgrade_nothingtodo']		= 'Baza danych aktualna z wersją %s.';
