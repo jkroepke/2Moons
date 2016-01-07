@@ -122,12 +122,19 @@ class ShowBuddyListPage extends AbstractGamePage
             ':text' => $text
         ));
 
-        $sql = "SELECT username FROM %%USERS%% WHERE id = :friendID;";
-        $username = $db->selectSingle($sql, array(
-            ':friendID'  => $id,
-        ), 'username');
-
-        PlayerUtil::sendMessage($id, $USER['id'], $USER['username'], 4, $LNG['bu_new_request_title'], sprintf($LNG['bu_new_request_body'], $username, $USER['username']), TIMESTAMP);
+        $sql = "SELECT username, lang FROM %%USERS%% WHERE id = :friendID;";
+        $row = $db->selectSingle($sql, array(
+            ':friendID'  => $id
+        ));
+		
+		$Friend_LNG = $LNG;
+		
+		if($USER['lang'] != $row['lang']){
+			$Friend_LNG = new Language($language);
+			$Friend_LNG->includeData(array('INGAME'));
+		}
+		
+        PlayerUtil::sendMessage($id, $USER['id'], $USER['username'], 4, $Friend_LNG['bu_new_request_title'], sprintf($Friend_LNG['bu_new_request_body'], $row['username'], $USER['username']), TIMESTAMP);
 
 		$this->printMessage($LNG['bu_request_send']);
 	}
@@ -154,13 +161,20 @@ class ShowBuddyListPage extends AbstractGamePage
 			
 			if($isRequest)
 			{
-                $sql = "SELECT u.username, u.id FROM %%BUDDY%% b INNER JOIN %%USERS%% u ON u.id = IF(b.sender = :userID,b.owner,b.sender) WHERE b.id = :id;";
+                $sql = "SELECT u.username, u.id, u.lang FROM %%BUDDY%% b INNER JOIN %%USERS%% u ON u.id = IF(b.sender = :userID,b.owner,b.sender) WHERE b.id = :id;";
                 $requestData = $db->selectSingle($sql, array(
                     ':id'       => $id,
                     'userID'    => $USER['id']
                 ));
+				
+				$Enemy_LNG = $LNG;
+				
+				if($USER['lang'] != $requestData['lang']){
+					$Enemy_LNG = new Language($language);
+					$Enemy_LNG->includeData(array('INGAME'));
+				}
 
-				PlayerUtil::sendMessage($requestData['id'], $USER['id'], $USER['username'], 4, $LNG['bu_rejected_request_title'], sprintf($LNG['bu_rejected_request_body'], $requestData['username'], $USER['username']), TIMESTAMP);
+				PlayerUtil::sendMessage($requestData['id'], $USER['id'], $USER['username'], 4, $Enemy_LNG['bu_rejected_request_title'], sprintf($Enemy_LNG['bu_rejected_request_body'], $requestData['username'], $USER['username']), TIMESTAMP);
 			}
 
             $sql = "DELETE b.*, r.* FROM %%BUDDY%% b LEFT JOIN %%BUDDY_REQUEST%% r USING (id) WHERE b.id = :id;";
@@ -183,12 +197,19 @@ class ShowBuddyListPage extends AbstractGamePage
             ':id'       => $id
         ));
 
-        $sql = "SELECT sender, u.username FROM %%BUDDY%% b INNER JOIN %%USERS%% u ON sender = u.id WHERE b.id = :id;";
+        $sql = "SELECT sender, u.username, u.lang FROM %%BUDDY%% b INNER JOIN %%USERS%% u ON sender = u.id WHERE b.id = :id;";
         $sender = $db->selectSingle($sql, array(
             ':id'       => $id
         ));
+		
+		$Friend_LNG = $LNG;
+		
+		if($USER['lang'] != $sender['lang']){
+			$Friend_LNG = new Language($language);
+			$Friend_LNG->includeData(array('INGAME'));
+		}
 
-		PlayerUtil::sendMessage($sender['sender'], $USER['id'], $USER['username'], 4, $LNG['bu_accepted_request_title'], sprintf($LNG['bu_accepted_request_body'], $sender['username'], $USER['username']), TIMESTAMP);
+		PlayerUtil::sendMessage($sender['sender'], $USER['id'], $USER['username'], 4, $Friend_LNG['bu_accepted_request_title'], sprintf($Friend_LNG['bu_accepted_request_body'], $sender['username'], $USER['username']), TIMESTAMP);
 
 		$this->redirectTo("game.php?page=buddyList");
 	}
