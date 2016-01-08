@@ -112,8 +112,9 @@ class FlyingFleetsTable
 			if ($fleetRow['fleet_end_stay'] != $fleetRow['fleet_start_time'] && $fleetRow['fleet_end_stay'] > TIMESTAMP && ($this->IsPhalanx && $fleetRow['fleet_end_id'] == $this->planetId))
 				$FleetData[$fleetRow['fleet_end_stay'].$fleetRow['fleet_id']] = $this->BuildFleetEventTable($fleetRow, 2);
 			
-			if ($fleetRow['fleet_end_stay'] > TIMESTAMP)
-				$FleetData[$fleetRow['fleet_end_stay'].$fleetRow['fleet_id']] = $this->BuildFleetEventTable($fleetRow, 2);
+			$MissionsOK = array(5);
+			if ($fleetRow['fleet_end_stay'] > TIMESTAMP && in_array($fleetRow['fleet_mission'], $MissionsOK ))
+			$FleetData[$fleetRow['fleet_end_stay'].$fleetRow['fleet_id']] = $this->BuildFleetEventTable($fleetRow, 2);
 				
 			if ($fleetRow['fleet_owner'] != $this->userId)
 				continue;
