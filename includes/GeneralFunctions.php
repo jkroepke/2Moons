@@ -211,7 +211,7 @@ function pretty_time($seconds)
 	$time  = '';
 
 	if($day > 0) {
-		$time .= sprintf('%d%s', $day, $LNG['short_day']);
+		$time .= sprintf('%d%s ', $day, $LNG['short_day']);
 	}
 
 	return $time.sprintf('%02d%s %02d%s %02d%s',
