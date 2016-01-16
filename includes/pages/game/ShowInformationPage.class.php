@@ -90,7 +90,8 @@ class ShowInformationPage extends AbstractGamePage
 		$SubQueryDes	= "";
 		$Ships			= HTTP::_GP('ship', array());
 		$SubQueryParams = array();
-
+		
+		
 		foreach($reslist['fleet'] as $Ship)
 		{
 			if(!isset($Ships[$Ship]) || $Ship == 212)
@@ -101,9 +102,9 @@ class ShowInformationPage extends AbstractGamePage
 			if(empty($ShipArray[$Ship]))
 				continue;
 
-			$SubQueryOri 		.= $resource[$Ship]." = ".$resource[$Ship]." - :".$resource[$Ship].", ";
-			$SubQueryDes 		.= $resource[$Ship]." = ".$resource[$Ship]." + :".$resource[$Ship].", ";
-			$SubQueryParams[':'.$resource[$Ship]]    = $ShipArray[$Ship];
+			$SubQueryOri 		.= $resource[$Ship]." = ".$resource[$Ship]." - ".$ShipArray[$Ship].", ";
+			$SubQueryDes 		.= $resource[$Ship]." = ".$resource[$Ship]." + ".$ShipArray[$Ship].", ";
+			//$SubQueryParams[':'.$resource[$Ship].'']    = $ShipArray[$Ship];
 			$PLANET[$resource[$Ship]] -= $ShipArray[$Ship];
 		}
 
@@ -115,19 +116,15 @@ class ShowInformationPage extends AbstractGamePage
 			));
 		}
 
-		$sql  = "UPDATE %%PLANETS%% SET :subquery last_jump_time = :jumptime WHERE id = :planetID;";
-		$db->update($sql, array_merge(array(
-			':planetID' => $PLANET['id'],
-			':jumptime' => TIMESTAMP,
-			':subquery' => $SubQueryOri
-		), $SubQueryParams));
+		$array_merge =  array(':planetID' => $PLANET['id'],':jumptime' => TIMESTAMP);
+		$sql  = "UPDATE %%PLANETS%% SET ".$SubQueryOri." `last_jump_time` = :jumptime WHERE id = :planetID;";
+		$db->update($sql,$array_merge);
 
-		$sql  = "UPDATE %%PLANETS%% SET :subquery last_jump_time = :jumptime WHERE id = :targetID;";
-		$db->update($sql, array_merge(array(
+		$sql  = "UPDATE %%PLANETS%% SET ".$SubQueryDes." `last_jump_time` = :jumptime WHERE id = :targetID;";
+		$db->update($sql, array(
 			':targetID' => $TargetPlanet,
 			':jumptime' => TIMESTAMP,
-			':subquery' => $SubQueryDes
-		), $SubQueryParams));
+		));
 
 		$PLANET['last_jump_time'] 	= TIMESTAMP;
 		$NextJumpTime	= self::getNextJumpWaitTime($PLANET['last_jump_time']);
