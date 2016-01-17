@@ -111,7 +111,11 @@ class FlyingFleetsTable
 				
 			if ($fleetRow['fleet_end_stay'] != $fleetRow['fleet_start_time'] && $fleetRow['fleet_end_stay'] > TIMESTAMP && ($this->IsPhalanx && $fleetRow['fleet_end_id'] == $this->planetId))
 				$FleetData[$fleetRow['fleet_end_stay'].$fleetRow['fleet_id']] = $this->BuildFleetEventTable($fleetRow, 2);
-		
+			
+			$MissionsOK = 5;
+			if ($fleetRow['fleet_end_stay'] > TIMESTAMP && $fleetRow['fleet_mission'] == $MissionsOK )
+			$FleetData[$fleetRow['fleet_end_stay'].$fleetRow['fleet_id']] = $this->BuildFleetEventTable($fleetRow, 2);
+				
 			if ($fleetRow['fleet_owner'] != $this->userId)
 				continue;
 		
@@ -243,7 +247,7 @@ class FlyingFleetsTable
 		return array($Rest, $EventString, $Time);
 	}
 
-	private function BuildHostileFleetPlayerLink($fleetRow, $fleetRow)
+	private function BuildHostileFleetPlayerLink($fleetRow)
     {
 		global $LNG;
 		return $fleetRow['own_username'].' <a href="#" onclick="return Dialog.PM('.$fleetRow['fleet_owner'].')">'.$LNG['PM'].'</a>';

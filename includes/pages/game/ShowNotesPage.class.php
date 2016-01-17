@@ -144,7 +144,7 @@ class ShowNotesPage extends AbstractGamePage
 		$deleteIds	= array_keys($deleteIds);
 		$deleteIds	= array_filter($deleteIds, 'is_numeric');
 
-		if(empty($deleteIds))
+		if(!empty($deleteIds))
 		{
             $sql = 'DELETE FROM %%NOTES%% WHERE id IN ('.implode(', ', $deleteIds).') AND owner = :userID;';
 			Database::get()->delete($sql, array(

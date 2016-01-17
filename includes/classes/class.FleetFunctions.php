@@ -314,7 +314,7 @@ class FleetFunctions
 	{
 		$db				= Database::get();
 
-		$sql			= 'SELECT start_time, fleet_mission, fleet_group, fleet_owner, fleet_mess FROM %%FLEETS%% WHERE fleet_id = :fleetId;';
+		$sql			= 'SELECT start_time, fleet_start_time, fleet_mission, fleet_group, fleet_owner, fleet_mess FROM %%FLEETS%% WHERE fleet_id = :fleetId;';
 		$fleetResult	= $db->selectSingle($sql, array(
 			':fleetId'	=> $FleetID,
 		));
@@ -349,7 +349,11 @@ class FleetFunctions
 			}
 		}
 		
+		if($fleetResult['fleet_mission'] == 5){
+		$fleetEndTime	= ($fleetResult['fleet_start_time'] - $fleetResult['start_time']) + TIMESTAMP;
+		}else{
 		$fleetEndTime	= (TIMESTAMP - $fleetResult['start_time']) + TIMESTAMP;
+		}
 		
 		$sql	= 'UPDATE %%FLEETS%%, %%FLEETS_EVENT%% SET
 		fleet_group			= :fleetGroup,

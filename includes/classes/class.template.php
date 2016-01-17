@@ -142,7 +142,7 @@ class template extends Smarty
 		parent::display($file);
 	}
 	
-	public function display($file)
+	public function display($file = NULL, $cache_id = NULL, $compile_id = NULL, $parent = NULL)
 	{
 		global $LNG;
 		$this->compile_id	= $LNG->getLanguage();

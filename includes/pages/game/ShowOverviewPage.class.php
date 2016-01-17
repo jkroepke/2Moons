@@ -391,7 +391,7 @@ class ShowOverviewPage extends AbstractGamePage
                     ));
                 }
 
-                $_SESSION['planet']     = $USER['id_planet'];
+                $session->planetId     = $USER['id_planet'];
 				$this->sendJSON(array('ok' => true, 'message' => $LNG['ov_planet_abandoned']));
 			}
 		}

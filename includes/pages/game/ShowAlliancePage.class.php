@@ -706,7 +706,7 @@ class ShowAlliancePage extends AbstractGamePage
 
 			foreach ($sendUsersResult as $sendUsersRow)
 			{
-				PlayerUtil::sendMessage($sendUsersRow['id'], $USER['id'], TIMESTAMP, 2, $title, $subject, makebr($text));
+				PlayerUtil::sendMessage($sendUsersRow['id'], $USER['id'], $title, 2, $subject, makebr($text), TIMESTAMP);
 				$sendList	.= "\n".$sendUsersRow['username'];
 			}
 
