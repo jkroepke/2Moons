@@ -35,12 +35,10 @@ $LNG['buttonScreenshot']			= 'Imagenes del Juego';
 $LNG['buttonLostPassword']			= 'Recuperar contraseña?';
 
 // Start
-$LNG['gameInformations']			= array(
-	"Un juego de estrategia espacial en tiempo real.",
-	"Juega junto con cientos de jugadores.",
-	"Nada de descarga, s&oacute;lo se requiere un navegador est&aacute;ndar.",
-	"Registro Gratuito",
-);
+$LNG['gameInformations'][0]			= "Un juego de estrategia espacial en tiempo real.";
+$LNG['gameInformations'][1]			= "Juega junto con cientos de jugadores.";
+$LNG['gameInformations'][2]			= "Nada de descarga, s&oacute;lo se requiere un navegador est&aacute;ndar.";
+$LNG['gameInformations'][3]			= "Registro Gratuito";
 
 // Login
 $LNG['loginHeader']					= 'Iniciar Sesión';

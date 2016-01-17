@@ -58,12 +58,10 @@ $LNG['buttonScreenshot']			= 'Screenshots';
 $LNG['buttonLostPassword']			= 'Zapomniałem hasło?';
 
 // Start
-$LNG['gameInformations']			= array(
-	'Gra online strategiczno-ekonomiczna czasu rzeczywistego w kosmosie.',
-	'Graj przeciwko innym graczom.',
-	'Nic nie musisz sciągać, grasz w przeglądarce !.',
-	'Darmowa rejestracja',
-);
+$LNG['gameInformations'][0]			= 'Gra online strategiczno-ekonomiczna czasu rzeczywistego w kosmosie.';
+$LNG['gameInformations'][1]			= 'Graj przeciwko innym graczom.';
+$LNG['gameInformations'][2]			= 'Nic nie musisz sciągać, grasz w przeglądarce !.';
+$LNG['gameInformations'][3]			= 'Darmowa rejestracja';
 
 // Login
 $LNG['loginHeader']					= 'Zaloguj';

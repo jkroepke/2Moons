@@ -1,7 +1,7 @@
 <?php
 
 // Translated into English by QwataKayean . All rights reversed (C) 2012
-// 2Moons - Copyright (C) 2010-2012 Jän Kropke
+// 2Moons - Copyright (C) 2010-2012 Jï¿½n Kropke
 
 // Site Title
 $LNG['siteTitleIndex']				= 'Index';
@@ -35,12 +35,10 @@ $LNG['buttonScreenshot']			= 'Screenshots';
 $LNG['buttonLostPassword']			= 'Lost Password?';
 
 // Start
-$LNG['gameInformations']			= array(
-	'A space strategy game in real time.',
-	'Game with hundreds of users.',
-	'No download, it only requires a standard browser.',
-	'Free registration',
-);
+$LNG['gameInformations'][0]			= 'A space strategy game in real time.';
+$LNG['gameInformations'][1]			= 'Game with hundreds of users.';
+$LNG['gameInformations'][2]			= 'No download, it only requires a standard browser.';
+$LNG['gameInformations'][3]			= 'Free registration';
 
 // Login
 $LNG['loginHeader']					= 'Login';
