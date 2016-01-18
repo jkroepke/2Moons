@@ -4,7 +4,7 @@
  *  2Moons
  *  Copyright (C) 2011 Jan Kröpke
  *
- * This program is free software: you can redistribute it and/or modify
+ * For the full copyright and license information, please view the LICENSE
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -21,7 +21,7 @@
  * @author Jan Kröpke <info@2moons.cc>
  * @copyright 2009 Lucky
  * @copyright 2011 Jan Kröpke <info@2moons.cc>
- * @license http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @licence MIT
  * @version 1.5 (2011-07-31)
  * @info $Id$
  * @link http://2moons.cc/
