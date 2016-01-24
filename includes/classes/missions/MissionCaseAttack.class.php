@@ -376,7 +376,7 @@ HTML;
 				$this->_fleet['fleet_end_system'],
 				$this->_fleet['fleet_end_planet'],
 				$targetUser['id'],
-				$chanceCreateMoon,
+				$chanceCreateMoon
 			);
 			
 			if(Config::get($this->_fleet['fleet_universe'])->debris_moon == 1)
