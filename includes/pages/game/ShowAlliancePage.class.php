@@ -150,6 +150,7 @@ class ShowAlliancePage extends AbstractGamePage
 				'dermetal'		=> pretty_number($statisticResult['kbmetal']),
 				'dercrystal'	=> pretty_number($statisticResult['kbcrystal']),
 			);
+			
 		}
 
 		$sql	= 'SELECT total_points
@@ -179,11 +180,14 @@ class ShowAlliancePage extends AbstractGamePage
 			'ally_request_min_points_info'  => sprintf($LNG['al_requests_min_points'], pretty_number($this->allianceData['ally_request_min_points']))
 		));
 
+		
+
 		$this->display('page.alliance.info.tpl');
 	}
 
 	function show()
 	{
+		plugins::call('ShowAlliancePage_show_begin');
 		if($this->hasAlliance) {
 			$this->homeAlliance();
 		} elseif($this->hasApply) {
@@ -560,7 +564,7 @@ class ShowAlliancePage extends AbstractGamePage
 			$ally_events = array_filter($ally_events);
 		}
 
-		$this->assign(array(
+		$DataArray = array(
 			'DiploInfo'					=> $this->getDiplomatic(),
 			'ally_web'					=> $this->allianceData['ally_web'],
 			'ally_tag'	 				=> $this->allianceData['ally_tag'],
@@ -582,8 +586,12 @@ class ShowAlliancePage extends AbstractGamePage
 			'dermetal'					=> pretty_number($statisticResult['kbmetal']),
 			'dercrystal'				=> pretty_number($statisticResult['kbcrystal']),
 			'isOwner'					=> $this->allianceData['ally_owner'] == $USER['id'],
-			'ally_events'				=> $ally_events
-		));
+			'ally_events'				=> $ally_events );
+		
+		plugins::call('ShowAlliancePage_homeAlliance_output',array(&$DataArray));
+		
+		$this->assign($DataArray);
+		
 
 		$this->display('page.alliance.home.tpl');
 	}
@@ -634,10 +642,15 @@ class ShowAlliancePage extends AbstractGamePage
 			);
 		}
 
-		$this->assign(array(
+		$DataArray = array(
 			'memberList'		=> $memberList,
 			'al_users_list'		=> sprintf($LNG['al_users_list'], count($memberList)),
-		));
+		); 
+		
+		
+		plugins::call('ShowAlliancePage_memberList_output',array(&$DataArray));
+		
+		$this->assign($DataArray);
 
 		$this->display('page.alliance.memberList.tpl');
 	}
@@ -677,6 +690,8 @@ class ShowAlliancePage extends AbstractGamePage
 
 		if ($action == "send")
 		{
+			plugins::call('ShowAlliancePage_circular_beforsend',array(&$rankId,&$subject,&$text,$this->allianceData['id']));
+			
 			$rankId		= HTTP::_GP('rankID', 0);
 			$subject 	= HTTP::_GP('subject', '', true);
 			$text 		= HTTP::_GP('text', $LNG['mg_no_subject'], true);
@@ -711,6 +726,8 @@ class ShowAlliancePage extends AbstractGamePage
 			}
 
 			$this->sendJSON(array('message' => $sendList, 'error' => false));
+			
+			plugins::call('ShowAlliancePage_circular_aftersend',array($rankId,$subject,$text,$this->allianceData['id'],$sendList));
 		}
 
 		$this->initTemplate();
@@ -847,8 +864,9 @@ class ShowAlliancePage extends AbstractGamePage
 			ally_diplo = :AllianceDiplo,
 			ally_events = :AllianceEvents
 			WHERE id = :AllianceID;";
-
-			$db->update($sql, array(
+			
+			
+			$DataArray = array(
 				':AllianceTag'				=> $this->allianceData['ally_tag'],
 				':AllianceName'				=> $this->allianceData['ally_name'],
 				':AllianceOwnerRange'		=> $this->allianceData['ally_owner_range'],
@@ -861,7 +879,12 @@ class ShowAlliancePage extends AbstractGamePage
 				':AllianceEvents'			=> $this->allianceData['ally_events'],
 				':AllianceID'				=> $this->allianceData['id'],
 				':text'						=> $text
-			));
+			);
+			
+			plugins::call('ShowAlliancePage_adminOverview_beforeupdate',array(&$DataArray));
+		
+
+			$db->update($sql, $DataArray);
 
 		} else {
 			switch($textMode)
@@ -877,8 +900,8 @@ class ShowAlliancePage extends AbstractGamePage
 					break;
 			}
 		}
-
-		$this->assign(array(
+		
+		$DataArray = array(
 			'RequestSelector'			=> array(0 => $LNG['al_requests_allowed'], 1 => $LNG['al_requests_not_allowed']),
 			'YesNoSelector'				=> array(1 => $LNG['al_go_out_yes'], 0 => $LNG['al_go_out_no']),
 			'textMode' 					=> $textMode,
@@ -896,7 +919,12 @@ class ShowAlliancePage extends AbstractGamePage
 			'ally_diplo_data'			=> $this->allianceData['ally_diplo'],
 			'ally_events'				=> explode(',', $this->allianceData['ally_events']),
 			'aviable_events'			=> $LNG['type_mission']
-		));
+		);
+		
+		
+		plugins::call('ShowAlliancePage_adminOverview_output',array(&$DataArray));
+		
+		$this->assign($DataArray);
 
 		$this->display('page.alliance.admin.overview.tpl');
 	}
@@ -1207,13 +1235,20 @@ class ShowAlliancePage extends AbstractGamePage
 				$availableRanks[$rankId]	= $rankName;
 			}
 		}
-
-		$this->assign(array(
+		
+		
+		$DataArray = array(
 			'rankList'			=> $rankList,
 			'ownRights'			=> $this->rights,
 			'availableRanks'	=> $availableRanks,
-		));
-
+		);
+		
+		
+		plugins::call('ShowAlliancePage_adminOverview_premissionslist',array(&$DataArray));
+		
+		$this->assign($DataArray);
+		
+		
 		$this->display('page.alliance.admin.permissions.tpl');
 	}
 
@@ -1231,7 +1266,10 @@ class ShowAlliancePage extends AbstractGamePage
 		$db = Database::get();
 
 		if(!empty($newRank['rankName']))
-		{
+		{	
+			plugins::call('ShowAlliancePage_adminOverview_beforeaddrank',array(&$newRank));
+	
+		
 			if(!PlayerUtil::isNameValid($newRank['rankName']))
 			{
 				$this->printMessage($LNG['al_invalid_rank_name'], array(array(
@@ -1258,11 +1296,15 @@ class ShowAlliancePage extends AbstractGamePage
 			}
 
 			$db->insert($sql, $params);
+			
+			plugins::call('ShowAlliancePage_adminOverview_afteraddrank',array(&$newRank));
 		}
 		else
 		{
 			if(!empty($delete))
 			{
+				plugins::call('ShowAlliancePage_adminOverview_beforedeleterank',array($this->allianceData['id'],&$delete));
+				
 				$sql = "DELETE FROM %%ALLIANCE_RANK%% WHERE rankID = :rankID AND allianceId = :allianceId;";
 				$db->delete($sql, array(
 					':allianceId'	=> $this->allianceData['id'],
@@ -1274,9 +1316,13 @@ class ShowAlliancePage extends AbstractGamePage
 					':allianceId'	=> $this->allianceData['id'],
 					':rankID'       => $delete
 				));
+				
+				plugins::call('ShowAlliancePage_adminOverview_afterdeleterank',array($this->allianceData['id'],$delete));
 			}
 			else
 			{
+				plugins::call('ShowAlliancePage_adminOverview_beforeupdaterank',array(&$rankData));
+				
 				foreach ($rankData as $rankId => $rowData)
 				{
 					$sql = 'UPDATE %%ALLIANCE_RANK%% SET rankName = :rankName';
@@ -1301,6 +1347,8 @@ class ShowAlliancePage extends AbstractGamePage
 
 					$db->update($sql, $params);
 				}
+				
+				plugins::call('ShowAlliancePage_adminOverview_afterupdaterank',array($rankData));
 			}
 		}
 
@@ -1373,15 +1421,20 @@ class ShowAlliancePage extends AbstractGamePage
 				'kickQuestion'	=> sprintf($LNG['al_kick_player'], $memberListRow['username'])
 			);
 		}
-
-		$this->assign(array(
+		
+		$DataArray = array(
 			'memberList'	=> $memberList,
 			'rankList'		=> $rankList,
 			'founder'		=> empty($this->allianceData['ally_owner_range']) ? $LNG['al_founder_rank_text'] : $this->allianceData['ally_owner_range'],
 			'al_users_list'	=> sprintf($LNG['al_users_list'], count($memberList)),
 			'canKick'		=> $this->rights['KICK'],
-		));
-
+		);
+		
+		plugins::call('ShowAlliancePage_adminOverview_memberlist',array(&$DataArray));
+		
+		$this->assign($DataArray);
+		
+		
 		$this->display('page.alliance.admin.members.tpl');
 	}
 
@@ -1392,6 +1445,8 @@ class ShowAlliancePage extends AbstractGamePage
 		}
 
 		$userRanks	= HTTP::_GP('rank', array());
+		
+		plugins::call('ShowAlliancePage_adminOverview_beforemembersave',array(&$userRanks,$this->allianceData['id']));
 
 		$db = Database::get();
 
@@ -1434,6 +1489,8 @@ class ShowAlliancePage extends AbstractGamePage
 			));
 		}
 
+		plugins::call('ShowAlliancePage_adminOverview_aftermembersave',array($userRanks,$this->allianceData['id']));
+		
 		$this->redirectTo('game.php?page=alliance&mode=admin&action=members');
 	}
 
@@ -1442,10 +1499,12 @@ class ShowAlliancePage extends AbstractGamePage
 		if (!$this->rights['KICK']) {
 			$this->redirectToHome();
 		}
-
+		
 		$db = Database::get();
 
 		$id	= HTTP::_GP('id', 0);
+		
+		plugins::call('ShowAlliancePage_adminOverview_beforememberkick',array(&$id,$this->allianceData['id']));
 
 		$sql = "UPDATE %%USERS%% SET ally_id = 0, ally_register_time = 0, ally_rank_id = 0 WHERE id = :id;";
 		$db->update($sql, array(
@@ -1463,6 +1522,8 @@ class ShowAlliancePage extends AbstractGamePage
 			':allianceId'   => $this->allianceData['id']
 		));
 
+		plugins::call('ShowAlliancePage_adminOverview_aftermemberkick',array($id,$this->allianceData['id']));
+		
 		$this->redirectTo('game.php?page=alliance&mode=admin&action=members');
 	}
 
@@ -1519,10 +1580,14 @@ class ShowAlliancePage extends AbstractGamePage
 			}
 		}
 
-		$this->assign(array(
+		$DataArray = array(
 			'diploList'	=> $diplomaticList,
-		));
-
+		);
+		
+		plugins::call('ShowAlliancePage_adminOverview_diplomacy',array(&$DataArray));
+		
+		$this->assign($DataArray);
+		
 		$this->display('page.alliance.admin.diplomacy.default.tpl');
 	}
 
@@ -1532,14 +1597,20 @@ class ShowAlliancePage extends AbstractGamePage
 			$this->redirectToHome();
 		}
 
+		
+		
+		plugins::call('ShowAlliancePage_adminOverview_beforediplomacyaccept',array(&$id,$this->allianceData['id']));
+		
 		$db = Database::get();
 
 		$sql = "UPDATE %%DIPLO%% SET accept = 1 WHERE id = :id AND owner_2 = :allianceId;";
 		$db->update($sql, array(
 			':allianceId'   => $this->allianceData['id'],
-			':id'           => HTTP::_GP('id', 0)
+			':id'           => $id
 		));
 
+		plugins::call('ShowAlliancePage_adminOverview_afterdiplomacyaccept',array($id,$this->allianceData['id']));
+		
 		$this->redirectTo('game.php?page=alliance&mode=admin&action=diplomacy');
 	}
 
@@ -1549,14 +1620,20 @@ class ShowAlliancePage extends AbstractGamePage
 			$this->redirectToHome();
 		}
 
+		$id = HTTP::_GP('id', 0);
+		
+		plugins::call('ShowAlliancePage_adminOverview_beforediplomacydelete',array(&$id,$this->allianceData['id']));
+		
 		$db = Database::get();
 
 		$sql = "DELETE FROM %%DIPLO%% WHERE id = :id AND (owner_1 = :allianceId OR owner_2 = :allianceId);";
 		$db->update($sql, array(
 			':allianceId'   => $this->allianceData['id'],
-			':id'           => HTTP::_GP('id', 0)
+			':id'           => $id
 		));
 
+		plugins::call('ShowAlliancePage_adminOverview_afterdiplomacydelete',array($id,$this->allianceData['id']));
+		
 		$this->redirectTo('game.php?page=alliance&mode=admin&action=diplomacy');
 	}
 
@@ -1573,6 +1650,7 @@ class ShowAlliancePage extends AbstractGamePage
 		$this->setWindow('popup');
 
 		$diplomaticMode	= HTTP::_GP('diploMode', 0);
+		
 
 		$sql = "SELECT ally_tag,ally_name,id FROM %%ALLIANCE%% WHERE id != :allianceId ORDER BY ally_tag ASC;";
 		$diplomaticAlly = $db->select($sql, array(
@@ -1586,12 +1664,18 @@ class ShowAlliancePage extends AbstractGamePage
 			$IdList[] = $i['id'];
 			$AllyList[] = $i['ally_name'];
 		}
-		$this->assign(array(
+
+
+		$DataArray = array(
 			'diploMode'	=> $diplomaticMode,
 			'AllyList'	=> $AllyList,
 			'IdList'	=> $IdList,
-		));
-
+		);
+		
+		plugins::call('ShowAlliancePage_adminOverview_diplomacycreateform',array(&$DataArray));
+		
+		$this->assign($DataArray);
+		
 		$this->display('page.alliance.admin.diplomacy.create.tpl');
 	}
 

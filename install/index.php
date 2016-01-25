@@ -10,7 +10,7 @@
  * @author    Jan Kröpke <info@2moons.cc>
  * @copyright 2009 Lucky
  * @copyright 2011 Jan Kröpke <info@2moons.cc>
- * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3 License
+ * @license   MIT
  * @version   1.5 (2011-07-31)
  * @info $Id$
  * @link      http://2moons.cc/
