@@ -7,7 +7,7 @@
 			<th>{$LNG.lm_battlesim}</th>
 		</tr>
 		<tr>
-			<td>{$LNG.bs_steal} {$LNG.tech.901}: <input type="text" size="10" value="{if isset($battleinput.0.1.1)}{$battleinput.0.1.1}{else}0{/if}" name="battleinput[0][1][1]"> {$LNG.tech.902}: <input type="text" size="10" value="{if isset($battleinput.0.1.2)}{$battleinput.0.1.2}{else}0{/if}" name="battleinput[0][1][2]"> {$LNG.tech.903}: <input type="text" size="10" value="{if isset($battleinput.0.1.3)}{$battleinput.0.1.3}{else}0{/if}" name="battleinput[0][1][3]"></td>
+			<td>{$LNG.bs_steal} {$LNG.tech.901}: <input type="text" size="10" value="{if isset($battleinput.0.1.901)}{$battleinput.0.1.901}{else}0{/if}" name="battleinput[0][1][901]"> {$LNG.tech.902}: <input type="text" size="10" value="{if isset($battleinput.0.1.902)}{$battleinput.0.1.902}{else}0{/if}" name="battleinput[0][1][902]"> {$LNG.tech.903}: <input type="text" size="10" value="{if isset($battleinput.0.1.903)}{$battleinput.0.1.903}{else}0{/if}" name="battleinput[0][1][903]"></td>
 		</tr>
 		<tr>
 			<td class="left"><input type="button" onClick="return add();" value="{$LNG.bs_add_acs_slot}"></td>
