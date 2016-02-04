@@ -175,7 +175,6 @@ class ShowShipyardPage extends AbstractGamePage
 				}
 
 				$this->BuildAuftr($buildTodo);
-				$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
 			}
 					
 			if ($action == "delete")
@@ -185,6 +184,7 @@ class ShowShipyardPage extends AbstractGamePage
 		}
 		
 		$elementInQueue	= array();
+		$ElementQueue 	= unserialize($PLANET['b_hangar_id']);
 		$buildList		= array();
 		$elementList	= array();
 
