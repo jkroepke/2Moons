@@ -199,12 +199,12 @@ class Database
 	 */
 	public function lists($table, $column, $key = null)
 	{
-		$selects = implode(', ', is_null($key) ? [$column] : [$column, $key]);
+		$selects = implode(', ', is_null($key) ? array($column) : array($column, $key));
 		
 		$qry = "SELECT {$selects} FROM %%{$table}%%;";
 		$stmt = $this->_query($qry, array(), 'select');
 
-		$results = [];
+		$results = array();
 		if (is_null($key))
 		{
 			while ($row = $stmt->fetch(PDO::FETCH_ASSOC))
