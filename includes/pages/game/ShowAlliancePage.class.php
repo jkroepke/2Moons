@@ -515,7 +515,7 @@ class ShowAlliancePage extends AbstractGamePage
 		if ($this->allianceData['ally_owner'] == $USER['id']) {
 			$rankName	= ($this->allianceData['ally_owner_range'] != '') ? $this->allianceData['ally_owner_range'] : $LNG['al_founder_rank_text'];
 		} elseif ($USER['ally_rank_id'] != 0) {
-			$sql	= "SELECT rankName FROM &&ALLIANCE_RANK&& WHERE rankID = :UserRankID;";
+			$sql	= "SELECT rankName FROM %%ALLIANCE_RANK%% WHERE rankID = :UserRankID;";
 			$rankName = $db->selectSingle($sql, array(
 				':UserRankID'	=> $USER['ally_rank_id']
 			),'rankName');
