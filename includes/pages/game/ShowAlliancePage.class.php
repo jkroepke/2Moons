@@ -1288,12 +1288,12 @@ class ShowAlliancePage extends AbstractGamePage
 
 					unset($rowData['rankName']);
 
-					foreach($rowData as $key => $value)
+					foreach($this->availableRanks as $key => $value)
 					{
 						if(isset($this->availableRanks[$key]) && $this->rights[$this->availableRanks[$key]])
 						{
 							$sql .= ', `'.$this->availableRanks[$key].'` = :'.$this->availableRanks[$key];
-							$params[':'.$this->availableRanks[$key]]	= $value == 1 ? 1 : 0;
+							$params[':'.$this->availableRanks[$key]]	= (isset($rowData[$key])) == 1 ? 1 : 0;
 						}
 					}
 
