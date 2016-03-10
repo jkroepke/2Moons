@@ -54,13 +54,12 @@ class ShowSearchPage extends AbstractGamePage
 				  IF(a.username = :searchText, 1, 0)
 				  + IF(a.username LIKE :searchTextLike, 1, 0)
 				) DESC, a.username ASC
-				".$limit.";";
+				LIMIT 25;";
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
 					':searchText' 		=> $searchText,
-					':searchTextLike'	=> '%'.$searchText.'%',
-					':limit'			=> $maxResult
-				));
+					':searchTextLike'	=> '%'.$searchText.'%'
+					));
 
 				foreach($searchResult as $searchRow)
 				{
@@ -92,13 +91,12 @@ class ShowSearchPage extends AbstractGamePage
 				  IF(a.name = :searchText, 1, 0)
 				  + IF(a.name LIKE :searchTextLike, 1, 0)
 				) DESC, a.name ASC
-				".$limit.";";
+				LIMIT 25;";
 
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
 					':searchText' 		=> $searchText,
-					':searchTextLike'	=> '%'.$searchText.'%',
-					':limit'			=> $maxResult
+					':searchTextLike'	=> '%'.$searchText.'%'
 				));
 
 				foreach($searchResult as $searchRow)
