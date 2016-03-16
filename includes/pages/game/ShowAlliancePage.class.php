@@ -243,13 +243,12 @@ class ShowAlliancePage extends AbstractGamePage
 			WHERE ally_universe = :universe AND ally_name LIKE :searchText
 			ORDER BY (
 			  IF(ally_name = :searchTextt, 1, 0) + IF(ally_name LIKE :searchText, 1, 0)
-			) DESC,ally_name ASC LIMIT :limit;";
+			) DESC,ally_name ASC LIMIT 25;";
 
 			$searchResult	= $db->select($sql, array(
 				':universe' => Universe::current(),
 				':searchText'   => '%'.$searchText.'%',
-				':searchtextt' => $searchText,
-				':limit'	=> 25
+				':searchtextt' => $searchText
 			));
 
 			foreach($searchResult as $searchRow)
