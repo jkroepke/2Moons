@@ -244,7 +244,7 @@ class ShowSettingsPage extends AbstractGamePage
 		
 		if (!empty($username) && $USER['username'] != $username)
 		{
-			if (PlayerUtil::isNameValid($username))
+			if (!PlayerUtil::isNameValid($username))
 			{
 				$this->printMessage($LNG['op_user_name_no_alphanumeric'], array(array(
 					'label'	=> $LNG['sys_back'],
