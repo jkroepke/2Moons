@@ -414,9 +414,10 @@ class PlayerUtil
  
 	static public function deletePlayer($userId)
 	{
-		if(ROOT_USER == $userId) {
+		if(ROOT_USER == $userId)
+		{
 			// superuser can not be deleted.
-			return false;
+			throw new Exception("Superuser #".ROOT_USER." can't be deleted!");
 		}
 
 		$db			= Database::get();

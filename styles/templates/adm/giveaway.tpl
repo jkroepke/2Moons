@@ -38,7 +38,7 @@
 {/foreach}
 </table>
 
-<!-- Gebäude -->
+<!-- GebÃ¤ude -->
 <table width="760px" style="color:#FFFFFF">
 <tr>
         <th colspan="2">{$LNG.tech.0}</th>
