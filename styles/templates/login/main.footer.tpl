@@ -5,7 +5,8 @@
 <div id="dialog" style="display:none;"></div>
 <script>
 var LoginConfig = {
-	'isMultiUniverse': {$isMultiUniverse|json},
+    'isMultiUniverse': {$isMultiUniverse|json},
+	'unisWildcast': {$unisWildcast|json},
 	'referralEnable' : {$referralEnable|json},
 	'basePath' : {$basepath|json}
 };

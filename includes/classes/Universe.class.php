@@ -109,9 +109,10 @@ class Universe {
 				$universe = (int) $_SESSION['admin_uni'];
 			}
 
+
 			if(is_null($universe))
 			{
-				if(UNIS_WILDCAST === true)
+				if(UNIS_WILDCAST)
 				{
 					$temp = explode('.', $_SERVER['HTTP_HOST']);
 					$temp = substr($temp[0], 3);
@@ -146,11 +147,11 @@ class Universe {
 					{
 						$universe = ROOT_UNI;
 					}
+				}
 
-					if(!isset($universe) || !self::exists($universe))
-					{
-						HTTP::redirectToUniverse(ROOT_UNI);
-					}
+				if(!isset($universe) || !self::exists($universe))
+				{
+					HTTP::redirectToUniverse(ROOT_UNI);
 				}
 			}
 		}

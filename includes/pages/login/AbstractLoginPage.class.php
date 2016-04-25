@@ -148,6 +148,7 @@ abstract class AbstractLoginPage
 			'bodyclass'			=> $this->getWindow(),
 			'basepath'			=> PROTOCOL.HTTP_HOST.HTTP_BASE,
 			'isMultiUniverse'	=> count(Universe::availableUniverses()) > 1,
+			'unisWildcast'		=> UNIS_WILDCAST,
 		));
 
 		$this->assign(array(
