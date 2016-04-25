@@ -51,7 +51,7 @@ class FacebookAuth implements externalAuth
 		}
 		
 		HTTP::sendHeader('Location', $this->fbObj->getLoginUrl(array(
-			'scope'			=> 'publish_stream,publish_actions,user_games_activity',
+			'scope'			=> 'public_profile,email',
 			'redirect_uri'	=> HTTP_PATH.'index.php?page=externalAuth&method=facebook'
 		)));
 		exit;

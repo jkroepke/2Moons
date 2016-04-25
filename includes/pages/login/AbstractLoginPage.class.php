@@ -142,12 +142,22 @@ abstract class AbstractLoginPage
 		if($this->getWindow() !== 'ajax') {
 			$this->getPageData();
 		}
+
+		if (UNIS_WILDCAST) {
+			$hostParts = explode('.', HTTP_HOST);
+			array_shift($hostParts);
+			$host = implode('.', $hostParts);
+			$basePath = PROTOCOL.$host.HTTP_BASE;
+		} else {
+			$basePath = PROTOCOL.HTTP_HOST.HTTP_BASE;
+		}
 		
 		$this->assign(array(
             'lang'    			=> $LNG->getLanguage(),
 			'bodyclass'			=> $this->getWindow(),
-			'basepath'			=> PROTOCOL.HTTP_HOST.HTTP_BASE,
+			'basepath'			=> $basePath,
 			'isMultiUniverse'	=> count(Universe::availableUniverses()) > 1,
+			'unisWildcast'		=> UNIS_WILDCAST,
 		));
 
 		$this->assign(array(

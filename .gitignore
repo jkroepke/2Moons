@@ -60,3 +60,5 @@ Session.vim
 *~
 
 # Created by .ignore support plugin (hsz.mobi)
+
+/vendor/
