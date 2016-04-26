@@ -366,7 +366,12 @@ function ClearCache()
 			unlink(ROOT_PATH.$DIR.$FILE);
 		}
 	}
-	
+
+
+	$template = new template();
+	$template->clearAllCache();
+
+
 	require_once 'includes/classes/Cronjob.class.php';
 	Cronjob::reCalculateCronjobs();
 
@@ -379,8 +384,6 @@ function ClearCache()
 	/* does no work on git.
 
 	// Find currently Revision
-
-
 
 	$REV = 0;
 
