@@ -275,7 +275,7 @@ class ShowSettingsPage extends AbstractGamePage
 						'url'	=> 'game.php?page=settings'
 					)));
 				} else {
-					$sql = "UPDATE %%USERS%% SET username = :username, uctime = :timestampt WHERE id = :userID;";
+					$sql = "UPDATE %%USERS%% SET username = :username, uctime = :timestamp WHERE id = :userID;";
 					$db->update($sql, array(
 						':username'	=> $username,
 						':userID'	=> $USER['id'],

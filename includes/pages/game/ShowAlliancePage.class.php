@@ -240,15 +240,15 @@ class ShowAlliancePage extends AbstractGamePage
 			$db	= Database::get();
 			$sql	= "SELECT id, ally_name, ally_tag, ally_members
 			FROM %%ALLIANCE%%
-			WHERE ally_universe = :universe AND ally_name LIKE :searchText
+			WHERE ally_universe = :universe AND ally_name LIKE :searchTextEqual
 			ORDER BY (
-			  IF(ally_name = :searchTextt, 1, 0) + IF(ally_name LIKE :searchText, 1, 0)
+			  IF(ally_name = :searchTextEqual, 1, 0) + IF(ally_name LIKE :searchTextLike, 1, 0)
 			) DESC,ally_name ASC LIMIT 25;";
 
 			$searchResult	= $db->select($sql, array(
-				':universe' => Universe::current(),
-				':searchText'   => '%'.$searchText.'%',
-				':searchtextt' => $searchText
+				':universe'         => Universe::current(),
+				':searchTextLike'   => '%'.$searchText.'%',
+				':searchTextEqual'  => $searchText
 			));
 
 			foreach($searchResult as $searchRow)
@@ -839,10 +839,10 @@ class ShowAlliancePage extends AbstractGamePage
 			ally_name = :AllianceName,
 			ally_owner_range = :AllianceOwnerRange,
 			ally_image = :AllianceImage,
-			ally_web = :AllianceImage,
-			ally_request_notallow = :AllianceWeb,
-			ally_max_members = :AllianceRequestNotallow,
-			ally_request_min_points = :AllianceRequestMinpoints,
+			ally_web = :AllianceWeb,
+			ally_request_notallow = :AllianceRequestNotAllow,
+			ally_max_members = :AllianceMaxMember,
+			ally_request_min_points = :AllianceRequestMinPoints,
 			ally_stats = :AllianceStats,
 			ally_diplo = :AllianceDiplo,
 			ally_events = :AllianceEvents
@@ -854,8 +854,9 @@ class ShowAlliancePage extends AbstractGamePage
 				':AllianceOwnerRange'		=> $this->allianceData['ally_owner_range'],
 				':AllianceImage'			=> $this->allianceData['ally_image'],
 				':AllianceWeb'				=> $this->allianceData['ally_web'],
-				':AllianceRequestNotallow'	=> $this->allianceData['ally_request_notallow'],
-				':AllianceRequestMinpoints'	=> $this->allianceData['ally_request_min_points'],
+				':AllianceRequestNotAllow'	=> $this->allianceData['ally_request_notallow'],
+		    	':AllianceMaxMember'        => $this->allianceData['ally_max_members'],
+				':AllianceRequestMinPoints'	=> $this->allianceData['ally_request_min_points'],
 				':AllianceStats'			=> $this->allianceData['ally_stats'],
 				':AllianceDiplo'			=> $this->allianceData['ally_diplo'],
 				':AllianceEvents'			=> $this->allianceData['ally_events'],

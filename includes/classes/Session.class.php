@@ -201,6 +201,17 @@ class Session
 
 	public function save()
 	{
+	    // do not save an empty session
+	    $sessionId = session_id();
+	    if(empty($sessionId)) {
+	        return;
+	    }
+
+	    // sessions require an valid user.
+	    if(empty($this->data['userId'])) {
+	        $this->delete();
+	    }
+
         $userIpAddress = self::getClientIp();
 
 		$sql	= 'REPLACE INTO %%SESSION%% SET
