@@ -145,7 +145,9 @@ abstract class AbstractLoginPage
 
 		if (UNIS_WILDCAST) {
 			$hostParts = explode('.', HTTP_HOST);
-			array_shift($hostParts);
+			if (preg_match('/uni[0-9]+/', $hostParts[0])) {
+				array_shift($hostParts);
+			}
 			$host = implode('.', $hostParts);
 			$basePath = PROTOCOL.$host.HTTP_BASE;
 		} else {
