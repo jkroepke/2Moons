@@ -203,6 +203,7 @@ class Session
 	{
 	    // do not save an empty session
 	    $sessionId = session_id();
+
 	    if(empty($sessionId)) {
 	        return;
 	    }
@@ -210,6 +211,7 @@ class Session
 	    // sessions require an valid user.
 	    if(empty($this->data['userId'])) {
 	        $this->delete();
+	        return;
 	    }
 
         $userIpAddress = self::getClientIp();
@@ -223,7 +225,7 @@ class Session
 		$db		= Database::get();
 
 		$db->replace($sql, array(
-			':sessionId'	=> session_id(),
+			':sessionId'	=> $sessionId,
 			':userId'		=> $this->data['userId'],
 			':lastActivity'	=> TIMESTAMP,
 			':userAddress'	=> $userIpAddress,

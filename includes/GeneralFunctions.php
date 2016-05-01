@@ -500,7 +500,10 @@ function exceptionHandler($exception)
 		} catch(ErrorException $e) {
 		}
 	}
-	
+
+	$urlRow = array_key_exists('REQUEST_URI', $_SERVER) 
+		? '<b>URL: </b>'.PROTOCOL.HTTP_HOST.$_SERVER['REQUEST_URI'].'<br>' 
+		: '';
 	
 	$DIR		= MODE == 'INSTALL' ? '..' : '.';
 	ob_start();
@@ -564,7 +567,7 @@ function exceptionHandler($exception)
 			<b>Message: </b>'.$exception->getMessage().'<br>
 			<b>File: </b>'.$exception->getFile().'<br>
 			<b>Line: </b>'.$exception->getLine().'<br>
-			<b>URL: </b>'.PROTOCOL.HTTP_HOST.$_SERVER['REQUEST_URI'].'<br>
+			'.$urlRow.'
 			<b>PHP-Version: </b>'.PHP_VERSION.'<br>
 			<b>PHP-API: </b>'.php_sapi_name().'<br>
 			<b>MySQL-Cleint-Version: </b>'.mysqli_get_client_info().'<br>
@@ -649,4 +652,35 @@ if (!function_exists('array_replace_recursive'))
         }
         return $array;
     }
+}
+
+/**
+ * Determines if a command exists on the current environment
+ *
+ * @param string $command The command to check
+ * @return bool True if the command has been found ; otherwise, false.
+ */
+function command_exists($command) {
+  $whereIsCommand = (PHP_OS == 'WINNT') ? 'where' : 'which';
+
+  $process = proc_open(
+    "$whereIsCommand $command",
+    array(
+      0 => array("pipe", "r"), //STDIN
+      1 => array("pipe", "w"), //STDOUT
+      2 => array("pipe", "w"), //STDERR
+    ),
+    $pipes
+  );
+  if ($process !== false) {
+    $stdout = stream_get_contents($pipes[1]);
+    $stderr = stream_get_contents($pipes[2]);
+    fclose($pipes[1]);
+    fclose($pipes[2]);
+    proc_close($process);
+
+    return $stdout != '';
+  }
+
+  return false;
 }
