@@ -71,7 +71,7 @@ class CleanerCronjob implements CronjobTask
 			':timeInactive'	=> $del_inactive
 		));
 
-		if(empty($deleteUserIds))
+		if(!empty($deleteUserIds))
 		{
 			foreach($deleteUserIds as $dataRow)
 			{

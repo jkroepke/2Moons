@@ -137,6 +137,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CRON')
 
 	if(!$session->isValidSession())
 	{
+	    $session->delete();
 		HTTP::redirectTo('index.php?code=3');
 	}
 
