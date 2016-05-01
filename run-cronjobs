@@ -1,0 +1,19 @@
+<?php
+
+define('MODE', 'CLI-CRON');
+define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
+set_include_path(ROOT_PATH);
+
+require 'includes/common.php';
+
+$session	= Session::load();
+
+require 'includes/classes/Cronjob.class.php';
+
+$cronjobsTodo	= Cronjob::getNeedTodoExecutedJobs();
+
+foreach ($cronjobsTodo as $cronjobID) {
+    Cronjob::execute($cronjobID);
+
+    echo "Done running cronjob with the id `{$cronjobID}`.".PHP_EOL;
+}

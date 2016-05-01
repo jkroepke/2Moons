@@ -84,7 +84,7 @@ class Universe {
 	static private function defineCurrentUniverse()
 	{
 		$universe = NULL;
-		if(MODE === 'INSTALL')
+		if(MODE === 'INSTALL' || isCommandLineInterface())
 		{
 			// Installer are always in the first universe.
 			return ROOT_UNI;

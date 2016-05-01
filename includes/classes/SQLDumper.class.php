@@ -36,7 +36,7 @@ class SQLDumper
 		
 	private function canNative($command)
 	{
-		return function_exists('shell_exec') && function_exists('escapeshellarg') && shell_exec($command) !== NULL;
+		return function_exists('shell_exec') && function_exists('escapeshellarg') && command_exists($command);
 	}
 	
 	private function nativeDumpToFile($dbTables, $filePath)
@@ -90,13 +90,13 @@ class SQLDumper
 /*!40101 SET character_set_client = utf8 */;\n\n");
 
 			$createTable	= $db->nativeQuery("SHOW CREATE TABLE ".$dbTable);
-			fwrite($fp, $createTable['Create Table'].';');
+			fwrite($fp, $createTable[0]['Create Table'].';');
 			fwrite($fp, "\n\n/*!40101 SET character_set_client = @saved_cs_client */;");
 
 			$sql = "SELECT COUNT(*) as state FROM ".$dbTable.";";
 
 			$count	= $db->nativeQuery($sql);
-			if($count[1]['state'] == 0)
+			if($count[0]['state'] == 0)
 			{
 				fwrite($fp, "\n\n--\n-- No data for table `{$dbTable}`\n--\n\n");
 				continue;
