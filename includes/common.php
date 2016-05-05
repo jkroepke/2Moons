@@ -79,10 +79,8 @@ ini_set('error_log', 'includes/error.log');
 
 require 'includes/GeneralFunctions.php';
 
-if (!isCommandLineInterface()) {
-	set_exception_handler('exceptionHandler');
-	set_error_handler('errorHandler');
-}
+set_exception_handler('exceptionHandler');
+set_error_handler('errorHandler');
 
 require 'includes/classes/ArrayUtil.class.php';
 require 'includes/classes/Cache.class.php';
