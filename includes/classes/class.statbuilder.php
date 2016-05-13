@@ -278,7 +278,10 @@ class statbuilder
 		$UserPoints	= array();
 		$TotalData	= $this->GetUsersInfosFromDB();
 		$FinalSQL	= 'TRUNCATE TABLE %%STATPOINTS%%;';
-		$FinalSQL	.= "INSERT INTO  %%STATPOINTS%% (id_owner, id_ally, stat_type, universe, tech_old_rank, tech_points, tech_count, build_old_rank, build_points, build_count, defs_old_rank, defs_points, defs_count, fleet_old_rank, fleet_points, fleet_count, total_old_rank, total_points, total_count) VALUES ";
+
+		$tableHeader = "INSERT INTO  %%STATPOINTS%% (id_owner, id_ally, stat_type, universe, tech_old_rank, tech_points, tech_count, build_old_rank, build_points, build_count, defs_old_rank, defs_points, defs_count, fleet_old_rank, fleet_points, fleet_count, total_old_rank, total_points, total_count) VALUES ";
+
+		$FinalSQL	.= $tableHeader;
 
 		foreach($TotalData['Planets'] as $PlanetData)
 		{		
@@ -295,8 +298,11 @@ class statbuilder
 		
 		$UniData	= array();
 
+		$i = 0;
+
 		foreach($TotalData['Users'] as $UserData)
 		{
+		    $i++;
 			if(!isset($UniData[$UserData['universe']]))
 				$UniData[$UserData['universe']] = 0;
 			
@@ -381,13 +387,20 @@ class statbuilder
 			(isset($UserData['old_total_rank']) ? $UserData['old_total_rank'] : 0).", ".
 			(isset($UserPoints[$UserData['id']]['total']['points']) ? min($UserPoints[$UserData['id']]['total']['points'], 1E50) : 0).", ".
 			(isset($UserPoints[$UserData['id']]['total']['count']) ? $UserPoints[$UserData['id']]['total']['count'] : 0)."), ";
+
+			if ($i >= 50) {
+                $FinalSQL = substr($FinalSQL, 0, -2).';';
+                $this->SaveDataIntoDB($FinalSQL);
+                $FinalSQL = $tableHeader;
+			}
 		}
 
-		$FinalSQL	= substr($FinalSQL, 0, -2).';';
-		
-		$this->SaveDataIntoDB($FinalSQL);
-		unset($UserPoints);
-		
+		if !empty($FinalSQL) {
+		    $FinalSQL = substr($FinalSQL, 0, -2).';';
+            $this->SaveDataIntoDB($FinalSQL);
+            unset($UserPoints);
+		}
+
 		if(count($AllyPoints) != 0)
 		{
 			$AllySQL = "INSERT INTO %%STATPOINTS%% (id_owner, id_ally, stat_type, universe, tech_old_rank, tech_points, tech_count, build_old_rank, build_points, build_count, defs_old_rank, defs_points, defs_count, fleet_old_rank, fleet_points, fleet_count, total_old_rank, total_points, total_count) VALUES ";
