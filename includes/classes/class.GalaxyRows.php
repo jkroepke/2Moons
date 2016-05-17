@@ -108,7 +108,7 @@ class GalaxyRows
 	{
 		global $LNG;
 		
-		$lastActivity	= floor((TIMESTAMP - $this->galaxyRow['last_update']) / 60);
+		$lastActivity	= floor((TIMESTAMP - max($this->galaxyRow['last_update'], $this->galaxyRow['m_last_update'])) / 60);
 		
 		if ($lastActivity < 15) {
 			$this->galaxyData[$this->galaxyRow['planet']]['lastActivity']	= $LNG['gl_activity'];
