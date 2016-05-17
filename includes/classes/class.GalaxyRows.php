@@ -108,11 +108,11 @@ class GalaxyRows
 	{
 		global $LNG;
 		
-		$lastActivity	= floor((TIMESTAMP - max($this->galaxyRow['last_update'], $this->galaxyRow['m_last_update'])) / 60);
+		$lastActivity	= floor((TIMESTAMP - $this->galaxyRow['m_last_update']) / 60);
 		
-		if ($lastActivity < 4) {
+		if ($lastActivity < 15) {
 			$this->galaxyData[$this->galaxyRow['planet']]['lastActivity']	= $LNG['gl_activity'];
-		} elseif($lastActivity < 15) {
+		} elseif($lastActivity < 60) {
 			$this->galaxyData[$this->galaxyRow['planet']]['lastActivity']	= sprintf($LNG['gl_activity_inactive'], $lastActivity);
 		} else {
 			$this->galaxyData[$this->galaxyRow['planet']]['lastActivity']	= '';
