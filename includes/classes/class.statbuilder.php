@@ -395,7 +395,7 @@ class statbuilder
 			}
 		}
 
-		if !empty($FinalSQL) {
+		if (!empty($FinalSQL)) {
 		    $FinalSQL = substr($FinalSQL, 0, -2).';';
             $this->SaveDataIntoDB($FinalSQL);
             unset($UserPoints);
