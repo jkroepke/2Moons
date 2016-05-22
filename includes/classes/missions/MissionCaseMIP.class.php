@@ -70,8 +70,7 @@ class MissionCaseMIP extends MissionFunctions implements Mission
 			':userId'	=> $this->_fleet['fleet_owner']
 		));
 
-		if(!in_array($this->_fleet['fleet_target_obj'], $reslist['defense'])
-			|| !in_array($this->_fleet['fleet_target_obj'], $reslist['missile'])
+		if(!in_array($this->_fleet['fleet_target_obj'], array_merge($reslist['defense'], $reslist['missile']))
 			|| $this->_fleet['fleet_target_obj'] == 502
 			|| $this->_fleet['fleet_target_obj'] == 0)
 		{
