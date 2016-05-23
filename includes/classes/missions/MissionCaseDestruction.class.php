@@ -83,6 +83,10 @@ HTML;
 		$targetPlanet 	= $db->selectSingle($sql, array(
 			':planetId'	=> $this->_fleet['fleet_end_id']
 		));
+		
+		if(empty($targetPlanet)){
+		
+		}else{
 
 		$sql			= "SELECT * FROM %%USERS%% WHERE id = :userId;";
 		$targetUser		= $db->selectSingle($sql, array(
@@ -613,7 +617,7 @@ HTML;
 			':lostUnits'		=> $combatResult['unitLost']['defender'],
 			':destroyedUnits'	=> $combatResult['unitLost']['attacker']
 		));
-
+		}
 		$this->setState(FLEET_RETURN);
 		$this->SaveFleet();
 	}
