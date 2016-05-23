@@ -84,9 +84,8 @@ HTML;
 			':planetId'	=> $this->_fleet['fleet_end_id']
 		));
 		
-		if(empty($targetPlanet)){
-		
-		}else{
+		if(!empty($targetPlanet)){
+
 
 		$sql			= "SELECT * FROM %%USERS%% WHERE id = :userId;";
 		$targetUser		= $db->selectSingle($sql, array(
