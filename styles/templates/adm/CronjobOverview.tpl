@@ -26,10 +26,10 @@
 	<td>{if $CronjobInfo.dow == '*'}{$CronjobInfo.dow}{else}{foreach item=d from=$CronjobInfo.dow}{$LNG.week_day.{$d}} {/foreach}{/if}</td>
 	<td>{$CronjobInfo.class}</td>
 	<td>{if $CronjobInfo.isActive}{date($LNG.php_tdformat, $CronjobInfo.nextTime)}{else}-{/if}</td>
-	<td><a href="admin.php?page=cronjob&amp;id={$CronjobInfo.id}&amp;active={if $CronjobInfo.isActive}0" style="color:lime">{$LNG.cronjob_inactive}{else}1" style="color:red">{$LNG.cronjob_active}{/if}</a></td>
-	<td><a href="admin.php?page=cronjob&amp;id={$CronjobInfo.id}&amp;lock={if $CronjobInfo.lock}0" style="color:red">{$LNG.cronjob_is_lock}{else}1" style="color:lime">{$LNG.cronjob_is_unlock}{/if}</a></td>
-	<td><a href="admin.php?page=cronjob&detail={$CronjobInfo.id}"><img src="./styles/resource/images/admin/GO.png"></a></td>
-	<td><a href=""><img src="./styles/resource/images/false.png" width="16" height="16"></a></td>
+	<td><a href="admin.php?page=cronjob&amp;action=enable&amp;id={$CronjobInfo.id}&amp;enable={if $CronjobInfo.isActive}0" style="color:lime">{$LNG.cronjob_inactive}{else}1" style="color:red">{$LNG.cronjob_active}{/if}</a></td>
+	<td><a href="admin.php?page=cronjob&amp;id={$CronjobInfo.id}&amp;action={if $CronjobInfo.lock}unlock" style="color:red">{$LNG.cronjob_is_lock}{else}lock" style="color:lime">{$LNG.cronjob_is_unlock}{/if}</a></td>
+	<td><a href="admin.php?page=cronjob&amp;action=detail&amp;id={$CronjobInfo.id}"><img src="./styles/resource/images/admin/GO.png"></a></td>
+	<td><a href="admin.php?page=cronjob&amp;action=delete&amp;id={$CronjobInfo.id}"><img src="./styles/resource/images/false.png" width="16" height="16"></a></td>
 </tr>
 {/foreach}
 <tr>
