@@ -515,7 +515,7 @@ class PlayerUtil
 
 		foreach($fleetIds as $fleetId)
 		{
-			FleetFunctions::SendFleetBack($userId, $fleetId);
+			FleetFunctions::SendFleetBack(array('id' => $userId), $fleetId['fleet_id']);
 		}
 
         /*
