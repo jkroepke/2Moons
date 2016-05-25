@@ -189,7 +189,7 @@ function ShowCronjobDetail($detail,$error_msg=NULL)
 	
 	$dir = new DirectoryIterator('includes/classes/cronjob/');
 	foreach ($dir as $fileinfo) {
-		if ($fileinfo->isFile()) {
+		if ($fileinfo->isFile() && $fileinfo->getBasename('.class.php') != $fileinfo->getFilename()) {
 			$avalibleCrons[]	= $fileinfo->getBasename('.class.php');
 		}
 	}

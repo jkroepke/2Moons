@@ -33,7 +33,7 @@
 </tr>
 {/foreach}
 <tr>
-<td colspan="13"><a href="admin.php?page=cronjob&detail=add">{$LNG.cronjob_new}</a></td>
+<td colspan="13"><a href="admin.php?page=cronjob&amp;action=detail">{$LNG.cronjob_new}</a></td>
 </tr>
 </table>
 </body>
