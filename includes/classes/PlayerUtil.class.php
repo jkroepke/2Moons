@@ -126,9 +126,9 @@ class PlayerUtil
 				if ($planet < 3) {
 					$planet += 1;
 				} else {
-					if ($system > $config->max_system) {
+					if ($system >= $config->max_system) {
 						$system = 1;
-						if($galaxy > $config->max_galaxy) {
+						if($galaxy >= $config->max_galaxy) {
 							$galaxy	= 1;
 						} else {
 							$galaxy += 1;
@@ -515,7 +515,7 @@ class PlayerUtil
 
 		foreach($fleetIds as $fleetId)
 		{
-			FleetFunctions::SendFleetBack($userId, $fleetId);
+			FleetFunctions::SendFleetBack(array('id' => $userId), $fleetId['fleet_id']);
 		}
 
         /*

@@ -131,9 +131,9 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 		if($combatResult['won'] == "a")
 		{
 			$stealResource = calculateSteal($attackers, array(
-				'metal' => $BattleArray[0][1][1],
-				'crystal' => $BattleArray[0][1][2],
-				'deuterium' => $BattleArray[0][1][3]
+			'metal' => $BattleArray[0][1][901],
+			'crystal' => $BattleArray[0][1][902],
+			'deuterium' => $BattleArray[0][1][903]
 			), true);
 		}
 		else
