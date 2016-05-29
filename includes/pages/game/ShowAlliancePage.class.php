@@ -1553,7 +1553,7 @@ class ShowAlliancePage extends AbstractGamePage
 		$db = Database::get();
 
 		$sql = "DELETE FROM %%DIPLO%% WHERE id = :id AND (owner_1 = :allianceId OR owner_2 = :allianceId);";
-		$db->update($sql, array(
+		$db->delete($sql, array(
 			':allianceId'   => $this->allianceData['id'],
 			':id'           => HTTP::_GP('id', 0)
 		));
