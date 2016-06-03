@@ -982,7 +982,7 @@ class ShowAlliancePage extends AbstractGamePage
 		}
 		else
 		{
-			$sql = "SELECT u.id, r.rankName, u.username FROM %%USERS%% u INNER JOIN %%ALLIANCE_RANK%% r ON r.rankID = u.ally_rank_id AND r.TRANSFER = 1 WHERE u.ally_id = :allianceId AND id != ':allianceOwner;";
+			$sql = "SELECT u.id, r.rankName, u.username FROM %%USERS%% u INNER JOIN %%ALLIANCE_RANK%% r ON r.rankID = u.ally_rank_id AND r.TRANSFER = 1 WHERE u.ally_id = :allianceId AND id != :allianceOwner;";
 			$transferUserResult = $db->select($sql, array(
 				':allianceOwner'    => $this->allianceData['ally_owner'],
 				':allianceId'       => $this->allianceData['id']
