@@ -1448,6 +1448,16 @@ class ShowAlliancePage extends AbstractGamePage
 
 		$id	= HTTP::_GP('id', 0);
 
+        $sql = "SELECT `ally_id` FROM %%USERS%% WHERE id = :id;";
+        $kickUserAllianceId = $db->$db->selectSingle($sql, array(
+            ':id'	=> $id
+        ), 'ally_id');
+
+        # Check, if user is in alliance, see #205
+        if(empty($kickUserAllianceId) || $kickUserAllianceId != $this->allianceData['id']) {
+            $this->redirectToHome();
+		}
+
 		$sql = "UPDATE %%USERS%% SET ally_id = 0, ally_register_time = 0, ally_rank_id = 0 WHERE id = :id;";
 		$db->update($sql, array(
 			':id'	=> $id
