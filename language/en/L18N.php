@@ -1,6 +1,6 @@
 <?php
 
-setlocale(LC_ALL, 'de_DE', 'german'); // http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
+setlocale(LC_ALL, 'en_GB', 'english'); // http://msdn.microsoft.com/en-us/library/39cwe7zf%28vs.71%29.aspx
 setlocale(LC_NUMERIC, 'C');
 
 //SERVER GENERALS
@@ -18,6 +18,8 @@ $LNG['short_second']	= 's';
 
 //Note for the translators, use the phpBB Translation file (LANG/common.php) instead of your own translations
 
+// Needs to be ReDone..
+
 $LNG['timezones']		= array(
 	'-12'	=> '[UTC - 12] Baker Island Time',
 	'-11'	=> '[UTC - 11] Niue Time, Samoa Standard Time',
@@ -34,9 +36,9 @@ $LNG['timezones']		= array(
 	'-3'	=> '[UTC - 3] Amazon Standard Time, Central Greenland Time',
 	'-2'	=> '[UTC - 2] Fernando de Noronha Time, South Georgia &amp; the South Sandwich Islands Time',
 	'-1'	=> '[UTC - 1] Azores Standard Time, Cape Verde Time, Eastern Greenland Time',
-	'0'		=> '[UTC] Westeuropäische Zeit, Greenwich Mean Time',
-	'1'		=> '[UTC + 1] Mitteleuropäische Zeit, West African Time',
-	'2'		=> '[UTC + 2] Osteuropäische Zeit, Central African Time',
+	'0'		=> '[UTC] Western European Time, Greenwich Mean Time',
+	'1'		=> '[UTC + 1] Central European Time, West African Time',
+	'2'		=> '[UTC + 2] Eastern European Time, Central African Time',
 	'3'		=> '[UTC + 3] Moscow Standard Time, Eastern African Time',
 	'3.5'	=> '[UTC + 3:30] Iran Standard Time',
 	'4'		=> '[UTC + 4] Gulf Standard Time, Samara Standard Time',
