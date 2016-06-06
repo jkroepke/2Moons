@@ -63,7 +63,7 @@ class ShowExternalAuthPage extends AbstractLoginPage
 		if(empty($loginData))
 		{
 			$session->delete();
-			$this->redirectTo('index.php?page=register&externalAuth[account]='.$authObj->getAccount().'&externalAuth[method]=facebook');
+			$this->redirectTo('index.php?page=register&externalAuth[account]='.$authObj->getAccount().'&externalAuth[method]='.$method);
 		}
 
 		$session->userId		= (int) $loginData['id'];
