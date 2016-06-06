@@ -30,6 +30,12 @@ if (isset($_POST['GLOBALS']) || isset($_GET['GLOBALS'])) {
 	exit('You cannot set the GLOBALS-array from outside the script.');
 }
 
+$composerAutoloader = __DIR__.'/../vendor/autoload.php';
+
+if (file_exists($composerAutoloader)) {
+    require $composerAutoloader;
+}
+
 // Magic Quotes work around.
 // http://www.php.net/manual/de/security.magicquotes.disabling.php#91585
 if (function_exists('get_magic_quotes_gpc') && get_magic_quotes_gpc() == 1) {
@@ -119,6 +125,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CRON')
 
 	if(!$session->isValidSession())
 	{
+	    $session->delete();
 		HTTP::redirectTo('index.php?code=3');
 	}
 

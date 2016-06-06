@@ -38,7 +38,7 @@ class ShowSearchPage extends AbstractGamePage
 	{
 		$db = Database::get();
 				
-		$limit		= $maxResult === -1 ? '' : 'LIMIT :limit';
+		$limit		= $maxResult === -1 ? '' : 'LIMIT '.((int) $maxResult);
 		
 		$searchList	= array();
 
@@ -58,8 +58,7 @@ class ShowSearchPage extends AbstractGamePage
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
 					':searchText' 		=> $searchText,
-					':searchTextLike'	=> '%'.$searchText.'%',
-					':limit'			=> $maxResult
+					':searchTextLike'	=> '%'.$searchText.'%'
 				));
 
 				foreach($searchResult as $searchRow)
@@ -97,8 +96,7 @@ class ShowSearchPage extends AbstractGamePage
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
 					':searchText' 		=> $searchText,
-					':searchTextLike'	=> '%'.$searchText.'%',
-					':limit'			=> $maxResult
+					':searchTextLike'	=> '%'.$searchText.'%'
 				));
 
 				foreach($searchResult as $searchRow)
@@ -130,8 +128,7 @@ class ShowSearchPage extends AbstractGamePage
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
 					':searchText' 		=> $searchText,
-					':searchTextLike'	=> '%'.$searchText.'%',
-					':limit'			=> $maxResult
+					':searchTextLike'	=> '%'.$searchText.'%'
 				));
 
 				foreach($searchResult as $searchRow)
@@ -158,8 +155,7 @@ class ShowSearchPage extends AbstractGamePage
 				$searchResult = $db->select($sql, array(
 					':universe'			=> Universe::current(),
 					':searchText' 		=> $searchText,
-					':searchTextLike'	=> '%'.$searchText.'%',
-					':limit'			=> $maxResult
+					':searchTextLike'	=> '%'.$searchText.'%'
 				));
 
 				foreach($searchResult as $searchRow)

@@ -7,6 +7,7 @@
 	<th colspan=3>{if $id == 0}{$LNG.cronjob_new}{else}{$LNG.cronjob_headline}{$id}{/if}</th>
 </tr>
 <form method="POST" action="">
+<input type="hidden" name="action" value="edit">
 <input type="hidden" name="id" value="{$id}">
 <tr>
 	<td>{$LNG.cronjob_name}</td>

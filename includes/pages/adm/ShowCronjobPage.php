@@ -56,19 +56,38 @@ function checkPostData($column,$max)
 
 function ShowCronjob()
 {
-	if ($_POST)
-		ShowCronjobEdit();
-	elseif (!isset($_GET['detail']))
-		ShowCronjobOverview();
-	else
-		ShowCronjobDetail(HTTP::_GP('detail', 0));
+    $cronId = HTTP::_GP('id', 0);
+
+    switch (HTTP::_GP('action', 'overview')) {
+        case 'edit':
+		    ShowCronjobEdit($cronId);
+        break;
+        case 'delete':
+		    ShowCronjobDelete($cronId);
+        break;
+        case 'lock':
+		    ShowCronjobLock($cronId);
+        break;
+        case 'unlock':
+		    ShowCronjobUnlock($cronId);
+        break;
+        case 'detail':
+		    ShowCronjobDetail($cronId);
+        break;
+        case 'enable':
+		    ShowCronjobEnable($cronId);
+        break;
+        case 'overview':
+        default:
+		    ShowCronjobOverview();
+        break;
+    }
 }
 
-function ShowCronjobEdit() 
+function ShowCronjobEdit($post_id)
 {
 	global $LNG;
-	
-	$post_id 		= 	HTTP::_GP('id', 0);
+
 	$post_name 		= 	HTTP::_GP('name', '');
 	$post_min 		= 	checkPostData('min', 59);
 	$post_hours 	= 	checkPostData('hours', 23);
@@ -101,19 +120,36 @@ function ShowCronjobEdit()
 			$GLOBALS['DATABASE']->query("UPDATE ".CRONJOBS." SET name = '".$GLOBALS['DATABASE']->sql_escape($post_name)."', min = '".$post_min."', hours = '".$post_hours."', month = '".$post_month."', dow = '".$post_dow."', dom = '".$post_dom."', class = '".$GLOBALS['DATABASE']->sql_escape($post_class)."' WHERE cronjobID = $post_id;");
 		else
 			$GLOBALS['DATABASE']->query("INSERT INTO ".CRONJOBS." SET name = '".$GLOBALS['DATABASE']->sql_escape($post_name)."', min = '".$post_min."', hours = '".$post_hours."', month = '".$post_month."', dow = '".$post_dow."', dom = '".$post_dom."', class = '".$GLOBALS['DATABASE']->sql_escape($post_class)."';");
-		ShowCronjobOverview();
+
+		HTTP::redirectTo('admin.php?page=cronjob');
 	} else {
 		ShowCronjobDetail($post_id,$error_msg);
 	}
 }
 
+function ShowCronjobDelete($cronjobId) {
+    $GLOBALS['DATABASE']->query("DELETE FROM ".CRONJOBS." WHERE cronjobID = ".$cronjobId.";");
+    $GLOBALS['DATABASE']->query("DELETE FROM ".CRONJOBS_LOG." WHERE cronjobId = ".$cronjobId.";");
+    HTTP::redirectTo('admin.php?page=cronjob');
+}
+
+function ShowCronjobLock($cronjobId) {
+    $GLOBALS['DATABASE']->query("UPDATE ".CRONJOBS." SET `lock` = MD5(UNIX_TIMESTAMP()) WHERE cronjobID = ".$cronjobId.";");
+    HTTP::redirectTo('admin.php?page=cronjob');
+}
+
+function ShowCronjobUnlock($cronjobId) {
+    $GLOBALS['DATABASE']->query("UPDATE ".CRONJOBS." SET `lock` = NULL WHERE cronjobID = ".$cronjobId.";");
+    HTTP::redirectTo('admin.php?page=cronjob');
+}
+
+function ShowCronjobEnable($cronjobId) {
+    $GLOBALS['DATABASE']->query("UPDATE ".CRONJOBS." SET `isActive` = ".HTTP::_GP('enable', 0)." WHERE cronjobID = ".$cronjobId.";");
+    HTTP::redirectTo('admin.php?page=cronjob');
+}
+
 function ShowCronjobOverview() 
 {
-	if (isset($_GET['lock']))
-		$GLOBALS['DATABASE']->query("UPDATE ".CRONJOBS." SET `lock` = ".(HTTP::_GP('lock', 0)?'MD5(UNIX_TIMESTAMP())':'NULL')." WHERE cronjobID = ".HTTP::_GP('id', 0).";");
-	if (isset($_GET['active']))
-		$GLOBALS['DATABASE']->query("UPDATE ".CRONJOBS." SET `isActive` = ".HTTP::_GP('active', 0)." WHERE cronjobID = ".HTTP::_GP('id', 0).";");
-	
 	$data    = $GLOBALS['DATABASE']->query("SELECT * FROM ".CRONJOBS.";");
 
 	$template	= new template();	
@@ -153,7 +189,7 @@ function ShowCronjobDetail($detail,$error_msg=NULL)
 	
 	$dir = new DirectoryIterator('includes/classes/cronjob/');
 	foreach ($dir as $fileinfo) {
-		if ($fileinfo->isFile()) {
+		if ($fileinfo->isFile() && $fileinfo->getBasename('.class.php') != $fileinfo->getFilename()) {
 			$avalibleCrons[]	= $fileinfo->getBasename('.class.php');
 		}
 	}

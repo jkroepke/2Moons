@@ -982,7 +982,7 @@ class ShowAlliancePage extends AbstractGamePage
 		}
 		else
 		{
-			$sql = "SELECT u.id, r.rankName, u.username FROM %%USERS%% u INNER JOIN %%ALLIANCE_RANK%% r ON r.rankID = u.ally_rank_id AND r.TRANSFER = 1 WHERE u.ally_id = :allianceId AND id != ':allianceOwner;";
+			$sql = "SELECT u.id, r.rankName, u.username FROM %%USERS%% u INNER JOIN %%ALLIANCE_RANK%% r ON r.rankID = u.ally_rank_id AND r.TRANSFER = 1 WHERE u.ally_id = :allianceId AND id != :allianceOwner;";
 			$transferUserResult = $db->select($sql, array(
 				':allianceOwner'    => $this->allianceData['ally_owner'],
 				':allianceId'       => $this->allianceData['id']
@@ -1448,6 +1448,16 @@ class ShowAlliancePage extends AbstractGamePage
 
 		$id	= HTTP::_GP('id', 0);
 
+        $sql = "SELECT `ally_id` FROM %%USERS%% WHERE id = :id;";
+        $kickUserAllianceId = $db->$db->selectSingle($sql, array(
+            ':id'	=> $id
+        ), 'ally_id');
+
+        # Check, if user is in alliance, see #205
+        if(empty($kickUserAllianceId) || $kickUserAllianceId != $this->allianceData['id']) {
+            $this->redirectToHome();
+		}
+
 		$sql = "UPDATE %%USERS%% SET ally_id = 0, ally_register_time = 0, ally_rank_id = 0 WHERE id = :id;";
 		$db->update($sql, array(
 			':id'	=> $id
@@ -1553,7 +1563,7 @@ class ShowAlliancePage extends AbstractGamePage
 		$db = Database::get();
 
 		$sql = "DELETE FROM %%DIPLO%% WHERE id = :id AND (owner_1 = :allianceId OR owner_2 = :allianceId);";
-		$db->update($sql, array(
+		$db->delete($sql, array(
 			':allianceId'   => $this->allianceData['id'],
 			':id'           => HTTP::_GP('id', 0)
 		));

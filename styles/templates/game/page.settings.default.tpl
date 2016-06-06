@@ -128,7 +128,7 @@
 			<th colspan="3">{$LNG.ov_userbanner}</th>
 		</tr>
 		<tr>
-			<td colspan="3"><img src="userpic.php?id={$userID}" alt="" width="590" height="95" id="userpic"><br><br><table><tr><td class="transparent">HTML:</td><td class="transparent"><input type="text" value='<a href="{$smarty.const.PROTOCOL}{$smarty.const.HTTP_HOST}{$smarty.const.HTTP_ROOT}{if $ref_active}index.php?ref={$userid}{/if}"><img src="{$smarty.const.PROTOCOL}{$smarty.const.HTTP_HOST}{$smarty.const.HTTP_ROOT}userpic.php?id={$userid}"></a>' readonly="readonly" style="width:450px;"></td></tr><tr><td class="transparent">BBCode:</td><td class="transparent"><input type="text" value="[url={$smarty.const.PROTOCOL}{$smarty.const.HTTP_HOST}{$smarty.const.HTTP_ROOT}{if $ref_active}index.php?ref={$userid}{/if}][img]{$smarty.const.PROTOCOL}{$smarty.const.HTTP_HOST}{$smarty.const.HTTP_ROOT}userpic.php?id={$userid}[/img][/url]" readonly="readonly" style="width:450px;"></td></tr></table></td>
+			<td colspan="3"><img src="userpic.php?id={$userid}" alt="" width="590" height="95" id="userpic"><br><br><table><tr><td class="transparent">HTML:</td><td class="transparent"><input type="text" value='<a href="{$SELF_URL}{if $ref_active}index.php?ref={$userid}{/if}"><img src="{$SELF_URL}userpic.php?id={$userid}"></a>' readonly="readonly" style="width:450px;"></td></tr><tr><td class="transparent">BBCode:</td><td class="transparent"><input type="text" value="[url={$SELF_URL}{if $ref_active}index.php?ref={$userid}{/if}][img]{$SELF_URL}userpic.php?id={$userid}[/img][/url]" readonly="readonly" style="width:450px;"></td></tr></table></td>
 		</tr>
 		{/if}
 		<tr>

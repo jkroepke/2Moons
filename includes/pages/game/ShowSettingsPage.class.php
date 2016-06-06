@@ -87,6 +87,7 @@ class ShowSettingsPage extends AbstractGamePage
 				'blockPM' 			=> $USER['settings_blockPM'],
 				'userid'		 	=> $USER['id'],
 				'ref_active'		=> Config::get()->ref_active,
+				'SELF_URL'          => PROTOCOL.HTTP_HOST.HTTP_ROOT
 			));
 			
 			$this->display('page.settings.default.tpl');
