@@ -2,6 +2,7 @@
 
 
 // Translated into English by QwataKayean . All rights reversed (C) 2012
+// Translation redone by Korhal. All rights reserved (C) 2015
 // 2Moons - Copyright (C) 2010-2012 Slaver
 
 

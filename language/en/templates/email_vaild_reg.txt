@@ -16,7 +16,6 @@ following activation link:
 Your login data:
 
 Username : {USERNAME}
-Password : {PASSWORD}
 
 Should you be facing any issues with the automated registration, 
 please contact the webmaster using the following email: 
