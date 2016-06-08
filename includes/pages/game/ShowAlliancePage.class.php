@@ -1311,9 +1311,8 @@ class ShowAlliancePage extends AbstractGamePage
 			':allianceId'	=> $this->allianceData['id'],
 		));
 
-		$rankList		= array();
-		$rankSelectList	= array();
-		$rankList[0]	= $LNG['al_new_member_rank_text'];
+		$rankList		= array($LNG['al_new_member_rank_text']);
+		$rankSelectList	= $rankList;
 
 		foreach($rankResult as $rankRow)
 		{
@@ -1329,10 +1328,10 @@ class ShowAlliancePage extends AbstractGamePage
 
 			if($hasRankRight)
 			{
-				$rankSelectList[$rankRow['rankID']]	= $rankRow;
+				$rankSelectList[$rankRow['rankID']]	= $rankRow['rankName'];
 			}
 
-			$rankList[$rankRow['rankID']]	= $rankRow;
+			$rankList[$rankRow['rankID']]	= $rankRow['rankName'];
 		}
 
 		$sql = "SELECT DISTINCT u.id, u.username,u.galaxy, u.system, u.planet, u.ally_register_time, u.onlinetime, u.ally_rank_id, s.total_points
@@ -1365,21 +1364,23 @@ class ShowAlliancePage extends AbstractGamePage
 		}
 
 		$this->assign(array(
-			'memberList'	=> $memberList,
-			'rankList'		=> $rankList,
-			'founder'		=> empty($this->allianceData['ally_owner_range']) ? $LNG['al_founder_rank_text'] : $this->allianceData['ally_owner_range'],
-			'al_users_list'	=> sprintf($LNG['al_users_list'], count($memberList)),
-			'canKick'		=> $this->rights['KICK'],
+			'memberList'	 => $memberList,
+			'rankList'		 => $rankList,
+			'rankSelectList' => $rankSelectList,
+			'founder'		 => empty($this->allianceData['ally_owner_range']) ? $LNG['al_founder_rank_text'] : $this->allianceData['ally_owner_range'],
+			'al_users_list'	 => sprintf($LNG['al_users_list'], count($memberList)),
+			'canKick'		 => $this->rights['KICK'],
 		));
 
 		$this->display('page.alliance.admin.members.tpl');
 	}
 
-	protected function adminMembersSave()
-	{
-		if (!$this->rights['MANAGEUSERS']) {
-			$this->redirectToHome();
-		}
+    protected function adminRank()
+    {
+        global $LNG;
+        if (!$this->rights['MANAGEUSERS']) {
+            $this->sendJSON();
+        }
 
 		$userRanks	= HTTP::_GP('rank', array());
 
@@ -1424,7 +1425,7 @@ class ShowAlliancePage extends AbstractGamePage
 			));
 		}
 
-		$this->redirectTo('game.php?page=alliance&mode=admin&action=members');
+		$this->sendJSON($LNG['fl_shortcut_saved']);
 	}
 
 	protected function adminMembersKick()
