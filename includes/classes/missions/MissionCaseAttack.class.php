@@ -435,14 +435,13 @@ HTML;
 
 		foreach(array($userAttack, $userDefend) as $data)
 		{
-			$thisClass	= $class[$i];
 			foreach($data as $userID => $userName)
 			{
 				$LNG		= $this->getLanguage(NULL, $userID);
 				
 				$message	= sprintf($messageHTML,
 					$reportID,
-					$thisClass[$i],
+					$class[$i],
 					$LNG['sys_mess_attack_report'],
 					sprintf(
 						$LNG['sys_adress_planet'],
@@ -452,10 +451,10 @@ HTML;
 					),
 					$LNG['type_planet_short'][$this->_fleet['fleet_end_type']],
 					$LNG['sys_lost'],
-					$thisClass[0],
+					$class[0],
 					$LNG['sys_attack_attacker_pos'],
 					pretty_number($combatResult['unitLost']['attacker']),
-					$thisClass[1],
+					$class[1],
 					$LNG['sys_attack_defender_pos'],
 					pretty_number($combatResult['unitLost']['defender']),
 					$LNG['sys_gain'],
