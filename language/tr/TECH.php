@@ -1,4 +1,18 @@
 <?php
+/**
+ *  2Moons 
+ *   by Jan-Otto Kr√∂pke 2009-2016
+ *
+ * For the full copyright and license information, please view the LICENSE
+ *
+ * @package 2Moons
+ * @author Jan-Otto Kr√∂pke <slaver7@gmail.com>
+ * @copyright 2009 Lucky
+ * @copyright 2016 Jan-Otto Kr√∂pke <slaver7@gmail.com>
+ * @licence MIT
+ * @version 1.8.0
+ * @link https://github.com/jkroepke/2Moons
+ */
 
 // Turkce'ye Ibrahim Senyer tarafindan cevirilmistir. Butun Haklari saklidir (C) 2013
 // 2Moons - Copyright (C) 2010-2012 Slaver
@@ -388,7 +402,7 @@ $LNG['longDescription'] = array(
 402 => 'Uzay gemisi teknolojilerindeki hizli ve anormal etkili gelismeler yuzunden ,bilim adamlarinin daha buyuk , gelistirilmis gemi ve filolara hizmet verebilecek yeni savunma mekanizmalari yapmalari gerekti. Iste bu gelisme Hafif Lazer Topunun dogusunun habercisiydi. Bu savunma araci %70 lik bir aktiflik ve geri donusum ile gezegeninizi en iyi sekilde korumaya calisir. ',
 403 => 'Hafif lazerlerin gelistirilmesi sonucu olusturulmus agir lazer tabancalari ile gemilere daha fazla zarar veren savunma sistemleridir. Bu savunma araci %70 lik savunma ve geri donusum kabiliyeti ile donatilmistir. ',
 404 => 'Mermili silahlar ile modern atom fuzyonu teknolijisi ile yaratilmis olan savunma sistemleridir. Dusman filolarina yuksek derecede hasar verebilmektedir. 1930 larin teknoloji mantigi ile gelistirilmistir. Ve artik gunumuzun en gozde savunma araclarindandir.',
-405 => '21 yyda EMP adiyla bilinen iyon teknolojisinin kesfinden sonra yapilan bu savunma sistemleri yuksek atA°”s kapasitesi ile elektromanyetik iyonlar yollayarak dusman filolarinin sistemlerini bozarlar. %70 lik kabiliyet ve geri donusum ozelligine sahiptirler. ',
+405 => '21 yyda EMP adiyla bilinen iyon teknolojisinin kesfinden sonra yapilan bu savunma sistemleri yuksek atAÔøΩÔøΩs kapasitesi ile elektromanyetik iyonlar yollayarak dusman filolarinin sistemlerini bozarlar. %70 lik kabiliyet ve geri donusum ozelligine sahiptirler. ',
 406 => 'Gunes puskurtulme yontemi yani plazma teknolojisinin kesfiyle yapilan bu savunma sistemi cok guclu gunes isinlari ve plazmatik isinlar gonderirler.Gucleri muhriplerin gucunden bile fazla olan bu aticilar savunma sistemlerinin sahi diye bilinirler.',
 407 => 'Kucuk Kalkan Kubbesi Enerji Ortusu ile Gezegenini Saldirilara Karsi Korur.',
 408 => 'Kucuk Kalkan Kubbesinin Gelistirilmis Halidir. Gezegeninizi Onemli Olcude Saldirilara Karsi Korur. ',
