@@ -350,6 +350,7 @@ HTML;
 
 		switch($combatResult['won'])
 		{
+			// Win
 			case "a":
 				$moonDestroyChance	= round((100 - sqrt($targetPlanet['diameter'])) * sqrt($fleetAttack[$this->_fleet['fleet_id']]['unit'][214]), 1);
 
@@ -418,11 +419,7 @@ HTML;
 
 				$reportInfo['moonDestroyChance']	= $moonDestroyChance;
 				$reportInfo['fleetDestroyChance']	= $fleetDestroyChance;
-		
-			switch($combatResult['won'])
-			{
-			case "a":
-				// Win
+
 				$attackStatus	= 'wons';
 				$defendStatus	= 'loos';
 				$class			= array('raportWin', 'raportLose');
@@ -589,7 +586,7 @@ HTML;
 		$sql = 'UPDATE %%USERS%% SET
 		`'.$defendStatus.'` = `'.$defendStatus.'` + 1,
 		kbmetal		= kbmetal + :debrisMetal,
-		kbcrystal	= kbcrystal + :debrisCrystal,
+		kbcrystal	= kbcrystal + :debrisCrystal,K
 		lostunits	= lostunits + :lostUnits,
 		desunits	= desunits + :destroyedUnits
 		WHERE id IN ('.implode(',', array_keys($userDefend)).');';
