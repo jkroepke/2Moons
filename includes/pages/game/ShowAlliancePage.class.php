@@ -1,29 +1,18 @@
 <?php
 
 /**
- *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
+ *  2Moons 
+ *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @copyright 2009 Lucky
+ * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
  * @licence MIT
- * @version 1.7.2 (2013-03-18)
- * @info $Id$
- * @link http://2moons.cc/
+ * @version 1.8.0
+ * @link https://github.com/jkroepke/2Moons
  */
 
 class ShowAlliancePage extends AbstractGamePage
@@ -982,7 +971,7 @@ class ShowAlliancePage extends AbstractGamePage
 		}
 		else
 		{
-			$sql = "SELECT u.id, r.rankName, u.username FROM %%USERS%% u INNER JOIN %%ALLIANCE_RANK%% r ON r.rankID = u.ally_rank_id AND r.TRANSFER = 1 WHERE u.ally_id = :allianceId AND id != ':allianceOwner;";
+			$sql = "SELECT u.id, r.rankName, u.username FROM %%USERS%% u INNER JOIN %%ALLIANCE_RANK%% r ON r.rankID = u.ally_rank_id AND r.TRANSFER = 1 WHERE u.ally_id = :allianceId AND id != :allianceOwner;";
 			$transferUserResult = $db->select($sql, array(
 				':allianceOwner'    => $this->allianceData['ally_owner'],
 				':allianceId'       => $this->allianceData['id']
@@ -1322,9 +1311,8 @@ class ShowAlliancePage extends AbstractGamePage
 			':allianceId'	=> $this->allianceData['id'],
 		));
 
-		$rankList		= array();
-		$rankSelectList	= array();
-		$rankList[0]	= $LNG['al_new_member_rank_text'];
+		$rankList		= array($LNG['al_new_member_rank_text']);
+		$rankSelectList	= $rankList;
 
 		foreach($rankResult as $rankRow)
 		{
@@ -1340,10 +1328,10 @@ class ShowAlliancePage extends AbstractGamePage
 
 			if($hasRankRight)
 			{
-				$rankSelectList[$rankRow['rankID']]	= $rankRow;
+				$rankSelectList[$rankRow['rankID']]	= $rankRow['rankName'];
 			}
 
-			$rankList[$rankRow['rankID']]	= $rankRow;
+			$rankList[$rankRow['rankID']]	= $rankRow['rankName'];
 		}
 
 		$sql = "SELECT DISTINCT u.id, u.username,u.galaxy, u.system, u.planet, u.ally_register_time, u.onlinetime, u.ally_rank_id, s.total_points
@@ -1376,21 +1364,23 @@ class ShowAlliancePage extends AbstractGamePage
 		}
 
 		$this->assign(array(
-			'memberList'	=> $memberList,
-			'rankList'		=> $rankList,
-			'founder'		=> empty($this->allianceData['ally_owner_range']) ? $LNG['al_founder_rank_text'] : $this->allianceData['ally_owner_range'],
-			'al_users_list'	=> sprintf($LNG['al_users_list'], count($memberList)),
-			'canKick'		=> $this->rights['KICK'],
+			'memberList'	 => $memberList,
+			'rankList'		 => $rankList,
+			'rankSelectList' => $rankSelectList,
+			'founder'		 => empty($this->allianceData['ally_owner_range']) ? $LNG['al_founder_rank_text'] : $this->allianceData['ally_owner_range'],
+			'al_users_list'	 => sprintf($LNG['al_users_list'], count($memberList)),
+			'canKick'		 => $this->rights['KICK'],
 		));
 
 		$this->display('page.alliance.admin.members.tpl');
 	}
 
-	protected function adminMembersSave()
-	{
-		if (!$this->rights['MANAGEUSERS']) {
-			$this->redirectToHome();
-		}
+    protected function adminRank()
+    {
+        global $LNG;
+        if (!$this->rights['MANAGEUSERS']) {
+            $this->sendJSON();
+        }
 
 		$userRanks	= HTTP::_GP('rank', array());
 
@@ -1435,7 +1425,7 @@ class ShowAlliancePage extends AbstractGamePage
 			));
 		}
 
-		$this->redirectTo('game.php?page=alliance&mode=admin&action=members');
+		$this->sendJSON($LNG['fl_shortcut_saved']);
 	}
 
 	protected function adminMembersKick()
@@ -1447,6 +1437,16 @@ class ShowAlliancePage extends AbstractGamePage
 		$db = Database::get();
 
 		$id	= HTTP::_GP('id', 0);
+
+        $sql = "SELECT ally_id FROM %%USERS%% WHERE id = :id;";
+        $kickUserAllianceId = $db->selectSingle($sql, array(
+            ':id'	=> $id
+        ), 'ally_id');
+
+        # Check, if user is in alliance, see #205
+        if(empty($kickUserAllianceId) || $kickUserAllianceId != $this->allianceData['id']) {
+            $this->redirectToHome();
+		}
 
 		$sql = "UPDATE %%USERS%% SET ally_id = 0, ally_register_time = 0, ally_rank_id = 0 WHERE id = :id;";
 		$db->update($sql, array(
@@ -1553,7 +1553,7 @@ class ShowAlliancePage extends AbstractGamePage
 		$db = Database::get();
 
 		$sql = "DELETE FROM %%DIPLO%% WHERE id = :id AND (owner_1 = :allianceId OR owner_2 = :allianceId);";
-		$db->update($sql, array(
+		$db->delete($sql, array(
 			':allianceId'   => $this->allianceData['id'],
 			':id'           => HTTP::_GP('id', 0)
 		));

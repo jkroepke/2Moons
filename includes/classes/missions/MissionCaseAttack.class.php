@@ -1,18 +1,18 @@
 <?php
 
 /**
- *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
+ *  2Moons 
+ *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @copyright 2009 Lucky
+ * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
  * @licence MIT
- * @version 1.7.2 (2013-03-18)
- * @info $Id$
- * @link http://2moons.cc/
+ * @version 1.8.0
+ * @link https://github.com/jkroepke/2Moons
  */
 
 class MissionCaseAttack extends MissionFunctions implements Mission
@@ -435,14 +435,13 @@ HTML;
 
 		foreach(array($userAttack, $userDefend) as $data)
 		{
-			$thisClass	= $class[$i];
 			foreach($data as $userID => $userName)
 			{
 				$LNG		= $this->getLanguage(NULL, $userID);
 				
 				$message	= sprintf($messageHTML,
 					$reportID,
-					$thisClass[$i],
+					$class[$i],
 					$LNG['sys_mess_attack_report'],
 					sprintf(
 						$LNG['sys_adress_planet'],
@@ -452,10 +451,10 @@ HTML;
 					),
 					$LNG['type_planet_short'][$this->_fleet['fleet_end_type']],
 					$LNG['sys_lost'],
-					$thisClass[0],
+					$class[0],
 					$LNG['sys_attack_attacker_pos'],
 					pretty_number($combatResult['unitLost']['attacker']),
-					$thisClass[1],
+					$class[1],
 					$LNG['sys_attack_defender_pos'],
 					pretty_number($combatResult['unitLost']['defender']),
 					$LNG['sys_gain'],

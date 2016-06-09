@@ -1,19 +1,18 @@
 <?php
 
 /**
- *  2Moons
- *  Copyright (C) 2011  Slaver
+ *  2Moons 
+ *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
  *
  * @package 2Moons
- * @author Slaver <slaver7@gmail.com>
- * @copyright 2009 Lucky <lucky@xgproyect.net> (XGProyecto)
- * @copyright 2011 Slaver <slaver7@gmail.com> (Fork/2Moons)
+ * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @copyright 2009 Lucky
+ * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
  * @licence MIT
- * @version 1.5 (2011-07-31)
- * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @version 1.8.0
+ * @link https://github.com/jkroepke/2Moons
  */
  
 // If you have custom lang vars, you can include them here. The file ll be not overwrite by updatemanager

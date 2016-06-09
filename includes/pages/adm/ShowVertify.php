@@ -2,18 +2,17 @@
 
 /**
  *  2Moons
- *  Copyright (C) 2011 Jan Kröpke
+ *  Copyright (C) 2016 Jan-Otto Kröpke
  *
  * For the full copyright and license information, please view the LICENSE
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
+ * @author Jan-Otto Kröpke <slaver7@gmail.com>
  * @copyright 2009 Lucky
- * @copyright 2011 Jan Kröpke <info@2moons.cc>
+ * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
  * @licence MIT
  * @version 1.7.0 (2011-12-10)
- * @info $Id$
- * @link http://2moons.cc/
+ * @link https://github.com/jkroepke/2Moons
  */
 
 if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FILE__))) throw new Exception("Permission error!");

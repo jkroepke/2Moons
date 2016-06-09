@@ -1,29 +1,18 @@
 <?php
 
 /**
- *  2Moons
- *  Copyright (C) 2012 Jan Kröpke
+ *  2Moons 
+ *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
- * @copyright 2012 Jan Kröpke <info@2moons.cc>
+ * @author Jan-Otto Kröpke <slaver7@gmail.com>
+ * @copyright 2009 Lucky
+ * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
  * @licence MIT
- * @version 1.7.2 (2013-03-18)
- * @info $Id$
- * @link http://2moons.cc/
+ * @version 1.8.0
+ * @link https://github.com/jkroepke/2Moons
  */
 
 class MissionCaseDestruction extends MissionFunctions implements Mission
@@ -361,6 +350,7 @@ HTML;
 
 		switch($combatResult['won'])
 		{
+			// Win
 			case "a":
 				$moonDestroyChance	= round((100 - sqrt($targetPlanet['diameter'])) * sqrt($fleetAttack[$this->_fleet['fleet_id']]['unit'][214]), 1);
 
@@ -429,11 +419,7 @@ HTML;
 
 				$reportInfo['moonDestroyChance']	= $moonDestroyChance;
 				$reportInfo['fleetDestroyChance']	= $fleetDestroyChance;
-		
-			switch($combatResult['won'])
-			{
-			case "a":
-				// Win
+
 				$attackStatus	= 'wons';
 				$defendStatus	= 'loos';
 				$class			= array('raportWin', 'raportLose');
@@ -478,15 +464,13 @@ HTML;
 
 		foreach(array($userAttack, $userDefend) as $data)
 		{
-			$thisClass	= $class[$i];
-
 			foreach($data as $userID => $userName)
 			{
 				$LNG		= $this->getLanguage(NULL, $userID);
 
 				$message	= sprintf($messageHTML,
 					$reportID,
-					$thisClass[$i],
+					$class[$i],
 					$LNG['sys_mess_attack_report'],
 					sprintf(
 						$LNG['sys_adress_planet'],
@@ -496,10 +480,10 @@ HTML;
 					),
 					$LNG['type_planet_short'][$this->_fleet['fleet_end_type']],
 					$LNG['sys_lost'],
-					$thisClass[0],
+					$class[0],
 					$LNG['sys_attack_attacker_pos'],
 					pretty_number($combatResult['unitLost']['attacker']),
-					$thisClass[1],
+					$class[1],
 					$LNG['sys_attack_defender_pos'],
 					pretty_number($combatResult['unitLost']['defender']),
 					$LNG['sys_gain'],
@@ -602,7 +586,7 @@ HTML;
 		$sql = 'UPDATE %%USERS%% SET
 		`'.$defendStatus.'` = `'.$defendStatus.'` + 1,
 		kbmetal		= kbmetal + :debrisMetal,
-		kbcrystal	= kbcrystal + :debrisCrystal,
+		kbcrystal	= kbcrystal + :debrisCrystal,K
 		lostunits	= lostunits + :lostUnits,
 		desunits	= desunits + :destroyedUnits
 		WHERE id IN ('.implode(',', array_keys($userDefend)).');';

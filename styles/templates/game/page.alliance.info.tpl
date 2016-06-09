@@ -7,7 +7,7 @@
 {if $ally_image}
 <tr>
 	<td colspan="2">
-		<img src="{$ally_image}" alt="{$ally_tag}">
+		<img style="max-width: 1024px;" src="{$ally_image}" alt="{$ally_tag}">
 	</td>
 </tr>
 {/if}

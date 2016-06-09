@@ -1,19 +1,18 @@
 <?php
 
 /**
- *  2Moons
- *  Copyright (C) 2011 Jan Kröpke
+ *  2Moons 
+ *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
  *
  * @package 2Moons
- * @author Jan Kröpke <info@2moons.cc>
+ * @author Jan-Otto Kröpke <slaver7@gmail.com>
  * @copyright 2009 Lucky
- * @copyright 2011 Jan Kröpke <info@2moons.cc>
+ * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
  * @licence MIT
- * @version 1.7.0 (2011-12-10)
- * @info $Id$
- * @link http://code.google.com/p/2moons/
+ * @version 1.8.0
+ * @link https://github.com/jkroepke/2Moons
  */
 
 require_once 'includes/classes/cronjob/CronjobTask.interface.php';
@@ -55,12 +54,12 @@ class TrackingCronjob implements CronjobTask
 
 		$serverData['version']		= Config::get(ROOT_UNI)->VERSION;
 		
-		$ch	= curl_init('http://tracking.2moons.cc/');
+		$ch	= curl_init('http://tracking.jkroepke.de/');
 		curl_setopt($ch, CURLOPT_HTTPGET, true);
 		curl_setopt($ch, CURLOPT_AUTOREFERER, true);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $serverData);
-		curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (compatible; 2Moons/".$serverData['version']."; +http://2moons.cc)");
+		curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/5.0 (compatible; 2Moons/".$serverData['version']."; +https://github.com/jkroepke/2Moons)");
 		
 		curl_exec($ch);
 		curl_close($ch);
