@@ -145,6 +145,10 @@ class FleetFunctions
 	
 	public static function GetFleetMaxSpeed ($Fleets, $Player)
 	{
+		if(empty($Fleets)) {
+			return 0;
+		}
+
 		$FleetArray = (!is_array($Fleets)) ? array($Fleets => 1) : $Fleets;
 		$speedalls 	= array();
 		
