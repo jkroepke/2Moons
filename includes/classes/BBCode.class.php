@@ -56,7 +56,7 @@ class BBCode
 		$sText = preg_replace('/\[center](.+?)\[\/center]/i', '<div style="text-align:center">\1</div>', $sText);
 
 		// Color
-		$sText = preg_replace('/\[color=(green|lime|olive|red|maroon|navy|blue|teal|aqua|yellow|purple|fuchsia|gold|black|silver|gray|white)\](.+?)\[\/color\]/is', '<span style="color:\1">\2</span>', $sText);
+		$sText = preg_replace('/\[color=(#[[:xdigit:]]+|green|lime|olive|red|maroon|navy|blue|teal|aqua|yellow|purple|fuchsia|gold|black|silver|gray|white)\](.+?)\[\/color\]/is', '<span style="color:\1">\2</span>', $sText);
 
 		// Line breaks
 		$sText = str_replace("\n", '<br />', $sText);
