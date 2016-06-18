@@ -69,7 +69,7 @@
 	#content #chatList, #content #onlineListContainer, #content #helpContainer, #content #settingsContainer, #content #bbCodeContainer, #content #colorCodesContainer, #content #emoticonsContainer {
 		background: #0D1014;
 		background: rgba(13, 16, 20, 0.95);
-		border: 0px;
+		border: 0;
 	}
 
     #content #onlineListContainer #onlineList div > a {
@@ -167,8 +167,14 @@
 	#onlineListContainer h3 {
 		padding:2px 3px;
 	}
-	#content #settingsContainer #settingsList input.playback {
+	#content #settingsContainer > #settingsList input.playback {
 	    background:url('../img/playback.png') no-repeat;
 	}
-	
+
+	#content #settingsContainer {
+		width: 200px;
+	}
+	#content #settingsContainer > #settingsList {
+		padding: 10px;
+	}
 }
