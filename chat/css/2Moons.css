@@ -170,11 +170,12 @@
 	#content #settingsContainer > #settingsList input.playback {
 	    background:url('../img/playback.png') no-repeat;
 	}
-
-	#content #settingsContainer {
+	#content #settingsContainer,
+	#content #helpContainer {
 		width: 200px;
 	}
-	#content #settingsContainer > #settingsList {
+	#content #settingsContainer > #settingsList,
+	#content #helpContainer > #helpList{
 		padding: 10px;
 	}
 }
