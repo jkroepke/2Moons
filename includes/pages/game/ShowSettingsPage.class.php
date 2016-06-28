@@ -131,7 +131,7 @@ class ShowSettingsPage extends AbstractGamePage
 	
 	private function sendVacation() 
 	{
-		global $USER, $LNG;
+		global $USER, $LNG; $PLANET;
 		
 		$delete		= HTTP::_GP('delete', 0);
 		$vacation	= HTTP::_GP('vacation', 0);
@@ -162,6 +162,8 @@ class ShowSettingsPage extends AbstractGamePage
 				':userID'		=> $USER['id'],
 				':timestamp'	=> TIMESTAMP
 			));
+			
+			$PLANET['last_update'] = TIMESTAMP;
 		}
 		
 		if($delete == 1) {
