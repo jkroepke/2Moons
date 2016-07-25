@@ -26,7 +26,7 @@ class TeamspeakBuildCache implements BuildCache
 		switch($config->ts_version)
 		{
 			case 2:
-				require 'includes/libs/teamspeak/cyts/cyts.class.php';
+                require_once 'includes/libs/teamspeak/cyts/cyts.class.php';
 				$ts = new cyts();
 
 				if($ts->connect($config->ts_server, $config->ts_tcpport, $config->ts_udpport, $config->ts_timeout)) {
@@ -43,7 +43,7 @@ class TeamspeakBuildCache implements BuildCache
 				}
 			break;
 			case 3:
-				require 'includes/libs/teamspeak/ts3admin/ts3admin.class.php';
+                require_once 'includes/libs/teamspeak/ts3admin/ts3admin.class.php';
 				$tsAdmin 	= new ts3admin($config->ts_server, $config->ts_udpport, $config->ts_timeout);
 				$connected	= $tsAdmin->connect();				
 				if(!$connected['success'])
