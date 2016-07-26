@@ -750,10 +750,10 @@ class ShowAlliancePage extends AbstractGamePage
 			$this->allianceData['ally_image'] 				= filter_var(HTTP::_GP('image', ''), FILTER_VALIDATE_URL);
 			$this->allianceData['ally_request_notallow'] 	= HTTP::_GP('request_notallow', 0);
 			$this->allianceData['ally_max_members'] 		= max(HTTP::_GP('ally_max_members', ''), $this->allianceData['ally_members']);
-			$this->allianceData['ally_request_min_points']  = filter_var(HTTP::_GP('request_min_points', 0), FILTER_VALIDATE_INT);
+			$this->allianceData['ally_request_min_points']  = HTTP::_GP('request_min_points', 0);
 			$this->allianceData['ally_stats'] 				= HTTP::_GP('stats', 0);
 			$this->allianceData['ally_diplo'] 				= HTTP::_GP('diplo', 0);
-			$this->allianceData['ally_events'] 				= implode(',', HTTP::_GP('events', array()));
+			$this->allianceData['ally_events'] 				= implode(',', HTTP::_GP('events', array(0)));
 
 			$new_ally_tag 	= HTTP::_GP('ally_tag', $this->allianceData['ally_tag'], UTF8_SUPPORT);
 			$new_ally_name	= HTTP::_GP('ally_name', $this->allianceData['ally_name'], UTF8_SUPPORT);

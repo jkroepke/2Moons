@@ -40,7 +40,7 @@ class FlyingFleetsTable
 	}
 
 	public function setMissions($missions) {
-		$this->missions = $missions;
+		$this->missions = var_dump($missions);
 	}
 	
 	private function getFleets($acsID = false) {

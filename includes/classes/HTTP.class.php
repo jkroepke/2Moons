@@ -67,15 +67,15 @@ class HTTP {
 			return self::_quote($_REQUEST[$name], $multibyte);
 		}
 		
-		if(is_array($default))
+		if(is_array($default) && is_array($_REQUEST[$name]))
 		{
-			return self::_quoteArray($_REQUEST[$name], $multibyte);
+			return self::_quoteArray($_REQUEST[$name], $multibyte, !empty($default) && $default[0] === 0);
 		}
 		
 		return $default;
 	}
 
-	private static function _quoteArray($var, $multibyte)
+	private static function _quoteArray($var, $multibyte, $onlyNumbers = false)
 	{
 		$data	= array();
 		foreach($var as $key => $value)
@@ -83,6 +83,10 @@ class HTTP {
 			if(is_array($value))
 			{
 				$data[$key]	= self::_quoteArray($value, $multibyte);
+			}
+			elseif($onlyNumbers)
+			{
+				$data[$key]	= (int) $value;
 			}
 			else
 			{
