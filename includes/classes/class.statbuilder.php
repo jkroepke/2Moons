@@ -170,7 +170,7 @@ class statbuilder
 			if($USER[$resource[$Techno]] == 0) continue;
 
 			$Units	= $pricelist[$Techno]['cost'][901] + $pricelist[$Techno]['cost'][902] + $pricelist[$Techno]['cost'][903];
-			for($Level = 1; $Level <= $USER[$resource[$Techno]]; $Level++)
+			for($Level = 1; $Level < $USER[$resource[$Techno]]; $Level++)
 			{
 				$TechPoints	+= $Units * pow($pricelist[$Techno]['factor'], $Level);
 			}
@@ -194,7 +194,7 @@ class statbuilder
 			if($PLANET[$resource[$Build]] == 0) continue;
 			
 			$Units			 = $pricelist[$Build]['cost'][901] + $pricelist[$Build]['cost'][902] + $pricelist[$Build]['cost'][903];
-			for($Level = 1; $Level <= $PLANET[$resource[$Build]]; $Level++)
+			for($Level = 1; $Level < $PLANET[$resource[$Build]]; $Level++)
 			{
 				$BuildPoints	+= $Units * pow($pricelist[$Build]['factor'], $Level);
 			}
