@@ -60,7 +60,7 @@ class ShowSettingsPage extends AbstractGamePage
 				'email'				=> $USER['email'],
 				'permaEmail'		=> $USER['email_2'],
 				'userLang'			=> $USER['lang'],
-				'theme'				=> substr($USER['dpath'], 13, -1),
+				'theme'				=> $USER['dpath'],
 				'planetSort'		=> $USER['planet_sort'],
 				'planetOrder'		=> $USER['planet_sort_order'],
 				'spycount'			=> $USER['spio_anz'],
