@@ -236,7 +236,7 @@ class ShowResearchPage extends AbstractGamePage
 				return false;
 			}
 
-			$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $elementId, !$AddMode);
+			$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $elementId, !$AddMode, $BuildLevel);
 			
 			if(!BuildFunctions::isElementBuyable($USER, $PLANET, $elementId, $costResources))
 			{
@@ -376,7 +376,7 @@ class ShowResearchPage extends AbstractGamePage
 				$levelToBuild	= $USER[$resource[$elementId]];
 			}
 			
-			$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $elementId, false, $levelToBuild);
+			$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $elementId, false, $levelToBuild+1);
 			$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $elementId, $costResources);
 			$elementTime    	= BuildFunctions::getBuildingTime($USER, $PLANET, $elementId, $costResources);
 			$buyable			= $QueueCount != 0 || BuildFunctions::isElementBuyable($USER, $PLANET, $elementId, $costResources);
