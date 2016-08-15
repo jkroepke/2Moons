@@ -158,7 +158,7 @@ class ShowBuildingsPage extends AbstractGamePage
 			if($pricelist[$Element]['max'] < $BuildLevel)
 				return;
 
-			$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element, !$AddMode);
+			$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element, !$AddMode, $BuildLevel);
 			
 			if(!BuildFunctions::isElementBuyable($USER, $PLANET, $Element, $costResources))
 				return;
@@ -317,7 +317,7 @@ class ShowBuildingsPage extends AbstractGamePage
 				}
 			}
 			
-			$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element, false, $levelToBuild);
+			$costResources		= BuildFunctions::getElementPrice($USER, $PLANET, $Element, false, $levelToBuild+1);
 			$costOverflow		= BuildFunctions::getRestPrice($USER, $PLANET, $Element, $costResources);
 			$elementTime    	= BuildFunctions::getBuildingTime($USER, $PLANET, $Element, $costResources);
 			$destroyResources	= BuildFunctions::getElementPrice($USER, $PLANET, $Element, true);
