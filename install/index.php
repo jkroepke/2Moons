@@ -26,6 +26,8 @@ $LNG = new Language;
 $LNG->getUserAgentLanguage();
 $LNG->includeData(array('L18N', 'INGAME', 'INSTALL', 'CUSTOM'));
 
+$mode = HTTP::_GP('mode', '');
+
 $template = new template();
 $template->assign(array(
 	'lang'       => $LNG->getLanguage(),
@@ -51,7 +53,16 @@ if (is_file($enableInstallToolFile) && (time() - filemtime($enableInstallToolFil
 	}
 }
 if (!is_file($enableInstallToolFile)) {
-	$template->message($LNG->getTemplate('locked_install'), false, 0, true);
+
+    switch ($mode) {
+        case 'upgrade':
+            $message = $LNG->getTemplate('locked_upgrade');
+        break;
+        default:
+            $message = $LNG->getTemplate('locked_install');
+        break;
+    }
+    $template->message($message, false, 0, true);
 	exit;
 }
 $language = HTTP::_GP('lang', '');
@@ -60,7 +71,6 @@ if (!empty($language) && in_array($language, $LNG->getAllowedLangs())) {
 	setcookie('lang', $language);
 }
 
-$mode = HTTP::_GP('mode', '');
 switch ($mode) {
 	case 'ajax':
 		require 'includes/libs/ftp/ftp.class.php';
@@ -91,47 +101,54 @@ switch ($mode) {
 		break;
 	case 'upgrade':
 		// Willkommen zum Update page. Anzeige, von und zu geupdatet wird. Informationen, dass ein backup erstellt wird.
-		require_once('includes/config.php');
+        require 'includes/config.php';
+        require 'includes/dbtables.php';
 
-		try {
-			$sqlRevision = Config::get()->sql_revision;
-		}
-		catch (Exception $e) {
-			$template->message($LNG['upgrade_required_rev'], false, 0, true);
-			exit;
-		}
+        try {
+            $sql	= "SELECT dbVersion FROM %%SYSTEM%%;";
 
-		$fileList = array();
+            $dbVersion	= $db->selectSingle($sql, array(), 'dbVersion');
+        } catch (Exception $e) {
+            $dbVersion  = 0;
+        }
 
-		$directoryIterator = new DirectoryIterator(ROOT_PATH . 'install/updates/');
+        $updates = array();
+
+        $fileRevision = 0;
+
+		$directoryIterator = new DirectoryIterator(ROOT_PATH . 'install/migrations/');
 		/** @var $fileInfo DirectoryIterator */
 		foreach ($directoryIterator as $fileInfo) {
-			if (!$fileInfo->isFile()) {
+			if (!$fileInfo->isFile() || !preg_match('/^migration_\d+/', $fileInfo->getFilename())) {
 				continue;
 			}
-			$fileRevision = substr($fileInfo->getFilename(), 7, -4);
-			if ($fileRevision > $sqlRevision) {
-				$fileList[] = (int)$fileRevision;
-			}
+
+			$fileRevision = substr($fileInfo->getFilename(), 10, -4);
+
+            if ($fileRevision <= $dbVersion || $fileRevision > DB_VERSION_REQUIRED) {
+                continue;
+            }
+
+            $updates[$fileInfo->getPathname()] = makebr(str_replace('%PREFIX%', DB_PREFIX, file_get_contents($fileInfo->getPathname())));
 		}
-		sort($fileList);
+
 		$template->assign_vars(array(
-			'revisionlist'  => $fileList,
-			'file_revision' => empty($fileList) ? $sqlRevision : max($fileList),
-			'sql_revision'  => $sqlRevision,
+			'file_revision' => min(DB_VERSION_REQUIRED, $fileRevision),
+			'sql_revision'  => $dbVersion,
+            'updates'       => $updates,
 			'header'        => $LNG['menu_upgrade']
 		));
+
 		$template->show('ins_update.tpl');
 		break;
 	case 'doupgrade':
 		// TODO:Need a rewrite!
 		require 'includes/config.php';
-		$startRevision       = HTTP::_GP('startrevision', 0);
 
 		// Create a Backup
+        $sqlTableRaw  = Database::get()->nativeQuery("SHOW TABLE STATUS FROM `" . DB_NAME . "`;");
 		$prefixCounts = strlen(DB_PREFIX);
 		$dbTables     = array();
-		$sqlTableRaw  = Database::get()->nativeQuery("SHOW TABLE STATUS FROM `" . DB_NAME . "`;");
 		foreach($sqlTableRaw as $table)
 		{
 			if (DB_PREFIX == substr($table['Name'], 0, $prefixCounts)) {
@@ -144,23 +161,33 @@ switch ($mode) {
 			throw new Exception('No tables found for dump.');
 		}
 
-		$fileName = '2MoonsBackup_' . date('d_m_Y_H_i_s', TIMESTAMP) . '.sql';
+        @set_time_limit(600);
+
+		$fileName = '2MoonsBackup_' . date('Y_m_d_H_i_s', TIMESTAMP) . '.sql';
 		$filePath = 'includes/backups/' . $fileName;
 		require 'includes/classes/SQLDumper.class.php';
 		$dump = new SQLDumper;
 		$dump->dumpTablesToFile($dbTables, $filePath);
-		@set_time_limit(600);
+
+        try {
+            $sql	= "SELECT dbVersion FROM %%SYSTEM%%;";
+
+            $dbVersion	= $db->selectSingle($sql, array(), 'dbVersion');
+        } catch (Exception $e) {
+            $dbVersion  = 0;
+        }
+
 		$httpRoot = PROTOCOL . HTTP_HOST . str_replace(array('\\', '//'), '/', dirname(dirname($_SERVER['SCRIPT_NAME'])) . '/');
-		$revision = $startRevision - 1;
+		$revision = $dbVersion;
 		$fileList = array();
-		$directoryIterator = new DirectoryIterator(ROOT_PATH . 'install/updates/');
+		$directoryIterator = new DirectoryIterator(ROOT_PATH . 'install/migrations/');
 		/** @var $fileInfo DirectoryIterator */
 		foreach ($directoryIterator as $fileInfo) {
 			if (!$fileInfo->isFile()) {
 				continue;
 			}
-			$fileRevision = substr($fileInfo->getFilename(), 7, -4);
-			if ($fileRevision > $revision) {
+			$fileRevision = substr($fileInfo->getFilename(), 10, -4);
+			if ($fileRevision > $revision && $fileRevision <= DB_VERSION_REQUIRED) {
 				$fileExtension = pathinfo($filePath, PATHINFO_EXTENSION);
 				$key           = $fileRevision . ((int)$fileExtension === 'php');
 				$fileList[$key] = array(
@@ -171,66 +198,67 @@ switch ($mode) {
 			}
 		}
 		ksort($fileList);
-		if (!empty($fileList) && !empty($revision)) {
-			foreach ($fileList as $fileInfo) {
-				switch ($fileInfo['fileExtension']) {
-					case 'php':
-						copy('install/updates/' . $fileInfo['fileName'], $fileInfo['fileName']);
-						$ch = curl_init($httpRoot . $fileInfo['fileName']);
-						curl_setopt($ch, CURLOPT_HEADER, false);
-						curl_setopt($ch, CURLOPT_NOBODY, true);
-						curl_setopt($ch, CURLOPT_MUTE, true);
-						curl_exec($ch);
-						if (curl_errno($ch)) {
-							$errorMessage = 'CURL-Error on update ' . basename($fileInfo['filePath']) . ':' . curl_error($ch);
-							try {
-								$dump->restoreDatabase($filePath);
-								$message = 'Update error.<br><br>' . $errorMessage . '<br><br><b><i>Backup restored.</i></b>';
-							}
-							catch (Exception $e) {
-								$message = 'Update error.<br><br>' . $errorMessage . '<br><br><b><i>Can not restore backup. Your game is maybe broken right now.</i></b><br><br>Restore error:<br>' . $e->getMessage();
-							}
-							throw new Exception($message);
-						}
-						curl_close($ch);
-						unlink($fileInfo['fileName']);
-						break;
-					case 'sql';
-						$data = file_get_contents(ROOT_PATH . 'install/updates/' . $fileInfo['fileName']);
-						try {
-							$queries	= explode(';', str_replace("prefix_", DB_PREFIX, $data));
-							$queries	= array_filter($queries);
-							foreach($queries as $query)
-							{
-								Database::get()->nativeQuery($query);
-							}
-						}
-						catch (Exception $e) {
-							$errorMessage = $e->getMessage();
-							try {
-								$dump->restoreDatabase($filePath);
-								$message = 'Update error.<br><br>' . $errorMessage . '<br><br><b><i>Backup restored.</i></b>';
-							}
-							catch (Exception $e) {
-								$message = 'Update error.<br><br>' . $errorMessage . '<br><br><b><i>Can not restore backup. Your game is maybe broken right now.</i></b><br><br>Restore error:<br>' . $e->getMessage();
-							}
-							throw new Exception($message);
-						}
-						break;
-				}
-			}
-			$revision = end($fileList);
-			$revision = $revision['fileRevision'];
-		}
-		$gameVersion    = explode('.', Config::get(ROOT_UNI)->VERSION);
-		$gameVersion[2] = $revision;
-		Database::get()->update("UPDATE %%CONFIG%% SET VERSION = '" . implode('.', $gameVersion) . "', sql_revision = " . $revision . ";");
-		ClearCache();
+        foreach ($fileList as $fileInfo) {
+            switch ($fileInfo['fileExtension']) {
+                case 'php':
+                    copy(ROOT_PATH.'install/migrations/' . $fileInfo['fileName'], ROOT_PATH.$fileInfo['fileName']);
+                    $ch = curl_init($httpRoot . $fileInfo['fileName']);
+                    curl_setopt($ch, CURLOPT_HEADER, false);
+                    curl_setopt($ch, CURLOPT_NOBODY, true);
+                    curl_setopt($ch, CURLOPT_MUTE, true);
+                    curl_exec($ch);
+                    if (curl_errno($ch)) {
+                        $errorMessage = 'CURL-Error on update ' . basename($fileInfo['filePath']) . ':' . curl_error($ch);
+                        try {
+                            $dump->restoreDatabase($filePath);
+                            $message = 'Update error.<br><br>' . $errorMessage . '<br><br><b><i>Backup restored.</i></b>';
+                        }
+                        catch (Exception $e) {
+                            $message = 'Update error.<br><br>' . $errorMessage . '<br><br><b><i>Can not restore backup. Your game is maybe broken right now.</i></b><br><br>Restore error:<br>' . $e->getMessage();
+                        }
+                        throw new Exception($message);
+                    }
+                    curl_close($ch);
+                    unlink($fileInfo['fileName']);
+                    break;
+                case 'sql';
+                    $data = file_get_contents(ROOT_PATH . 'install/migrations/' . $fileInfo['fileName']);
+                    try {
+                        $queries	= explode(";\n", str_replace('%PREFIX%', DB_PREFIX, $data));
+                        $queries	= array_filter($queries);
+                        foreach($queries as $query)
+                        {
+                            Database::get()->nativeQuery(trim($query));
+                        }
+                    }
+                    catch (Exception $e) {
+                        $errorMessage = $e->getMessage();
+                        try {
+                            $dump->restoreDatabase($filePath);
+                            $message = 'Update error.<br><br>' . $errorMessage . '<br><br><b><i>Backup restored.</i></b>';
+                        }
+                        catch (Exception $e) {
+                            $message = 'Update error.<br><br>' . $errorMessage . '<br><br><b><i>Can not restore backup. Your game is maybe broken right now.</i></b><br><br>Restore error:<br>' . $e->getMessage();
+                        }
+                        throw new Exception($message);
+                    }
+                    break;
+            }
+        }
+        $revision = end($fileList);
+        $revision = $revision['fileRevision'];
+
+        Database::get()->update("UPDATE %%SYSTEM%% SET dbVersion = " . DB_VERSION_REQUIRED . ";");
+
+        ClearCache();
+
 		$template->assign_vars(array(
 			'update'   => !empty($fileList),
 			'revision' => $revision,
-			'header'   => $LNG['menu_upgrade'],));
+			'header'   => $LNG['menu_upgrade'],
+        ));
 		$template->show('ins_doupdate.tpl');
+        unlink($enableInstallToolFile);
 		break;
 	case 'install':
 		$step = HTTP::_GP('step', 0);

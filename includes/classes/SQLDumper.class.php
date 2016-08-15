@@ -43,8 +43,17 @@ class SQLDumper
 	{
 		$database	= array();
 		require 'includes/config.php';
+
+        $dbVersion	= Database::get()->selectSingle('SELECT @@version', array(), '@@version');
+        if(version_compare($dbVersion, '5.5') >= 0) {
+            putenv('MYSQL_PWD='.$database['userpw']);
+            $passwordArgument = '';
+        } else {
+            $passwordArgument = "--password='".escapeshellarg($database['userpw'])."'";
+        }
+
 		$dbTables	= array_map('escapeshellarg', $dbTables);
-		$sqlDump	= shell_exec("mysqldump --host='".escapeshellarg($database['host'])."' --port=".((int) $database['port'])." --user='".escapeshellarg($database['user'])."' --password='".escapeshellarg($database['userpw'])."' --no-create-db --order-by-primary --add-drop-table --comments --complete-insert --hex-blob '".escapeshellarg($database['databasename'])."' ".implode(' ', $dbTables)." 2>&1 1> ".$filePath);
+		$sqlDump	= shell_exec("mysqldump --host='".escapeshellarg($database['host'])."' --port=".((int) $database['port'])." --user='".escapeshellarg($database['user'])."' ".$passwordArgument." --no-create-db --order-by-primary --add-drop-table --comments --complete-insert --hex-blob '".escapeshellarg($database['databasename'])."' ".implode(' ', $dbTables)." 2>&1 1> ".$filePath);
 		if(strlen($sqlDump) !== 0) #mysqldump error
 		{
 			throw new Exception($sqlDump);

@@ -3,9 +3,13 @@
 	<td colspan="2">
 		<div id="main">
 			<h2 class="left">{$LNG.upgrade_intro_welcome}</h2>
-			{if $file_revision > $sql_revision}
+			{if !empty($updates)}
 				<form action="?mode=doupgrade" method="POST">
-					<p class="left">{sprintf($LNG.upgrade_available,$sql_revision,$file_revision)}<select name="startrevision">{html_options values=$revisionlist output=$revisionlist}</select></p>
+					<p class="left">{sprintf($LNG.upgrade_available,$sql_revision,$file_revision)}
+
+					{foreach $updates as $file => $content}
+						<div><p class="left">{$file}</p><div style="border: 1px solid #1C1F23; padding: 5px 10px; margin: 5px 10px;" class="left">{$content}</div></div>
+					{/foreach}
 					<p><input type="submit" value="{$LNG.continue}"></p>
 				</form>
 			{else}

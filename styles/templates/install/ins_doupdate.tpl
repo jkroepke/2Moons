@@ -7,7 +7,7 @@
 		{else}
 			<p>{sprintf($LNG.upgrade_nothingtodo,$revision)}</p>
 		{/if}
-		</div><br><a href="index.php"><button style="cursor: pointer;">{$LNG.upgrade_back}</button></a>
+		</div><br><a href="../index.php"><button style="cursor: pointer;">{$LNG.upgrade_back}</button></a>
 	</td>
 </tr>
 {include file="ins_footer.tpl"}

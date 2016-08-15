@@ -641,6 +641,10 @@ CREATE TABLE `%PREFIX%statpoints` (
   KEY `stat_type` (`stat_type`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+CREATE TABLE `%PREFIX%system` (
+  `dbVersion` int(10) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 CREATE TABLE `%PREFIX%ticket` (
   `ticketID` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `universe` tinyint(3) unsigned NOT NULL,
@@ -928,6 +932,9 @@ INSERT INTO `%PREFIX%cronjobs` (`cronjobID`, `name`, `isActive`, `min`, `hours`,
 (NULL, 'teamspeak', 0, '*/3', '*', '*', '*', '*', 'TeamSpeakCronjob', 0, NULL),
 (NULL, 'databasedump', 1, '30', '1', '*', '*', '1', 'DumpCronjob', 0, NULL),
 (NULL, 'tracking', 1, FLOOR(RAND() * 60), FLOOR(RAND() * 24), '*', '*', '0', 'TrackingCronjob', 0, NULL);
+
+INSERT INTO `%PREFIX%system` (`dbVersion`) VALUES
+(2);
 
 INSERT INTO `%PREFIX%ticket_category` (`categoryID`, `name`) VALUES
 (1, 'Support');

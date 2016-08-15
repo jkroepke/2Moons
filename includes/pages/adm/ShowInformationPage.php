@@ -50,10 +50,14 @@ function ShowInformationPage()
 	$dateTimeServer		= new DateTime("now", $dateTimeZoneServer);
 	$dateTimeUser		= new DateTime("now", $dateTimeZoneUser);
 	$dateTimePHP		= new DateTime("now", $dateTimeZonePHP);
-	
+
+    $sql	= "SELECT dbVersion FROM %%SYSTEM%%;";
+
+    $dbVersion	= Database::get()->selectSingle($sql, array(), 'dbVersion');
+
 	$template	= new template();
 	$template->assign_vars(array(
-		'info_information'	=> sprintf($LNG['info_information'], 'http://tracker.2moons.cc/'),
+		'info_information'	=> sprintf($LNG['info_information'], 'https://github.com/jkroepke/2Moons/issues'),
 		'info'				=> $_SERVER['SERVER_SOFTWARE'],
 		'vPHP'				=> PHP_VERSION,
 		'vAPI'				=> PHP_SAPI,
@@ -72,6 +76,7 @@ function ShowInformationPage()
 		'log_errors'		=> ini_get('log_errors') ? 'Aktiv' : 'Inaktiv',
 		'errorlog'			=> ini_get('error_log'),
 		'errorloglines'		=> $Lines,
+        'dbVersion'         => $dbVersion,
 		'php_tz'			=> $dateTimePHP->getOffset() / 3600,
 		'conf_tz'			=> $dateTimeServer->getOffset() / 3600,
 		'user_tz'			=> $dateTimeUser->getOffset() / 3600,

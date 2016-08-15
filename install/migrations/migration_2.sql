@@ -1,0 +1,5 @@
+UPDATE %PREFIX%vars SET
+cost901 = cost901 / factor,
+cost902 = cost902 / factor,
+cost903 = cost903 / factor
+WHERE elementID IN (1,2,3,4,6,12,14,15,21,22,23,24,31,33,34,44,106,108,109,110,111,113,114,115,117,118,120,121,122,123,124,131,132,133,199);

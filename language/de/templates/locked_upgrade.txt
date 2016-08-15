@@ -1,0 +1,6 @@
+<h2>Upgrade der Datanbank erforderlich!</h2>
+<p>Die Datenbank erfordert ein Update.</p>
+<p>Um den Updateprozess zu aktivieren, muss die Datei ENABLE_INSTALL_TOOL erstellt werden.</p>
+<ul>
+    <li>In dem includes/ Ordner, erstelle eine Datei ENABLE_INSTALL_TOOL. Der Dateiname muss in Großbuchstaben sein. Die Datei selbst kann leer sein.</li>
+</ul>

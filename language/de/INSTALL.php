@@ -38,7 +38,7 @@ $LNG['upgrade_success']			= 'Update der Datenbank erfolgreich. Datenbank ist jet
 $LNG['upgrade_nothingtodo']		= 'Keine Aktion erforderlich. Datenbank ist bereits auf dem neusten Stand von Revision %s.';
 $LNG['upgrade_back']			= 'Zurück';
 $LNG['upgrade_intro_welcome']	= 'Willkommen beim Datenbank-Upgrader!';
-$LNG['upgrade_available']		= 'Es sind Updates für deine Datenbank verfügbar! Die Datenbank ist auf dem Stand von Revision %s und kann durch ein Update auf Revision %s gebracht werden.<br><br>Bitte wähle aus dem folgendem Menü das erste zu installierende SQL-Update:';
+$LNG['upgrade_available']		= 'Es sind Updates für deine Datenbank verfügbar! Die Datenbank ist auf dem Stand von Revision %s und kann durch ein Update auf Revision %s gebracht werden.';
 $LNG['upgrade_notavailable']	= 'Die verwendete Revision %s ist die Aktuellste für deine Datenbank.';
 $LNG['upgrade_required_rev']	= 'Der Updater kann nur ab Revision r2579 (2Moons v1.7) oder höher updaten.';
 

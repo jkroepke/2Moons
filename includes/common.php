@@ -90,6 +90,20 @@ if(!file_exists('includes/config.php')) {
 	HTTP::redirectTo('install/index.php');
 }
 
+try {
+    $sql	= "SELECT dbVersion FROM %%SYSTEM%%;";
+
+    $dbVersion	= Database::get()->selectSingle($sql, array(), 'dbVersion');
+
+    $dbNeedsUpgrade = $dbVersion < DB_VERSION_REQUIRED;
+} catch (Exception $e) {
+    $dbNeedsUpgrade = true;
+}
+
+if ($dbNeedsUpgrade) {
+    HTTP::redirectTo('install/index.php?mode=upgrade');
+}
+
 if(defined('DATABASE_VERSION') && DATABASE_VERSION === 'OLD')
 {
 	/* For our old Admin panel */

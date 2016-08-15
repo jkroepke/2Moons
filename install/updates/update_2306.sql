@@ -1,1 +1,0 @@
-ALTER TABLE `prefix_session` DROP PRIMARY KEY , ADD PRIMARY KEY ( `userID` ), ADD INDEX ( `sessionID` );

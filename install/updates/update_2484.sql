@@ -1,1 +1,0 @@
-ALTER TABLE `prefix_raports` ADD `attacker` VARCHAR( 255 ) NOT NULL DEFAULT '', ADD `defender` VARCHAR( 255 ) NOT NULL DEFAULT '';

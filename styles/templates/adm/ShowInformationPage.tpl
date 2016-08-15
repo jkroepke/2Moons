@@ -19,6 +19,7 @@ MySQL-Server-Version: {$vMySQLs}
 ErrorLog: {$errorlog} ({$errorloglines}, {$log_errors})
 Timezone(PHP/CONF/USER): {$php_tz} / {$conf_tz} / {$user_tz}
 Suhosin: {$suhosin}
+DB Version: {$dbVersion}
 
 -- Game --
 Game Version: 2Moons {$vGame}
