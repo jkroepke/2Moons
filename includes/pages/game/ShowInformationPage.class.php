@@ -78,8 +78,6 @@ class ShowInformationPage extends AbstractGamePage
 		$SubQueryOri	= "";
 		$SubQueryDes	= "";
 		$Ships			= HTTP::_GP('ship', array());
-		$SubQueryParams = array();
-		
 		
 		foreach($reslist['fleet'] as $Ship)
 		{
@@ -93,7 +91,6 @@ class ShowInformationPage extends AbstractGamePage
 
 			$SubQueryOri 		.= $resource[$Ship]." = ".$resource[$Ship]." - ".$ShipArray[$Ship].", ";
 			$SubQueryDes 		.= $resource[$Ship]." = ".$resource[$Ship]." + ".$ShipArray[$Ship].", ";
-			//$SubQueryParams[':'.$resource[$Ship].'']    = $ShipArray[$Ship];
 			$PLANET[$resource[$Ship]] -= $ShipArray[$Ship];
 		}
 
@@ -150,10 +147,8 @@ class ShowInformationPage extends AbstractGamePage
 		$PLANET[$resource[502]]	-= max(0, min($Missle[502], $PLANET[$resource[502]]));
 		$PLANET[$resource[503]]	-= max(0, min($Missle[503], $PLANET[$resource[503]]));
 
-		$sql = "UPDATE %%PLANETS%% SET :resource502Name = :resource502Val, :resource503Name = :resource503Val WHERE id = :planetID;";
+		$sql = "UPDATE %%PLANETS%% SET ".$resource[502]." = :resource502Val, ".$resource[503]." = :resource503Val WHERE id = :planetID;";
 		$db->update($sql, array(
-			':resource502Name'  => $resource[502],
-			':resource503Name'  => $resource[503],
 			':resource502Val'   => $PLANET[$resource[502]],
 			':resource503Val'   => $PLANET[$resource[503]],
 			':planetID'         => $PLANET['id']
