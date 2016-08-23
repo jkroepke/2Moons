@@ -138,6 +138,14 @@
 										</tr>
 										<tr>
 											<td class="transparent">
+												KickXAss4Ever & Apocalypto2202
+											</td>
+											<td class="transparent">
+												<img src="styles/resource/images/login/flags/fr.png" alt="(french)">
+											</td>
+										</tr>
+										<tr>
+											<td class="transparent">
 												InquisitorEA
 											</td>
 											<td class="transparent">
