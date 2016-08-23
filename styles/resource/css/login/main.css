@@ -522,7 +522,7 @@ footer{
 /** FORM **/
 
 .formRow {
-	width:410px;
+	width:420px;
 	margin:6px auto;
 	clear:both;
 }
@@ -559,9 +559,9 @@ footer{
 	padding:3px 0;
 }
 
-#lostPassword  #recaptcha_image {
-	margin-top:5px;
-	padding-left:110px;
+#lostPassword #universe {
+	float: left;
+	margin: 0 0 5px 0;
 }
 #lostPassword  .inputDesc {
 	font-size:10px;
@@ -569,4 +569,9 @@ footer{
 	font-style:italic;
 	padding-left:110px;
 	text-align:left;
+}
+
+.g-recaptcha {
+	float: left;
+	padding: 10px 0;
 }
