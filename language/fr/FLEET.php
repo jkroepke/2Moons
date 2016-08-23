@@ -1,6 +1,7 @@
 <?php
-// Traduction Française by BigTwoProduction (KickXAss4Ever & Apocalypto2202) - All rights reserved (C) 2016
+// Traduction FranÃ§aise by BigTwoProduction (KickXAss4Ever & Apocalypto2202) - All rights reserved (C) 2016
 // Web : http://www.big-two.tk
+// Version 1.0
 
 $LNG['and']                                 = 'et';
 
@@ -85,7 +86,7 @@ $LNG['sys_expe_found_dm_1_1']				= 'L expedition a reussi a capturer une petite 
 $LNG['sys_expe_found_dm_1_2']				= 'Notre expedition a decouvert un vaisseau fantome qui transportait un peu de matiere noire. Bien que nous n ayons pu trouver aucune note sur ce qui est arrive a l equipage, nos techniciens ont cependant reussi a recuperer la matiere noire.';
 $LNG['sys_expe_found_dm_1_3']				= 'Nous avons rencontre un extraterrestre etrange a bord d un petit vaisseau qui nous donne un petit recipient en echange de simples calculs mathematiques sur la matiere noire.';
 $LNG['sys_expe_found_dm_1_4']				= 'Nous avons trouve les restes d un vaisseau extraterrestre. Il y avait un petit recipient a bord avec de la matiere noire !';
-$LNG['sys_expe_found_dm_1_5']				= 'L expedition re&ccedil;oit des signaux etranges et decouvre un asteroide. En son cœur un peu de matiere noire a ete detecte. L asteroide a ete recupere a bord et les chercheurs tentent maintenant d en extraire la matiere noire.';
+$LNG['sys_expe_found_dm_1_5']				= 'L expedition re&ccedil;oit des signaux etranges et decouvre un asteroide. En son cÂœur un peu de matiere noire a ete detecte. L asteroide a ete recupere a bord et les chercheurs tentent maintenant d en extraire la matiere noire.';
 $LNG['sys_expe_found_dm_2_1']				= 'Notre expedition a reussi experience singuliere. Vous avez ete capable de recuperer de la matiere noire a partir d une etoile mourante.';
 $LNG['sys_expe_found_dm_2_2']				= 'Notre expedition re&ccedil;oit des rapports etranges d  un phenomene du spectre. Entre autres, l energie stockee dans les boucliers du vaisseau a forme de la matiere noire. Nos techniciens essayent maintenant de conserver, aussi longtemps que le phenomene persiste, une grande partie de cette matiere noire.';
 $LNG['sys_expe_found_dm_2_3']				= 'Notre expedition a trouve une ancienne station spatiale deserte qui derive dans l espace. Dans l un de ses reacteurs un peu de matiere noire est decele. Nos techniciens essaient de s emparer de celle-ci.';
@@ -101,12 +102,12 @@ $LNG['sys_expe_found_ships_3_1']			= 'Nous avons trouve un cimetiere gigantesque
 $LNG['sys_expe_found_ships_3_2']			= 'Nous avons decouvert une planete avec des restes d une civilisation. L\expedition y trouve une gigantesque station visible de l orbite de la planete. Nos techniciens et des pilotes se rendent a la surface pour l examiner. Ils y decouvrent des vaisseaux encore utilisables.';
 $LNG['sys_expe_lost_fleet_1']				= 'Le dernier message que vous recevez de l expedition est le suivant : Zzzrrt oh Dieu !...Krrrzzzzt le zrrrtrzt sees krgzzzz comment Krzzzzzzzztzzzz...';
 $LNG['sys_expe_lost_fleet_2']				= 'Les derniers cliches envoyes par votre expedition sont celui d un trou noir puis blackout total ...';
-$LNG['sys_expe_lost_fleet_3']				= 'Un rupture de la coque du vaisseau mere de l expedition entraîne une explosion en chaine spectaculaire qui aneantit la totalite des vaisseaux de l expedition';
+$LNG['sys_expe_lost_fleet_3']				= 'Un rupture de la coque du vaisseau mere de l expedition entraÃ®ne une explosion en chaine spectaculaire qui aneantit la totalite des vaisseaux de l expedition';
 $LNG['sys_expe_lost_fleet_4']				= 'L expedition a connu un dysfonctionnement de l ordinateur de bord et en particulier du saut hyperespace. Nos scientifiques et techniciens cherchent ce qu il a bien pu se passer mais sans resultat. La flotte est definitivement perdue.';
 $LNG['sys_expe_time_fast_1']				= 'Des agregats dans les bobines d energie des propulseur force l expedition a revenir plus tot que prevu. Les premiers rapports ne font pas cependant etat d une defaillance grave.';
 $LNG['sys_expe_time_fast_2']				= 'Le commandant a fait preuve d initiative en exploitant un vortex instable pour manoeuvrer la flotte ce qui diminiue son temps de retour. En revanche, rien de particulier n a ete trouve.';
 $LNG['sys_expe_time_fast_3']				= 'L\'investigation du secteur n a rien donne. Cependant, la flotte profite d un vent solaire qui l a fait sauter dans l espace, reduisant ainsi son temps de retour.';
-$LNG['sys_expe_time_slow_1']				= 'Une erreur de calcul du navigateur entraîne un saut errone de la flotte dans l espace. La flotte revient mais aura du retard sur l heure de retour originel.';
+$LNG['sys_expe_time_slow_1']				= 'Une erreur de calcul du navigateur entraÃ®ne un saut errone de la flotte dans l espace. La flotte revient mais aura du retard sur l heure de retour originel.';
 $LNG['sys_expe_time_slow_2']				= 'Pour des raisons jusqu a present inconnues, le saut de la flotte de l expedition est completement errone. La flotte sort de l hyperespace presque au milieu d une etoile. Heureusement la flotte atterrit dans un systeme connu. le retour plus long que prevu initialement.';
 $LNG['sys_expe_time_slow_3']				= 'Le nouveau module de navigation connait une defaillance. Le saut hyperespace de la flotte d expedition est completement faux. Il reste tout juste assez de deuterium pour regagner par impulsion la lune de la planete de depart.';
 $LNG['sys_expe_time_slow_4']				= 'Votre expedition traverse un secteur d orage de particules amplifiees. Cette immense source d energie couplee a celle de la flotte desamorcent le calculateur de vol. Les techniciens travaillent a restaurer la situation ce qui prend du temps supplementaire.';
@@ -116,7 +117,7 @@ $LNG['sys_expe_nothing_1'] 					= 'L\'expedition ne rapporte rien de tres intere
 $LNG['sys_expe_nothing_2'] 					= 'Votre expedition a realise de jolis cliches d une supernova mais n a rien appris de nouveau.';
 $LNG['sys_expe_nothing_3'] 					= 'Un virus informatique s est infiltre dans l ordinateur de bord. Il a etrangement modifie la trajectoire du vol ce qui a pour consequence de le faire tourner en rond dans le systeme solaire. L expedition revient a vide.';
 $LNG['sys_expe_nothing_4'] 					= 'Une forme de vie a partir d energie pure a capte l attention de tous les membres l expedition. Ils sont hypnotises par les echantillons sur les ecrans pendant des jours. Lorsqu ils reprennent leurs esprits, ils decident de rentrer, le deuterium faisant defaut.';
-$LNG['sys_expe_nothing_5'] 					= 'Desormais nous savons que les anomalies spectrales de classe 5 entraînent des effets chaotiques sur les systemes embarques mais aussi des hallucinations de l equipage. Sinon l expedition ne rapporte rien d autre.';
+$LNG['sys_expe_nothing_5'] 					= 'Desormais nous savons que les anomalies spectrales de classe 5 entraÃ®nent des effets chaotiques sur les systemes embarques mais aussi des hallucinations de l equipage. Sinon l expedition ne rapporte rien d autre.';
 $LNG['sys_expe_nothing_6'] 					= 'Le scan de ce secteur etait prometteur mais malheureusement nos detecteurs n ont rien capte sur place. L expedition revient a vide';
 $LNG['sys_expe_nothing_7'] 					= 'L\'expedition decide de se poser sur une planete exotique et lointaine pour feter l anniversaire du Capitaine. Bon nombre de membres de l equipage tombe malade. Apres analyse, ils sont atteints d une sorte de fievre jaune. L expetion est reduite a faire demi-tour.';
 $LNG['sys_expe_nothing_8'] 					= 'Votre expedition est reduite a faire demi-tour, exposee au vide intersideral et a l absence d un quelconque rayonnement.';
@@ -138,7 +139,7 @@ $LNG['sys_expe_attack_2_1_4'] 				= 'Votre flotte d expedition entre en contact 
 $LNG['sys_expe_attack_2_2_1'] 				= 'Une espece inconnue attaque notre flotte !';
 $LNG['sys_expe_attack_2_2_2'] 				= 'Votre expedtion traverse le territoire d une civilisation Alien extremement agressive et guerriere. Celle-ci n apprecie guere votre presence et pointe ses armes sur votre flotte d expedition.';
 $LNG['sys_expe_attack_2_2_3'] 				= 'La transmission radio avec votre flotte d expedition a ete interrompue quelques minutes. Lorsque le contact est retabli, votre flotte essuie un feu nourri. L agresseur n a pas ete identifie.';
-$LNG['sys_expe_attack_2_3_1'] 				= 'Votre expedition connaît une invasion Alien caracterisee par d\'intenses combats !';
+$LNG['sys_expe_attack_2_3_1'] 				= 'Votre expedition connaÃ®t une invasion Alien caracterisee par d\'intenses combats !';
 $LNG['sys_expe_attack_2_3_2'] 				= 'Notre expedition se trouve sur la trajectoire d un colossal cimetiere de vaisseaux spatiaux. Nous devons devier notre route pour eviter le pire.';
 $LNG['sys_expe_attackname_1']				= 'Pirates'; 	
 $LNG['sys_expe_attackname_2'] 				= 'Aliens'; 	

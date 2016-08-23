@@ -1,6 +1,7 @@
 <?php
-// Traduction Française by BigTwoProduction (KickXAss4Ever & Apocalypto2202) - All rights reserved (C) 2016
+// Traduction FranÃ§aise by BigTwoProduction (KickXAss4Ever & Apocalypto2202) - All rights reserved (C) 2016
 // Web : http://www.big-two.tk
+// Version 1.0
 
 setlocale(LC_ALL, 'fr_FR', 'french'); // http://msdn.microsoft.com/fr-fr/library/39cwe7zf%28vs.71%29.aspx
 setlocale(LC_NUMERIC, 'C');

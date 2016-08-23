@@ -1,11 +1,12 @@
 <?php
-// Traduction Française by BigTwoProduction (KickXAss4Ever & Apocalypto2202) - All rights reserved (C) 2016
+// Traduction FranÃ§aise by BigTwoProduction (KickXAss4Ever & Apocalypto2202) - All rights reserved (C) 2016
 // Web : http://www.big-two.tk
+// Version 1.0
 
 $LNG['ub_points']							= 'Points';
 $LNG['ub_fleets']							= 'Flotte';
 $LNG['ub_researh']							= 'Recherche';
-$LNG['ub_buildings']						= 'Bâtiments';
+$LNG['ub_buildings']						= 'BÃ¢timents';
 $LNG['ub_defenses']							= 'D&eacute;fense';
 
 $LNG['ub_fights']		= 'Batailles';
