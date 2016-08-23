@@ -99,6 +99,10 @@ class SQLDumper
 /*!40101 SET character_set_client = utf8 */;\n\n");
 
 			$createTable	= $db->nativeQuery("SHOW CREATE TABLE ".$dbTable);
+            if(!isset($createTable['Create Table'])) {
+                throw new Exception("Error after executing SHOW CREATE TABLE ".$dbTable."! Can't find key 'Create Table' in the results. Available data: \n\n".print_r($createTable, true));
+            }
+
 			fwrite($fp, $createTable['Create Table'].';');
 			fwrite($fp, "\n\n/*!40101 SET character_set_client = @saved_cs_client */;");
 
