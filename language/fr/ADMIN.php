@@ -1,10 +1,6 @@
 <?php
-
-
-// Translated into English by QwataKayean . All rights reversed (C) 2012
-// 2Moons - Copyright (C) 2010-2012 Slaver
- 
- 
+// Traduction Française by BigTwoProduction (KickXAss4Ever & Apocalypto2202) - All rights reserved (C) 2016
+// Web : http://www.big-two.tk
  
 //---------------	GENERAL	------------------------//
 $LNG['adm_login']						= 'Connectez-vous';
@@ -1353,5 +1349,4 @@ $LNG['du_choose_tables']			= 'S&eacute;lectionner les tables';
 $LNG['du_success']					= 'Backup creer avec succes! Fichier: %s';
 $LNG['du_not_tables_selected']		= 'Vous n\'avez pas s&eacute;l&eacute;ctioner de tables pour le backup!';
 
-// Traduction Française by KickXAssEver- All rights reserved (C) 2016
 ?>

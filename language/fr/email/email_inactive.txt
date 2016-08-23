@@ -1,0 +1,8 @@
+Bonjour %1$s,
+
+Vous êtes connecté il y a %2$s jours, la dernière fois à %3$s. Si vous voulez continuer à rester membre de notre communauté, s'il vous plaît vous connecter avec vos informations de connexion afin de ne pas perdre votre compte.
+
+Si vous avez oublié votre mot de passe, puis aller à %4$s et cliquez sur "Mot de passe oublié". Vous recevrez un email dans quelques minutes avec votre nouveau mot de passe.
+
+Cordialement,
+%3$s - l'Équipe
