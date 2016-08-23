@@ -169,15 +169,20 @@ class statbuilder
 		{
 			if($USER[$resource[$Techno]] == 0) continue;
 
-			$Units	= $pricelist[$Techno]['cost'][901] + $pricelist[$Techno]['cost'][902] + $pricelist[$Techno]['cost'][903];
-			for($Level = 1; $Level <= $USER[$resource[$Techno]]; $Level++)
-			{
-				$TechPoints	+= $Units * pow($pricelist[$Techno]['factor'], $Level);
-			}
-			
+            // Points = (All resources / PointsPerCost) * Factor * ( 2 * ( Factor ^ Level ) - Factor) + 1)
+            // PointsPerCot == Config::get()->stat_settings
 			$TechCounts		+= $USER[$resource[$Techno]];
-			
-			$this->setRecords($USER['id'], $Techno, $USER[$resource[$Techno]]);
+            $TechPoints     +=
+                ($pricelist[$Techno]['cost'][901] + $pricelist[$Techno]['cost'][902] + $pricelist[$Techno]['cost'][903])
+                * $pricelist[$Techno]['factor']
+                * (
+                    2 * (
+                        pow($pricelist[$Techno]['factor'], $USER[$resource[$Techno]]) - $pricelist[$Techno]['factor']
+                    ) + 1
+                );
+
+
+            $this->setRecords($USER['id'], $Techno, $USER[$resource[$Techno]]);
 		}
 		
 		return array('count' => $TechCounts, 'points' => ($TechPoints / Config::get()->stat_settings));
@@ -192,12 +197,17 @@ class statbuilder
 		foreach($reslist['build'] as $Build)
 		{
 			if($PLANET[$resource[$Build]] == 0) continue;
-			
-			$Units			 = $pricelist[$Build]['cost'][901] + $pricelist[$Build]['cost'][902] + $pricelist[$Build]['cost'][903];
-			for($Level = 1; $Level <= $PLANET[$resource[$Build]]; $Level++)
-			{
-				$BuildPoints	+= $Units * pow($pricelist[$Build]['factor'], $Level);
-			}
+
+            // Points = (All resources / PointsPerCost) * Factor * ( 2 * ( Factor ^ Level ) - Factor) + 1)
+            // PointsPerCot == Config::get()->stat_settings
+            $BuildPoints     +=
+                ($pricelist[$Build]['cost'][901] + $pricelist[$Build]['cost'][902] + $pricelist[$Build]['cost'][903])
+                * $pricelist[$Build]['factor']
+                * (
+                    2 * (
+                        pow($pricelist[$Build]['factor'], $PLANET[$resource[$Build]]) - $pricelist[$Build]['factor']
+                    ) + 1
+                );
 			
 			$BuildCounts	+= $PLANET[$resource[$Build]];
 			
