@@ -47,10 +47,12 @@ $LNG['buttonScreenshot']			= 'Screenshots';
 $LNG['buttonLostPassword']			= 'Passwort vergessen?';
 
 // Start
-$LNG['gameInformations'][0]			= 'Ein Weltraum-Strategiespiel in Echtzeit.';
-$LNG['gameInformations'][1]			= 'Spiele zusammen mit hunderten Usern.';
-$LNG['gameInformations'][2]			= 'Kein Download, es wird nur ein Standardbrowser benötigt.';
-$LNG['gameInformations'][3]			= 'Kostenlose Registrierung';
+$LNG['gameInformations']			= <<<BODY
+Ein Weltraum-Strategiespiel in Echtzeit.';
+Spiele zusammen mit hunderten Usern.
+Kein Download, es wird nur ein Standardbrowser benötigt.
+Kostenlose Registrierung
+BODY;
 
 // Login
 $LNG['loginHeader']					= 'Login';
