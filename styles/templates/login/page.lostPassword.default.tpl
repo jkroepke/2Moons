@@ -16,12 +16,10 @@
 	<input type="text" name="mail" id="mail">
 </div>
 {if $recaptchaEnable}
-<div class="formRow">
-	<div id="recaptcha_widget">
-		<label for="recaptcha_response_field">{$LNG.registerCaptcha}<p class="captchaButtons"><a href="javascript:Recaptcha.reload()">{$LNG.registerCaptchaReload}</a></p></label>
-		<div id="recaptcha_input_wrap"><input type="text" id="recaptcha_response_field" name="recaptcha_response_field" class="input"></div>
-		<span class="inputDesc">{$LNG.registerCaptchaDesc}</span>		
-		<div id="recaptcha_image"></div>
+<div class="formRow" id="captchaRow">
+	<div>
+		<label>{$LNG.registerCaptcha}<p class="captchaButtons"></p></label>
+		<div class="g-recaptcha" data-sitekey="{$recaptchaPublicKey}"></div>
 	</div>
 	<div class="clear"></div>
 </div>
@@ -33,20 +31,6 @@
 {/block}
 {block name="script" append}
 {if $recaptchaEnable}
-<script type="text/javascript" src="http://www.google.com/recaptcha/api/js/recaptcha_ajax.js"></script>
-<script type="text/javascript">
-var RecaptchaOptions = {
-	lang : '{$lang}',
-};
-
-var recaptchaPublicKey = "{$recaptchaPublicKey}";
-
-Recaptcha.create(recaptchaPublicKey, 'display_captcha', {
-	theme: 'custom',
-	tabindex: '6',
-	custom_theme_widget: 'display_captcha'
-});
-
-</script>
+<script type="text/javascript" src="https://www.google.com/recaptcha/api.js?hl={$lang}"></script>
 {/if}
 {/block}

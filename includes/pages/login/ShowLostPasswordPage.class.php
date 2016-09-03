@@ -126,15 +126,13 @@ class ShowLostPasswordPage extends AbstractLoginPage
 
 		if ($config->capaktiv == 1)
 		{
-			require_once('includes/libs/reCAPTCHA/recaptchalib.php');
-			$recaptcha_challenge_field	= HTTP::_GP('recaptcha_challenge_field', '');
-			$recaptcha_response_field	= HTTP::_GP('recaptcha_response_field', '');
-			
-			$resp = recaptcha_check_answer($config->capprivate, Session::getClientIp(), $recaptcha_challenge_field, $recaptcha_response_field);
-		
-			if (!$resp->is_valid)
-			{
-				$errorMessages[]	=  $LNG['registerErrorCaptcha'];
+            require('includes/libs/reCAPTCHA/autoload.php');
+
+            $recaptcha = new \ReCaptcha\ReCaptcha($config->capprivate);
+            $resp = $recaptcha->verify(HTTP::_GP('g-recaptcha-response', ''), Session::getClientIp());
+            if (!$resp->isSuccess())
+            {
+                $errorMessages[]	=  $LNG['registerErrorCaptcha'];
 			}
 		}
 		

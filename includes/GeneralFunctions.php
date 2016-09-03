@@ -559,7 +559,7 @@ function exceptionHandler($exception)
 			<b>URL: </b>'.PROTOCOL.HTTP_HOST.$_SERVER['REQUEST_URI'].'<br>
 			<b>PHP-Version: </b>'.PHP_VERSION.'<br>
 			<b>PHP-API: </b>'.php_sapi_name().'<br>
-			<b>MySQL-Cleint-Version: </b>'.mysqli_get_client_info().'<br>
+			<b>MySQL-Client-Version: </b>'.mysqli_get_client_info().'<br>
 			<b>2Moons Version: </b>'.$VERSION.'<br>
 			<b>Debug Backtrace:</b><br>'.makebr(htmlspecialchars($exception->getTraceAsString())).'
 		</td>
