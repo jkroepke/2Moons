@@ -1,7 +1,8 @@
 <?php
 // Traduction Française by BigTwoProduction (KickXAss4Ever & Apocalypto2202) - All rights reserved (C) 2016
 // Web : http://www.big-two.tk
-// Version 1.0
+// Version 1.0 - Initial release
+// Version 1.1 - Decode accent HTML to UTF-8 format & small spellchecking
 
 setlocale(LC_ALL, 'fr_FR', 'french'); // http://msdn.microsoft.com/fr-fr/library/39cwe7zf%28vs.71%29.aspx
 setlocale(LC_NUMERIC, 'C');

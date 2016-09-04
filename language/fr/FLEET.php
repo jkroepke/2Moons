@@ -1,7 +1,8 @@
 <?php
 // Traduction Française by BigTwoProduction (KickXAss4Ever & Apocalypto2202) - All rights reserved (C) 2016
 // Web : http://www.big-two.tk
-// Version 1.0
+// Version 1.0 - Initial release
+// Version 1.1 - Decode accent HTML to UTF-8 format & small spellchecking
 
 $LNG['and']                                 = 'et';
 
@@ -9,70 +10,70 @@ $LNG['and']                                 = 'et';
 //SYSTEM
 $LNG['sys_attacker_lostunits'] 				= "Pertes attaquant :";
 $LNG['sys_defender_lostunits'] 				= "Pertes defenseur :";
-$LNG['sys_units']							= "Unit&eacute;s";
-$LNG['debree_field_1'] 						= "Coordonn&eacute;es Champs de D&eacute;bris";
-$LNG['debree_field_2']						= "D&eacute;bris.";
-$LNG['sys_moonproba'] 						= "Probabilit&eacute; d'une Lune: ";
-$LNG['sys_moonbuilt'] 						= "Une Lune se forme autour de la plan&egrave;te %s [%d:%d:%d] !";
+$LNG['sys_units']							= "Unités";
+$LNG['debree_field_1'] 						= "Coordonnées Champs de Débris";
+$LNG['debree_field_2']						= "Débris.";
+$LNG['sys_moonproba'] 						= "Probabilité d'une Lune: ";
+$LNG['sys_moonbuilt'] 						= "Une Lune se forme autour de la planète %s [%d:%d:%d] !";
 $LNG['sys_attack_title']    				= "Les flottes suivantes s'opposent : ";
 $LNG['sys_attack_round']					= "Tour";
 $LNG['sys_attack_attacker_pos'] 			= "Attaquant";
 $LNG['sys_attack_techologies'] 				= 'Armes : %d %% Boucliers : %d %% Blindage : %d %% ';
-$LNG['sys_attack_defender_pos'] 			= "D&eacute;fenseur";
+$LNG['sys_attack_defender_pos'] 			= "Défenseur";
 $LNG['sys_ship_type'] 						= "Type";
 $LNG['sys_ship_count'] 						= "Nombre";
 $LNG['sys_ship_weapon'] 					= "Armes";
 $LNG['sys_ship_shield'] 					= "Boucliers";
 $LNG['sys_ship_armour'] 					= "Blindage";
-$LNG['sys_destroyed'] 						= "D&eacute;truit !";
+$LNG['sys_destroyed'] 						= "Détruit !";
 $LNG['fleet_attack_1'] 						= "La flotte attaquante tire avec une force de";
-$LNG['fleet_attack_2']						= "Sur le d&eacute;fenseur. Les boucliers du d&eacute;fenseur absorbent";
-$LNG['fleet_defs_1'] 						= "La flotte du d&eacute;fenseur tire avec une force de";
+$LNG['fleet_attack_2']						= "Sur le défenseur. Les boucliers du défenseur absorbent";
+$LNG['fleet_defs_1'] 						= "La flotte du défenseur tire avec une force de";
 $LNG['fleet_defs_2']						= "Sur l'attaquant. Les boucliers de l'attaquant absorbent";
-$LNG['damage']								= "Points de d&eacute;gats";
-$LNG['sys_attacker_won'] 					= "L'attaquant a gagn&eacute; la bataille !";
-$LNG['sys_defender_won'] 					= "Le d&eacute;fenseur a gagn&eacute; la bataille !";
+$LNG['damage']								= "Points de dégats";
+$LNG['sys_attacker_won'] 					= "L'attaquant a gagné la bataille !";
+$LNG['sys_defender_won'] 					= "Le défenseur a gagné la bataille !";
 $LNG['sys_both_won'] 						= "Le combat se termine par un match nul !";
-$LNG['sys_stealed_ressources'] 				= "Le butin s'el&egrave;ve a";
+$LNG['sys_stealed_ressources'] 				= "Le butin s'elève a";
 $LNG['sys_and']								= "Et";
-$LNG['sys_mess_tower'] 						= "Tour de contr&ocirc;le";
+$LNG['sys_mess_tower'] 						= "Tour de contrôle";
 $LNG['sys_mess_attack_report'] 				= "Rapport de bataille";
 $LNG['sys_spy_fleet'] 						= "Flotte";
-$LNG['sys_spy_defenses'] 					= "D&eacute;fenses";
-$LNG['sys_mess_qg'] 						= "D&eacute;partement Espionnage";
+$LNG['sys_spy_defenses'] 					= "Défenses";
+$LNG['sys_mess_qg'] 						= "Département Espionnage";
 $LNG['sys_mess_spy_report_moon']			= "(Lune)";
 $LNG['sys_mess_spy_report'] 				= "Rapport d'espionnage";
 $LNG['sys_mess_head'] 					    = 'Rapport d espionnage %s [%d:%d:%d] sur %s';
-$LNG['sys_mess_spy_lostproba'] 				= "La probabilit&eacute; de la destruction de la/des sonde(s) d'espionnage est :  %d %% ";
-$LNG['sys_mess_spy_control'] 				= "Tour de contr&ocirc;le";
-$LNG['sys_mess_spy_activity'] 				= "Activit&eacute; d'espionnage";
-$LNG['sys_mess_spy_ennemyfleet'] 			= "Une flotte hostile en provenance de la plan&egrave;te";
-$LNG['sys_mess_spy_seen_at'] 				= "A &eacute;t&eacute; aper&ccedil;ue &agrave; proximit&eacute; de votre plan&egrave;te";
-$LNG['sys_mess_spy_seen_at2'] 				= 'Aper&ccedil;ue';
-$LNG['sys_mess_spy_destroyed'] 				= '<font color="red">Vos sondes d\'espionnage ont &eacute;t&eacute; d&eacute;truites !</font>';
+$LNG['sys_mess_spy_lostproba'] 				= "La probabilité de la destruction de la/des sonde(s) d'espionnage est :  %d %% ";
+$LNG['sys_mess_spy_control'] 				= "Tour de contrôle";
+$LNG['sys_mess_spy_activity'] 				= "Activité d'espionnage";
+$LNG['sys_mess_spy_ennemyfleet'] 			= "Une flotte hostile en provenance de la planète";
+$LNG['sys_mess_spy_seen_at'] 				= "A été aperçue à proximité de votre planète";
+$LNG['sys_mess_spy_seen_at2'] 				= 'Aperçue';
+$LNG['sys_mess_spy_destroyed'] 				= '<font color="red">Vos sondes d\'espionnage ont été détruites !</font>';
 $LNG['sys_adress_planet'] 					= '[%s:%s:%s]';
 
-$LNG['sys_stat_mess_stay']           		= 'Flotte localis&eacute;e';
-$LNG['sys_stat_mess'] 		         		= 'Votre Flotte atteint la plan&egrave;te %s et y d&eacute;livre %s %s, %s %s and %s %s.';
+$LNG['sys_stat_mess_stay']           		= 'Flotte localisée';
+$LNG['sys_stat_mess'] 		         		= 'Votre Flotte atteint la planète %s et y délivre %s %s, %s %s and %s %s.';
 
 $LNG['sys_colo_mess_from'] 					= "Colonisation";
 $LNG['sys_colo_mess_report'] 				= "Rapport de colonisation";
 $LNG['sys_colo_defaultname'] 				= "Colonie";
-$LNG['sys_colo_notech'] 					= 'Une de vos flottes est arriv&eacute;e %s. Lorsque vos colons se sont approch&eacute;s de la plan&egrave;te, ils devaient d&eacute;terminer avec leur &eacute;quipement si le climat &eacute;tait convenable et pouvait etre propise d&eacute;velopp&eacute;. D&eacute;&ccedil;us, les colons sont revenus.';
+$LNG['sys_colo_notech'] 					= 'Une de vos flottes est arrivée %s. Lorsque vos colons se sont approchés de la planète, ils devaient déterminer avec leur équipement si le climat était convenable et pouvait etre propise développé. Déçus, les colons sont revenus.';
 $LNG['sys_colo_arrival'] 					= '';
-$LNG['sys_colo_maxcolo'] 					= 'Une de vos flottes atteint les coordonn&eacute;es %s. Les colons ne peuvent s\'y installer car vous avez atteint votre limite de %d plan&egrave;tes colonisables.';
-$LNG['sys_colo_allisok'] 					= 'Une de vos flottes atteint les coordonn&eacute;es %s. Les colons commencent a s\'installer sur la nouvelle plan&egrave;te.';
-$LNG['sys_colo_badpos']  					= 'Une de vos flottes atteint les coordonn&eacute;es %s. Aucune colonisation n\'est possible sur cette planete. Les colons, d&eacute;&ccedil;us, reviennent.';
-$LNG['sys_colo_notfree'] 					= 'Une de vos flottes atteint les coordonn&eacute;es %s. Lorsque les colons arrivent aux coordonn&eacute;es souhait&eacute;es, ils r&eacute;alisent que la plan&egrave;te est d&eacute;j&agrave; colonis&eacute;e. Compl&egrave;tement d&eacute;moralis&eacute;s, ils d&eacute;cident de revenir.';
+$LNG['sys_colo_maxcolo'] 					= 'Une de vos flottes atteint les coordonnées %s. Les colons ne peuvent s\'y installer car vous avez atteint votre limite de %d planètes colonisables.';
+$LNG['sys_colo_allisok'] 					= 'Une de vos flottes atteint les coordonnées %s. Les colons commencent a s\'installer sur la nouvelle planète.';
+$LNG['sys_colo_badpos']  					= 'Une de vos flottes atteint les coordonnées %s. Aucune colonisation n\'est possible sur cette planete. Les colons, déçus, reviennent.';
+$LNG['sys_colo_notfree'] 					= 'Une de vos flottes atteint les coordonnées %s. Lorsque les colons arrivent aux coordonnées souhaitées, ils réalisent que la planète est déjà colonisée. Complètement démoralisés, ils décident de revenir.';
 
-$LNG['sys_expe_report'] 					= 'Rapport d\'exp&eacute;dition';
+$LNG['sys_expe_report'] 					= 'Rapport d\'expédition';
 $LNG['sys_recy_report'] 					= 'Rapport de recyclage';
-$LNG['sys_expe_found_ships_nothing']		= 'Aucun vaisseau n\'a pu &ecirc;tre trouv&eacute;';
+$LNG['sys_expe_found_ships_nothing']		= 'Aucun vaisseau n\'a pu être trouvé';
 $LNG['sys_expe_blackholl_1'] 				= 'Votre flotte a rencontre un tou noir et a ete partiellement detruite !';
 $LNG['sys_expe_blackholl_2'] 				= 'Votre flotte a rencontre un tou noir et a ete completement detruite !';
 $LNG['sys_expe_found_goods'] 				= 'Vos chercheurs ont trouve une planete riche en matieres premieres ! <br>Il a ete extrait %s %s, %s %s et %s %s';
 $LNG['sys_expe_found_ships'] 				= 'Vos chercheurs ont trouve des vaisseaux spatiaux en parfait etat ! <br>: ';
-$LNG['sys_expe_back_home'] 					= 'Votre flotte rentre de sa mission d\'exp&eacute;dition.';
+$LNG['sys_expe_back_home'] 					= 'Votre flotte rentre de sa mission d\'expédition.';
 $LNG['sys_expe_found_ress_1_1']				= 'Votre expedition a decouvert un petit champs d asteroides dont certaines matieres premieres peuvent etre extraites.';
 $LNG['sys_expe_found_ress_1_2']				= 'Certains champs de ressources facilement accessibles ont ete trouves et des matieres premieres sont rapportees d un planetoide lointain.';
 $LNG['sys_expe_found_ress_1_3']				= 'Certains champs de ressources facilement accessibles ont ete trouves et des matieres premieres sont rapportees d un planetoide lointain.';
@@ -86,20 +87,20 @@ $LNG['sys_expe_found_dm_1_1']				= 'L expedition a reussi a capturer une petite 
 $LNG['sys_expe_found_dm_1_2']				= 'Notre expedition a decouvert un vaisseau fantome qui transportait un peu de matiere noire. Bien que nous n ayons pu trouver aucune note sur ce qui est arrive a l equipage, nos techniciens ont cependant reussi a recuperer la matiere noire.';
 $LNG['sys_expe_found_dm_1_3']				= 'Nous avons rencontre un extraterrestre etrange a bord d un petit vaisseau qui nous donne un petit recipient en echange de simples calculs mathematiques sur la matiere noire.';
 $LNG['sys_expe_found_dm_1_4']				= 'Nous avons trouve les restes d un vaisseau extraterrestre. Il y avait un petit recipient a bord avec de la matiere noire !';
-$LNG['sys_expe_found_dm_1_5']				= 'L expedition re&ccedil;oit des signaux etranges et decouvre un asteroide. En son cur un peu de matiere noire a ete detecte. L asteroide a ete recupere a bord et les chercheurs tentent maintenant d en extraire la matiere noire.';
+$LNG['sys_expe_found_dm_1_5']				= 'L\'expedition reçoit des signaux etranges et decouvre un asteroide. En son cur un peu de matiere noire a ete detecte. L\'asteroide a ete recupere a bord et les chercheurs tentent maintenant d en extraire la matiere noire.';
 $LNG['sys_expe_found_dm_2_1']				= 'Notre expedition a reussi experience singuliere. Vous avez ete capable de recuperer de la matiere noire a partir d une etoile mourante.';
-$LNG['sys_expe_found_dm_2_2']				= 'Notre expedition re&ccedil;oit des rapports etranges d  un phenomene du spectre. Entre autres, l energie stockee dans les boucliers du vaisseau a forme de la matiere noire. Nos techniciens essayent maintenant de conserver, aussi longtemps que le phenomene persiste, une grande partie de cette matiere noire.';
+$LNG['sys_expe_found_dm_2_2']				= 'Notre expedition reçoit des rapports etranges d  un phenomene du spectre. Entre autres, l energie stockee dans les boucliers du vaisseau a forme de la matiere noire. Nos techniciens essayent maintenant de conserver, aussi longtemps que le phenomene persiste, une grande partie de cette matiere noire.';
 $LNG['sys_expe_found_dm_2_3']				= 'Notre expedition a trouve une ancienne station spatiale deserte qui derive dans l espace. Dans l un de ses reacteurs un peu de matiere noire est decele. Nos techniciens essaient de s emparer de celle-ci.';
 $LNG['sys_expe_found_dm_3_1']				= 'Une distorsion due a une force hyperespace spontanee a permis a votre expedition de recuperer une grande quantite de matiere noire !';
 $LNG['sys_expe_found_dm_3_2']				= 'Notre expedition rapporte un contact singulier. Apparemment, une creature energetique qui a ete appelee Legorianer a survole les vaisseau de l expedition, puis a decide d aider un peu les especes sous-developpees. Un conteneur de matiere noire se materialise a bord du vaisseau !';
 $LNG['sys_expe_found_ships_1_1']			= 'Nous avons decouvert les restes d une ancienne expedition ! Nos techniciens verifient ce qu ils peuvent obtenir des epaves.';
 $LNG['sys_expe_found_ships_1_2']			= 'Nous avons trouve une base pirate deserte. Certains vieux vaisseaux se trouvent encore dans le hangar. Nos techniciens jettent un coup d oeil sur ce qui peut encore etre utilise.';
 $LNG['sys_expe_found_ships_1_3']			= 'Notre expedition a trouve une planete qui a ete presque completement detruite par les guerres continues. Plusieurs epaves derivent dans l orbite de cette planete. Les techniciens tentent de reparer une partie de cette flotte.';
-$LNG['sys_expe_found_ships_1_4']			= 'Aux confins de l espace une vieille forteresse fait son apparition. Quelques vaisseaux gisent dans son hangar. Les techniciens se mettent au travail pour en recuperer quelques uns.';
-$LNG['sys_expe_found_ships_2_1']			= 'Nous avons trouve les restes d une armada. Les techniciens de la flotte d expedition se rendent immediatement sur les vaisseaux en partie intacts et les remettent en ordre de marche.';
+$LNG['sys_expe_found_ships_1_4']			= 'Aux confins de l\'espace une vieille forteresse fait son apparition. Quelques vaisseaux gisent dans son hangar. Les techniciens se mettent au travail pour en recuperer quelques uns.';
+$LNG['sys_expe_found_ships_2_1']			= 'Nous avons trouve les restes d une armada. Les techniciens de la flotte d\'expedition se rendent immediatement sur les vaisseaux en partie intacts et les remettent en ordre de marche.';
 $LNG['sys_expe_found_ships_2_2']			= 'Notre expedition a decouvert un vieux chantier spatial automatise. Certains vaisseaux sont encore en phase de production. L approvisionnement en energie du chantier spatial a ete restaure par nos techniciens.'; 
 $LNG['sys_expe_found_ships_3_1']			= 'Nous avons trouve un cimetiere gigantesque de vaisseaux. Les techniciens de la flotte de l expedition ont reussi a les mettre en marche a nouveau.';
-$LNG['sys_expe_found_ships_3_2']			= 'Nous avons decouvert une planete avec des restes d une civilisation. L\expedition y trouve une gigantesque station visible de l orbite de la planete. Nos techniciens et des pilotes se rendent a la surface pour l examiner. Ils y decouvrent des vaisseaux encore utilisables.';
+$LNG['sys_expe_found_ships_3_2']			= 'Nous avons decouvert une planete avec des restes d une civilisation. L\'expedition y trouve une gigantesque station visible de l orbite de la planete. Nos techniciens et des pilotes se rendent a la surface pour l examiner. Ils y decouvrent des vaisseaux encore utilisables.';
 $LNG['sys_expe_lost_fleet_1']				= 'Le dernier message que vous recevez de l expedition est le suivant : Zzzrrt oh Dieu !...Krrrzzzzt le zrrrtrzt sees krgzzzz comment Krzzzzzzzztzzzz...';
 $LNG['sys_expe_lost_fleet_2']				= 'Les derniers cliches envoyes par votre expedition sont celui d un trou noir puis blackout total ...';
 $LNG['sys_expe_lost_fleet_3']				= 'Un rupture de la coque du vaisseau mere de l expedition entraîne une explosion en chaine spectaculaire qui aneantit la totalite des vaisseaux de l expedition';
@@ -125,7 +126,7 @@ $LNG['sys_expe_nothing_9'] 					= 'Une fuite du reacteur principal d un des vais
 $LNG['sys_expe_attack_1_1_1'] 				= 'Une bande de pirates de l espace desesperee a tente vainement de requisitionner votre flotte.';
 $LNG['sys_expe_attack_1_1_2'] 				= 'Certains barbares primitifs nous attaquent avec des vaisseaux spatiaux archaiques. Nous repondons par le feu ...';
 $LNG['sys_expe_attack_1_1_3'] 				= 'Nous avons intercepte des messages radio de pirates tres ivres. Apparemment, nous allons etre attaques ...';
-$LNG['sys_expe_attack_1_1_4'] 				= 'Nous avons d&ucirc; lutter contre des pirates qui, heureusement, n etaient pas trop nombreux ...';
+$LNG['sys_expe_attack_1_1_4'] 				= 'Nous avons dû lutter contre des pirates qui, heureusement, n etaient pas trop nombreux ...';
 $LNG['sys_expe_attack_1_1_5'] 				= 'Le rapport de votre flotte d expedition fait etat d un certain Moa Tikarr et de ses grades exigeant la reddition inconditionnelle de votre flotte. C est sans compter avec votre puissance de feu ...';
 $LNG['sys_expe_attack_1_2_1'] 				= 'Votre expedition croise des pirates de l espace ...';
 $LNG['sys_expe_attack_1_2_2'] 				= 'La flotte d expedition tombe dans le piege de pirates de l espace. La riposte est inevitable !';
@@ -167,7 +168,7 @@ $LNG['sys_destruc_title']       		   	= 'Les flottes suivantes sont impliquees d
 $LNG['sys_mess_destruc_report']  		  	= 'Rapport : Destruction de la Lune';
 $LNG['sys_raport_not_found']				= 'Rapport de bataille invalide';
 
-$LNG['sys_raport_lost_contact']				= 'Le contact avec la flotte attaquante a &eacute;t&eacute; perdu ( elle a donc &eacute;t&eacute; d&eacute;truite lors du premier tour.)';
+$LNG['sys_raport_lost_contact']				= 'Le contact avec la flotte attaquante a été perdu ( elle a donc été détruite lors du premier tour.)';
 $LNG['sys_destruc_lune']          		 	= 'La probabilite de destruction de la Lune est : %d%%';
 $LNG['sys_destruc_rip']          			= 'La probabilite d auto destruction de la flotte est : %d%%';
 $LNG['sys_destruc_stop']      			 	= 'Le defenseur a empeche la destruction de Lune avec succes.';
@@ -197,8 +198,8 @@ $LNG['type_planet_short'][1]  				= 'P';
 $LNG['type_planet_short'][2]  				= 'D';
 $LNG['type_planet_short'][3]  				= 'L';
 
-$LNG['type_planet'][1]  					= 'Plan&egrave;te';
-$LNG['type_planet'][2]  					= 'D&eacute;bris';
+$LNG['type_planet'][1]  					= 'Planète';
+$LNG['type_planet'][2]  					= 'Débris';
 $LNG['type_planet'][3]  					= 'Lune';
 
 ?>
