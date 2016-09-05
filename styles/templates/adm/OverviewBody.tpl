@@ -122,50 +122,50 @@
 									<table width="250px;">
 										<tr>
 											<td class="transparent">
-												QwataKayean
-											</td>
-											<td class="transparent">
 												<img src="styles/resource/images/login/flags/us.png" alt="(english)">
+											</td>
+											<td class="transparent left">
+												QwataKayean
 											</td>
 										</tr>
 										<tr>
-											<td class="transparent">
-												QwataKayean
-											</td>
 											<td class="transparent">
 												<img src="styles/resource/images/login/flags/pt.png" alt="(portuguese)">
 											</td>
+											<td class="transparent left">
+												QwataKayean
+											</td>
 										</tr>
 										<tr>
-											<td class="transparent">
-												<a href="https://github.com/BigTwoProduction" target="_blank">BigTwoProduction</a>
-											</td>
 											<td class="transparent">
 												<img src="styles/resource/images/login/flags/fr.png" alt="(french)">
 											</td>
+											<td class="transparent left">
+												<a href="https://github.com/BigTwoProduction" target="_blank">BigTwoProduction</a>
+											</td>
 										</tr>
 										<tr>
-											<td class="transparent">
-												InquisitorEA
-											</td>
 											<td class="transparent">
 												<img src="styles/resource/images/login/flags/ru.png" alt="(russian)">
 											</td>
+											<td class="transparent left">
+												InquisitorEA
+											</td>
 										</tr>
 										<tr>
-											<td class="transparent">
-												Orion
-											</td>
 											<td class="transparent">
 												<img src="styles/resource/images/login/flags/es.png" alt="(spanish)">
 											</td>
+											<td class="transparent left">
+												Orion
+											</td>
 										</tr>
 										<tr>
 											<td class="transparent">
-												romansmac
-											</td>
-											<td class="transparent">
 												<img src="styles/resource/images/login/flags/tr.png" alt="(turkish)">
+											</td>
+											<td class="transparent left">
+												romansmac
 											</td>
 										</tr>
 									</table>
