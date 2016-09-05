@@ -51,10 +51,7 @@ $LNG['buttonScreenshot']			= 'Ekran Goruntuleri';
 $LNG['buttonLostPassword']			= 'Sifremi Unuttum?';
 
 // Start
-$LNG['gameInformations'][0]			= 'Gercek zamanli uzay strateji oyunu.';
-$LNG['gameInformations'][1]			= 'Buyuk bir rekabet seni bekliyor.';
-$LNG['gameInformations'][2]			= 'Tek ihtiyacin internet.Herhan gibi bir browser ile oynayabilirsin. Internet Explorer, Mozilla, Chrome';
-$LNG['gameInformations'][3]			= 'Ucretsiz Kayit';
+$LNG['gameInformations']			= "Gercek zamanli uzay strateji oyunu.\nBuyuk bir rekabet seni bekliyor.\nTek ihtiyacin internet.Herhan gibi bir browser ile oynayabilirsin. Internet Explorer, Mozilla, Chrome\nUcretsiz Kayit";
 
 // Login
 $LNG['loginHeader']					= 'Giris';

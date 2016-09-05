@@ -48,10 +48,7 @@ $LNG['buttonLostPassword']			= 'Reset hasła';
 $LNG['buttonCanel']					= 'Wyczyść';
 
 // Start
-$LNG['gameInformations'][0]			= 'Gra online strategiczno-ekonomiczna czasu rzeczywistego w kosmosie.';
-$LNG['gameInformations'][1]			= 'Graj przeciwko innym graczom.';
-$LNG['gameInformations'][2]			= 'Nic nie musisz sciągać, grasz w przeglądarce !.';
-$LNG['gameInformations'][3]			= 'Darmowa rejestracja';
+$LNG['gameInformations']			= "Gra online strategiczno-ekonomiczna czasu rzeczywistego w kosmosie.\nGraj przeciwko innym graczom.\nNic nie musisz sciągać, grasz w przeglądarce !.\nDarmowa rejestracja";
 
 // Login
 $LNG['loginHeader']					= 'Zaloguj';

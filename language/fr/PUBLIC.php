@@ -37,10 +37,7 @@ $LNG['buttonScreenshot']			= 'Capture d\'écran';
 $LNG['buttonLostPassword']			= 'Mot de passe perdu ?';
 
 // Start
-$LNG['gameInformations'][0]			= 'Un jeu de conquête spatial en temps réel.';
-$LNG['gameInformations'][1]			= 'Jeu connu et joué par des milliers d\'utilisateurs par univers.';
-$LNG['gameInformations'][2]			= 'Pas de téléchargement requis (hors application) juste un navigateur internet.';
-$LNG['gameInformations'][3]			= 'S\'enregistrer gratuitement';
+$LNG['gameInformations']			= "Un jeu de conquête spatial en temps réel.\nJeu connu et joué par des milliers d'utilisateurs par univers.\nPas de téléchargement requis (hors application) juste un navigateur internet.\nS'enregistrer gratuitement";
 
 // Login
 $LNG['loginHeader']					= 'Connexion';

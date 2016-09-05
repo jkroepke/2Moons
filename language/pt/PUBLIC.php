@@ -51,10 +51,7 @@ $LNG['buttonScreenshot']			= 'Screenshots';
 $LNG['buttonLostPassword']			= 'Perdeste a Password?';
 
 // Start
-$LNG['gameInformations'][0]			= 'Um jogo de estratégia em tempo real.';
-$LNG['gameInformations'][1]			= 'Jogo com centenas de imperadores.';
-$LNG['gameInformations'][2]			= 'Nenhum download, requer apenas um navegador padrão.';
-$LNG['gameInformations'][3]			= 'Inscrição gratuita';
+$LNG['gameInformations']			= "Um jogo de estratégia em tempo real.\nJogo com centenas de imperadores.\nNenhum download, requer apenas um navegador padrão.\nInscrição gratuita";
 
 // Login
 $LNG['loginHeader']					= 'Login';
