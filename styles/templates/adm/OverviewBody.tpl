@@ -138,7 +138,7 @@
 										</tr>
 										<tr>
 											<td class="transparent">
-												KickXAss4Ever & Apocalypto2202
+												<a href="https://github.com/BigTwoProduction" target="_blank">BigTwoProduction</a>
 											</td>
 											<td class="transparent">
 												<img src="styles/resource/images/login/flags/fr.png" alt="(french)">
