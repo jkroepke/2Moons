@@ -42,9 +42,9 @@ $LNG['type_mission'][10]  					= 'Ataque de Misseis';
 $LNG['type_mission'][11]  					= 'Investigação de Matéria Negra ';
 $LNG['type_mission'][15] 					= 'Expedição';
 
-$LNG['type_planet'][1]  					= 'Planeta';
-$LNG['type_planet'][2]  					= 'Campo de Destroços';
-$LNG['type_planet'][3]  					= 'Lua';
+$LNG['type_planet_1']  					= 'Planeta';
+$LNG['type_planet_2']  					= 'Campo de Destroços';
+$LNG['type_planet_3']  					= 'Lua';
 
 $LNG['user_level'] = array (
 	'0' => 'Jogador',

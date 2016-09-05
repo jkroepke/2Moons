@@ -368,7 +368,7 @@ HTML;
 		if ($randChance <= $chanceCreateMoon)
 		{
 			$LNG					= $this->getLanguage($targetUser['lang']);
-			$reportInfo['moonName']	= $LNG['type_planet'][3];
+			$reportInfo['moonName']	= $LNG['type_planet_3'];
 			
 			PlayerUtil::createMoon(
 				$this->_fleet['fleet_universe'],

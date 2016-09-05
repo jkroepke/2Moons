@@ -209,6 +209,6 @@ $LNG['type_planet_short'][1]  				= 'P';
 $LNG['type_planet_short'][2]  				= 'D';
 $LNG['type_planet_short'][3]  				= 'M';
 
-$LNG['type_planet'][1]  					= 'Planet';
-$LNG['type_planet'][2]  					= 'Debris';
-$LNG['type_planet'][3]  					= 'Moon';
+$LNG['type_planet_1']  					= 'Planet';
+$LNG['type_planet_2']  					= 'Debris';
+$LNG['type_planet_3']  					= 'Moon';

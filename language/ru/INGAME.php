@@ -37,9 +37,9 @@ $LNG['type_mission'][10]                  = 'Ракетная атака';
 $LNG['type_mission'][11]                  = 'Поиск Тёмной материи';
 $LNG['type_mission'][15]                  = 'Экспедиция';
 
-$LNG['type_planet'][1]                    = 'Планета';
-$LNG['type_planet'][2]                    = 'Поле обломков';
-$LNG['type_planet'][3]                    = 'Луна';
+$LNG['type_planet_1']                    = 'Планета';
+$LNG['type_planet_2']                    = 'Поле обломков';
+$LNG['type_planet_3']                    = 'Луна';
 
 $LNG['user_level'] = array (
 	'0' => 'Игрок',

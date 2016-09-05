@@ -211,6 +211,6 @@ $LNG['type_planet_short'][1]  				= 'G';
 $LNG['type_planet_short'][2]  				= 'HA';
 $LNG['type_planet_short'][3]  				= 'A';
 
-$LNG['type_planet'][1]  					= 'Gezegen';
-$LNG['type_planet'][2]  					= 'Harabe';
-$LNG['type_planet'][3]  					= 'Ay';
+$LNG['type_planet_1']  					= 'Gezegen';
+$LNG['type_planet_2']  					= 'Harabe';
+$LNG['type_planet_3']  					= 'Ay';

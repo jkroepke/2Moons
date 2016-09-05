@@ -43,9 +43,9 @@ $LNG['type_mission'][10]  					= 'Missile attack';
 $LNG['type_mission'][11]  					= 'Research of Dark matter ';
 $LNG['type_mission'][15] 					= 'Expedition';
 
-$LNG['type_planet'][1]  					= 'Planet';
-$LNG['type_planet'][2]  					= 'Debris Field';
-$LNG['type_planet'][3]  					= 'Moon';
+$LNG['type_planet_1']  					= 'Planet';
+$LNG['type_planet_2']  					= 'Debris Field';
+$LNG['type_planet_3']  					= 'Moon';
 
 $LNG['user_level'] = array (
 	'0' => 'Player',

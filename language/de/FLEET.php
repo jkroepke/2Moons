@@ -207,6 +207,6 @@ $LNG['type_planet_short'][1]  				= 'P';
 $LNG['type_planet_short'][2]  				= 'T';
 $LNG['type_planet_short'][3]  				= 'M';
 
-$LNG['type_planet'][1]  					= 'Planet';
-$LNG['type_planet'][2]  					= 'Trümmerfeld';
-$LNG['type_planet'][3]  					= 'Mond';
+$LNG['type_planet_1']  					= 'Planet';
+$LNG['type_planet_2']  					= 'Trümmerfeld';
+$LNG['type_planet_3']  					= 'Mond';

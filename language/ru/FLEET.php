@@ -203,6 +203,6 @@ $LNG['type_planet_short'][1]          = 'П';
 $LNG['type_planet_short'][2]          = 'ПО';
 $LNG['type_planet_short'][3]          = 'Л';
 
-$LNG['type_planet'][1]                = 'Планета';
-$LNG['type_planet'][2]                = 'Поле обломков';
-$LNG['type_planet'][3]                = 'Луна';
+$LNG['type_planet_1']                = 'Планета';
+$LNG['type_planet_2']                = 'Поле обломков';
+$LNG['type_planet_3']                = 'Луна';

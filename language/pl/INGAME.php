@@ -38,9 +38,9 @@ $LNG['type_mission'][10]  					= 'Atak Rakietowy';
 $LNG['type_mission'][11]  					= 'DM Investigation';
 $LNG['type_mission'][15] 					= 'Ekspedycja';
 
-$LNG['type_planet'][1]  					= 'Planeta';
-$LNG['type_planet'][2]  					= 'Pole zniszczeń';
-$LNG['type_planet'][3]  					= 'Księżyc';
+$LNG['type_planet_1']  					= 'Planeta';
+$LNG['type_planet_2']  					= 'Pole zniszczeń';
+$LNG['type_planet_3']  					= 'Księżyc';
 
 
 $LNG['user_level'] = array (

@@ -28,9 +28,9 @@ $LNG['type_mission'][10]  					= 'MIP - Attaque missile interplanétaire';
 $LNG['type_mission'][11]  					= 'Recherche de Matière Noire';
 $LNG['type_mission'][15] 					= 'Expédition';
 
-$LNG['type_planet'][1]  					= 'Planète';
-$LNG['type_planet'][2]  					= 'Champ de débris';
-$LNG['type_planet'][3]  					= 'Lune';
+$LNG['type_planet_1']  						= 'Planète';
+$LNG['type_planet_2']	  					= 'Champ de débris';
+$LNG['type_planet_3']  						= 'Lune';
 
 $LNG['user_level'] = array (
 	'0' => 'Joueur',

@@ -38,9 +38,9 @@ $LNG['type_mission'][10]  					= 'Raketenangriff';
 $LNG['type_mission'][11]  					= 'DM Untersuchung';
 $LNG['type_mission'][15] 					= 'Expedition';
 
-$LNG['type_planet'][1]  					= 'Planet';
-$LNG['type_planet'][2]  					= 'Trümmerfeld';
-$LNG['type_planet'][3]  					= 'Mond';
+$LNG['type_planet_1']  					= 'Planet';
+$LNG['type_planet_2']  					= 'Trümmerfeld';
+$LNG['type_planet_3']  					= 'Mond';
 
 $LNG['user_level'] = array (
 	'0' => 'Spieler',

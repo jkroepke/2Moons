@@ -42,9 +42,9 @@ $LNG['type_mission'][10]  					= 'Roket Saldirisi';
 $LNG['type_mission'][11]  					= 'KM Arastirmak ';
 $LNG['type_mission'][15] 					= 'Kesif Ucusu';
 
-$LNG['type_planet'][1]  					= 'Gezegen';
-$LNG['type_planet'][2]  					= 'Harabe alani';
-$LNG['type_planet'][3]  					= 'Ay';
+$LNG['type_planet_1']  					= 'Gezegen';
+$LNG['type_planet_2']  					= 'Harabe alani';
+$LNG['type_planet_3']  					= 'Ay';
 
 $LNG['user_level'] = array (
 	'0' => 'Oyuncu',
