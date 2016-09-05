@@ -79,7 +79,7 @@ function ShowRightsPage()
 				
 			$UserList	= "";
 			while ($List = $GLOBALS['DATABASE']->fetch_array($QueryUsers)) {
-				$UserList	.=	'<option value="'.$List['id'].'">'.$List['username'].'&nbsp;&nbsp;('.$LNG['rank'][$List['authlevel']].')</option>';
+				$UserList	.=	'<option value="'.$List['id'].'">'.$List['username'].'&nbsp;&nbsp;('.$LNG['rank_'.$List['authlevel']].')</option>';
 			}	
 
 			$template->assign_vars(array(	
