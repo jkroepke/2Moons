@@ -62,7 +62,7 @@ function ShowAccountDataPage()
 			$p				= $UserQuery['planet'];
 			$info			= $UserQuery['user_ua'];
 			$alianza		= $UserQuery['ally_name'];
-			$nivel			= $LNG['rank'][$UserQuery['authlevel']];
+			$nivel			= $LNG['rank_'.$UserQuery['authlevel']];
 			$vacas 			= $LNG['one_is_yes_'.$UserQuery['urlaubs_modus']];
 			$suspen 		= $LNG['one_is_yes_'.$UserQuery['bana']];
 
@@ -355,7 +355,6 @@ function ShowAccountDataPage()
 				'point_tecno'					=> $point_tecno,
 				'count_tecno'					=> $count_tecno,
 				'ranking_tecno'					=> $ranking_tecno,
-				'defenses_title'				=> $defenses_title,
 				'point_def'						=> $point_def,
 				'count_def'						=> $count_def,
 				'ranking_def'					=> $ranking_def,
@@ -405,7 +404,7 @@ function ShowAccountDataPage()
 				'id_ali'						=> $id_ali,
 				'ip'							=> $ip,
 				'ip2'							=> $ip2,
-				'ipcheck'						=> true,
+				'ipcheck'						=> $LNG['one_is_yes_1'],
 				'reg_time'						=> $reg_time,
 				'onlinetime'					=> $onlinetime,
 				'id_p'							=> $id_p,
@@ -422,7 +421,6 @@ function ShowAccountDataPage()
 				'techoffi'						=> $techoffi,
 				'canedit'						=> allowedTo('ShowQuickEditorPage'),
 				
-				'buildings_title'				=> $LNG['buildings_title'],
 				'buildings_title'				=> $LNG['buildings_title'],
 				'researchs_title	'			=> $LNG['researchs_title'],
 				'ships_title'					=> $LNG['ships_title'],
@@ -451,7 +449,6 @@ function ShowAccountDataPage()
 				'ac_see_ranking'				=> $LNG['ac_see_ranking'],
 				'ac_user_ranking'				=> $LNG['ac_user_ranking'],
 				'ac_points_count'				=> $LNG['ac_points_count'],
-				'ac_ranking'					=> $LNG['ac_ranking'],
 				'ac_total_points'				=> $LNG['ac_total_points'],
 				'ac_suspended_title'			=> $LNG['ac_suspended_title'],
 				'ac_suspended_time'				=> $LNG['ac_suspended_time'],
@@ -468,35 +465,23 @@ function ShowAccountDataPage()
 				'ac_image'						=> $LNG['ac_image'],
 				'ac_ally_web'					=> $LNG['ac_ally_web'],
 				'ac_total_members'				=> $LNG['ac_total_members'],
-				'ac_ranking'					=> $LNG['ac_ranking'],
-				'ac_see_ranking'				=> $LNG['ac_see_ranking'],
 				'ac_view_image'					=> $LNG['ac_view_image'],
 				'ac_urlnow'						=> $LNG['ac_urlnow'],
 				'ac_ally_ranking'				=> $LNG['ac_ally_ranking'],
-				'ac_points_count'				=> $LNG['ac_points_count'],
-				'ac_ranking'					=> $LNG['ac_ranking'],
-				'ac_total_points'				=> $LNG['ac_total_points'],
 				'ac_id_names_coords'			=> $LNG['ac_id_names_coords'],
-				'ac_name'						=> $LNG['ac_name'],
 				'ac_diameter'					=> $LNG['ac_diameter'],
 				'ac_fields'						=> $LNG['ac_fields'],
 				'ac_temperature'				=> $LNG['ac_temperature'],
 				'se_search_edit'				=> $LNG['se_search_edit'],
 				'resources_title'				=> $LNG['resources_title'],
-				'ac_name'						=> $LNG['ac_name'],
 				'Metal'							=> $LNG['tech'][901],
 				'Crystal'						=> $LNG['tech'][902],
 				'Deuterium'						=> $LNG['tech'][903],
 				'Energy'						=> $LNG['tech'][911],
 				'Darkmatter'					=> $LNG['tech'][921],
-				'buildings_title'				=> $LNG['buildings_title'],
-				'ships_title'					=> $LNG['ships_title'],
-				'defenses_title'				=> $LNG['defenses_title'],
 				'ac_officier_research'			=> $LNG['ac_officier_research'],
 				'researchs_title'				=> $LNG['researchs_title'],
 				'officiers_title'				=> $LNG['officiers_title'],
-				'ac_name'						=> $LNG['ac_name'],
-				'input_id'						=> $LNG['input_id'],
 				'ac_coords'						=> $LNG['ac_coords'],
 				'ac_time_destruyed'				=> $LNG['ac_time_destruyed'],
 			));					
@@ -508,7 +493,7 @@ function ShowAccountDataPage()
 	$UserWhileLogin	= $GLOBALS['DATABASE']->query("SELECT `id`, `username`, `authlevel` FROM ".USERS." WHERE `authlevel` <= '".$USER['authlevel']."' AND `universe` = '".Universe::getEmulated()."' ORDER BY `username` ASC;");
 	while($UserList	= $GLOBALS['DATABASE']->fetch_array($UserWhileLogin))
 	{
-		$Userlist	.= "<option value=\"".$UserList['id']."\">".$UserList['username']."&nbsp;&nbsp;(".$LNG['rank'][$UserList['authlevel']].")</option>";
+		$Userlist	.= "<option value=\"".$UserList['id']."\">".$UserList['username']."&nbsp;&nbsp;(".$LNG['rank_'.$UserList['authlevel']].")</option>";
 	}
 
 	$template->loadscript('filterlist.js');

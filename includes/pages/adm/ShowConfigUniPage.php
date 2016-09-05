@@ -425,7 +425,7 @@ function ShowConfigUniPage()
 		'trade_charge'		        	=> $config->trade_charge,
 		'Selector'						=> array(
 			'langs' => $LNG->getAllowedLangs(false), 
-			'mail' => $LNG['se_mail_sel'], 
+			'mail'  => array(0 => $LNG['se_mail_sel_0'], 1 => $LNG['se_mail_sel_1'], 2 => $LNG['se_mail_sel_2']),
 			'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])
 		),
 		'lang'							=> $config->lang,
