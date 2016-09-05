@@ -30,18 +30,18 @@ $LNG['loading']								= 'Loading ...';
 
 $LNG['invalid_action']						= 'Action Invalidated!!';
 
-$LNG['type_mission'][1]  					= 'Attack';
-$LNG['type_mission'][2]  					= 'ACS - Attack on cooperation';
-$LNG['type_mission'][3]  					= 'Transport';
-$LNG['type_mission'][4]  					= 'Deploy';
-$LNG['type_mission'][5]  					= 'Transfer';
-$LNG['type_mission'][6]  					= 'Spying';
-$LNG['type_mission'][7]  					= 'Colonize';
-$LNG['type_mission'][8]  					= 'Recycle';
-$LNG['type_mission'][9]  					= 'Destroy';
-$LNG['type_mission'][10]  					= 'Missile attack';
-$LNG['type_mission'][11]  					= 'Research of Dark matter ';
-$LNG['type_mission'][15] 					= 'Expedition';
+$LNG['type_mission_1']  					= 'Attack';
+$LNG['type_mission_2']  					= 'ACS - Attack on cooperation';
+$LNG['type_mission_3']  					= 'Transport';
+$LNG['type_mission_4']  					= 'Deploy';
+$LNG['type_mission_5']  					= 'Transfer';
+$LNG['type_mission_6']  					= 'Spying';
+$LNG['type_mission_7']  					= 'Colonize';
+$LNG['type_mission_8']  					= 'Recycle';
+$LNG['type_mission_9']  					= 'Destroy';
+$LNG['type_mission_10']  					= 'Missile attack';
+$LNG['type_mission_11']  					= 'Research of Dark matter ';
+$LNG['type_mission_15'] 					= 'Expedition';
 
 $LNG['type_planet_1']  					= 'Planet';
 $LNG['type_planet_2']  					= 'Debris Field';

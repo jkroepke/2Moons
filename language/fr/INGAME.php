@@ -15,18 +15,18 @@ $LNG['loading']								= 'Chargement ...';
 
 $LNG['invalid_action']						= 'Action invalidée !!';
 
-$LNG['type_mission'][1]  					= 'Attaquer';
-$LNG['type_mission'][2]  					= 'ACS - Attaque groupée';
-$LNG['type_mission'][3]  					= 'Transporter';
-$LNG['type_mission'][4]  					= 'Déployer';
-$LNG['type_mission'][5]  					= 'Transférer';
-$LNG['type_mission'][6]  					= 'Espionner';
-$LNG['type_mission'][7]  					= 'Coloniser';
-$LNG['type_mission'][8]  					= 'Recycler';
-$LNG['type_mission'][9]  					= 'Détruire';
-$LNG['type_mission'][10]  					= 'MIP - Attaque missile interplanétaire';
-$LNG['type_mission'][11]  					= 'Recherche de Matière Noire';
-$LNG['type_mission'][15] 					= 'Expédition';
+$LNG['type_mission_1']  					= 'Attaquer';
+$LNG['type_mission_2']  					= 'ACS - Attaque groupée';
+$LNG['type_mission_3']  					= 'Transporter';
+$LNG['type_mission_4']  					= 'Déployer';
+$LNG['type_mission_5']  					= 'Transférer';
+$LNG['type_mission_6']  					= 'Espionner';
+$LNG['type_mission_7']  					= 'Coloniser';
+$LNG['type_mission_8']  					= 'Recycler';
+$LNG['type_mission_9']  					= 'Détruire';
+$LNG['type_mission_10']  					= 'MIP - Attaque missile interplanétaire';
+$LNG['type_mission_11']  					= 'Recherche de Matière Noire';
+$LNG['type_mission_15'] 					= 'Expédition';
 
 $LNG['type_planet_1']  						= 'Planète';
 $LNG['type_planet_2']	  					= 'Champ de débris';

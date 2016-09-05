@@ -868,6 +868,14 @@ class ShowAlliancePage extends AbstractGamePage
 			}
 		}
 
+        require 'includes/classes/class.FlyingFleetHandler.php';
+
+        $available_events = array();
+
+        foreach(array_keys(FlyingFleetHandler::$missionObjPattern) as $missionId) {
+            $available_events[$missionId] = $LNG['type_mission_'.$missionId];
+        }
+
 		$this->assign(array(
 			'RequestSelector'			=> array(0 => $LNG['al_requests_allowed'], 1 => $LNG['al_requests_not_allowed']),
 			'YesNoSelector'				=> array(1 => $LNG['al_go_out_yes'], 0 => $LNG['al_go_out_no']),
@@ -885,7 +893,7 @@ class ShowAlliancePage extends AbstractGamePage
 			'ally_stats_data'			=> $this->allianceData['ally_stats'],
 			'ally_diplo_data'			=> $this->allianceData['ally_diplo'],
 			'ally_events'				=> explode(',', $this->allianceData['ally_events']),
-			'aviable_events'			=> $LNG['type_mission']
+			'available_events'			=> $available_events,
 		));
 
 		$this->display('page.alliance.admin.overview.tpl');

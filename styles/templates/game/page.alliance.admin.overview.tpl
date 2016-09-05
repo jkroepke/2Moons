@@ -75,8 +75,8 @@
 	<tr>
 		<td>{$LNG.al_view_events}</td>
 		<td>
-			<select name="events[]" size="{$aviable_events|@count}" multiple>
-				{foreach $aviable_events as $id => $mission}
+			<select name="events[]" size="{$available_events|@count}" multiple>
+				{foreach $available_events as $id => $mission}
 					{foreach $ally_events as $selected_events}
 						{if $selected_events == $id}
 							{assign var=selected value=selected}
@@ -104,6 +104,12 @@
 	<tr>
 		<td>{$LNG.al_manage_request_min_points}</td>
 		<td><input type="number" min="0" name="request_min_points" value="{$ally_request_min_points}" size="30"></td>
+	</tr>
+	<tr>
+		<td colspan="3">
+			<input type="reset" value="{$LNG.al_circular_reset}">
+			<input type="submit" value="{$LNG.al_save}">
+		</td>
 	</tr>
 	<tr></form>
 {if $AllianceOwner}

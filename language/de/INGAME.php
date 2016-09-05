@@ -25,18 +25,18 @@ $LNG['loading']								= 'Lade ...';
 
 $LNG['invalid_action']						= 'Ungültige Aktion!';
 
-$LNG['type_mission'][1]  					= 'Angreifen';
-$LNG['type_mission'][2]  					= 'Verbandsangriff';
-$LNG['type_mission'][3]  					= 'Transport';
-$LNG['type_mission'][4]  					= 'Stationieren';
-$LNG['type_mission'][5]  					= 'Halten';
-$LNG['type_mission'][6]  					= 'Spionieren';
-$LNG['type_mission'][7]  					= 'Kolonisieren';
-$LNG['type_mission'][8]  					= 'Abbauen';
-$LNG['type_mission'][9]  					= 'Zerstören';
-$LNG['type_mission'][10]  					= 'Raketenangriff';
-$LNG['type_mission'][11]  					= 'DM Untersuchung';
-$LNG['type_mission'][15] 					= 'Expedition';
+$LNG['type_mission_1']  					= 'Angreifen';
+$LNG['type_mission_2']  					= 'Verbandsangriff';
+$LNG['type_mission_3']  					= 'Transport';
+$LNG['type_mission_4']  					= 'Stationieren';
+$LNG['type_mission_5']  					= 'Halten';
+$LNG['type_mission_6']  					= 'Spionieren';
+$LNG['type_mission_7']  					= 'Kolonisieren';
+$LNG['type_mission_8']  					= 'Abbauen';
+$LNG['type_mission_9']  					= 'Zerstören';
+$LNG['type_mission_10']  					= 'Raketenangriff';
+$LNG['type_mission_11']  					= 'DM Untersuchung';
+$LNG['type_mission_15'] 					= 'Expedition';
 
 $LNG['type_planet_1']  					= 'Planet';
 $LNG['type_planet_2']  					= 'Trümmerfeld';

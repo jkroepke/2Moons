@@ -29,18 +29,18 @@ $LNG['loading']								= 'A carregar ...';
 
 $LNG['invalid_action']						= 'Ação Invalida!!';
 
-$LNG['type_mission'][1]  					= 'Atacar';
-$LNG['type_mission'][2]  					= 'ACS - Ataque em Cooperação';
-$LNG['type_mission'][3]  					= 'Transportar';
-$LNG['type_mission'][4]  					= 'Estação';
-$LNG['type_mission'][5]  					= 'Transferir';
-$LNG['type_mission'][6]  					= 'Espiar';
-$LNG['type_mission'][7]  					= 'Colonizar';
-$LNG['type_mission'][8]  					= 'Reciclar';
-$LNG['type_mission'][9]  					= 'Destruir';
-$LNG['type_mission'][10]  					= 'Ataque de Misseis';
-$LNG['type_mission'][11]  					= 'Investigação de Matéria Negra ';
-$LNG['type_mission'][15] 					= 'Expedição';
+$LNG['type_mission_1']  					= 'Atacar';
+$LNG['type_mission_2']  					= 'ACS - Ataque em Cooperação';
+$LNG['type_mission_3']  					= 'Transportar';
+$LNG['type_mission_4']  					= 'Estação';
+$LNG['type_mission_5']  					= 'Transferir';
+$LNG['type_mission_6']  					= 'Espiar';
+$LNG['type_mission_7']  					= 'Colonizar';
+$LNG['type_mission_8']  					= 'Reciclar';
+$LNG['type_mission_9']  					= 'Destruir';
+$LNG['type_mission_10']  					= 'Ataque de Misseis';
+$LNG['type_mission_11']  					= 'Investigação de Matéria Negra ';
+$LNG['type_mission_15'] 					= 'Expedição';
 
 $LNG['type_planet_1']  					= 'Planeta';
 $LNG['type_planet_2']  					= 'Campo de Destroços';

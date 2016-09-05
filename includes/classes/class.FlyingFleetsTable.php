@@ -40,7 +40,7 @@ class FlyingFleetsTable
 	}
 
 	public function setMissions($missions) {
-		$this->missions = $missions;
+		$this->missions = implode(',', array_filter(explode(',', $missions), 'is_numeric'));
 	}
 	
 	private function getFleets($acsID = false) {
@@ -174,7 +174,7 @@ class FlyingFleetsTable
 		$FleetType		= $FleetPrefix.$FleetStyle[$MissionType];
 		$FleetName		= (!$Owner && ($MissionType == 1 || $MissionType == 2) && $Status == FLEET_OUTWARD && $fleetRow['fleet_target_owner'] != $this->userId) ? $LNG['cff_acs_fleet'] : $LNG['ov_fleet'];
 		$FleetContent   = $this->CreateFleetPopupedFleetLink($fleetRow, $FleetName, $FleetPrefix.$FleetStyle[$MissionType]);
-		$FleetCapacity  = $this->CreateFleetPopupedMissionLink($fleetRow, $LNG['type_mission'][$MissionType], $FleetPrefix.$FleetStyle[$MissionType]);
+		$FleetCapacity  = $this->CreateFleetPopupedMissionLink($fleetRow, $LNG['type_mission_'.$MissionType], $FleetPrefix.$FleetStyle[$MissionType]);
 		$FleetStatus    = array(0 => 'flight', 1 => 'return' , 2 => 'holding');
 		$StartType		= $LNG['type_planet_'.$fleetRow['fleet_start_type']];
 		$TargetType		= $LNG['type_planet_'.$fleetRow['fleet_end_type']];

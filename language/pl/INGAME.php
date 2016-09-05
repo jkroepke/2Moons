@@ -25,18 +25,18 @@ $LNG['loading']								= 'Ładuję';
 
 $LNG['invalid_action']						= 'Niedozwolona akcja';
 
-$LNG['type_mission'][1]  					= 'Atak';
-$LNG['type_mission'][2]  					= 'ACS Atak';
-$LNG['type_mission'][3]  					= 'Transport';
-$LNG['type_mission'][4]  					= 'Stacjonuj';
-$LNG['type_mission'][5]  					= 'Zostań';
-$LNG['type_mission'][6]  					= 'Szpieguj';
-$LNG['type_mission'][7]  					= 'Kolonizuj';
-$LNG['type_mission'][8]  					= 'Recykling';
-$LNG['type_mission'][9]  					= 'Zniszcz';
-$LNG['type_mission'][10]  					= 'Atak Rakietowy';
-$LNG['type_mission'][11]  					= 'DM Investigation';
-$LNG['type_mission'][15] 					= 'Ekspedycja';
+$LNG['type_mission_1']  					= 'Atak';
+$LNG['type_mission_2']  					= 'ACS Atak';
+$LNG['type_mission_3']  					= 'Transport';
+$LNG['type_mission_4']  					= 'Stacjonuj';
+$LNG['type_mission_5']  					= 'Zostań';
+$LNG['type_mission_6']  					= 'Szpieguj';
+$LNG['type_mission_7']  					= 'Kolonizuj';
+$LNG['type_mission_8']  					= 'Recykling';
+$LNG['type_mission_9']  					= 'Zniszcz';
+$LNG['type_mission_10']  					= 'Atak Rakietowy';
+$LNG['type_mission_11']  					= 'DM Investigation';
+$LNG['type_mission_15'] 					= 'Ekspedycja';
 
 $LNG['type_planet_1']  					= 'Planeta';
 $LNG['type_planet_2']  					= 'Pole zniszczeń';

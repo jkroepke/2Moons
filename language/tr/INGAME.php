@@ -29,18 +29,18 @@ $LNG['loading']								= 'yukleniyor ...';
 
 $LNG['invalid_action']						= 'Hata Olustu!!';
 
-$LNG['type_mission'][1]  					= 'Saldiri';
-$LNG['type_mission'][2]  					= 'Ittifak Saldirisi';
-$LNG['type_mission'][3]  					= 'Nakliye';
-$LNG['type_mission'][4]  					= 'Konuslanmak';
-$LNG['type_mission'][5]  					= 'Durmak';
-$LNG['type_mission'][6]  					= 'Casusluk';
-$LNG['type_mission'][7]  					= 'Kolonilestirmek';
-$LNG['type_mission'][8]  					= 'Sokmek';
-$LNG['type_mission'][9]  					= 'Yoketmek';
-$LNG['type_mission'][10]  					= 'Roket Saldirisi';
-$LNG['type_mission'][11]  					= 'KM Arastirmak ';
-$LNG['type_mission'][15] 					= 'Kesif Ucusu';
+$LNG['type_mission_1']  					= 'Saldiri';
+$LNG['type_mission_2']  					= 'Ittifak Saldirisi';
+$LNG['type_mission_3']  					= 'Nakliye';
+$LNG['type_mission_4']  					= 'Konuslanmak';
+$LNG['type_mission_5']  					= 'Durmak';
+$LNG['type_mission_6']  					= 'Casusluk';
+$LNG['type_mission_7']  					= 'Kolonilestirmek';
+$LNG['type_mission_8']  					= 'Sokmek';
+$LNG['type_mission_9']  					= 'Yoketmek';
+$LNG['type_mission_10']  					= 'Roket Saldirisi';
+$LNG['type_mission_11']  					= 'KM Arastirmak ';
+$LNG['type_mission_15'] 					= 'Kesif Ucusu';
 
 $LNG['type_planet_1']  					= 'Gezegen';
 $LNG['type_planet_2']  					= 'Harabe alani';

@@ -6,7 +6,7 @@
 	</tr>
     <tr style="height:20px">
         <td>{$LNG.fl_mission}</td>
-        <td>{$LNG.type_mission.{$targetMission}}</td>
+        <td>{$LNG["type_mission_{$targetMission}"]}</td>
 	</tr>
     <tr style="height:20px">
         <td>{$LNG.fl_distance}</td>

@@ -21,7 +21,7 @@
 	{foreach name=FlyingFleets item=FlyingFleetRow from=$FlyingFleetList}
 	<tr>
 	<td>{$smarty.foreach.FlyingFleets.iteration}</td>
-	<td>{$LNG.type_mission.{$FlyingFleetRow.mission}}
+	<td>{$LNG["type_mission_{$FlyingFleetRow.mission}"]}
 	{if $FlyingFleetRow.state == 1}
 		<br><a title="{$LNG.fl_returning}">{$LNG.fl_r}</a>
 	{else}
