@@ -362,8 +362,8 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 				$WhileResult[4]	= _date($LNG['php_tdformat'], $WhileResult[4], $USER['timezone']);
 				
 				$WhileResult[6]	= $LNG['rank'][$WhileResult[6]];
-				(($WhileResult[7] == '1')	? $WhileResult[7] = "<font color=lime>".$LNG['one_is_yes'][1]."</font>" : $WhileResult[7] = $LNG['one_is_yes'][0]);
-				(($WhileResult[8] == '1')	? $WhileResult[8] = "<font color=lime>".$LNG['one_is_yes'][1]."</font>" : $WhileResult[8] = $LNG['one_is_yes'][0]);
+				(($WhileResult[7] == '1')	? $WhileResult[7] = "<font color=lime>".$LNG['one_is_no_1']."</font>" : $WhileResult[7] = $LNG['one_is_no_0']);
+				(($WhileResult[8] == '1')	? $WhileResult[8] = "<font color=lime>".$LNG['one_is_no_1']."</font>" : $WhileResult[8] = $LNG['one_is_no_0']);
 			}
 			
 			if ($Table == "banned"){
@@ -376,7 +376,7 @@ function MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialS
 				
 			if ($Table == "planets p") {
 				$WhileResult[3]	= pretty_time(TIMESTAMP - $WhileResult[3]);
-				$WhileResult[7]	= $WhileResult[7] > 0 ? "<font color=lime>".$LNG['one_is_yes'][1]."</font>" : $LNG['one_is_yes'][0];
+				$WhileResult[7]	= $WhileResult[7] > 0 ? "<font color=lime>".$LNG['one_is_no_1']."</font>" : $LNG['one_is_no_0'];
 			}
 			
 			for ($i = 0; $i < $CountArray; $i++)

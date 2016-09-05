@@ -460,7 +460,7 @@ function ShowAccountEditorPage()
 			}
 			
 			$template->assign_vars(array(
-				'Selector'				=> array(''	=> $LNG['select_option'], 'yes' => $LNG['one_is_yes'][1], 'no' => $LNG['one_is_yes'][0]),
+				'Selector'				=> array(''	=> $LNG['select_option'], 'yes' => $LNG['one_is_no_1'], 'no' => $LNG['one_is_no_0']),
 			));
 						
 			$template->show('AccountEditorPagePersonal.tpl');

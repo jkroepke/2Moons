@@ -52,11 +52,11 @@ $LNG['time_seconds']	= 'Sekunda';
 $LNG['info_information']	= 'Informacje o błędach i nowościach <a href="%s" target="tracker">2Moons Board</a><br>Jeśli usuniesz ten link, nie będziesz miał prawa do supportu!!!!';
 
 //---------------	¿SI O NO? - YES OR NO? - JA ODER NEIN?	- TAK ALBO NIE------------------------// 
-$LNG['one_is_yes'][1]	= 'Tak';
-$LNG['one_is_yes'][0]	= 'Nie';
+$LNG['one_is_yes_1']	= 'Tak';
+$LNG['one_is_yes_0']	= 'Nie';
 
-$LNG['one_is_no'][1]	= 'Nie';
-$LNG['one_is_no'][0]	= 'Tak';
+$LNG['one_is_no_1']	= 'Nie';
+$LNG['one_is_no_0']	= 'Tak';
 //###########################################################//
 
 

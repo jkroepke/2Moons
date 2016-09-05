@@ -52,11 +52,11 @@ $LNG['time_seconds']	= 'Segundos';
 $LNG['info_information']	= 'Para información y reporte de errores ir a <a href="%s" target="tracker">2Moons Board</a><br>¡No hay soporte de otra forma!';
 
 //---------------	¿SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------// 
-$LNG['one_is_yes'][1]	= 'Sí';
-$LNG['one_is_yes'][0]	= 'No';
+$LNG['one_is_yes_1']	= 'Sí';
+$LNG['one_is_yes_0']	= 'No';
 
-$LNG['one_is_no'][1]	= 'Sí';
-$LNG['one_is_no'][0]	= 'No';
+$LNG['one_is_no_1']	= 'Sí';
+$LNG['one_is_no_0']	= 'No';
 //###########################################################//
 
 

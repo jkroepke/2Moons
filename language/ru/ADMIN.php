@@ -52,11 +52,11 @@ $LNG['time_seconds']                   = 'Секунд';
 $LNG['info_information']               = 'Об ошибках сообщайте в <a href="%s" target="tracker">Центр поддержки</a>.<br>Техническая поддержка осуществляется только по этому адресу.';
 
 // Да или Нет
-$LNG['one_is_yes'][1]                  = 'Да';
-$LNG['one_is_yes'][0]                  = 'Нет';
+$LNG['one_is_yes_1']                  = 'Да';
+$LNG['one_is_yes_0']                  = 'Нет';
 
-$LNG['one_is_no'][1]                   = 'Нет';
-$LNG['one_is_no'][0]                   = 'Да';
+$LNG['one_is_no_1']                   = 'Нет';
+$LNG['one_is_no_0']                   = 'Да';
 
 // Кнопки
 $LNG['button_submit']                  = 'Сохранить';

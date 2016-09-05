@@ -69,11 +69,11 @@ $LNG['uvs_back']						= 'Voltar';
 $LNG['log_disclamersettings']			= 'Contatos';
 
 //---------------	Sim ou não	------------------------// 
-$LNG['one_is_yes'][1]	= 'Sim';
-$LNG['one_is_yes'][0]	= 'Não';
+$LNG['one_is_yes_1']	= 'Sim';
+$LNG['one_is_yes_0']	= 'Não';
 
-$LNG['one_is_no'][1]	= 'Sim';
-$LNG['one_is_no'][0]	= 'Não';
+$LNG['one_is_no_1']	= 'Sim';
+$LNG['one_is_no_0']	= 'Não';
 //###########################################################//
 
 

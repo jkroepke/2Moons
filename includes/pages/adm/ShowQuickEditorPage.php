@@ -240,6 +240,7 @@ function ShowQuickEditorPage()
 				'authattack'	=> $UserData['authattack'],
 				'multi'			=> $GLOBALS['DATABASE']->getFirstCell("SELECT COUNT(*) FROM ".MULTI." WHERE userID = ".$id.";"),
 				'ChangePW'		=> $ChangePW,
+                'yesorno'		=> array(1 => $LNG['one_is_yes_1'], 0 => $LNG['one_is_yes_0']),
 				'darkmatter'	=> floatToString($UserData['darkmatter']),
 				'darkmatter_c'	=> pretty_number($UserData['darkmatter']),
 			));

@@ -56,11 +56,11 @@ $LNG['time_seconds'] = 'Seconds';
 $LNG['info_information'] = 'Send or report bugs in the forum for <a href="%s" target="tracker">2Moons</a><br>Otherwise there will be support!';
 
 //---------------	Sim ou não	------------------------//
-$LNG['one_is_yes'] [1] = 'Yes';
-$LNG['one_is_yes'] [0] = 'no';
+$LNG['one_is_yes_1'] = 'Yes';
+$LNG['one_is_yes_0'] = 'no';
 
-$LNG['one_is_no'] [1] = 'Yes';
-$LNG['one_is_no'] [0] = 'no';
+$LNG['one_is_no_1'] = 'Yes';
+$LNG['one_is_no_0'] = 'no';
 //###########################################################//
 
 

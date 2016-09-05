@@ -55,7 +55,7 @@ function ShowRightsPage()
 					'Files'						=> $Files, 
 					'Rights'					=> $Rights['rights'], 
 					'id'						=> $id, 
-					'yesorno'					=> $LNG['one_is_yes'], 
+					'yesorno'					=> array(1 => $LNG['one_is_yes_1'], 0 => $LNG['one_is_yes_0']),
 					'ad_authlevel_title'		=> $LNG['ad_authlevel_title'], 
 					'button_submit'				=> $LNG['button_submit'],  
 					'sid'						=> session_id(), 

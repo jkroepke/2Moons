@@ -63,8 +63,8 @@ function ShowAccountDataPage()
 			$info			= $UserQuery['user_ua'];
 			$alianza		= $UserQuery['ally_name'];
 			$nivel			= $LNG['rank'][$UserQuery['authlevel']];
-			$vacas 			= $LNG['one_is_yes'][$UserQuery['urlaubs_modus']];
-			$suspen 		= $LNG['one_is_yes'][$UserQuery['bana']]; 
+			$vacas 			= $LNG['one_is_yes_'.$UserQuery['urlaubs_modus']];
+			$suspen 		= $LNG['one_is_yes_'.$UserQuery['bana']];
 
 
 			$mo	= "<a title=\"".pretty_number($UserQuery['darkmatter'])."\">".shortly_number($UserQuery['darkmatter'])."</a>";

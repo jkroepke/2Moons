@@ -61,11 +61,11 @@ $LNG['time_seconds'] = 'Saniye';
 $LNG['info_information'] = 'Buglari foruma  <a href="%s" target="tracker">2Moons</a><br>yada destek sayfasindan bildirebilirsiniz!';
 
 //---------------	Evet yada Hayir	------------------------//
-$LNG['one_is_yes'] [1] = 'Evet';
-$LNG['one_is_yes'] [0] = 'Hayir';
+$LNG['one_is_yes_1'] = 'Evet';
+$LNG['one_is_yes_0'] = 'Hayir';
 
-$LNG['one_is_no'] [1] = 'Evet';
-$LNG['one_is_no'] [0] = 'Hayir';
+$LNG['one_is_no_1'] = 'Evet';
+$LNG['one_is_no_0'] = 'Hayir';
 //###########################################################//
 
 

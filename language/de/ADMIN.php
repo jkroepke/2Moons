@@ -52,11 +52,11 @@ $LNG['time_seconds']	= 'Sekunden';
 $LNG['info_information']	= 'Informations-Vorlage zum Posten eines Bugs im <a href="%s" target="tracker">2Moons Board</a><br>Ohne diese Vorlage gibt es keinen Support!';
 
 //---------------	¿SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------// 
-$LNG['one_is_yes'][1]	= 'Ja';
-$LNG['one_is_yes'][0]	= 'Nein';
+$LNG['one_is_yes_1']	= 'Ja';
+$LNG['one_is_yes_0']	= 'Nein';
 
-$LNG['one_is_no'][1]	= 'Nein';
-$LNG['one_is_no'][0]	= 'Ja';
+$LNG['one_is_no_1']	= 'Nein';
+$LNG['one_is_no_0']	= 'Ja';
 //###########################################################//
 
 

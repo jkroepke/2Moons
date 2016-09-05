@@ -40,11 +40,11 @@ $LNG['time_seconds']					= 'Secondes';
 $LNG['info_information']	= 'Soumettre les bugs à : <a href="%s" target="tracker">2Moons Board</a><br>Ou bien Il n\'y a aucun support !';
 
 //---------------	�SI O NO? - YES OR NO? - JA ODER NEIN?	------------------------//
-$LNG['one_is_yes'][1]					= 'Oui';
-$LNG['one_is_yes'][0]					= 'Non';
+$LNG['one_is_yes_1']					= 'Oui';
+$LNG['one_is_yes_0']					= 'Non';
 
-$LNG['one_is_no'][1]					= 'Non';
-$LNG['one_is_no'][0]					= 'Oui';
+$LNG['one_is_no_1']					= 'Non';
+$LNG['one_is_no_0']					= 'Oui';
 //###########################################################//
 
 
