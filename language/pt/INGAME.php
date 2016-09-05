@@ -471,7 +471,7 @@ $LNG['tt_lvl']								= 'Nivel ';
 //----------------------------------------------------------------------------//
 // Infos
 $LNG['in_jump_gate_no_target']				= 'Sem alvo disponivel';
-$LNG['in_jump_gate_done']					='O portal de salto foi usado, poderás voltar a usá-lo em:';
+$LNG['in_jump_gate_done']					= 'O portal de salto foi usado, poderás voltar a usá-lo em:';
 $LNG['in_jump_gate_error_data']			    = 'Erro, coordenadas para salto não estão corretas!';
 $LNG['in_jump_gate_not_ready_target']		= 'O portal não está pronto na lua de destino, Estará pronto em ';
 $LNG['in_jump_gate_doesnt_have_one']		= 'Não tens outro portal para efetuar o salto!';

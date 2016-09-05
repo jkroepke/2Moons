@@ -36,10 +36,10 @@ $LNG['only_numbers']		= '¡Solo se pueden ingresar números (0-9)!';
 $LNG['select_option']		= 'Seleccionar...';
 
 // 	RANGO - RANK
-$LNG['rank'][0]	= 'Jugador';
-$LNG['rank'][1]	= 'Moderador';
-$LNG['rank'][2]	= 'Operador';
-$LNG['rank'][3]	= 'Administrador';
+$LNG['rank_0']	= 'Jugador';
+$LNG['rank_1']	= 'Moderador';
+$LNG['rank_2']	= 'Operador';
+$LNG['rank_3']	= 'Administrador';
 
 
 // 	TIEMPO - TIME

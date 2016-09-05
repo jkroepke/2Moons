@@ -83,7 +83,7 @@ function ShowRightsPage()
 			}	
 
 			$template->assign_vars(array(	
-				'Selector'					=> array(0 => $LNG['rank'][0], 1 => $LNG['rank'][1], 2 => $LNG['rank'][2], 3 => $LNG['rank'][3]), 
+				'Selector'					=> array(0 => $LNG['rank_0'], 1 => $LNG['rank_1'], 2 => $LNG['rank_2'], 3 => $LNG['rank_3']),
 				'UserList'					=> $UserList, 
 				'ad_authlevel_title'		=> $LNG['ad_authlevel_title'], 
 				'bo_select_title'			=> $LNG['bo_select_title'], 
@@ -141,7 +141,7 @@ function ShowRightsPage()
 			}	
 
 			$template->assign_vars(array(	
-				'Selector'					=> array(0 => $LNG['rank'][0], 1 => $LNG['rank'][1], 2 => $LNG['rank'][2], 3 => $LNG['rank'][3]), 
+				'Selector'					=> array(0 => $LNG['rank_0'], 1 => $LNG['rank_1'], 2 => $LNG['rank_2'], 3 => $LNG['rank_3']),
 				'UserList'					=> $UserList, 
 				'ad_authlevel_title'		=> $LNG['ad_authlevel_title'], 
 				'bo_select_title'			=> $LNG['bo_select_title'], 

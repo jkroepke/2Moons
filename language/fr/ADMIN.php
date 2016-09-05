@@ -6,7 +6,7 @@
  
 //---------------	GENERAL	------------------------//
 $LNG['adm_login']						= 'Connectez-vous';
-$LNG['adm_username']					='Login';
+$LNG['adm_username']					= 'Login';
 $LNG['adm_password']					= 'Mot de passe';
 $LNG['adm_absenden']					= 'Envoyer'; 
 $LNG['adm_password_info']				= 'S\'il vous plaît entrer votre mot de passe pour la vérification du compte !';
@@ -25,10 +25,10 @@ $LNG['only_numbers']					= 'Vous pouvez seulement entrer des nombres !';
 $LNG['select_option']	 				= 'Sélectionnez ...';
 
 // 	RANGO - RANK
-$LNG['rank'][0]							= 'Joueur';
-$LNG['rank'][1]							= 'Modérateur';
-$LNG['rank'][2]							= 'Opérateur';
-$LNG['rank'][3]							= 'Administrateur';
+$LNG['rank_0']							= 'Joueur';
+$LNG['rank_1']							= 'Modérateur';
+$LNG['rank_2']							= 'Opérateur';
+$LNG['rank_3']							= 'Administrateur';
 
 // 	TIEMPO - TIME
 $LNG['time_days']						= 'Jours';
@@ -101,11 +101,11 @@ $LNG['ad_editor_resources']				= 'Ressources';
 $LNG['ad_editor_alliances']				= 'Alliance';
 $LNG['ad_editor_authlevels']			= 'Gérer les autorisations';
 
-$LNG['ad_add_not_exist']				='L\'ID n\'existe pas!';
+$LNG['ad_add_not_exist']				= 'L\'ID n\'existe pas!';
 
 // RESEARCH
-$LNG['ad_add_tech_success'] 			='Recherches ajoutées avec succès !';
-$LNG['ad_delete_tech_success'] 			='Recherches supprimées avec succès !';
+$LNG['ad_add_tech_success'] 			= 'Recherches ajoutées avec succès !';
+$LNG['ad_delete_tech_success'] 			= 'Recherches supprimées avec succès !';
 $LNG['ad_research_title']				= 'Editer Recherches';
 $LNG['ad_research'] 					= 'Recherches';
 
@@ -212,7 +212,7 @@ $LNG['bo_select_title']					= 'Afficher les noms commençant par';
 $LNG['bo_suspended_panel']				= 'Outils de bannissement';
 $LNG['bo_bbb_go_back']					= '[ Retour ]';
 $LNG['bo_bbb_go_act']					= '[ Actualiser ]';
-$LNG['bo_permanent'] 					='Ban permanent';
+$LNG['bo_permanent'] 					= 'Ban permanent';
 $LNG['bo_bbb_title_1']					= 'Système bannissement';
 $LNG['bo_bbb_title_2']					= 'Quand le bannissement sera levé';
 $LNG['bo_bbb_title_3']					= 'Système bannissement<br><font color=red>Note: Cet utilisateur est déjà banni !';
@@ -226,8 +226,8 @@ $LNG['bo_order_id']					= '[Ranger par ID Joueur]';
 $LNG['bo_order_banned']					= '[Ranger par Joueurs bannis]';
 $LNG['bo_total_users']					= 'Total Joueurs : ';
 $LNG['bo_total_banneds']				= 'Total Joueurs bannis : ';
-$LNG['bo_ban'] 							='Bannir';
-$LNG['bo_unban'] 						='Dèbannir';
+$LNG['bo_ban'] 							= 'Bannir';
+$LNG['bo_unban'] 						= 'Dèbannir';
 //###########################################################//
 
 //---------------	ENCRYPTOR MD5  --------------------------//
@@ -509,7 +509,7 @@ $LNG['se_dst_mode']						= 'Heure d\'été ?';
 $LNG['se_dst_sel'][0]					= 'Non';
 $LNG['se_dst_sel'][1]					= 'Oui';
 $LNG['se_dst_sel'][2]					= 'Automatique';
-$LNG['se_max_dm_missions']				='Nombre maximum de mission DM en paralélle';
+$LNG['se_max_dm_missions']				= 'Nombre maximum de mission DM en paralélle';
 $LNG['se_alliance_create_min_points']   = 'Nombre minimum de points pour rejoindre une alliance.';
 $LNG['se_disclaimerAddress']				= 'Addresse';
 $LNG['se_disclaimerPhone']				= 'Numéros de téléphone';
@@ -648,19 +648,19 @@ $LNG['vt_error']					= 'Le Hash du fichier n\'est pas disponible ! Effectuer une
 $LNG['vt_fail']						= 'Fichiers modifiès';
 $LNG['vt_info']						= 'Cette liste contient les fichiers qui ont été modifier, et ne pas correspondre à l\'original.<br>Si vous n\'avez pas changé le jeu lui-même, remplacez les fichiers avec les originaux.';
 /*$LNG['mu_update']                	= 'Mise à jour du jeu';*/
-$LNG['vt_head']						='Vèrifier les fichiers du jeu';
-$LNG['vt_filephp']					='PHP File';
-$LNG['vt_filetpl']					='Fichiers Template';
-$LNG['vt_filecss']					='Fichiers CSS';
-$LNG['vt_filejs']					='Fichiers Java Script';
-$LNG['vt_fileimg']					='Fichiers Image';
-$LNG['vt_filehtaccess']				='Fichiers HTACESS';
-$LNG['vt_all']						='Tous les fichiers';
-$LNG['vt_fileok']					='Fichiers Ok';
-$LNG['vt_filefail']					='Fichiers modifier';
-$LNG['vt_filenew']					='Nouveau fichier';
-$LNG['vt_fileerror']				='Erreur';
-$LNG['vt_loadfile']					='Chargement de la listes des fichiers';
+$LNG['vt_head']						= 'Vèrifier les fichiers du jeu';
+$LNG['vt_filephp']					= 'PHP File';
+$LNG['vt_filetpl']					= 'Fichiers Template';
+$LNG['vt_filecss']					= 'Fichiers CSS';
+$LNG['vt_filejs']					= 'Fichiers Java Script';
+$LNG['vt_fileimg']					= 'Fichiers Image';
+$LNG['vt_filehtaccess']				= 'Fichiers HTACESS';
+$LNG['vt_all']						= 'Tous les fichiers';
+$LNG['vt_fileok']					= 'Fichiers Ok';
+$LNG['vt_filefail']					= 'Fichiers modifier';
+$LNG['vt_filenew']					= 'Nouveau fichier';
+$LNG['vt_fileerror']				= 'Erreur';
+$LNG['vt_loadfile']					= 'Chargement de la listes des fichiers';
 
 //###########################################################//
 
@@ -981,7 +981,7 @@ $LNG['po_complete_succes2']				=	'Planète supprimée avec succès! ';
 //	CREADOR DE LUNAS - MOON MAKER
 $LNG['mo_moon_added']           			= 'Lune ajoutée avec succès.';
 $LNG['mo_moon_unavaible']       			= 'La Planète a déjà une lune !';
-$LNG['mo_moon_random']						='Alèatoire';
+$LNG['mo_moon_random']						= 'Alèatoire';
 $LNG['mo_planet_doesnt_exist']  			= 'La Planète n\'existe pas !';
 $LNG['mo_moon_name']            			= 'Nom de la Lune';
 $LNG['mo_moon']                 			= 'Lune';
@@ -1016,8 +1016,8 @@ $LNG['qe_fleet']					= 'Flottes';
 $LNG['qe_defensive']					= 'Defenses';
 $LNG['qe_resources']					= 'Ressources';
 $LNG['qe_id']						= 'ID';
-$LNG['qe_username']						='Nom utilisateur';
-$LNG['qe_planetname']					='Planète';
+$LNG['qe_username']						= 'Nom utilisateur';
+$LNG['qe_planetname']					= 'Planète';
 $LNG['qe_level']						= 'Niveau';
 $LNG['qe_count']					= 'Disponible';
 $LNG['qe_input']					= 'Entrée';
@@ -1032,9 +1032,9 @@ $LNG['qe_hpcoords']						= 'HP-Coordonnées';
 $LNG['qe_temp']						= 'Température';
 $LNG['qe_change']						= 'Changement';
 $LNG['qe_authattack']					= 'Protection contre les attaques admin';
-$LNG['qe_submit']						='Soumettre';
-$LNG['qe_resetr']						='Reset';
-$LNG['qe_allowmulti']					='Autorisé Multi IP';
+$LNG['qe_submit']						= 'Soumettre';
+$LNG['qe_resetr']						= 'Reset';
+$LNG['qe_allowmulti']					= 'Autorisé Multi IP';
 
 //----------------------------------------------------------------------------//
 //TeamSpeakSettingPage.php
@@ -1145,17 +1145,17 @@ $LNG['mvc_desc']						= 'Description';
 $LNG['uvs_id']							= 'ID';
 $LNG['uvs_name']						= 'Nom';
 $LNG['uvs_speeds']						= 'Vitesses';
-$LNG['uvs_speeds_full']					='Facteur de vitesses(Jeu/Flotte/Resources/Expédition)';
+$LNG['uvs_speeds_full']					= 'Facteur de vitesses(Jeu/Flotte/Resources/Expédition)';
 $LNG['uvs_players']						= 'Joueurs';
-$LNG['uvs_inactive']					='Inactif(s)';
+$LNG['uvs_inactive']					= 'Inactif(s)';
 $LNG['uvs_open']						= 'Ouvrir';
 $LNG['uvs_export']						= 'Exporter';
 $LNG['uvs_delete']						= 'Supprimer';
-$LNG['uvs_actions']						='Actions';
+$LNG['uvs_actions']						= 'Actions';
 $LNG['uvs_on']							= 'On';
 $LNG['uvs_off']							= 'Off';
 $LNG['uvs_new']							= 'Créer un Univers';
-$LNG['uvs_planets']						='Planétes';
+$LNG['uvs_planets']						= 'Planétes';
 $LNG['uvs_upload']						= 'Envoyer';
 $LNG['uvs_error']						= 'Importer un fichier non valide!';
 $LNG['uvs_reload']						= 'Rechargement';
@@ -1183,8 +1183,8 @@ $LNG['up_submit']						= 'Envoyer';
 $LNG['up_version']						= 'Version';
 $LNG['up_chmod_error']					= 'Aucune permission d\'écriture pour le dossier:\n\n%s';
 $LNG['up_need_curl']					= 'Erreur: cURL n\'est pas disponible.<br />2Moons système de mise à jour nécessite cURL, pour charger les données réelles téléchargées.';
-$LNG['up_no_xml_ext']					='Erreur: XML Parser n\'est pas présent.<br>Le maintien de 2Moons exige Parser XML pour traiter les fichiers présents.';
-$LNG['up_offline']						='Mise a jour serveur non disponible.';
+$LNG['up_no_xml_ext']					= 'Erreur: XML Parser n\'est pas présent.<br>Le maintien de 2Moons exige Parser XML pour traiter les fichiers présents.';
+$LNG['up_offline']						= 'Mise a jour serveur non disponible.';
 /*
 $LNG['up_error_fsockopen']				= 'Fonction file_get_contents fsockopen désactivé';
 */
@@ -1226,7 +1226,7 @@ $LNG['ap_nicht_aktivierte_user']		= 'L\'utilisateur ne s\'est pas activé';
 //MultiIPPage
 $LNG['mip_ip']							= 'IP';
 $LNG['mip_user']						= 'Utilisateur';
-$LNG['mip_known']						='Approuvé?';
+$LNG['mip_known']						= 'Approuvé?';
 
 //Admin Log
 $LNG['log_log']                         = 'Connexion';
@@ -1254,7 +1254,7 @@ $LNG['log_chatsettings']                = 'Options Chat';
 $LNG['log_tssettings']                  = 'Options Teamspeak';
 $LNG['log_uni_short']                   = 'Uni';
 $LNG['log_universe']                    = 'Univers';
-$LNG['log_present']      	            ='Distribuè';
+$LNG['log_present']      	            = 'Distribuè';
 $LNG['log_disclamersettings']			= 'Contacts';
 
 //Cronjobs
@@ -1305,43 +1305,43 @@ $LNG['cronjob_inactive']			= 'Oui';
 $LNG['cronjob_active']				= 'Non';
 
 // Giveaway
-$LNG['ga_success']						='Succés!';
-$LNG['ga_selectplanettype']				='Sélectionne une planéte!';
-$LNG['ga_definetarget']					='Définir cible';
-$LNG['ga_planettypes']					='Type de Planéte';
-$LNG['ga_homecoordinates']				='Seulement principal planéte';
-$LNG['ga_no_inactives']					='Seulement les joueurs actifs<br>Ne sera pas offert aux joueurs inactifs';
+$LNG['ga_success']						= 'Succés!';
+$LNG['ga_selectplanettype']				= 'Sélectionne une planéte!';
+$LNG['ga_definetarget']					= 'Définir cible';
+$LNG['ga_planettypes']					= 'Type de Planéte';
+$LNG['ga_homecoordinates']				= 'Seulement principal planéte';
+$LNG['ga_no_inactives']					= 'Seulement les joueurs actifs<br>Ne sera pas offert aux joueurs inactifs';
 
 // Old SupportTicket Keys
 
-$LNG['supp_header'] 						='Systéme de support';
-$LNG['supp_header_g'] 						='Tickets férmé';
-$LNG['ticket_id'] 							='Support ID';
-$LNG['subject'] 							='Sujet';
-$LNG['status'] 								='Status';
-$LNG['ticket_posted'] 						='Ticket de';
-$LNG['ticket_new'] 							='Nouveau Ticket';
-$LNG['input_text']	 						='Description:';
-$LNG['answer_new'] 							='Laissez une réponse:';
-$LNG['text'] 								='Détails';
-$LNG['message_a'] 							='Status du message:';
-$LNG['sendit_a'] 							='Envoi de message a été ajouté.';
-$LNG['message_t'] 							='Status du Ticket:';
-$LNG['supp_send'] 							='Envoi';
-$LNG['sendit_t'] 							='Le ticket a été envoyé.';
-$LNG['close_t'] 							='Le ticket a été fermé.';
-$LNG['sendit_error'] 						='Erreur:';
-$LNG['sendit_error_msg'] 					='Veuillez insérer quelque chose!';
-$LNG['supp_admin_system'] 					='Support de panneau d\'administration';
-$LNG['close_ticket'] 						='Ticket fermé';
-$LNG['open_ticket'] 						='Ticket ouvert';
-$LNG['player'] 								='Joueur';
-$LNG['supp_ticket_close']					='Ticket fermé';
-$LNG['supp_close'] 							='Fermé';
-$LNG['supp_open'] 							='Ouvert';
-$LNG['supp_admin_answer'] 					='Réponse de l\'administrateur';
-$LNG['supp_player_write'] 					='%s écrit le %s';
-$LNG['supp_player_answer'] 					='Réponse du joueur';
+$LNG['supp_header'] 						= 'Systéme de support';
+$LNG['supp_header_g'] 						= 'Tickets férmé';
+$LNG['ticket_id'] 							= 'Support ID';
+$LNG['subject'] 							= 'Sujet';
+$LNG['status'] 								= 'Status';
+$LNG['ticket_posted'] 						= 'Ticket de';
+$LNG['ticket_new'] 							= 'Nouveau Ticket';
+$LNG['input_text']	 						= 'Description:';
+$LNG['answer_new'] 							= 'Laissez une réponse:';
+$LNG['text'] 								= 'Détails';
+$LNG['message_a'] 							= 'Status du message:';
+$LNG['sendit_a'] 							= 'Envoi de message a été ajouté.';
+$LNG['message_t'] 							= 'Status du Ticket:';
+$LNG['supp_send'] 							= 'Envoi';
+$LNG['sendit_t'] 							= 'Le ticket a été envoyé.';
+$LNG['close_t'] 							= 'Le ticket a été fermé.';
+$LNG['sendit_error'] 						= 'Erreur:';
+$LNG['sendit_error_msg'] 					= 'Veuillez insérer quelque chose!';
+$LNG['supp_admin_system'] 					= 'Support de panneau d\'administration';
+$LNG['close_ticket'] 						= 'Ticket fermé';
+$LNG['open_ticket'] 						= 'Ticket ouvert';
+$LNG['player'] 								= 'Joueur';
+$LNG['supp_ticket_close']					= 'Ticket fermé';
+$LNG['supp_close'] 							= 'Fermé';
+$LNG['supp_open'] 							= 'Ouvert';
+$LNG['supp_admin_answer'] 					= 'Réponse de l\'administrateur';
+$LNG['supp_player_write'] 					= '%s écrit le %s';
+$LNG['supp_player_answer'] 					= 'Réponse du joueur';
 
 // SQL-Dumper
 $LNG['du_header']					= 'Backup base de données';

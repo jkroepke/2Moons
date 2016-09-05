@@ -43,10 +43,10 @@ $LNG['only_numbers']		= 'Só podes inserir numeros!';
 $LNG['select_option']		= 'Escolhe a opção...';
 
 // 	Rank
-$LNG['rank'][0]	= 'Jogador';
-$LNG['rank'][1]	= 'Moderador';
-$LNG['rank'][2]	= 'Operador';
-$LNG['rank'][3]	= 'Administrador';
+$LNG['rank_0']	= 'Jogador';
+$LNG['rank_1']	= 'Moderador';
+$LNG['rank_2']	= 'Operador';
+$LNG['rank_3']	= 'Administrador';
 
 
 // 	Tempo
@@ -1006,7 +1006,7 @@ $LNG['qe_change']						= 'Mudar';
 $LNG['qe_authattack']					= 'Proteção de Administrador';
 $LNG['qe_submit']						= 'Enviar';
 $LNG['qe_resetr']						= 'Redefinir';
-$LNG['qe_allowmulti']					='Permitir Multi IPs';
+$LNG['qe_allowmulti']					= 'Permitir Multi IPs';
 
 	
 //----------------------------------------------------------------------------//
@@ -1197,7 +1197,7 @@ $LNG['ap_nicht_aktivierte_user']		= 'Usuário não ativado';
 // Página de Multi IP
 $LNG['mip_ip']							= 'IP';
 $LNG['mip_user']						= 'Jogador';
-$LNG['mip_known']						='Aprovado?';
+$LNG['mip_known']						= 'Aprovado?';
 
 // LOG de Administrador
 $LNG['log_log']                         = 'Log';
