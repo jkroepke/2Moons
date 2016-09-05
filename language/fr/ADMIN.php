@@ -879,41 +879,41 @@ $LNG['se_delete_succes_p']				=	'Supprimé avec succès';
 $LNG['se_confirm_planet']				=	'La Planète (principale ou colonie) sélectionnée va être complètement supprimée, souhaitez-vous continuez ? Nom de la Planète :';
 
 // B�SQUEDA EN TABLA DE USUARIOS
-$LNG['se_search_users'][0]				=	'ID';
-$LNG['se_search_users'][1]				=	'Nom';
-$LNG['se_search_users'][2]				=	'Email';
-$LNG['se_search_users'][3]				=	'Dernière Activité';
-$LNG['se_search_users'][4]				=	'Date d\'enregistrement';
-$LNG['se_search_users'][5]				=	'Dernière IP';
-$LNG['se_search_users'][6]				=	'Autorité';
-$LNG['se_search_users'][7]				=	'Bannis ?';
-$LNG['se_search_users'][8]				=	'Vaccances ?';
+$LNG['se_search_users_0']				=	'ID';
+$LNG['se_search_users_1']				=	'Nom';
+$LNG['se_search_users_2']				=	'Email';
+$LNG['se_search_users_3']				=	'Dernière Activité';
+$LNG['se_search_users_4']				=	'Date d\'enregistrement';
+$LNG['se_search_users_5']				=	'Dernière IP';
+$LNG['se_search_users_6']				=	'Autorité';
+$LNG['se_search_users_7']				=	'Bannis ?';
+$LNG['se_search_users_8']				=	'Vaccances ?';
 
 // B�SQUEDA EN TABLA DE PLANETAS
-$LNG['se_search_planets'][0]				=	'ID';
-$LNG['se_search_planets'][1]				=	'Nom';
-$LNG['se_search_planets'][2]				=	"Porpiétaire";
-$LNG['se_search_planets'][3]				=	"Dernière Activité";
-$LNG['se_search_planets'][4]				=	"Galaxie";
-$LNG['se_search_planets'][5]				=	"Système";
-$LNG['se_search_planets'][6]				=	"Planète";
-$LNG['se_search_planets'][7]				=	"A-t\'il une Lune ?";
+$LNG['se_search_planets_0']				=	'ID';
+$LNG['se_search_planets_1']				=	'Nom';
+$LNG['se_search_planets_2']				=	"Porpiétaire";
+$LNG['se_search_planets_3']				=	"Dernière Activité";
+$LNG['se_search_planets_4']				=	"Galaxie";
+$LNG['se_search_planets_5']				=	"Système";
+$LNG['se_search_planets_6']				=	"Planète";
+$LNG['se_search_planets_7']				=	"A-t\'il une Lune ?";
 
 // B�SQUEDA EN TABLA DE SUSPENDIDOS
-$LNG['se_search_banned'][0]				=	'ID';
-$LNG['se_search_banned'][1]				=	'Nom';
-$LNG['se_search_banned'][2]				=	"Date de bannissement";
-$LNG['se_search_banned'][3]				=	"Date de débannissement";
-$LNG['se_search_banned'][4]				=	"Raison";
-$LNG['se_search_banned'][5]				=	"Auteur";
+$LNG['se_search_banned_0']				=	'ID';
+$LNG['se_search_banned_1']				=	'Nom';
+$LNG['se_search_banned_2']				=	"Date de bannissement";
+$LNG['se_search_banned_3']				=	"Date de débannissement";
+$LNG['se_search_banned_4']				=	"Raison";
+$LNG['se_search_banned_5']				=	"Auteur";
 
 // B�SQUEDA EN TABLA DE LA ALIANZA
-$LNG['se_search_alliance'][0]				=	'ID';
-$LNG['se_search_alliance'][1]				=	'Nom';
-$LNG['se_search_alliance'][2]				=	"TAG";
-$LNG['se_search_alliance'][3]				=	"Leader";
-$LNG['se_search_alliance'][4]				=	"Date de Création";
-$LNG['se_search_alliance'][5]				=	"Nombre de Membres";
+$LNG['se_search_alliance_0']				=	'ID';
+$LNG['se_search_alliance_1']				=	'Nom';
+$LNG['se_search_alliance_2']				=	"TAG";
+$LNG['se_search_alliance_3']				=	"Leader";
+$LNG['se_search_alliance_4']				=	"Date de Création";
+$LNG['se_search_alliance_5']				=	"Nombre de Membres";
 //###########################################################//
 
 

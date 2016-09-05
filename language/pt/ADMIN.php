@@ -879,41 +879,41 @@ $LNG['se_delete_succes_p']	            = 'Apagado com êxito';
 $LNG['se_confirm_planet']	            = 'O planeta escolhido será completamente apagado, mesmo sendo planeta principal ou colonia, queres continuar?. Nome do planeta:';
 
 // Pesquisa na tabela de Utilizadores
-$LNG['se_search_users'][0]				=	'ID';
-$LNG['se_search_users'][1]				=	'Nome';
-$LNG['se_search_users'][2]				=	'E-mail';
-$LNG['se_search_users'][3]				=	'Ultima atividade';
-$LNG['se_search_users'][4]				=	'Data de registo';
-$LNG['se_search_users'][5]				=	'Ultimo IP';
-$LNG['se_search_users'][6]				=	'Autoridade';
-$LNG['se_search_users'][7]				=	'Suspendido?';
-$LNG['se_search_users'][8]				=	'Férias?';
+$LNG['se_search_users_0']				=	'ID';
+$LNG['se_search_users_1']				=	'Nome';
+$LNG['se_search_users_2']				=	'E-mail';
+$LNG['se_search_users_3']				=	'Ultima atividade';
+$LNG['se_search_users_4']				=	'Data de registo';
+$LNG['se_search_users_5']				=	'Ultimo IP';
+$LNG['se_search_users_6']				=	'Autoridade';
+$LNG['se_search_users_7']				=	'Suspendido?';
+$LNG['se_search_users_8']				=	'Férias?';
 
 // Pesquisa na tabela de Planetas
-$LNG['se_search_planets'][0]			=	'ID';
-$LNG['se_search_planets'][1]			=	'Nome';
-$LNG['se_search_planets'][2]			=	"Dono";
-$LNG['se_search_planets'][3]			=	"Ultima atividade";
-$LNG['se_search_planets'][4]			=	"Galáxia";
-$LNG['se_search_planets'][5]			=	"Sistema";
-$LNG['se_search_planets'][6]			=	"Planeta";
-$LNG['se_search_planets'][7]			=	"Tem Lua?";
+$LNG['se_search_planets_0']			=	'ID';
+$LNG['se_search_planets_1']			=	'Nome';
+$LNG['se_search_planets_2']			=	"Dono";
+$LNG['se_search_planets_3']			=	"Ultima atividade";
+$LNG['se_search_planets_4']			=	"Galáxia";
+$LNG['se_search_planets_5']			=	"Sistema";
+$LNG['se_search_planets_6']			=	"Planeta";
+$LNG['se_search_planets_7']			=	"Tem Lua?";
 
 // Pesquisa na tabela de Jogadores banidos
-$LNG['se_search_banned'][0]				=	'ID';
-$LNG['se_search_banned'][1]				=	'Nome';
-$LNG['se_search_banned'][2]				=	"Data de suspensão";
-$LNG['se_search_banned'][3]				=	"Data de reativação";
-$LNG['se_search_banned'][4]				=	"Razão";
-$LNG['se_search_banned'][5]				=	"Autor";
+$LNG['se_search_banned_0']				=	'ID';
+$LNG['se_search_banned_1']				=	'Nome';
+$LNG['se_search_banned_2']				=	"Data de suspensão";
+$LNG['se_search_banned_3']				=	"Data de reativação";
+$LNG['se_search_banned_4']				=	"Razão";
+$LNG['se_search_banned_5']				=	"Autor";
 
 // Pesquisa na tabela de Alianças
-$LNG['se_search_alliance'][0]			=	'ID';
-$LNG['se_search_alliance'][1]			=	'Nome';
-$LNG['se_search_alliance'][2]			=	"TAG";
-$LNG['se_search_alliance'][3]			=	"Administrador";
-$LNG['se_search_alliance'][4]			=	"Data de criação";
-$LNG['se_search_alliance'][5]			=	"Numero de membros";
+$LNG['se_search_alliance_0']			=	'ID';
+$LNG['se_search_alliance_1']			=	'Nome';
+$LNG['se_search_alliance_2']			=	"TAG";
+$LNG['se_search_alliance_3']			=	"Administrador";
+$LNG['se_search_alliance_4']			=	"Data de criação";
+$LNG['se_search_alliance_5']			=	"Numero de membros";
 //###########################################################//
 
 

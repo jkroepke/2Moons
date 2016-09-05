@@ -809,45 +809,42 @@ $LNG['se_search_edit']                 = 'Редактировать';
 $LNG['se_delete_succes_p']             = 'Удалено';
 $LNG['se_confirm_planet']              = 'Все выбранные планеты будут полностью удалены. Продолжить?. Названия планет:';
 
-$SE_ID                                 = 'ID';
-$SE_NAME                               = 'Имя';
-
 // Игроки
-$LNG['se_search_users'][0]             = $SE_ID;
-$LNG['se_search_users'][1]             = $SE_NAME;
-$LNG['se_search_users'][2]             = 'Электронная почта';
-$LNG['se_search_users'][3]             = 'Активность';
-$LNG['se_search_users'][4]             = 'Дата регистрации';
-$LNG['se_search_users'][5]             = 'Последний IP';
-$LNG['se_search_users'][6]             = 'Должность';
-$LNG['se_search_users'][7]             = 'Бан';
-$LNG['se_search_users'][8]             = 'РО';
+$LNG['se_search_users_0']             = 'ID';
+$LNG['se_search_users_1']             = 'Имя';
+$LNG['se_search_users_2']             = 'Электронная почта';
+$LNG['se_search_users_3']             = 'Активность';
+$LNG['se_search_users_4']             = 'Дата регистрации';
+$LNG['se_search_users_5']             = 'Последний IP';
+$LNG['se_search_users_6']             = 'Должность';
+$LNG['se_search_users_7']             = 'Бан';
+$LNG['se_search_users_8']             = 'РО';
 
 // Планеты
-$LNG['se_search_planets'][0]           = $SE_ID;
-$LNG['se_search_planets'][1]           = $SE_NAME;
-$LNG['se_search_planets'][2]           = 'Логин (ID игрока)';
-$LNG['se_search_planets'][3]           = 'Активность';
-$LNG['se_search_planets'][4]           = 'Галактика';
-$LNG['se_search_planets'][5]           = 'Система';
-$LNG['se_search_planets'][6]           = 'Планета';
-$LNG['se_search_planets'][7]           = 'Луна';
+$LNG['se_search_planets_0']           = 'ID';
+$LNG['se_search_planets_1']           = 'Имя';
+$LNG['se_search_planets_2']           = 'Логин (ID игрока)';
+$LNG['se_search_planets_3']           = 'Активность';
+$LNG['se_search_planets_4']           = 'Галактика';
+$LNG['se_search_planets_5']           = 'Система';
+$LNG['se_search_planets_6']           = 'Планета';
+$LNG['se_search_planets_7']           = 'Луна';
 
 // Заблокированные
-$LNG['se_search_banned'][0]            = $SE_ID;
-$LNG['se_search_banned'][1]            = $SE_NAME;
-$LNG['se_search_banned'][2]            = 'Когда';
-$LNG['se_search_banned'][3]            = 'Заблокирован до';
-$LNG['se_search_banned'][4]            = 'Причина';
-$LNG['se_search_banned'][5]            = 'Кто заблокировал';
+$LNG['se_search_banned_0']            = 'ID';
+$LNG['se_search_banned_1']            = 'Имя';
+$LNG['se_search_banned_2']            = 'Когда';
+$LNG['se_search_banned_3']            = 'Заблокирован до';
+$LNG['se_search_banned_4']            = 'Причина';
+$LNG['se_search_banned_5']            = 'Кто заблокировал';
 
 // Альянс
-$LNG['se_search_alliance'][0]          = $SE_ID;
-$LNG['se_search_alliance'][1]          = $SE_NAME;
-$LNG['se_search_alliance'][2]          = 'Аббревиатура';
-$LNG['se_search_alliance'][3]          = 'Глава';
-$LNG['se_search_alliance'][4]          = 'Дата создания';
-$LNG['se_search_alliance'][5]          = 'Количество членов';
+$LNG['se_search_alliance_0']          = 'ID';
+$LNG['se_search_alliance_1']          = 'Имя';
+$LNG['se_search_alliance_2']          = 'Аббревиатура';
+$LNG['se_search_alliance_3']          = 'Глава';
+$LNG['se_search_alliance_4']          = 'Дата создания';
+$LNG['se_search_alliance_5']          = 'Количество членов';
 
 // Создание
 $LNG['new_creator_title']              = 'Создать';

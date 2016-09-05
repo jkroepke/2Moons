@@ -1156,41 +1156,41 @@ $LNG['ac_no_rank_level']                = 'Bilgiyi gormek icin yeterli yetkiniz 
 //###########################################################//
 //-----------------------------------------------------------------------------//
 // Kullanici Tablosu
-$LNG['se_search_users'][0]				=	'ID';
-$LNG['se_search_users'][1]				=	'Isim';
-$LNG['se_search_users'][2]				=	'E-mail';
-$LNG['se_search_users'][3]				=	'Son Aktivite';
-$LNG['se_search_users'][4]				=	'Kayit Tarihi';
-$LNG['se_search_users'][5]				=	'Ultimate IP';
-$LNG['se_search_users'][6]				=	'Yetki';
-$LNG['se_search_users'][7]				=	'Ceza?';
-$LNG['se_search_users'][8]				=	'Tatil?';
+$LNG['se_search_users_0']				=	'ID';
+$LNG['se_search_users_1']				=	'Isim';
+$LNG['se_search_users_2']				=	'E-mail';
+$LNG['se_search_users_3']				=	'Son Aktivite';
+$LNG['se_search_users_4']				=	'Kayit Tarihi';
+$LNG['se_search_users_5']				=	'Ultimate IP';
+$LNG['se_search_users_6']				=	'Yetki';
+$LNG['se_search_users_7']				=	'Ceza?';
+$LNG['se_search_users_8']				=	'Tatil?';
 
 // Gezegen tablosu
-$LNG['se_search_planets'][0]			=	'ID';
-$LNG['se_search_planets'][1]			=	'Isim';
-$LNG['se_search_planets'][2]			=	"Gezegen";
-$LNG['se_search_planets'][3]			=	"Son aktivite";
-$LNG['se_search_planets'][4]			=	"Galaksi";
-$LNG['se_search_planets'][5]			=	"Sistem";
-$LNG['se_search_planets'][6]			=	"Gezegen";
-$LNG['se_search_planets'][7]			=	"Ay?";
+$LNG['se_search_planets_0']			=	'ID';
+$LNG['se_search_planets_1']			=	'Isim';
+$LNG['se_search_planets_2']			=	"Gezegen";
+$LNG['se_search_planets_3']			=	"Son aktivite";
+$LNG['se_search_planets_4']			=	"Galaksi";
+$LNG['se_search_planets_5']			=	"Sistem";
+$LNG['se_search_planets_6']			=	"Gezegen";
+$LNG['se_search_planets_7']			=	"Ay?";
 
 // Ban/Ceza Tablosu
-$LNG['se_search_banned'][0]				=	'ID';
-$LNG['se_search_banned'][1]				=	'Isim';
-$LNG['se_search_banned'][2]				=	"Baslangic";
-$LNG['se_search_banned'][3]				=	"Bitis";
-$LNG['se_search_banned'][4]				=	"Sebep";
-$LNG['se_search_banned'][5]				=	"Cezayi Veren";
+$LNG['se_search_banned_0']				=	'ID';
+$LNG['se_search_banned_1']				=	'Isim';
+$LNG['se_search_banned_2']				=	"Baslangic";
+$LNG['se_search_banned_3']				=	"Bitis";
+$LNG['se_search_banned_4']				=	"Sebep";
+$LNG['se_search_banned_5']				=	"Cezayi Veren";
 
 // Ittifak Tablosu
-$LNG['se_search_alliance'][0]			=	'ID';
-$LNG['se_search_alliance'][1]			=	'Isim';
-$LNG['se_search_alliance'][2]			=	"TAG";
-$LNG['se_search_alliance'][3]			=	"Administrator";
-$LNG['se_search_alliance'][4]			=	"Olusturma Tarihi";
-$LNG['se_search_alliance'][5]			=	"Uye Sayisi";
+$LNG['se_search_alliance_0']			=	'ID';
+$LNG['se_search_alliance_1']			=	'Isim';
+$LNG['se_search_alliance_2']			=	"TAG";
+$LNG['se_search_alliance_3']			=	"Administrator";
+$LNG['se_search_alliance_4']			=	"Olusturma Tarihi";
+$LNG['se_search_alliance_5']			=	"Uye Sayisi";
 //###########################################################//
 
 

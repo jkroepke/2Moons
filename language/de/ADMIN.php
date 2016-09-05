@@ -864,41 +864,41 @@ $LNG['se_delete_succes_p'] = 'Erfolgreich gelöscht';
 $LNG['se_confirm_planet'] = 'Der gew&auml;hlte Planet wird komplett zurückgesetzt. Möchtest du fortfahren? Planetenname: ';
 
 // BÚSQUEDA EN TABLA DE USUARIOS
-$LNG['se_search_users'][0] = 'ID';
-$LNG['se_search_users'][1] = 'Name';
-$LNG['se_search_users'][2] = 'E-Mail';
-$LNG['se_search_users'][3] = 'Letzte Aktivit&auml;t';
-$LNG['se_search_users'][4] = 'Registrierungsdatum';
-$LNG['se_search_users'][5] = 'Letzte IP';
-$LNG['se_search_users'][6] = 'Rang';
-$LNG['se_search_users'][7] = 'Gesperrt';
-$LNG['se_search_users'][8] = 'Urlaubsmodus';
+$LNG['se_search_users_0'] = 'ID';
+$LNG['se_search_users_1'] = 'Name';
+$LNG['se_search_users_2'] = 'E-Mail';
+$LNG['se_search_users_3'] = 'Letzte Aktivit&auml;t';
+$LNG['se_search_users_4'] = 'Registrierungsdatum';
+$LNG['se_search_users_5'] = 'Letzte IP';
+$LNG['se_search_users_6'] = 'Rang';
+$LNG['se_search_users_7'] = 'Gesperrt';
+$LNG['se_search_users_8'] = 'Urlaubsmodus';
 
 // BÚSQUEDA EN TABLA DE PLANETAS
-$LNG['se_search_planets'][0] = 'ID';
-$LNG['se_search_planets'][1] = 'Name';
-$LNG['se_search_planets'][2] = "Besitzer";
-$LNG['se_search_planets'][3] = "Letzte Aktivit&auml;t";
-$LNG['se_search_planets'][4] = "Galaxie";
-$LNG['se_search_planets'][5] = "System";
-$LNG['se_search_planets'][6] = "Planet";
-$LNG['se_search_planets'][7] = "Mond";
+$LNG['se_search_planets_0'] = 'ID';
+$LNG['se_search_planets_1'] = 'Name';
+$LNG['se_search_planets_2'] = "Besitzer";
+$LNG['se_search_planets_3'] = "Letzte Aktivit&auml;t";
+$LNG['se_search_planets_4'] = "Galaxie";
+$LNG['se_search_planets_5'] = "System";
+$LNG['se_search_planets_6'] = "Planet";
+$LNG['se_search_planets_7'] = "Mond";
 
 // BÚSQUEDA EN TABLA DE SUSPENDIDOS
-$LNG['se_search_banned'][0] = 'ID';
-$LNG['se_search_banned'][1] = 'Name';
-$LNG['se_search_banned'][2] = "Geperrt von";
-$LNG['se_search_banned'][3] = "Gespert bis";
-$LNG['se_search_banned'][4] = "Grund";
-$LNG['se_search_banned'][5] = "Autor";
+$LNG['se_search_banned_0'] = 'ID';
+$LNG['se_search_banned_1'] = 'Name';
+$LNG['se_search_banned_2'] = "Geperrt von";
+$LNG['se_search_banned_3'] = "Gespert bis";
+$LNG['se_search_banned_4'] = "Grund";
+$LNG['se_search_banned_5'] = "Autor";
 
 // BÚSQUEDA EN TABLA DE LA ALIANZA
-$LNG['se_search_alliance'][0] = 'ID';
-$LNG['se_search_alliance'][1] = 'Name';
-$LNG['se_search_alliance'][2] = "TAG";
-$LNG['se_search_alliance'][3] = "Führer";
-$LNG['se_search_alliance'][4] = "Gründungsdatum";
-$LNG['se_search_alliance'][5] = "Mitgliederzahl";
+$LNG['se_search_alliance_0'] = 'ID';
+$LNG['se_search_alliance_1'] = 'Name';
+$LNG['se_search_alliance_2'] = "TAG";
+$LNG['se_search_alliance_3'] = "Führer";
+$LNG['se_search_alliance_4'] = "Gründungsdatum";
+$LNG['se_search_alliance_5'] = "Mitgliederzahl";
 //###########################################################//
 
 

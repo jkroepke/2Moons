@@ -91,6 +91,8 @@ function ShowSearchPage()
 			'diisplaay'	=> 'style="display:none;"',
 		));
 	}
+
+    $SpecialSpecify	= "";
 	
 	switch($SearchMethod)
 	{
@@ -118,10 +120,19 @@ function ShowSearchPage()
 		if (in_array($SearchFile, $ArrayUsers))
 		{
 			$Table			= "users";
-			$NameLang		= $LNG['se_search_users'];
+			$NameLang		= array(
+			    0 => $LNG['se_search_users_0'],
+			    1 => $LNG['se_search_users_1'],
+			    2 => $LNG['se_search_users_2'],
+			    3 => $LNG['se_search_users_3'],
+			    4 => $LNG['se_search_users_4'],
+			    5 => $LNG['se_search_users_5'],
+			    6 => $LNG['se_search_users_6'],
+			    7 => $LNG['se_search_users_7'],
+			    8 => $LNG['se_search_users_8']
+            );
 			$SpecifyItems	= "id,username,email_2,onlinetime,register_time,user_lastip,authlevel,bana,urlaubs_modus";
 			$SName			= $LNG['se_input_userss'];
-			$SpecialSpecify	= "";
 			if ($SearchFile == "vacation"){
 				$SpecialSpecify	= "AND urlaubs_modus = '1'";
 				$SName			= $LNG['se_input_vacatii'];}
@@ -146,15 +157,23 @@ function ShowSearchPage()
 			$Array0SecCount	= count($ArrayOSec);
 
 			for ($OrderNum = 0; $OrderNum < $Array0SecCount; $OrderNum++)
-				$OrderBYParse[$ArrayOSec[$OrderNum]]	= $LNG['se_search_users'][$OrderNum];
+				$OrderBYParse[$ArrayOSec[$OrderNum]]	= $LNG['se_search_users_'.$OrderNum];
 		}
 		
 		
 		elseif (in_array($SearchFile, $ArrayPlanets))
 		{
 			$Table			= "planets p";
-			$TableUsers		= "2";
-			$NameLang		= $LNG['se_search_planets'];
+			$NameLang		= array(
+			    0 => $LNG['se_search_planets_0'],
+			    1 => $LNG['se_search_planets_1'],
+			    2 => $LNG['se_search_planets_2'],
+			    3 => $LNG['se_search_planets_3'],
+			    4 => $LNG['se_search_planets_4'],
+			    5 => $LNG['se_search_planets_5'],
+			    6 => $LNG['se_search_planets_6'],
+			    7 => $LNG['se_search_planets_7'],
+            );
 			$SpecifyItems	= "p.id,p.name,CONCAT(u.username, ' (ID:&nbsp;', p.id_owner, ')'),p.last_update,p.galaxy,p.system,p.planet,p.id_luna";
 			
 			if ($SearchFile == "planet") {
@@ -180,14 +199,21 @@ function ShowSearchPage()
 			$Array0SecCount	= count($ArrayOSec);
 			
 			for ($OrderNum = 0; $OrderNum < $Array0SecCount; $OrderNum++)
-				$OrderBYParse[$ArrayOSec[$OrderNum]]	= $LNG['se_search_planets'][$OrderNum];
+				$OrderBYParse[$ArrayOSec[$OrderNum]]	= $LNG['se_search_planets_'.$OrderNum];
 		}
 		
 		
 		elseif (in_array($SearchFile, $ArrayBanned))
 		{
 			$Table			= "banned";
-			$NameLang		= $LNG['se_search_banned'];
+			$NameLang		= array(
+			    0 => $LNG['se_search_banned_0'],
+			    1 => $LNG['se_search_banned_1'],
+			    2 => $LNG['se_search_banned_2'],
+			    3 => $LNG['se_search_banned_3'],
+			    4 => $LNG['se_search_banned_4'],
+			    5 => $LNG['se_search_banned_5'],
+            );
 			$SpecifyItems	= "id,who,time,longer,theme,author";
 			$SName			= $LNG['se_input_susss'];
 			$SpecialSpecify	= " AND universe = '".Universe::getEmulated()."'";
@@ -199,14 +225,21 @@ function ShowSearchPage()
 			$Array0SecCount	= count($ArrayOSec);
 			
 			for ($OrderNum = 0; $OrderNum < $Array0SecCount; $OrderNum++)
-				$OrderBYParse[$ArrayOSec[$OrderNum]]	= $LNG['se_search_banned'][$OrderNum];
+				$OrderBYParse[$ArrayOSec[$OrderNum]]	= $LNG['se_search_banned_'.$OrderNum];
 		}
 		
 		
 		elseif (in_array($SearchFile, $ArrayAlliance))
 		{
 			$Table			= "alliance";
-			$NameLang		= $LNG['se_search_alliance'];
+			$NameLang		= array(
+			    0 => $LNG['se_search_alliance_0'],
+			    1 => $LNG['se_search_alliance_1'],
+			    2 => $LNG['se_search_alliance_2'],
+			    3 => $LNG['se_search_alliance_3'],
+			    4 => $LNG['se_search_alliance_4'],
+			    5 => $LNG['se_search_alliance_5'],
+            );
 			$SpecifyItems	= "id,ally_name,ally_tag,ally_owner,ally_register_time,ally_members";
 			$SName			= $LNG['se_input_allyy'];
 			$SpecialSpecify	= " AND ally_universe = '".Universe::getEmulated()."'";
@@ -218,7 +251,7 @@ function ShowSearchPage()
 			$Array0SecCount	= count($ArrayOSec);
 			
 			for ($OrderNum = 0; $OrderNum < $Array0SecCount; $OrderNum++)
-				$OrderBYParse[$ArrayOSec[$OrderNum]]	= $LNG['se_search_alliance'][$OrderNum];
+				$OrderBYParse[$ArrayOSec[$OrderNum]]	= $LNG['se_search_alliance_'.$OrderNum];
 		}
 				
 		$RESULT	= MyCrazyLittleSearch($SpecifyItems, $WhereItem, $SpecifyWhere, $SpecialSpecify, $Order, $OrderBY, $limit, $Table, $Page, $NameLang, $ArrayOSec, $Minimize, $SName, $SearchFile);
