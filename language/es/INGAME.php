@@ -41,12 +41,10 @@ $LNG['type_planet_1']  					= 'Planeta';
 $LNG['type_planet_2']  					= 'Escombros';
 $LNG['type_planet_3']  					= 'Luna';
 
-$LNG['user_level'] = array (
-	'0' => 'Jugador',
-	'1' => 'Moderador',
-	'2' => 'Operador',
-	'3' => 'Administrador',
-);
+$LNG['user_level_0']                        = 'Jugador';
+$LNG['user_level_1']                        = 'Moderador';
+$LNG['user_level_2']                        = 'Operador';
+$LNG['user_level_3']                        = 'Administrador';
 
 // GAME.PHP
 $LNG['page_doesnt_exist']					= 'La página solicitada no existe.';

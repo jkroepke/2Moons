@@ -47,12 +47,10 @@ $LNG['type_planet_1']  					= 'Planet';
 $LNG['type_planet_2']  					= 'Debris Field';
 $LNG['type_planet_3']  					= 'Moon';
 
-$LNG['user_level'] = array (
-	'0' => 'Player',
-	'1' => 'Moderator',
-	'2' => 'Operator',
-	'3' => 'Administrator',
-);
+$LNG['user_level_0']                        = 'Player';
+$LNG['user_level_1']                        = 'Moderator';
+$LNG['user_level_2']                        = 'Operator';
+$LNG['user_level_3']                        = 'Administrator';
 
 
 $LNG['page_doesnt_exist']					= 'This page does not exist';

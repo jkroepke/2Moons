@@ -46,12 +46,10 @@ $LNG['type_planet_1']  					= 'Gezegen';
 $LNG['type_planet_2']  					= 'Harabe alani';
 $LNG['type_planet_3']  					= 'Ay';
 
-$LNG['user_level'] = array (
-	'0' => 'Oyuncu',
-	'1' => 'Moderator',
-	'2' => 'Operator',
-	'3' => 'Admin',
-);
+$LNG['user_level_0']                        = 'Oyuncu';
+$LNG['user_level_1']                        = 'Moderator';
+$LNG['user_level_2']                        = 'Operator';
+$LNG['user_level_3']                        = 'Admin';
 
 
 $LNG['page_doesnt_exist']					= 'Sayfa Bulunamadi';

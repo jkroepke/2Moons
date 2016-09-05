@@ -42,13 +42,12 @@ $LNG['type_planet_1']  					= 'Planeta';
 $LNG['type_planet_2']  					= 'Pole zniszczeń';
 $LNG['type_planet_3']  					= 'Księżyc';
 
+$LNG['user_level_0']                        = 'Gracz';
+$LNG['user_level_1']                        = 'Moderator';
+$LNG['user_level_2']                        = 'Operator';
+$LNG['user_level_3']                        = 'Administrator';
 
-$LNG['user_level'] = array (
-	'0' => 'Gracz',
-	'1' => 'Moderator',
-	'2' => 'Operator',
-	'3' => 'Administrator',
-);
+
 // GAME.PHP
 $LNG['page_doesnt_exist']					= 'Brak strony!';
 $LNG['bad_forum_url']				    	= 'Zły format adresu strony!';

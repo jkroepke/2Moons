@@ -46,13 +46,10 @@ $LNG['type_planet_1']  					= 'Planeta';
 $LNG['type_planet_2']  					= 'Campo de Destroços';
 $LNG['type_planet_3']  					= 'Lua';
 
-$LNG['user_level'] = array (
-	'0' => 'Jogador',
-	'1' => 'Moderador',
-	'2' => 'Operador',
-	'3' => 'Administrador',
-);
-
+$LNG['user_level_0']                        = 'Jogador';
+$LNG['user_level_1']                        = 'Moderador';
+$LNG['user_level_2']                        = 'Operador';
+$LNG['user_level_3']                        = 'Administrador';
 
 $LNG['page_doesnt_exist']					= 'Esta página não existe';
 $LNG['bad_forum_url']				    	= 'O link de Forum é incorreto!';
