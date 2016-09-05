@@ -445,7 +445,7 @@ HTML;
 						$this->_fleet['fleet_end_system'],
 						$this->_fleet['fleet_end_planet']
 					),
-					$LNG['type_planet_short'][$this->_fleet['fleet_end_type']],
+					$LNG['type_planet_short_'.$this->_fleet['fleet_end_type']],
 					$LNG['sys_lost'],
 					$attackClass,
 					$LNG['sys_attack_attacker_pos'], pretty_number($combatResult['unitLost']['attacker']),

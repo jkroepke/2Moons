@@ -207,9 +207,9 @@ $LNG['type_mission'][9]  					= 'Yoketmek';
 $LNG['type_mission'][11]  					= 'KM Arastirma';
 $LNG['type_mission'][15] 					= 'Kesif Ucusu';
 
-$LNG['type_planet_short'][1]  				= 'G';
-$LNG['type_planet_short'][2]  				= 'HA';
-$LNG['type_planet_short'][3]  				= 'A';
+$LNG['type_planet_short_1']  				= 'G';
+$LNG['type_planet_short_2']  				= 'HA';
+$LNG['type_planet_short_3']  				= 'A';
 
 $LNG['type_planet_1']  					= 'Gezegen';
 $LNG['type_planet_2']  					= 'Harabe';

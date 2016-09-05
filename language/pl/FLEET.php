@@ -204,9 +204,9 @@ $LNG['type_mission'][9]  					= 'Zniszcz';
 $LNG['type_mission'][11]  					= 'DM Investigation';
 $LNG['type_mission'][15] 					= 'Ekspedycja';
 
-$LNG['type_planet_short'][1]  				= 'P';
-$LNG['type_planet_short'][2]  				= 'Pz';
-$LNG['type_planet_short'][3]  				= 'M';
+$LNG['type_planet_short_1']  				= 'P';
+$LNG['type_planet_short_2']  				= 'Pz';
+$LNG['type_planet_short_3']  				= 'M';
 
 $LNG['type_planet_1']  					= 'Planeta';
 $LNG['type_planet_2']  					= 'Pole zniszczeń';

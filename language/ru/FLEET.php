@@ -199,9 +199,9 @@ $LNG['type_mission'][9]               = 'Уничтожить';
 $LNG['type_mission'][11]              = 'Поиск ТМ';
 $LNG['type_mission'][15]              = 'Экспедиция';
 
-$LNG['type_planet_short'][1]          = 'П';
-$LNG['type_planet_short'][2]          = 'ПО';
-$LNG['type_planet_short'][3]          = 'Л';
+$LNG['type_planet_short_1']          = 'П';
+$LNG['type_planet_short_2']          = 'ПО';
+$LNG['type_planet_short_3']          = 'Л';
 
 $LNG['type_planet_1']                = 'Планета';
 $LNG['type_planet_2']                = 'Поле обломков';

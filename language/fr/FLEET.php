@@ -194,9 +194,9 @@ $LNG['type_mission'][9]  					= 'Destruire';
 $LNG['type_mission'][11]  					= 'Rechercher de la Matiere Noire';
 $LNG['type_mission'][15] 					= 'Expedition';
 
-$LNG['type_planet_short'][1]  				= 'P';
-$LNG['type_planet_short'][2]  				= 'D';
-$LNG['type_planet_short'][3]  				= 'L';
+$LNG['type_planet_short_1']  				= 'P';
+$LNG['type_planet_short_2']  				= 'D';
+$LNG['type_planet_short_3']  				= 'L';
 
 $LNG['type_planet_1']  	     				= 'Planète';
 $LNG['type_planet_2']    					= 'Débris';

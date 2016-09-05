@@ -210,9 +210,9 @@ $LNG['type_mission'][9]  				= 'Destruir';
 $LNG['type_mission'][11] 				= 'Exploração M.N.';
 $LNG['type_mission'][15] 				= 'Exploração Espacial';
 
-$LNG['type_planet_short'][1]  				= 'P';
-$LNG['type_planet_short'][2]  				= 'D';
-$LNG['type_planet_short'][3]  				= 'L';
+$LNG['type_planet_short_1']  				= 'P';
+$LNG['type_planet_short_2']  				= 'D';
+$LNG['type_planet_short_3']  				= 'L';
 
 $LNG['type_planet_1']  					= 'Planeta';
 $LNG['type_planet_2']  					= 'Campo de Destroços';
