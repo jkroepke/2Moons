@@ -1221,14 +1221,14 @@ $LNG['log_universe']					= 'Universum';
 
 
 //Cronjobs
-$LNG['cronName']['referral']		= 'Referral-Bonus';
-$LNG['cronName']['statistic']		= 'Statistiken';
-$LNG['cronName']['daily']			= 'Tägliche Aufgaben';
-$LNG['cronName']['cleaner']			= 'Alte Daten löschen';
-$LNG['cronName']['inactive']		= 'Inaktive löschen';
-$LNG['cronName']['teamspeak']		= 'Teamspeakdaten aktualisieren';
-$LNG['cronName']['tracking']		= 'Statistik an globalen Server senden.';
-$LNG['cronName']['databasedump']	= 'Datenbank-Backup';
+$LNG['cronName_referral']		= 'Referral-Bonus';
+$LNG['cronName_statistic']		= 'Statistiken';
+$LNG['cronName_daily']			= 'Tägliche Aufgaben';
+$LNG['cronName_cleaner']			= 'Alte Daten löschen';
+$LNG['cronName_inactive']		= 'Inaktive löschen';
+$LNG['cronName_teamspeak']		= 'Teamspeakdaten aktualisieren';
+$LNG['cronName_tracking']		= 'Statistik an globalen Server senden.';
+$LNG['cronName_databasedump']	= 'Datenbank-Backup';
 
 
 $LNG['cronjob_id']					= 'ID';

@@ -1220,14 +1220,14 @@ $LNG['log_universe']					= 'Universo';
 
 
 //Cronjobs
-$LNG['cronName']['referral']		= 'Referencia-Bonus';
-$LNG['cronName']['statistic']		= 'Estadisticas';
-$LNG['cronName']['daily']			= 'Tareas Diarias';
-$LNG['cronName']['cleaner']			= 'Eliminar Archivos Antiguos';
-$LNG['cronName']['inactive']		= 'Eliminar Inactivos';
-$LNG['cronName']['teamspeak']		= 'Actualización Teamspeak';
-$LNG['cronName']['tracking']		= 'Enviar Estadísticas globales del servidor.';
-$LNG['cronName']['databasedump']	= 'Copia de Seguridad-Base de Datos';
+$LNG['cronName_referral']		= 'Referencia-Bonus';
+$LNG['cronName_statistic']		= 'Estadisticas';
+$LNG['cronName_daily']			= 'Tareas Diarias';
+$LNG['cronName_cleaner']			= 'Eliminar Archivos Antiguos';
+$LNG['cronName_inactive']		= 'Eliminar Inactivos';
+$LNG['cronName_teamspeak']		= 'Actualización Teamspeak';
+$LNG['cronName_tracking']		= 'Enviar Estadísticas globales del servidor.';
+$LNG['cronName_databasedump']	= 'Copia de Seguridad-Base de Datos';
 
 
 $LNG['cronjob_id']					= 'ID';

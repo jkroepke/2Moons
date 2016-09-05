@@ -1264,14 +1264,14 @@ $LNG['supp_player_write'] 					= '%s escrito em %s';
 $LNG['supp_player_answer'] 					= 'Resposta de Jogador';
 
 //Cronjobs
-$LNG['cronName']['referral']		= 'Referral Bonus';
-$LNG['cronName']['statistic']		= 'Estatísticas';
-$LNG['cronName']['daily']			= 'Tarefas diárias';
-$LNG['cronName']['cleaner']			= 'Excluir dados antigos';
-$LNG['cronName']['inactive']		= 'Excluir inativo';
-$LNG['cronName']['teamspeak']		= 'Teamspeak data';
-$LNG['cronName']['tracking']		= 'Estatísticas Globais';
-$LNG['cronName']['databasedump']	= 'Backup de Base de Dados';
+$LNG['cronName_referral']		= 'Referral Bonus';
+$LNG['cronName_statistic']		= 'Estatísticas';
+$LNG['cronName_daily']			= 'Tarefas diárias';
+$LNG['cronName_cleaner']			= 'Excluir dados antigos';
+$LNG['cronName_inactive']		= 'Excluir inativo';
+$LNG['cronName_teamspeak']		= 'Teamspeak data';
+$LNG['cronName_tracking']		= 'Estatísticas Globais';
+$LNG['cronName_databasedump']	= 'Backup de Base de Dados';
 
 $LNG['cronjob_id']					= 'ID';
 $LNG['cronjob_name']				= 'Nome';

@@ -1254,14 +1254,14 @@ $LNG['log_present']      	            = 'Distribuè';
 $LNG['log_disclamersettings']			= 'Contacts';
 
 //Cronjobs
-$LNG['cronName']['referral']		= 'Bonus de parrainage';
-$LNG['cronName']['statistic']		= 'Statistiques';
-$LNG['cronName']['daily']			= 'Tâches journaliéres';
-$LNG['cronName']['cleaner']			= 'Supprimer les anciennes données';
-$LNG['cronName']['inactive']		= 'Supprimer inactive';
-$LNG['cronName']['teamspeak']		= 'Teamspeak mise à jour de données';
-$LNG['cronName']['tracking']		= 'Envoyer des statistiques globaux du serveur';
-$LNG['cronName']['databasedump']	= 'Backup de base de données';
+$LNG['cronName_referral']		= 'Bonus de parrainage';
+$LNG['cronName_statistic']		= 'Statistiques';
+$LNG['cronName_daily']			= 'Tâches journaliéres';
+$LNG['cronName_cleaner']			= 'Supprimer les anciennes données';
+$LNG['cronName_inactive']		= 'Supprimer inactive';
+$LNG['cronName_teamspeak']		= 'Teamspeak mise à jour de données';
+$LNG['cronName_tracking']		= 'Envoyer des statistiques globaux du serveur';
+$LNG['cronName_databasedump']	= 'Backup de base de données';
 
 $LNG['cronjob_id']					= 'ID';
 $LNG['cronjob_name']				= 'Nom';

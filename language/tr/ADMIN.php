@@ -485,14 +485,14 @@ $LNG['vt_loadfile']					= 'Dosya listesi yukleniyor';
 
 //----------------------------------------------------------------------------//
 //Zamanlanmis Gorevler
-$LNG['cronName']['referral']		= 'Referans Bonusu';
-$LNG['cronName']['statistic']		= 'Istatistikler';
-$LNG['cronName']['daily']			= 'Gunluk Gorevler';
-$LNG['cronName']['cleaner']			= 'Eski Veriyi Sil';
-$LNG['cronName']['inactive']		= 'Inaktifleri Sil';
-$LNG['cronName']['teamspeak']		= 'Teamspeak guncelleme';
-$LNG['cronName']['tracking']		= 'Global Server Istatistik Guncellemesi';
-$LNG['cronName']['databasedump']	= 'Database backup';
+$LNG['cronName_referral']		= 'Referans Bonusu';
+$LNG['cronName_statistic']		= 'Istatistikler';
+$LNG['cronName_daily']			= 'Gunluk Gorevler';
+$LNG['cronName_cleaner']			= 'Eski Veriyi Sil';
+$LNG['cronName_inactive']		= 'Inaktifleri Sil';
+$LNG['cronName_teamspeak']		= 'Teamspeak guncelleme';
+$LNG['cronName_tracking']		= 'Global Server Istatistik Guncellemesi';
+$LNG['cronName_databasedump']	= 'Database backup';
 
 $LNG['cronjob_id']					= 'ID';
 $LNG['cronjob_name']				= 'Isim';

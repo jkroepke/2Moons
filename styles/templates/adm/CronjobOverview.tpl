@@ -18,7 +18,7 @@
 {foreach item=CronjobInfo from=$CronjobArray}
 <tr>
 	<td>{$CronjobInfo.id}</td>
-	<td>{if isset($LNG.cronName[$CronjobInfo.name])}{$LNG.cronName[$CronjobInfo.name]}{else}{$CronjobInfo.name}{/if}</td>
+	<td>{$LNG["cronName_{$CronjobInfo.name}"]}</td>
 	<td>{$CronjobInfo.min}</td>
 	<td>{$CronjobInfo.hours}</td>
 	<td>{$CronjobInfo.dom}</td>

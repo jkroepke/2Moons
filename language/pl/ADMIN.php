@@ -1217,14 +1217,14 @@ $LNG['log_uni_short']					= 'Uni';
 $LNG['log_universe']					= 'Universum';
 
 //Cronjobs
-$LNG['cronName']['referral']		= 'Bonus dla poleconych';
-$LNG['cronName']['statistic']		= 'Statystyka';
-$LNG['cronName']['daily']			= 'Zadania dzienne';
-$LNG['cronName']['cleaner']			= 'Usuń przestarzałe dane';
-$LNG['cronName']['inactive']		= 'Usuń nie aktywnych';
-$LNG['cronName']['teamspeak']		= 'Aktualizacja ustawień Teamspeak';
-$LNG['cronName']['tracking']		= 'Wyślij statystyki na główny serwer.';
-$LNG['cronName']['databasedump']	= 'Backup bazy danych';
+$LNG['cronName_referral']		= 'Bonus dla poleconych';
+$LNG['cronName_statistic']		= 'Statystyka';
+$LNG['cronName_daily']			= 'Zadania dzienne';
+$LNG['cronName_cleaner']			= 'Usuń przestarzałe dane';
+$LNG['cronName_inactive']		= 'Usuń nie aktywnych';
+$LNG['cronName_teamspeak']		= 'Aktualizacja ustawień Teamspeak';
+$LNG['cronName_tracking']		= 'Wyślij statystyki na główny serwer.';
+$LNG['cronName_databasedump']	= 'Backup bazy danych';
 
 
 $LNG['cronjob_id']					= 'ID';

@@ -1151,14 +1151,14 @@ $LNG['log_uni_short']                  = 'Вселенная';
 $LNG['log_universe']                   = 'Вселенная';
 
 // Планировщик задач
-$LNG['cronName']['referral']           = 'Реферальная система';
-$LNG['cronName']['statistic']          = 'Статистика';
-$LNG['cronName']['daily']              = 'Ежедневные задачи';
-$LNG['cronName']['cleaner']            = 'Удаление старых файлов';
-$LNG['cronName']['inactive']           = 'Удаление неактивных игроков';
-$LNG['cronName']['teamspeak']          = 'Обновление данных Teamspeak';
-$LNG['cronName']['tracking']           = 'Отправление статистики Глобальному серверу';
-$LNG['cronName']['databasedump']       = 'Резервное копирование БД';
+$LNG['cronName_referral']           = 'Реферальная система';
+$LNG['cronName_statistic']          = 'Статистика';
+$LNG['cronName_daily']              = 'Ежедневные задачи';
+$LNG['cronName_cleaner']            = 'Удаление старых файлов';
+$LNG['cronName_inactive']           = 'Удаление неактивных игроков';
+$LNG['cronName_teamspeak']          = 'Обновление данных Teamspeak';
+$LNG['cronName_tracking']           = 'Отправление статистики Глобальному серверу';
+$LNG['cronName_databasedump']       = 'Резервное копирование БД';
 
 $LNG['cronjob_id']                     = 'ID';
 $LNG['cronjob_name']                   = 'Задача';
