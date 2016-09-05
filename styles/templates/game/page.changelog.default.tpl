@@ -1,15 +1,11 @@
-{block name="title" prepend}{$LNG.lm_research}{/block}
+{block name="title" prepend}{$LNG.lm_changelog}{/block}
 {block name="content"}
 <table>
-	<tr>
-		<th>{$LNG.Version}</th>
-		<th>{$LNG.Description}</th>
-	</tr>
-{foreach key=version_number item=description from=$ChangelogList}
 <tr>
-	<td style="width:42px">{$version_number}</th>
-	<td class="left">{$description}</td>
+	<th>{$LNG.lm_changelog}</th>
 </tr>
-{/foreach}
+<tr>
+	<td class="left" style="padding: 0 10px">{$ChangelogList}</td>
+</tr>
 </table>
 {/block}

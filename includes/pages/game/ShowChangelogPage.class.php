@@ -27,11 +27,12 @@ class ShowChangelogPage extends AbstractGamePage
 	
 	function show() 
 	{
-		global $LNG;
+        include ROOT_PATH.'includes/libs/Parsedown/Parsedown.php';
 
-        $LNG->includeData(array('CHANGELOG'));
+        $parsedown = new Parsedown();
+
 		$this->assign(array(
-			'ChangelogList'	=> array_map('makebr', $LNG['changelog']),
+			'ChangelogList'	=> $parsedown->text(file_get_contents(ROOT_PATH.'CHANGES.md')),
 		));
 		
 		$this->display('page.changelog.default.tpl');

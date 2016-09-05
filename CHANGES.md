@@ -1,28 +1,10 @@
-<?php
+### v1.8.0	Jan
+- See: [https://github.com/jkroepke/2Moons/pulls](https://github.com/jkroepke/2Moons/pulls?utf8=%E2%9C%93&q=is%3Aclosed)
 
-/**
- *  2Moons 
- *   by Jan-Otto Kröpke 2009-2016
- *
- * For the full copyright and license information, please view the LICENSE
- *
- * @package 2Moons
- * @author Jan-Otto Kröpke <slaver7@gmail.com>
- * @copyright 2009 Lucky
- * @copyright 2016 Jan-Otto Kröpke <slaver7@gmail.com>
- * @licence MIT
- * @version 1.8.0
- * @link https://github.com/jkroepke/2Moons
- */
- 
-$LNG['Version']     = 'Version';
-$LNG['Description'] = 'Beschreibung';
-
-$LNG['changelog']   = array(
-'v1.7.1' => 'Jan 18.01.2013
+### v1.7.1	Jan 18.01.2013
 - Fix possible SQL Injections.
-',
-'v1.7' => 'Jan 17.01.2013
+
+### v1.7	Jan 17.01.2013
 - 0000327: [Feature request] allowPlanetPosition integrieren (FC92) - resolved.
 - 0000316: [Feature request] List of alliances when concluding the contract (FC92) - resolved.
 - 0000328: [Admin Panal] CleanerCronjob SQL error (FC92) - resolved.
@@ -66,7 +48,7 @@ $LNG['changelog']   = array(
 - 0000304: [User errors] Settings - Number spy probe (Jan) - resolved.
 - 0000300: [User errors] Bei Mondversuch erhalte ich bei bestimmten angriffen folgende fehlermeldung (Jan) - resolved.
 - 0000307: [Langauge] ru/email/email_inactive.txt: failed to open stream (Jan) - resolved.
-- 0000306: [User errors] SQL Error: Unknown column \'Array\' (Jan) - resolved.
+- 0000306: [User errors] SQL Error: Unknown column 'Array' (Jan) - resolved.
 - 0000231: [Feature request] The name of the object in the battle report. (Jan) - resolved.
 - 0000105: [Feature request] Create a MySQL Backup solution (Jan) - resolved.
 - 0000179: [Officier] ExtraDM 705 does not add energy (Jan) - resolved.
@@ -120,173 +102,174 @@ $LNG['changelog']   = array(
 - 0000170: [Admin Panal] File CUSTOM.php does not overwrite the values of language keys ADMIN.php (Jan) - resolved.
 - 0000169: [Admin Panal] Wrong reduction in numbers (Jan) - resolved.
 - 0000127: [Fleet missions] Recycling missions with max transported resources fail [with solution] (Jan) - closed.
-TMOONS-22 - In admin panel issue
-TMOONS-106 - Werte des Atomkraftwerks bei Bonus kopiert (Deuterium)
-TMOONS-137 - Kein Login nach Update von Ref 2091 auf 2104 mehr möglich
-TMOONS-154 - Login doesn&#39;t work
-TMOONS-157 - Versatz und Fehler meldung bei Spionage
-TMOONS-159 - Regestrierung geht nicht!!
-TMOONS-161 - New versions errors!
-TMOONS-163 - Koloniesieren
-TMOONS-165 - Admin control panel, cannot create new player
-TMOONS-166 - IPM does not work
-TMOONS-169 - Konfiguration der Planeten in Galaxie
-TMOONS-170 - It&#39;s imposible sen fleets
-TMOONS-173 - Error in Flotten und in Technologie
-TMOONS-174 - Undefined constant in index.php
-TMOONS-176 - Undefined index: shipsNeed at game.php?page=galaxy
-TMOONS-181 - Kristall Fehlt :)
-TMOONS-188 - Statistik
-TMOONS-189 - Händler fehler
-TMOONS-190 - Die Aufgerufene Seite existiert nicht
-TMOONS-191 - System 500 error
-TMOONS-196 - Reports of failed construction
-TMOONS-198 - Rohstoffe Produktion einstellen
-TMOONS-199 - Händler 
-TMOONS-205 - Die Aufgerufene Seite existiert nicht
-TMOONS-206 - Technologie
-TMOONS-207 - User über Admin erstellen
-TMOONS-208 - Flotte verschicken
-TMOONS-209 - install Fehler
-TMOONS-211 - Gebäude Timer Overview
-TMOONS-216 - Error beim Flottenversand
-TMOONS-218 - Infos von Offizieren können nicht aufgerufen werden
-TMOONS-219 - Error Account-Information aus ACP
-TMOONS-223 - Fleet vanished
-TMOONS-228 - Error log #2
-TMOONS-235 - Date of block
-TMOONS-236 - Vacation and flying fleet
-TMOONS-238 - Error beim Aufruf der Galaxie über Koordinaten in Playercard / Siehe sceenshot 
-TMOONS-239 - Keine Flottendaten beim Versand / NUR IE8 !
-TMOONS-240 - Error in Flotten bei Mission Angriff 
-TMOONS-245 - Händler kann nicht gerufen werden
-TMOONS-246 - Support-Ticket kann weder gelöscht noch geschlossen werden.
-TMOONS-247 - Error in Flotten bei Mission Transport und maximalen Rohstoffen
-TMOONS-248 - Planetenauswahl zeigt immer ersten Planeten
-TMOONS-249 - Hall of Fame wird nicht angezeigt
-TMOONS-250 - Lösch-Icon /styles/resource/images/r1.png nicht vorhanden
-TMOONS-251 - Double key
-TMOONS-254 - anflug auf Mond nicht möglich
-TMOONS-256 - User erstellen im Admin
-TMOONS-257 - Planetmenu (PlanetAction)
-TMOONS-258 - Error Allianz Rundmail
-TMOONS-259 - Errormeldung Login Versuch wenn Game gesperrt 
-TMOONS-260 - Schrotthändler, Schiffe werden nicht abgezogen, Ressourcenanzeige beim Schrotthändler falsch
-TMOONS-261 - Error bei Abbruch einer Bauschleife im Baumenü bei mehr als einen Eintrag
-TMOONS-263 - Error nach Sprachumstellung auf Russisch
-TMOONS-264 - The doubling of the fleet
-TMOONS-265 - Zeitzone kann im ACP nicht gespeicher/geändert werden
-TMOONS-266 - Error Allianz-Chat
-TMOONS-267 - Fleet-Points haben sich gigantisch vergrößert!
-TMOONS-268 - Aktuelle 1.7. Version - Fehler bei der Installation
-TMOONS-269 - Technologie trotz Erfüllung der Voraussetzungen, Farbanzeige rot
-TMOONS-271 - Gamespeed wirkt sich nicht auf Enegie-Produktion aus
-TMOONS-272 - Gebäude Produzieren nichts und lassen sich nicht ausbauen.
-TMOONS-273 - Spionageberichte unformatiert 
-TMOONS-274 - Ban-Panel Einträge werden nicht mehr gelöscht und Spielername und Adminname sind vertauscht
-TMOONS-275 - Error bei Changelog-Anzeige !
-TMOONS-276 - Doppelte Texte in Forschung
-TMOONS-278 - Schrotthändler, Kristall und Deuterium wird nicht richtig verbucht
-TMOONS-281 - Händler, Beträge werden falsch verbucht
-TMOONS-282 - Error in Error.log
-TMOONS-283 - Flotten, Verband, Error  - Die Aufgerufene Seite existiert nicht
-TMOONS-284 - Spielername ändern in Einstellungen
-TMOONS-285 - Error Planeten löschen im ACP
-TMOONS-286 - Error bei Abbruch von aktiver Forschung bei mehreren Einträgen
-TMOONS-287 - Error beim Auflösen einer Allianz
-TMOONS-289 - Allianz, Bewerbungen -&gt; Die Bewerbung existiert nicht.
-TMOONS-291 - Error bei Löschen einer Bauphase in Schiffswerft oder Verteidigung ohne Markierung eines Eintrags
-TMOONS-292 - Manually update
-TMOONS-294 - Lang keys change places
-TMOONS-295 - Lang key in page.notes.default.tpl
-TMOONS-296 - Shortcut name
-TMOONS-299 - Error bei laufender Forschung wenn Wechsel auf Planeten wo diese Art der Forschung noch nicht vorhanden
-TMOONS-300 - Schrotthändler Meldung immer &quot;erfolgreich umgetauscht&quot;
-TMOONS-303 - Passwortänderung wird nicht gespeichert
-TMOONS-304 - Gebäude Infos
-TMOONS-305 - Flotten, Schiffe werden bei Angriff nicht verschickt
-TMOONS-306 - Lang key in page.galaxy.default.tpl
-TMOONS-307 - ExtraDM description
-TMOONS-309 - Error.log in alpha 3
-TMOONS-310 - Page does not exist
-TMOONS-313 - Benötigte Ressourcen für Solarkraftwerk viel zu hoch.
-TMOONS-314 - Error Undefined variable: RPLANET 
-TMOONS-315 - Error.log gesammelte Einträge
-TMOONS-316 - Im ACP bei &quot;Fliegende Flotten&quot; fehlerhafte Stationszeit
-TMOONS-318 - topkb error
-TMOONS-320 - Statistik update fehler
-TMOONS-321 - Die unendlichen Weiten des Universums reisen
-TMOONS-322 - Create Planet
-TMOONS-323 - Angriff nicht möglich bei Revision 100
-TMOONS-324 - Expedition
-TMOONS-325 - Nach Angriff Metallmine auf Stufe 255
-TMOONS-329 - Installation Fehler neuste Version
-TMOONS-330 - SQL Fehler
-TMOONS-332 - Flotten senden mit &quot;Max Rohstoffe&quot;
-TMOONS-335 - .htaccess
-TMOONS-336 - Fehlerhafte Energieberechnung bei Solarkraftwerk + Ingenieur
-TMOONS-339 - Error, Reflink, HTML und BBCode, Undefined index
-TMOONS-340 - Nach der Installation kommt ein fehler
-TMOONS-341 - Fehler Useranmeldung
-TMOONS-343 - Allianz auflösen geht nicht; Rev 128
-TMOONS-345 - Cheat on the speed of the ships
-TMOONS-348 - Error.log nach login
-TMOONS-349 - SQL injection
-TMOONS-352 - SQL Error: Unknown column &#39;s.user_id&#39; in &#39;on clause&#39;
-TMOONS-353 - In Statistik ... /styles/theme/gow/img/m.gif  für Private Nachrichten nicht vorhanden
-TMOONS-359 - Plane namen ändern
-TMOONS-360 - ENABLE_INSTALL_TOOL
-TMOONS-361 - Colorful background in ACP
-TMOONS-363 - Installation Fehler
-TMOONS-365 - Disabling modules
-TMOONS-366 - Not used languages keys
-TMOONS-367 - Page vertify - white screen
-TMOONS-368 - New user from ACP
-TMOONS-369 - Double &quot;name&quot;
-TMOONS-370 - Untranslated word
-TMOONS-372 - Language mistake
-TMOONS-373 - Not displayed language key
-TMOONS-374 - Keine schnellauswahl in der Galaxieansicht
-TMOONS-375 - Changing the name of the planet
-TMOONS-376 - Template of the curve
-TMOONS-380 - Deleting messages by date
-TMOONS-382 - Uni Export funkioniert nicht
-TMOONS-385 - Cosmetic improvement in the language file
-TMOONS-386 - The filter of name
-TMOONS-387 - Advanced search in the ACP
-TMOONS-388 - List of universes
-TMOONS-389 - Resetting the universe
-TMOONS-396 - Spieler löschen im Admin
-TMOONS-401 - Produkltionsmaxiemierung (Forschung) funktioniert nicht
-TMOONS-403 - Can&#39;t destroy buildings
-TMOONS-404 - Fleet in overview page
-TMOONS-405 - search page
-TMOONS-406 - Problem beim rechte von Spieler ändern
-TMOONS-407 - Return time the mission LeaveTMOONS-193 - Removing log_fleets
-TMOONS-224 - Page multiips
-TMOONS-230 - The intersection of the fleets
-TMOONS-237 - Button 100% production
-TMOONS-297 - Location shortcuts
-TMOONS-298 - Exchange
-TMOONS-308 - Banner
-TMOONS-311 - Backup the database
-TMOONS-312 - Pagination
-TMOONS-331 - The overall result of the empire
-TMOONS-354 - AKS module in ACP
-TMOONS-356 - Information about the storage capacity
-TMOONS-381 - ID sender message in the ACP
-TMOONS-398 - Engine of shipsTMOONS-301 - Bei &quot;Passwort vergessen&quot; keine Info dass eMail-Versand durchgeführt worden ist.
-TMOONS-346 - The doubling of the fleet',
-'v1.6.1' => 'Jan 19.11.11
+- TMOONS-22 - In admin panel issue
+- TMOONS-106 - Werte des Atomkraftwerks bei Bonus kopiert (Deuterium)
+- TMOONS-137 - Kein Login nach Update von Ref 2091 auf 2104 mehr möglich
+- TMOONS-154 - Login doesn't work
+- TMOONS-157 - Versatz und Fehler meldung bei Spionage
+- TMOONS-159 - Regestrierung geht nicht!!
+- TMOONS-161 - New versions errors!
+- TMOONS-163 - Koloniesieren
+- TMOONS-165 - Admin control panel, cannot create new player
+- TMOONS-166 - IPM does not work
+- TMOONS-169 - Konfiguration der Planeten in Galaxie
+- TMOONS-170 - It's imposible sen fleets
+- TMOONS-173 - Error in Flotten und in Technologie
+- TMOONS-174 - Undefined constant in index.php
+- TMOONS-176 - Undefined index: shipsNeed at game.php?page=galaxy
+- TMOONS-181 - Kristall Fehlt :)
+- TMOONS-188 - Statistik
+- TMOONS-189 - Händler fehler
+- TMOONS-190 - Die Aufgerufene Seite existiert nicht
+- TMOONS-191 - System 500 error
+- TMOONS-196 - Reports of failed construction
+- TMOONS-198 - Rohstoffe Produktion einstellen
+- TMOONS-199 - Händler
+- TMOONS-205 - Die Aufgerufene Seite existiert nicht
+- TMOONS-206 - Technologie
+- TMOONS-207 - User über Admin erstellen
+- TMOONS-208 - Flotte verschicken
+- TMOONS-209 - install Fehler
+- TMOONS-211 - Gebäude Timer Overview
+- TMOONS-216 - Error beim Flottenversand
+- TMOONS-218 - Infos von Offizieren können nicht aufgerufen werden
+- TMOONS-219 - Error Account-Information aus ACP
+- TMOONS-223 - Fleet vanished
+- TMOONS-228 - Error log #2
+- TMOONS-235 - Date of block
+- TMOONS-236 - Vacation and flying fleet
+- TMOONS-238 - Error beim Aufruf der Galaxie über Koordinaten in Playercard / Siehe sceenshot
+- TMOONS-239 - Keine Flottendaten beim Versand / NUR IE8 !
+- TMOONS-240 - Error in Flotten bei Mission Angriff
+- TMOONS-245 - Händler kann nicht gerufen werden
+- TMOONS-246 - Support-Ticket kann weder gelöscht noch geschlossen werden.
+- TMOONS-247 - Error in Flotten bei Mission Transport und maximalen Rohstoffen
+- TMOONS-248 - Planetenauswahl zeigt immer ersten Planeten
+- TMOONS-249 - Hall of Fame wird nicht angezeigt
+- TMOONS-250 - Lösch-Icon /styles/resource/images/r1.png nicht vorhanden
+- TMOONS-251 - Double key
+- TMOONS-254 - anflug auf Mond nicht möglich
+- TMOONS-256 - User erstellen im Admin
+- TMOONS-257 - Planetmenu (PlanetAction)
+- TMOONS-258 - Error Allianz Rundmail
+- TMOONS-259 - Errormeldung Login Versuch wenn Game gesperrt
+- TMOONS-260 - Schrotthändler, Schiffe werden nicht abgezogen, Ressourcenanzeige beim Schrotthändler falsch
+- TMOONS-261 - Error bei Abbruch einer Bauschleife im Baumenü bei mehr als einen Eintrag
+- TMOONS-263 - Error nach Sprachumstellung auf Russisch
+- TMOONS-264 - The doubling of the fleet
+- TMOONS-265 - Zeitzone kann im ACP nicht gespeicher/geändert werden
+- TMOONS-266 - Error Allianz-Chat
+- TMOONS-267 - Fleet-Points haben sich gigantisch vergrößert!
+- TMOONS-268 - Aktuelle 1.7. Version - Fehler bei der Installation
+- TMOONS-269 - Technologie trotz Erfüllung der Voraussetzungen, Farbanzeige rot
+- TMOONS-271 - Gamespeed wirkt sich nicht auf Enegie-Produktion aus
+- TMOONS-272 - Gebäude Produzieren nichts und lassen sich nicht ausbauen.
+- TMOONS-273 - Spionageberichte unformatiert
+- TMOONS-274 - Ban-Panel Einträge werden nicht mehr gelöscht und Spielername und Adminname sind vertauscht
+- TMOONS-275 - Error bei Changelog-Anzeige !
+- TMOONS-276 - Doppelte Texte in Forschung
+- TMOONS-278 - Schrotthändler, Kristall und Deuterium wird nicht richtig verbucht
+- TMOONS-281 - Händler, Beträge werden falsch verbucht
+- TMOONS-282 - Error in Error.log
+- TMOONS-283 - Flotten, Verband, Error - Die Aufgerufene Seite existiert nicht
+- TMOONS-284 - Spielername ändern in Einstellungen
+- TMOONS-285 - Error Planeten löschen im ACP
+- TMOONS-286 - Error bei Abbruch von aktiver Forschung bei mehreren Einträgen
+- TMOONS-287 - Error beim Auflösen einer Allianz
+- TMOONS-289 - Allianz, Bewerbungen -> Die Bewerbung existiert nicht.
+- TMOONS-291 - Error bei Löschen einer Bauphase in Schiffswerft oder Verteidigung ohne Markierung eines Eintrags
+- TMOONS-292 - Manually update
+- TMOONS-294 - Lang keys change places
+- TMOONS-295 - Lang key in page.notes.default.tpl
+- TMOONS-296 - Shortcut name
+- TMOONS-299 - Error bei laufender Forschung wenn Wechsel auf Planeten wo diese Art der Forschung noch nicht vorhanden
+- TMOONS-300 - Schrotthändler Meldung immer "erfolgreich umgetauscht"
+- TMOONS-303 - Passwortänderung wird nicht gespeichert
+- TMOONS-304 - Gebäude Infos
+- TMOONS-305 - Flotten, Schiffe werden bei Angriff nicht verschickt
+- TMOONS-306 - Lang key in page.galaxy.default.tpl
+- TMOONS-307 - ExtraDM description
+- TMOONS-309 - Error.log in alpha 3
+- TMOONS-310 - Page does not exist
+- TMOONS-313 - Benötigte Ressourcen für Solarkraftwerk viel zu hoch.
+- TMOONS-314 - Error Undefined variable: RPLANET
+- TMOONS-315 - Error.log gesammelte Einträge
+- TMOONS-316 - Im ACP bei "Fliegende Flotten" fehlerhafte Stationszeit
+- TMOONS-318 - topkb error
+- TMOONS-320 - Statistik update fehler
+- TMOONS-321 - Die unendlichen Weiten des Universums reisen
+- TMOONS-322 - Create Planet
+- TMOONS-323 - Angriff nicht möglich bei Revision 100
+- TMOONS-324 - Expedition
+- TMOONS-325 - Nach Angriff Metallmine auf Stufe 255
+- TMOONS-329 - Installation Fehler neuste Version
+- TMOONS-330 - SQL Fehler
+- TMOONS-332 - Flotten senden mit "Max Rohstoffe"
+- TMOONS-335 - .htaccess
+- TMOONS-336 - Fehlerhafte Energieberechnung bei Solarkraftwerk + Ingenieur
+- TMOONS-339 - Error, Reflink, HTML und BBCode, Undefined index
+- TMOONS-340 - Nach der Installation kommt ein fehler
+- TMOONS-341 - Fehler Useranmeldung
+- TMOONS-343 - Allianz auflösen geht nicht; Rev 128
+- TMOONS-345 - Cheat on the speed of the ships
+- TMOONS-348 - Error.log nach login
+- TMOONS-349 - SQL injection
+- TMOONS-352 - SQL Error: Unknown column 's.user_id' in 'on clause'
+- TMOONS-353 - In Statistik ... /styles/theme/gow/img/m.gif für Private Nachrichten nicht vorhanden
+- TMOONS-359 - Plane namen ändern
+- TMOONS-360 - ENABLE_INSTALL_TOOL
+- TMOONS-361 - Colorful background in ACP
+- TMOONS-363 - Installation Fehler
+- TMOONS-365 - Disabling modules
+- TMOONS-366 - Not used languages keys
+- TMOONS-367 - Page vertify - white screen
+- TMOONS-368 - New user from ACP
+- TMOONS-369 - Double "name"
+- TMOONS-370 - Untranslated word
+- TMOONS-372 - Language mistake
+- TMOONS-373 - Not displayed language key
+- TMOONS-374 - Keine schnellauswahl in der Galaxieansicht
+- TMOONS-375 - Changing the name of the planet
+- TMOONS-376 - Template of the curve
+- TMOONS-380 - Deleting messages by date
+- TMOONS-382 - Uni Export funkioniert nicht
+- TMOONS-385 - Cosmetic improvement in the language file
+- TMOONS-386 - The filter of name
+- TMOONS-387 - Advanced search in the ACP
+- TMOONS-388 - List of universes
+- TMOONS-389 - Resetting the universe
+- TMOONS-396 - Spieler löschen im Admin
+- TMOONS-401 - Produkltionsmaxiemierung (Forschung) funktioniert nicht
+- TMOONS-403 - Can't destroy buildings
+- TMOONS-404 - Fleet in overview page
+- TMOONS-405 - search page
+- TMOONS-406 - Problem beim rechte von Spieler ändern
+- TMOONS-407 - Return time the mission Leave- TMOONS-193 - Removing log_fleets
+- TMOONS-224 - Page multiips
+- TMOONS-230 - The intersection of the fleets
+- TMOONS-237 - Button 100% production
+- TMOONS-297 - Location shortcuts
+- TMOONS-298 - Exchange
+- TMOONS-308 - Banner
+- TMOONS-311 - Backup the database
+- TMOONS-312 - Pagination
+- TMOONS-331 - The overall result of the empire
+- TMOONS-354 - AKS module in ACP
+- TMOONS-356 - Information about the storage capacity
+- TMOONS-381 - ID sender message in the ACP
+- TMOONS-398 - Engine of ships- TMOONS-301 - Bei "Passwort vergessen" keine Info dass eMail-Versand durchgeführt worden ist.
+- TMOONS-346 - The doubling of the fleet
+
+### v1.6.1	Jan 19.11.11
 - 0000027: [Core] Phalanx (Slaver) - resolved.
 - 0000071: [Core] The list of the moon for teleportation (Slaver) - resolved.
 - 0000078: [Fleets (Missions)] Rev. 2074 Mission atack (Slaver) - resolved.
 - 0000077: [Core] Rev. 2074 Phalnax (Slaver) - resolved.
 - 0000079: [Design] Tooltip bei Server-Konfig und Uni-Konfig werden nicht mehr angezeigt (Slaver) - resolved.
 - 0000076: [Fleets (Missions)] neue version 1.6 (Slaver) - resolved.
-',
-'v1.6' => 'Jan 17.11.11
-- 0000075: [Login] Registrierungserror wenn im Planeten namen ein \' vorkommt (Slaver) - resolved.
+
+### v1.6	Jan 17.11.11
+- 0000075: [Login] Registrierungserror wenn im Planeten namen ein ' vorkommt (Slaver) - resolved.
 - 0000069: [Core] Chance of destruction of the moon (Slaver) - resolved.
 - 0000066: [Core] Registration (Slaver) - resolved.
 - 0000054: [Core] Missions Rocket attack and to Destroy (Slaver) - resolved.
@@ -298,7 +281,7 @@ TMOONS-346 - The doubling of the fleet',
 - 0000067: [Core] Rev. 2062 Reset universum (Slaver) - resolved.
 - 0000061: [Time (offset errors)] progresbar moves only 100 pixels (1% - 1 pixel) in the construction and research (Slaver) - resolved.
 - 0000058: [Design] Fortschrittsbalken bei Forschung und Gebäude wird nur noch zu ca. 40% aufgebaut. (Slaver) - resolved.
-- 0000064: [Login] Install doesn\'t work in 2060 SVN Version: FIX (Slaver) - resolved.
+- 0000064: [Login] Install doesn't work in 2060 SVN Version: FIX (Slaver) - resolved.
 - 0000057: [Fleets (Missions)] Nobody can send one ship (Slaver) - resolved.
 - 0000031: [Core] Search limit (Slaver) - resolved.
 - 0000038: [Core] Resource bug (Slaver) - resolved.
@@ -310,8 +293,8 @@ TMOONS-346 - The doubling of the fleet',
 - 0000045: [Design] Screenshots not shown by IE8/IE9 by FF it works (Slaver) - resolved.
 - 0000050: [Core] Wrong redirect (Slaver) - resolved.
 - 0000049: [Core] Encoding banner (Slaver) - resolved.
-',
-'v1.5' => 'Jan 18.09.11
+
+### v1.5	Jan 18.09.11
 - FIX: REMOTE FILE INCLUSION VULNERABILITY
 - ADD: Timezone Support
 - FIX: Fleetspeed Bonus
@@ -320,18 +303,18 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: delete messages in IE
 - FIX: planetmenu cookie
 - FIX: PHP errors in chatsystem
-- FIX: Iusses with Special Char on alliance request 
+- FIX: Iusses with Special Char on alliance request
 - FIX: Fleettime, if acs mission was cancel
 - FIX: clear planets after spy
 - FIX: little template iusses
 - FIX: SQL Error on FleetBack, if fleet is on a acs
 - FIX: JS Error on Combat Raports
 - FIX: Cron on statbuilder, who deletes raports
-- FIX: Cross universe glitch on acs invations (StoNelHa) 
-. FIX: Case 6 on Expedition 
+- FIX: Cross universe glitch on acs invations (StoNelHa)
+. FIX: Case 6 on Expedition
 - DIV: Sicherheit im Game erhöht
 - DIV: rootID now in constants
-- DIV: Added Suhosin detection 
+- DIV: Added Suhosin detection
 - DIV: Updated Smarty & TS Libs
 - DIV: Diverse Anpassungen am Game
 - 0000024: [Login] On email activation users cann´t register (Slaver) - resolved.
@@ -359,8 +342,8 @@ TMOONS-346 - The doubling of the fleet',
 - 0000014: [Design] Anzeige von Energie bei IE8 defekt (Slaver) - resolved.
 - 0000011: [Chat] Portuguese chat don´t work (Slaver) - resolved.
 - 0000010: [EcoSystem] Demolish a level (Slaver) - closed.
-',
-'v1.4' => 'Jan 10.07.11
+
+### v1.4	Jan 10.07.11
 - ADD: FirePHP Log System
 - ADD: Language selectable on Global Messages
 - ADD: New Message System (includes old global message system like another XNova versions)
@@ -378,7 +361,7 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: Chat
 - FIX: Fixed incorrect display of reycler fleets
 - FIX: Fixed Servertime are not localize
-- FIX: MaxElemens for shields &amp; missiles
+- FIX: MaxElemens for shields & missiles
 - FIX: wrong padding for leftmenu
 - FIX: Moduls after a fresh installation
 - FIX: search
@@ -392,12 +375,12 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: Wrong Queue display, if 2 elements with same level in there
 - FIX: Bypass module check on spy and recyle
 - DIV: Refresh database design
-- DIV: Old Popups for Playercard &amp; Messages
+- DIV: Old Popups for Playercard & Messages
 - DIV: Includes Smarty
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
-'v1.3.5' => 'Jan 11.06.11
+
+### v1.3.5	Jan 11.06.11
 - ADD: New ChatSystem
 - ADD: New Popup UI
 - ADD: Refferalsystem
@@ -409,15 +392,15 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: Wrong TotalUsercount, if a new User join the Game
 - FIX: Shipyard Iusses, with BCMath is not avalible
 - FIX: reCAPTCHA
-- FIX: Incoming Recylcer Fleet, where display on overview &amp; phalanx
+- FIX: Incoming Recylcer Fleet, where display on overview & phalanx
 - FIX: Facebook Login
 - FIX: Universe Import/Export
 - FIX: Disapier Ships
 - FIX: Short Names on Combat Reports
 - FIX: Queues
-- FIX: $_SESSION[&quot;uni&quot;] = 0, after leave Admin Panel
+- FIX: $_SESSION["uni"] = 0, after leave Admin Panel
 - FIX: Grap Debris from Fleetmenu
-- DEL: Spanish &amp; French Language
+- DEL: Spanish & French Language
 - DIV: set correct favicon Metatag
 - DIV: Moonsize Calculation
 - DIV: Added Bonus Maxfields on Planets (AccountEditor)
@@ -433,8 +416,8 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Remove Soundmanager and overLIB Liberary
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
-'v1.3' => 'Jan 05.03.11
+
+### v1.3	Jan 05.03.11
 - ADD: MultiUniverse Support
 - ADD: IPv6 Support
 - ADD: Limit of max Colony
@@ -476,8 +459,8 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Use Facebooks new Graph API now.
 - DIV: Set new location for error.log
 - DIV: Update TS³ Lib, Soundmanager, reCAPTCHA Lib, Smarty and jQuery (UI)
-',
-'v1.2' => 'Jan 04.10.10
+
+### v1.2	Jan 04.10.10
 - ADD: Set Max Fleets on ACS (Default: 16)
 - ADD: New RightsSystem on ACP
 - ADD: .htaccess Protection for some dirs
@@ -500,8 +483,8 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Update Langauges
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
-'v1.1' => 'Jan 31.08.10
+
+### v1.1	Jan 31.08.10
 - ADD: GoW Skin
 - ADD: Mod Versions Control
 - ADD: Cronjoboption für Banner
@@ -515,8 +498,8 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Update to HTML 5
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
-'v1.0' => 'Jan 07.08.10
+
+### v1.0	Jan 07.08.10
 - FIX: Global Messages
 - FIX: Forgotten Password
 - FIX: Gamereset
@@ -536,9 +519,9 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Solved Problems with BattleSimulator
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
-'RC6' => 'Jan 28.07.10
-- ADD: Russian Language (ssAAss &amp; InquisitorEA)
+
+### RC6	Jan 28.07.10
+- ADD: Russian Language (ssAAss & InquisitorEA)
 - ADD: Portuguese Language (morgado)
 - ADD: Spanish Language (ZideN) ALPHA (!)
 - FIX: UTF-8 Support for Buddy Requests
@@ -560,8 +543,8 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Include New Version of Soundmanager (2.96a.20100624)
 - DIV: Update Smarty Engine
 - DIV: Diverse Anpassungen am Game
-',
-'RC5.1' => 'Jan 23.06.10
+
+### RC5.1	Jan 23.06.10
 - ADD: Für Halten muss man in der Ally/Buddy sein
 - ADD: Name des HP bei der Reg.
 - ADD: Passwort Abfrage bei Authlevel/Reset
@@ -586,8 +569,8 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Full MultiLangauge Support
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
-'RC5.0' => 'Jan 30.05.10
+
+### RC5.0	Jan 30.05.10
 - ADD: Neue Schiffe
 - ADD: Support Planet in System != 15
 - ADD: Cookie für LoginMusik
@@ -604,17 +587,17 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: Flotten
 - FIX: Gebäude Cheat
 - FIX: Resource Bug
-- FIX: Shipyard supports now Trillion \'Build per Row\'
+- FIX: Shipyard supports now Trillion 'Build per Row'
 - FIX: Darmatter Kosten bei Verteidigung
 - FIX: Mood Löschung
 - FIX: Intergal. Netzwerk
-- FIX: class.FlyingFleetMissions.php on 1183:SQL Error (Duplicate entry \'Key\' for key \'rid\')
+- FIX: class.FlyingFleetMissions.php on 1183:SQL Error (Duplicate entry 'Key' for key 'rid')
 - FIX: Bauzeiten, wenn Gebäude nicht baubar war
 - FIX: Gebäude mit 0 Sekunden Bauzeit
 - FIX: Allianzstatistik
 - FIX: SQL Injection in Notizen, Nachrichten un Fleet Shoutcuts
 - FIX: Große TF`s
-- FIX: Evo Trans. &amp; Gigarec.
+- FIX: Evo Trans. & Gigarec.
 - FIX: Große HoF KBs
 - FIX: GebäudeCheat
 - FIX: Statistiken Fehler bei neuen Spielern
@@ -625,9 +608,8 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Sicherheit im Game erhöht
 - DIV: Leftmenu
 - DIV: Diverse Anpassungen am Game
-',
 
-'RC5.0b8' => 'Jan 20.04.10
+### RC5.0b8	Jan 20.04.10
 - FIX: Bann
 - FIX: Unmarkierte Nachrichten Löschen
 - FIX: Query log
@@ -643,18 +625,16 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Sicherheit im Game erhöht
 - DIV: min. Requieres PHP 5.2.6
 - DIV: Diverse Anpassungen am Game
-',
 
-'RC5.0b7' => 'Jan 16.04.10
+### RC5.0b7	Jan 16.04.10
 - ADD: Google Analytics Mod
 - FIX: max Button, if thousend Sep is not "."
 - FIX: Große Transporte
 - FIX: Globale Nachrichten
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
 
-'RC5.0b6' => 'Jan 15.04.10
+### RC5.0b6	Jan 15.04.10
 - ADD: Updated ACP (XG Proyecto 2.9.4)
 - ADD: Facebook Connector Alpha
 - ADD: Diplomatie-System
@@ -689,28 +669,27 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Change Buildsystem für Gebäude/Flotten
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
-'RC5.0b5' => 'Jan 06.03.10
+
+### RC5.0b5	Jan 06.03.10
 - FIX: Attack
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
-'RC5.0b4' => 'Jan 01.03.10
+
+### RC5.0b4	Jan 01.03.10
 - ADD: Plugin-System v0.4 (Green @ XG Proyecto)
 - ADD: Neu StatBuilder
 - FIX: AKS
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
 
-'RC5.0b3' => 'Jan 23.02.10
+### RC5.0b3	Jan 23.02.10
 - ADD: DM BANK
 - ADD: Koords werden nicht mehr in der HoF angezeigt.
 - ADD: Update System BETA
 - ADD: Admin in Statistiken ausblendbar
 - ADD: jQuery UI 1.8rc2
 - ADD: Neue Expedition
-- FIX: Phalax &amp; Interplanetarrakten Reichweiten
+- FIX: Phalax & Interplanetarrakten Reichweiten
 - FIX: Urlaubsmodus fixed
 - FIX: Haltende Flotten werden im Spiobericht dazugezählt.
 - FIX: Anzeige der Canche der Mondzerstörung
@@ -720,13 +699,13 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Set DB Connection to UTF-8
 - DIV: Userbanner wird nurnoch einmal ein Tag aktualisiert.
 - DIV: Webseitenoptimierung(YSlow Grande: A/Score: 91)
-- DIV: Add Headers für Browsercaching 
+- DIV: Add Headers für Browsercaching
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 - DIV: Update jQuery to 1.4.2
-',
-'RC5.0b2' => 'Jan 20.02.10
-- ADD: Accountlöschung w&auml;hrend des U-Modes
+
+### RC5.0b2	Jan 20.02.10
+- ADD: Accountlöschung während des U-Modes
 - ADD: UTF-8 Support for Names
 - ADD: Kosten Dunkle Materie
 - ADD: Some langs (not complete)
@@ -736,8 +715,8 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: AKS in der Overview
 - FIX: AKS-Hack
 - FIX: AKS-Ressisverteilung
-- FIX: Deuteriumberechung Planetentemperaturabhb&auml;nig
-- FIX: Fusionkrafwerk: Bonus durch Energietechnik 
+- FIX: Deuteriumberechung Planetentemperaturabhbänig
+- FIX: Fusionkrafwerk: Bonus durch Energietechnik
 - FIX: Zeilenumbruch in Globalen Nachrichten fixed
 - DIV: Update Smarty to 3.0b7
 - DIV: UserStats Mod an AKS angepasst.
@@ -745,8 +724,8 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Rechtschreibfehler korrigiert
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
-'RC5.0b1' => 'Jan 02.02.10
+
+### RC5.0b1	Jan 02.02.10
 - NEW: Search-Engine
 - NEW: LOGIN
 - NEW: Change Name to 2Moons
@@ -755,7 +734,7 @@ TMOONS-346 - The doubling of the fleet',
 - ADD: fb-share
 - ADD: Planetenliste
 - ADD: Teampseak-Addon: Support für Teamspeak 3
-- ADD: Max. Auftr&auml;ge in Fleet/Def einstellbar (Standart: 10)
+- ADD: Max. Aufträge in Fleet/Def einstellbar (Standart: 10)
 - ADD: Cache for Records
 - ADD: Realtime-Ressanzeige
 - ADD: Optimize Hall of Fame DB
@@ -779,7 +758,7 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: Intergal. Forschungsnetzwerk
 - FIX: Werte für den Verbrauch
 - FIX: Error-Handler
-- FIX: U-Mode &amp; Adminschutz - Iraks
+- FIX: U-Mode & Adminschutz - Iraks
 - FIX: AKS-BUG in der SendFleetBack Funktion
 - FIX: Flottenflugzeit
 - FIX: CAPTCHA
@@ -805,11 +784,11 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: Schiffebauen ohne Schiffswerft
 - FIX: Anzeigefehler im KB Erstellung
 - FIX: Passwort vergessen
-- FIX: Passwort/Nichname &auml;ndern
+- FIX: Passwort/Nichname ändern
 - FIX: Umlaute in den Beschreibungen
 - DIV: Neue Methode zum Aufruf von Fleethandler
 - DIV: Neue Plantenbilder
-- DIV: Flexibilit&auml;t für einfügen neue Geb&auml;ude erhöht
+- DIV: Flexibilität für einfügen neue Gebäude erhöht
 - DIV: Neue Formel für Speicherberechung
 - DIV: Info im ACP, wenn FlyingFleetHandler einen Fehler hatte
 - DIV: Useraktivierung per ACP
@@ -817,9 +796,8 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
 - DIV: Update jQuery to 1.4.1
-',
 
-'RC4.2' => 'Jan 06.12.09
+### RC4.2	Jan 06.12.09
 - ADD: StatBanner
 - ADD: Sycrogs robots.txt
 - ADD: UserVaild-Funktion einstellbar
@@ -836,10 +814,10 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: Mail
 - FIX: Allianzinfo
 - FIX: LostPassword
-- FIX: Allianzr&auml;nge
+- FIX: Allianzränge
 - FIX: max. Expiditionen / max. Haltezeit
 - FIX: Usernamenüberprüfung bei der Registration
-- FIX: Registration close &amp; Game Close
+- FIX: Registration close & Game Close
 - FIX: AdminChatPage
 - FIX: Speicheranzeige in Rohstoffe korrigiert
 - FIX: Galaxy Allyname Crash
@@ -851,9 +829,8 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Chat-Interval auf 10 Sekunden gesetzt
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
 
-'RC4.1' => 'Jan 23.11.09
+### RC4.1	Jan 23.11.09
 - FIX: Moderration-ACP
 - FIX: Userlöschung
 - FIX: cronjob.php
@@ -863,9 +840,8 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: Kleinere SQL-Lücken
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
 
-'RC4' => 'Jan 13.11.09
+### RC4	Jan 13.11.09
 - ADD: Fleet/Def ins TF einstellbar
 - ADD: Neue Funktion request_var, set_var und msg_handler
 - ADD: Komplett überarbeitetes ACP (XGP 2.9.1)
@@ -881,11 +857,11 @@ TMOONS-346 - The doubling of the fleet',
 - MOD: $_GET und $_POST durch request_var ersetzt (70%)
 - MOD: Uservaris mit $db->sql_escape (mysqli_real_escape_string) verstzt (80%)
 - MOD: Neue EMail-Klasse
-- MOD: Bauzeit der aktuellen Forschung/des aktuellen Geb&auml;udes in der Titelleiste
+- MOD: Bauzeit der aktuellen Forschung/des aktuellen Gebäudes in der Titelleiste
 - MOD: autoload - Funktion
 - FIX: Zeilenumbrüche in Allianztexten
 - FIX: Buddyliste
-- FIX: Statistiken: Punkte up to 18.446.744.073.709.551.616 (Ja wei&szlig;, unnütz)
+- FIX: Statistiken: Punkte up to 18.446.744.073.709.551.616 (Ja weiß, unnütz)
 - FIX: Universumreset
 - FIX: Spionageangriff
 - FIX: SQL-Lücke in MissilesAjax.php
@@ -895,19 +871,19 @@ TMOONS-346 - The doubling of the fleet',
 - FIX: Keine 10 Deu für eigene Gala mehr
 - FIX: Planiliste im ACP
 - FIX: (ID:01)-Bauen
-- FIX: Geb&auml;ude mit Vorrausetztungen können nicht mehr ohne Vorraussetztung gebaut werden
-- FIX: Hauptplanet hei&szlig;t nun standartm&auml;&szlig;ig Hauptplanet
+- FIX: Gebäude mit Vorrausetztungen können nicht mehr ohne Vorraussetztung gebaut werden
+- FIX: Hauptplanet heißt nun standartmäßig Hauptplanet
 - FIX: Attacklink bei Mondspionageberichten
 - FIX: DM-Forschungsmission
 - DIV: luna und galaxy Tabellen entfernt
 - DIV: Komplett UTF-8 umgestellt
 - DIV: Koords-Verliunkung zur Galaxie in Fleets
 - DIV: Skinoptimierungen
-- DIV: DB-Speichertyp für Geb&auml;ude und Forschung von int(11) auf TINYINT(3) unsigned ge&auml;ndert
-- DIV: Anpassung an Internet Explorer (IE8) &amp; Opera
-- DIV: Unnötige SQL-Abfragen(SELECT * FROM) ge&auml;ndert
-- DIV: register_globals standartm&auml;ssig aus
-- DIV: Alle Tabellen werden nun 1x pro Tag Aufger&auml;mt (OPTIMIZE TABLE)
+- DIV: DB-Speichertyp für Gebäude und Forschung von int(11) auf TINYINT(3) unsigned geändert
+- DIV: Anpassung an Internet Explorer (IE8) & Opera
+- DIV: Unnötige SQL-Abfragen(SELECT * FROM) geändert
+- DIV: register_globals standartmässig aus
+- DIV: Alle Tabellen werden nun 1x pro Tag Aufgerämt (OPTIMIZE TABLE)
 - DIV: Seiten werden komprimiert an Client versendet
 - DIV: Allianzpage nun mit switches gesteuert
 - DIV: Performance Ingal. Netzwerk erhöht
@@ -917,17 +893,17 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Neue Baulisten (XNova-Reloaded 0.1)
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
-',
-'RC3' => 'Jan 18.10.09
+
+### RC3	Jan 18.10.09
 - ADD: AGB
 - ADD: Rules
 - ADD: Vaild E-Mail Funktion
 - ADD: Datenbank-Backup
-- ADD: Datenbank-Port ausw&auml;hlbar
+- ADD: Datenbank-Port auswählbar
 - MOD: Datenbank Optimirungen
-- FIX: Allianzr&auml;nge
-- FIX: Allianzname &auml;ndern
-- FIX: Aliianztag &auml;ndern
+- FIX: Allianzränge
+- FIX: Allianzname ändern
+- FIX: Aliianztag ändern
 - FIX: Mehr als 2.147.483.647 Einheiten transportierbar
 - FIX: statbuilder.php
 - FIX: Userlöschung
@@ -938,8 +914,8 @@ TMOONS-346 - The doubling of the fleet',
 - DIV: Sicherheit im Game erhöht
 - DIV: W3C Vaild (Login)
 - DIV: Diverse Anpassungen am Game
-',
-'RC2' => 'Jan 13.10.09
+
+### RC2	Jan 13.10.09
 - MOD: Lotterie
 - MOD: TS-Overview Mod
 - MOD: Mindestbauzeit einstellbar
@@ -954,11 +930,11 @@ TMOONS-346 - The doubling of the fleet',
 - MOD: Module
 - MOD: Supportsystem
 - MOD: Rekorde
-- FIX: Mondgrö&szlig;e wird richtig berechnet
+- FIX: Mondgröße wird richtig berechnet
 - FIX: Korrekte Stealberechnung beim Angriff
 - FIX: Sichheitslücke in der Allianzseite
 - FIX: Flotten kommen bei zerstörten Mond auf den Planet wieder
-- DIV: Neuer Standartskin: Darkness&sup2;
+- DIV: Neuer Standartskin: Darkness²
 - DIV: Game zu 100% in Deutsche übersetzt (danke an Sycrog für das übersetzte ACP)
 - DIV: Sicherheit im Game erhöht
 - DIV: Diverse Anpassungen am Game
@@ -966,5 +942,3 @@ TMOONS-346 - The doubling of the fleet',
 
 
 Based on XG Proyect 2.8 on 11.10.09
-',
-);
