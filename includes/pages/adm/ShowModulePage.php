@@ -34,7 +34,7 @@ function ShowModulePage()
 	$IDs	= range(0, MODULE_AMOUNT - 1);
 	foreach($IDs as $ID => $Name) {
 		$Modules[$ID]	= array(
-			'name'	=> $LNG['modul'][$ID], 
+			'name'	=> $LNG['modul_'.$ID],
 			'state'	=> isset($module[$ID]) ? $module[$ID] : 1,
 		);
 	}
