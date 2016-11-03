@@ -11,7 +11,7 @@
 	</div>
 	<div id="tabs-2"><h3 style="margin:0">{$LNG.ov_security_request}</h3>{$ov_security_confirm}<br>
 		<label for="password">{$LNG.ov_password}: </label><input class="left" type="password" name="password" id="password" size="25" maxlength="20" autocomplete="off"><br><br>
-		<center><input class="center" type="button" onclick="checkcancel()" value="{$LNG.ov_delete_planet}"></center>
+		<center><input class="center" type="button" onclick="checkcancel()" value="{$LNG.ov_delete_planet}" autocomplete="off"></center>
 	</div>
 </div>
 {/block}

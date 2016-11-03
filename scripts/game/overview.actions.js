@@ -18,14 +18,15 @@ function checkrename()
 
 function checkcancel()
 {
-	if($('#password').val() == '') {
+	var password = $('#password').val();
+	if(password == '') {
 		return false;
 	} else {
-		$.getJSON('game.php?page=overview&mode=delete&password='+$('#password').val(), function(response){
+		$.post('game.php?page=overview', {'mode' : 'delete', 'password': password}, function(response) {
 			alert(response.message);
 			if(response.ok){
 				parent.location.reload();
 			}
-		});
+		}, "json");
 	}
 }
