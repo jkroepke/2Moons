@@ -117,7 +117,7 @@ class SQLDumper
 			$sql = "SELECT COUNT(*) as state FROM ".$dbTable.";";
 
 			$count	= $db->nativeQuery($sql);
-			if($count[1]['state'] == 0)
+			if($count[0]['state'] == 0)
 			{
 				fwrite($fp, "\n\n--\n-- No data for table `{$dbTable}`\n--\n\n");
 				continue;
@@ -181,7 +181,7 @@ LOCK TABLES `{$dbTable}` WRITE;
 					}
 					else
 					{
-						$rowData[]	= $value === NULL ? 'NULL' : "'".$db->quote($value)."'";
+						$rowData[]	= $value === NULL ? 'NULL' : $db->quote($value);
 					}
 				}
 				fwrite($fp, "(".implode(", ",$rowData).")");
