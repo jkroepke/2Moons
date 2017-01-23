@@ -178,7 +178,7 @@ class ShowInformationPage extends AbstractGamePage
 				break;
 		}
 
-		$sql = "SELECT id, name, galaxy, system, planet, last_jump_time, :resource43Name FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND planet_type = '3' AND :resource43Name > 0 ORDER BY :order;";
+		$sql = "SELECT id, name, galaxy, system, planet, last_jump_time, :resource43Name FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND planet_type = '3' AND ".$resource[43]." > 0 ORDER BY :order;";
 		$moonResult = $db->select($sql, array(
 			':resource43Name'   => $resource[43],
 			':planetID'         => $PLANET['id'],
