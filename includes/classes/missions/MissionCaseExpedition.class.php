@@ -125,7 +125,7 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 				$founded		= round(min($maxFactor, max(200, $factor)) * $fleetPoints);
 
 				$fleetColName	= 'fleet_resource_'.$resource[$resourceId];
-				$this->UpdateFleet($fleetColName, $this->_fleet[$fleetColName] + $founded);
+				$this->UpdateFleet($fleetColName, $this->_fleet[$fleetColName] + min($founded, $fleetCapacity));
 			break;
 			case 2:
 				$eventSize   = mt_rand(0, 100);
