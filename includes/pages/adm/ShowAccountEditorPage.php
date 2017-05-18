@@ -429,8 +429,8 @@ function ShowAccountEditorPage()
 				}
 
 				if(!empty($password) && $id != ROOT_USER) {
-					$PersonalQuery    .= "`password` = '".$GLOBALS['DATABASE']->sql_escape(cryptPassword($password))."', ";
-					$after['password'] = (cryptPassword($password) != $before['password']) ? 'CHANGED' : '';
+					$PersonalQuery    .= "`password` = '".$GLOBALS['DATABASE']->sql_escape(PlayerUtil::cryptPassword($password))."', ";
+					$after['password'] = (PlayerUtil::cryptPassword($password) != $before['password']) ? 'CHANGED' : '';
 				}
 				$before['password'] = '';
 
