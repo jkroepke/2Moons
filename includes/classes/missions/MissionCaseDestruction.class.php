@@ -586,7 +586,7 @@ HTML;
 		$sql = 'UPDATE %%USERS%% SET
 		`'.$defendStatus.'` = `'.$defendStatus.'` + 1,
 		kbmetal		= kbmetal + :debrisMetal,
-		kbcrystal	= kbcrystal + :debrisCrystal,K
+		kbcrystal	= kbcrystal + :debrisCrystal,
 		lostunits	= lostunits + :lostUnits,
 		desunits	= desunits + :destroyedUnits
 		WHERE id IN ('.implode(',', array_keys($userDefend)).');';
