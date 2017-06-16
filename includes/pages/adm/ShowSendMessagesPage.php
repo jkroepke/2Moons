@@ -43,7 +43,7 @@ function ShowSendMessagesPage() {
 		$Subject	= HTTP::_GP('subject', '', true);
 		$Message 	= HTTP::_GP('text', '', true);
 		$Mode	 	= HTTP::_GP('mode', 0);
-		$Lang	 	= HTTP::_GP('lang', '');
+		$Lang		= HTTP::_GP('globalmessagelang', '');
 
 		if (!empty($Message) && !empty($Subject))
 		{
