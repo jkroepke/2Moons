@@ -26,7 +26,7 @@ function check(){
 		</tr>
         <tr>
             <td>{$LNG.se_lang}</td>
-            <td>{html_options name=lang options=$langSelector}</td>
+            <td>{html_options name=globalmessagelang options=$langSelector}</td>
         </tr>
         <tr>
             <td>{$LNG.ma_subject}</td>
