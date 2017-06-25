@@ -6,7 +6,7 @@
     </tr>
     <tr>
 		<td>
-<pre class="left">-- Server Info --
+<pre class="left">```-- Server Info --
 Server Infos: {$info}
 PHP-Version: {$vPHP} ({$vAPI})
 JSON Verfügbar: {$json}
@@ -26,7 +26,8 @@ Game Version: 2Moons {$vGame}
 Game Addresse: http://{$root}/
 Game Pfad: http://{$gameroot}/index.php
 
-Browser: {$browser}</pre>
+Browser: {$browser}
+```</pre>
 		</td>
     </tr>
 </table>
