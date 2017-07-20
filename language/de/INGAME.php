@@ -58,7 +58,7 @@ $LNG['admin_access_2']				    	= ', wenn Sie ihn nicht länger benötigen.';
 //----------------------------------------------------------------------------//
 //TOPNAV
 $LNG['tn_vacation_mode']					= 'Sie sind im Urlaubsmodus ';
-$LNG['tn_delete_mode']						= 'Ihr Account wir am %s automatisch gelöscht!';
+$LNG['tn_delete_mode']						= 'Ihr Account wird am %s automatisch gelöscht!';
 
 //----------------------------------------------------------------------------//
 //LEFT MENU
