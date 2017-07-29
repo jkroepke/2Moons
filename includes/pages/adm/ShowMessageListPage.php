@@ -19,7 +19,7 @@ if (!allowedTo(str_replace(array(dirname(__FILE__), '\\', '/', '.php'), '', __FI
 
 function ShowMessageListPage()
 {
-	global $LNG;
+	global $LNG, $USER;
 	$page		= HTTP::_GP('side', 1);
 	$type		= HTTP::_GP('type', 100);
 	$sender		= HTTP::_GP('sender', '', UTF8_SUPPORT);
@@ -113,6 +113,7 @@ function ShowMessageListPage()
 			'subject'	=> $messageRow['message_subject'],
 			'text'		=> $messageRow['message_text'],
 			'type'		=> $messageRow['message_type'],
+			'deleted'	=> $messageRow['message_deleted'] != NULL,
 			'time'		=> str_replace(' ', '&nbsp;', _date($LNG['php_tdformat'], $messageRow['message_time']), $USER['timezone']),
 		);
 	}	

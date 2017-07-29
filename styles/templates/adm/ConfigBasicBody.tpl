@@ -95,6 +95,16 @@
 	<td><input name="smtp_pass" size="20" value="{$smtp_pass}" type="password" autocomplete="off"></td>
 	<td>&nbsp;</td>
 </tr><tr>
+	<th colspan="2">{$LNG.se_messages}</th><th>&nbsp;</th>
+</tr><tr>
+    <td>{$LNG.se_message_delete_behavior}</td>
+    <td>{html_options name=message_delete_behavior options=$Selector.message_delete_behavior selected=$message_delete_behavior}</td>
+	<td>&nbsp;</td>
+</tr><tr>
+    <td>{$LNG.se_message_delete_days}</td>
+    <td><input name="message_delete_days" size="20" value="{$message_delete_days}" type="number"></td>
+	<td>&nbsp;</td>
+</tr><tr>
 	<th colspan="2">{$LNG.se_google}</th><th>&nbsp;</th>
 </tr><tr>
     <td>{$LNG.se_google_active}</td>

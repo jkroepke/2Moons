@@ -46,7 +46,7 @@
 		<td><a href="#" class="toggle">{$messageRow.time}</a></td>
 		<td><a href="#" class="toggle">{$messageRow.sender}</a></td>
 		<td><a href="#" class="toggle">{$messageRow.receiver}</a></td>
-		<td><a href="#" class="toggle">{$messageRow.subject}</a></td>
+		<td><a href="#" class="toggle">{$messageRow.subject}{if $messageRow.deleted}&nbsp;<img src="./styles/resource/images/admin/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$LNG.ml_deleted}">{/if}</a></td>
 	</tr>
 	<tr id="contentID{$messageID}" style="display:none;">
 		<td class="left" colspan="{if $Selected == 100}6{else}5{/if}" style="padding:5px 8px;">{$messageRow.text}</td>

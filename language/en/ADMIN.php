@@ -291,6 +291,7 @@ $LNG['ml_date'] = 'Date';
 $LNG['ml_type'] = 'Message type';
 $LNG['ml_subject'] = 'Subject';
 $LNG['ml_date_range'] = 'Period';
+$LNG['ml_deleted'] = 'Message deleted';
 
 
 $LNG['ml_page'] = 'Page';
@@ -462,6 +463,11 @@ $LNG['se_google_info'] = 'Google Analytics is the solution for web sites that al
 $LNG['se_google_active'] = 'Enable/disable?';
 $LNG['se_google_key'] = 'Google Analytics Key';
 $LNG['se_google_key_info'] = 'Identify the key analog site for your policy. It always starts with UA-00000000-0';
+$LNG['se_messages'] = 'Messages';
+$LNG['se_message_delete_behavior'] = 'Message delete behavior';
+$LNG['se_message_delete_behavior_0'] = 'Delete messages directly';
+$LNG['se_message_delete_behavior_1'] = 'Delete messages after some time';
+$LNG['se_message_delete_days'] = 'Purge delete messages after x days.';
 $LNG['se_ttf_file'] = 'Pfad TTF file';
 $LNG['se_ttf_file_info'] = 'The TTF is needed to display the banner Chinese or Lycus';
 $LNG['se_deuterium_cost_galaxy'] = 'Cost of Deuterium';

@@ -49,13 +49,15 @@ function ShowConfigBasicPage()
 			'timezone'				=> $config->timezone,
 			'dst'					=> $config->dst,
 			'close_reason'			=> $config->close_reason,
+			'message_delete_behavior' => $config->message_delete_behavior,
+			'message_delete_days'	=> $config->message_delete_days,
 		);
 		
 		$capaktiv 				= isset($_POST['capaktiv']) && $_POST['capaktiv'] == 'on' ? 1 : 0;
 		$ga_active 				= isset($_POST['ga_active']) && $_POST['ga_active'] == 'on' ? 1 : 0;
 		$sendmail_inactive 		= isset($_POST['sendmail_inactive']) && $_POST['sendmail_inactive'] == 'on' ? 1 : 0;
 		$mail_active 			= isset($_POST['mail_active']) && $_POST['mail_active'] == 'on' ? 1 : 0;
-		
+
 		$ttf_file				= HTTP::_GP('ttf_file', '');
 		$close_reason			= HTTP::_GP('close_reason', '', true);
 		$game_name				= HTTP::_GP('game_name', '', true);
@@ -76,7 +78,9 @@ function ShowConfigBasicPage()
 		$del_user_sendmail		= HTTP::_GP('del_user_sendmail', 0);
 		$timezone				= HTTP::_GP('timezone', '');
 		$dst					= HTTP::_GP('dst', 0);
-		
+		$message_delete_behavior = HTTP::_GP('message_delete_behavior', 0);
+		$message_delete_days	= HTTP::_GP('message_delete_days', 0);
+
 		$config_after = array(
 			'ttf_file'				=> $ttf_file,
 			'game_name'				=> $game_name,
@@ -101,7 +105,9 @@ function ShowConfigBasicPage()
 			'sendmail_inactive'		=> $sendmail_inactive,
 			'timezone'				=> $timezone,
 			'dst'					=> $dst,
-			'close_reason'			=> $close_reason
+			'close_reason'			=> $close_reason,
+			'message_delete_behavior' => $message_delete_behavior,
+			'message_delete_days'	=> $message_delete_days,
 		);
 
 		foreach($config_after as $key => $value)
@@ -145,7 +151,14 @@ function ShowConfigBasicPage()
 		'ga_key'           				=> $config->ga_key,
 		'timezone'           			=> $config->timezone,
 		'dst'           				=> $config->dst,
-		'Selector'						=> array('timezone' => $TimeZones, 'mail' => $LNG['se_mail_sel'], 'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3'])),
+		'message_delete_behavior'  		=> $config->message_delete_behavior,
+		'message_delete_days'         	=> $config->message_delete_days,
+		'Selector'						=> array(
+		    'timezone' => $TimeZones,
+            'mail' => $LNG['se_mail_sel'],
+            'encry' => array('' => $LNG['se_smtp_ssl_1'], 'ssl' => $LNG['se_smtp_ssl_2'], 'tls' => $LNG['se_smtp_ssl_3']),
+            'message_delete_behavior' => array(0 => $LNG['se_message_delete_behavior_0'], 1 => $LNG['se_message_delete_behavior_1']),
+        ),
 	));
 	
 	$template->show('ConfigBasicBody.tpl');

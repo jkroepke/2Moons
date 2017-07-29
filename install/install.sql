@@ -161,6 +161,8 @@ CREATE TABLE `%PREFIX%config` (
   `fleet_speed` bigint(20) unsigned NOT NULL DEFAULT '2500',
   `resource_multiplier` smallint(5) unsigned NOT NULL DEFAULT '1',
   `storage_multiplier` smallint(5) unsigned NOT NULL DEFAULT '1',
+  `message_delete_behavior` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `message_delete_days` tinyint(3) unsigned NOT NULL DEFAULT '7',
   `halt_speed` smallint(5) unsigned NOT NULL DEFAULT '1',
   `Fleet_Cdr` tinyint(3) unsigned NOT NULL DEFAULT '30',
   `Defs_Cdr` tinyint(3) unsigned NOT NULL DEFAULT '0',
@@ -439,9 +441,11 @@ CREATE TABLE `%PREFIX%messages` (
   `message_text` text,
   `message_unread` tinyint(4) NOT NULL DEFAULT '1',
   `message_universe` tinyint(3) unsigned NOT NULL,
+  `message_deleted` int(11) unsigned NULL DEFAULT NULL,
   PRIMARY KEY (`message_id`),
   KEY `message_sender` (`message_sender`),
-  KEY `message_owner` (`message_owner`,`message_type`,`message_unread`)
+  KEY `message_deleted` (`message_deleted`),
+  KEY `message_owner` (`message_owner`,`message_type`,`message_unread`,`message_deleted`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE `%PREFIX%multi` (

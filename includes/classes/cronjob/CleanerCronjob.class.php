@@ -29,6 +29,7 @@ class CleanerCronjob implements CronjobTask
 		$del_before 	= TIMESTAMP - ($config->del_oldstuff * 86400);
 		$del_inactive 	= TIMESTAMP - ($config->del_user_automatic * 86400);
 		$del_deleted 	= TIMESTAMP - ($config->del_user_manually * 86400);
+		$del_messages 	= TIMESTAMP - ($config->message_delete_days * 86400);
 
 		if($del_inactive === TIMESTAMP)
 		{
@@ -103,6 +104,11 @@ class CleanerCronjob implements CronjobTask
 		$sql	= 'DELETE FROM %%RW%% WHERE `time` < :time AND `rid` NOT IN (SELECT `rid` FROM %%TOPKB%%);';
 		Database::get()->delete($sql, array(
 			':time'	=> $del_before
+		));
+
+		$sql	= 'DELETE FROM %%MESSAGES%% WHERE `messages_deleted` < :time;';
+		Database::get()->delete($sql, array(
+			':time'	=> $del_messages
 		));
 	}
 }
