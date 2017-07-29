@@ -170,7 +170,7 @@ switch ($mode) {
         try {
             $sql	= "SELECT dbVersion FROM %%SYSTEM%%;";
 
-            $dbVersion	= $db->selectSingle($sql, array(), 'dbVersion');
+            $dbVersion	= Database::get()->selectSingle($sql, array(), 'dbVersion');
         } catch (Exception $e) {
             $dbVersion  = 0;
         }
