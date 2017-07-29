@@ -101,13 +101,11 @@ switch ($mode) {
 		break;
 	case 'upgrade':
 		// Willkommen zum Update page. Anzeige, von und zu geupdatet wird. Informationen, dass ein backup erstellt wird.
-        require 'includes/config.php';
-        require 'includes/dbtables.php';
 
         try {
-            $sql	= "SELECT dbVersion FROM %%SYSTEM%%;";
+            $sql    = "SELECT dbVersion FROM %%SYSTEM%%;";
 
-            $dbVersion	= $db->selectSingle($sql, array(), 'dbVersion');
+            $dbVersion  = Database::get()->selectSingle($sql, array(), 'dbVersion');
         } catch (Exception $e) {
             $dbVersion  = 0;
         }
@@ -270,7 +268,8 @@ switch ($mode) {
 					}
 					else {
 						$template->assign(array(
-							'accept' => false,));
+							'accept' => false
+                        ));
 					}
 				}
 				$template->show('ins_license.tpl');
