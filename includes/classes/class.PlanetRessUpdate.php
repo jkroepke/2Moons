@@ -75,6 +75,7 @@ class ResourceUpdate
 		}
 		
 		$Hash[]	= $this->config->resource_multiplier;
+		$Hash[]	= $this->config->storage_multiplier;
 		$Hash[]	= $this->config->energySpeed;
 		$Hash[]	= $this->USER['factor']['Resource'];
 		$Hash[]	= $this->USER['factor']['Energy'];
