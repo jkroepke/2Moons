@@ -282,10 +282,10 @@ class ResourceUpdate
 				}
 			}
 		}
-		
-		$this->PLANET['metal_max']			= $temp[901]['max'] * $this->config->resource_multiplier * STORAGE_FACTOR * (1 + $this->USER['factor']['ResourceStorage']);
-		$this->PLANET['crystal_max']		= $temp[902]['max'] * $this->config->resource_multiplier * STORAGE_FACTOR * (1 + $this->USER['factor']['ResourceStorage']);
-		$this->PLANET['deuterium_max']		= $temp[903]['max'] * $this->config->resource_multiplier * STORAGE_FACTOR * (1 + $this->USER['factor']['ResourceStorage']);
+
+		$this->PLANET['metal_max']			= $temp[901]['max'] * $this->config->storage_multiplier * (1 + $this->USER['factor']['ResourceStorage']);
+		$this->PLANET['crystal_max']		= $temp[902]['max'] * $this->config->storage_multiplier * (1 + $this->USER['factor']['ResourceStorage']);
+		$this->PLANET['deuterium_max']		= $temp[903]['max'] * $this->config->storage_multiplier * (1 + $this->USER['factor']['ResourceStorage']);
 
 		$this->PLANET['energy']				= round($temp[911]['plus'] * $this->config->energySpeed * (1 + $this->USER['factor']['Energy']));
 		$this->PLANET['energy_used']		= $temp[911]['minus'] * $this->config->energySpeed;

@@ -41,6 +41,7 @@ function ShowConfigUniPage()
 			'game_speed'			=> $config->game_speed,
 			'fleet_speed'			=> $config->fleet_speed,
 			'resource_multiplier'	=> $config->resource_multiplier,
+			'storage_multiplier'	=> $config->storage_multiplier,
 			'halt_speed'			=> $config->halt_speed,
 			'energySpeed'			=> $config->energySpeed,
 			'initial_fields'		=> $config->initial_fields,
@@ -110,6 +111,7 @@ function ShowConfigUniPage()
 		$game_speed 			= (2500 * HTTP::_GP('game_speed', 0.0));
 		$fleet_speed 			= (2500 * HTTP::_GP('fleet_speed', 0.0));
 		$resource_multiplier	= HTTP::_GP('resource_multiplier', 0.0);
+        $storage_multiplier   	= HTTP::_GP('storage_multiplier', 0.0);
 		$halt_speed				= HTTP::_GP('halt_speed', 0.0);
 		$energySpeed			= HTTP::_GP('energySpeed', 0.0);
 		$initial_fields			= HTTP::_GP('initial_fields', 0);
@@ -172,6 +174,7 @@ function ShowConfigUniPage()
 			'game_speed'			=> $game_speed,
 			'fleet_speed'			=> $fleet_speed,
 			'resource_multiplier'	=> $resource_multiplier,
+			'storage_multiplier'	=> $storage_multiplier,
 			'halt_speed'			=> $halt_speed,
 			'energySpeed'			=> $energySpeed,
 			'initial_fields'		=> $initial_fields,
@@ -218,7 +221,7 @@ function ShowConfigUniPage()
 			'max_dm_missions'		=> $max_dm_missions,
 			'alliance_create_min_points' => $alliance_create_min_points,
 			'max_fleet_per_build'	=> $max_fleet_per_build
-		);
+        );
 
 
 		foreach($config_after as $key => $value)
@@ -254,6 +257,7 @@ function ShowConfigUniPage()
 		'se_normal_speed'				=> $LNG['se_normal_speed'],
 		'se_normal_speed_fleet'			=> $LNG['se_normal_speed_fleet'],
 		'se_resources_producion_speed'	=> $LNG['se_resources_producion_speed'],
+		'se_storage_producion_speed'	=> $LNG['se_storage_producion_speed'],
 		'se_normal_speed_resoruces'		=> $LNG['se_normal_speed_resoruces'],
 		'se_normal_speed_halt'			=> $LNG['se_normal_speed_halt'],
 		'se_forum_link'					=> $LNG['se_forum_link'	],
@@ -388,6 +392,7 @@ function ShowConfigUniPage()
 		'game_speed'					=> ($config->game_speed / 2500),
 		'fleet_speed'					=> ($config->fleet_speed / 2500),
 		'resource_multiplier'			=> $config->resource_multiplier,
+		'storage_multiplier'			=> $config->storage_multiplier,
 		'halt_speed'					=> $config->halt_speed,
 		'energySpeed'					=> $config->energySpeed,
 		'forum_url'						=> $config->forum_url,

@@ -84,9 +84,6 @@ define('PHALANX_DEUTERIUM'			, 5000);
 // Time of changable nick after changing nick.
 define('USERNAME_CHANGETIME'		, 604800);
 
-// Factor for Metal/Crystal and Deuterium Storages
-define('STORAGE_FACTOR'				, 1.0);
-
 // Max Results in Searchpage (-1 = disable)
 define('SEARCH_LIMIT'				, 25);
 

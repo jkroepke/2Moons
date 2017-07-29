@@ -347,6 +347,7 @@ $LNG['se_normal_speed_fleet'] = 'Normal speed: 1';
 $LNG['se_normal_speed_halt'] = 'Normal speed: 1';
 $LNG['se_fleet_speed'] = 'Fleet Speed';
 $LNG['se_resources_producion_speed'] = 'Speed of production of resources';
+$LNG['se_storage_producion_speed'] = 'Resource storage multiplicator';
 $LNG['se_halt_speed'] = 'Expedition speed';
 $LNG['se_forum_link'] = 'Forum Link';
 $LNG['se_server_op_close'] = 'Server Online?';

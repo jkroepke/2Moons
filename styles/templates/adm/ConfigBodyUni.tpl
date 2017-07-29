@@ -27,6 +27,10 @@
 	<td><input name="resource_multiplier" value="{$resource_multiplier}" type="text"></td>
 	<td><img src="./styles/resource/images/admin/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$se_normal_speed_resoruces}"></td>
 </tr><tr>
+	<td>{$se_storage_producion_speed}</td>
+	<td><input name="storage_multiplier" value="{$storage_multiplier}" type="text"></td>
+	<td>&nbsp;</td>
+</tr><tr>
 	<td>{$se_halt_speed}</td>
 	<td><input name="halt_speed" value="{$halt_speed}" type="text"></td>
 	<td><img src="./styles/resource/images/admin/i.gif" width="16" height="16" alt="" class="tooltip" data-tooltip-content="{$se_normal_speed_halt}"></td>

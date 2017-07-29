@@ -160,6 +160,7 @@ CREATE TABLE `%PREFIX%config` (
   `game_speed` bigint(20) unsigned NOT NULL DEFAULT '2500',
   `fleet_speed` bigint(20) unsigned NOT NULL DEFAULT '2500',
   `resource_multiplier` smallint(5) unsigned NOT NULL DEFAULT '1',
+  `storage_multiplier` smallint(5) unsigned NOT NULL DEFAULT '1',
   `halt_speed` smallint(5) unsigned NOT NULL DEFAULT '1',
   `Fleet_Cdr` tinyint(3) unsigned NOT NULL DEFAULT '30',
   `Defs_Cdr` tinyint(3) unsigned NOT NULL DEFAULT '0',

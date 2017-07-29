@@ -342,6 +342,7 @@ $LNG['se_normal_speed_fleet'] = 'Normaler Flottenspeed: 1 <br> Maximal empfohlen
 $LNG['se_normal_speed_halt'] = 'Normaler Expospeed: 1 <br> Maximal empfohlene Einstellungen: 20';
 $LNG['se_fleet_speed'] = 'Flottenspeed';
 $LNG['se_resources_producion_speed'] = 'Rohstoffspeed';
+$LNG['se_storage_producion_speed'] = 'Speicher Factor';
 $LNG['se_halt_speed'] = 'Expedition-Factor';
 $LNG['se_energy_speed'] = 'Energie-Factor';
 $LNG['se_forum_link'] = 'Forum link';
