@@ -5,7 +5,7 @@ services:
   - mysql
 before_script:
   - '! find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
-  - php -S
+  - php -S 0.0.0.0:8000
   - mysql -e 'CREATE DATABASE 2moons;'
 php:
   - '7.0'
