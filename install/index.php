@@ -29,6 +29,7 @@ $LNG->includeData(array('L18N', 'INGAME', 'INSTALL', 'CUSTOM'));
 $mode = HTTP::_GP('mode', '');
 
 $template = new template();
+$template->setCaching(false);
 $template->assign(array(
 	'lang'       => $LNG->getLanguage(),
 	'Selector'   => $LNG->getAllowedLangs(false),
@@ -284,7 +285,8 @@ switch ($mode) {
 					$PHP   = "<span class=\"no\">" . $LNG['reg_no'] . ", v" . PHP_VERSION . "</span>";
 					$error = true;
 				}
-				if (class_exists('PDO')) {
+
+				if (class_exists('PDO') && in_array('mysql', PDO::getAvailableDrivers())) {
 					$pdo = "<span class=\"yes\">" . $LNG['reg_yes'] . "</span>";
 				}
 				else {
@@ -383,6 +385,12 @@ switch ($mode) {
 				$template->show('ins_req.tpl');
 				break;
 			case 3:
+                $template->assign(array(
+                    'host'     => getenv('DB_HOST'),
+                    'user'     => getenv('DB_USER'),
+                    'password' => getenv('DB_USER'),
+                    'dbname'   => getenv('DB_NAME'),
+                ));
 				$template->show('ins_form.tpl');
 				break;
 			case 4:

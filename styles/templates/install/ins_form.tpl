@@ -8,7 +8,7 @@
 		<table class="req">
 			<tr>
 				<td class="transparent left"><p>{$LNG.step1_mysql_server}</p></td>
-				<td class="transparent"><input type="text" name="host" value="{$smarty.get.host|escape:'htmlall'|default:'localhost'}" size="30"></td>
+				<td class="transparent"><input type="text" name="host" value="{$smarty.get.host|escape:'htmlall'|default:$host}" size="30"></td>
 			</tr>
 			<tr>
 				<td class="transparent left"><p>{$LNG.step1_mysql_port}</p></td>
@@ -16,15 +16,15 @@
 			</tr>
 			<tr>
 				<td class="transparent left"><p>{$LNG.step1_mysql_dbuser}</p></td>
-				<td class="transparent"><input type="text" name="user" value="{$smarty.get.user|escape:'htmlall'|default:''}" size="30"></td>
+				<td class="transparent"><input type="text" name="user" value="{$smarty.get.user|escape:'htmlall'|default:$user}" size="30"></td>
 			</tr>
 			<tr>
 				<td class="transparent left"><p>{$LNG.step1_mysql_dbpass}</p></td>
-				<td class="transparent"><input type="password" name="passwort" value="" size="30"></td>
+				<td class="transparent"><input type="password" name="passwort" value="{$user}" size="30"></td>
 			</tr>
 			<tr>
 				<td class="transparent left"><p>{$LNG.step1_mysql_dbname}</p></td>
-				<td class="transparent"><input type="text" name="dbname" value="{$smarty.get.dbname|escape:'htmlall'|default:''}" size="30"></td>
+				<td class="transparent"><input type="text" name="dbname" value="{$smarty.get.dbname|escape:'htmlall'|default:$dbname}" size="30"></td>
 			</tr>
 			<tr>
 				<td class="transparent left"><p>{$LNG.step1_mysql_prefix}</p></td>
