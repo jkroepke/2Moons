@@ -21,4 +21,8 @@ env:
   - ADMIN_PASSWORD: admin
   - ADMIN_MAIL: mail@example.com
 
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
 script: phantomjs tests/run.js
