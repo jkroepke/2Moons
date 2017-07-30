@@ -9,7 +9,7 @@ before_script:
   - php -S
   - mysql -e 'CREATE DATABASE 2moons;'
 php:
-  - '5.3'
+  - '7.0'
 install:
   - composer install
 
