@@ -1,0 +1,36 @@
+version: '2'
+services:
+  web:
+    image: webdevops/php-apache-dev:ubuntu-16.04
+    depends_on:
+      - db
+    volumes:
+      - .:/app
+    environment:
+      DB_HOST: database
+      DB_USER: 2moons
+      DB_PASSWORD: 2moons
+      DB_NAME: 2moons
+      ADMIN_NAME: admin
+      ADMIN_PASSWORD: admin
+      ADMIN_MAIL: mail@example.com
+    ports:
+      - 8080:80
+    networks:
+      - 2moons
+  db:
+    image: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: 2moons
+      MYSQL_USER: 2moons
+      MYSQL_PASSWORD: 2moons
+    ports:
+      - 3306:3306
+    networks:
+      2moons:
+        aliases:
+          - database
+
+networks:
+  2moons:

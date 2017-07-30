@@ -388,7 +388,7 @@ switch ($mode) {
                 $template->assign(array(
                     'host'     => getenv('DB_HOST'),
                     'user'     => getenv('DB_USER'),
-                    'password' => getenv('DB_USER'),
+                    'password' => getenv('DB_PASSWORD'),
                     'dbname'   => getenv('DB_NAME'),
                 ));
 				$template->show('ins_form.tpl');
@@ -503,12 +503,13 @@ switch ($mode) {
 					$db->query(str_replace(array(
 						'%PREFIX%',
 						'%VERSION%',
-						'%REVISION%'
+						'%REVISION%',
+                        '%DB_VERSION%'
 					), array(
 						DB_PREFIX,
 						$installVersion,
 						$installRevision,
-						$installSQL
+                        DB_VERSION_REQUIRED
 					), $installSQL));
 
 					$config = Config::get(Universe::current());
@@ -543,6 +544,11 @@ switch ($mode) {
 				}
 				break;
 			case 7:
+                $template->assign(array(
+                    'name'     => getenv('ADMIN_NAME'),
+                    'password' => getenv('ADMIN_PASSWORD'),
+                    'mail'     => getenv('ADMIN_MAIL'),
+                ));
 				$template->show('ins_acc.tpl');
 				break;
 			case 8:

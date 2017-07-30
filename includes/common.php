@@ -73,7 +73,7 @@ if (MODE === 'INSTALL')
 	return;
 }
 
-if(!file_exists('includes/config.php')) {
+if(!file_exists('includes/config.php') || filesize('includes/config.php') === 0) {
 	HTTP::redirectTo('install/index.php');
 }
 
