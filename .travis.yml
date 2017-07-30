@@ -1,8 +1,6 @@
 ---
 sudo: false
 dist: trusty
-addons:
-  chrome: stable
 language: php
 services:
   - mysql
