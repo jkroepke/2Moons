@@ -12,5 +12,13 @@ php:
   - '7.0'
 install:
   - composer install
+env:
+  - DB_HOST: localhost
+  - DB_USER: travis
+  - DB_PASSWORD:
+  - DB_NAME: 2moons
+  - ADMIN_NAME: admin
+  - ADMIN_PASSWORD: admin
+  - ADMIN_MAIL: mail@example.com
 
 script: phantomjs tests/run.js
