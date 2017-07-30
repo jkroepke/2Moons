@@ -1,0 +1,18 @@
+---
+sudo: required
+dist: trusty
+addons:
+  chrome: stable
+language: php
+services:
+  - mysql
+before_script:
+  - '! find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
+  - php -S
+  - mysql -e 'CREATE DATABASE 2moons;'
+php:
+  - '5.3'
+install:
+  - composer install
+
+script: phantomjs tests/run.js
