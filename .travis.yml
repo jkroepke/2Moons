@@ -2,19 +2,14 @@
 dist: trusty
 sudo: false
 language: php
-addons:
-  chrome: stable
+
 services:
   - mysql
-before_script:
-  - '! find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
-  - php -S 0.0.0.0:8000
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:8000s &
-  - mysql -e 'CREATE DATABASE 2moons;'
-php:
-  - '7.0'
-install:
-  - composer install
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
 env:
   global:
     - DB_HOST=localhost
@@ -24,8 +19,22 @@ env:
     - ADMIN_PASSWORD=admin
     - ADMIN_MAIL=mail@example.com
 
-cache:
-  directories:
-    - $HOME/.composer/cache/files
+php:
+  - '7.0'
 
-script: '! find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
+matrix:
+  fast_finish: true
+
+install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS 2moons;'  -uroot
+  - php -S 0.0.0.0:8000
+# - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:8000s &
+  - composer install
+
+before_script:
+  # Start a web server on port 8888, run in the background; wait for
+  # initialization.
+  - nohup php -S localhost:8888 > /dev/null 2>&1 &
+
+script:
+  - '! find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
