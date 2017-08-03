@@ -36,9 +36,10 @@ class ShowBuildingsPage extends AbstractGamePage
 		}
 	
 		$Element             	= $CurrentQueue[0][0];
+        $BuildLevel          	= $CurrentQueue[0][1];
 		$BuildMode          	= $CurrentQueue[0][4];
 		
-		$costResources			= BuildFunctions::getElementPrice($USER, $PLANET, $Element, $BuildMode == 'destroy');
+		$costResources			= BuildFunctions::getElementPrice($USER, $PLANET, $Element, $BuildMode == 'destroy', $BuildLevel);
 		
 		if(isset($costResources[901])) { $PLANET[$resource[901]]	+= $costResources[901]; }
 		if(isset($costResources[902])) { $PLANET[$resource[902]]	+= $costResources[902]; }
@@ -55,7 +56,7 @@ class ShowBuildingsPage extends AbstractGamePage
 				if($Element == $ListIDArray[0])
 					continue;
 					
-				$BuildEndTime       += BuildFunctions::getBuildingTime($USER, $PLANET, $ListIDArray[0], NULL, $ListIDArray[4] == 'destroy');
+				$BuildEndTime       += BuildFunctions::getBuildingTime($USER, $PLANET, $ListIDArray[0], $costResources, $ListIDArray[4] == 'destroy');
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewQueueArray[]	= $ListIDArray;					
 			}
@@ -104,7 +105,7 @@ class ShowBuildingsPage extends AbstractGamePage
 				if($Element == $ListIDArray[0] || empty($ListIDArray[0]))
 					continue;
 
-				$BuildEndTime       += BuildFunctions::getBuildingTime($USER, $PLANET, $ListIDArray[0]);
+				$BuildEndTime       += BuildFunctions::getBuildingTime($USER, $PLANET, $ListIDArray[0], NULL, $ListIDArray[4] == 'destroy', $ListIDArray[2]);
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewQueueArray[]	= $ListIDArray;				
 			}
