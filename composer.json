@@ -2,7 +2,6 @@
     "name": "2moons/2moons",
     "description": "Online browser game.",
     "type": "project",
-    "require-dev": {},
     "license": "MIT",
     "authors": [
         {
@@ -11,5 +10,8 @@
         }
     ],
     "minimum-stability": "stable",
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit-selenium": "~3.0"
+    }
 }
