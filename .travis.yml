@@ -16,7 +16,13 @@ php:
 install:
   - composer install
 env:
-  - DB_HOST=localhost DB_USER=travis DB_PASSWORD=DB_NAME=2moons ADMIN_NAME=admin ADMIN_PASSWORD=admin ADMIN_MAIL=mail@example.com
+  global:
+    - DB_HOST=localhost
+    - DB_USER=travis
+    - DB_PASSWORD=DB_NAME=2moons
+    - ADMIN_NAME=admin
+    - ADMIN_PASSWORD=admin
+    - ADMIN_MAIL=mail@example.com
 
 cache:
   directories:
