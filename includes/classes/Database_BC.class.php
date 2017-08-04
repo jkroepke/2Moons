@@ -58,7 +58,7 @@ class Database_BC extends mysqli
 	 *
 	 * @return resource	Results of the query
 	 */
-	public function query($resource)
+	public function query($resource, $resultmode = NULL)
 	{
 		if($result = parent::query($resource))
 		{
