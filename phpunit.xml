@@ -1,5 +1,5 @@
 <phpunit colors="true" strict="true" bootstrap="vendor/autoload.php">
     <testsuite name="installation"">
-        <directory>./Install/</directory>
+        <directory>./tests/Install/</directory>
     </testsuite>
 </phpunit>
