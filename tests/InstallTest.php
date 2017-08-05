@@ -1,7 +1,7 @@
 <?php
 
 
-class WebTest extends PHPUnit_Extensions_Selenium2TestCase
+class InstallTest extends PHPUnit_Extensions_Selenium2TestCase
 {
     protected function setUp()
     {
