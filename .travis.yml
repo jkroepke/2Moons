@@ -40,4 +40,4 @@ before_script:
 
 script:
   - '! find . ! -path "./includes/libs/*" ! -path "./vendor/*" -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
-# - 'vendor/bin/phpunit'
+  - 'vendor/bin/phpunit --colors '

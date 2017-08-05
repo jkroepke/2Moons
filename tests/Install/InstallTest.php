@@ -1,6 +1,5 @@
 <?php
 
-
 class InstallTest extends PHPUnit_Extensions_Selenium2TestCase
 {
     protected function setUp()
@@ -14,5 +13,4 @@ class InstallTest extends PHPUnit_Extensions_Selenium2TestCase
         $this->url('http://localhost:8888/');
         $this->assertEquals('2Moons');
     }
-
 }
