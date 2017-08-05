@@ -11,5 +11,8 @@
     ],
     "minimum-stability": "stable",
     "require": {},
-    "require-dev": {}
+    "require-dev": {
+        "se/selenium-server-standalone": "~3.4",
+        "phpunit/phpunit-selenium": "~3"
+    }
 }

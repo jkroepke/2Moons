@@ -27,7 +27,6 @@ matrix:
 
 install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS 2moons;'  -uroot
-# - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:8000s &
   - composer install
 
 before_script:
@@ -36,4 +35,4 @@ before_script:
   - nohup php -S localhost:8888 > /dev/null 2>&1 &
 
 script:
-  - '! find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
+  - '! find . ! -path "./includes/libs/*" -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
