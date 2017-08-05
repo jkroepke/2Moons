@@ -8,8 +8,7 @@ class InstallTest extends TestCase
 
     protected function setUp()
     {
-        var_dump($_SERVER,$_ENV,getenv('TEST_BASE_URI'));
-        $this->http = new GuzzleHttp\Client(['base_uri' => $_ENV['TEST_BASE_URI']]);
+        $this->http = new GuzzleHttp\Client(['base_uri' => $_SERVER['TEST_BASE_URI']]);
     }
 
     public function tearDown() {
@@ -54,10 +53,10 @@ class InstallTest extends TestCase
     {
         $response = $this->http->request('POST', 'index.php?mode=install&step=3', [
             'form_params' => [
-                'host' => $_ENV['DB_USER'],
-                'user' => $_ENV['DB_USER'],
-                'passwort' => $_ENV['DB_PASSWORD'],
-                'dbname' => $_ENV['DB_NAME'],
+                'host' => $_SERVER['DB_USER'],
+                'user' => $_SERVER['DB_USER'],
+                'passwort' => $_SERVER['DB_PASSWORD'],
+                'dbname' => $_SERVER['DB_NAME'],
                 'prefix' => '2moons_',
             ]
         ]);
