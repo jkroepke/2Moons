@@ -27,7 +27,6 @@ matrix:
 
 install:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS 2moons;'  -uroot
-  - php -S 0.0.0.0:8000
 # - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:8000s &
   - composer install
 
