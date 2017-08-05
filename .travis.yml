@@ -1,14 +1,12 @@
 ---
-dist: trusty
 sudo: false
 language: php
-
-services:
-  - mysql
-
 cache:
   directories:
     - $HOME/.composer/cache/files
+
+services:
+  - mysql
 
 env:
   global:
@@ -40,3 +38,6 @@ before_script:
 script:
   - 'vendor/bin/phpunit'
 # - phpdbg -qrr phpunit
+
+notifications:
+  email: false
