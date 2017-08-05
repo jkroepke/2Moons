@@ -33,7 +33,7 @@ before_script:
   - '! find . ! -path "./includes/libs/*" ! -path "./vendor/*" -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
   # Start a web server on port 8888, run in the background; wait for
   # initialization.
-  - nohup php -S localhost:8888 > /dev/null 2>&1 &
+  - nohup php -d variables_order=EGPCS -S localhost:8888 > /dev/null 2>&1 &
 
 script:
   - 'vendor/bin/phpunit'
