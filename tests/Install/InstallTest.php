@@ -1,18 +1,22 @@
 <?php
 
-class InstallTest extends PHPUnit_Extensions_Selenium2TestCase
+class InstallTest extends PHPUnit_Framework_TestCase
 {
+    private $http;
+
     protected function setUp()
     {
-        $this->setHost('localhost');
-        $this->setPort(4444);
-        $this->setBrowser('chrome');
-        $this->setBrowserUrl('http://localhost:8888/');
+        $this->http = new GuzzleHttp\Client(['base_uri' => 'http://localhost:8888/']);
     }
 
-    public function testTitle()
+    public function tearDown() {
+        $this->http = null;
+    }
+
+    public function testInstallRedirect()
     {
-        $this->url('/');
-        $this->assertEquals('2Moons');
+        $response = $this->http->request('GET', '');
+
+        $this->assertEquals(302, $response->getStatusCode());
     }
 }

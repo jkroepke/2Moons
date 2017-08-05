@@ -6,16 +6,12 @@ language: php
 services:
   - mysql
 
-addons:
-  chrome: stable
-
 cache:
   directories:
     - $HOME/.composer/cache/files
 
 env:
   global:
-    - DISPLAY=:99
     - DB_HOST=localhost
     - DB_USER=travis
     - DB_PASSWORD=DB_NAME=2moons
@@ -30,7 +26,7 @@ matrix:
   fast_finish: true
 
 install:
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS 2moons;'  -uroot
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS 2moons;' -uroot
   - composer install
 
 before_script:
@@ -38,12 +34,8 @@ before_script:
   - '! find . ! -path "./includes/libs/*" ! -path "./vendor/*" -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
   # Start a web server on port 8888, run in the background; wait for
   # initialization.
-  - nohup vendor/bin/selenium-server-standalone > /dev/null 2>&1 &
   - nohup php -S localhost:8888 > /dev/null 2>&1 &
 
 script:
-  - 'vendor/bin/phpunit --colors '
+  - 'vendor/bin/phpunit'
 # - phpdbg -qrr phpunit
-
-after_script:
-  - wget -O - -q -t 1 http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer

@@ -12,7 +12,7 @@
     "minimum-stability": "stable",
     "require": {},
     "require-dev": {
-        "se/selenium-server-standalone": "~3.4",
-        "phpunit/phpunit-selenium": "~3"
+        "guzzlehttp/guzzle": "~6",
+        "phpunit/phpunit": "~6"
     }
 }
