@@ -13,7 +13,7 @@ env:
     - TEST_BASE_URI=http://localhost:8888
     - DB_HOST=localhost
     - DB_USER=travis
-    - DB_PASSWORD=
+    - DB_PASSWORD=""
     - DB_NAME=2moons
     - ADMIN_NAME=admin
     - ADMIN_PASSWORD=admin

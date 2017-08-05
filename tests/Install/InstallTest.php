@@ -22,7 +22,7 @@ class InstallTest extends TestCase
         $this->assertEquals(302, $response->getStatusCode());
 
         $location = $response->getHeaders()["Location"][0];
-        $this->assertEquals('install/index.php', $location);
+        $this->assertRegexp('/install\/index.php/', $location);
     }
 
     public function testInstallHome()
@@ -53,7 +53,7 @@ class InstallTest extends TestCase
     {
         $response = $this->http->request('POST', 'index.php?mode=install&step=3', [
             'form_params' => [
-                'host' => $_SERVER['DB_USER'],
+                'host' => $_SERVER['DB_HOST'],
                 'user' => $_SERVER['DB_USER'],
                 'passwort' => $_SERVER['DB_PASSWORD'],
                 'dbname' => $_SERVER['DB_NAME'],
