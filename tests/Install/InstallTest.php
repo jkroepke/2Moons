@@ -8,6 +8,7 @@ class InstallTest extends TestCase
 
     protected function setUp()
     {
+        var_dump($_SERVER,$_ENV,getenv('TEST_BASE_URI'));
         $this->http = new GuzzleHttp\Client(['base_uri' => $_ENV['TEST_BASE_URI']]);
     }
 
