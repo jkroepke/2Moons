@@ -41,4 +41,26 @@ class InstallTest extends TestCase
         $this->assertRegexp('/<span class="yes">/', $response->getBody());
         $this->assertRegexp('/<a href="index.php?mode=install&step=3">/', $response->getBody());
     }
+
+    public function testInstallStep3()
+    {
+        $response = $this->http->request('GET', 'index.php?mode=install&step=3');
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    public function testInstallSql()
+    {
+        $response = $this->http->request('POST', 'index.php?mode=install&step=3', [
+            'form_params' => [
+                'host' => $_ENV['DB_USER'],
+                'user' => $_ENV['DB_USER'],
+                'passwort' => $_ENV['DB_PASSWORD'],
+                'dbname' => $_ENV['DB_NAME'],
+                'prefix' => '2moons_',
+            ]
+        ]);
+
+        $this->assertEquals(200, $response->getStatusCode());
+    }
 }
