@@ -33,11 +33,13 @@ install:
   - composer install
 
 before_script:
+  - phpenv config-rm xdebug.ini
+  - '! find . ! -path "./includes/libs/*" ! -path "./vendor/*" -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
   # Start a web server on port 8888, run in the background; wait for
   # initialization.
   - nohup vendor/bin/selenium-server-standalone > /dev/null 2>&1 &
   - nohup php -S localhost:8888 > /dev/null 2>&1 &
 
 script:
-  - '! find . ! -path "./includes/libs/*" ! -path "./vendor/*" -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
   - 'vendor/bin/phpunit --colors '
+# - phpdbg -qrr phpunit
