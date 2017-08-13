@@ -578,7 +578,7 @@ class ResourceUpdate
 			
 			$Element            = $ListIDArray[0];
 			$Level              = $ListIDArray[1];
-			$costResources		= BuildFunctions::getElementPrice($this->USER, $PLANET, $Element);
+			$costResources		= BuildFunctions::getElementPrice($this->USER, $PLANET, $Element, false, $Level);
 			$BuildTime			= BuildFunctions::getBuildingTime($this->USER, $PLANET, $Element, $costResources);
 			$HaveResources		= BuildFunctions::isElementBuyable($this->USER, $PLANET, $Element, $costResources);
 			$BuildEndTime       = $this->USER['b_tech'] + $BuildTime;
