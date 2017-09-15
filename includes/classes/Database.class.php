@@ -47,12 +47,15 @@ class Database
 		$database = array();
 		require 'includes/config.php';
 		//Connect
-		$db = new PDO("mysql:host=".$database['host'].";port=".$database['port'].";dbname=".$database['databasename'], $database['user'], $database['userpw']);
+		$db = new PDO("mysql:host=".$database['host'].";port=".$database['port'].";dbname=".$database['databasename'], $database['user'], $database['userpw'], array(
+		    PDO::MYSQL_ATTR_INIT_COMMAND => "SET CHARACTER SET utf8, NAMES utf8, sql_mode = 'STRICT_ALL_TABLES'"
+		));
 		//error behaviour
 		$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$db->setAttribute(PDO::MYSQL_ATTR_USE_BUFFERED_QUERY, true);
-		$db->query("set character set utf8");
-		$db->query("set names utf8");
+		// $db->query("set character set utf8");
+		// $db->query("set names utf8");
+		// $db->query("SET sql_mode = 'STRICT_ALL_TABLES'");
 		$this->dbHandle = $db;
 
 		$dbTableNames = array();
