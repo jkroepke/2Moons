@@ -461,10 +461,10 @@ class FleetFunctions
 
 		$sql	= 'SELECT COUNT(*) as state
 		FROM %%LOG_FLEETS%%
-		WHERE fleet_owner = :fleetOwner,
-		AND fleet_end_id = :fleetEndId,
-		AND fleet_state != :fleetState,
-		AND fleet_start_time > :fleetStartTime,
+		WHERE fleet_owner = :fleetOwner
+		AND fleet_end_id = :fleetEndId
+		AND fleet_state != :fleetState
+		AND fleet_start_time > :fleetStartTime
 		AND fleet_mission IN (1,2,9);';
 
 		$Count	= Database::get()->selectSingle($sql, array(
@@ -474,7 +474,7 @@ class FleetFunctions
 			':fleetStartTime'	=> (TIMESTAMP - BASH_TIME),
 		));
 
-		return $Count >= BASH_COUNT;
+		return $Count['state'] >= BASH_COUNT;
 	}
 	
 	public static function sendFleet($fleetArray, $fleetMission, $fleetStartOwner, $fleetStartPlanetID,
