@@ -491,7 +491,7 @@ class FleetFunctions
 
 		$params			= array(':planetId'	=> $fleetStartPlanetID);
 
-		$planetQuery	= "";
+		$planetQuery	= array();
 		foreach($fleetArray as $ShipID => $ShipCount) {
 			$fleetData[]	= $ShipID.','.floatToString($ShipCount);
 			$planetQuery[]	= $resource[$ShipID]." = ".$resource[$ShipID]." - :".$resource[$ShipID];
