@@ -67,8 +67,6 @@ class BuildFunctions
 
         if (in_array($Element, $reslist['fleet']) || in_array($Element, $reslist['defense']) || in_array($Element, $reslist['missile'])) {
             $elementLevel = $forLevel;
-        } elseif (isset($forLevel)) {
-            $elementLevel = $forLevel;
         } elseif (isset($PLANET[$resource[$Element]])) {
             $elementLevel = $PLANET[$resource[$Element]];
         } elseif (isset($USER[$resource[$Element]])) {
