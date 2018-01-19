@@ -1,0 +1,12 @@
+<div class="left">
+<h2>Información de soporte para multiuniverso</h2>
+<p>2Moons puede soportar multiuniverso de forma saludable. Para ello debe configurar el servidor Web de acuerdo con la solucitud.</p>
+<p>Puede averiguar las caracteristicas de su servidor en el botón de "Información" del menú "General". Si no está seguro de que su servidor pueda soportar la carga extra de usar varios universos mejor pregunte al departamento de soporte técnico de su empresa de alojamiento.</p>
+<h3>Apache</h3>
+<p>Si ejecuta un servidor Apache, debe eliminar las líneas de la 48 a la 51 en el archivo .htacces en la raiz de su directorio de instalación del juego. <br>
+Además, se requiere que el módulo "mod_rewrite" esté activo.</p>
+<h3>Nginx</h3>
+<p>Si ejecuta un servidor Nginx, se ha de cambiar la siguiente regla de la configuración del host virtual:</p>
+<p><code>{NGINX-CODE}</code></p>
+<p>Sencillamente, copie el fragmento de código debajo de la línea "server_name".</p>
+</div>

@@ -1,0 +1,18 @@
+Olá {USERNAME},
+
+
+Obrigada por registares em {GAMENAME}
+
+Para completar o seu registo por favor clique no seguinte link:
+
+{VERTIFYURL}
+
+Dados de Login:
+
+Username : {USERNAME}
+Password : {PASSWORD}
+
+Se houver problemas em ativar a conta por favor contacte:
+{GAMEMAIL}
+
+{GAMENAME} Team

@@ -1,0 +1,8 @@
+Merhaba {USERNAME},
+
+Sistemimize {LASTDATE} tarihinden beri giris yapmadiniz. {GAMENAME}, eger hala evrenimizin parcasi olarak kalmak istiyorsaniz hesabiniz inaktif olmadan yada silinmeden giris yapmanizi oneriyor
+
+Eger sifrenizi unuttuysaniz, {HTTPPATH} linke giderek "Sifremi Unuttum" secenegi ile bir kac dakika icinde mail adresinize yeni sifre isteyebilirsiniz.
+
+Saygilarla,
+{GAMENAME}

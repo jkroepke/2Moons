@@ -1,0 +1,9 @@
+﻿Hola {USERNAME},
+
+No te has conectado en {GAMENAME} desde el {LASTDATE}. Si aún deseas ser parte de la comunidad, por favor acceda a su cuenta con sus datos para evitar que la misma sea borrada.
+
+En caso de que haya perdido su contraseña, dirígase a {HTTPPATH} y seleccione "Recuperar contraseña". En unos instantes se le enviará un correo electrónico para obtener su nueva contraseña.
+
+Saludos cordiales,
+
+El equipo de {GAMENAME}.

@@ -1,0 +1,7 @@
+﻿Olá {USERNAME},
+
+Já não juntas-te com os teus oficiais desde {LASTDATE}!
+
+Se esqueceste da tua password, vai a {HTTPPATH} e clica em "Esqueci me da Password". Deverás receber um email em instantes.
+
+{GAMENAME} Team

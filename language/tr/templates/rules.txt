@@ -1,0 +1,66 @@
+<p align="left"><b>1. Hesaplar</b></p>
+
+<p align="left">Bir hesab&#305;n sahibi her zaman oyun hesab&#305;nda kay&#305;tl&#305; eposta adresinin sahibidir.<br />
+Bir hesap sadece bir tek oyuncu taraf&#305;ndan oynanabilir. Bunun tek istisnas&#305; bildirimli hesap bak&#305;c&#305;l&#305;&#287;&#305;d&#305;r.<br />
+Bir evrendeki hesap de&#287;i&#351;imi oyun operat&ouml;rleri yard&#305;m&#305;yla yap&#305;l&#305;r. Bir hesap de&#287;i&#351;iminden sonra, hesab&#305;n yeniden devredilmesi i&ccedil;in en az 1 ay s&uuml;re ge&ccedil;mi&#351; olmas&#305; gerekmektedir.<br />
+Yeni hesap sahibi, hesap devrini takip eden 12 saat i&ccedil;inde eposta adresini de&#287;i&#351;tirmelidir.</p>
+
+<p align="left"><b>2. Multi Hesaplar</b></p>
+
+<p align="left">Her oyuncu bir evrende sadece bir hesapla oynayabilir. &#304;ki veya daha fazla hesap; arada s&#305;rada, genellikle veya s&uuml;rekli olarak ayn&#305; internet a&#287;&#305; (okullar, &uuml;niversiteler, internet kafeler.) &uuml;zerinden oynan&#305;yorsa bunun ilgili evrenin oyun operat&ouml;rlerine bildirilmesi gerekmektedir.<br />
+Oyun operat&ouml;rleri ile DESTEK S&#304;STEM&#304; arac&#305;l&#305;&#287;&#305; ile ileti&#351;im kurabilirsiniz.<br />
+Ayn&#305; IP'den ba&#287;lanan hesaplar aras&#305;nda filo hareketleri yap&#305;lamaz ve ayr&#305;ca bu hesaplar aras&#305;nda di&#287;er benzerliklere de izin verilmez.</p>
+
+<p align="left"><b>3. Hesap Bak&#305;c&#305;l&#305;&#287;&#305;</b></p>
+
+<p align="left">Bir hesab&#305;n ba&#351;ka bir oyuncu taraf&#305;ndan bak&#305;lmas&#305;n&#305; kapsar. Bunun i&ccedil;in, oyun operat&ouml;r&uuml;ne hesap bak&#305;c&#305;l&#305;&#287;&#305;n&#305;n ba&#351;layaca&#287;&#305; zamandan &ouml;nce Destek sistemi &uuml;zerinden bildirimde bulunulmal&#305;d&#305;r.<br />
+Bir hesap en fazla 12 saatli&#287;ine bak&#305;c&#305;ya b&#305;rak&#305;labilir. 12 saatten &ouml;nce hesab&#305;n ger&ccedil;ek sahibinin oyuna girmesi durumunda bak&#305;c&#305;l&#305;k periyodu sonlanm&#305;&#351; olur.<br />
+Bak&#305;c&#305;da bulunan hesaplarda hi&ccedil;bir filo hareketi yap&#305;lamaz. Ancak bak&#305;c&#305;l&#305;k yap&#305;lan hesaba ya&#287;ma veya filolar&#305;n&#305; yok etmek ama&ccedil;l&#305; sald&#305;r&#305;lar olmas&#305; durumunda filolar&#305; korumak amac&#305;yla bak&#305;c&#305;l&#305;k yap&#305;lan hesaba ait bir gezegene veya aya konu&#351;land&#305;rma ve maden  nakliyesi hareketlerine izin verilir.<br />
+Bak&#305;c&#305; kaynaklar&#305; (madenleri) sadece ara&#351;t&#305;rma ve bina kademelerine harcayabilir. Kaynaklar&#305; filo ve savunma birimi &uuml;retiminde kullanamaz.<br />
+Bir hesaba bak&#305;c&#305;l&#305;k yapt&#305;rmak i&ccedil;in son 7 g&uuml;nde bu hesaba yap&#305;lm&#305;&#351; ba&#351;ka bir bak&#305;c&#305;l&#305;k olmamal&#305;d&#305;r.</p>
+
+<p align="left"><b>4. Sald&#305;r&#305; Kurallar&#305;</b></p>
+
+<p align="left">Bir oyuncunun her bir gezegen ve ay&#305;na ayr&#305; ayr&#305; say&#305;lmak &uuml;zere 24 saatlik zaman dilimlerinde 4 ten fazla sald&#305;r&#305; yap&#305;lamaz. Bu kural ay yok etmek g&ouml;revlerini de kapsar.</p>
+
+<p align="left">4.1 Geli&#351;meyi engelleyici sald&#305;r&#305;lar</p>
+
+<p align="left">Ayn&#305; oyuncuya , ittifak&ccedil;a veya di&#287;er oyuncularla koordineli bir &#351;ekilde 3 g&uuml;n pe&#351; pe&#351;e sald&#305;r&#305;lamaz , bu t&uuml;r sald&#305;r&#305;lar art niyetli ve geli&#351;meyi engelleyici sald&#305;r&#305;lar olarak kabul edilir.</p>
+
+<p align="left">4.2 <br />
+Oyuncunun tatil moduna ge&ccedil;emsini veya gezegen &#305;&#351;&#305;nlamas&#305;n&#305; engellemek ama&ccedil;l&#305; d&uuml;zenlenen ve 3 saatten daha uzun s&uuml;reli sald&#305;r&#305; hareketi yasakt&#305;r.</p>
+
+<p align="left"> <b>
+5. Takviye</b></p>
+
+<p align="left">Bir hesab&#305;n kendisinden daha d&uuml;&#351;&uuml;k puanl&#305; bir hesaptan haks&#305;z kaynak elde etmesine izin verilmez.<br />
+Takviye sadece bu &ouml;rnekle s&#305;n&#305;rl&#305; olmay&#305;p d&uuml;&#351;&uuml;k puanl&#305; hesaplardan daha y&uuml;ksek puanl&#305; hesaplara kar&#351;&#305;l&#305;ks&#305;z kaynak g&ouml;nderilmesinin yan&#305; s&#305;ra filolar&#305;n&#305;n daha  y&uuml;ksek puanl&#305; hesaplara sald&#305;rt&#305;larak harabe yoluyla kar sa&#287;lanmas&#305;n&#305; da kapsar.<br />
+Bir ticaret 48 saat i&ccedil;inde tamamlanm&#305;&#351; olmal&#305;d&#305;r. T&uuml;m istisna durumlarda (ISS harabe payla&#351;&#305;m&#305;, prim &ouml;demeleri ve GD deste&#287;i gibi nedenlerden dolay&#305;  nakliyeler) oyun operat&ouml;rleri <b> DESTEK S&#304;STEM&#304; </b> &uuml;zerinden bilgilendirilmelidir.</p>
+
+<p align="left"><b>6. Bug (Program hatas&#305;) ve Yard&#305;mc&#305; Program Kullan&#305;m&#305;</b></p>
+
+<p align="left">Bir program hatas&#305;n&#305;n bir ki&#351;i yarar&#305;na kullan&#305;lmas&#305; veya kas&#305;tl&#305; olarak kullan&#305;lmak &uuml;zere bildirilmemesi kesinlikle yasakt&#305;r.<br />
+Herhangi bir aray&uuml;z veya program&#305;n oyuncu ile oyunu (sunucu) aras&#305;nda kullan&#305;lmas&#305; yasakt&#305;r.<br />
+Bir grup oyuncuya avantaj sa&#287;lamak amac&#305;yla otomatik bilgi &uuml;reten k&ouml;t&uuml; niyetli programlar kullan&#305;m&#305; da ayn&#305; &#351;ekilde yasakt&#305;r.</p>
+
+<p align="left"><b>7. Ger&ccedil;ek Hayata Y&ouml;nelik Tehditler</b></p>
+
+<p align="left">Di&#287;er oyunculara, tak&#305;m &uuml;yelerine, OGameTc temsilcilerine veya oyunun bir servisi ile ilgili herhangi birine, yerlerinin tespit edilece&#287;inin imas&#305; veya ifade  edilmesi; zarar verilece&#287;inin imas&#305; veya ifade edilmesi gibi ger&ccedil;ek hayata y&ouml;nelik her t&uuml;rl&uuml; tehdit yasakt&#305;r.</p>
+
+<p align="left"><b>8. Hakaret ve Spam </b></p>
+
+<p align="left">Hi&ccedil; bir t&uuml;rl&uuml; hakaret ve spam mesajlar&#305;na izin verilmez.</p>
+
+<p align="left"><b>9. Dil</b></p>
+
+<p align="left">Oyun yay&#305;nlay&#305;c&#305;lar&#305; oyunun sunuldu&#287;u &uuml;lkenin ana dilini konu&#351;amayan (Oyun, forum ve resmi IRC kanallar&#305;nda) oyuncular&#305; d&#305;&#351;lama hakk&#305;n&#305; sakl&#305; tutar.</p>
+
+<p align="left"><b>10. Kural &#304;hlalleri</b></p>
+
+<p align="left">Her t&uuml;rl&uuml; kural ihlalleri hesab&#305;n uyar&#305;lmas&#305;ndan kal&#305;c&#305; olarak kapat&#305;lmas&#305;na kadar de&#287;i&#351;ebilen s&uuml;relerle cezaland&#305;r&#305;lacakt&#305;r. Cezan&#305;n t&uuml;r&uuml;ne ve s&uuml;resine oyun operat&ouml;rleri karar verir ve cezalarla ilgili ileti&#351;im kurulacak ki&#351;idir.</p>
+
+<p align="left"><b>11. Genel Kullan&#305;m &#350;artlar&#305;</b></p>
+
+<p align="left">Genel Kullan&#305;m &#350;artlar&#305; bu kurallarla bir b&uuml;t&uuml;nd&uuml;r ve birbirini destekleyicidir.<br />
+<p align="left"> <b>12. &#304;naktif Hesaplar</b><br /></p>
+15 g&uuml;n boyunca aktif olmam&#305;&#351; tatil modundaki hesaplar 15 g&uuml;nden sonra tatilden &ccedil;&#305;kart&#305;l&#305;r. <br />

@@ -1,0 +1,7 @@
+<h1>The Install Tool is locked</h1>
+<p>Kurulumu tekrar aktif etmek icin,  ENABLE_INSTALL_TOOL adinda bir dosya olusturmalisiniz.</p>
+<ul>
+    <li> includes/ klasorunun icine,  ENABLE_INSTALL_TOOL dosyasini kopyaliyiniz. Dosya adi buyuk/kucuk harf duyarlidir ama herhangi bir bos dosya bile olabilir.</li>
+</ul>
+<p> Islemlerinizi tamamladiktan sonra olusturdugunuz bu dosyayi silmeniz guvenlik geregince siddetle tavsiye edilir.</p>
+<p>Ekstra guvenlik onlemi olarak, eger dosyanin 1 saatten daha uzun zamandir sistemdeyse, 2moons tarafindan otomatik olarak silinir.</p>

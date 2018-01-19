@@ -1,0 +1,8 @@
+Hello {USERNAME},
+
+You havent logged in since {LASTDATE} in {GAMENAME}. If you still want to remain a member of our community, please log in with your account information, else your account will be deleted.
+
+If you forgot your password, then go to {HTTPPATH} and click on  "Forgot password". You will receive within a few minutes an email with your new password.
+
+Regards,
+{GAMENAME} Team
