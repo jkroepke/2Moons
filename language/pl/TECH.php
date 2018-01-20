@@ -186,7 +186,7 @@ $LNG['tech'] = array(
 	902 => 'Kryształ',
 	903 => 'Deuterium',
 	911 => 'Energia',
-	921 => 'Dark Metter',
+	921 => 'Czarna materia',
 );
 
 $LNG['shortDescription'] = array(
@@ -248,7 +248,7 @@ $LNG['shortDescription'] = array(
 217 => 'Powstał dzięki potrzebie transportu większych ładunków i szybszego transportu.',
 218 => 'Można powiedzieć, iż to przedstawiciel koszmaru na tym świecie, niestety strasznie powolny.',
 219 => 'Ogromna ładowność, a dzięki nowym technologiom porusza się znacznie szybciej od standardowego recyklera .',
-220 => 'Po długich latach badań nad Dark metter można go teraz pozyskać z księżyców.',
+220 => 'Po długich latach badań nad Czarną materią można ją teraz pozyskać z księżyców.',
 
 	401 => 'Wyrzutnia rakiet to podstawowa struktura obronna, tania i efektywna.',
 402 => 'Wiązki laserowe - dzięki specjalnym systemom namierzania i podążania za celem - są kierowane tak, by przebijać kadłub.',
@@ -349,7 +349,7 @@ $LNG['longDescription'] = array(
 	217 => 'Powstał dzięki potrzebie transportu większych ładunków, jak również szybszego transportu.',
 	218 => 'Można powiedzieć, iż to przedstawiciel koszmaru na tym świecie, niestety strasznie powolny.',
 	219 => 'Ogromna ładowność, a dzięki nowym technologiom porusza się znacznie szybciej od standardowego recyklera.',
-	220 => 'Dzięki temu statkowi jesteś w stanie zbierać dark metter z księżyca.',
+	220 => 'Dzięki temu statkowi jesteś w stanie zbierać Czarną materię z księżyca.',
 	
 	401 => 'Twoja pierwsza linia obrony. Po walce i zniszczeniu jest 70% szans, że zostanie naprawiona.',
 	402 => 'Wiązki laserowe dzięki specjalnym systemom namierzania i podążania za celem są kierowane tak, by przebijać kadłub. Po walce i zniszczeniu jest 70% szans, że zostanie naprawiona.',
