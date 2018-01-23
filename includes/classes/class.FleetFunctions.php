@@ -342,10 +342,10 @@ class FleetFunctions
 			}
 		}
 		
-		if($fleetResult['fleet_mission'] == 5){
-		$fleetEndTime	= ($fleetResult['fleet_start_time'] - $fleetResult['start_time']) + TIMESTAMP;
-		}else{
-		$fleetEndTime	= (TIMESTAMP - $fleetResult['start_time']) + TIMESTAMP;
+		if($fleetResult['fleet_mission'] == 5 && $fleetResult['fleet_mess'] == FLEET_HOLD) {
+			$fleetEndTime	= ($fleetResult['fleet_start_time'] - $fleetResult['start_time']) + TIMESTAMP;
+		} else {
+			$fleetEndTime	= (TIMESTAMP - $fleetResult['start_time']) + TIMESTAMP;
 		}
 		
 		$sql	= 'UPDATE %%FLEETS%%, %%FLEETS_EVENT%% SET
