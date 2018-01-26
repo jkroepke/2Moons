@@ -9,7 +9,9 @@ The open source browsergame framework is based on [2Moons](https://gitter.im/2Mo
 
 Full source code is placed at [github.com/steemnova/steemnova](https://github.com/steemnova/steemnova) repository. It is fork of [jkroepke/2Moons](https://github.com/jkroepke/2Moons) for Steem community purposes. SteemNova repository is the center of the game. The opportunity was given to change the game code by Steemians, most probably [Utopians](https://utopian.io/) as a contribution. There are many things to modify starting from **graphics, languages, code improvements up to Steem integration and bughunting**.
 
-<center>![](https://www.steem.center/images/archive/5/55/20160814202358%21Steem_Logo.png)</center>
+<p align="center">
+<img src="https://www.steem.center/images/archive/5/55/20160814202358%21Steem_Logo.png">
+</p>
 
 
 ## Roadmap
