@@ -11,11 +11,11 @@
 <tr>
     <td>{$LNG.tkb_platz}</td>
 	<td>{$LNG.tkb_owners}</td>
-    <td><a href="game.php?page=battleHall&order=date&sort={if $sort == "ASC"}DESC{else}ASC{/if}"{if $order == "date"} style="font-weight:bold;"{/if}>{$LNG.tkb_datum}</a></td>
-	<td><a href="game.php?page=battleHall&order=units&sort={if $sort == "ASC"}DESC{else}ASC{/if}"{if $order == "units"} style="font-weight:bold;"{/if}>{$LNG.tkb_units}</a></td>
+    <td><a href="game.php?page=battleHall&amp;order=date&amp;sort={if $sort == "ASC"}DESC{else}ASC{/if}"{if $order == "date"} style="font-weight:bold;"{/if}>{$LNG.tkb_datum}</a></td>
+	<td><a href="game.php?page=battleHall&amp;order=units&amp;sort={if $sort == "ASC"}DESC{else}ASC{/if}"{if $order == "units"} style="font-weight:bold;"{/if}>{$LNG.tkb_units}</a></td>
 </tr>
 {foreach $TopKBList as $row}
-    <tr class="day{floor($row.date / 86400)} week{floor($row.date / 604800)}">
+    <tr class="day{floor($row.time / 86400)} week{floor($row.time / 604800)}">
         <td>{$row@iteration}</td>
         <td><a href="game.php?page=raport&amp;mode=battlehall&amp;raport={$row.rid}" target="_blank">
         {if $row.result == "a"}
