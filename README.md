@@ -14,6 +14,31 @@ Full source code is placed at [github.com/steemnova/steemnova](https://github.co
 </p>
 
 
+## Repository structure
+
+- [cache] - temporary cached server .tpl webpages
+- [chat] - AJAX ingame client-side chat
+- [includes]
+  - game engine
+  - configuration
+  - administration
+  - database scheme
+  - external libraries
+  - webpages functionality
+- [install]
+  - first installation
+  - database creation
+- [language] - translations: DE, EN, ES, FR, PL, PT, RU, TR
+- [licenses] - open source license schemes
+- [scripts] - client-side web browser .js scripts
+- [styles] 
+  - webpages .css templates
+  - webpages .tpl templates
+  - fonts
+  - images
+- [tests]
+
+
 ## Roadmap
 
 SteemNova expansion goes as follows:
@@ -32,6 +57,14 @@ SteemNova expansion goes as follows:
 - Setup mysql: `create user USER identified by PASSWORD; create database DB; grant all privileges on DB.* to USER;`
 - Set write privileges to dirs: `cache/`, `includes/`
 - Run wizard: `127.0.0.1/install/install.php`
+
+
+## Screenshots
+
+<p align="center">
+<img src="https://i.imgur.com/AvLok6Z.png">
+  <i>In game screen</i>
+</p>
 
 
 ## Copyright and license
