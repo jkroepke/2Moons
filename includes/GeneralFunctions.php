@@ -140,10 +140,7 @@ function _date($format, $time = null, $toTimeZone = null, $LNG = NULL)
 		$date = new DateTime();
 		if(method_exists($date, 'setTimestamp'))
 		{	// PHP > 5.3			
-			$time	= round(TIMESTAMP);
-			$tempDate = getdate((int) $time);
-			$date->setDate($tempDate['year'], $tempDate['mon'], $tempDate['mday']);
-			$date->setTime($tempDate['hours'], $tempDate['minutes'], $tempDate['seconds']);
+			$date->setTimestamp($time);
 		} else {
 			// PHP < 5.3
 			$tempDate = getdate((int) $time);
