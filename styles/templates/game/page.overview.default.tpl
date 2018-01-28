@@ -122,6 +122,6 @@
 </table>
 {/block}
 {block name="script" append}
-	<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+	<script src="scripts/base/steem.min.js"></script>
     <script src="scripts/game/overview.js"></script>
 {/block}
