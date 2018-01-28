@@ -3,6 +3,21 @@
 {block name="content"}
 <table class="table519">
 	<tr>
+		<th colspan="3">Steem #steemnova feed</th>
+	</tr>
+	<tr>
+		<td style="white-space: nowrap;"><img src="./styles/resource/images/steem.png" width="16" height="16"/>&nbsp;&nbsp;<span id="created_0"></span></td>
+		<td colspan="2"><a id="url_0" target="_blank"><span id="title_0"></span><span id="author_0"></span></a></td>
+	</tr>
+	<tr>
+		<td style="white-space: nowrap;"><img src="./styles/resource/images/steem.png" width="16" height="16"/>&nbsp;&nbsp;<span id="created_1"></span></td>
+		<td colspan="2"><a id="url_1" target="_blank"><span id="title_1"></span><span id="author_1"></span></a></td>
+	</tr>
+	<tr>
+		<td style="white-space: nowrap;"><img src="./styles/resource/images/steem.png" width="16" height="16"/>&nbsp;&nbsp;<span id="created_2"></span></td>
+		<td colspan="2"><a id="url_2" target="_blank"><span id="title_2"></span><span id="author_2"></span></a></td>
+	</tr>
+	<tr>
 		<th colspan="3"><a href="#" onclick="return Dialog.PlanetAction();" title="{$LNG.ov_planetmenu}">{$LNG["type_planet_{$planet_type}"]} "<span class="planetname">{$planetname}</span>"</a> ({$username})</th>
 	</tr>
 	{if $messages}
@@ -107,5 +122,6 @@
 </table>
 {/block}
 {block name="script" append}
+	<script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
     <script src="scripts/game/overview.js"></script>
 {/block}
