@@ -105,7 +105,7 @@ class ShowBuildingsPage extends AbstractGamePage
 				if($Element == $ListIDArray[0] || empty($ListIDArray[0]))
 					continue;
 
-				$BuildEndTime       += BuildFunctions::getBuildingTime($USER, $PLANET, $ListIDArray[0], NULL, $ListIDArray[4] == 'destroy', $ListIDArray[2]);
+				$BuildEndTime       += BuildFunctions::getBuildingTime($USER, $PLANET, $ListIDArray[0], NULL, $ListIDArray[4] == 'destroy', $ListIDArray[1]);
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewQueueArray[]	= $ListIDArray;				
 			}
