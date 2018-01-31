@@ -93,7 +93,9 @@ class ShowBuildingsPage extends AbstractGamePage
             return;
         }
 
-		$Element		= $CurrentQueue[$QueueID - 2][0];
+        // Get ElementID from the task to cancel.
+		$Element		= $CurrentQueue[$QueueID - 1][0];
+
 		$BuildEndTime	= $CurrentQueue[$QueueID - 2][3];
 		unset($CurrentQueue[$QueueID - 1]);
 		$NewQueueArray	= array();
