@@ -393,7 +393,7 @@ $LNG['bd_remaining']						= 'Pozostało:';
 $LNG['bd_lab_required']						= 'Musisz zbudować najpierw laboratorium badawcze!';
 $LNG['bd_building_lab']						= 'Trwa rozbudowa laboratorium!';
 $LNG['bd_max_lvl']							= '(Maks. poziom: %s)';
-$LNG['bd_lvl']								= 'Level';
+$LNG['bd_lvl']								= 'Poziom';
 $LNG['bd_research']							= 'Badania';
 $LNG['bd_shipyard_required']				= 'Musisz najpierw zbudować stocznię!';
 $LNG['bd_building_shipyard']				= 'Fabryka nanitów lub stocznia jest rozbudowywana!';
@@ -421,7 +421,7 @@ $LNG['bd_destroy_time'] 					= 'Czas';
 $LNG['bd_max_ships']                        = 'Max';
 $LNG['bd_max_ships_long']                   = 'Maksimum jednostek do zbudowania';
 $LNG['sys_notenough_money'] 				= 'Na %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> brakło środków do budowy %s. <br> Miałeś, %s %s , %s %s i %s %s. <br> a potrzebowałeś %s %s , %s %s i %s %s.';
-$LNG['sys_nomore_level'] 					= 'Próbujesz zniszczyć budynek  ( %s ).';
+$LNG['sys_nomore_level'] 					= 'Próbujesz zniszczyć budynek, który nie ma więcej ( %s ).';
 $LNG['sys_buildlist'] 						= 'Lista budowy';
 $LNG['sys_techlist'] 						= 'Lista badań';
 $LNG['sys_buildlist_fail'] 					= 'Nie udało się wykonać zadań z listy budowy';
@@ -996,7 +996,7 @@ $LNG['fcm_moon']							= 'Księżyc';
 $LNG['fcm_info']							= 'Informacje';
 $LNG['fcp_colony']							= 'Kolonia';
 $LNG['fgp_require']							= 'Potrzebujesz: ';
-$LNG['fgf_time']							= 'Czas budowy';
+$LNG['fgf_time']							= 'Czas budowy: ';
 $LNG['sys_module_inactive']        	 		= 'Moduł nieaktywny';
 $LNG['sys_refferal_from']        	 		= 'System';
 $LNG['sys_refferal_title']        	 		= 'Bonus dla gracza %s';
@@ -1039,7 +1039,7 @@ $LNG['fa_sending']							= 'Wysłano';
 
 //----------------------------------------------------------------------------//
 // MissilesAjax.php
-$LNG['ma_silo_level']						= 'Silos Level 4 Wymagany! ';
+$LNG['ma_silo_level']						= 'Wymagany Silos na poziomie 4! ';
 $LNG['ma_impulse_drive_required']			= 'Napęd impulsowy wymagany';
 $LNG['ma_not_send_other_galaxy']			= 'Nie możesz wysłać rakiet do innej galaktyki.';
 $LNG['ma_planet_doesnt_exists']				= 'Planeta nie istnieje.';
@@ -1060,7 +1060,7 @@ $LNG['ma_missiles_sended']					= ' Rakiety wybrane. Cel: ';
 //----------------------------------------------------------------------------//
 // topkb.php
 $LNG['tkb_top']                  			= 'Hala sław';
-$LNG['tkb_gratz']                  			= 'Gratulacje! Osiągnąeś top 100 ';
+$LNG['tkb_gratz']                  			= 'Gratulacje! Osiągnąłeś top 100 ';
 $LNG['tkb_platz']                  			= 'Miejsce';
 $LNG['tkb_owners']             				= 'Przeciwnicy';
 $LNG['tkb_datum']                  			= 'Data';
@@ -1143,7 +1143,7 @@ $LNG['ti_msgtime']							= 'Wiadomość napisana';
 // Rekorde 
 
 $LNG['rec_players']  						= 'Gracz';
-$LNG['rec_level']  							= 'Level';
+$LNG['rec_level']  							= 'Poziom';
 $LNG['rec_count']   						= 'Ilość';
 $LNG['rec_last_update_on']		   			= 'Ostatnia aktualizacja o';
 
@@ -1177,10 +1177,10 @@ $LNG['ft_empty']							= 'Nie masz czym handlować!';
 //----------------------------------------------------------------------------//
 // Logout
 $LNG['lo_title']						= 'Wylogowano, do zobaczenia wkrótce';
-$LNG['lo_logout']						= 'Koniec Sesji';
+$LNG['lo_logout']						= 'Koniec sesji';
 $LNG['lo_redirect']						= 'Przekierowuje';
 $LNG['lo_notify']						= 'Zostaniesz przeniesiony za <span id="seconds"> 5 </span> s';
-$LNG['lo_continue']						= 'Kliknij tutaj, jeśli nie chcesz zostać przniesiony';
+$LNG['lo_continue']						= 'Kliknij tutaj, jeśli nie chcesz zostać przeniesiony';
 //----------------------------------------------------------------------------//
 
 
