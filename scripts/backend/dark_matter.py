@@ -1,25 +1,35 @@
 # ==================================================================================\\
-# ~TheRavikin |  theravikin.pl | mail at: scripts@theravikin.pl  					 ||
-#	TO DO:																			 ||
-#		- change SQL																 ||
-#		- change limit hisotry or change it completly								 ||
-#		- change black matter multiplayer											 ||
-#		- need to adjust multiplier depending on currency SBD or STEEM 				 ||
+# ~TheRavikin |  theravikin.pl | mail at: scripts@theravikin.pl    		    ||
+#	TO DO:									    ||
+#       x       - work about logging actions to the file                            ||
+#	x	- change limit hisotry or change it completly                       ||
+#	x	- change black matter multiplayer				    ||
+#	x	- need to adjust multiplier depending on currency SBD or STEEM 	    ||
+#       DONE:                                                                       ||
+#	v	- change SQL query						    ||
 # ==================================================================================//
 from steem import Steem
 from datetime import datetime
-import mysql.connector as mariadb
-import json
-import os.file
+from pathlib import Path
+import MySQLdb
+import csv, os
 
 # Some global vars
+# ----------------
 _json = ""
 _time = datetime.now().isoformat(timespec='seconds')
 _date = datetime.now().strftime("%d%m%y")
-_database = null
-_mariadb_connection = null
+_database = ''
+_cursor = ''
+
+_logfile = "/tmp/steemnova/"+_date+".csv"
+_lastpaid = "/tmp/steemnova/lastpaid.txt"
+
+_table_name = "" #dbname.prefix_users
+
 
 # Some funcions
+# -------------
 
 ## opening steem object
 def init():
@@ -29,72 +39,81 @@ def init():
 
     s = Steem()		
 
-    try:
-    	_mariadb_connection = mariadb.connect(user='nuser', password='password', database='NOVADB')
-    	_database = mariadb_connection.cursor()
-    except:
-    	raise NameError("init() nie mogl polaczyc sie z baza")
-
-
+    _database = MySQLdb.connect(host="localhost", user="unova", passwd="password", db="NOVADB") # db username, db user pass, db name
     															# steeming it up!
-   try:
-    	data = s.get_account_history('steemnova', -1, limit=100)				# getting account history
+    try:
+        _json = s.get_account_history('steemnova', -1, limit=300)				# getting account history
     except :
-    	raise NameError("init() faild at downloading history. \tData response:\n\t "+data)	
-    
+        raise NameError("init() faild at downloading history. \tData response:\n\t "+data)	
+
 def cleanup():
-	_mariadb_connection.close()
+    global _database
+    _database.close()
 
 ## just log into file
 def log(__line):
-	logfile = os.getcwd()+"/"+_date+".log" 
-	if logfile.exists(): 														# checking for logfile existance
-	    with open(logfile, 'a') as f:											# if exists then just append new line
-	        f.write(__line)
-	else:																		# if not then create new one with CSV header
-		with open(logfile, 'w') as f:
-			f.write("timestamp;player;recived;darkmatter"+'\n')
+    print(_logfile, __line)
+    __logfile = Path(_logfile)
+    if __logfile.exists(): 														# checking for logfile existance
+        with open(_logfile, 'a') as f:											# if exists then just append new line
+            print("#DBG logfile exists - just logging")
+            f.write(__line)
+    else:																		# if not then create new one with CSV header
+        with open(_logfile, 'w') as f:
+            print("#DBG logfile does not exists - making csv header and logging")
+            f.write("function;timestamp;player;recived;darkmatter"+'\n')
+            f.write(__line)
 
 ## some magic
 def get_transfers():
     for __item in _json:															# for top json item
         if __item[1]['op'][0] == "transfer":										# search for transfers
-            if __item[1]['op'][1]['memo'] == "hokus pokus":							# and for steemnova darkmatter top-ups
+            if __item[1]['op'][1]['memo'] == "ZGFya21hdHRlcgo":							# and for steemnova darkmatter top-ups
                 __transaction_timestamp = __item[1]['timestamp']			
                 __player = __item[1]['op'][1]['from']			
-                __amount_recived = float(__item[1]['op'][1]['amount'].partition(' ')[0])	
-                __dark_matter_to_send = float(amount_recived * 3)													# HOW much darkmatter player will get
+                __amount_recived = __item[1]['op'][1]['amount'].partition(' ')[0]
+                __dark_matter_to_send = int(round(float(__amount_recived) * 300, 2))													# HOW much darkmatter player will get
+                print("DBG Player {} has sent {} and will recive {}".format(__player, __amount_recived, __dark_matter_to_send))
                 log("GT;{0};{1};{2};{3}".format(__transaction_timestamp, __player, __amount_recived, __dark_matter_to_send)+'\n')	# loginng for future
 
 ## here comes less magic
 def pay_users(__user, __amount, __timestamp, _database): 
-	
-	try:
-		_database.execute("UPDATE table uni1_users VALUES darkmatter=darkmatter+%d WHERE username=%s", (__amount, __user));			# add dark matter to the users while guessing the columns xd
-	except mariadb.Error as error:
-		raise NameError("pay_users() failed at: "+error)
+    global _cursor
+    _cursor = _database.cursor()
+    __query = "UPDATE {0} SET darkmatter=(darkmatter+{1}) WHERE username='{2}'".format(_table_name, __amount, __user)
+    #          UPDATE <table_name> SET darkmatter=darkmatter+<amount> WHERE username=<player>	
+    print(__query)
+    _cursor.execute(__query);	                                                        	# add dark matter to the users
 
-	log("PU;{0};{1};{2}".format(_time, __user, __amount)+'\n')					# and inform about it ;D
-	with open("lastpaid.txt", 'w') as f:										#  \  
-		f.write(__timestamp)													#	update last paid timestamp
+    print("#DGB PU;{0};{1};{2}".format(_time, __user ,__amount)+'\n')					# and inform about it ;D # TODO
+    with open(_lastpaid, 'w') as f:										#  \  
+        f.write(__timestamp)													#	update last paid timestamp
 	
 ## aaand here comes the truth!
 def rotate():
-	with open("lastpaid.txt", 'r') as lastpaid:
-		with open("logfile.log", 'rb') as csvfile:
-			line = csv.reader(csvfile, delimiter=';')
-				for row in line:
-					if line['timestamp'] > lastpaid:						   # if player wasn't paid yet he is getting paid (english.... -.-)
-						pay_users(line['player', 'darkmatter', 'timestamp'])
+    with open(_lastpaid, 'r') as __lastpaid:
+        __lastpaid_date = __lastpaid.readline()
+        with open(_logfile) as __csvfile:
+            line = csv.DictReader(__csvfile, delimiter=';')
+            for row in line:
+                if row['timestamp'] > __lastpaid_date:						   # if player wasn't paid yet he is getting paid (english.... -.-)
+                    pay_users(row['player'], row['darkmatter'], row['timestamp'], _database)
 
 
+# ________
+# | MAIN |
+# \/\/\/\/
 
-# MAIN
-## initiating program...
-init()
-## sniffing transactions
-get_transfers()
-## making some good stuff for tribe ppl
-rotate()
-# goin' sleep
-cleanup()
+print("init()")
+init()                  # initiating DB connection and Steem blockchain
+print("init() done")
+
+print("get transfers()")
+get_transfers()         # loading steemnova transcations
+print("get transfers() done")
+
+print("rotate()")
+rotate()                # giving money to ppl
+print("rotate() done")
+
+cleanup()               # closing db connection
