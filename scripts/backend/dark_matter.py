@@ -17,17 +17,20 @@ _json = ""
 _time = datetime.now().isoformat(timespec='seconds')
 _date = datetime.now().strftime("%d%m%y")
 _database = null
+_mariadb_connection = null
 
 # Some funcions
 
 ## opening steem object
 def init():
     global _json
+    global _database
+    global _mariadb_connection
 
     s = Steem()		
 
     try:
-    	mariadb_connection = mariadb.connect(user='nuser', password='password', database='NOVADB')
+    	_mariadb_connection = mariadb.connect(user='nuser', password='password', database='NOVADB')
     	_database = mariadb_connection.cursor()
     except:
     	raise NameError("init() nie mogl polaczyc sie z baza")
@@ -40,7 +43,7 @@ def init():
     	raise NameError("init() faild at downloading history. \tData response:\n\t "+data)	
     
 def cleanup():
-	_database
+	_mariadb_connection.close()
 
 ## just log into file
 def log(__line):
