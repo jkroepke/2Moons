@@ -21,7 +21,7 @@ $LNG['and']									= 'i';
 //SYSTEM
 $LNG['sys_attacker_lostunits'] 				= "Ataker przegrał:";
 $LNG['sys_defender_lostunits'] 				= "Obrońca przegrał:";
-$LNG['sys_units']							= "jednostki";
+$LNG['sys_units']							= "Jednostki";
 $LNG['debree_field_1'] 						= "Pole zniszczeń";
 $LNG['debree_field_2']						= ".";
 $LNG['sys_moonproba'] 						= "Szansa na księżyc: ";
@@ -29,13 +29,13 @@ $LNG['sys_moonbuilt'] 						= "Księżyc formuje się w pobliżu planety %s [%d:
 $LNG['sys_attack_title']    				= "Następujące floty spotkały się: ";
 $LNG['sys_attack_round']					= "Runda";
 $LNG['sys_attack_attacker_pos'] 			= "Ataker";
-$LNG['sys_attack_techologies'] 				= 'Broń: %d %% Osłona: %d %% Armor: %d %% ';
+$LNG['sys_attack_techologies'] 				= 'Broń: %d %% Osłona: %d %% Pancerz: %d %% ';
 $LNG['sys_attack_defender_pos'] 			= "Obrońca";
 $LNG['sys_ship_type'] 						= "Typ";
 $LNG['sys_ship_count'] 						= "Ilość";
 $LNG['sys_ship_weapon'] 					= "Broń";
 $LNG['sys_ship_shield'] 					= "Osłona";
-$LNG['sys_ship_armour'] 					= "Armor";
+$LNG['sys_ship_armour'] 					= "Pancerz";
 $LNG['sys_destroyed'] 						= "Zniszczony";
 $LNG['fleet_attack_1'] 						= "Atakująca flota strzeliła z siłą:";
 $LNG['fleet_attack_2']						= "w obrońcę. Osłona obrońcy pochłonęła:";
@@ -144,6 +144,7 @@ $LNG['sys_expe_attack_1_2_2'] 				= 'Trafiliśmy w zasadzkę. Walka była nieuni
 $LNG['sys_expe_attack_1_2_3'] 				= 'Dostaliśmy wezwanie o pomoc. Na miejscu okazało się, iż wezwanie to pułapka piratów, walka była nieunikniona.';
 $LNG['sys_expe_attack_1_3_1'] 				= 'Okazało się, że przechwycone sygnały pochodzą z bazy piratów. Nasza obecność w tym sektorze nie napełniła ich zbytnią radością.';
 $LNG['sys_expe_attack_1_3_2'] 				= 'Flota nie zgłasza ciężkich walk z piratami!';
+$LNG['sys_expe_attack_1_3_3']				= 'Ostatnia wiadomość od kapitana ekspecycji: "Lecą na nas! Wyskoczyli z nadprzestrzeni, nie sądzę żebyśmy mieli jakiekolwiek szanse ale nie poddamy się!"'; //TODO?
 $LNG['sys_expe_attack_2_1_1'] 				= 'Twoja flota miała pierwszy kontakt z nieznaną cywilizacją, zresztą niezbyt szczęśliwy.';
 $LNG['sys_expe_attack_2_1_2'] 				= 'Jakieś statki pojawiające się ni stąd ni z owąd atakują naszą ekspedycję!';
 $LNG['sys_expe_attack_2_1_3'] 				= 'Twoja ekspedycja została zaatakowana przez małą grupę nieznanych statków.';
@@ -215,3 +216,4 @@ $LNG['type_planet_3']  					= 'Księżyc';
 
 
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012
+// Edited by TheRavikin. All rights resteemed (C) 2018

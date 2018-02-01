@@ -113,7 +113,7 @@ $LNG['ov_wrong_pass']						= 'Błędne hasło, spróbuj ponownie';
 $LNG['ov_have_new_message']					= 'Masz wiadomość';
 $LNG['ov_have_new_messages']				= 'Masz %d nowych wiadomości';
 $LNG['ov_planetmenu']						= 'Zmień nazwę / Porzuć planetę';
-$LNG['ov_free']								= 'Frei';
+$LNG['ov_free']								= 'Bezczynna';
 $LNG['ov_news']								= 'Nowości';
 $LNG['ov_place']							= 'Miejsce';
 $LNG['ov_of']								= 'z';
@@ -384,13 +384,13 @@ $LNG['bd_interrupt']						= 'Przerwij';
 $LNG['bd_cancel']							= 'Anuluj';
 $LNG['bd_working']							= 'Pracuje';
 $LNG['bd_build']							= 'Zbuduj';
-$LNG['bd_build_next_level']					= 'Rozbuduj na level ';
+$LNG['bd_build_next_level']					= 'Rozbuduj na poziom ';
 $LNG['bd_tech']                             = 'Zbadaj';
-$LNG['bd_tech_next_level']                  = 'Zbadaj na level ';
+$LNG['bd_tech_next_level']                  = 'Zbadaj na poziom ';
 $LNG['bd_add_to_list']						= 'Dodaj do kolejki';
 $LNG['bd_no_more_fields']					= 'Brak miejsca na planecie!';
 $LNG['bd_remaining']						= 'Pozostało:';
-$LNG['bd_lab_required']						= 'Musisz zbudować najpierw laboratorium badawcze!';
+$LNG['bd_lab_required']						= 'Musisz najpierw zbudować laboratorium badawcze!';
 $LNG['bd_building_lab']						= 'Rozbuduj laboratorium!';
 $LNG['bd_max_lvl']							= '(Max. Level: %s)';
 $LNG['bd_lvl']								= 'Level';
@@ -408,19 +408,19 @@ $LNG['bd_continue']							= 'Kontynuuj';
 $LNG['bd_price_for_destroy']				= 'Koszt zniszczenia:';
 $LNG['bd_ready']							= 'Gotowe';
 $LNG['bd_finished']							= 'Skończone';
-$LNG['bd_maxlevel']							= 'Maksymalny level';
+$LNG['bd_maxlevel']							= 'Maksymalny poziom';
 $LNG['bd_on']								= 'on';
-$LNG['bd_max_builds']						= 'Max Build Orders [%d]';
-$LNG['bd_next_level']						= 'Następny level:';
+$LNG['bd_max_builds']						= 'Długość kolejki budowy [%d]';
+$LNG['bd_next_level']						= 'Następny poziom:';
 $LNG['bd_need_engine']						= 'Wymaga  <font color="#FF0000">%s</font> %s więcej';
 $LNG['bd_more_engine']						= 'Produkuje <font color="#00FF00">%s</font> %s więcej';
 $LNG['bd_jump_gate_action']					= 'Skocz do';
-$LNG['bd_cancel_warning']					= 'Zdemontowanie da ci 60% kosztu budowy!';
+$LNG['bd_cancel_warning']					= 'Zdemontowanie zwróci Ci 60% kosztu budowy!';
 $LNG['bd_cancel_send']						= 'Usuń zaznaczone';
 $LNG['bd_destroy_time'] 					= 'Czas';
 $LNG['bd_max_ships']                        = 'Max';
 $LNG['bd_max_ships_long']                   = 'Maksimum jednostek do zbudowania';
-$LNG['sys_notenough_money'] 				= 'Na %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> brakło środków do budowy %s. <br> Miałeś, %s %s , %s %s i %s %s. <br> a potrzebowałeś %s %s , %s %s i %s %s.';
+$LNG['sys_notenough_money'] 				= 'Na %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> zabrakło środków do budowy %s. <br> Miałeś, %s %s , %s %s i %s %s. <br> a potrzebowałeś %s %s , %s %s i %s %s.';
 $LNG['sys_nomore_level'] 					= 'Próbujesz zniszczyć budynek  ( %s ).';
 $LNG['sys_buildlist'] 						= 'Lista budowy';
 $LNG['sys_techlist'] 						= 'Lista badań';
@@ -430,7 +430,7 @@ $LNG['sys_buildlist_fail'] 					= 'Nie udało się wykonać zadań z listy budow
 //----------------------------------------------------------------------------//
 //RESOURCES
 $LNG['rs_amount']							= 'Ilość';
-$LNG['rs_lvl']								= 'level';
+$LNG['rs_lvl']								= 'poziom';
 $LNG['rs_production_on_planet']				= 'Produkacja zasobów na planecie "%s"';
 $LNG['rs_basic_income']						= 'Podstawowy przychód';
 $LNG['rs_storage_capacity']					= 'Wielkość magazynów';
@@ -446,7 +446,7 @@ $LNG['of_recruit']							= 'Zatrudnij';
 $LNG['of_max_lvl']							= 'Max. Level';
 $LNG['of_offi']								= 'Oficerowie';
 $LNG['of_lvl']								= 'Level';
-$LNG['of_dm_trade']							= '%s - Store';
+$LNG['of_dm_trade']							= '%s - Sklep';
 $LNG['of_still']							= 'still';
 $LNG['of_active']							= 'aktywny';
 
@@ -472,7 +472,7 @@ $LNG['tr_exchange']							= 'Wymień';
 //----------------------------------------------------------------------------//
 //TECHTREE
 $LNG['tt_requirements']						= 'Wymagania';
-$LNG['tt_lvl']								= 'Level ';
+$LNG['tt_lvl']								= 'Poziom ';
 
 //----------------------------------------------------------------------------//
 //INFOS
@@ -484,7 +484,7 @@ $LNG['in_jump_gate_already_used']			= 'Teleporter został użyty, czas na ładow
 $LNG['in_jump_gate_available']				= 'dostępny';
 $LNG['in_rf_again']    						= 'Szybki ogień przeciwko';
 $LNG['in_rf_from']     						= 'Szybki ogień od';
-$LNG['in_level']       						= 'Level';
+$LNG['in_level']       						= 'Poziom';
 $LNG['in_storage'] 							= 'Miejsce w magazynach';
 $LNG['in_prod_p_hour'] 						= 'Produkacja/godzine';
 $LNG['in_difference']  						= 'Różnica';
@@ -573,7 +573,7 @@ $LNG['al_tag_required'] 					= 'Brak tagu sojuszu.';
 $LNG['al_name_required'] 					= 'Brak nazwy sojuszu.';
 $LNG['al_already_exists'] 					= 'Taki sojusz %s już istnieje.';
 $LNG['al_created'] 							= 'Sojusz %s został stworzony!';
-$LNG['al_continue'] 						= 'dalej';
+$LNG['al_continue'] 						= 'kontynuuj';
 $LNG['al_alliance_closed'] 					= 'Sojusz nie przyjmuje nowych członków.';
 $LNG['al_request_confirmation_message']		= 'Podanie zostało wysłane <br><a href="?page=alliance">wróć</a>';
 $LNG['al_default_request_text']				= 'Lider sojuszu nie ustawił przykładowego podania.';
@@ -705,7 +705,7 @@ $LNG['al_legend_create_circular']			= 'Napisz ogólną wiadomość';
 $LNG['al_legend_right_hand']				= 'Prawa ręka (konieczne, by przenieść rangę założyciela)';
 $LNG['al_requests']							= 'Podania';
 $LNG['al_requests_min_points']              = 'od %s Punktów';
-$LNG['al_circular_message']					= 'Rundmail';
+$LNG['al_circular_message']					= 'Rundmail'; // TODO
 $LNG['al_leave_alliance']					= 'Opuść sojusz';
 $LNG['al_unitsshut']    					= 'Zniszczone jednostki';
 $LNG['al_unitsloos']    					= 'Stracone jednostki';
@@ -727,13 +727,13 @@ $LNG['al_memberlist_off']					= 'Offline';
 $LNG['al_diplo']                            = 'Dyplomacja';
 $LNG['al_no_diplo']							= '-';
 $LNG['al_events']							= 'Wydarzenia';
-$LNG['al_no_events']						= 'Obecnie brak zdarzeń';
+$LNG['al_no_events']						= 'Obecnie brak wydarzeń';
 $LNG['al_diplo_level'][1]                   = 'Skrzydło';
 $LNG['al_diplo_level'][2]                   = 'Sojusz ';
 $LNG['al_diplo_level'][3]                   = 'Handel z sojuszem';
 $LNG['al_diplo_level'][4]                   = 'Pakt o braku agresji';
 $LNG['al_diplo_level'][5]                   = 'Wojna';
-$LNG['al_diplo_level'][6]                   = 'Geheimbündnis';
+$LNG['al_diplo_level'][6]                   = 'Cichy sojusz'; // Geheimbündnis
 $LNG['al_diplo_no_entry']                   = '- Brak paktów -';
 $LNG['al_diplo_no_accept']                  = '- Brak zapytań -';
 $LNG['al_diplo_accept']                    	= 'Przychodzące pakty';
@@ -763,7 +763,7 @@ $LNG['al_diplo_no_alliance']				= 'Brak sojuszu o takiej nazwie %s!';
 $LNG['al_diplo_exists']						= 'Stosunki z sojuszem "%s" już są albo nie zostały jeszcze zatwierdzone!';
 $LNG['al_diplo_info']						= '<p>Na tej stronie zarządzasz sojuszem !</p><p>Hier findest du die Erklärung der einzelnen Bündnissarten. [TODO: Link zu FAQ]</p>';
 $LNG['al_leave_ally']						= 'Napewno chcesz opuścić sojusz?';
-$LNG['al_default_leader_name']				= 'Leader';
+$LNG['al_default_leader_name']				= 'Lider';
 $LNG['al_rank_name']						= 'Nazwa';
 $LNG['al_rank_desc']['MEMBERLIST']			= 'Zobacz listę członków';
 $LNG['al_rank_desc']['ONLINESTATE']			= 'Kto jest online';
@@ -776,7 +776,7 @@ $LNG['al_rank_desc']['KICK']				= 'Może wyrzucić sojusznika z sojuszu';
 $LNG['al_rank_desc']['DIPLOMATIC']			= 'Może zmieniać dyplomację sojuszu';
 $LNG['al_rank_desc']['RANKS']				= 'Rangi';
 $LNG['al_rank_desc']['MANAGEUSERS']			= 'Może zarządzać członkami';
-$LNG['al_rank_desc']['EVENTS']				= 'Kann Ereignisse im internen Bereich sehen';
+$LNG['al_rank_desc']['EVENTS']				= 'Może widzieć zdarzenia wewnętrzne';
 
 //----------------------------------------------------------------------------//
 //BUDDY
@@ -1185,3 +1185,4 @@ $LNG['lo_continue']						= 'Kliknij tutaj, jeśli nie chcesz zostać przniesiony
 
 
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012
+// Edited by TheRavikin. All rights resteemed (C) 2018
