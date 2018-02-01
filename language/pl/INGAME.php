@@ -421,7 +421,7 @@ $LNG['bd_destroy_time'] 					= 'Czas';
 $LNG['bd_max_ships']                        = 'Max';
 $LNG['bd_max_ships_long']                   = 'Maksimum jednostek do zbudowania';
 $LNG['sys_notenough_money'] 				= 'Na %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> brakło środków do budowy %s. <br> Miałeś, %s %s , %s %s i %s %s. <br> a potrzebowałeś %s %s , %s %s i %s %s.';
-$LNG['sys_nomore_level'] 					= 'Próbujesz zniszczyć budynek, który nie ma więcej ( %s ).';
+$LNG['sys_nomore_level'] 					= 'Próbujesz zniszczyć budynek, którego nie posiadasz( %s ).';
 $LNG['sys_buildlist'] 						= 'Lista budowy';
 $LNG['sys_techlist'] 						= 'Lista badań';
 $LNG['sys_buildlist_fail'] 					= 'Nie udało się wykonać zadań z listy budowy';
