@@ -4,10 +4,11 @@
 #		- change SQL																 ||
 #		- change limit hisotry or change it completly								 ||
 #		- change black matter multiplayer											 ||
-#		- depending on currency SBD or STEEM need to adjust multiplier				 ||
+#		- need to adjust multiplier depending on currency SBD or STEEM 				 ||
 # ==================================================================================//
 from steem import Steem
 from datetime import datetime
+import mysql.connector as mariadb
 import json
 import os.file
 
@@ -15,6 +16,7 @@ import os.file
 _json = ""
 _time = datetime.now().isoformat(timespec='seconds')
 _date = datetime.now().strftime("%d%m%y")
+_database = null
 
 # Some funcions
 
@@ -22,12 +24,23 @@ _date = datetime.now().strftime("%d%m%y")
 def init():
     global _json
 
-    s = Steem()																	# steeming it up!
+    s = Steem()		
+
+    try:
+    	mariadb_connection = mariadb.connect(user='nuser', password='password', database='NOVADB')
+    	_database = mariadb_connection.cursor()
+    except:
+    	raise NameError("init() nie mogl polaczyc sie z baza")
+
+
+    															# steeming it up!
    try:
     	data = s.get_account_history('steemnova', -1, limit=100)				# getting account history
     except :
     	raise NameError("init() faild at downloading history. \tData response:\n\t "+data)	
     
+def cleanup():
+	_database
 
 ## just log into file
 def log(__line):
@@ -51,8 +64,13 @@ def get_transfers():
                 log("GT;{0};{1};{2};{3}".format(__transaction_timestamp, __player, __amount_recived, __dark_matter_to_send)+'\n')	# loginng for future
 
 ## here comes less magic
-def pay_users(__user, __amount, __timestamp): 
-	INSERT INTO table (user_col, mater_col) VALUES (__user, __amount);			# add dark matter to the users while guessing the columns xd
+def pay_users(__user, __amount, __timestamp, _database): 
+	
+	try:
+		_database.execute("UPDATE table uni1_users VALUES darkmatter=darkmatter+%d WHERE username=%s", (__amount, __user));			# add dark matter to the users while guessing the columns xd
+	except mariadb.Error as error:
+		raise NameError("pay_users() failed at: "+error)
+
 	log("PU;{0};{1};{2}".format(_time, __user, __amount)+'\n')					# and inform about it ;D
 	with open("lastpaid.txt", 'w') as f:										#  \  
 		f.write(__timestamp)													#	update last paid timestamp
@@ -76,3 +94,4 @@ get_transfers()
 ## making some good stuff for tribe ppl
 rotate()
 # goin' sleep
+cleanup()
