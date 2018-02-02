@@ -31,6 +31,8 @@ _table_name = "" #dbname.prefix_users
 # Some funcions
 # -------------
 
+# big ones
+
 ## opening steem object
 def init():
     global _json
@@ -45,24 +47,6 @@ def init():
         _json = s.get_account_history('steemnova', -1, limit=300)				# getting account history
     except :
         raise NameError("init() faild at downloading history. \tData response:\n\t "+data)	
-
-def cleanup():
-    global _database
-    _database.close()
-
-## just log into file
-def log(__line):
-    print(_logfile, __line)
-    __logfile = Path(_logfile)
-    if __logfile.exists(): 														# checking for logfile existance
-        with open(_logfile, 'a') as f:											# if exists then just append new line
-            print("#DBG logfile exists - just logging")
-            f.write(__line)
-    else:																		# if not then create new one with CSV header
-        with open(_logfile, 'w') as f:
-            print("#DBG logfile does not exists - making csv header and logging")
-            f.write("function;timestamp;player;recived;darkmatter"+'\n')
-            f.write(__line)
 
 ## some magic
 def get_transfers():
@@ -99,6 +83,25 @@ def rotate():
                 if row['timestamp'] > __lastpaid_date:						   # if player wasn't paid yet he is getting paid (english.... -.-)
                     pay_users(row['player'], row['darkmatter'], row['timestamp'], _database)
 
+# little ones
+
+def cleanup():
+    global _database
+    _database.close()
+
+## just log into file
+def log(__line):
+    print(_logfile, __line)
+    __logfile = Path(_logfile)
+    if __logfile.exists(): 														# checking for logfile existance
+        with open(_logfile, 'a') as f:											# if exists then just append new line
+            print("#DBG logfile exists - just logging")
+            f.write(__line)
+    else:																		# if not then create new one with CSV header
+        with open(_logfile, 'w') as f:
+            print("#DBG logfile does not exists - making csv header and logging")
+            f.write("function;timestamp;player;recived;darkmatter"+'\n')
+            f.write(__line)
 
 # ________
 # | MAIN |
