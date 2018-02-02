@@ -35,12 +35,12 @@ Player transfers SBD or STEEM to the @Steemnova account and the rest is handled 
 
 
 ### TO DO
-- [] init() 			- change loaded transactions limit or change it totally if ther's better way
-- [] get_transfers()	- change black matter multiplier to adequate digits (\*10 for exqmple or even more... guys?)
-- [] get_transfers() 	- need to adjust multiplier depending on currency SBD or STEEM 
-- [] get_transfers() 	- maybe separate validating transactions from payment logic (?) # for tuture enhancment [probably never xd]
-- [] in general 		- handle the excepotions handlers
-- [] in general			- make more data validation to prevent injections & negative numbers
+- [ ] init() 			- change loaded transactions limit or change it totally if ther's better way
+- [ ] get_transfers()	- change black matter multiplier to adequate digits (\*10 for exqmple or even more... guys?)
+- [ ] get_transfers() 	- need to adjust multiplier depending on currency SBD or STEEM 
+- [ ] get_transfers() 	- maybe separate validating transactions from payment logic (?) # for tuture enhancment [probably never xd]
+- [ ] in general 		- handle the excepotions handlers
+- [ ] in general			- make more data validation to prevent injections & negative numbers
 - [x] @theravikin **take a nap.**
 
 
