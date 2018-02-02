@@ -41,6 +41,12 @@ def init():
 
     s = Steem()		
 
+	# add file handling in here in place of further functions - TODO TODAY!
+	# default timestamp in lastpaid at start of the script datetime.min.isoformat() 
+	# also csv header creation is needed in HERE
+
+	
+	
     _database = MySQLdb.connect(host="localhost", user="unova", passwd="password", db="NOVADB") # db username, db user pass, db name
     															# steeming it up!
     try:
