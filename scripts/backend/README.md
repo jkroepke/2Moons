@@ -7,8 +7,8 @@ It's a script for automated black matter inserting into player accounts.
 Player transfers SBD or STEEM to the @Steemnova account and the rest is handled by this little monster
 
 ### Dependencies
-`python MySQLdb`
-`python steem`
+- `python MySQLdb`
+- `python steem`
 
 ### Functions & How does it work?
 1. init()
