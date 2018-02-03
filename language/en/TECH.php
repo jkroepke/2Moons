@@ -267,7 +267,7 @@ $LNG['shortDescription'] = array(
 503 => 'Interplanetary missiles are used to destroy the opponents defenses.',
 
 601 => 'The Geologist is an expert in astro-mineralogy and crystalography. He assists in metallurgy and chemistry related subjects. He is in charge of optimising the use and refining of raw material throughout the empire.',
-602 => 'The Admiral is an experienced veteran and a skillful strategist. The hardest battle is able to get an idea of the situation and contact their admirals subordinates. A wise emperor could rely on their help during the fighting.',
+602 => 'The Admiral is an experienced veteran and a skillful strategist. Even in the hardest battles, he is able to grasp the situation and guide his subordinates. A wise emperor can always rely on his help in times of war.',
 603 => 'The Engineer is a specialist in energy management. In peacetime, it increases the energy of all the colonies.',
 604 => 'The guild of the Technocrats is composed of genius scientists, and you will find them always over the realm where all human logic would be defied. For thousands of years, no normal humans have ever cracked the code of a Technocrat. The Technocrat inspires the researchers of the empire with his presence.',
 605 => 'The Constructor has altered their DNA, only one of these men can build an entire city in a short time.',
