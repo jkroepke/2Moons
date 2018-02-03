@@ -55,7 +55,7 @@ $LNG['questions'][1][3]['body']		= <<<BODY
 <p>To be able to protect your own planet with the construction of Hangar, is also the construction of defence. These offer some protection against the enemies with your own fleet at the moment of attack of your adervesÃ. In contrast to the fleet, 70% of existing on the planet defense continues</p>
 BODY;
 
-$LNG['questions'][2]['category']	= 'The information advanced';
+$LNG['questions'][2]['category']	= 'Advanced Tips';
 $LNG['questions'][2][1]['title']	= 'Raid';
 $LNG['questions'][2][1]['body']		= <<<BODY
 <h3>Raid:</h3>
