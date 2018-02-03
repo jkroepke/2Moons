@@ -142,7 +142,7 @@ $LNG['ov_developed_fields']					= 'Fields used';
 $LNG['ov_max_developed_fields']				= 'Max. Permitted fields';
 $LNG['ov_fleet']							= 'Fleets';
 $LNG['ov_admins_online']					= 'Active Admins';
-$LNG['ov_no_admins_online']					= 'Currently, there is no any online administrator';
+$LNG['ov_no_admins_online']					= 'Currently, there is no administrator online';
 $LNG['ov_userbanner']						= "Player's Banner";
 $LNG['ov_userrank_info']					= '%s (%s <a href="game.php?page=statistics&amp;range=%d">%d</a> %s %s)';
 $LNG['ov_teamspeak_not_online']				= 'The Teamspeak server not active this';
