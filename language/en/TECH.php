@@ -212,7 +212,7 @@ $LNG['shortDescription'] = array(
 44 => 'missile silos used for storage of rockets.',
 
 106 => 'Information about other planets and moons can be gained using this technology.',
-108 => 'More fleets can be commanded by increasing computer capacities. Each level of computer technology increases the maximum number of fleets by one.',
+108 => 'More fleets can be commanded by increasing computer skills. Each level of computer technology increases the maximum number of fleets by one.',
 109 => 'Weapons technology makes weapons systems more efficient. Each level of weapons technology increases the weapon strength of units by 10 % of the base value.',
 110 => 'Shielding technology makes the shields on ships and defensive facilities more efficient. Each level of shield technology increases the strength of the shields by 10 % of the base value.',
 111 => 'Special alloys improve the armour on ships and defensive structures. The effectiveness of the armour can be increased by 10 % per level.',
