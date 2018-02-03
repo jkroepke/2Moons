@@ -446,7 +446,7 @@ $LNG['of_active']							= 'active';
 //----------------------------------------------------------------------------//
 // Mercado
 
-$LNG['tr_cost_dm_trader']					= 'The value of the merchant is %s %s!';
+$LNG['tr_cost_dm_trader']					= 'You have to pay the merchant %s %s!';
 $LNG['tr_not_enought']						= "Don't own enough %s.";
 $LNG['tr_exchange_done']					= 'Trade made with success';
 $LNG['tr_exchange_error']					= 'The amount of resources is wrong or are insufficient';
