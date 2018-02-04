@@ -209,7 +209,7 @@ $LNG['shortDescription'] = array(
 41 => 'The moon has no atmosphere therefore a lunar base must be built before the settlement of other buildings.',
 42 => 'The sensor array allows you to monitor fleet movements. The higher the stage, the greater is the range of the phalanx.',
 43 => 'Jump gates are huge transmitters that are able to send large fleets without loss of time through the universe.',
-44 => 'missile silos used for storage of rockets.',
+44 => 'Missile silos are used to store rockets',
 
 106 => 'Information about other planets and moons can be gained using this technology.',
 108 => 'More fleets can be commanded by increasing computer skills. Each level of computer technology increases the maximum number of fleets by one.',
