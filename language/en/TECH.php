@@ -253,7 +253,7 @@ $LNG['shortDescription'] = array(
 
 401 => 'The Rocket Launcher is a simple but cost-effective defense.',
 402 => 'Light Lasers are simple ground based defense weapons. They use special targeting systems to track and attack enemy ships. They fire a high intensity laser, designed to cut through the hull of the target.',
-403 => 'The Heavy Laser is a practical, improved version of the Light Laser.',
+403 => 'The Heavy Laser is an improved version of the Light Laser.',
 404 => 'The Gauss Cannons fires high-density metal projectiles at extremely high velocity.',
 405 => 'An ion cannon is a weapon that fires beams of ions (positively or negatively charged particles).',
 406 => 'the Plasma Turret uses a large nuclear reactor fuel cell to power an electromagnetic accelerator that fires a pulse, or toroid, of plasma.',
