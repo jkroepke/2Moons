@@ -233,7 +233,7 @@ $LNG['shortDescription'] = array(
 
 202 => 'The light cargo is an agile ship which can quickly transport resources to other planets.',
 203 => 'This cargo ship has a much larger cargo capacity than the light cargo, and is generally faster thanks to an improved drive.',
-204 => 'This is the first fighting ship all emperors will build. The light fighter is an agile ship, but vulnerable on its own. In mass numbers, they can become a great threat to any empire. They are the first to accompany small and large cargoes to hostile planets with minor defences.',
+204 => 'This is the first fighting ship all emperors will build. The light fighter is an agile ship, but it is also vulnerable. In mass numbers, they can become a great threat to any empire. They are the first to accompany small and large cargoes to hostile planets with minor defences.',
 205 => 'This fighter is better armoured and has a higher attack strength than the light fighter.',
 206 => 'Cruisers are armoured almost three times as heavily as heavy fighters and have more than twice the firepower. In addition, they are very fast.',
 207 => 'Battleships form the backbone of a fleet. Their heavy cannons, high speed, and large cargo holds make them opponents to be taken seriously.',
