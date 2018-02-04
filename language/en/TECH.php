@@ -284,7 +284,7 @@ $LNG['shortDescription'] = array(
 
 701 => 'Increases the attack value of the ships and defenses.',
 702 => 'Increases the value of ships shields and defenses',
-703 => 'Shorten the construction time for buildings',
+703 => 'Shortens the construction time for buildings',
 704 => 'Increases resource production',
 705 => 'Increases energy production',
 706 => 'Shortens research time',
