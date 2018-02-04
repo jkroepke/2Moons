@@ -252,7 +252,7 @@ $LNG['shortDescription'] = array(
 220 => 'After long years of research dark matter is now collectable from the moon.',
 
 401 => 'The Rocket Launcher is a simple but cost-effective defense.',
-402 => 'Light Lasers are simple ground based weapons that utilize special targeting systems to track the enemy and fire a high intensity laser designed to cut through the hull of the target.',
+402 => 'Light Lasers are simple ground based defense weapons. They use special targeting systems to track and attack enemy ships. They fire a high intensity laser, designed to cut through the hull of the target.',
 403 => 'The Heavy Laser is a practical, improved version of the Light Laser.',
 404 => 'The Gauss Cannons fires high-density metal projectiles at extremely high velocity.',
 405 => 'An ion cannon is a weapon that fires beams of ions (positively or negatively charged particles).',
