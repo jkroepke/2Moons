@@ -22,16 +22,16 @@ $LNG['adm_password']		= 'Hasło';
 $LNG['adm_absenden']		= 'Wyślij';
 $LNG['adm_password_info']	= 'Podaj hasło!';
 $LNG['adm_bad_password']	= 'Błędne hasło!';
-$LNG['404_page']			= 'Nie masz wystarczających uprawnień';
+$LNG['404_page']		= 'Nie masz wystarczających uprawnień';
 $LNG['adm_cp_title']		= 'Centerum administracji';
 $LNG['adm_cp_index']		= 'Strona startowa';
 $LNG['mu_moderation_page']	= 'Moderacja';
-$LNG['mu_universe']			= 'Universa';
+$LNG['mu_universe']		= 'Universa';
 $LNG['adm_cp_logout']		= 'Wyloguj';
 
 //	MISCELÁNEO - MISCELLANEOUS
-$LNG['ad_number']			= 'ID';
-$LNG['ad_max']				= '(max. %d)';
+$LNG['ad_number']		= 'ID';
+$LNG['ad_max']			= '(max. %d)';
 $LNG['only_numbers']		= 'Możesz podać tylko liczby!';
 $LNG['select_option']		= 'Wybierz...';
 
@@ -43,13 +43,13 @@ $LNG['rank_3']	= 'Administrator';
 
 
 // 	TIEMPO - TIME - CZAS
-$LNG['time_days']		= 'Dzień';
-$LNG['time_hours']		= 'Godzina';
+$LNG['time_days']	= 'Dzień';
+$LNG['time_hours']	= 'Godzina';
 $LNG['time_minutes']	= 'Minuta';
 $LNG['time_seconds']	= 'Sekunda';
 //###########################################################//
 
-$LNG['info_information']	= 'Informacje o błędach i nowościach <a href="%s" target="tracker">2Moons Board</a><br>Jeśli usuniesz ten link, nie będziesz miał prawa do supportu!!!!';
+$LNG['info_information'	= 'Informacje o błędach i nowościach <a href="%s" target="tracker">2Moons Board</a><br>Jeśli usuniesz ten link, nie będziesz miał prawa do supportu!!!!';
 
 //---------------	¿SI O NO? - YES OR NO? - JA ODER NEIN?	- TAK ALBO NIE------------------------// 
 $LNG['one_is_yes_1']	= 'Tak';
@@ -62,7 +62,7 @@ $LNG['one_is_no_0']	= 'Tak';
 
 //---------------	BOTONES - BUTTONS - BUTTONS	- PRZYCISKI------------------------// 
 $LNG['button_submit']		= 'Wyślij';
-$LNG['button_add']			= 'Dodaj';
+$LNG['button_add']		= 'Dodaj';
 $LNG['button_delete']		= 'Usuń';
 $LNG['button_filter']		= 'Filter';
 $LNG['button_deselect']		= 'Odznacz';
@@ -72,7 +72,7 @@ $LNG['button_des_se']		= 'zaznacz wszystko, odznacz wszystko';
 
 
 //---------------	ID's	------------------------//
-$LNG['input_id']			= 'ID';
+$LNG['input_id']		= 'ID';
 $LNG['input_id_user']		= 'Gracz ID';
 $LNG['input_id_planet']		= 'Planeta ID';
 $LNG['input_id_moon']		= 'Księżyc ID';
@@ -83,14 +83,14 @@ $LNG['input_id_ally']		= 'Sojusz ID';
 
 //---------------	RECURSOS - RESOURCES - ROHSTOFFE - ZASOBY	------------------------// 
 $LNG['resources_title']	        = 'Zasoby';
-$LNG['count_res']			= 'Ilość zaobów';
+$LNG['count_res']		= 'Ilość zaobów';
 //###########################################################//
 
 
 //---------------	OFICIALES - OFFICIERS - OFFIZIERE - OFICEROWIE	------------------------// 
 $LNG['buildings_title']	= 'Budynki';
-$LNG['ships_title']		= 'Statki';
-$LNG['defenses_title']		= 'Obrona';
+$LNG['ships_title']	= 'Statki';
+$LNG['defenses_title']	= 'Obrona';
 $LNG['researchs_title']	= 'Badania';
 $LNG['officiers_title']	= 'Oficerowie';
 //###########################################################//
@@ -111,24 +111,24 @@ $LNG['ad_editor_personal']		= 'Dane osobowe';
 $LNG['ad_editor_planets']		= 'Planety i księżyce';
 $LNG['ad_editor_resources']		= 'Zasoby';
 $LNG['ad_editor_alliances']		= 'Sojusze';
-$LNG['ad_editor_authlevels']	= 'ustawienia praw';
+$LNG['ad_editor_authlevels']		= 'ustawienia praw';
 
 $LNG['ad_add_not_exist']		= 'ID nie istnieje!';
 
 //	INVESTIGACIONES - RESEARCHS - FORSCHUNGEN - BADANIA
-$LNG['ad_add_tech_success']			= 'Badania dodano z powodzeniem!';
+$LNG['ad_add_tech_success']		= 'Badania dodano z powodzeniem!';
 $LNG['ad_delete_tech_success']		= 'Badania usunięto z powodzeniem!';
 $LNG['ad_research_title']		= 'Stwórz badanie';
-$LNG['ad_research']		= 'Badania';
+$LNG['ad_research']			= 'Badania';
 
 //	OFICIALES - OFFICIERS - OFFIZIERE - OFICEROWIE
 $LNG['ad_offi_title']			= 'Stwórz oficera';
-$LNG['ad_offi']					= 'Oficerowie';
+$LNG['ad_offi']				= 'Oficerowie';
 $LNG['ad_add_offi_success']		= 'Oficer dodany!';
-$LNG['ad_delete_offi_success']	= 'Oficer usunięty!';
+$LNG['ad_delete_offi_success']		= 'Oficer usunięty!';
 
 //	RECURSOS - RESOURCES - ROHSTOFFE - ZASOBY
-$LNG['ad_add_res_sucess']		= 'Zasób dodano!';
+$LNG['ad_add_res_sucess']	= 'Zasób dodano!';
 $LNG['ad_delete_res_sucess']	= 'Zasób usunięto!';
 $LNG['ad_main_title']		= 'Zarządzanie zasobami i technologiami';
 
@@ -136,22 +136,22 @@ $LNG['ad_main_title']		= 'Zarządzanie zasobami i technologiami';
 $LNG['ad_ships_title']			= 'Stwórz statek';
 $LNG['ad_ships']			= 'Statek';
 $LNG['ad_add_ships_sucess']		= 'Dodano nowy statek!';
-$LNG['ad_delete_ships_sucess']	= 'Usunięto statek!';
+$LNG['ad_delete_ships_sucess']		= 'Usunięto statek!';
 
 //	DEFENSAS - DEFENSES - VERTEIDIGUNG - OBRONA
-$LNG['ad_defenses_title']			= 'Stwórz obronę';
+$LNG['ad_defenses_title']		= 'Stwórz obronę';
 $LNG['ad_defenses']			= 'Obrona';
 $LNG['ad_add_defenses_success']		= 'Dodano jednostkę obrony!';
 $LNG['ad_delete_defenses_success']	= 'Usunięto jednostkę obrony!';
 
 //	EDIFICIOS - BUILDINGS - GEBÄUDE - BUDYNKI
-$LNG['ad_buildings_title']	= 'Dodaj budynek';
-$LNG['ad_buildings']	= 'Budynki';
-$LNG['ad_planet_id']		= 'ID Planety lub księżyca';
+$LNG['ad_buildings_title']		= 'Dodaj budynek';
+$LNG['ad_buildings']			= 'Budynki';
+$LNG['ad_planet_id']			= 'ID Planety lub księżyca';
 $LNG['ad_levels']			= 'Ilość poziomów';
 $LNG['ad_count']			= 'Ilość';
 $LNG['ad_add_build_success']		= 'Budynek dodano!';
-$LNG['ad_delete_build_success']	= 'Budynek usunięto!';
+$LNG['ad_delete_build_success']		= 'Budynek usunięto!';
 
 // DATOS PERSONALES - PERSONAL DATA - DANE OSOBOWE
 $LNG['ad_personal_title']		= 'Dane personalne';
@@ -166,7 +166,7 @@ $LNG['ad_personal_vacat']		= 'Urlop';
 $LNG['ad_ally_title']		= 'Zarządzaj sojuszami';
 $LNG['ad_ally_change_id']	= 'Założyciel sojuszu';
 $LNG['ad_ally_name']		= 'Nazwa';
-$LNG['ad_ally_tag']			= 'Tag sojuszu';
+$LNG['ad_ally_tag']		= 'Tag sojuszu';
 $LNG['ad_ally_text1']		= 'Opis sojuszu';
 $LNG['ad_ally_text2']		= 'Tekst wewnętrzny';
 $LNG['ad_ally_text3']		= 'Przykład podania';
@@ -182,42 +182,42 @@ $LNG['ad_ally_not_exist2']	= 'Taki użytkownik nie istnieje';
 $LNG['ad_pla_title']			= 'Dodaj planetę / księżyc';
 $LNG['ad_pla_edit_name']		= 'Zmień nazwę';
 $LNG['ad_pla_change_id']		= 'Zmień właściciela (Podaj ID użytkownika)';
-$LNG['ad_pla_edit_diameter']	= 'Edycja wielkości';
+$LNG['ad_pla_edit_diameter']		= 'Edycja wielkości';
 $LNG['ad_pla_edit_fields']		= 'Edycja pól';
 $LNG['ad_pla_delete_b']			= 'Usuń wszystkie budynki';
 $LNG['ad_pla_delete_s']			= 'Uuń wszystkie statki';
 $LNG['ad_pla_delete_d']			= 'Usuń obronę';
 $LNG['ad_pla_delete_hd']		= 'Usuń statki i obronę z kolejki budowy';
 $LNG['ad_pla_delete_cb']		= 'Usuń kolejkę budowy';
-$LNG['ad_pla_delete_planet']	= 'Usuń planetę';
+$LNG['ad_pla_delete_planet']		= 'Usuń planetę';
 $LNG['ad_pla_title_a']			= 'If you have a moon also changed hands this will';  // ???
 $LNG['ad_pla_title_l']			= 'Wenn ein Mond vorhanden ist, wird seine Position auch geändert'; //??
 $LNG['ad_pla_change_p']			= 'Zmiana pozycji planety';
 $LNG['ad_pla_change_pp']		= 'accent mark to make the change of position';  // ???
 $LNG['ad_pla_succes']			= 'Zmiany przeprowadzone z powodzeniem';
-$LNG['ad_pla_error_planets']	= 'Nie można zmienić właściciela księżyca';
+$LNG['ad_pla_error_planets']		= 'Nie można zmienić właściciela księżyca';
 $LNG['ad_pla_error_user']		= 'Gracz nie istnieje!';
-$LNG['ad_pla_error_planets2']	= 'Planeta nie istnieje!';
-$LNG['ad_pla_error_planets3']	= 'Współrzędne już wprowadzono!';
-$LNG['ad_pla_error_planets4']	= 'Nie możesz dodać księżyca do planety, która już go ma!';
-$LNG['ad_pla_error_planets5']	= 'Na podanych koorynatach musi być planeta!';
-$LNG['ad_pla_delete_planet_s']	= 'Planeta usunięta';
+$LNG['ad_pla_error_planets2']		= 'Planeta nie istnieje!';
+$LNG['ad_pla_error_planets3']		= 'Współrzędne już wprowadzono!';
+$LNG['ad_pla_error_planets4']		= 'Nie możesz dodać księżyca do planety, która już go ma!';
+$LNG['ad_pla_error_planets5']		= 'Na podanych koorynatach musi być planeta!';
+$LNG['ad_pla_delete_planet_s']		= 'Planeta usunięta';
 //###########################################################//
 
 
 //---------------	PANEL DE SUSPENSIÓN - BAN PANEL - BANN PANEL - ZARZĄDZANIE BANAMI	------------------------//
 $LNG['bo_the_player']			= 'Gracz ';
 $LNG['bo_the_player2']			= 'Gracz ';
-$LNG['bo_banned']				= ' zbanowano';
-$LNG['bo_unbanned']				= ' odbanowano.';  // [Sperre aufgehoben ?]
-$LNG['bo_username']				= 'Nazwa gracza';
+$LNG['bo_banned']			= ' zbanowano';
+$LNG['bo_unbanned']			= ' odbanowano.';  // [Sperre aufgehoben ?]
+$LNG['bo_username']			= 'Nazwa gracza';
 $LNG['bo_vacaations']			= 'Urlop';
-$LNG['bo_reason']				= 'Powód bana';
-$LNG['bo_time']					= 'Długość bana';
+$LNG['bo_reason']			= 'Powód bana';
+$LNG['bo_time']				= 'Długość bana';
 $LNG['bo_vacation_mode']		= 'Urlop';
 $LNG['bo_ban_player']			= 'Banowanie zmień/usuń';
 $LNG['bo_unban_player']			= 'Lista zbanowanych';
-$LNG['bo_user_doesnt_exist']	= 'Gracz nie istnieje!';
+$LNG['bo_user_doesnt_exist']		= 'Gracz nie istnieje!';
 $LNG['bo_user_select']			= 'Wybór..';
 $LNG['bo_select_title']			= 'Wskaż literę, od której zaczyna się nazwa użytkownika';
 $LNG['bo_suspended_panel']		= 'Zarządzanie banami';
@@ -233,17 +233,17 @@ $LNG['bo_bbb_title_6']			= 'Data zmiany';
 $LNG['bo_characters_1']			= 'dostępne litery ';
 $LNG['bo_characters_suus']		= '&nbsp; (zbanowany)';
 $LNG['bo_order_username']		= '[sortuj po nazwach]';
-$LNG['bo_order_id']				= '[sortuj po ID]';
+$LNG['bo_order_id']			= '[sortuj po ID]';
 $LNG['bo_order_banned']			= '[sortuj po banach]';
 $LNG['bo_total_users']			= 'Graczy łącznie: ';
 $LNG['bo_total_banneds']		= 'zbanowanych graczy: ';
-$LNG['bo_ban']					= 'Zbanuj';
-$LNG['bo_unban']				= 'Odbanuj';
+$LNG['bo_ban']				= 'Zbanuj';
+$LNG['bo_unban']			= 'Odbanuj';
 //###########################################################//
 
 
 //---------------	ENCRIPTADOR MD5 - ENCRIPTER MD5	- SZYFRATOR MD5------------------------//
-$LNG['et_md5_encripter']	= 'MD5 Generator';
+$LNG['et_md5_encripter']		= 'MD5 Generator';
 $LNG['et_pass']				= 'Podaj';
 $LNG['et_result']			= 'Wynik';
 $LNG['et_encript']			= 'Generuj';
@@ -251,25 +251,25 @@ $LNG['et_encript']			= 'Generuj';
 
 
 //---------------	CONFIGURACIÓN DE ESTADÍSTICAS - STATS CONFIG - Stats-Config	- KONFIGURACJA STATYSTYK------------------------//
-$LNG['cs_title']						= 'Ustawienia parametrów statystyk';
-$LNG['cs_point_per_resources_used']		= '1 Punkt w statystykach to';
+$LNG['cs_title']					= 'Ustawienia parametrów statystyk';
+$LNG['cs_point_per_resources_used']			= '1 Punkt w statystykach to';
 $LNG['cs_resources']					= 'Zasoby';
 $LNG['cs_users_per_block']				= 'Użytkowników na stronie (min. 10)';
-$LNG['cs_time_between_updates']			= 'Przedział czasu między aktualizacją statystyk';
-$LNG['cs_minutes']						= 'Minuty';
+$LNG['cs_time_between_updates']				= 'Przedział czasu między aktualizacją statystyk';
+$LNG['cs_minutes']					= 'Minuty';
 $LNG['cs_points_to_zero']				= 'Administrator posiada 0 punktów...';
 $LNG['cs_access_lvl']					= '... od poziomu dostępu (Authlevel)';
 $LNG['cs_save_changes']					= 'Zapisz';
 $LNG['cs_timeact_1']					= 'Ostatnia aktualizacja o: ';
-$LNG['cs_yes']							= 'Tak';
-$LNG['cs_no']							= 'Nie';
-$LNG['cs_no_view']						= 'Ukryj adminów';
+$LNG['cs_yes']						= 'Tak';
+$LNG['cs_no']						= 'Nie';
+$LNG['cs_no_view']					= 'Ukryj adminów';
 //###########################################################//
 
 
 //---------------	LISTA DE ERRORES - ERROR LIST - FEHLERLISTE - LISTA BŁĘDÓ	------------------------//
 $LNG['er_errors']		= ' Błąd';
-$LNG['er_error_list']	= 'Lista błędów';
+$LNG['er_error_list']		= 'Lista błędów';
 $LNG['er_dlte_all']		= 'Usuń wszystkie';
 $LNG['er_type']			= 'Typ';
 $LNG['er_data']			= 'Data';
@@ -277,15 +277,15 @@ $LNG['er_data']			= 'Data';
 
 
 //---------------	LISTA DE MENSAJES - MESSAGES IST - LISTA WIADOMOŚCI	------------------------//
-$LNG['ml_message_list']			= 'Lista wiadomości';
-$LNG['ml_type_submit']			= 'Wyślij';
+$LNG['ml_message_list']				= 'Lista wiadomości';
+$LNG['ml_type_submit']				= 'Wyślij';
 $LNG['ml_id']					= '#ID';
 $LNG['ml_sender']				= 'Nadawca';
 $LNG['ml_receiver']				= 'Odbiorca';
 $LNG['ml_date']					= 'Data';
 $LNG['ml_type']					= 'Typ wiadomości';
 $LNG['ml_subject']				= 'Temat';
-$LNG['ml_date_range']			= 'Zeitraum';
+$LNG['ml_date_range']				= 'Zeitraum';
 
 
 $LNG['ml_page']					= 'Strona';
@@ -297,52 +297,52 @@ $LNG['ml_page']					= 'Strona';
 //---------------	MENSAJE GLOBAL - GLOBAL MESSAGE - Globale Nachrichten - Globalna wiadomość	------------------------//
 $LNG['ma_message_sended']		= 'Wiadomość wysłano!';
 $LNG['ma_subject_needed']		= 'Musisz podać temat!';
-$LNG['ma_send_global_message']	= 'Wyślij wiadomość do wszystkich użytkowników';
+$LNG['ma_send_global_message']		= 'Wyślij wiadomość do wszystkich użytkowników';
 $LNG['ma_subject']		        = 'Temat';
 $LNG['ma_characters']			= 'Znaków';
-$LNG['ma_none']					= 'Wiadomość ogólna';
-$LNG['ma_message']				= 'Wiadomość';
-$LNG['ma_mode']					= 'Wyślij w';
-$LNG['ma_all']					= 'Wszystko';
-$LNG['ma_modes']				= array('Wiadomość w grze', 'Wiadomość na e-mail', 'W grze &amp; emailt');
+$LNG['ma_none']				= 'Wiadomość ogólna';
+$LNG['ma_message']			= 'Wiadomość';
+$LNG['ma_mode']				= 'Wyślij w';
+$LNG['ma_all']				= 'Wszystko';
+$LNG['ma_modes']			= array('Wiadomość w grze', 'Wiadomość na e-mail', 'W grze &amp; emailt');
 //###########################################################//
 
 //---------------	PÁGINA DE INICIO - OVERVIEW	 - PODGLĄD------------------------//
 $LNG['ow_title']					= 'Witam w 2Moons';
 $LNG['ow_donate']					= 'Dotacja';
-$LNG['ow_welcome_text']				= 'Witamy w niezwykle popularnym 2Moons. (:';
+$LNG['ow_welcome_text']					= 'Witamy w niezwykle popularnym 2Moons. (:';
 $LNG['ow_overview']					= 'Centrum kontroli';
 $LNG['ow_support']					= 'Wsparcie';
 $LNG['ow_credits']					= 'Credits';
 $LNG['ow_forum']					= 'Forum';
-$LNG['ow_proyect_leader']			= 'Zarządzanie projektem';
-$LNG['ow_translator']				= 'Tłumacze';
-$LNG['ow_special_thanks']			= 'Specjalne podziękowania dla';
-$LNG['ow_file_detected']			= 'Znaleziono %s . By gra była aktywna, musisz plik usunąć lub zmienić jego nazwę';
-$LNG['ow_config_file_writable']		= 'Plik config.php jest zapisywalny.';
-$LNG['ow_database_errors']			= 'Wystąpił błąd!';
-$LNG['ow_smtp_errors']				= 'Ustawienia wysyłania poczty! - chwilowo maile nie są wysyłane!';
-$LNG['ow_dir_not_writable']			= './%s jest nie zapisywalny!';
+$LNG['ow_proyect_leader']				= 'Zarządzanie projektem';
+$LNG['ow_translator']					= 'Tłumacze';
+$LNG['ow_special_thanks']				= 'Specjalne podziękowania dla';
+$LNG['ow_file_detected']				= 'Znaleziono %s . By gra była aktywna, musisz plik usunąć lub zmienić jego nazwę';
+$LNG['ow_config_file_writable']				= 'Plik config.php jest zapisywalny.';
+$LNG['ow_database_errors']				= 'Wystąpił błąd!';
+$LNG['ow_smtp_errors']					= 'Ustawienia wysyłania poczty! - chwilowo maile nie są wysyłane!';
+$LNG['ow_dir_not_writable']				= './%s jest nie zapisywalny!';
 $LNG['ow_none']						= 'Brak ostrzeżeń';
 $LNG['ow_news']						= 'Nowości';
 $LNG['ow_updates']					= 'Ostatnie Update';
-$LNG['ow_developers']				= 'Entwickler';
+$LNG['ow_developers']					= 'Entwickler';
 
 //###########################################################//
 
 
 //---------------	CONFIGURACIÓN DEL JUEGO - GAME CONFIG - KONFIGURACJA GRY	------------------------//
-$LNG['se_server_parameters']			= 'Ustawienia serwera';
-$LNG['se_game_name']					= 'Nazwa (Gry)';
+$LNG['se_server_parameters']					= 'Ustawienia serwera';
+$LNG['se_game_name']						= 'Nazwa (Gry)';
 $LNG['se_uni_name']						= 'Nazwa (Universum)';
 $LNG['se_lang']							= 'Język';
-$LNG['se_general_speed']				= 'Szybkość gry';
-$LNG['se_normal_speed']					= 'Normalna szybkość: 1 <br> Zalecana maksymalna szybkość: 20';
-$LNG['se_normal_speed_resoruces']		= 'Normalna szybkość wydobycia zasobów: 1 <br> Zalecana maksymalna szybkość: 20';
-$LNG['se_normal_speed_fleet']			= 'Normalna szybkość flot: 1 <br> Zalecana maksymalna szybkość: 20';
-$LNG['se_normal_speed_halt']			= 'Normalna szybkość Expo: 1 <br> Zalecana maksymalna szybkość: 20';
-$LNG['se_fleet_speed']					= 'Szybkość floty';
-$LNG['se_resources_producion_speed']	= 'Szybkość wydobywania zasobów';
+$LNG['se_general_speed']					= 'Szybkość gry';
+$LNG['se_normal_speed']						= 'Normalna szybkość: 1 <br> Zalecana maksymalna szybkość: 20';
+$LNG['se_normal_speed_resoruces']				= 'Normalna szybkość wydobycia zasobów: 1 <br> Zalecana maksymalna szybkość: 20';
+$LNG['se_normal_speed_fleet']					= 'Normalna szybkość flot: 1 <br> Zalecana maksymalna szybkość: 20';
+$LNG['se_normal_speed_halt']					= 'Normalna szybkość Expo: 1 <br> Zalecana maksymalna szybkość: 20';
+$LNG['se_fleet_speed']						= 'Szybkość floty';
+$LNG['se_resources_producion_speed']		= 'Szybkość wydobywania zasobów';
 $LNG['se_halt_speed']					= 'Expospeed';
 $LNG['se_energy_speed']					= 'Mnożnik energii';
 $LNG['se_forum_link']					= 'Forum link';
@@ -1152,12 +1152,12 @@ $LNG['ch_socket_chatid']				= 'Socket ChatID';
 $LNG['ch_socket_port']					= 'Socket Port';
 $LNG['ch_socket_ip']					= 'Socket IP';
 $LNG['ch_socket_host']					= 'Socket Hostname';
-$LNG['ch_socket_active']				= 'Socket aktiv?';
-$LNG['ch_socket']						= 'Einstellungen Socket Server';
-$LNG['ch_closed']						= 'Chat geschlossen?';
+$LNG['ch_socket_active']				= 'Socket dziala?';
+$LNG['ch_socket']						= 'Ustawienia Socket Servera';
+$LNG['ch_closed']						= 'Chat zamkniety?';
 $LNG['ch_allowchan']					= 'Możliwe tworzenie prywatnych kanałów';
-$LNG['ch_allowmes']						= 'Możliwe wysyłanie prawytanych wiadomości';
-$LNG['ch_allowcelmes']					= 'Eigende Nachrichten löschen';
+$LNG['ch_allowmes']						= 'Możliwe wysyłanie prywatanych wiadomości';
+$LNG['ch_allowcelmes']					= 'Usun wlasne wiadomosci';
 $LNG['ch_logmessage']					= 'Aktywacja logowania wiadomości';
 $LNG['ch_nickchange']					= 'Możliwość zmiany nicka';
 $LNG['ch_botname']						= 'Nazwa bota';
@@ -1198,11 +1198,11 @@ $LNG['log_view']                        = 'Zobacz';
 $LNG['log_info']                        = 'Informacje';
 $LNG['log_element']                     = 'Element';
 $LNG['log_old']                         = 'Wcześniej';
-$LNG['log_new']                         = 'Puźniej';
+$LNG['log_new']                         = 'Później';
 $LNG['log_player']                      = 'Edytowani gracze';
 $LNG['log_planet']                      = 'Edytowane planety';
 $LNG['log_settings']                    = 'Edytowane ustawienia';
-$LNG['log_present']      	            = 'Rozdane upominki';
+$LNG['log_present']      	        = 'Rozdane upominki';
 $LNG['log_cat']                         = 'Wybierz kategorię logów:';
 $LNG['log_no_data']                     = 'Brak danych!';
 $LNG['log_ssettings']					= 'Ustawienia serwera';
@@ -1242,7 +1242,7 @@ $LNG['cronjob_new']					= 'Ustaw nowe zadanie';
 
 $LNG['cronjob_desc']				= 'Tutaj możesz podejrzeć zadanie wykonywane przez Crona, jak również je ustawiać i modyfikować. Uwaga! Możesz tu zmienić wszystko - Ostrożnie!';
 $LNG['cronjob_desc_name']			= 'Nazwa dla zadania.';
-$LNG['cronjob_desc_class']			= 'Eingabe der aufzurufenden Klasse. Soll includes/classes/cronjobs/foo.class.php aufgerufen werden, muss \'foo\' eingetragen werden.';
+$LNG['cronjob_desc_class']			= 'Eingabe der aufzurufenden Klasse. Soll includes/classes/cronjobs/foo.class.php aufgerufen werden, muss \'foo\' eingetragen werden.';  // TODO
 
 $LNG['cronjob_error_name']			= 'Nie podałeś nazwy!';
 $LNG['cronjob_error_min']			= 'Nie zdefiniowałeś minut!';
@@ -1318,3 +1318,4 @@ $LNG['du_choose_tables']			= 'Wybierz tabele';
 $LNG['du_success']					= 'Utworzono kopię pomyślnie! Dane: %s';
 $LNG['du_not_tables_selected']		= 'Nie wybrałeś tabel!';
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012
+// Edited by TheRavikin. All rights resteemed (C) 2018
