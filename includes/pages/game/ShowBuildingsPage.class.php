@@ -93,7 +93,7 @@ class ShowBuildingsPage extends AbstractGamePage
             return;
         }
 
-		$Element		= $CurrentQueue[$QueueID - 2][0];
+		$Element		= $CurrentQueue[$QueueID - 1][0];
 		$BuildEndTime	= $CurrentQueue[$QueueID - 2][3];
 		unset($CurrentQueue[$QueueID - 1]);
 		$NewQueueArray	= array();
@@ -105,7 +105,7 @@ class ShowBuildingsPage extends AbstractGamePage
 				if($Element == $ListIDArray[0] || empty($ListIDArray[0]))
 					continue;
 
-				$BuildEndTime       += BuildFunctions::getBuildingTime($USER, $PLANET, $ListIDArray[0], NULL, $ListIDArray[4] == 'destroy', $ListIDArray[2]);
+				$BuildEndTime       += BuildFunctions::getBuildingTime($USER, $PLANET, $ListIDArray[0], NULL, $ListIDArray[4] == 'destroy', $ListIDArray[1]);
 				$ListIDArray[3]		= $BuildEndTime;
 				$NewQueueArray[]	= $ListIDArray;				
 			}

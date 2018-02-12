@@ -163,26 +163,27 @@ class ShowInformationPage extends AbstractGamePage
 
 		$db = Database::get();
 
-		$Order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
-		$Sort  = $USER['planet_sort'];
+		$order = $USER['planet_sort_order'] == 1 ? "DESC" : "ASC" ;
+		$sort  = $USER['planet_sort'];
+		
+		$sql = "SELECT id, name, galaxy, system, planet, last_jump_time, ".$resource[43]." FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND planet_type = '3' AND ".$resource[43]." > 0 ORDER BY ";
 
-		switch($Sort) {
+		switch($sort) {
 			case 1:
-				$OrderBy	= "galaxy, system, planet, planet_type ". $Order;
+				$sql .= 'galaxy '.$order.', system '.$order.', planet '.$order.', planet_type '.$order;
 				break;
 			case 2:
-				$OrderBy	= "name ". $Order;
+				$sql .= 'name '.$order;
 				break;
 			default:
-				$OrderBy	= "id ". $Order;
+				$sql .= 'id '.$order;
 				break;
 		}
 
-		$sql = "SELECT id, name, galaxy, system, planet, last_jump_time, ".$resource[43]." FROM %%PLANETS%% WHERE id != :planetID AND id_owner = :userID AND planet_type = '3' AND ".$resource[43]." > 0 ORDER BY :order;";
+		
 		$moonResult = $db->select($sql, array(
 			':planetID'         => $PLANET['id'],
-			':userID'           => $USER['id'],
-			':order'            => $OrderBy
+			':userID'           => $USER['id']
 		));
 
 		$moonList	= array();

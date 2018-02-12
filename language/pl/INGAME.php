@@ -113,7 +113,7 @@ $LNG['ov_wrong_pass']						= 'Błędne hasło, spróbuj ponownie';
 $LNG['ov_have_new_message']					= 'Masz wiadomość';
 $LNG['ov_have_new_messages']				= 'Masz %d nowych wiadomości';
 $LNG['ov_planetmenu']						= 'Zmień nazwę / Porzuć planetę';
-$LNG['ov_free']								= 'Frei';
+$LNG['ov_free']								= 'Bezczynna';
 $LNG['ov_news']								= 'Nowości';
 $LNG['ov_place']							= 'Miejsce';
 $LNG['ov_of']								= 'z';
@@ -390,10 +390,10 @@ $LNG['bd_tech_next_level']                  = 'Zbadaj na poziom ';
 $LNG['bd_add_to_list']						= 'Dodaj do kolejki';
 $LNG['bd_no_more_fields']					= 'Brak miejsca na planecie!';
 $LNG['bd_remaining']						= 'Pozostało:';
-$LNG['bd_lab_required']						= 'Musisz zbudować najpierw laboratorium badawcze!';
-$LNG['bd_building_lab']						= 'Trwa rozbudowa laboratorium!';
 $LNG['bd_max_lvl']							= '(Maks. poziom: %s)';
 $LNG['bd_lvl']								= 'Poziom';
+$LNG['bd_lab_required']						= 'Musisz najpierw zbudować laboratorium badawcze!';
+$LNG['bd_building_lab']						= 'Nie możesz rozwijać badań, gdy laboratorium jest w rozbudowie';
 $LNG['bd_research']							= 'Badania';
 $LNG['bd_shipyard_required']				= 'Musisz najpierw zbudować stocznię!';
 $LNG['bd_building_shipyard']				= 'Fabryka nanitów lub stocznia jest rozbudowywana!';
@@ -410,12 +410,12 @@ $LNG['bd_ready']							= 'Gotowe';
 $LNG['bd_finished']							= 'Skończone';
 $LNG['bd_maxlevel']							= 'Maksymalny poziom';
 $LNG['bd_on']								= 'na';
-$LNG['bd_max_builds']						= 'Max Build Orders [%d]';
+$LNG['bd_max_builds']						= 'Długość kolejki budowy [%d]';
 $LNG['bd_next_level']						= 'Następny poziom:';
 $LNG['bd_need_engine']						= 'Wymaga  <font color="#FF0000">%s</font> %s więcej';
 $LNG['bd_more_engine']						= 'Produkuje <font color="#00FF00">%s</font> %s więcej';
 $LNG['bd_jump_gate_action']					= 'Skocz do';
-$LNG['bd_cancel_warning']					= 'Zdemontowanie da ci 60% kosztów budowy!';
+$LNG['bd_cancel_warning']					= 'Zdemontowanie zwróci ci 60% kosztów budowy!';
 $LNG['bd_cancel_send']						= 'Usuń zaznaczone';
 $LNG['bd_destroy_time'] 					= 'Czas';
 $LNG['bd_max_ships']                        = 'Max';
@@ -573,7 +573,7 @@ $LNG['al_tag_required'] 					= 'Brak tagu sojuszu.';
 $LNG['al_name_required'] 					= 'Brak nazwy sojuszu.';
 $LNG['al_already_exists'] 					= 'Taki sojusz %s już istnieje.';
 $LNG['al_created'] 							= 'Sojusz %s został stworzony!';
-$LNG['al_continue'] 						= 'dalej';
+$LNG['al_continue'] 						= 'kontynuuj';
 $LNG['al_alliance_closed'] 					= 'Sojusz nie przyjmuje nowych członków.';
 $LNG['al_request_confirmation_message']		= 'Podanie zostało wysłane <br><a href="?page=alliance">wróć</a>';
 $LNG['al_default_request_text']				= 'Lider sojuszu nie ustawił przykładowego podania.';
@@ -705,7 +705,7 @@ $LNG['al_legend_create_circular']			= 'Napisz ogólną wiadomość';
 $LNG['al_legend_right_hand']				= 'Prawa ręka (konieczne, by przenieść rangę założyciela)';
 $LNG['al_requests']							= 'Podania';
 $LNG['al_requests_min_points']              = 'od %s Punktów';
-$LNG['al_circular_message']					= 'Rundmail';
+$LNG['al_circular_message']					= 'Rundmail'; // TODO
 $LNG['al_leave_alliance']					= 'Opuść sojusz';
 $LNG['al_unitsshut']    					= 'Zniszczone jednostki';
 $LNG['al_unitsloos']    					= 'Stracone jednostki';
@@ -727,7 +727,7 @@ $LNG['al_memberlist_off']					= 'Offline';
 $LNG['al_diplo']                            = 'Dyplomacja';
 $LNG['al_no_diplo']							= '-';
 $LNG['al_events']							= 'Wydarzenia';
-$LNG['al_no_events']						= 'Obecnie brak zdarzeń';
+$LNG['al_no_events']						= 'Obecnie brak wydarzeń';
 $LNG['al_diplo_level'][1]                   = 'Skrzydło';
 $LNG['al_diplo_level'][2]                   = 'Sojusz ';
 $LNG['al_diplo_level'][3]                   = 'Handel z sojuszem';
@@ -776,7 +776,7 @@ $LNG['al_rank_desc']['KICK']				= 'Może wyrzucić sojusznika z sojuszu';
 $LNG['al_rank_desc']['DIPLOMATIC']			= 'Może zmieniać dyplomację sojuszu';
 $LNG['al_rank_desc']['RANKS']				= 'Rangi';
 $LNG['al_rank_desc']['MANAGEUSERS']			= 'Może zarządzać członkami';
-$LNG['al_rank_desc']['EVENTS']				= 'Kann Ereignisse im internen Bereich sehen';
+$LNG['al_rank_desc']['EVENTS']				= 'Może widzieć zdarzenia wewnętrzne';
 
 //----------------------------------------------------------------------------//
 //BUDDY
@@ -1185,3 +1185,4 @@ $LNG['lo_continue']						= 'Kliknij tutaj, jeśli nie chcesz zostać przeniesion
 
 
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012
+// Edited by TheRavikin. All rights resteemed (C) 2018

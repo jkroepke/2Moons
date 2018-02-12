@@ -58,7 +58,7 @@ class ShowResearchPage extends AbstractGamePage
 		$db = Database::get();
 
 		$elementId		= $USER['b_tech_id'];
-		$costResources	= BuildFunctions::getElementPrice($USER, $PLANET, $elementId, false, $PLANET[$elementId] + 1);
+		$costResources	= BuildFunctions::getElementPrice($USER, $PLANET, $elementId, false, $USER[$resource[$elementId]] + 1);
 		
 		if($PLANET['id'] == $USER['b_tech_planet'])
 		{

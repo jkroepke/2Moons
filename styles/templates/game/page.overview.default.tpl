@@ -2,6 +2,23 @@
 {block name="script" append}{/block}
 {block name="content"}
 <table class="table519">
+	<tr id="feed" style="display:none">
+		<th colspan="3">Steem #steemnova feed</th>
+	</tr>
+	<tr id="feed_0" style="display:none">
+		<td style="white-space: nowrap;"><span id="created_0"></span></td>
+		<td colspan="2"><img src="./styles/resource/images/steem.png" width="16" height="16"/>&nbsp;<a id="url_0" target="_blank"><span id="title_0"></span><span id="author_0"></span></a></td>
+	</tr>
+	<tr id="feed_1" style="display:none">
+		<td style="white-space: nowrap;"><span id="created_1"></span></td>
+		<td colspan="2"><img src="./styles/resource/images/steem.png" width="16" height="16"/>&nbsp;<a id="url_1" target="_blank"><span id="title_1"></span><span id="author_1"></span></a></td>
+	</tr>
+	<tr id="feed_2" style="display:none">
+		<td style="white-space: nowrap;"><span id="created_2"></span></td>
+		<td colspan="2"><img src="./styles/resource/images/steem.png" width="16" height="16"/>&nbsp;<a id="url_2" target="_blank"><span id="title_2"></span><span id="author_2"></span></a></td>
+	</tr>
+	<tr id="feed_margin" style="display:none; height: 4px;">
+	</tr>
 	<tr>
 		<th colspan="3"><a href="#" onclick="return Dialog.PlanetAction();" title="{$LNG.ov_planetmenu}">{$LNG["type_planet_{$planet_type}"]} "<span class="planetname">{$planetname}</span>"</a> ({$username})</th>
 	</tr>
@@ -107,5 +124,6 @@
 </table>
 {/block}
 {block name="script" append}
+	<script src="scripts/base/steem.min.js"></script>
     <script src="scripts/game/overview.js"></script>
 {/block}
