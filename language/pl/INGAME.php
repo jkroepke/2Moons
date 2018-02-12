@@ -390,12 +390,12 @@ $LNG['bd_tech_next_level']                  = 'Zbadaj na poziom ';
 $LNG['bd_add_to_list']						= 'Dodaj do kolejki';
 $LNG['bd_no_more_fields']					= 'Brak miejsca na planecie!';
 $LNG['bd_remaining']						= 'Pozostało:';
+$LNG['bd_max_lvl']							= '(Maks. poziom: %s)';
+$LNG['bd_lvl']								= 'Poziom';
 $LNG['bd_lab_required']						= 'Musisz najpierw zbudować laboratorium badawcze!';
-$LNG['bd_building_lab']						= 'Rozbuduj laboratorium!';
-$LNG['bd_max_lvl']							= '(Max. Level: %s)';
-$LNG['bd_lvl']								= 'Level';
+$LNG['bd_building_lab']						= 'Nie możesz rozwijać badań, gdy laboratorium jest w rozbudowie';
 $LNG['bd_research']							= 'Badania';
-$LNG['bd_shipyard_required']				= 'Musisz najpierw zbudować stocznie!';
+$LNG['bd_shipyard_required']				= 'Musisz najpierw zbudować stocznię!';
 $LNG['bd_building_shipyard']				= 'Fabryka nanitów lub stocznia jest rozbudowywana!';
 $LNG['bd_available']						= 'Dostępne: ';
 $LNG['bd_build_ships']						= 'Buduj';
@@ -409,19 +409,19 @@ $LNG['bd_price_for_destroy']				= 'Koszt zniszczenia:';
 $LNG['bd_ready']							= 'Gotowe';
 $LNG['bd_finished']							= 'Skończone';
 $LNG['bd_maxlevel']							= 'Maksymalny poziom';
-$LNG['bd_on']								= 'on';
+$LNG['bd_on']								= 'na';
 $LNG['bd_max_builds']						= 'Długość kolejki budowy [%d]';
 $LNG['bd_next_level']						= 'Następny poziom:';
 $LNG['bd_need_engine']						= 'Wymaga  <font color="#FF0000">%s</font> %s więcej';
 $LNG['bd_more_engine']						= 'Produkuje <font color="#00FF00">%s</font> %s więcej';
 $LNG['bd_jump_gate_action']					= 'Skocz do';
-$LNG['bd_cancel_warning']					= 'Zdemontowanie zwróci Ci 60% kosztu budowy!';
+$LNG['bd_cancel_warning']					= 'Zdemontowanie zwróci ci 60% kosztów budowy!';
 $LNG['bd_cancel_send']						= 'Usuń zaznaczone';
 $LNG['bd_destroy_time'] 					= 'Czas';
 $LNG['bd_max_ships']                        = 'Max';
 $LNG['bd_max_ships_long']                   = 'Maksimum jednostek do zbudowania';
-$LNG['sys_notenough_money'] 				= 'Na %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> zabrakło środków do budowy %s. <br> Miałeś, %s %s , %s %s i %s %s. <br> a potrzebowałeś %s %s , %s %s i %s %s.';
-$LNG['sys_nomore_level'] 					= 'Próbujesz zniszczyć budynek  ( %s ).';
+$LNG['sys_notenough_money'] 				= 'Na %s <a href="?page=buildings&amp;cp=%d&amp;re=0">[%d:%d:%d]</a> brakło środków do budowy %s. <br> Miałeś, %s %s , %s %s i %s %s. <br> a potrzebowałeś %s %s , %s %s i %s %s.';
+$LNG['sys_nomore_level'] 					= 'Próbujesz zniszczyć budynek, którego nie posiadasz( %s ).';
 $LNG['sys_buildlist'] 						= 'Lista budowy';
 $LNG['sys_techlist'] 						= 'Lista badań';
 $LNG['sys_buildlist_fail'] 					= 'Nie udało się wykonać zadań z listy budowy';
@@ -443,9 +443,9 @@ $LNG['rs_ress_bonus']						= 'Bonus(Officer/DM-Bonus):';
 //----------------------------------------------------------------------------//
 //OFFICIERS
 $LNG['of_recruit']							= 'Zatrudnij';
-$LNG['of_max_lvl']							= 'Max. Level';
+$LNG['of_max_lvl']							= 'Maks. poziom';
 $LNG['of_offi']								= 'Oficerowie';
-$LNG['of_lvl']								= 'Level';
+$LNG['of_lvl']								= 'Poziom';
 $LNG['of_dm_trade']							= '%s - Sklep';
 $LNG['of_still']							= 'still';
 $LNG['of_active']							= 'aktywny';
@@ -486,7 +486,7 @@ $LNG['in_rf_again']    						= 'Szybki ogień przeciwko';
 $LNG['in_rf_from']     						= 'Szybki ogień od';
 $LNG['in_level']       						= 'Poziom';
 $LNG['in_storage'] 							= 'Miejsce w magazynach';
-$LNG['in_prod_p_hour'] 						= 'Produkacja/godzine';
+$LNG['in_prod_p_hour'] 						= 'Produkacja na godzinę';
 $LNG['in_difference']  						= 'Różnica';
 $LNG['in_range']       						= 'Zasięg ';
 $LNG['in_title_head']  						= 'Informacje z';
@@ -621,7 +621,7 @@ $LNG['al_new_requests']						= '%d nowe podanie';
 $LNG['al_goto_chat']						= 'Czat sojuszu';
 $LNG['al_save']								= 'Zapisz';
 $LNG['al_dlte']								= 'Usuń';
-$LNG['al_rank_name']						= 'Rank nazwa';
+$LNG['al_rank_name']						= 'Nazwa rangi';
 $LNG['al_ok']								= 'OK';
 $LNG['al_num']								= 'ID';
 $LNG['al_member']							= 'Nazwa';
@@ -733,7 +733,7 @@ $LNG['al_diplo_level'][2]                   = 'Sojusz ';
 $LNG['al_diplo_level'][3]                   = 'Handel z sojuszem';
 $LNG['al_diplo_level'][4]                   = 'Pakt o braku agresji';
 $LNG['al_diplo_level'][5]                   = 'Wojna';
-$LNG['al_diplo_level'][6]                   = 'Cichy sojusz'; // Geheimbündnis
+$LNG['al_diplo_level'][6]                   = 'Potajemny sojusz';
 $LNG['al_diplo_no_entry']                   = '- Brak paktów -';
 $LNG['al_diplo_no_accept']                  = '- Brak zapytań -';
 $LNG['al_diplo_accept']                    	= 'Przychodzące pakty';
@@ -751,7 +751,7 @@ $LNG['al_diplo_accept_no_mes']              = 'Pakt %s Między sojuszami %s i %s
 $LNG['al_diplo_accept_no_confirm']			= 'Chcesz odrzucić pakt? ';
 $LNG['al_diplo_delete']                    	= 'Rozwiąż pakt.';
 $LNG['al_diplo_delete_mes']                	= 'Pakt %s między sojuszami %s i %s  został rozwiązany!';
-$LNG['al_diplo_confirm_delete']           	= 'Chcesz rozwiązać pakt ?';
+$LNG['al_diplo_confirm_delete']           	= 'Chcesz rozwiązać pakt?';
 $LNG['al_diplo_ground']                    	= 'Odpowiedź:';
 $LNG['al_diplo_ask']                        = 'Przymierze';
 $LNG['al_diplo_ask_mes']                    = 'Pakt przymierza (%s) między sojuszami %s i %s.<br>sojusz: %s';
@@ -996,7 +996,7 @@ $LNG['fcm_moon']							= 'Księżyc';
 $LNG['fcm_info']							= 'Informacje';
 $LNG['fcp_colony']							= 'Kolonia';
 $LNG['fgp_require']							= 'Potrzebujesz: ';
-$LNG['fgf_time']							= 'Czas budowy ';
+$LNG['fgf_time']							= 'Czas budowy: ';
 $LNG['sys_module_inactive']        	 		= 'Moduł nieaktywny';
 $LNG['sys_refferal_from']        	 		= 'System';
 $LNG['sys_refferal_title']        	 		= 'Bonus dla gracza %s';
@@ -1039,7 +1039,7 @@ $LNG['fa_sending']							= 'Wysłano';
 
 //----------------------------------------------------------------------------//
 // MissilesAjax.php
-$LNG['ma_silo_level']						= 'Silos Level 4 Wymagany! ';
+$LNG['ma_silo_level']						= 'Wymagany Silos na poziomie 4! ';
 $LNG['ma_impulse_drive_required']			= 'Napęd impulsowy wymagany';
 $LNG['ma_not_send_other_galaxy']			= 'Nie możesz wysłać rakiet do innej galaktyki.';
 $LNG['ma_planet_doesnt_exists']				= 'Planeta nie istnieje.';
@@ -1060,7 +1060,7 @@ $LNG['ma_missiles_sended']					= ' Rakiety wybrane. Cel: ';
 //----------------------------------------------------------------------------//
 // topkb.php
 $LNG['tkb_top']                  			= 'Hala sław';
-$LNG['tkb_gratz']                  			= 'Gratulacje! Osiągnąeś top 100 ';
+$LNG['tkb_gratz']                  			= 'Gratulacje! Osiągnąłeś top 100 ';
 $LNG['tkb_platz']                  			= 'Miejsce';
 $LNG['tkb_owners']             				= 'Przeciwnicy';
 $LNG['tkb_datum']                  			= 'Data';
@@ -1143,7 +1143,7 @@ $LNG['ti_msgtime']							= 'Wiadomość napisana';
 // Rekorde 
 
 $LNG['rec_players']  						= 'Gracz';
-$LNG['rec_level']  							= 'Level';
+$LNG['rec_level']  							= 'Poziom';
 $LNG['rec_count']   						= 'Ilość';
 $LNG['rec_last_update_on']		   			= 'Ostatnia aktualizacja o';
 
@@ -1177,10 +1177,10 @@ $LNG['ft_empty']							= 'Nie masz czym handlować!';
 //----------------------------------------------------------------------------//
 // Logout
 $LNG['lo_title']						= 'Wylogowano, do zobaczenia wkrótce';
-$LNG['lo_logout']						= 'Koniec Sesji';
+$LNG['lo_logout']						= 'Koniec sesji';
 $LNG['lo_redirect']						= 'Przekierowuje';
 $LNG['lo_notify']						= 'Zostaniesz przeniesiony za <span id="seconds"> 5 </span> s';
-$LNG['lo_continue']						= 'Kliknij tutaj, jeśli nie chcesz zostać przniesiony';
+$LNG['lo_continue']						= 'Kliknij tutaj, jeśli nie chcesz zostać przeniesiony';
 //----------------------------------------------------------------------------//
 
 
