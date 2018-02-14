@@ -108,7 +108,23 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 				':universe'	=> $this->_fleet['fleet_universe']
 			), 'total');
 
-			if($topPoints > 5000000)
+			if($topPoints > 100000000)
+			{
+				$maxFactor		= 25000;
+			}
+			elseif($topPoints > 75000000)
+			{
+				$maxFactor		= 21000;
+			}
+			elseif($topPoints > 50000000)
+			{
+				$maxFactor		= 18000;
+			}
+			elseif($topPoints > 25000000)
+			{
+				$maxFactor		= 15000;
+			}
+			elseif($topPoints > 5000000)
 			{
 				$maxFactor		= 12000;
 			}
@@ -125,7 +141,8 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 				$maxFactor		= 2400;
 			}
 
-			$founded		= round(min($fleetCapacity,min($maxFactor, max(200, $factor)) * $fleetPoints));
+			//$founded		= round(min($fleetCapacity,min($maxFactor, max(200, $factor)) * $fleetPoints));
+			$founded		= min($factor * max(min($fleetPoints, $maxFactor), 200), $fleetCapacity);
 
 			$fleetColName	= 'fleet_resource_'.$resource[$resourceId];
 			$this->UpdateFleet($fleetColName, $this->_fleet[$fleetColName] + $founded);
@@ -187,7 +204,39 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 				':universe'	=> $this->_fleet['fleet_universe']
 			), 'total');
 
-			$MaxPoints 		= ($topPoints < 5000000) ? 4500 : 6000;
+			//$MaxPoints 		= ($topPoints < 5000000) ? 4500 : 6000;
+			if($topPoints > 100000000)
+			{
+				$MaxPoints		= 12500;
+			}
+			elseif($topPoints > 75000000)
+			{
+				$MaxPoints		= 10500;
+			}
+			elseif($topPoints > 50000000)
+			{
+				$MaxPoints		= 9000;
+			}
+			elseif($topPoints > 25000000)
+			{
+				$MaxPoints		= 7500;
+			}
+			elseif($topPoints > 5000000)
+			{
+				$MaxPoints		= 6000;
+			}
+			elseif($topPoints > 1000000)
+			{
+				$MaxPoints		= 4500;
+			}
+			elseif($topPoints > 100000)
+			{
+				$MaxPoints		= 3000;
+			}
+			else
+			{
+				$MaxPoints		= 1250;
+			}
 
 			$FoundShips		= max(round($Size * min($fleetPoints, $MaxPoints)), 10000);
 			
@@ -197,7 +246,93 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 			$Found			= array();
 			foreach($reslist['fleet'] as $ID) 
 			{
-				if(!isset($fleetArray[$ID]) || $ID == 208 || $ID == 209 || $ID == 214)
+				// not a colony ship/recycler/death star
+				if($ID == 208 || $ID == 209 || $ID == 214)
+					continue;
+					
+				$Findable = False;
+				foreach($fleetArray as $fleetID => $Count)
+				{
+					if ($fleetID == 210) # spy probe in a fleet
+					{
+						if ($ID == 210 || $ID == 202) # <- foundable
+						{
+							$Findable = True;
+							break;
+						}
+					}
+					elseif ($fleetID == 202) # light cargo
+					{
+						if ($ID == 210 || $ID == 202 || $ID == 204)
+						{
+							$Findable = True;
+							break;
+						}
+					}
+					elseif ($fleetID == 204) # light fighter
+					{
+						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203)
+						{
+							$Findable = True;
+							break;
+						}
+					}
+					elseif ($fleetID == 203) # heavy cargo
+					{
+						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203 || $ID == 205)
+						{
+							$Findable = True;
+							break;
+						}
+					}
+					elseif ($fleetID == 205) # heavy fighter
+					{
+						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203 || $ID == 205 || $ID == 206)
+						{
+							$Findable = True;
+							break;
+						}
+					}
+					elseif ($fleetID == 206) # cruiser
+					{
+						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203 || $ID == 205 || $ID == 206 || $ID == 207)
+						{
+							$Findable = True;
+							break;
+						}
+					}
+					elseif ($fleetID == 207) # battleship
+					{
+						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203 || $ID == 205 || $ID == 206 || $ID == 207 || $ID == 215)
+						{
+							$Findable = True;
+							break;
+						}
+					}
+					elseif ($fleetID == 215) # battle cruiser
+					{
+						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203 || $ID == 205 || $ID == 206 || $ID == 207 || $ID == 215 || $ID == 211)
+						{
+							$Findable = True;
+							break;
+						}
+					}
+					elseif ($fleetID == 211) # planet bomber
+					{
+						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203 || $ID == 205 || $ID == 206 || $ID == 207 || $ID == 215 || $ID == 211 || $ID == 213)
+						{
+							$Findable = True;
+							break;
+						}
+					}
+					elseif ($fleetID == 213) # destroyer
+					{
+						$Findable = True;
+						break;
+					}
+				}
+				
+				if (!$Findable)
 					continue;
 				
 				$MaxFound			= floor($FoundShips / ($pricelist[$ID]['cost'][901] + $pricelist[$ID]['cost'][902]));
@@ -219,15 +354,23 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 				$FoundShipMess .= '<br><br>'.$LNG['sys_expe_found_ships_nothing'];
 			}
 
-			foreach($fleetArray as $ID => $Count)
+			foreach($reslist['fleet'] as $ID)
 			{
+				$Count = 0;
 				if(!empty($Found[$ID]))
 				{
-					$Count	+= $Found[$ID];
+					$Count += $Found[$ID];
+				}
+				if(!empty($fleetArray[$ID]))
+				{
+					$Count += $fleetArray[$ID];
 				}
 				
-				$NewFleetArray  	.= $ID.",".floatToString($Count).';';
-			}	
+				if ($Count > 0)
+				{
+					$NewFleetArray .= $ID.",".floatToString($Count).';';
+				}
+			}
 			
 			$Message	.= $FoundShipMess;
 						
