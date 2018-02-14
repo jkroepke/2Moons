@@ -119,7 +119,7 @@ class ShowBuddyListPage extends AbstractGamePage
 		$Friend_LNG = $LNG;
 		
 		if($USER['lang'] != $row['lang']){
-			$Friend_LNG = new Language($language);
+			$Friend_LNG = new Language($row['lang']);
 			$Friend_LNG->includeData(array('INGAME'));
 		}
 		
@@ -159,7 +159,7 @@ class ShowBuddyListPage extends AbstractGamePage
 				$Enemy_LNG = $LNG;
 				
 				if($USER['lang'] != $requestData['lang']){
-					$Enemy_LNG = new Language($language);
+					$Enemy_LNG = new Language($requestData['lang']);
 					$Enemy_LNG->includeData(array('INGAME'));
 				}
 
@@ -194,7 +194,7 @@ class ShowBuddyListPage extends AbstractGamePage
 		$Friend_LNG = $LNG;
 		
 		if($USER['lang'] != $sender['lang']){
-			$Friend_LNG = new Language($language);
+			$Friend_LNG = new Language($sender['lang']);
 			$Friend_LNG->includeData(array('INGAME'));
 		}
 
