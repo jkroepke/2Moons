@@ -52,6 +52,13 @@ class FleetFunctions
 		if($Player['hyperspace_motor_tech'] >= 8 && $Ship == 211) {
 			$base_speed = $pricelist[$Ship]['speed2'];
 		}
+		if($Player['impulse_motor_tech'] >= 17 && $Ship == 209) {
+			$base_speed = $pricelist[$Ship]['speed2'];
+		}
+		if($Player['hyperspace_motor_tech'] >= 15 && $Ship == 209) {
+			$base_speed = 6000;  // This should be $pricelist[$Ship]['speed3'];
+			// But this needs more changes
+		}
 			
 		
 		switch($techSpeed)
