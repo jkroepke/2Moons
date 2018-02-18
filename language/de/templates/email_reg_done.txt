@@ -1,8 +1,8 @@
 Hallo {USERNAME},
-Danke, dass Sie sich bei {GAMENAME} als Benutzer registriert haben!
+Danke, dass du dich bei {GAMENAME} als Benutzer registriert hast!
 
-Wir freuen uns, dass Sie sich entschieden haben, ein Teil unserer 
-Community zu werden und hoffen, dass es Ihnen gefallen wird.
+Wir freuen uns, dass du dich entschieden hast, ein Teil unserer 
+Community zu werden und hoffen, dass es dir gefallen wird.
 
 Mit freundlichen Grüßen
 
