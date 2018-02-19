@@ -23,4 +23,4 @@ kontaktiere bitte den Webmaster unter dieser E-Mail-Adresse:
 
 Mit freundlichen Grüßen
 
-{GAMENAME}
+Dein {GAMENAME} Team
