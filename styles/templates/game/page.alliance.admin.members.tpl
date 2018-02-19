@@ -44,10 +44,25 @@
 {block name="script" append}
     <script src="scripts/base/jquery.tablesorter.js"></script>
     <script>$(function() {
+            $.tablesorter.addParser({ 
+		id: 'nopoint', 
+		is: function(s) { 
+		    // return false so this parser is not auto detected 
+		    return false; 
+                }, 
+	    	format: function(s) { 
+		    // format your data for normalization
+		    var lNumber = parseFloat(s.replace('.',''));
+		    return lNumber;
+	    	}, 
+	    	// set type, either numeric or text 
+	    	type: 'numeric' 
+	    });
             $("#memberList").tablesorter({
                 headers: {
                     0: { sorter: false } ,
                     3: { sorter: false } ,
+                    4: { sorter: "nopoint"} ,
                     9: { sorter: false }
                 },
                 debug: false
