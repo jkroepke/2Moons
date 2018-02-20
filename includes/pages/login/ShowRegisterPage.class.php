@@ -92,7 +92,7 @@ class ShowRegisterPage extends AbstractLoginPage
 			'accountName'		=> $accountName,
 			'externalAuth'		=> $externalAuth,
 			'universeSelect'	=> $universeSelect,
-			'registerPasswordDesc'	=> sprintf($LNG['registerPasswordDesc'], 6)
+			'registerPasswordDesc'	=> sprintf($LNG['registerPasswordDesc'], 6),
 			'registerRulesDesc'	=> sprintf($LNG['registerRulesDesc'], '<a href="index.php?page=rules">'.$LNG['menu_rules'].'</a>')
 		));
 		
