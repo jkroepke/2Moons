@@ -3,4 +3,4 @@
 <ul>
     <li>In dem includes/ Ordner, erstelle eine Datei ENABLE_INSTALL_TOOL. Der Dateiname muss in Großbuchstaben sein. Die Datei selbst kann leer sein.</li>
 </ul>
-<p>Aus Sicherheitsgründen ist es sehr empfehlenswert, die Datei umzubennnen oder diese zu löschen, wenn die Installation abgeschlossen ist.</p>
+<p>Aus Sicherheitsgründen ist es sehr empfehlenswert, die Datei umzubenennen oder diese zu löschen, wenn die Installation abgeschlossen ist.</p>
