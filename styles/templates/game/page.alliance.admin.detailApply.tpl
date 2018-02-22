@@ -9,7 +9,7 @@
 		<td colspan="2">{$applyDetail.username}</td>
 	</tr>
 	<tr>
-		<td colspan="2">>{$LNG.pl_homeplanet}</td>
+		<td colspan="2">{$LNG.pl_homeplanet}</td>
 		<td colspan="2">{$applyDetail.name} <a href="#" onclick="parent.location = 'game.php?page=galaxy&galaxy={$applyDetail.galaxy}&system={$applyDetail.system}';return false;">[{$applyDetail.coordinates}]</a></td>
 	</tr>
 	<tr>
