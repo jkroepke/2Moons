@@ -403,7 +403,7 @@ $LNG['bd_next_level']						= 'Next Level:';
 $LNG['bd_need_engine']						= 'Verbraucht <span style="color:#FF0000">%s</span> %s mehr';
 $LNG['bd_more_engine']						= 'Produziert <span style="color:#00FF00">%s</span> %s mehr';
 $LNG['bd_jump_gate_action']					= 'Springen';
-$LNG['bd_cancel_warning']					= 'Bei Abbruch werden nur 60% der Ressis wiederhergestellt!';
+$LNG['bd_cancel_warning']					= 'Bei Abbruch werden nur 60% der Ressourcen wiederhergestellt!';
 $LNG['bd_cancel_send']						= 'Markierte - Löschen';
 $LNG['bd_destroy_time'] 					= 'Dauer';
 $LNG['bd_max_ships'] 						= 'max';

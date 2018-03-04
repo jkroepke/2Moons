@@ -5,7 +5,7 @@
 	</li>
 	<li>
 		<h1>2. Multiaccounts</h1>
-		<p>Es ist jedem Spieler nur erlaubt, einen Account pro Universum zu spielen. Falls zwei oder mehrere Accounts üblicherweise, gelegentlich oder dauerhaft vom selben Internetanschluss aus gespielt werden (z.B. Schulen, Universitäten oder Internetcafés), so müssen sie, dies bereits im Vorfeld einem Admin mitzuteilen. In solchen Fällen ist den betreffenden Accounts jeglicher Flottenkontakt untersagt, während sie den selben Internetanschluss nutzen. Ebenso sind weitere Gemeinsamkeiten untersagt.</p>
+		<p>Es ist jedem Spieler nur erlaubt, einen Account pro Universum zu spielen. Falls zwei oder mehrere Accounts üblicherweise, gelegentlich oder dauerhaft vom selben Internetanschluss aus gespielt werden (z.B. Schulen, Universitäten oder Internetcafés), so ist das im Vorhinein einem Admin zu melden. In solchen Fällen ist den betreffenden Accounts jeglicher Flottenkontakt untersagt, während sie den selben Internetanschluss nutzen. Ebenso sind weitere Gemeinsamkeiten untersagt.</p>
 	</li>
 	<li>
 		<h1>3. Pushen</h1>
@@ -35,7 +35,7 @@
 	</li>
 	<li>
 		<h1>9. Spam und Erotik</h1>
-		<p>Spammen und Fremdwerbung ist verboten.Jeweilige Form von Erotik und Pornografischen Darstellungen ist verboten. Und wird mit einer Universums weiten und Lebenslangen Sperrung geandet!</p>
+		<p>Spammen und Fremdwerbung ist verboten. Jeweilige Form von Erotik und Pornografischen Darstellungen ist verboten. Und wird mit einer universumsweiten und lebenslangen Sperre geahndet!</p>
 	</li>
 	<li>
 		<h1>10. Die Regeln</h1>
