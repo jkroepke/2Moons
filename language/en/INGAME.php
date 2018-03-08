@@ -1006,6 +1006,11 @@ $LNG['market_p_end']  = 'End';
 $LNG['market_p_distance']  ='Distance';
 $LNG['market_p_buy']  = 'Buy';
 $LNG['market_p_submit']  = 'Buy now!';
+
+$LNG['market_p_msg_not_found']  = 'Offer not found.';
+$LNG['market_p_msg_more_ships_is_needed']  = 'More ships is needed.';
+$LNG['market_p_msg_resources_error']  = 'Not enough resources.';
+$LNG['market_p_msg_sent']  = 'Sent';
 //----------------------------------------------------------------------------//
 // Relatório de Combate
 $LNG['cr_lost_contact']                     = 'Lost touch with your fleet.';

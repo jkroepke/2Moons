@@ -33,7 +33,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 				':fleet_id' => $FleetID,
 			));
 			if ($db->rowCount() == 0) {
-				$message = "Not found";
+				$message = $LNG['market_p_msg_not_found'];
 			} elseif($fleetResult[0]['fleet_wanted_resource_amount'] == 4 ||
 								$fleetResult[0]['fleet_wanted_resource_amount'] == 0) {
 			} else {
@@ -51,7 +51,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 						$amountTMP -= $LCs * $LCcapacity;
 				}
 				if($amountTMP > 0) {
-					$message = "Fleet is to small :-(";
+					$message = $LNG['market_p_msg_more_ships_is_needed'];
 				} else {
 					$fleetArray = array();
 					$fleetArray = array(203 => $HCs, 202 => $LCs);
@@ -85,7 +85,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 					if($PLANET[$resource[901]]-$fleetResource[901] < 0 ||
 						$PLANET[$resource[902]]	-$fleetResource[902] <0 ||
 						$PLANET[$resource[903]]	-$fleetResource[903] - $consumption < 0) {
-						$message = "Not enough resources";
+						$message = $LNG['market_p_msg_resources_error'];
 					}else {
 						$PLANET[$resource[901]]	-= $fleetResource[901];
 						$PLANET[$resource[902]]	-= $fleetResource[902];
@@ -98,14 +98,18 @@ class ShowMarketPlacePage extends AbstractGamePage
 
 						/////////////////////////////////////////////////////////////////////////////
 						/// SEND/
+						$sql = "SELECT * FROM %%USERS%% WHERE id = :userId;";
+						$USER_2   = Database::get()->selectSingle($sql, array(
+							':userId'       => $fleetResult['fleet_owner']
+						));
 
-						/*$fleetArray						= array_filter($fleetArray2);
+						$fleetArray						= FleetFunctions::unserialize($fleetResult['fleet_array']);
 						$SpeedFactor    	= FleetFunctions::GetGameSpeedFactor();
 						$Distance    		= FleetFunctions::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($fleetResult['fleet_end_galaxy'], $fleetResult['fleet_end_system'], $fleetResult['fleet_end_planet']));
-						$SpeedAllMin		= FleetFunctions::GetFleetMaxSpeed($fleetArray, $USER);
-						$Duration			= FleetFunctions::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $USER);
-						$consumption		= FleetFunctions::GetFleetConsumption($fleetArray, $Duration, $Distance, $USER, $SpeedFactor);
-*/
+						$SpeedAllMin		= FleetFunctions::GetFleetMaxSpeed($fleetArray, $USER_2);
+						$Duration			= FleetFunctions::GetMissionDuration(10, $SpeedAllMin, $Distance, $SpeedFactor, $USER_2);
+						//$consumption		= FleetFunctions::GetFleetConsumption($fleetArray, $Duration, $Distance, $fleetResult['fleet_owner'], $SpeedFactor);
+
 						$fleetStartTime		= $Duration + TIMESTAMP;
 						$fleetStayTime		= $fleetStartTime;
 						$fleetEndTime		= $fleetStayTime + $Duration;
@@ -134,7 +138,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 							':fleetId'	=> $FleetID,
 							':endTime'	=> $fleetStartTime
 						));
-						$message = 'Sent';
+						$message = $LNG['market_p_msg_sent'];
 				}}
 			}
 		}
