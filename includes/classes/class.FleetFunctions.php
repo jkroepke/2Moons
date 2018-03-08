@@ -329,9 +329,10 @@ class FleetFunctions
 	{
 		$db				= Database::get();
 
-		$sql			= 'SELECT start_time, fleet_start_time, fleet_mission, fleet_group, fleet_owner, fleet_mess FROM %%FLEETS%% WHERE fleet_id = :fleetId;';
+		$sql			= 'SELECT start_time, fleet_start_time, fleet_mission, fleet_group, fleet_owner, fleet_mess FROM %%FLEETS%% WHERE fleet_id = :fleetId AND fleet_no_m_return = :fleetNoMReturn;';
 		$fleetResult	= $db->selectSingle($sql, array(
 			':fleetId'	=> $FleetID,
+			':fleetNoMReturn'  => 0,
 		));
 
 		if ($fleetResult['fleet_owner'] != $USER['id'] || $fleetResult['fleet_mess'] == 1)
@@ -505,7 +506,7 @@ class FleetFunctions
 		$fleetStartPlanetGalaxy, $fleetStartPlanetSystem, $fleetStartPlanetPlanet, $fleetStartPlanetType,
 		$fleetTargetOwner, $fleetTargetPlanetID, $fleetTargetPlanetGalaxy, $fleetTargetPlanetSystem,
 		$fleetTargetPlanetPlanet, $fleetTargetPlanetType, $fleetResource, $fleetStartTime, $fleetStayTime,
-		$fleetEndTime, $fleetGroup = 0, $missileTarget = 0, $wantedResType = 0, $wantedResAmount = 0)
+		$fleetEndTime, $fleetGroup = 0, $missileTarget = 0, $wantedResType = 0, $wantedResAmount = 0, $fleetNoMReturn = 0)
 	{
 		global $resource;
 		$fleetShipCount	= array_sum($fleetArray);
@@ -552,6 +553,7 @@ class FleetFunctions
 		fleet_resource_deuterium	= :fleetResource903,
 		fleet_wanted_resource		= :fleetWantedRes,
 		fleet_wanted_resource_amount	= :fleetWantedAmount,
+		fleet_no_m_return = :fleetNoMReturn,
 		fleet_group					= :fleetGroup,
 		fleet_target_obj			= :missileTarget,
 		start_time					= :timestamp;';
@@ -578,6 +580,7 @@ class FleetFunctions
 			':fleetResource901'			=> $fleetResource[901],
 			':fleetResource902'			=> $fleetResource[902],
 			':fleetResource903'			=> $fleetResource[903],
+			'fleetNoMReturn' 		=> $fleetNoMReturn,
 			':fleetWantedRes'			=> $wantedResType,
 			':fleetWantedAmount'			=> $wantedResAmount,
 			':fleetGroup'				=> $fleetGroup,
@@ -618,6 +621,9 @@ class FleetFunctions
 		fleet_resource_metal		= :fleetResource901,
 		fleet_resource_crystal		= :fleetResource902,
 		fleet_resource_deuterium	= :fleetResource903,
+		fleet_wanted_resource		= :fleetWantedRes,
+		fleet_wanted_resource_amount	= :fleetWantedAmount,
+		fleet_no_m_return = :fleetNoMReturn,
 		fleet_group					= :fleetGroup,
 		fleet_target_obj			= :missileTarget,
 		start_time					= :timestamp;';
@@ -645,6 +651,9 @@ class FleetFunctions
 			':fleetResource901'			=> $fleetResource[901],
 			':fleetResource902'			=> $fleetResource[902],
 			':fleetResource903'			=> $fleetResource[903],
+			':fleetWantedRes'			=> $wantedResType,
+			':fleetWantedAmount'			=> $wantedResAmount,
+			'fleetNoMReturn' => $fleetNoMReturn,
 			':fleetGroup'				=> $fleetGroup,
 			':missileTarget'			=> $missileTarget,
 			':timestamp'				=> TIMESTAMP,
