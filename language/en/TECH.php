@@ -1,6 +1,6 @@
 <?php
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -72,7 +72,7 @@ $LNG['bonus'] = array(
 	'GateCoolTime'		=> 'Jump gate charging time',
 	'MoreFound'			=> 'Expedition Found',
 );
-					
+
 $LNG['tech'] = array(
   0 => 'Buildings',
   1 => 'Metal Mine',
