@@ -24,7 +24,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 		$acsData			= array();
 		$FleetID			= HTTP::_GP('fleetID', 0);
 		$GetAction		= HTTP::_GP('action', "");
-		$message = " ";
+		$message = "";
 		$db = Database::get();
 
 		if($GetAction == "buy") {
@@ -134,6 +134,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 							':fleetId'	=> $FleetID,
 							':endTime'	=> $fleetStartTime
 						));
+						$message = 'Sent';
 				}}
 			}
 		}

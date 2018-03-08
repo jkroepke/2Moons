@@ -1,6 +1,20 @@
 {block name="title" prepend}{$LNG.lm_marketplace}{/block}
 {block name="content"}
-{$message}<br/>
+{if $message}
+<table style="width:50%">
+	<tr>
+		<th>
+			{$LNG.fcm_info}
+		</th>
+	</tr>
+	<tr>
+		<td>
+			{$message}
+		</td>
+	</tr>
+</table>
+<br/><br/>
+{/if}
 <table id="tradeList" style="width:50%;white-space: nowrap;" class="tablesorter">
 	<thead>
 		<tr>
@@ -8,12 +22,12 @@
 			<th>{$LNG['tech'][901]}</th>
 			<th>{$LNG['tech'][902]}</th>
 			<th>{$LNG['tech'][903]}</th>
-			<th>Total</th>
-			<th>Cost type</th>
-			<th>Amount</th>
-			<th>End</th>
-			<th>Distance</th>
-			<th>Buy</th>
+			<th>{$LNG.market_p_total}</th>
+			<th>{$LNG.market_p_cost_type}</th>
+			<th>{$LNG.market_p_cost_amount}</th>
+			<th>{$LNG.market_p_end}</th>
+			<th>{$LNG.market_p_distance}</th>
+			<th>{$LNG.market_p_buy}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -31,7 +45,7 @@
 		<td>{$FlyingFleetRow.distance}</td>
 		<td><form action="game.php?page=marketPlace&amp;action=buy" method="post">
 		<input name="fleetID" value="{$FlyingFleetRow.id}" type="hidden">
-		<input value="{$LNG.fl_submit}" type="submit">
+		<input value="{$LNG.market_p_submit}" type="submit">
 		</form></td>
 	</tr>
 	{/foreach}
