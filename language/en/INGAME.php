@@ -371,7 +371,7 @@ $LNG['fl_no_hold_depot']					= 'No Alliance Depot is located on the target.';
 $LNG['fl_not_enough_deuterium']				= 'Not enough deuterium available.';
 $LNG['fl_not_enough_space']					= 'You have not enough cargo space available.';
 $LNG['fl_hold_time_not_exists']				= 'Invalid retention time.';
-
+$LNG['fl_system_places']					= 'Special locations';
 //----------------------------------------------------------------------------//
 // Edificios
 $LNG['bd_dismantle']						= 'Demolish';
