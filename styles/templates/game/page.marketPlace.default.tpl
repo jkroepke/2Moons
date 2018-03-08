@@ -1,7 +1,7 @@
 {block name="title" prepend}{$LNG.lm_marketplace}{/block}
 {block name="content"}
 {$message}<br/>
-<table id="tradeList" style="width:50%" class="tablesorter">
+<table id="tradeList" style="width:50%;white-space: nowrap;" class="tablesorter">
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -9,10 +9,8 @@
 			<th>{$LNG['tech'][902]}</th>
 			<th>{$LNG['tech'][903]}</th>
 			<th>Total</th>
-			<th>Total value</th>
 			<th>Cost type</th>
 			<th>Amount</th>
-			<th>Ratio</th>
 			<th>End</th>
 			<th>Distance</th>
 			<th>Buy</th>
@@ -27,11 +25,9 @@
 		<td>{$FlyingFleetRow.fleet_resource_crystal}</td>
 		<td>{$FlyingFleetRow.fleet_resource_deuterium}</td>
 		<td>{$FlyingFleetRow.total}</td>
-		<td>{$FlyingFleetRow.total_value}</td>
 		<td>{$FlyingFleetRow.fleet_wanted_resource}</td>
 		<td>{$FlyingFleetRow.fleet_wanted_resource_amount}</td>
-		<td>{$FlyingFleetRow.ratio}</td>
-		<td>{pretty_fly_time({$FlyingFleetRow.end})}</td>
+		<td data-time="{$FlyingFleetRow.end}">{pretty_fly_time({$FlyingFleetRow.end})}</td>
 		<td>{$FlyingFleetRow.distance}</td>
 		<td><form action="game.php?page=marketPlace&amp;action=buy" method="post">
 		<input name="fleetID" value="{$FlyingFleetRow.id}" type="hidden">

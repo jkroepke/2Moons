@@ -189,6 +189,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 			'message' => $message,
 			'FlyingFleetList'		=> $FlyingFleetList,
 		));
+		$this->tplObj->loadscript('marketplace.js');
 		$this->display('page.marketPlace.default.tpl');
 	}
 }
