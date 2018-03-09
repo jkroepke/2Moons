@@ -43,7 +43,7 @@
 		<td>{$FlyingFleetRow.fleet_wanted_resource_amount}</td>
 		<td data-time="{$FlyingFleetRow.end}">{pretty_fly_time({$FlyingFleetRow.end})}</td>
 		<td>{$FlyingFleetRow.distance}</td>
-		<td><form action="game.php?page=marketPlace&amp;action=buy" method="post">
+		<td><form class="market_form" action="game.php?page=marketPlace&amp;action=buy" method="post">
 		<input name="fleetID" value="{$FlyingFleetRow.id}" type="hidden">
 		<input value="{$LNG.market_p_submit}" type="submit">
 		</form></td>
@@ -55,12 +55,14 @@
 {block name="script" append}
 <script src="scripts/base/jquery.tablesorter.js"></script>
 <script>$(function() {
-    $("#tradeList").tablesorter({
-		headers: {
-			0: { sorter: false } ,
-			3: { sorter: false }
-		},
-		debug: false
-	});
+$("#tradeList").tablesorter({
+	headers: {},
+	debug: false
+});
+$(".market_form").submit( function() {
+	console.log("a");
+	var c = confirm("Are you sure?");
+	return c;
+});
 });</script>
 {/block}
