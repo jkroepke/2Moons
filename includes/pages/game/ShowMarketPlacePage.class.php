@@ -1,4 +1,4 @@
-<?php
+v<?php
 
 /**
  *  Steemnova
@@ -24,10 +24,19 @@ class ShowMarketPlacePage extends AbstractGamePage
 		$acsData			= array();
 		$FleetID			= HTTP::_GP('fleetID', 0);
 		$GetAction		= HTTP::_GP('action', "");
+		$shipType		= HTTP::_GP('shipType', "");
+
 		$message = "";
 		$db = Database::get();
 
 		if($GetAction == "buy") {
+			$ActualFleets		= FleetFunctions::GetCurrentFleets($USER['id']);
+
+			if (FleetFunctions::GetMaxFleetSlots($USER) <= $ActualFleets)
+			{
+				$message = $LNG['fl_no_slots'];
+			} else {
+
 			$sql = "SELECT * FROM %%FLEETS%% WHERE fleet_id = :fleet_id AND fleet_mess = 2;";
 			$fleetResult = $db->select($sql, array(
 				':fleet_id' => $FleetID,
@@ -39,23 +48,50 @@ class ShowMarketPlacePage extends AbstractGamePage
 			} else {
 				$fleetResult = $fleetResult[0];
 				$amount = $fleetResult['fleet_wanted_resource_amount'];
-				$message = $PLANET[$resource[202]];
-				// How many 203? (Heavy Cargo )
-				$HCcapacity = 25000; // TODO officers
-				$HCs = min($PLANET[$resource[203]], ceil($amount / $HCcapacity)); // How many needed
-				$LCs = 0;
-				$amountTMP = $amount - $HCs * $HCcapacity;
-				if ($amountTMP > 0) {
-						$LCcapacity = 5000;  //TODO officers
-						$LCs = min($PLANET[$resource[202]], ceil($amount / $LCcapacity));
-						$amountTMP -= $LCs * $LCcapacity;
+
+				$F1capacity = 0;
+				$F1type = 0;
+				//PRIO for LC
+				if($shipType == 1) {
+					$F1capacity = 5000;
+					$F1type = 202;
 				}
+				// PRIO for HC
+				else {
+					$F1capacity = 25000;
+					$F1type = 203;
+				}
+
+				$F1 = min($PLANET[$resource[$F1type]], ceil($amount / $F1capacity));
+
+				//taken
+				$amountTMP = $amount - $F1 * $F1capacity;
+				// If still fleet needed
+				$F2 = 0;
+				$F2capacity = 0;
+				$F2type = 0;
+				if ($amountTMP > 0) {
+					//We need HC
+					if($shipType == 1) {
+						$F2capacity = 25000;
+						$F2type = 203;
+					}
+					//We need LC
+					else{
+						$F2capacity = 5000;
+						$F2type = 202;
+					}
+					$F2 = min($PLANET[$resource[$F2type]], ceil($amountTMP / $F2capacity));
+					$amountTMP -= $F2 * $F2capacity;
+				}
+
 				if($amountTMP > 0) {
 					$message = $LNG['market_p_msg_more_ships_is_needed'];
 				} else {
-					$fleetArray = array();
-					$fleetArray = array(203 => $HCs, 202 => $LCs);
-					$fleetArray						= array_filter($fleetArray);
+					$fleetArrayTMP = array();
+					$fleetArrayTMP = array($F1type => $F1, $F2type => $F2);
+					$fleetArray = $fleetArrayTMP;
+					$fleetArray						= array_filter($fleetArrayTMP);
 					$SpeedFactor    	= FleetFunctions::GetGameSpeedFactor();
 					$Distance    		= FleetFunctions::GetTargetDistance(array($PLANET['galaxy'], $PLANET['system'], $PLANET['planet']), array($fleetResult['fleet_end_galaxy'], $fleetResult['fleet_end_system'], $fleetResult['fleet_end_planet']));
 					$SpeedAllMin		= FleetFunctions::GetFleetMaxSpeed($fleetArray, $USER);
@@ -138,10 +174,16 @@ class ShowMarketPlacePage extends AbstractGamePage
 							':fleetId'	=> $FleetID,
 							':endTime'	=> $fleetStartTime
 						));
-						$message = $LNG['market_p_msg_sent'];
+						$LC = 0;
+						$HC = 0;
+						if(array_key_exists(202,$fleetArrayTMP))
+							$LC = $fleetArrayTMP[202];
+						if(array_key_exists(203,$fleetArrayTMP))
+							$HC = $fleetArrayTMP[203];
+						$message = sprintf($LNG['market_p_msg_sent'], $LC, $HC);
 				}}
 			}
-		}
+		}}
 
 		$sql = "SELECT * FROM %%FLEETS%% WHERE fleet_mission = 16 AND fleet_mess = 2 ORDER BY fleet_end_time ASC;";
 		$fleetResult = $db->select($sql, array(
@@ -159,15 +201,15 @@ class ShowMarketPlacePage extends AbstractGamePage
 			//TODO TRANSLATION
 			switch($fleetsRow['fleet_wanted_resource']) {
 				case 1:
-					$resourceN = "Metal";
+					$resourceN = $LNG['tech'][901];
 					$ratioN = 1;
 					break;
 				case 2:
-					$resourceN = "Crystal";
+					$resourceN = $LNG['tech'][902];
 					$ratioN = 2;
 					break;
 				case 3:
-					$resourceN = "Deuterium";
+					$resourceN = $LNG['tech'][903];
 					$ratioN = 4;
 					break;
 				default:

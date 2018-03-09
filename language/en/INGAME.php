@@ -229,7 +229,8 @@ $LNG['gl_no'] 								= 'No';
 $LNG['gl_points'] 							= 'Points';
 $LNG['gl_player']							= 'Player';
 $LNG['gl_to']								= 'to';
-
+$LNG['gl_to']								= 'to';
+$LNG['gl_trade_space']	= 'Trading zone';
 //----------------------------------------------------------------------------//
 // Sensor Phalanx
 $LNG['px_no_deuterium']						= "Don't have enough deuterium!";
@@ -1010,7 +1011,7 @@ $LNG['market_p_submit']  = 'Buy now!';
 $LNG['market_p_msg_not_found']  = 'Offer not found.';
 $LNG['market_p_msg_more_ships_is_needed']  = 'More ships is needed.';
 $LNG['market_p_msg_resources_error']  = 'Not enough resources.';
-$LNG['market_p_msg_sent']  = 'Sent';
+$LNG['market_p_msg_sent']  = 'Sent %s Light Cargos, %s Heavy Cargos';
 //----------------------------------------------------------------------------//
 // Relatório de Combate
 $LNG['cr_lost_contact']                     = 'Lost touch with your fleet.';

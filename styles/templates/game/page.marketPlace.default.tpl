@@ -1,5 +1,25 @@
 {block name="title" prepend}{$LNG.lm_marketplace}{/block}
 {block name="content"}
+
+<table style="width:50%">
+	<tr>
+		<th colspan="2">
+			Options
+		</th>
+	</tr>
+	<tr>
+		<td>
+			Ship type as first:
+		</td>
+		<td>
+			<select id="shipT">
+				<option value="1">{$LNG.shortNames[202]}</option>
+				<option value="2" selected>{$LNG.shortNames[203]}</option>
+			</select>
+		</td>
+	</tr>
+</table>
+
 {if $message}
 <table style="width:50%">
 	<tr>
@@ -60,8 +80,10 @@ $("#tradeList").tablesorter({
 	debug: false
 });
 $(".market_form").submit( function() {
-	console.log("a");
 	var c = confirm("Are you sure?");
+	if (c) {
+		$(this).append('<input type="hidden" name="shipType" value="' + $("#shipT").val() + '">')
+	}
 	return c;
 });
 });</script>
