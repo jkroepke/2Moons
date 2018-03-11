@@ -1005,7 +1005,8 @@ $LNG['market_p_total']  ='Total';
 $LNG['market_p_cost_type']   ='Cost type';
 $LNG['market_p_cost_amount']  ='Amount';
 $LNG['market_p_end']  = 'End';
-$LNG['market_p_distance']  ='Distance';
+$LNG['market_p_from_duration']  ='Duration from';
+$LNG['market_p_to_duration']  ='Duration to';
 $LNG['market_p_buy']  = 'Buy';
 $LNG['market_p_submit']  = 'Buy now!';
 
