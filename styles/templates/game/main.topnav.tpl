@@ -4,7 +4,7 @@
 			<tbody>
 				<tr>
 					<td id="planetImage">
-                       <img src="{$dpath}planeten/small/s_{$image}.jpg" alt="">
+                       <img src="{$dpath}planeten/{$image}.jpg" width="88" height="88" alt="">
 					</td>
 					<td id="planetSelectorWrapper">
                         <label for="planetSelector"></label>
