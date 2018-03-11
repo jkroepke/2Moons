@@ -19,7 +19,7 @@
 //date_default_timezone_set('America/Chicago');
 
 //TEMPLATES DEFAULT SETTINGS
-define('DEFAULT_THEME'	 		    , 'gow');
+define('DEFAULT_THEME'	 		    , 'nova');
 define('HTTPS'						, isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on');
 define('PROTOCOL'					, HTTPS ? 'https://' : 'http://');
 if(PHP_SAPI === 'cli')

@@ -9,7 +9,7 @@
 			<td style="width:100px">{$LNG.lv_planet}</td>
 			<td style="width:100px;font-size: 50px;">&Sigma;</td>
 			{foreach $planetList.image as $planetID => $image}
-			<td style="width:100px"><a href="game.php?page=overview&amp;cp={$planetID}"><img width="80" height="80" border="0" src="{$dpath}planeten/small/s_{$image}.jpg"></a></td>
+			<td style="width:100px"><a href="game.php?page=overview&amp;cp={$planetID}"><img width="80" height="80" border="0" src="{$dpath}planeten/{$image}.jpg"></a></td>
 			{/foreach}
 		</tr>
 		<tr>
