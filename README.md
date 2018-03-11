@@ -43,9 +43,9 @@ Full source code is placed at [github.com/steemnova/steemnova](https://github.co
 
 SteemNova expansion goes as follows:
 1. ~~Reorganize github code. Specify README and LICENSE documentation~~. Fix any game issues if there will be any.
-2. Create SteemNova Board community on top of Steem blockchain.
+2. ~~Create SteemNova Board community on top of Steem blockchain~~. (https://chainbb.com/f/steemnova)
 3. Game manual and tips & tricks for newbies.
-4. Specify detailed explanation how the reward system will work.
+4. ~~Specify detailed explanation how the reward system will work~~. (https://steemit.com/steemnova/@steemnova/steemnova-weekly-sbd-reward-scheme-for-members-of-the-best-alliances)
 5. Announce bug bounties, artwork contests and utopian-io task requests for contributors (mobile UI, visual bugs etc.).
 6. Steem accounts integration.
 

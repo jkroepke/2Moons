@@ -23,7 +23,7 @@ $LNG['shortNames'] = array (
 	205 => 'C. Myśliwiec',
 	206 => 'Krążownik',
 	207 => 'Okręt Wojenny',
-	208 => 'Kolonizator',
+	208 => 'Statek Kolonizacyjny',
 	209 => 'Recykler',
 	210 => 'Sonda Szpiegowska',
 	211 => 'Bombowiec',
@@ -42,7 +42,7 @@ $LNG['shortNames'] = array (
 	401 => 'Wyrzutnia Rakiet',
 	402 => 'L. Laser',
 	403 => 'C. Laser',
-	404 => 'Działo Gauss',
+	404 => 'Działo Gaussa',
 	405 => 'Działo Jonowe',
 	406 => 'Działo Plazmowe',
 	407 => 'M. Osłona',
@@ -104,13 +104,13 @@ $LNG['tech'] = array(
 	111 => 'Technologia Opancerzenia',
 	113 => 'Technologia Energetyczna',
 	114 => 'Technologia Nadprzestrzenna',
-	115 => 'Napęd spalinowy',
+	115 => 'Napęd Spalinowy',
 	117 => 'Napęd Impulsowy',
 	118 => 'Napęd Nadprzestrzenny',
 	120 => 'Technologia Laserowa',
 	121 => 'Technologia Jonowa',
 	122 => 'Technologia Plazmowa',
-	123 => 'Intergalaktyczna Sieć Badań',
+	123 => 'Międzygalaktyczna Sieć Badań',
 	124 => 'Astrofizyka',
 	131 => 'Technologia Produkcji Metalu',
 	132 => 'Technologia Produkcji Kryształu',
@@ -124,7 +124,7 @@ $LNG['tech'] = array(
 205 => 'Ciężki Myśliwiec',
 206 => 'Krążownik',
 207 => 'Okręt Wojenny',
-208 => 'Statek Kolonialny',
+208 => 'Statek Kolonizacyjny',
 209 => 'Recykler',
 210 => 'Sonda Szpiegowska',
 211 => 'Bombowiec',
@@ -391,3 +391,4 @@ $LNG['longDescription'] = array(
 );
 
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012
+// Edited by TheRavikin. All rights resteemed (C) 2018

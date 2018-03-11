@@ -83,7 +83,7 @@ $LNG['lm_fleettrader']						= 'Merchant of Fleets';
 $LNG['lm_technology']						= 'Technologies';
 $LNG['lm_messages']							= 'Messages';
 $LNG['lm_alliance']							= 'Alliance';
-$LNG['lm_buddylist']						= 'Friendships';
+$LNG['lm_buddylist']						= 'Friends';
 $LNG['lm_notes']							= 'Notes';
 $LNG['lm_statistics']						= 'Statistics';
 $LNG['lm_search']							= 'Search';
@@ -142,7 +142,7 @@ $LNG['ov_developed_fields']					= 'Fields used';
 $LNG['ov_max_developed_fields']				= 'Max. Permitted fields';
 $LNG['ov_fleet']							= 'Fleets';
 $LNG['ov_admins_online']					= 'Active Admins';
-$LNG['ov_no_admins_online']					= 'Currently, there is no any online administrator';
+$LNG['ov_no_admins_online']					= 'Currently, there is no administrator online';
 $LNG['ov_userbanner']						= "Player's Banner";
 $LNG['ov_userrank_info']					= '%s (%s <a href="game.php?page=statistics&amp;range=%d">%d</a> %s %s)';
 $LNG['ov_teamspeak_not_online']				= 'The Teamspeak server not active this';
@@ -151,7 +151,7 @@ $LNG['ov_teamspeak_connect']				= 'Connect';
 $LNG['ov_teamspeak_online']					= 'Online';
 $LNG['ov_closed']							= 'The universe is currently disabled';
 $LNG['ov_reflink']							= 'Recruits';
-$LNG['ov_noreflink']						= 'At the moment, you did not recruited any player.';
+$LNG['ov_noreflink']						= 'You have not recruited any players yet';
 $LNG['ov_chat_online']						= 'Players in chat:';
 
 //----------------------------------------------------------------------------//
@@ -175,7 +175,7 @@ $LNG['gl_short_ban']						= 'B';
 $LNG['gl_short_inactive']					= 'i';
 $LNG['gl_short_long_inactive']				= 'I';
 $LNG['gl_populed_planets']					= '%d Existing planets';
-$LNG['gl_out_space']						= 'Deep area of galaxy';
+$LNG['gl_out_space']						= 'Deep galaxy';
 $LNG['gl_avaible_missiles']					= 'Available Missiles';
 $LNG['gl_fleets']							= 'Fleet Slots';
 $LNG['gl_avaible_grecyclers']				= 'Giga Recycler';
@@ -272,7 +272,7 @@ $LNG['fl_ammount']							= 'Number';
 $LNG['fl_beginning']						= 'Start';
 $LNG['fl_departure']						= 'Arrival(Destination)';
 $LNG['fl_destiny']							= 'Destination';
-$LNG['fl_objective']						= 'Objective';
+$LNG['fl_objective']						= 'Target';
 $LNG['fl_arrival']							= 'Arrival(Back)';
 $LNG['fl_info_detail']						= 'Details';
 $LNG['fl_order']							= 'Order';
@@ -389,7 +389,7 @@ $LNG['bd_building_lab']					    = 'You cant upgrade researches when research lab
 $LNG['bd_max_lvl']                          = 'Max. Level:';
 $LNG['bd_lvl']								= 'Level';
 $LNG['bd_research']							= 'Research for';
-$LNG['bd_shipyard_required']				= 'Its required an Shipyard first';
+$LNG['bd_shipyard_required']				= 'You need to build a Shipyard first';
 $LNG['bd_building_shipyard']				= 'You cant build ships when Shipyard is raising level';
 $LNG['bd_available']						= 'Available: ';
 $LNG['bd_build_ships']						= 'Build';
@@ -446,7 +446,7 @@ $LNG['of_active']							= 'active';
 //----------------------------------------------------------------------------//
 // Mercado
 
-$LNG['tr_cost_dm_trader']					= 'The value of the merchant is %s %s!';
+$LNG['tr_cost_dm_trader']					= 'You have to pay the merchant %s %s!';
 $LNG['tr_not_enought']						= "Don't own enough %s.";
 $LNG['tr_exchange_done']					= 'Trade made with success';
 $LNG['tr_exchange_error']					= 'The amount of resources is wrong or are insufficient';
