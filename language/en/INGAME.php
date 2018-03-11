@@ -231,6 +231,7 @@ $LNG['gl_player']							= 'Player';
 $LNG['gl_to']								= 'to';
 $LNG['gl_to']								= 'to';
 $LNG['gl_trade_space']	= 'Trading zone';
+
 //----------------------------------------------------------------------------//
 // Sensor Phalanx
 $LNG['px_no_deuterium']						= "Don't have enough deuterium!";
