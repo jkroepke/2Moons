@@ -49,7 +49,7 @@ $LNG['time_minutes']	= 'Minuta';
 $LNG['time_seconds']	= 'Sekunda';
 //###########################################################//
 
-$LNG['info_information'	= 'Informacje o błędach i nowościach <a href="%s" target="tracker">2Moons Board</a><br>Jeśli usuniesz ten link, nie będziesz miał prawa do supportu!!!!';
+$LNG['info_information']	= 'Informacje o błędach i nowościach <a href="%s" target="tracker">2Moons Board</a><br>Jeśli usuniesz ten link, nie będziesz miał prawa do supportu!!!!';
 
 //---------------	¿SI O NO? - YES OR NO? - JA ODER NEIN?	- TAK ALBO NIE------------------------// 
 $LNG['one_is_yes_1']	= 'Tak';

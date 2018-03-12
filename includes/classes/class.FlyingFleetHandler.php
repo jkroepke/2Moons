@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -16,9 +16,9 @@
  */
 
 class FlyingFleetHandler
-{	
+{
 	protected $token;
-	
+
 	public static $missionObjPattern	= array(
 		1	=> 'MissionCaseAttack',
 		2	=> 'MissionCaseACS',
@@ -32,13 +32,14 @@ class FlyingFleetHandler
 		10	=> 'MissionCaseMIP',
 		11	=> 'MissionCaseFoundDM',
 		15	=> 'MissionCaseExpedition',
+		16	=> 'MissionCaseTrade',
 	);
-		
+
 	function setToken($token)
 	{
 		$this->token	= $token;
 	}
-	
+
 	function run()
 	{
 		require_once 'includes/classes/class.MissionFunctions.php';
@@ -66,14 +67,14 @@ class FlyingFleetHandler
 
 				continue;
 			}
-			
+
 			$missionName	= self::$missionObjPattern[$fleetRow['fleet_mission']];
 
 			$path	= 'includes/classes/missions/'.$missionName.'.class.php';
 			require_once $path;
 			/** @var $missionObj Mission */
 			$missionObj	= new $missionName($fleetRow);
-			
+
 			switch($fleetRow['fleet_mess'])
 			{
 				case 0:

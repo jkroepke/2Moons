@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -127,7 +127,6 @@ switch ($mode) {
             if ($fileRevision <= $dbVersion || $fileRevision > DB_VERSION_REQUIRED) {
                 continue;
             }
-
             $updates[$fileInfo->getPathname()] = makebr(str_replace('%PREFIX%', DB_PREFIX, file_get_contents($fileInfo->getPathname())));
 		}
 

@@ -11,9 +11,9 @@
         	<th>{$LNG.fl_resources}</th>
         </tr>
 		<tr>
-			<td class="left top" style="width:50%;margin:0;padding:0;"{if $StaySelector} rowspan="3"{/if}>
+			<td class="left top" style="width:50%;margin:0;padding:0;"{if $StaySelector} rowspan="5"{/if}>
         		<table border="0" cellpadding="0" cellspacing="0" width="259" style="margin:0;padding:0;">
-        			{foreach $MissionSelector as $MissionID} 
+        			{foreach $MissionSelector as $MissionID}
 					<tr style="height:20px;">
 						<td class="transparent left">
 						<input id="radio_{$MissionID}" type="radio" name="mission" value="{$MissionID}" {if $mission == $MissionID}checked="checked"{/if} style="width:60px;"><label for="radio_{$MissionID}">{$LNG["type_mission_{$MissionID}"]}</label><br>
@@ -54,6 +54,22 @@
 				</table>
 			</td>
 		</tr>
+		{if $Exchange}
+		<tr style="height:20px;">
+			<th>{$LNG.exchange}</th>
+		</tr>
+		<tr style="height:20px;">
+			<td>
+				<select name="resEx">
+					<option value="1">{$LNG.tech.901}</option>
+					<option value="2">{$LNG.tech.902}</option>
+					<option value="3">{$LNG.tech.903}</option>
+				</select>
+			<input name="exchange" size="10" type="text">
+			</td>
+		</tr>
+		{/if}
+
 		{if $StaySelector}
 		<tr style="height:20px;">
 			<th>{$LNG.fl_hold_time}</th>

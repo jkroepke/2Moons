@@ -1,6 +1,6 @@
 <?php
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -42,6 +42,7 @@ $LNG['type_mission_9']  					= 'Destroy';
 $LNG['type_mission_10']  					= 'Missile attack';
 $LNG['type_mission_11']  					= 'Research of Dark matter ';
 $LNG['type_mission_15'] 					= 'Expedition';
+$LNG['type_mission_16'] 					= 'Trade';
 
 $LNG['type_planet_1']  					= 'Planet';
 $LNG['type_planet_2']  					= 'Debris Field';
@@ -76,6 +77,7 @@ $LNG['lm_buildings']						= 'Buildings';
 $LNG['lm_research']							= 'Research';
 $LNG['lm_shipshard']						= 'Hangar';
 $LNG['lm_defenses']							= 'Defenses';
+$LNG['lm_marketplace']						= 'Marketplace';
 $LNG['lm_resources']						= 'Resources';
 $LNG['lm_officiers']						= 'Officers';
 $LNG['lm_trader']							= 'Market';
@@ -103,7 +105,7 @@ $LNG['lm_battlesim']						= 'Simulator';
 $LNG['lm_playercard']                       = 'Player Profile';
 $LNG['lm_info']                     		= 'Info';
 $LNG['lm_disclamer']						= 'Credits';
-	
+
 //----------------------------------------------------------------------------//
 // Vista Geral
 
@@ -227,6 +229,8 @@ $LNG['gl_no'] 								= 'No';
 $LNG['gl_points'] 							= 'Points';
 $LNG['gl_player']							= 'Player';
 $LNG['gl_to']								= 'to';
+$LNG['gl_to']								= 'to';
+$LNG['gl_trade_space']	= 'Trading zone';
 
 //----------------------------------------------------------------------------//
 // Sensor Phalanx
@@ -369,7 +373,7 @@ $LNG['fl_no_hold_depot']					= 'No Alliance Depot is located on the target.';
 $LNG['fl_not_enough_deuterium']				= 'Not enough deuterium available.';
 $LNG['fl_not_enough_space']					= 'You have not enough cargo space available.';
 $LNG['fl_hold_time_not_exists']				= 'Invalid retention time.';
-
+$LNG['fl_system_places']					= 'Special locations';
 //----------------------------------------------------------------------------//
 // Edificios
 $LNG['bd_dismantle']						= 'Demolish';
@@ -734,8 +738,8 @@ $LNG['al_diplo_accept_yes']                 = 'Pact signed.';
 $LNG['al_diplo_accept_yes_mes']             = 'The Pact (%s) between the %s and %s was Signed!';
 $LNG['al_diplo_accept_yes_confirm']		    = 'Want to really accept the Pact?';
 $LNG['al_diplo_accept_no']                  = 'Pact Rejected.';
-$LNG['al_diplo_accept_no_mes']				= 'The Pact (%s) between the %s and %s was Rejected!'; 
-$LNG['al_diplo_accept_no_confirm']			= 'Want to really reject the Pact?';                                                             
+$LNG['al_diplo_accept_no_mes']				= 'The Pact (%s) between the %s and %s was Rejected!';
+$LNG['al_diplo_accept_no_confirm']			= 'Want to really reject the Pact?';
 $LNG['al_diplo_delete']                     = 'Deleted Pact.';
 $LNG['al_diplo_delete_mes']                 = 'The Pact (%s) between the %s and %s was deleted!';
 $LNG['al_diplo_confirm_delete']             = 'Did you want to delete the Pact?';
@@ -754,7 +758,7 @@ $LNG['al_rank_name']						= 'Name';
 $LNG['al_rank_desc']['MEMBERLIST']			= 'Can see the members';
 $LNG['al_rank_desc']['ONLINESTATE']			= 'Can see who is online';
 $LNG['al_rank_desc']['TRANSFER']			= 'Can be a leader';
-$LNG['al_rank_desc']['SEEAPPLY']			= 'Can view the applications'; 
+$LNG['al_rank_desc']['SEEAPPLY']			= 'Can view the applications';
 $LNG['al_rank_desc']['MANAGEAPPLY']			= 'Can control applications';
 $LNG['al_rank_desc']['ROUNDMAIL']			= 'Can send global message';
 $LNG['al_rank_desc']['ADMIN']				= 'Can edit the Alliance';
@@ -996,6 +1000,20 @@ $LNG['spec_mail_inactive_title']  			= '%s - Reminder';
 $LNG['sys_back']							= 'Back';
 $LNG['sys_forward']							= 'Next';
 
+
+$LNG['market_p_total']  ='Total';
+$LNG['market_p_cost_type']   ='Cost type';
+$LNG['market_p_cost_amount']  ='Amount';
+$LNG['market_p_end']  = 'End';
+$LNG['market_p_from_duration']  ='Duration from';
+$LNG['market_p_to_duration']  ='Duration to';
+$LNG['market_p_buy']  = 'Buy';
+$LNG['market_p_submit']  = 'Buy now!';
+
+$LNG['market_p_msg_not_found']  = 'Offer not found.';
+$LNG['market_p_msg_more_ships_is_needed']  = 'More ships is needed.';
+$LNG['market_p_msg_resources_error']  = 'Not enough resources.';
+$LNG['market_p_msg_sent']  = 'Sent %s Light Cargos, %s Heavy Cargos';
 //----------------------------------------------------------------------------//
 // Relatório de Combate
 $LNG['cr_lost_contact']                     = 'Lost touch with your fleet.';
@@ -1130,7 +1148,7 @@ $LNG['ti_error_no_subject']					= 'You must enter a subject!';
 $LNG['ti_msgtime']							= 'Message posted at';
 
 //----------------------------------------------------------------------------//
-// Recordes 
+// Recordes
 
 $LNG['rec_players']  						= 'Player';
 $LNG['rec_level']  							= 'Level';
@@ -1161,8 +1179,8 @@ $LNG['ft_count']							= 'Number';
 $LNG['ft_max']								= 'max';
 $LNG['ft_total']							= 'TOTAL';
 $LNG['ft_charge']							= 'Merchant rate';
-$LNG['ft_absenden']							= 'Send';	
-$LNG['ft_empty']							= 'Empty';	
+$LNG['ft_absenden']							= 'Send';
+$LNG['ft_empty']							= 'Empty';
 
 //----------------------------------------------------------------------------//
 // Logout
@@ -1173,4 +1191,3 @@ $LNG['lo_notify']							= 'Will be redirected in <span id="seconds">5</span> sec
 $LNG['lo_continue']							= 'Click here not to wait';
 
 //----------------------------------------------------------------------------//
-

@@ -30,7 +30,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td style="background-color:transparent;border:0px;" colspan="2"> 
+			<td style="background-color:transparent;border:0px;" colspan="2">
 				<input type="submit" value="{$LNG.gl_show}">
 			</td>
 		</tr>
@@ -48,7 +48,7 @@
 		</tr>
 		<tr>
 			<td>{$missile_count} <input type="text" name="SendMI" size="2" maxlength="7"></td>
-			<td>{$LNG.gl_objective}: 
+			<td>{$LNG.gl_objective}:
 				{html_options name=Target options=$missileSelector}
 			</td>
 		</tr>
@@ -164,6 +164,11 @@
 		<td>{$max_planets + 1}</td>
 		<td colspan="7"><a href="?page=fleetTable&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$max_planets + 1}&amp;planettype=1&amp;target_mission=15">{$LNG.gl_out_space}</a></td>
 	</tr>
+	<tr>
+		<td>Trade</td>
+		<td colspan="7"><a href="?page=fleetTable&amp;galaxy={$galaxy}&amp;system={$system}&amp;planet={$max_planets + 2}&amp;planettype=1&amp;target_mission=16">{$LNG.gl_trade_space}</a></td>
+	</tr>
+
 	<tr>
 		<td colspan="6">({$planetcount})</td>
 		<td colspan="2">
