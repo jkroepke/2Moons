@@ -1017,6 +1017,11 @@ $LNG['market_p_msg_not_found']  = 'Offer not found.';
 $LNG['market_p_msg_more_ships_is_needed']  = 'More ships is needed.';
 $LNG['market_p_msg_resources_error']  = 'Not enough resources.';
 $LNG['market_p_msg_sent']  = 'Sent %s Light Cargos, %s Heavy Cargos';
+
+$LNG['market_msg_trade_topic'] = "Trading status";
+$LNG['market_msg_trade_from'] = "Trading zone";
+$LNG['market_msg_trade_bought'] 					= 'Your fleet is flying to %s with %s %s, %s %s, %s %s and it costs %s %s';
+$LNG['market_msg_trade_sold'] 					= 'Your fleet is flying to %s with %s %s, %s %s, %s %s.';
 //----------------------------------------------------------------------------//
 // Relatório de Combate
 $LNG['cr_lost_contact']                     = 'Lost touch with your fleet.';

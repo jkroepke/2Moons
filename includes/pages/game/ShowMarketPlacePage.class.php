@@ -145,6 +145,8 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$fleetResult['fleet_start_galaxy'], $fleetResult['fleet_start_system'], $fleetResult['fleet_start_planet'], $fleetResult['fleet_start_type'],
 			$fleetResource, $fleetStartTime, $fleetStayTime, $fleetEndTime,0,0,0,0,1);
 
+
+
 		/////////////////////////////////////////////////////////////////////////////
 		/// SEND/
 		$sql = "SELECT * FROM %%USERS%% WHERE id = :userId;";
@@ -178,9 +180,9 @@ class ShowMarketPlacePage extends AbstractGamePage
 			':fleet_mess'=> 0,
 		);
 		$sql = "UPDATE %%FLEETS%% SET `fleet_no_m_return` = :fleet_no_m_return, `fleet_end_id` = :fleet_end_id,`fleet_target_owner` = :fleet_target_owner, `fleet_mess` = :fleet_mess, `fleet_mission` = :fleet_mission, `fleet_end_stay` = :fleet_end_stay ,`fleet_end_time` = :fleet_end_time ,`fleet_start_time` = :fleet_start_time , `fleet_end_planet` = :fleet_end_planet, `fleet_end_system` = :fleet_end_system, `fleet_end_galaxy` = :fleet_end_galaxy WHERE fleet_id = :fleetID;";
-		$fleetResult = $db->update($sql, $params);
+		$db->update($sql, $params);
 		$sql = "UPDATE %%LOG_FLEETS%% SET `fleet_no_m_return` = :fleet_no_m_return, `fleet_end_id` = :fleet_end_id,`fleet_target_owner` = :fleet_target_owner, `fleet_mess` = :fleet_mess, `fleet_mission` = :fleet_mission, `fleet_end_stay` = :fleet_end_stay ,`fleet_end_time` = :fleet_end_time ,`fleet_start_time` = :fleet_start_time , `fleet_end_planet` = :fleet_end_planet, `fleet_end_system` = :fleet_end_system, `fleet_end_galaxy` = :fleet_end_galaxy WHERE fleet_id = :fleetID;";
-		$fleetResult = $db->update($sql, $params);
+		$db->update($sql, $params);
 		$sql	= 'UPDATE %%FLEETS_EVENT%% SET  `time` = :endTime WHERE fleetID	= :fleetId;';
 		$db->update($sql, array(
 			':fleetId'	=> $FleetID,
@@ -192,6 +194,23 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$LC = $fleetArrayTMP[202];
 		if(array_key_exists(203,$fleetArrayTMP))
 			$HC = $fleetArrayTMP[203];
+
+		// To customer
+		$Message	= sprintf($LNG['market_msg_trade_bought'], $PLANET['galaxy'].":".$PLANET['system'].":".$PLANET['planet'],
+			$fleetResource[901],$LNG['tech'][901],
+			$fleetResource[902],$LNG['tech'][902],
+			$fleetResource[903],$LNG['tech'][903],
+			$consumption, $LNG['tech'][903]);
+		PlayerUtil::sendMessage($USER['id'], 0, $LNG['market_msg_trade_from'], 4, $LNG['market_msg_trade_topic'],
+			$Message, TIMESTAMP, NULL, 1, $fleetResult['fleet_universe']);
+
+		// To salesmen
+		$Message	= sprintf($LNG['market_msg_trade_sold'], $fleetResult['fleet_start_galaxy'].":".$fleetResult['fleet_start_system'].":".$fleetResult['fleet_start_planet'],
+			$fleetResult['fleet_resource_metal'],$LNG['tech'][901],
+			$fleetResult['fleet_resource_crystal'],$LNG['tech'][902],
+			$fleetResult['fleet_resource_deuterium'],$LNG['tech'][903]);
+		PlayerUtil::sendMessage($USER['id'], 0, $LNG['market_msg_trade_from'], 4, $LNG['market_msg_trade_topic'],
+			$Message, TIMESTAMP, NULL, 1, $fleetResult['fleet_universe']);
 		return sprintf($LNG['market_p_msg_sent'], $LC, $HC);
 	}
 
