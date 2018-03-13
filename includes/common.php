@@ -149,7 +149,7 @@ if (MODE === 'INGAME' || MODE === 'ADMIN' || MODE === 'CRON')
 	
 	$LNG	= new Language($USER['lang']);
 	$LNG->includeData(array('L18N', 'INGAME', 'TECH', 'CUSTOM'));
-	$THEME->setUserTheme($USER['dpath']);
+	// $THEME->setUserTheme($USER['dpath']);
 	
 	if($config->game_disable == 0 && $USER['authlevel'] == AUTH_USR) {
 		ShowErrorPage::printError($LNG['sys_closed_game'].'<br><br>'.$config->close_reason, false);

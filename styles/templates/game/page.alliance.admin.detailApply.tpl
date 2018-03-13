@@ -2,14 +2,14 @@
 {block name="content"}
 	<table class="table519">
 	<tr>
-		<th colspan="4">{$LNG.al_request_from} {$apply_time}</th>
+		<th colspan="4">{sprintf($LNG.al_request_from,$applyDetail.username)} {$apply_time}</th>
 	</tr>
 	<tr>
 		<td colspan="2">{$LNG.pl_name}</td>
 		<td colspan="2">{$applyDetail.username}</td>
 	</tr>
 	<tr>
-		<td colspan="2">>{$LNG.pl_homeplanet}</td>
+		<td colspan="2">{$LNG.pl_homeplanet}</td>
 		<td colspan="2">{$applyDetail.name} <a href="#" onclick="parent.location = 'game.php?page=galaxy&galaxy={$applyDetail.galaxy}&system={$applyDetail.system}';return false;">[{$applyDetail.coordinates}]</a></td>
 	</tr>
 	<tr>
