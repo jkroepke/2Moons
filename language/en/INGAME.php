@@ -374,6 +374,7 @@ $LNG['fl_not_enough_deuterium']				= 'Not enough deuterium available.';
 $LNG['fl_not_enough_space']					= 'You have not enough cargo space available.';
 $LNG['fl_hold_time_not_exists']				= 'Invalid retention time.';
 $LNG['fl_system_places']					= 'Special locations';
+$LMG['fl_no_noresource_exchange'] = 'No resources in exchange field';
 //----------------------------------------------------------------------------//
 // Edificios
 $LNG['bd_dismantle']						= 'Demolish';
