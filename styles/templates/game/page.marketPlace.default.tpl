@@ -75,9 +75,9 @@
 	<tr>
 		<td>{$smarty.foreach.FlyingFleets.iteration}</td>
 		<td>{$FlyingFleetRow.username}</td>
-		<td>{$FlyingFleetRow.fleet_resource_metal}</td>
-		<td>{$FlyingFleetRow.fleet_resource_crystal}</td>
-		<td>{$FlyingFleetRow.fleet_resource_deuterium}</td>
+		<td class="resource_metal">{$FlyingFleetRow.fleet_resource_metal}</td>
+		<td class="resource_crystal">{$FlyingFleetRow.fleet_resource_crystal}</td>
+		<td class="resource_deuterium">{$FlyingFleetRow.fleet_resource_deuterium}</td>
 		<td>{$FlyingFleetRow.total}</td>
 		<td class="no-background no-border">
 			{if $FlyingFleetRow.fleet_wanted_resource_id == 1}
@@ -88,8 +88,8 @@
 			<img src="./styles/theme/nova/images/deutrium.gif"/>
 			{/if}
 		</td>
-		<td>{$FlyingFleetRow.fleet_wanted_resource}</td>
-		<td>{$FlyingFleetRow.fleet_wanted_resource_amount}</td>
+		<td class="wanted-resource-{$FlyingFleetRow.fleet_wanted_resource_id}">{$FlyingFleetRow.fleet_wanted_resource}</td>
+		<td class="wanted-resource-amount">{$FlyingFleetRow.fleet_wanted_resource_amount}</td>
 		<td data-time="{$FlyingFleetRow.end}">{pretty_fly_time({$FlyingFleetRow.end})}</td>
 		<td>{pretty_fly_time({$FlyingFleetRow.from_duration})}</td>
 		<td class="LC" style="display: none;">{pretty_fly_time({$FlyingFleetRow.to_lc_duration})}</td>
