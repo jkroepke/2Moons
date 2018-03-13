@@ -85,7 +85,7 @@
 			{elseif $FlyingFleetRow.fleet_wanted_resource_id == 2}
 			<img src="./styles/theme/nova/images/crystal.gif"/>
 			{elseif $FlyingFleetRow.fleet_wanted_resource_id == 3}
-			<img src="./styles/theme/nova/images/deutrium.gif"/>
+			<img src="./styles/theme/nova/images/deuterium.gif"/>
 			{/if}
 		</td>
 		<td class="wanted-resource-{$FlyingFleetRow.fleet_wanted_resource_id}">{$FlyingFleetRow.fleet_wanted_resource}</td>
