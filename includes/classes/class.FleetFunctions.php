@@ -365,7 +365,7 @@ class FleetFunctions
 			}
 		}
 
-		if($fleetResult['fleet_mission'] == 5 && $fleetResult['fleet_mess'] == FLEET_HOLD) {
+		if(($fleetResult['fleet_mission'] == 5 || $fleetResult['fleet_mission'] == 16) && $fleetResult['fleet_mess'] == FLEET_HOLD) {
 			$fleetEndTime	= ($fleetResult['fleet_start_time'] - $fleetResult['start_time']) + TIMESTAMP;
 		}else{
 			$fleetEndTime	= (TIMESTAMP - $fleetResult['start_time']) + TIMESTAMP;
