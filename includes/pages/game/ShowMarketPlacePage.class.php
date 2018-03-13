@@ -27,7 +27,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 	}
 
 	private function doBuy() {
-		global $USER, $PLANET, $reslist, $resource, $LNG;
+		global $USER, $PLANET, $reslist, $resource, $LNG, $pricelist;
 		$FleetID			= HTTP::_GP('fleetID', 0);
 		$shipType		= HTTP::_GP('shipType', "");
 		$db = Database::get();
@@ -63,12 +63,12 @@ class ShowMarketPlacePage extends AbstractGamePage
 		$F1type = 0;
 		//PRIO for LC
 		if($shipType == 1) {
-			$F1capacity = 5000;
+			$F1capacity = $pricelist[202]['capacity'];
 			$F1type = 202;
 		}
 		// PRIO for HC
 		else {
-			$F1capacity = 25000;
+			$F1capacity = $pricelist[203]['capacity'];
 			$F1type = 203;
 		}
 
@@ -83,12 +83,12 @@ class ShowMarketPlacePage extends AbstractGamePage
 		if ($amountTMP > 0) {
 			//We need HC
 			if($shipType == 1) {
-				$F2capacity = 25000;
+				$F2capacity = $pricelist[203]['capacity'];
 				$F2type = 203;
 			}
 			//We need LC
 			else{
-				$F2capacity = 5000;
+				$F2capacity = $pricelist[202]['capacity'];
 				$F2type = 202;
 			}
 			$F2 = min($PLANET[$resource[$F2type]], ceil($amountTMP / $F2capacity));
