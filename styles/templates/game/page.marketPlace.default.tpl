@@ -9,7 +9,7 @@
 	</tr>
 	<tr>
 		<td>
-			Ship type as first:
+			{$LNG.market_ship_as_first}
 		</td>
 		<td>
 			<select id="shipT">
@@ -102,7 +102,7 @@ $('#shipT').on('change', function (e) {
 $('#shipT').trigger("change");
 
 $(".market_form").submit( function() {
-	var c = confirm("Are you sure?");
+	var c = confirm({$LNG.market_confirm_are_you_sure});
 	if (c) {
 		$(this).append('<input type="hidden" name="shipType" value="' + $("#shipT").val() + '">')
 	}
