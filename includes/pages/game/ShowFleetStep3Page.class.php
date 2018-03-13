@@ -96,6 +96,14 @@ class ShowFleetStep3Page extends AbstractGamePage
 			)));
 		}
 
+		if ($targetMission == 16 && $WantedResourceAmount < 1)
+		{
+			$this->printMessage($LNG['fl_no_noresource'], array(array(
+				'label'	=> $LNG['sys_back'],
+				'url'	=> 'game.php?page=fleet2'
+			)));
+		}
+
 		$ActualFleets		= FleetFunctions::GetCurrentFleets($USER['id']);
 
 		if (FleetFunctions::GetMaxFleetSlots($USER) <= $ActualFleets)
