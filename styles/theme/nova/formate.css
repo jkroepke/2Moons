@@ -1,5 +1,5 @@
 /** Edit Color here **/
- * 
+ *
 #.ui-widget-header{
 	background-color:#D20000;
 }
@@ -67,6 +67,16 @@ th, .ui-widget-header {
 	font-weight:700;
 	text-align:left;
 	border:1px solid #000;
+}
+
+
+.no-background, .no-background > th, .no-background > td {
+	background-image: none;
+	background: transparent;
+}
+
+.no-border, .no-border > th, .no-border > td {
+	border:0px;
 }
 
 th a:hover, .ui-widget-header a:hover, #menu a:hover  {

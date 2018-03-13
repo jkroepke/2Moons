@@ -264,6 +264,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 				'total' => $fleetsRow['fleet_resource_metal'] + $fleetsRow['fleet_resource_crystal'] + $fleetsRow['fleet_resource_deuterium'],
 
 				'fleet_wanted_resource'	=> $resourceN,
+				'fleet_wanted_resource_id' => $fleetsRow['fleet_wanted_resource'],
 				'fleet_wanted_resource_amount'	=> $fleetsRow['fleet_wanted_resource_amount'],
 
 				'end'	=> $fleetsRow['fleet_end_stay'] - TIMESTAMP,

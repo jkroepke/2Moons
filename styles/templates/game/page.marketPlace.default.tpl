@@ -37,6 +37,21 @@
 {/if}
 <table id="tradeList" style="width:50%;white-space: nowrap;" class="tablesorter">
 	<thead>
+		<tr class="no-background no-border">
+			<th></th>
+			<th></th>
+			<th><img src="./styles/theme/nova/images/metal.gif"/></th>
+			<th><img src="./styles/theme/nova/images/crystal.gif"/></th>
+			<th><img src="./styles/theme/nova/images/deuterium.gif"/></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th class="LC" style="display: none;"></th>
+			<th class="HC"></th>
+			<th></th>
+		</tr>
 		<tr>
 			<th>ID</th>
 			<th>{$LNG['gl_player']}</th>
@@ -44,6 +59,7 @@
 			<th>{$LNG['tech'][902]}</th>
 			<th>{$LNG['tech'][903]}</th>
 			<th>{$LNG.market_p_total}</th>
+			<th  class="no-background no-border">-></th>
 			<th>{$LNG.market_p_cost_type}</th>
 			<th>{$LNG.market_p_cost_amount}</th>
 			<th>{$LNG.market_p_end}</th>
@@ -63,6 +79,15 @@
 		<td>{$FlyingFleetRow.fleet_resource_crystal}</td>
 		<td>{$FlyingFleetRow.fleet_resource_deuterium}</td>
 		<td>{$FlyingFleetRow.total}</td>
+		<td class="no-background no-border">
+			{if $FlyingFleetRow.fleet_wanted_resource_id == 1}
+			<img src="./styles/theme/nova/images/metal.gif"/>
+			{elseif $FlyingFleetRow.fleet_wanted_resource_id == 2}
+			<img src="./styles/theme/nova/images/crystal.gif"/>
+			{elseif $FlyingFleetRow.fleet_wanted_resource_id == 3}
+			<img src="./styles/theme/nova/images/deutrium.gif"/>
+			{/if}
+		</td>
 		<td>{$FlyingFleetRow.fleet_wanted_resource}</td>
 		<td>{$FlyingFleetRow.fleet_wanted_resource_amount}</td>
 		<td data-time="{$FlyingFleetRow.end}">{pretty_fly_time({$FlyingFleetRow.end})}</td>

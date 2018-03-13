@@ -1009,6 +1009,7 @@ $LNG['market_p_end']  = 'End';
 $LNG['market_p_from_duration']  ='Duration from';
 $LNG['market_p_to_duration']  ='Duration to';
 $LNG['market_p_submit']  = 'Buy now!';
+$LNG['market_p_buy']  = 'Buy';
 $LNG['market_ship_as_first'] = 'Ship type as first';
 $LNG['market_confirm_are_you_sure'] = 'Are you sure?';
 
