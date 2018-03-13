@@ -48,7 +48,7 @@
 			<th>{$LNG.market_p_cost_amount}</th>
 			<th>{$LNG.market_p_end}</th>
 			<th>{$LNG.market_p_from_duration}</th>
-			<th class="LC">{$LNG.market_p_to_duration}</th>
+			<th class="LC" style="display: none;">{$LNG.market_p_to_duration}</th>
 			<th class="HC">{$LNG.market_p_to_duration}</th>
 			<th>{$LNG.market_p_buy}</th>
 		</tr>
@@ -67,7 +67,7 @@
 		<td>{$FlyingFleetRow.fleet_wanted_resource_amount}</td>
 		<td data-time="{$FlyingFleetRow.end}">{pretty_fly_time({$FlyingFleetRow.end})}</td>
 		<td>{pretty_fly_time({$FlyingFleetRow.from_duration})}</td>
-		<td class="LC">{pretty_fly_time({$FlyingFleetRow.to_lc_duration})}</td>
+		<td class="LC" style="display: none;">{pretty_fly_time({$FlyingFleetRow.to_lc_duration})}</td>
 		<td class="HC">{pretty_fly_time({$FlyingFleetRow.to_hc_duration})}</td>
 		<td><form class="market_form" action="game.php?page=marketPlace&amp;action=buy" method="post">
 		<input name="fleetID" value="{$FlyingFleetRow.id}" type="hidden">

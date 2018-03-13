@@ -1008,8 +1008,9 @@ $LNG['market_p_cost_amount']  ='Amount';
 $LNG['market_p_end']  = 'End';
 $LNG['market_p_from_duration']  ='Duration from';
 $LNG['market_p_to_duration']  ='Duration to';
-$LNG['market_p_buy']  = 'Buy';
 $LNG['market_p_submit']  = 'Buy now!';
+$LNG['market_ship_as_first'] = 'Ship type as first';
+$LNG['market_confirm_are_you_sure'] = 'Are you sure?';
 
 $LNG['market_p_msg_not_found']  = 'Offer not found.';
 $LNG['market_p_msg_more_ships_is_needed']  = 'More ships is needed.';
