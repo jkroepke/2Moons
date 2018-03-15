@@ -3,13 +3,18 @@
 
 <table style="width:50%">
 	<tr>
-		<th colspan="2">
-			Options
+		<th colspan="2" class="center">
+			{$LNG.market_info_header}
 		</th>
 	</tr>
 	<tr>
+		<td colspan="2">
+			{$LNG.market_info_description}
+		</td>
+	</tr>
+	<tr>
 		<td>
-			Ship type as first:
+			{$LNG.market_ship_as_first}
 		</td>
 		<td>
 			<select id="shipT">
@@ -37,6 +42,21 @@
 {/if}
 <table id="tradeList" style="width:50%;white-space: nowrap;" class="tablesorter">
 	<thead>
+		<tr class="no-background no-border center">
+			<th></th>
+			<th></th>
+			<th><img src="./styles/theme/nova/images/metal.gif"/></th>
+			<th><img src="./styles/theme/nova/images/crystal.gif"/></th>
+			<th><img src="./styles/theme/nova/images/deuterium.gif"/></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th class="LC" style="display: none;"></th>
+			<th class="HC"></th>
+			<th></th>
+		</tr>
 		<tr>
 			<th>ID</th>
 			<th>{$LNG['gl_player']}</th>
@@ -44,11 +64,12 @@
 			<th>{$LNG['tech'][902]}</th>
 			<th>{$LNG['tech'][903]}</th>
 			<th>{$LNG.market_p_total}</th>
+			<th>{$LNG.market_p_end}</th>
+			<th  class="no-background no-border center">-></th>
 			<th>{$LNG.market_p_cost_type}</th>
 			<th>{$LNG.market_p_cost_amount}</th>
-			<th>{$LNG.market_p_end}</th>
 			<th>{$LNG.market_p_from_duration}</th>
-			<th class="LC">{$LNG.market_p_to_duration}</th>
+			<th class="LC" style="display: none;">{$LNG.market_p_to_duration}</th>
 			<th class="HC">{$LNG.market_p_to_duration}</th>
 			<th>{$LNG.market_p_buy}</th>
 		</tr>
@@ -59,15 +80,24 @@
 	<tr>
 		<td>{$smarty.foreach.FlyingFleets.iteration}</td>
 		<td>{$FlyingFleetRow.username}</td>
-		<td>{$FlyingFleetRow.fleet_resource_metal}</td>
-		<td>{$FlyingFleetRow.fleet_resource_crystal}</td>
-		<td>{$FlyingFleetRow.fleet_resource_deuterium}</td>
-		<td>{$FlyingFleetRow.total}</td>
-		<td>{$FlyingFleetRow.fleet_wanted_resource}</td>
-		<td>{$FlyingFleetRow.fleet_wanted_resource_amount}</td>
+		<td class="resource_metal">{$FlyingFleetRow.fleet_resource_metal|number}</td>
+		<td class="resource_crystal">{$FlyingFleetRow.fleet_resource_crystal|number}</td>
+		<td class="resource_deuterium">{$FlyingFleetRow.fleet_resource_deuterium|number}</td>
+		<td>{$FlyingFleetRow.total|number}</td>
 		<td data-time="{$FlyingFleetRow.end}">{pretty_fly_time({$FlyingFleetRow.end})}</td>
+		<td class="no-background no-border">
+			{if $FlyingFleetRow.fleet_wanted_resource_id == 1}
+			<img src="./styles/theme/nova/images/metal.gif"/>
+			{elseif $FlyingFleetRow.fleet_wanted_resource_id == 2}
+			<img src="./styles/theme/nova/images/crystal.gif"/>
+			{elseif $FlyingFleetRow.fleet_wanted_resource_id == 3}
+			<img src="./styles/theme/nova/images/deuterium.gif"/>
+			{/if}
+		</td>
+		<td class="wanted-resource-{$FlyingFleetRow.fleet_wanted_resource_id}">{$FlyingFleetRow.fleet_wanted_resource}</td>
+		<td class="wanted-resource-amount">{$FlyingFleetRow.fleet_wanted_resource_amount|number}</td>
 		<td>{pretty_fly_time({$FlyingFleetRow.from_duration})}</td>
-		<td class="LC">{pretty_fly_time({$FlyingFleetRow.to_lc_duration})}</td>
+		<td class="LC" style="display: none;">{pretty_fly_time({$FlyingFleetRow.to_lc_duration})}</td>
 		<td class="HC">{pretty_fly_time({$FlyingFleetRow.to_hc_duration})}</td>
 		<td><form class="market_form" action="game.php?page=marketPlace&amp;action=buy" method="post">
 		<input name="fleetID" value="{$FlyingFleetRow.id}" type="hidden">
@@ -102,7 +132,7 @@ $('#shipT').on('change', function (e) {
 $('#shipT').trigger("change");
 
 $(".market_form").submit( function() {
-	var c = confirm("Are you sure?");
+	var c = confirm({$LNG.market_confirm_are_you_sure});
 	if (c) {
 		$(this).append('<input type="hidden" name="shipType" value="' + $("#shipT").val() + '">')
 	}

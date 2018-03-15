@@ -1,4 +1,4 @@
-v<?php
+<?php
 
 /**
  *  Steemnova
@@ -27,7 +27,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 	}
 
 	private function doBuy() {
-		global $USER, $PLANET, $reslist, $resource, $LNG;
+		global $USER, $PLANET, $reslist, $resource, $LNG, $pricelist;
 		$FleetID			= HTTP::_GP('fleetID', 0);
 		$shipType		= HTTP::_GP('shipType', "");
 		$db = Database::get();
@@ -63,12 +63,12 @@ class ShowMarketPlacePage extends AbstractGamePage
 		$F1type = 0;
 		//PRIO for LC
 		if($shipType == 1) {
-			$F1capacity = 5000;
+			$F1capacity = $pricelist[202]['capacity'];
 			$F1type = 202;
 		}
 		// PRIO for HC
 		else {
-			$F1capacity = 25000;
+			$F1capacity = $pricelist[203]['capacity'];
 			$F1type = 203;
 		}
 
@@ -83,12 +83,12 @@ class ShowMarketPlacePage extends AbstractGamePage
 		if ($amountTMP > 0) {
 			//We need HC
 			if($shipType == 1) {
-				$F2capacity = 25000;
+				$F2capacity = $pricelist[203]['capacity'];
 				$F2type = 203;
 			}
 			//We need LC
 			else{
-				$F2capacity = 5000;
+				$F2capacity = $pricelist[202]['capacity'];
 				$F2type = 202;
 			}
 			$F2 = min($PLANET[$resource[$F2type]], ceil($amountTMP / $F2capacity));
@@ -145,6 +145,8 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$fleetResult['fleet_start_galaxy'], $fleetResult['fleet_start_system'], $fleetResult['fleet_start_planet'], $fleetResult['fleet_start_type'],
 			$fleetResource, $fleetStartTime, $fleetStayTime, $fleetEndTime,0,0,0,0,1);
 
+
+
 		/////////////////////////////////////////////////////////////////////////////
 		/// SEND/
 		$sql = "SELECT * FROM %%USERS%% WHERE id = :userId;";
@@ -178,9 +180,9 @@ class ShowMarketPlacePage extends AbstractGamePage
 			':fleet_mess'=> 0,
 		);
 		$sql = "UPDATE %%FLEETS%% SET `fleet_no_m_return` = :fleet_no_m_return, `fleet_end_id` = :fleet_end_id,`fleet_target_owner` = :fleet_target_owner, `fleet_mess` = :fleet_mess, `fleet_mission` = :fleet_mission, `fleet_end_stay` = :fleet_end_stay ,`fleet_end_time` = :fleet_end_time ,`fleet_start_time` = :fleet_start_time , `fleet_end_planet` = :fleet_end_planet, `fleet_end_system` = :fleet_end_system, `fleet_end_galaxy` = :fleet_end_galaxy WHERE fleet_id = :fleetID;";
-		$fleetResult = $db->update($sql, $params);
+		$db->update($sql, $params);
 		$sql = "UPDATE %%LOG_FLEETS%% SET `fleet_no_m_return` = :fleet_no_m_return, `fleet_end_id` = :fleet_end_id,`fleet_target_owner` = :fleet_target_owner, `fleet_mess` = :fleet_mess, `fleet_mission` = :fleet_mission, `fleet_end_stay` = :fleet_end_stay ,`fleet_end_time` = :fleet_end_time ,`fleet_start_time` = :fleet_start_time , `fleet_end_planet` = :fleet_end_planet, `fleet_end_system` = :fleet_end_system, `fleet_end_galaxy` = :fleet_end_galaxy WHERE fleet_id = :fleetID;";
-		$fleetResult = $db->update($sql, $params);
+		$db->update($sql, $params);
 		$sql	= 'UPDATE %%FLEETS_EVENT%% SET  `time` = :endTime WHERE fleetID	= :fleetId;';
 		$db->update($sql, array(
 			':fleetId'	=> $FleetID,
@@ -192,6 +194,23 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$LC = $fleetArrayTMP[202];
 		if(array_key_exists(203,$fleetArrayTMP))
 			$HC = $fleetArrayTMP[203];
+
+		// To customer
+		$Message	= sprintf($LNG['market_msg_trade_bought'], $PLANET['galaxy'].":".$PLANET['system'].":".$PLANET['planet'],
+			$fleetResource[901],$LNG['tech'][901],
+			$fleetResource[902],$LNG['tech'][902],
+			$fleetResource[903],$LNG['tech'][903],
+			$consumption, $LNG['tech'][903]);
+		PlayerUtil::sendMessage($USER['id'], 0, $LNG['market_msg_trade_from'], 4, $LNG['market_msg_trade_topic'],
+			$Message, TIMESTAMP, NULL, 1, $fleetResult['fleet_universe']);
+
+		// To salesmen
+		$Message	= sprintf($LNG['market_msg_trade_sold'], $fleetResult['fleet_start_galaxy'].":".$fleetResult['fleet_start_system'].":".$fleetResult['fleet_start_planet'],
+			$fleetResult['fleet_resource_metal'],$LNG['tech'][901],
+			$fleetResult['fleet_resource_crystal'],$LNG['tech'][902],
+			$fleetResult['fleet_resource_deuterium'],$LNG['tech'][903]);
+		PlayerUtil::sendMessage($USER['id'], 0, $LNG['market_msg_trade_from'], 4, $LNG['market_msg_trade_topic'],
+			$Message, TIMESTAMP, NULL, 1, $fleetResult['fleet_universe']);
 		return sprintf($LNG['market_p_msg_sent'], $LC, $HC);
 	}
 
@@ -264,6 +283,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 				'total' => $fleetsRow['fleet_resource_metal'] + $fleetsRow['fleet_resource_crystal'] + $fleetsRow['fleet_resource_deuterium'],
 
 				'fleet_wanted_resource'	=> $resourceN,
+				'fleet_wanted_resource_id' => $fleetsRow['fleet_wanted_resource'],
 				'fleet_wanted_resource_amount'	=> $fleetsRow['fleet_wanted_resource_amount'],
 
 				'end'	=> $fleetsRow['fleet_end_stay'] - TIMESTAMP,

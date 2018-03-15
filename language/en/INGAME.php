@@ -374,6 +374,7 @@ $LNG['fl_not_enough_deuterium']				= 'Not enough deuterium available.';
 $LNG['fl_not_enough_space']					= 'You have not enough cargo space available.';
 $LNG['fl_hold_time_not_exists']				= 'Invalid retention time.';
 $LNG['fl_system_places']					= 'Special locations';
+$LNG['fl_no_noresource_exchange'] = 'No resources in exchange field';
 //----------------------------------------------------------------------------//
 // Edificios
 $LNG['bd_dismantle']						= 'Demolish';
@@ -1005,15 +1006,24 @@ $LNG['market_p_total']  ='Total';
 $LNG['market_p_cost_type']   ='Cost type';
 $LNG['market_p_cost_amount']  ='Amount';
 $LNG['market_p_end']  = 'End';
-$LNG['market_p_from_duration']  ='Duration from';
-$LNG['market_p_to_duration']  ='Duration to';
-$LNG['market_p_buy']  = 'Buy';
+$LNG['market_p_from_duration']  ='Flight from';
+$LNG['market_p_to_duration']  ='Flight to';
 $LNG['market_p_submit']  = 'Buy now!';
+$LNG['market_p_buy']  = 'Buy';
+$LNG['market_ship_as_first'] = 'Ship type as first';
+$LNG['market_confirm_are_you_sure'] = 'Are you sure?';
+$LNG['market_info_header'] = "Info";
+$LNG['market_info_description'] = "TODO";
 
 $LNG['market_p_msg_not_found']  = 'Offer not found.';
 $LNG['market_p_msg_more_ships_is_needed']  = 'More ships is needed.';
 $LNG['market_p_msg_resources_error']  = 'Not enough resources.';
 $LNG['market_p_msg_sent']  = 'Sent %s Light Cargos, %s Heavy Cargos';
+
+$LNG['market_msg_trade_topic'] = "Trading status";
+$LNG['market_msg_trade_from'] = "Trading zone";
+$LNG['market_msg_trade_bought'] 					= 'Your fleet is flying to %s with %s %s, %s %s, %s %s and it costs %s %s';
+$LNG['market_msg_trade_sold'] 					= 'Your fleet is flying to %s with %s %s, %s %s, %s %s.';
 //----------------------------------------------------------------------------//
 // Relatório de Combate
 $LNG['cr_lost_contact']                     = 'Lost touch with your fleet.';

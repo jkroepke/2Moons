@@ -165,6 +165,7 @@ $LNG['sys_tran_mess_owner']		 			= 'One of your fleets reaches the planet %s %s 
 $LNG['sys_tran_mess_user'] 		 			= 'A peaceful fleet of %s %s reached %s %s and delivers %s %s, %s %s and %s %s.';
 $LNG['sys_mess_fleetback'] 					= 'Fleet return';
 $LNG['sys_tran_mess_back'] 					= 'One of your fleets returns from the planet %s %s.';
+$LNG['sys_trade_mess_back'] 					= 'One of your trading fleets returns to the planet %s %s without success.';
 $LNG['sys_recy_gotten'] 					= 'Having arrived at there destination your Recyclers collect %s %s and %s %s';
 $LNG['sys_gain'] 				  			= 'Profit';
 $LNG['sys_irak_subject'] 				  	= 'Rocket impact';
