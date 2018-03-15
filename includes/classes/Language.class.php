@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -19,7 +19,7 @@ class Language implements ArrayAccess {
     private $container = array();
     private $language = array();
     static private $allLanguages = array();
-	
+
 	static function getAllowedLangs($OnlyKey = true)
 	{
 		if(empty(self::$allLanguages))
@@ -28,7 +28,7 @@ class Language implements ArrayAccess {
 			$cache->add('language', 'LanguageBuildCache');
 			self::$allLanguages = $cache->getData('language');
 		}
-		
+
 		if($OnlyKey)
 		{
 			return array_keys(self::$allLanguages);
@@ -38,7 +38,7 @@ class Language implements ArrayAccess {
 			return self::$allLanguages;
 		}
 	}
-	
+
 	public function getUserAgentLanguage()
 	{
    		if (isset($_REQUEST['lang']) && in_array($_REQUEST['lang'], self::getAllowedLangs()))
@@ -47,13 +47,13 @@ class Language implements ArrayAccess {
 			$this->setLanguage($_REQUEST['lang']);
 			return true;
 		}
-		
+
    		if ((MODE === 'LOGIN' || MODE === 'INSTALL') && isset($_COOKIE['lang']) && in_array($_COOKIE['lang'], self::getAllowedLangs()))
 		{
 			$this->setLanguage($_COOKIE['lang']);
 			return true;
 		}
-		
+
 	    if (empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
 		{
             return false;
@@ -80,18 +80,18 @@ class Language implements ArrayAccess {
 				break;
 			}
         }
-		
+
 		HTTP::sendCookie('lang', $language, 2147483647);
 		$this->setLanguage($language);
 
 		return $language;
 	}
-	
+
     public function __construct($language = NULL)
 	{
 		$this->setLanguage($language);
     }
-	
+
     public function setLanguage($language)
 	{
 		if(!is_null($language) && in_array($language, self::getAllowedLangs()))
@@ -107,16 +107,16 @@ class Language implements ArrayAccess {
 			$this->language	= DEFAULT_LANG;
 		}
     }
-	
+
     public function addData($data) {
 		$this->container = array_replace_recursive($this->container, $data);
     }
-	
+
 	public function getLanguage()
 	{
 		return $this->language;
 	}
-	
+
 	public function getTemplate($templateName)
 	{
 		if(file_exists('language/'.$this->getLanguage().'/templates/'.$templateName.'.txt'))
@@ -128,13 +128,24 @@ class Language implements ArrayAccess {
 			return '### Template "'.$templateName.'" on language "'.$this->getLanguage().'" not found! ###';
 		}
 	}
-	
+
 	public function includeData($files)
 	{
 		// Fixed BOM problems.
 		ob_start();
 		$LNG	= array();
 
+		//FALLBACK
+		$path	= 'language/en/';
+        foreach($files as $file) {
+			$filePath	= $path.$file.'.php';
+			if(file_exists($filePath))
+			{
+				require $filePath;
+			}
+		}
+
+		//LANGUAGE
 		$path	= 'language/'.$this->getLanguage().'/';
 
         foreach($files as $file) {
@@ -151,9 +162,9 @@ class Language implements ArrayAccess {
 
 		$this->addData($LNG);
 	}
-	
+
 	/** ArrayAccess Functions **/
-	
+
     public function offsetSet($offset, $value) {
         if (is_null($offset)) {
             $this->container[] = $value;
@@ -161,15 +172,15 @@ class Language implements ArrayAccess {
             $this->container[$offset] = $value;
         }
     }
-	
+
     public function offsetExists($offset) {
         return isset($this->container[$offset]);
     }
-	
+
     public function offsetUnset($offset) {
         unset($this->container[$offset]);
     }
-	
+
     public function offsetGet($offset) {
         return isset($this->container[$offset]) ? $this->container[$offset] : $offset;
     }
