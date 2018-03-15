@@ -3,13 +3,15 @@
 
 <table style="width:50%">
 	<tr>
-		<th colspan="2" class="center">
+		<th colspan="2">
 			{$LNG.market_info_header}
 		</th>
 	</tr>
 	<tr>
 		<td colspan="2">
-			{$LNG.market_info_description}
+			<p>
+				{$LNG.market_info_description}
+			</p>
 		</td>
 	</tr>
 	<tr>
