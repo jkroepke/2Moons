@@ -75,6 +75,11 @@ th, .ui-widget-header {
 	background: transparent;
 }
 
+.center, .center > th, .center > td {
+	text-align:center;
+}
+
+
 .no-border, .no-border > th, .no-border > td {
 	border:0px;
 }

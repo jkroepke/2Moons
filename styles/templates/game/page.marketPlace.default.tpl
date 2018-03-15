@@ -3,9 +3,14 @@
 
 <table style="width:50%">
 	<tr>
-		<th colspan="2">
-			Options
+		<th colspan="2" class="center">
+			{$LNG.market_info_header}
 		</th>
+	</tr>
+	<tr>
+		<td colspan="2">
+			{$LNG.market_info_description}
+		</td>
 	</tr>
 	<tr>
 		<td>
@@ -37,7 +42,7 @@
 {/if}
 <table id="tradeList" style="width:50%;white-space: nowrap;" class="tablesorter">
 	<thead>
-		<tr class="no-background no-border">
+		<tr class="no-background no-border center">
 			<th></th>
 			<th></th>
 			<th><img src="./styles/theme/nova/images/metal.gif"/></th>
@@ -60,7 +65,7 @@
 			<th>{$LNG['tech'][903]}</th>
 			<th>{$LNG.market_p_total}</th>
 			<th>{$LNG.market_p_end}</th>
-			<th  class="no-background no-border">-></th>
+			<th  class="no-background no-border center">-></th>
 			<th>{$LNG.market_p_cost_type}</th>
 			<th>{$LNG.market_p_cost_amount}</th>
 			<th>{$LNG.market_p_from_duration}</th>
