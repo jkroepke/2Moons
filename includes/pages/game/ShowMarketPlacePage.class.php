@@ -141,7 +141,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 		$PLANET[$resource[902]]	-= $fleetResource[902];
 		$PLANET[$resource[903]]	-= $fleetResource[903] + $consumption;
 
-		FleetFunctions::sendFleet($fleetArray, 3/*Transport*/, $USER['id'], $PLANET['id'], $PLANET['galaxy'],
+		$buyerfleet = FleetFunctions::sendFleet($fleetArray, 3/*Transport*/, $USER['id'], $PLANET['id'], $PLANET['galaxy'],
 			$PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $fleetResult['fleet_owner'], $fleetResult['fleet_start_id'],
 			$fleetResult['fleet_start_galaxy'], $fleetResult['fleet_start_system'], $fleetResult['fleet_start_planet'], $fleetResult['fleet_start_type'],
 			$fleetResource, $fleetStartTime, $fleetStayTime, $fleetEndTime,0,0,0,0,1);
@@ -189,6 +189,13 @@ class ShowMarketPlacePage extends AbstractGamePage
 			':fleetId'	=> $FleetID,
 			':endTime'	=> $fleetStartTime
 		));
+
+		$sql	= 'UPDATE %%TRADES%% SET  `buyer_fleet_id` = :buyerFleetId,`buy_time` = NOW() WHERE seller_fleet_id	= :fleetId;';
+		$db->update($sql, array(
+			':fleetId'	=> $FleetID,
+			':buyerFleetId' =>$buyerfleet
+		));
+
 		$LC = 0;
 		$HC = 0;
 		if(array_key_exists(202,$fleetArrayTMP))
