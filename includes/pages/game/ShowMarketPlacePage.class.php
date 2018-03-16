@@ -196,7 +196,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$HC = $fleetArrayTMP[203];
 
 		// To customer
-		$Message	= sprintf($LNG['market_msg_trade_bought'], $PLANET['galaxy'].":".$PLANET['system'].":".$PLANET['planet'],
+		$Message	= sprintf($LNG['market_msg_trade_bought'], $fleetResult['fleet_start_galaxy'].":".$fleetResult['fleet_start_system'].":".$fleetResult['fleet_start_planet'],
 			$fleetResource[901],$LNG['tech'][901],
 			$fleetResource[902],$LNG['tech'][902],
 			$fleetResource[903],$LNG['tech'][903],
@@ -205,11 +205,11 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$Message, TIMESTAMP, NULL, 1, $fleetResult['fleet_universe']);
 
 		// To salesmen
-		$Message	= sprintf($LNG['market_msg_trade_sold'], $fleetResult['fleet_start_galaxy'].":".$fleetResult['fleet_start_system'].":".$fleetResult['fleet_start_planet'],
+		$Message	= sprintf($LNG['market_msg_trade_sold'], $PLANET['galaxy'].":".$PLANET['system'].":".$PLANET['planet'],
 			$fleetResult['fleet_resource_metal'],$LNG['tech'][901],
 			$fleetResult['fleet_resource_crystal'],$LNG['tech'][902],
 			$fleetResult['fleet_resource_deuterium'],$LNG['tech'][903]);
-		PlayerUtil::sendMessage($USER['id'], 0, $LNG['market_msg_trade_from'], 4, $LNG['market_msg_trade_topic'],
+		PlayerUtil::sendMessage($fleetResult['fleet_owner'], 0, $LNG['market_msg_trade_from'], 4, $LNG['market_msg_trade_topic'],
 			$Message, TIMESTAMP, NULL, 1, $fleetResult['fleet_universe']);
 		return sprintf($LNG['market_p_msg_sent'], $LC, $HC);
 	}
