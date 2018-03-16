@@ -65,7 +65,16 @@
 					<option value="2">{$LNG.tech.902}</option>
 					<option value="3">{$LNG.tech.903}</option>
 				</select>
-			<input name="exchange" size="10" type="text">
+			<input name="exchange" size="10" type="text"><br/>
+			Visibility:
+			<select name="visibility">
+				<option value="1" selected>All</option>
+				<option value="2">Alliance + Trade partners</option>
+				<option value="3">All - Enemies</option>
+			</select>
+			<br/>
+			Max flight time (0 = unlimited):
+			<input name="maxFlightTime" size="10" type="text" value="0"> hours<br/>
 			</td>
 		</tr>
 		{/if}

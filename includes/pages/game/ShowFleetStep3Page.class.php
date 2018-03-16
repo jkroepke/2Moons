@@ -38,6 +38,9 @@ class ShowFleetStep3Page extends AbstractGamePage
 		$TransportDeuterium		= max(0, round(HTTP::_GP('deuterium', 0.0)));
 		$WantedResourceType		= HTTP::_GP('resEx', 0);
 		$WantedResourceAmount		= max(0, round(HTTP::_GP('exchange', 0.0)));
+
+		$visibility		= HTTP::_GP('visibility', 0);
+		$maxFlightTime		= HTTP::_GP('maxFlightTime', 0);
 		$stayTime 				= HTTP::_GP('staytime', 0);
 		$token					= HTTP::_GP('token', '');
 
@@ -417,6 +420,8 @@ class ShowFleetStep3Page extends AbstractGamePage
 		if($targetMission == 16) {
 			$sql	= 'INSERT INTO %%TRADES%% SET
 				seller_fleet_id				= :sellerFleet,
+				filter_visibility			= :visibility,
+				filter_flighttime			= :flightTime,
 				ex_resource_type			= :resType,
 				ex_resource_amount		= :resAmount;';
 
@@ -424,6 +429,8 @@ class ShowFleetStep3Page extends AbstractGamePage
 					':sellerFleet'			=> $fleet_id,
 					':resType'					=> $WantedResourceType,
 					':resAmount'				=> $WantedResourceAmount,
+					':flightTime'				=> $maxFlightTime * 3600,
+					':visibility'				=> $visibility
 				));
 		}
 
