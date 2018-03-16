@@ -18,6 +18,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 	}
 
 	private function checkSlots($USER) {
+		global $LNG;
 		$ActualFleets		= FleetFunctions::GetCurrentFleets($USER['id']);
 		if (FleetFunctions::GetMaxFleetSlots($USER) <= $ActualFleets)
 		{
