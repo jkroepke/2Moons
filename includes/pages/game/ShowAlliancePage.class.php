@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -868,7 +868,7 @@ class ShowAlliancePage extends AbstractGamePage
 			}
 		}
 
-        require 'includes/classes/class.FlyingFleetHandler.php';
+        require_once 'includes/classes/class.FlyingFleetHandler.php';
 
         $available_events = array();
 
