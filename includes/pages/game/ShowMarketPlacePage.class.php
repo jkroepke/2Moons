@@ -40,7 +40,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 			return $checkResult['message'];
 		}
 		//Get trade fleet
-		$sql = "SELECT * FROM %%FLEETS%% WHERE fleet_id = :fleet_id AND fleet_mess = 2;";
+		$sql = "SELECT * FROM %%FLEETS%% JOIN %%TRADES%% ON fleet_id = seller_fleet_id WHERE fleet_id = :fleet_id AND fleet_mess = 2;";
 		$fleetResult = $db->select($sql, array(
 			':fleet_id' => $FleetID,
 		));
@@ -51,14 +51,14 @@ class ShowMarketPlacePage extends AbstractGamePage
 		}
 
 		//if not in range 1-3
-		if($fleetResult[0]['fleet_wanted_resource'] >= 4 ||
-			$fleetResult[0]['fleet_wanted_resource'] <= 0) {
+		if($fleetResult[0]['ex_resource_type'] >= 4 ||
+			$fleetResult[0]['ex_resource_type'] <= 0) {
 				return $LNG['market_p_msg_wrong_resource_type'];
 		}
 
 		//-------------FLEET SIZE CALCULATION---------------
 		$fleetResult = $fleetResult[0];
-		$amount = $fleetResult['fleet_wanted_resource_amount'];
+		$amount = $fleetResult['ex_resource_amount'];
 
 		$F1capacity = 0;
 		$F1type = 0;
@@ -118,11 +118,11 @@ class ShowMarketPlacePage extends AbstractGamePage
 		$met = 0;
 		$cry = 0;
 		$deu = 0;
-		if ($fleetResult['fleet_wanted_resource'] == 1)
+		if ($fleetResult['ex_resource_type'] == 1)
 			$met = $amount;
-		elseif ($fleetResult['fleet_wanted_resource'] == 2)
+		elseif ($fleetResult['ex_resource_type'] == 2)
 			$cry = $amount;
-		elseif ($fleetResult['fleet_wanted_resource'] == 3)
+		elseif ($fleetResult['ex_resource_type'] == 3)
 			$deu = $amount;
 
 		$fleetResource	= array(
@@ -231,7 +231,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$message = $this->doBuy();
 		}
 
-		$sql = "SELECT * FROM %%FLEETS%%, %%USERS%% WHERE fleet_mission = 16 AND fleet_mess = 2 AND fleet_owner = %%USERS%%.id ORDER BY fleet_end_time ASC;";
+		$sql = "SELECT * FROM %%FLEETS%% JOIN %%USERS%% ON fleet_owner = id JOIN %%TRADES%% ON fleet_id = seller_fleet_id WHERE fleet_mission = 16 AND fleet_mess = 2 ORDER BY fleet_end_time ASC;";
 		$fleetResult = $db->select($sql, array(
 		));
 
@@ -243,7 +243,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 		{
 			$resourceN = " ";
 			//TODO TRANSLATION
-			switch($fleetsRow['fleet_wanted_resource']) {
+			switch($fleetsRow['ex_resource_type']) {
 				case 1:
 					$resourceN = $LNG['tech'][901];
 					break;
@@ -284,8 +284,8 @@ class ShowMarketPlacePage extends AbstractGamePage
 				'total' => $fleetsRow['fleet_resource_metal'] + $fleetsRow['fleet_resource_crystal'] + $fleetsRow['fleet_resource_deuterium'],
 
 				'fleet_wanted_resource'	=> $resourceN,
-				'fleet_wanted_resource_id' => $fleetsRow['fleet_wanted_resource'],
-				'fleet_wanted_resource_amount'	=> $fleetsRow['fleet_wanted_resource_amount'],
+				'fleet_wanted_resource_id' => $fleetsRow['ex_resource_type'],
+				'fleet_wanted_resource_amount'	=> $fleetsRow['ex_resource_amount'],
 
 				'end'	=> $fleetsRow['fleet_end_stay'] - TIMESTAMP,
 

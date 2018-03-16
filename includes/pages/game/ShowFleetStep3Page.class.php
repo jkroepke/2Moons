@@ -116,9 +116,9 @@ class ShowFleetStep3Page extends AbstractGamePage
 
 		$ACSTime = 0;
 
-        $db = Database::get();
+		$db = Database::get();
 
-        if(!empty($fleetGroup))
+		if(!empty($fleetGroup))
 		{
             $sql = "SELECT ankunft FROM %%USERS_ACS%% INNER JOIN %%AKS%% ON id = acsID
 			WHERE acsID = :acsID AND :maxFleets > (SELECT COUNT(*) FROM %%FLEETS%% WHERE fleet_group = :acsID);";
@@ -408,10 +408,24 @@ class ShowFleetStep3Page extends AbstractGamePage
 		$fleetStayTime		= $fleetStartTime + $StayDuration;
 		$fleetEndTime		= $fleetStayTime + $duration;
 
-		FleetFunctions::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'],
+		$fleet_id = FleetFunctions::sendFleet($fleetArray, $targetMission, $USER['id'], $PLANET['id'], $PLANET['galaxy'],
 			$PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $targetPlanetData['id_owner'],
 			$targetPlanetData['id'], $targetGalaxy, $targetSystem, $targetPlanet, $targetType, $fleetResource,
-			$fleetStartTime, $fleetStayTime, $fleetEndTime, $fleetGroup, 0, $WantedResourceType,$WantedResourceAmount);
+			$fleetStartTime, $fleetStayTime, $fleetEndTime, $fleetGroup, 0);
+
+
+		if($targetMission == 16) {
+			$sql	= 'INSERT INTO %%TRADES%% SET
+				seller_fleet_id				= :sellerFleet,
+				ex_resource_type			= :resType,
+				ex_resource_amount		= :resAmount;';
+
+				$db->insert($sql, array(
+					':sellerFleet'			=> $fleet_id,
+					':resType'					=> $WantedResourceType,
+					':resAmount'				=> $WantedResourceAmount,
+				));
+		}
 
 		foreach ($fleetArray as $Ship => $Count)
 		{

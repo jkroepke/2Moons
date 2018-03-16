@@ -367,6 +367,18 @@ CREATE TABLE `%PREFIX%fleets` (
   KEY `fleet_group` (`fleet_group`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
+CREATE TABLE `%PREFIX%trades` (
+  `seller_fleet_id`  bigint(11) unsigned NOT NULL DEFAULT 0,
+  `buyer_fleet_id`  bigint(11) unsigned DEFAULT NULL,
+	`buy_time` datetime,
+	`transaction_type` tinyint(1) unsigned NOT NULL DEFAULT 0,
+	`filter_visibility` tinyint(1) unsigned NOT NULL DEFAULT 0,
+	`filter_flighttime` mediumint unsigned NOT NULL DEFAULT 0,
+	`ex_resource_type` tinyint(1) unsigned NOT NULL DEFAULT 0,
+	`ex_resource_amount` double(50,0) unsigned NOT NULL DEFAULT '0',
+	PRIMARY KEY (`seller_fleet_id`),
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+
 CREATE TABLE `%PREFIX%fleet_event` (
   `fleetID` int(11) NOT NULL,
   `time` int(11) NOT NULL,
