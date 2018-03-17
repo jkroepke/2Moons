@@ -1,0 +1,2 @@
+ALTER TABLE uni1_session DROP PRIMARY KEY;
+ALTER TABLE uni1_session ADD PRIMARY KEY (sessionID);
