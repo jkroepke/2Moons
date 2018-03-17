@@ -606,8 +606,7 @@ CREATE TABLE `%PREFIX%session` (
   `userID` int(10) unsigned NOT NULL,
   `userIP` varchar(40) NOT NULL,
   `lastonline` int(11) NOT NULL,
-  PRIMARY KEY (`userID`),
-  KEY `sessionID` (`sessionID`)
+  PRIMARY KEY (`sessionID`)
 ) ENGINE=MEMORY DEFAULT CHARSET=utf8;
 
 CREATE TABLE `%PREFIX%shortcuts` (

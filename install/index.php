@@ -127,6 +127,7 @@ switch ($mode) {
             if ($fileRevision <= $dbVersion || $fileRevision > DB_VERSION_REQUIRED) {
                 continue;
             }
+
             $updates[$fileInfo->getPathname()] = makebr(str_replace('%PREFIX%', DB_PREFIX, file_get_contents($fileInfo->getPathname())));
 		}
 
@@ -226,7 +227,13 @@ switch ($mode) {
                         $queries	= array_filter($queries);
                         foreach($queries as $query)
                         {
-                            Database::get()->nativeQuery(trim($query));
+							try {
+								// alter table IF NOT EXISTS
+								Database::get()->nativeQuery(trim($query));
+							}
+							catch (Exception $e) {
+								error_log('Query: [' . $query . '] failed. Error: ' . $e->getMessage() . '. Skipped');
+							}
                         }
                     }
                     catch (Exception $e) {
