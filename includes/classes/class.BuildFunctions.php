@@ -155,7 +155,7 @@ class BuildFunctions
         } elseif (in_array($Element, $reslist['defense'])) {
             $time	= $elementCost / ($config->game_speed * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * (1 + $USER['factor']['DefensiveTime']);
 	} elseif (in_array($Element, $reslist['missile'])) {
-            $time	= $elementCost / ($config->game_speed * (1 + $PLANET[$resource[14]])) * pow(0.5, $PLANET[$resource[15]]) * (1 + $USER['factor']['BuildTime']);
+            $time	= $elementCost / ($config->game_speed * (1 + $PLANET[$resource[21]])) * pow(0.5, $PLANET[$resource[15]]) * (1 + $USER['factor']['DefensiveTime']);
         } elseif (in_array($Element, $reslist['tech'])) {
             if(is_numeric($PLANET[$resource[31].'_inter']))
             {
