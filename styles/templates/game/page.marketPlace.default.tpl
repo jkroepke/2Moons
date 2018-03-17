@@ -79,9 +79,15 @@
 	<tbody>
 
 	{foreach name=FlyingFleets item=FlyingFleetRow from=$FlyingFleetList}
-	<tr>
+	<tr class='{if {$FlyingFleetRow.diplo} == 5}
+	 trade-enemy
+	  {elseif {$FlyingFleetRow.diplo} == NULL}
+		{elseif {$FlyingFleetRow.diplo} <= 3}}
+		 trade-ally
+		  {/if}
+	{if $FlyingFleetRow.possible_to_buy != true} trade-disallowed {/if}'>
 		<td>{$smarty.foreach.FlyingFleets.iteration}</td>
-		<td>{$FlyingFleetRow.username}</td>
+		<td class="table_username">{$FlyingFleetRow.username}</td>
 		<td class="resource_metal">{$FlyingFleetRow.fleet_resource_metal|number}</td>
 		<td class="resource_crystal">{$FlyingFleetRow.fleet_resource_crystal|number}</td>
 		<td class="resource_deuterium">{$FlyingFleetRow.fleet_resource_deuterium|number}</td>
@@ -101,10 +107,16 @@
 		<td>{pretty_fly_time({$FlyingFleetRow.from_duration})}</td>
 		<td class="LC" style="display: none;">{pretty_fly_time({$FlyingFleetRow.to_lc_duration})}</td>
 		<td class="HC">{pretty_fly_time({$FlyingFleetRow.to_hc_duration})}</td>
-		<td><form class="market_form" action="game.php?page=marketPlace&amp;action=buy" method="post">
-		<input name="fleetID" value="{$FlyingFleetRow.id}" type="hidden">
-		<input value="{$LNG.market_p_submit}" type="submit">
-		</form></td>
+		<td>
+			{if $FlyingFleetRow.possible_to_buy == true}
+			<form class="market_form" action="game.php?page=marketPlace&amp;action=buy" method="post">
+				<input name="fleetID" value="{$FlyingFleetRow.id}" type="hidden">
+				<input value="{$LNG.market_p_submit}" type="submit">
+			</form>
+			{else}
+				{$FlyingFleetRow.reason}
+			{/if}
+		</td>
 	</tr>
 	{/foreach}
 	</tbody>

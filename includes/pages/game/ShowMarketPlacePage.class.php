@@ -50,6 +50,23 @@ class ShowMarketPlacePage extends AbstractGamePage
 			return $LNG['market_p_msg_not_found'];
 		}
 
+		if($fleetResult['filter_visibility'] != 0) {
+			//Check packts
+			$sql = "SELECT * FROM %%DIPLO%% WHERE (owner_1 = :ow AND owner_2 = :ow2) OR (owner_2 = :ow AND owner_1 = :ow2);";
+			$res = $db->select($sql, array(
+				':ow' => $USER['ally_id'],
+				':ow2' => $fleetResult[0]['ally_id'],
+			));
+			//Partners
+			if($fleetResult['filter_visibility'] == 1) {
+				if(($db->rowCount() == 0 && $fleetResult[0]['ally_id'] != $USER['ally_id']) || $res[0]['level'] < 3 || $res[0]['accept'] == 0)
+					return $LNG['market_p_offer_only_partners'];
+			}
+			if($fleetResult['filter_visibility'] == 2 && $db->rowCount() != 0 && $res[0]['level'] == 5 && $res[0]['accept'] == 1) {
+				return $LNG['market_p_offer_no_enemies'];
+			}
+		}
+
 		//if not in range 1-3
 		if($fleetResult[0]['ex_resource_type'] >= 4 ||
 			$fleetResult[0]['ex_resource_type'] <= 0) {
@@ -238,8 +255,18 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$message = $this->doBuy();
 		}
 
-		$sql = "SELECT * FROM %%FLEETS%% JOIN %%USERS%% ON fleet_owner = id JOIN %%TRADES%% ON fleet_id = seller_fleet_id WHERE fleet_mission = 16 AND fleet_mess = 2 ORDER BY fleet_end_time ASC;";
+		$sql = 'SELECT *
+			FROM %%FLEETS%%
+			JOIN %%USERS%% ON fleet_owner = id
+			JOIN %%TRADES%% ON fleet_id = seller_fleet_id
+			LEFT JOIN (
+				SELECT owner_2 as al ,level, accept  FROM %%DIPLO%% WHERE owner_1 = :al
+				UNION
+				SELECT owner_1 as al,level, accept  FROM %%DIPLO%% WHERE owner_2 = :al) as packts
+			ON al = ally_id
+			WHERE fleet_mission = 16 AND fleet_mess = 2 ORDER BY fleet_end_time ASC;';
 		$fleetResult = $db->select($sql, array(
+			':al' => $USER['ally_id']
 		));
 
 		$activeFleetSlots	= $db->rowCount();
@@ -264,6 +291,11 @@ class ShowMarketPlacePage extends AbstractGamePage
 					break;
 			}
 
+			//Level of diplo
+			if($fleetsRow['accept'] == 0){
+				$fleetsRow['level'] = NULL;
+			}
+
 			$SpeedFactor    	= FleetFunctions::GetGameSpeedFactor();
 			//FROM
 			$FROM_fleet =  FleetFunctions::unserialize($fleetsRow['fleet_array']);
@@ -278,6 +310,21 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$TO_HC_SPEED		= FleetFunctions::GetFleetMaxSpeed(array(203 =>1), $USER);
 			$TO_HC_DUR			= FleetFunctions::GetMissionDuration(10, $TO_HC_SPEED, $TO_Distance, $SpeedFactor, $USER);
 
+			//Level 5 - enemies
+			//Level 0 - 3 alliance
+			$possibleToBuy = true;
+			$reason = "";
+			if($fleetsRow['filter_visibility'] == 2 && $fleetsRow['level'] == 5 ) {
+				$possibleToBuy = false;
+				$reason = "NO_ENEMIES";
+			}
+
+			else if($fleetsRow['filter_visibility'] == 1 &&
+			 				$USER['ally_id'] !=$fleetsRow['ally_id'] &&
+							($fleetsRow['level'] == NULL || $fleetsRow['level'] >3)) {
+				$possibleToBuy = false;
+				$reason = "ONLY_TRADE_PARTNERS";
+			}
 
 
 			$FlyingFleetList[]	= array(
@@ -289,7 +336,9 @@ class ShowMarketPlacePage extends AbstractGamePage
 				'fleet_resource_deuterium'			=> $fleetsRow['fleet_resource_deuterium'],
 
 				'total' => $fleetsRow['fleet_resource_metal'] + $fleetsRow['fleet_resource_crystal'] + $fleetsRow['fleet_resource_deuterium'],
-
+				'diplo' => $fleetsRow['level'],
+				'possible_to_buy' => $possibleToBuy,
+				'reason' => $reason,
 				'fleet_wanted_resource'	=> $resourceN,
 				'fleet_wanted_resource_id' => $fleetsRow['ex_resource_type'],
 				'fleet_wanted_resource_amount'	=> $fleetsRow['ex_resource_amount'],

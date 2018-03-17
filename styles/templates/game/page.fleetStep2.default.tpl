@@ -73,8 +73,10 @@
 				<option value="3">All - Enemies</option>
 			</select>
 			<br/>
+			<!--
 			Max flight time (0 = unlimited):
 			<input name="maxFlightTime" size="10" type="text" value="0"> hours<br/>
+-->
 			</td>
 		</tr>
 		{/if}

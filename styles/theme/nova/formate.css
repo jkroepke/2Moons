@@ -69,6 +69,17 @@ th, .ui-widget-header {
 	border:1px solid #000;
 }
 
+.trade-disallowed > td{
+	background: #001004;
+}
+
+.trade-enemy > .table_username{
+	color:#F00;
+}
+
+.trade-ally  > .table_username{
+	color:#0F0;
+}
 
 .no-background, .no-background > th, .no-background > td {
 	background-image: none;
