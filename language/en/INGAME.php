@@ -1024,6 +1024,9 @@ $LNG['market_msg_trade_topic'] = "Trading status";
 $LNG['market_msg_trade_from'] = "Trading zone";
 $LNG['market_msg_trade_bought'] 					= 'Your fleet is flying to %s with %s %s, %s %s, %s %s and it costs %s %s';
 $LNG['market_msg_trade_sold'] 					= 'Your fleet is flying to %s with %s %s, %s %s, %s %s.';
+
+$LNG['market_buyable_only_trade_partners'] 					= 'Only partners';
+$LNG['market_buyable_no_enemies'] 					= 'No enemies';
 //----------------------------------------------------------------------------//
 // Relatório de Combate
 $LNG['cr_lost_contact']                     = 'Lost touch with your fleet.';

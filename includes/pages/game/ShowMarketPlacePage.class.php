@@ -27,6 +27,26 @@ class ShowMarketPlacePage extends AbstractGamePage
 		return array('result' => 0);
 	}
 
+	private function checkBuyable($visibility, $level, $seller_ally, $ally) {
+		global $LNG;
+		if($visibility == 2 && $level == 5 ) {
+			return array(
+				'buyable' => false,
+				'reason' => $LNG['market_buyable_no_enemies']
+			);
+		}
+
+		if($visibility == 1 && $ally != $seller_ally && ($level == NULL || $level >3)) {
+			return array(
+				'buyable' => false,
+				'reason' => $LNG['market_buyable_only_trade_partners']
+			);
+		}
+
+		return array("buyable" => true,
+			'reason' => '');
+	}
+
 	private function doBuy() {
 		global $USER, $PLANET, $reslist, $resource, $LNG, $pricelist;
 		$FleetID			= HTTP::_GP('fleetID', 0);
@@ -50,20 +70,16 @@ class ShowMarketPlacePage extends AbstractGamePage
 			return $LNG['market_p_msg_not_found'];
 		}
 
-		if($fleetResult['filter_visibility'] != 0) {
+		if($fleetResult[0]['filter_visibility'] != 0) {
 			//Check packts
-			$sql = "SELECT * FROM %%DIPLO%% WHERE (owner_1 = :ow AND owner_2 = :ow2) OR (owner_2 = :ow AND owner_1 = :ow2);";
+			$sql = "SELECT * FROM %%DIPLO%% WHERE (owner_1 = :ow AND owner_2 = :ow2) OR (owner_2 = :ow AND owner_1 = :ow2) AND accept = 1;";
 			$res = $db->select($sql, array(
 				':ow' => $USER['ally_id'],
 				':ow2' => $fleetResult[0]['ally_id'],
 			));
-			//Partners
-			if($fleetResult['filter_visibility'] == 1) {
-				if(($db->rowCount() == 0 && $fleetResult[0]['ally_id'] != $USER['ally_id']) || $res[0]['level'] < 3 || $res[0]['accept'] == 0)
-					return $LNG['market_p_offer_only_partners'];
-			}
-			if($fleetResult['filter_visibility'] == 2 && $db->rowCount() != 0 && $res[0]['level'] == 5 && $res[0]['accept'] == 1) {
-				return $LNG['market_p_offer_no_enemies'];
+			$buy = $this->checkBuyable($fleetResult[0]['filter_visibility'], $res[0]['level'], $fleetResult[0]['ally_id'], $USER['ally_id']);
+			if(!$buy['buyable']) {
+				return $buy['reason'];
 			}
 		}
 
@@ -312,20 +328,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 
 			//Level 5 - enemies
 			//Level 0 - 3 alliance
-			$possibleToBuy = true;
-			$reason = "";
-			if($fleetsRow['filter_visibility'] == 2 && $fleetsRow['level'] == 5 ) {
-				$possibleToBuy = false;
-				$reason = "NO_ENEMIES";
-			}
-
-			else if($fleetsRow['filter_visibility'] == 1 &&
-			 				$USER['ally_id'] !=$fleetsRow['ally_id'] &&
-							($fleetsRow['level'] == NULL || $fleetsRow['level'] >3)) {
-				$possibleToBuy = false;
-				$reason = "ONLY_TRADE_PARTNERS";
-			}
-
+			$buy = $this->checkBuyable($fleetsRow['filter_visibility'], $fleetsRow['level'], $fleetsRow['ally_id'], $USER['ally_id']);
 
 			$FlyingFleetList[]	= array(
 				'id'			=> $fleetsRow['fleet_id'],
@@ -337,8 +340,8 @@ class ShowMarketPlacePage extends AbstractGamePage
 
 				'total' => $fleetsRow['fleet_resource_metal'] + $fleetsRow['fleet_resource_crystal'] + $fleetsRow['fleet_resource_deuterium'],
 				'diplo' => $fleetsRow['level'],
-				'possible_to_buy' => $possibleToBuy,
-				'reason' => $reason,
+				'possible_to_buy' => $buy['buyable'],
+				'reason' => $buy['reason'],
 				'fleet_wanted_resource'	=> $resourceN,
 				'fleet_wanted_resource_id' => $fleetsRow['ex_resource_type'],
 				'fleet_wanted_resource_amount'	=> $fleetsRow['ex_resource_amount'],

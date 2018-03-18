@@ -68,9 +68,9 @@
 			<input name="exchange" size="10" type="text"><br/>
 			Visibility:
 			<select name="visibility">
-				<option value="1" selected>All</option>
-				<option value="2">Alliance + Trade partners</option>
-				<option value="3">All - Enemies</option>
+				<option value="0" selected>All</option>
+				<option value="1">Alliance + Trade partners</option>
+				<option value="2">All - Enemies</option>
 			</select>
 			<br/>
 			<!--
