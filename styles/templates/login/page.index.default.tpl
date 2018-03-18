@@ -4,6 +4,8 @@
 	<h1>{$descHeader}</h1>
 	<p class="desc">{$descText}</p>
 	<p class="desc"><ul id="desc_list">{foreach $gameInformations as $info}<li>{$info}</li>{/foreach}</ul></p>
+	<p><a href="https://busy.org/@steemnova/steemnova-ogame-based-browsergame-for-steemians" target="copy">SteemNova - OGame-based browsergame for Steemians by @steemnova [busy.org]</a>
+	</p>
 </section>
 <section>
 	<table class="contentbox">
@@ -30,8 +32,16 @@
 						<input type="submit" value="{$LNG.loginButton}">
 					</div>
 				</form>
-				{if $facebookEnable}<a href="#" data-href="index.php?page=externalAuth&method=facebook" class="fb_login"><img src="styles/resource/images/facebook/fb-connect-large.png" alt=""></a>{/if}<!-- http://b.static.ak.fbcdn.net/rsrc.php/zB6N8/hash/4li2k73z.gif -->
-				<br><span class="small">{$loginInfo}</span>
+				{if $facebookEnable}<a href="#" data-href="index.php?page=externalAuth&method=facebook" class="fb_login"><img src="styles/resource/images/facebook/fb-connect-large.png" alt=""></a>{/if}
+								
+				<div class="wrapper">
+					<div class="container">
+						<a href="{$steemconnectUrl}" class="login-button button_standard button-steem" title="Log in with SteemConnect"><span class="icon icon-steem"></span>Log in with SteemConnect</a>
+						<p>As a security best practice, it is recommended to use private MEMO key</p>
+					</div>
+				</div>
+				
+				<!-- <br><span class="small">{$loginInfo}</span> -->
 			</td><td class="contentbox-content-right"></td>
 		</tr>
 		<tr class="contentbox-footer">
@@ -40,7 +50,7 @@
 	</table>
 </section>
 <section>
-	<div class="button-box">
+<!-- 	<div class="button-box">
 		<div class="button-box-inner">
 			<div class="button-important">
 				<a href="index.php?page=register">
@@ -72,7 +82,7 @@
 				</a>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </section>
 {/block}
 {block name="script" append}
