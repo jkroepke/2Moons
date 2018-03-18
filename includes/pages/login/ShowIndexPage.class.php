@@ -48,10 +48,14 @@ class ShowIndexPage extends AbstractLoginPage
 			$loginCode	= $LNG['login_error_'.$Code];
 		}
 
+		require 'includes/libs/steemconnect/steemconnect.php';
+		$steemconnectUrl = Steemconnect::getLoginUrl();
+
 		$config				= Config::get();
 		$this->assign(array(
 			'universeSelect'		=> $universeSelect,
 			'code'					=> $loginCode,
+			'steemconnectUrl'		=> $steemconnectUrl,
 			'descHeader'			=> sprintf($LNG['loginWelcome'], $config->game_name),
 			'descText'				=> sprintf($LNG['loginServerDesc'], $config->game_name),
             'gameInformations'      => explode("\n", $LNG['gameInformations']),

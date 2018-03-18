@@ -1,0 +1,68 @@
+ @font-face {
+  font-family: 'icon-font';
+  src:  url('fonts/icon-font.eot?4hwgjx');
+  src:  url('fonts/icon-font.eot?4hwgjx#iefix') format('embedded-opentype'),
+    url('fonts/icon-font.ttf?4hwgjx') format('truetype'),
+    url('fonts/icon-font.woff?4hwgjx') format('woff'),
+    url('fonts/icon-font.svg?4hwgjx#icon-font') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icon-font' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  /* line-height: 1; */
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-steem:before {
+  content: "\e900";
+}
+.icon-email:before {
+  content: "\f003";
+}
+.icon-twitter:before {
+  content: "\f099";
+}
+.icon-facebook:before {
+  content: "\f09a";
+}
+.icon-facebook-f:before {
+  content: "\f09a";
+}
+.icon-github:before {
+  content: "\f09b";
+}
+.icon-pinterest:before {
+  content: "\f0d2";
+}
+.icon-google-plus:before {
+  content: "\f0d5";
+}
+.icon-linkedin:before {
+  content: "\f0e1";
+}
+.icon-google:before {
+  content: "\f1a0";
+}
+.icon-codepen:before {
+  content: "\f1cb";
+}
+.icon-vimeo:before {
+  content: "\f27d";
+}
+.icon-reddit:before {
+  content: "\f281";
+}
+.icon-snapchat:before {
+  content: "\f2ac";
+}

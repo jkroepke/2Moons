@@ -1,0 +1,60 @@
+.wrapper {
+	font-family: 'Source Sans Pro', arial, sans-serif;
+	width: 100%;
+	margin: 20px 0 auto auto;
+	-webkit-display: flex;
+	display: flex;
+	-webkit-justify-content: center;
+	-webkit-align-items: center;
+	justify-content: center;
+	align-items: center;
+}
+.container {
+	max-width: 425px;
+	text-align: center;
+	margin: 0 20px;
+}
+.login-button {
+	display: inline-block;
+	width: auto;
+	padding: 20px;
+	width: 290px;
+	margin: 0px;
+	color: #fff;
+	font-size: 20px;
+	text-align: left;
+	text-decoration: none;
+	transition: all .3s;
+	cursor: pointer;
+}
+.login-button.button-steem {
+	background: #4aa1f1;
+}
+.login-button.button-steem:hover {
+	background: #1283ed;
+}
+.login-button .icon {
+	position: relative;
+	top: -3px;
+	padding-right: 20px;
+	vertical-align: text-bottom;
+}
+.login-button.icon {
+	width: 20px;
+	margin: 5px;
+}
+.login-button.button_standard .icon {
+	margin-right: 15px;
+	width: 30px;
+	display: inline-block;
+	text-align: center;
+}
+.login-button.button_standard .icon::after {
+	content: '';
+	position: absolute;
+	top: -10px;
+	bottom: -10px;
+	right: 0;
+	width: 1px;
+	background: rgba(255, 255, 255, .3);
+} 

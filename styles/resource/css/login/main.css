@@ -5,7 +5,8 @@ html, body {
     padding: 0;
 }
 body {
-    background: url(../../images/login/background.jpg) repeat scroll 0 0 #000000;
+    background: url(../../images/login/background.jpg) no-repeat fixed center center #0d0d0d;
+    background-size: cover;
     color: #FFFFFF;
     font-family: verdana;
     font-size: 12px;
@@ -26,7 +27,7 @@ input, textarea, select, button {
 	border:1px solid #444;
 }
 
-input.submitButton{
+input[type="submit"]{
 	width:auto !important;
 	cursor:pointer;
 	margin:0 auto;
@@ -63,11 +64,18 @@ footer, .small{
 a {
 	cursor: pointer;
     color: #FFD700;
-    text-decoration: none;
+    text-decoration: underline;
+}
+p a{
+	color: #FFD700 !important;
+}
+footer a{
+	color: #FFD700 !important;
 }
 
 a:hover{
-    text-decoration: underline;
+	color: white;
+    /* text-decoration: underline; */
 }
 
 .error {
@@ -169,7 +177,7 @@ ul#rules {
 
 .contentbox {
 	margin-top: 40px;
-	width: 360px;
+	/* width: 360px; */
 	height: 205px;
 	margin: 0 auto;
 }
@@ -229,12 +237,13 @@ ul#rules {
 
 .contentbox label {
     display: block;
-    width: 100px;
+    width: 150px;
 	font-weight: 700;
 	float: left;
 	margin: 4px 0 2px;
 	height: 16px;
 	vertical-align: middle;
+	text-align: left;
 }
 
 .contentbox input, .contentbox select {
@@ -246,7 +255,7 @@ ul#rules {
 }
 
 .contentbox select{
-    width: 184px;
+    width: 191px;
 }
 
 /** BUTTONS **/

@@ -165,8 +165,8 @@ textarea.tinymce{
 #planetSelector {
 	float:left;
 	height:16px;
-	margin:37px 10px;
-	width:145px;
+	margin:6px 10px;
+	/* width:145px; */
 }
 
 #planetImage{
@@ -176,6 +176,8 @@ textarea.tinymce{
 #planetImage > img{
 	width:50px;
 	height:50px;
+	border-radius:50%;
+	background-color:#DDD;
 }
 
 #resourceWrapper{
