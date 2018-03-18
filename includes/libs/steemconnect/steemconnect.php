@@ -21,18 +21,18 @@ if (!function_exists('json_decode')) {
 class Steemconnect
 {
 	protected $access_token;
-	
+
 	protected $expires_in;
-	
+
 	protected $username;
-	
+
 	protected $data;
-	
+
 	protected static $CLIENT_ID = 'steemnova.app';
-	
+
 	protected static $SCOPE = 'login';
-	
-	
+
+
 	public function __construct($config)
 	{
 		if (!empty($config['access_token']) and !empty($config['expires_in'])) {
@@ -40,12 +40,17 @@ class Steemconnect
 			$this->expires_in = $config['expires_in'];
 		}
 	}
-	
+
 	public static function getLoginUrl()
 	{
 		return 'https://v2.steemconnect.com/oauth2/authorize?client_id=' . self::$CLIENT_ID . '&redirect_uri=' . HTTP_PATH.'index.php&scope=' . self::$SCOPE;
 	}
-	
+
+	public static function getAdminUrl()
+	{
+		return 'https://v2.steemconnect.com/oauth2/authorize?client_id=' . self::$CLIENT_ID . '&redirect_uri=' . HTTP_PATH.'admin.php&scope=' . self::$SCOPE;
+	}
+
 	protected function login()
 	{
 		$authstr = "authorization: " . $this->access_token;
@@ -75,22 +80,21 @@ class Steemconnect
 			return false;
 		}
 	}
-	
+
 	public function getUser()
 	{
 		if ($this->username !== null) {
 			// we've already determined this and cached the value.
 			return $this->username;
 		}
-		
 		return $this->username = $this->login();
 	}
-	
+
 	public function getData()
 	{
 		return $this->data;
 	}
-	
+
 	protected function logout()
 	{
 		if (!isset($this->access_token)) {
@@ -116,7 +120,7 @@ class Steemconnect
 			));
 			$result = curl_exec($check);
 			curl_close($check);
-			
+
 			$this->access_token = null;
 			$this->expires_in = null;
 			$this->username = null;
