@@ -17,6 +17,7 @@
 					<tr style="height:20px;">
 						<td class="transparent left">
 						<input id="radio_{$MissionID}" type="radio" name="mission" value="{$MissionID}" {if $mission == $MissionID}checked="checked"{/if} style="width:60px;"><label for="radio_{$MissionID}">{$LNG["type_mission_{$MissionID}"]}</label><br>
+							{if $MissionID == 17}<br><div style="color:red;padding-left:13px;">{$LNG.fl_transfer_alert_message}</div><br>{/if}
 							{if $MissionID == 15}<br><div style="color:red;padding-left:13px;">{$LNG.fl_expedition_alert_message}</div><br>{/if}
 							{if $MissionID == 11}<br><div style="color:red;padding-left:13px;">{$fl_dm_alert_message}</div><br>{/if}
 						</td>

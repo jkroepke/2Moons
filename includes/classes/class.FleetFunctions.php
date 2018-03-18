@@ -446,13 +446,17 @@ class FleetFunctions
 				if (isset($MissionInfo['Ship'][208]) && $MissionInfo['planettype'] == 1 && isModuleAvailable(MODULE_MISSION_COLONY))
 					$availableMissions[]	= 7;
 			} else {
-				if(isModuleAvailable(MODULE_MISSION_TRANSPORT))
+				if(isModuleAvailable(MODULE_MISSION_TRANSPORT)) {
 					$availableMissions[]	= 3;
+				}
 
 				if (!$YourPlanet && self::OnlyShipByID($MissionInfo['Ship'], 210) && isModuleAvailable(MODULE_MISSION_SPY))
 					$availableMissions[]	= 6;
 
 				if (!$YourPlanet) {
+					if(isModuleAvailable(MODULE_MISSION_TRANSFER))
+						$availableMissions[]	= 17;
+
 					if(isModuleAvailable(MODULE_MISSION_ATTACK))
 						$availableMissions[]	= 1;
 					if(isModuleAvailable(MODULE_MISSION_HOLD))

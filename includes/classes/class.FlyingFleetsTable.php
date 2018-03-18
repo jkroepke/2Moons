@@ -166,6 +166,7 @@ class FlyingFleetsTable
 			11 => 'transport',
 			15 => 'transport',
 			16 => 'transport',
+			17 => 'transport',
 		);
 
 	    $GoodMissions	= array(3, 5);
