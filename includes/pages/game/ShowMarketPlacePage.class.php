@@ -88,6 +88,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$fleetResult[0]['ex_resource_type'] <= 0) {
 				return $LNG['market_p_msg_wrong_resource_type'];
 		}
+		$factor = 1 + $USER['factor']['ShipStorage'];
 
 		//-------------FLEET SIZE CALCULATION---------------
 		$fleetResult = $fleetResult[0];
@@ -97,12 +98,12 @@ class ShowMarketPlacePage extends AbstractGamePage
 		$F1type = 0;
 		//PRIO for LC
 		if($shipType == 1) {
-			$F1capacity = $pricelist[202]['capacity'];
+			$F1capacity = $pricelist[202]['capacity'] * $factor;
 			$F1type = 202;
 		}
 		// PRIO for HC
 		else {
-			$F1capacity = $pricelist[203]['capacity'];
+			$F1capacity = $pricelist[203]['capacity'] * $factor;
 			$F1type = 203;
 		}
 
@@ -117,12 +118,12 @@ class ShowMarketPlacePage extends AbstractGamePage
 		if ($amountTMP > 0) {
 			//We need HC
 			if($shipType == 1) {
-				$F2capacity = $pricelist[203]['capacity'];
+				$F2capacity = $pricelist[203]['capacity'] * $factor;
 				$F2type = 203;
 			}
 			//We need LC
 			else{
-				$F2capacity = $pricelist[202]['capacity'];
+				$F2capacity = $pricelist[202]['capacity'] * $factor;
 				$F2type = 202;
 			}
 			$F2 = min($PLANET[$resource[$F2type]], ceil($amountTMP / $F2capacity));
