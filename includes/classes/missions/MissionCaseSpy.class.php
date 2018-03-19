@@ -56,11 +56,15 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 		$planetUpdater 						= new ResourceUpdate();
 		list($targetUser, $targetPlanet)	= $planetUpdater->CalcResource($targetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
 
-		$sql	= 'SELECT * FROM %%FLEETS%% WHERE fleet_end_id = :planetId AND fleet_mission = 5 AND fleet_end_stay > :time;';
+		$sql	= 'SELECT * FROM %%FLEETS%%
+		WHERE fleet_end_id 		= :planetId
+		AND fleet_mission 		= 5
+		AND fleet_start_time 	<= :time
+		AND fleet_end_stay 		>= :time;';
 
 		$targetStayFleets	= $db->select($sql, array(
 			':planetId'	=> $this->_fleet['fleet_end_id'],
-			':time'		=> $this->_fleet['fleet_start_time'],
+			':time'		=> TIMESTAMP,
 		));
 
 		foreach($targetStayFleets as $fleetRow)

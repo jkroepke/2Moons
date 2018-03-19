@@ -1,6 +1,6 @@
 <div id="leftmenu">
 	<ul id="menu">
-		<li class="menu-head"><a href="game.php?page=changelog">{$LNG.lm_changelog}</a></li>
+		<li class="menu-head"><a href="https://github.com/steemnova/steemnova/commits/master" target="copy">{$LNG.lm_changelog}</a></li>
 		<li class="menucat1-head"></li>
 		<li><a href="game.php?page=overview">{$LNG.lm_overview}</a></li>
 		{if isModuleAvailable($smarty.const.MODULE_IMPERIUM)}<li><a href="game.php?page=imperium">{$LNG.lm_empire}</a></li>{/if}
@@ -13,6 +13,7 @@
 		{if isModuleAvailable($smarty.const.MODULE_FLEET_TRADER)}<li><a href="game.php?page=fleetDealer">{$LNG.lm_fleettrader}</a></li>{/if}
 		{if isModuleAvailable($smarty.const.MODULE_TRADER)}<li><a href="game.php?page=fleetTable">{$LNG.lm_fleet}</a></li>{/if}
 		{if isModuleAvailable($smarty.const.MODULE_TECHTREE)}<li><a href="game.php?page=techtree">{$LNG.lm_technology}</a></li>{/if}
+		{if isModuleAvailable($smarty.const.MODULE_MARKET_PLACE)}<li><a href="game.php?page=marketPlace">{$LNG.lm_marketplace}</a></li>{/if}
 		{if isModuleAvailable($smarty.const.MODULE_RESSOURCE_LIST)}<li><a href="game.php?page=resources">{$LNG.lm_resources}</a></li>{/if}
 		<li class="menucat2-head"></li>
 		{if isModuleAvailable($smarty.const.MODULE_GALAXY)}<li><a href="game.php?page=galaxy">{$LNG.lm_galaxy}</a></li>{/if}
@@ -38,5 +39,7 @@
 		{if $authlevel > 0}<li><a href="./admin.php" style="color:lime">{$LNG.lm_administration} ({$VERSION})</a></li>{/if}
 		<li class="menu-footer"></li>
 	</ul>
-	<div id="disclamer"><a href="index.php?page=disclamer" target="_blank">{$LNG.lm_disclamer}</a></div>
+	<div id="disclamer">
+		{if $commit != ''}<a href="https://github.com/steemnova/steemnova/tree/{$commit}" target="copy">SteemNova engine {$commitShort}</a>{/if}
+	</div>
 </div>

@@ -4,9 +4,11 @@
 			<tbody>
 				<tr>
 					<td id="planetImage">
-                       <img src="{$dpath}planeten/small/s_{$image}.jpg" alt="">
+                       <img src="{$avatar}" width="50" height="50" alt="">
+					   <div>{$LNG.tech.615} <b>{$username}</b></div>
 					</td>
 					<td id="planetSelectorWrapper">
+                       <img src="{$dpath}planeten/{$image}.jpg" width="50" height="50" alt="">
                         <label for="planetSelector"></label>
 						<select id="planetSelector">
 							{html_options options=$PlanetSelect selected=$current_pid}

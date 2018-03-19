@@ -19,7 +19,7 @@
 //date_default_timezone_set('America/Chicago');
 
 //TEMPLATES DEFAULT SETTINGS
-define('DEFAULT_THEME'	 		    , 'gow');
+define('DEFAULT_THEME'	 		    , 'nova');
 define('HTTPS'						, isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on');
 define('PROTOCOL'					, HTTPS ? 'https://' : 'http://');
 if(PHP_SAPI === 'cli')
@@ -182,6 +182,7 @@ define('MODULE_MISSION_DESTROY'		, 29);
 define('MODULE_MISSION_EXPEDITION'	, 30);
 define('MODULE_MISSION_HOLD'		, 33);
 define('MODULE_MISSION_RECYCLE'		, 32);
+define('MODULE_MISSION_TRADE'		, 41);
 define('MODULE_MISSION_SPY'			, 24);
 define('MODULE_MISSION_STATION'		, 36);
 define('MODULE_MISSION_TRANSPORT'	, 34);

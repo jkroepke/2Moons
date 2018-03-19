@@ -263,10 +263,10 @@ class Session
 
 	public function isValidSession()
 	{
-		if($this->compareIpAddress($this->data['userIpAddress'], self::getClientIp(), COMPARE_IP_BLOCKS) === false)
-		{
-			return false;
-		}
+		// if($this->compareIpAddress($this->data['userIpAddress'], self::getClientIp(), COMPARE_IP_BLOCKS) === false)
+		// {
+			// return false;
+		// }
 
 		if($this->data['lastActivity'] < TIMESTAMP - SESSION_LIFETIME)
 		{

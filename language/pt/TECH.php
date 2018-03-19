@@ -171,8 +171,8 @@ $LNG['tech'] = array(
 	611 => 'Comandante',
 	612 => 'Destruidor',
 	613 => 'General',
-	614 => 'Imperador',
-	615 => 'Raider',
+	614 => 'Raider',
+	615 => 'Imperador',
 
 	700 => 'Optimizações Premium',
 	701 => 'Otimização de Armas',
@@ -282,8 +282,8 @@ $LNG['shortDescription'] = array(
 	611 => 'O comandante faz parte do exército imperial e especializou-se na arte de coordenar as frotas. O seu cérebro e capaz de calcular um grande número de trajectorias.',
 	612 => 'O destruidor é também um membro do exército imperial mas sem piedade. Desfaz tudo que se mete no seu caminho apenas por diversão.',
 	613 => 'O General é uma personagem que serviu durante muitos anos o exército imperial. Os trabalhadores tem uma produção de naves mais rápida na sua presença.',
-	614 => 'Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisível. O imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis.',
-	615 => 'Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto imperial',
+	614 => 'Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto imperial',
+	615 => 'Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisível. O imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis.',
 
 	701 => 'Este bonus aumenta o valor de ataque.',
 	702 => 'Este bonus aumenta o valor de escudos da defesa e das naves.',
@@ -385,8 +385,8 @@ $LNG['longDescription'] = array(
 	611 => 'O comandante faz parte do exército imperial e especializou-se na arte de coordenar as frotas. O seu cérebro e capaz de calcular um grande número de trajectorias.',
 	612 => 'O destruidor é também um membro do exército imperial mas sem piedade. Desfaz tudo que se mete no seu caminho apenas por diversão.',
 	613 => 'O General é uma personagem que serviu durante muitos anos o exército imperial. Os trabalhadores tem uma produção de naves mais rápida na sua presença.',
-	614 => 'Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisível. O imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis.',
-	615 => 'Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto imperial',
+	614 => 'Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto imperial',
+	615 => 'Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisível. O imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis.',
 
 	701 => 'Este bonus aumenta o valor de ataque.',
 	702 => 'Este bonus aumenta o valor de escudos da defesa e das naves.',

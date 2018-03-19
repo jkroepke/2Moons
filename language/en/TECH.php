@@ -1,6 +1,6 @@
 <?php
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -72,7 +72,7 @@ $LNG['bonus'] = array(
 	'GateCoolTime'		=> 'Jump gate charging time',
 	'MoreFound'			=> 'Expedition Found',
 );
-					
+
 $LNG['tech'] = array(
   0 => 'Buildings',
   1 => 'Metal Mine',
@@ -170,8 +170,8 @@ $LNG['tech'] = array(
 611 => 'Commander',
 612 => 'Destroyer',
 613 => 'General',
-614 => 'Emperor',
-615 => 'Raider',
+614 => 'Conqueror',
+615 => 'Emperor',
 
 	700 => 'Premium Optimizations',
 	701 => 'Weapons Upgrade',
@@ -280,7 +280,7 @@ $LNG['shortDescription'] = array(
 612 => 'The Destroyer is a member of the Imperial Army without mercy. Slaughter everything that is on its way just for fun. It is currently developing nothing.',
 613 => 'The General is a person who has served for many years to the Imperial Army. manufacturers produce ships faster in its presence.',
 614 => 'The Conqueror is a member of the Imperial Army, it has the ability to navigate a particular type of ship that no one else could do or take off.',
-615 => 'The Raider placed under his command available to all officers in the empire, combining their skills to dominate the universe and to become an opponent almost invincible.',
+615 => 'The Emperor placed under his command available to all officers in the empire, combining their skills to dominate the universe and to become an opponent almost invincible.',
 
 701 => 'Increases the attack value of the ships and defenses.',
 702 => 'Increases the value of ships shields and defenses',
@@ -381,7 +381,7 @@ $LNG['longDescription'] = array(
 612 => 'The Destroyer is a member of the Imperial Army without mercy. Slaughter everything that is on its way just for fun. It is currently developing nothing.',
 613 => 'The General is a person who has served for many years to the Imperial Army. manufacturers produce ships faster in its presence.',
 614 => 'The Conqueror is a member of the Imperial Army, it has the ability to navigate a particular type of ship that no one else could do or take off.',
-615 => 'The Raider placed under his command available to all officers in the empire, combining their skills to dominate the universe and to become an opponent almost invincible.',
+615 => 'The Emperor placed under his command available to all officers in the empire, combining their skills to dominate the universe and to become an opponent almost invincible.',
 
 
 701 => 'Increases the attack value of the ships and defenses.',

@@ -1,5 +1,5 @@
 <footer>
-	<a href="index.php?page=disclamer">{$LNG.menu_disclamer}</a><br>Powered by <a href="http://2moons.cc" title="2Moons" target="copy">2Moons</a> 2009-2013
+	<a href="https://discord.gg/HwAwdKw" title="Discord" target="copy">Discord</a> community server<br>Project <a href="https://github.com/steemnova/steemnova" title="SteemNova" target="copy">SteemNova</a> 2018
 </footer>
 </div>
 <div id="dialog" style="display:none;"></div>

@@ -1,5 +1,5 @@
 <header>
-	<nav>
+	<!-- <nav>
 		<ul id="menu">
 			<li><a href="index.php">{$LNG.menu_index}</a></li>
 			<li><a href="index.php?page=board" target="board">{$LNG.forum}</a></li>
@@ -9,7 +9,7 @@
 			<li><a href="index.php?page=banList">{$LNG.menu_banlist}</a></li>
 			<li><a href="index.php?page=disclamer">{$LNG.menu_disclamer}</a></li>
 		</ul>
-	</nav>
+	</nav> -->
 	<nav>
 		{if count($languages) > 1}
 		<ul id="language">

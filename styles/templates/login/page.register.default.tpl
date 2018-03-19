@@ -36,7 +36,7 @@
 		<label for="password">{$LNG.registerPassword}</label>
 		<input type="password" class="input" name="password" id="password">
 		{if !empty($error.password)}<span class="error errorPassword"></span>{/if}
-		<span class="inputDesc">{$LNG.registerPasswordDesc}</span>
+		<span class="inputDesc">{$registerPasswordDesc}</span>
 	</div>
 	<div class="rowForm">
 		<label for="passwordReplay">{$LNG.registerPasswordReplay}</label>

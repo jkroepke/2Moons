@@ -39,7 +39,7 @@
 	{/if}
 	<td id="fleettime_{$smarty.foreach.FlyingFleets.iteration}" class="fleets" data-fleet-end-time="{$FlyingFleetRow.returntime}" data-fleet-time="{$FlyingFleetRow.resttime}">{pretty_fly_time({$FlyingFleetRow.resttime})}</td>
 	<td>
-	{if !$isVacation && $FlyingFleetRow.state != 1}
+	{if !$isVacation && $FlyingFleetRow.state != 1 && $FlyingFleetRow.no_returnable != 1}
 		<form action="game.php?page=fleetTable&amp;action=sendfleetback" method="post">
 		<input name="fleetID" value="{$FlyingFleetRow.id}" type="hidden">
 		<input value="{$LNG.fl_send_back}" type="submit">
@@ -115,7 +115,7 @@
 	{if $maxFleetSlots != $activeFleetSlots}
 	<tr style="height:20px;"><td colspan="4"><input type="submit" value="{$LNG.fl_continue}"></td>
 	{/if}
-</table>	
+</table>
 </form>
 <br>
 <table style="min-width:519px;width:519px;">
