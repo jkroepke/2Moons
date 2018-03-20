@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -27,21 +27,6 @@ class ShowBattleHallPage extends AbstractGamePage
 	function show()
 	{
 		global $USER, $LNG;
-		$order  = HTTP::_GP('order', 'units');
-		$sort   = HTTP::_GP('sort', 'desc');
-		$sort   = strtoupper($sort) === "DESC" ? "DESC" : "ASC";
-
-
-		switch($order)
-		{
-			case 'date':
-				$key = '%%TOPKB%%.time '.$sort;
-				break;
-			case 'units':
-			default:
-				$key = '%%TOPKB%%.units '.$sort;
-				break;
-		}
 
 		$db = Database::get();
 		$sql = "SELECT *, (
@@ -57,7 +42,7 @@ class ShowBattleHallPage extends AbstractGamePage
 			FROM %%TOPKB_USERS%% INNER JOIN %%USERS%% ON uid = id
 			WHERE %%TOPKB_USERS%%.rid = %%TOPKB%%.`rid` AND `role` = 2
 		) as defender
-		FROM %%TOPKB%% WHERE universe = :universe ORDER BY ".$key." LIMIT 100;";
+		FROM %%TOPKB%% WHERE universe = :universe ORDER BY %%TOPKB%%.units DESC LIMIT 100;";
 
 		$top = $db->select($sql, array(
 			':universe' => Universe::current()
@@ -79,8 +64,6 @@ class ShowBattleHallPage extends AbstractGamePage
 
 		$this->assign(array(
 			'TopKBList'		=> $TopKBList,
-			'sort'			=> $sort,
-			'order'			=> $order,
 		));
 
 		$this->display('page.battleHall.default.tpl');
