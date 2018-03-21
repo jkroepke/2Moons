@@ -375,6 +375,12 @@ $LNG['fl_not_enough_space']					= 'You have not enough cargo space available.';
 $LNG['fl_hold_time_not_exists']				= 'Invalid retention time.';
 $LNG['fl_system_places']					= 'Special locations';
 $LNG['fl_no_noresource_exchange'] = 'No resources in exchange field';
+
+$LNG['fl_exchange'] = 'Exchange';
+$LNG['fl_visibility'] = 'Visibility';
+$LNG['fl_visibility_all'] = 'All';
+$LNG['fl_visibility_alliance'] = 'Allies and trading partners';
+$LNG['fl_visibility_no_enemies'] = 'All except enemies';
 //----------------------------------------------------------------------------//
 // Edificios
 $LNG['bd_dismantle']						= 'Demolish';
