@@ -47,7 +47,7 @@ SteemNova expansion goes as follows:
 3. Game manual and tips & tricks for newbies.
 4. ~~Specify detailed explanation how the reward system will work~~. (https://steemit.com/steemnova/@steemnova/steemnova-weekly-sbd-reward-scheme-for-members-of-the-best-alliances)
 5. Announce bug bounties, artwork contests and utopian-io task requests for contributors (mobile UI, visual bugs etc.).
-6. Steem accounts integration.
+6. ~~Steem accounts integration.~~ (https://github.com/steemnova/steemnova/pull/67)
 
 
 ## Local installation
