@@ -47,6 +47,29 @@ class ShowMarketPlacePage extends AbstractGamePage
 			'reason' => '');
 	}
 
+	private function getTradeHistory() {
+		$db = Database::get();
+		$sql = 'SELECT
+			seller_u.username as seller,
+			buyer_u.username as buyer,
+			buy_time as time,
+			ex_resource_type as type,
+			ex_resource_amount as amount,
+			seller.fleet_resource_metal as metal,
+			seller.fleet_resource_crystal as crystal,
+			seller.fleet_resource_deuterium as deuterium
+			FROM %%TRADES%%
+			JOIN %%LOG_FLEETS%% seller ON seller.fleet_id = seller_fleet_id
+			JOIN %%LOG_FLEETS%% buyer ON buyer.fleet_id = buyer_fleet_id
+			JOIN %%USERS%% buyer_u ON buyer_u.id = buyer.fleet_owner
+			JOIN %%USERS%% seller_u ON seller_u.id = seller.fleet_owner
+			WHERE transaction_type = 0 ORDER BY time DESC LIMIT 40;';
+		$trades = $db->select($sql, array(
+			//TODO LIMIT
+		));
+		return $trades;
+	}
+
 	private function doBuy() {
 		global $USER, $PLANET, $reslist, $resource, $LNG, $pricelist;
 		$FleetID			= HTTP::_GP('fleetID', 0);
@@ -356,10 +379,10 @@ class ShowMarketPlacePage extends AbstractGamePage
 			);
 		}
 
-
 		$this->assign(array(
 			'message' => $message,
 			'FlyingFleetList'		=> $FlyingFleetList,
+			'history' => $this->getTradeHistory(),
 		));
 		$this->tplObj->loadscript('marketplace.js');
 		$this->display('page.marketPlace.default.tpl');

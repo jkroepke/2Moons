@@ -43,22 +43,22 @@
 <br/><br/>
 {/if}
 <table id="tradeList" style="width:50%;white-space: nowrap;" class="tablesorter">
+	<tr class="no-background no-border center">
+		<th></th>
+		<th></th>
+		<th><img src="./styles/theme/nova/images/metal.gif"/></th>
+		<th><img src="./styles/theme/nova/images/crystal.gif"/></th>
+		<th><img src="./styles/theme/nova/images/deuterium.gif"/></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th></th>
+		<th class="LC" style="display: none;"></th>
+		<th class="HC"></th>
+		<th></th>
+	</tr>
 	<thead>
-		<tr class="no-background no-border center">
-			<th></th>
-			<th></th>
-			<th><img src="./styles/theme/nova/images/metal.gif"/></th>
-			<th><img src="./styles/theme/nova/images/crystal.gif"/></th>
-			<th><img src="./styles/theme/nova/images/deuterium.gif"/></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th></th>
-			<th class="LC" style="display: none;"></th>
-			<th class="HC"></th>
-			<th></th>
-		</tr>
 		<tr>
 			<th>ID</th>
 			<th>{$LNG['gl_player']}</th>
@@ -121,6 +121,44 @@
 	{/foreach}
 	</tbody>
 </table>
+<hr>
+
+<table id="historyList" style="width:50%;white-space: nowrap;" class="tablesorter">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>{$LNG.tkb_datum}</th>
+			<th>{$LNG['gl_player']}</th>
+			<th>{$LNG['tech'][901]}</th>
+			<th>{$LNG['tech'][902]}</th>
+			<th>{$LNG['tech'][903]}</th>
+			<th  class="no-background no-border center">-></th>
+			<th>{$LNG['gl_player']}</th>
+			<th>{$LNG.market_p_cost_amount}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{foreach name=History item=row from=$history}
+		<tr>
+			<td>{$smarty.foreach.History.iteration}</td>
+			<td>{$row.time}</td>
+			<td>{$row.seller}</td>
+			<td>{$row.metal}</td>
+			<td>{$row.crystal}</td>
+			<td>{$row.deuterium}</td>
+			<td class="no-background no-border center">
+				{if $row.type == 1}<img src="./styles/theme/nova/images/metal.gif"/>
+				{elseif $row.type == 2}<img src="./styles/theme/nova/images/crystal.gif"/>
+				{elseif $row.type == 3}<img src="./styles/theme/nova/images/deuterium.gif"/>{/if}</td>
+			<td>{$row.buyer}</td>
+			<td>{$row.amount}</td>
+		</tr>
+		{/foreach}
+	</tbody>
+</table>
+
+
+
 {/block}
 {block name="script" append}
 <script src="scripts/base/jquery.tablesorter.js"></script>
