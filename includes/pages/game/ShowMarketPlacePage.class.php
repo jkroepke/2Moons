@@ -354,6 +354,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 			//Level 0 - 3 alliance
 			$buy = $this->checkBuyable($fleetsRow['filter_visibility'], $fleetsRow['level'], $fleetsRow['ally_id'], $USER['ally_id']);
 
+			$total = $fleetsRow['fleet_resource_metal'] + $fleetsRow['fleet_resource_crystal'] + $fleetsRow['fleet_resource_deuterium'];
 			$FlyingFleetList[]	= array(
 				'id'			=> $fleetsRow['fleet_id'],
 				'username'			=> $fleetsRow['username'],
@@ -361,8 +362,8 @@ class ShowMarketPlacePage extends AbstractGamePage
 				'fleet_resource_metal'		=> $fleetsRow['fleet_resource_metal'],
 				'fleet_resource_crystal'			=> $fleetsRow['fleet_resource_crystal'],
 				'fleet_resource_deuterium'			=> $fleetsRow['fleet_resource_deuterium'],
-
-				'total' => $fleetsRow['fleet_resource_metal'] + $fleetsRow['fleet_resource_crystal'] + $fleetsRow['fleet_resource_deuterium'],
+				'total' => $total,
+				'ratio' => round($total / $fleetsRow['ex_resource_amount'], 1),
 				'diplo' => $fleetsRow['level'],
 				'possible_to_buy' => $buy['buyable'],
 				'reason' => $buy['reason'],

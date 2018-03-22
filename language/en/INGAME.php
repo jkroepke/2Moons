@@ -1009,6 +1009,7 @@ $LNG['sys_forward']							= 'Next';
 
 
 $LNG['market_p_total']  ='Total';
+$LNG['market_p_ratio']  ='Ratio';
 $LNG['market_p_cost_type']   ='Cost type';
 $LNG['market_p_cost_amount']  ='Amount';
 $LNG['market_p_end']  = 'End';
