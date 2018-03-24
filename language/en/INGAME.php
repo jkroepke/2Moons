@@ -1016,7 +1016,7 @@ $LNG['market_info_header'] = "Marketplace";
 $LNG['market_info_description'] = "Left side - sale offers | Right side - buy amount<br><br>&bull; Bought offers cannot be canceled &bull;<br>&bull; Players are allowed to trade for any exchange rate (ratio) &bull;";
 
 $LNG['market_p_msg_not_found']  = 'Offer not found.';
-$LNG['market_p_msg_more_ships_is_needed']  = 'More ships is needed.';
+$LNG['market_p_msg_more_ships_is_needed']  = 'More ships required.';
 $LNG['market_p_msg_resources_error']  = 'Not enough resources.';
 $LNG['market_p_msg_sent']  = 'Sent %s Light Cargos, %s Heavy Cargos';
 
