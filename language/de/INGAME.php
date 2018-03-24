@@ -1022,7 +1022,6 @@ $LNG['fa_action_not_allowed']				= 'Fehler, Systemfehler';
 $LNG['fa_vacation_mode_current']			= 'Fehler, Sie befinden sich im Urlaubsmodus';
 $LNG['fa_sending']							= 'Gesendet';
 
-
 //----------------------------------------------------------------------------//
 // MARKETPLACE
 $LNG['market_p_total']  ='Gesamt';
@@ -1045,9 +1044,8 @@ $LNG['market_msg_trade_topic'] = "Handelsstatus";
 $LNG['market_msg_trade_from'] = "SteemNova Marktplatz";
 $LNG['market_msg_trade_bought'] 					= 'Deine Flotte fliegt zu %s mit %s %s, %s %s, %s %s und es kostet %s %s';
 $LNG['market_msg_trade_sold'] 					= 'Deine Flotte fliegt zu %s mit %s %s, %s %s, %s %s.';
-
-
-
+$LNG['lm_marketplace']						= 'Marktplatz';
+$LNG['lm_trader']							= 'Markt';
 
 //----------------------------------------------------------------------------//
 // MissilesAjax.php
