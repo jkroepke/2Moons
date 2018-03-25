@@ -411,8 +411,8 @@ $LNG['bd_maxlevel']                         = 'Maximum level reached';
 $LNG['bd_on']                               = 'connected';
 $LNG['bd_max_builds']                       = 'You will have only max. %d queue building!';
 $LNG['bd_next_level']                       = 'Next level:';
-$LNG['bd_need_engine']                      = 'Need more <font color="#FF0000">%s</font> of %s';
-$LNG['bd_more_engine']                      = 'Produced <font color="#00FF00">%s</font> %s more';
+$LNG['bd_need_engine']                      = 'Requires more <font color="#FF0000">%s</font> of %s';
+$LNG['bd_more_engine']                      = 'Will produce <font color="#00FF00">%s</font> %s more';
 $LNG['bd_jump_gate_action']                 = 'Jump';
 $LNG['bd_cancel_warning']                   = 'ATTENTION! <br> If you cancel only will receive 60% of your resources s invested.';
 $LNG['bd_cancel_send']                      = 'Cancel construction';
@@ -1016,7 +1016,7 @@ $LNG['market_info_header'] = "Marketplace";
 $LNG['market_info_description'] = "Left side - sale offers | Right side - buy amount<br><br>&bull; Bought offers cannot be canceled &bull;<br>&bull; Players are allowed to trade for any exchange rate (ratio) &bull;";
 
 $LNG['market_p_msg_not_found']  = 'Offer not found.';
-$LNG['market_p_msg_more_ships_is_needed']  = 'More ships is needed.';
+$LNG['market_p_msg_more_ships_is_needed']  = 'More ships required.';
 $LNG['market_p_msg_resources_error']  = 'Not enough resources.';
 $LNG['market_p_msg_sent']  = 'Sent %s Light Cargos, %s Heavy Cargos';
 
@@ -1168,8 +1168,8 @@ $LNG['rec_last_update_on']		   			= 'Last update on ';
 //----------------------------------------------------------------------------//
 // Simulador de Batalha
 
-$LNG['bs_derbis_raport']   					= "Needed for recycling the debris: %s %s or %s %s. ";
-$LNG['bs_steal_raport']   					= "Needed to capture the resources: %s %s or %s %s or %s %s.";
+$LNG['bs_derbis_raport']   					= "Requiresed for recycling the debris: %s %s or %s %s. ";
+$LNG['bs_steal_raport']   					= "Requiresed to capture the resources: %s %s or %s %s or %s %s.";
 $LNG['bs_names']   							= "Shipname";
 $LNG['bs_atter']   							= "Attacker";
 $LNG['bs_deffer']   						= "Defender";
