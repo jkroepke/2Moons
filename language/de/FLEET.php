@@ -164,6 +164,7 @@ $LNG['sys_tran_mess_owner']		 			= 'Eine deiner Flotten erreicht den Planeten %s
 $LNG['sys_tran_mess_user'] 		 			= 'Eine friedliche Flotte von %s %s erreicht %s %s und liefert %s %s, %s %s und %s %s.';
 $LNG['sys_mess_fleetback'] 					= 'Flottenrückkehr';
 $LNG['sys_tran_mess_back'] 					= 'Eine deiner Flotten kehrt zum Planeten %s %s zurück.';
+$LNG['sys_trade_mess_back'] 					= 'Eine deiner Handelsflotten kehrte erfolglos zum Planeten %s %s zurück.';
 $LNG['sys_recy_gotten'] 					= 'Deine Recycler haben %s %s und %s %s Gesammelt.';
 $LNG['sys_gain'] 				  			= 'Gewinn';
 $LNG['sys_irak_subject'] 				  	= 'Raketeneinschlag';
