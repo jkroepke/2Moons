@@ -169,7 +169,7 @@ class statbuilder
 		{
 			if($USER[$resource[$Techno]] == 0) continue;
 
-            // PointsPerCot == Config::get()->stat_settings
+			// PointsPerCot == Config::get()->stat_settings
 			for ($i = 1; $i <= $PLANET[$resource[$Build]]; $i++) {
 				$BuildPoints += ($pricelist[$Techno]['cost'][901] + $pricelist[$Techno]['cost'][902] + $pricelist[$Techno]['cost'][903]) * pow($pricelist[$Techno]['factor'], $i - 1);
 			}
@@ -191,7 +191,7 @@ class statbuilder
 		{
 			if($PLANET[$resource[$Build]] == 0) continue;
 
-            // PointsPerCot == Config::get()->stat_settings
+			// PointsPerCot == Config::get()->stat_settings
 			for ($i = 1; $i <= $PLANET[$resource[$Build]]; $i++) {
 				$BuildPoints += ($pricelist[$Build]['cost'][901] + $pricelist[$Build]['cost'][902] + $pricelist[$Build]['cost'][903]) * pow($pricelist[$Build]['factor'], $i - 1);
 			}
