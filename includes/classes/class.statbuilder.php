@@ -170,8 +170,8 @@ class statbuilder
 			if($USER[$resource[$Techno]] == 0) continue;
 
 			// PointsPerCot == Config::get()->stat_settings
-			for ($i = 1; $i <= $PLANET[$resource[$Build]]; $i++) {
-				$BuildPoints += ($pricelist[$Techno]['cost'][901] + $pricelist[$Techno]['cost'][902] + $pricelist[$Techno]['cost'][903]) * pow($pricelist[$Techno]['factor'], $i - 1);
+			for ($i = 1; $i <= $USER[$resource[$Techno]]; $i++) {
+				$TechPoints += ($pricelist[$Techno]['cost'][901] + $pricelist[$Techno]['cost'][902] + $pricelist[$Techno]['cost'][903]) * pow($pricelist[$Techno]['factor'], $i - 1);
 			}
 			$TechCounts		+= $USER[$resource[$Techno]];
 
