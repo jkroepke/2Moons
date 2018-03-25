@@ -1168,8 +1168,8 @@ $LNG['rec_last_update_on']		   			= 'Last update on ';
 //----------------------------------------------------------------------------//
 // Simulador de Batalha
 
-$LNG['bs_derbis_raport']   					= "Requiresed for recycling the debris: %s %s or %s %s. ";
-$LNG['bs_steal_raport']   					= "Requiresed to capture the resources: %s %s or %s %s or %s %s.";
+$LNG['bs_derbis_raport']   					= "Required for recycling the debris: %s %s or %s %s. ";
+$LNG['bs_steal_raport']   					= "Required to capture the resources: %s %s or %s %s or %s %s.";
 $LNG['bs_names']   							= "Shipname";
 $LNG['bs_atter']   							= "Attacker";
 $LNG['bs_deffer']   						= "Defender";
