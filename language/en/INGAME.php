@@ -109,11 +109,11 @@ $LNG['lm_disclamer']						= 'Credits';
 //----------------------------------------------------------------------------//
 // Vista Geral
 
-$LNG['ov_newname_specialchar']				= 'The names of the planet is allowed only numbers, letters, spaces, _,-,.';
+$LNG['ov_newname_specialchar']				= 'For names of planets, use only numbers, letters, spaces, _,-,.';
 $LNG['ov_newname_done']						= 'The new name was entered!';
 $LNG['ov_planet_abandoned']					= 'The planet was destroyed!';
 $LNG['ov_principal_planet_cant_abanone']	= 'You can not delete the main planet!';
-$LNG['ov_abandon_planet_not_possible']		= 'The planet cannot be erased, by having existing activities!';
+$LNG['ov_abandon_planet_not_possible']		= 'The planet cannot be erased, it currenty has existing activities!';
 $LNG['ov_wrong_pass']						= 'Password incorrect!';
 $LNG['ov_have_new_message']					= 'You have a new message';
 $LNG['ov_have_new_messages']				= 'You have %d new messages';
@@ -222,7 +222,7 @@ $LNG['gl_activity']							= '(*)';
 $LNG['gl_activity_inactive']				= '(%d min)';
 $LNG['gl_ajax_status_ok']					= 'Done';
 $LNG['gl_ajax_status_fail']					= 'Error';
-$LNG['gl_free_desc'] 						= 'A planet deshabitado. Here is the ideal place to develop a new colony';
+$LNG['gl_free_desc'] 						= 'This planet is habitable. Here is the ideal place to develop a new colony';
 $LNG['gl_free'] 							= 'Free';
 $LNG['gl_yes'] 								= 'Yes';
 $LNG['gl_no'] 								= 'No';
@@ -234,10 +234,10 @@ $LNG['gl_trade_space']	= 'Trading zone';
 
 //----------------------------------------------------------------------------//
 // Sensor Phalanx
-$LNG['px_no_deuterium']						= "Don't have enough deuterium!";
+$LNG['px_no_deuterium']						= "You don't have enough deuterium!";
 $LNG['px_scan_position']					= 'Investigate position';
 $LNG['px_fleet_movement']					= 'Fleet in movement';
-$LNG['px_no_fleet']							= 'There is no moving fleets.';
+$LNG['px_no_fleet']							= 'There are no moving fleets.';
 $LNG['px_out_of_range']						= 'Out of reach';
 
 //----------------------------------------------------------------------------//
@@ -327,7 +327,7 @@ $LNG['fl_no_slots']							= 'Without slots avaliable';
 $LNG['fl_planet_populed']					= 'This planet is populed!';
 $LNG['fl_no_same_alliance']				    = 'The target player of the planet must be of your Alliance or be on your friends list!';
 $LNG['fl_not_ally_deposit']				    = 'Dont have deposit of Alliance';
-$LNG['fl_deploy_only_your_planets']			= 'You can only deploy fleets in your own planets!';
+$LNG['fl_deploy_only_your_planets']			= 'You can only deploy fleets on your own planets!';
 $LNG['fl_fleet_sended']						= 'Fleet sent';
 $LNG['fl_from']								= 'From';
 $LNG['fl_arrival_time']						= 'Target time';
@@ -371,7 +371,7 @@ $LNG['fl_player_is_noob']					= 'Player is in the Noob Protection!';
 $LNG['fl_player_is_strong']					= 'Player is too strong!';
 $LNG['fl_no_hold_depot']					= 'No Alliance Depot is located on the target.';
 $LNG['fl_not_enough_deuterium']				= 'Not enough deuterium available.';
-$LNG['fl_not_enough_space']					= 'You have not enough cargo space available.';
+$LNG['fl_not_enough_space']					= 'You do not have enough cargo space available.';
 $LNG['fl_hold_time_not_exists']				= 'Invalid retention time.';
 $LNG['fl_system_places']					= 'Special locations';
 $LNG['fl_no_noresource_exchange'] = 'No resources in exchange field';
@@ -387,15 +387,15 @@ $LNG['bd_research']							= 'Research';
 $LNG['bd_tech']								= 'Research';
 $LNG['bd_tech_next_level']					= 'Research to the next level ';
 $LNG['bd_add_to_list']				        = 'Add to list';
-$LNG['bd_no_more_fields']					= 'Without free fields on the planet';
+$LNG['bd_no_more_fields']					= 'You are without free fields on the planet';
 $LNG['bd_remaining']						= 'Remaining:';
-$LNG['bd_lab_required']					    = 'First you have to build a research lab!';
-$LNG['bd_building_lab']					    = 'You cant upgrade researches when research lab is leveling up';
+$LNG['bd_lab_required']					    = 'First, you have to build a research lab!';
+$LNG['bd_building_lab']					    = 'You cannot upgrade researches when research lab is leveling up';
 $LNG['bd_max_lvl']                          = 'Max. Level:';
 $LNG['bd_lvl']								= 'Level';
 $LNG['bd_research']							= 'Research for';
 $LNG['bd_shipyard_required']				= 'You need to build a Shipyard first';
-$LNG['bd_building_shipyard']				= 'You cant build ships when Shipyard is raising level';
+$LNG['bd_building_shipyard']				= 'You cannot build ships when Shipyard is raising level';
 $LNG['bd_available']						= 'Available: ';
 $LNG['bd_build_ships']						= 'Build';
 $LNG['bd_protection_shield_only_one']		= 'You can only build the shield 1 time!';
@@ -768,8 +768,8 @@ $LNG['al_rank_desc']['DIPLOMATIC']			= 'Can manage the Diplomacy';
 $LNG['al_rank_desc']['RANKS']				= 'Can configure the Ranks';
 $LNG['al_rank_desc']['MANAGEUSERS']			= 'Can manage members';
 $LNG['al_rank_desc']['EVENTS']			= 'Can see events';
-$LNG['al_invalid_rank_name']				= 'In the Rank name are only numbers, letters, spaces, _, -. allowed!';
-$LNG['al_make_ally_insufficient_points']	= 'You have not enough points to create an Alliance.<br>It is required %s points, and you have %s points.';
+$LNG['al_invalid_rank_name']				= 'In the Rank name only numbers, letters, spaces, _, -. allowed!';
+$LNG['al_make_ally_insufficient_points']	= 'You do have not enough points to create an Alliance.<br>It requires %s points, and you have %s points.';
 
 //----------------------------------------------------------------------------//
 // Lista de Amigos
@@ -978,7 +978,7 @@ $LNG['cff_mission_own_expo_2']				= 'One of your %s from %s %s %s is on a Expedi
 $LNG['cff_mission_own_recy_0']				= 'One of your %s from %s %s %s reached the debris %s. Mission: %s';
 $LNG['cff_mission_own_recy_1']				= 'One of your %s returns from debris %s back to planet %s %s %s. Mission: %s';
 $LNG['cff_mission_target_bad']				= 'A hostile %s from player %s from %s %s %s reached the %s %s %s. Mission: %s';
-$LNG['cff_mission_target_good']				= 'A hostile %s from player %s from %s %s %s reached the %s %s %s. Mission: %s';
+$LNG['cff_mission_target_good']				= 'A friendly %s from player %s from %s %s %s reached the %s %s %s. Mission: %s';
 $LNG['cff_mission_target_stay']				= 'A friendly %s from player %s from %s %s %s is in Orbit of the %s %s %s. Mission: %s';
 $LNG['cff_mission_target_mip']				= 'Missile attack (%d) from player %s from %s %s %s on the %s %s %s.';
 
@@ -1139,7 +1139,7 @@ $LNG['ti_status_answer'] 					= 'Response';
 $LNG['ti_admin_open'] 						= 'The ticket has been opened!';
 $LNG['ti_admin_close'] 						= 'The ticket was closed!';
 $LNG['ti_error_closed'] 					= 'No answer can be created on this ticket, because it was already closed!';
-$LNG['ti_create_info']						= '<p>Please, when creating a support Ticket, describes and explains what is your issue with the maximum detail possible!</p>
+$LNG['ti_create_info']						= '<p>Please, when creating a support Ticket, describes and explain what is your issue with the maximum detail possible!</p>
 <p>A detailed description of what you want to ask, shortens the duration of time of resolution and avoids the waste of time on both sides</p>
 <p>For issues related to accounts, specify facilitates the assignment of problem and also shortens the time.</p>';
 $LNG['ti_create_head']						= 'Create Ticket';
