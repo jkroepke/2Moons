@@ -57,8 +57,8 @@ $LNG['user_level_3']                        = 'Administrator';
 
 $LNG['page_doesnt_exist']					= 'This page does not exist';
 $LNG['bad_forum_url']				    	= 'The Forum link is incorrect!';
-$LNG['admin_access_1']				    	= 'Players have access temporarily s administrative functions!';
-$LNG['admin_access_link']				    = 'Disable this access';
+$LNG['admin_access_1']				    	= 'Players have temporary administrative permissions.';
+$LNG['admin_access_link']				    = 'Access Denied';
 $LNG['admin_access_2']				    	= ", If you don't need any longer";
 
 
