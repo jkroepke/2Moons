@@ -364,6 +364,7 @@ $LNG['fl_error_no_moon']					= 'No moon found at these coordinates!';
 $LNG['fl_error_same_planet']				= 'Start and destination planet are identical!';
 $LNG['fl_invalid_target']					= 'No valid target';
 $LNG['fl_no_noresource']					= 'No raw materials loaded!';
+$LNG['fl_resources']					= 'Raw materials loaded!';
 $LNG['fl_no_target']						= 'No available target planet';
 $LNG['fl_not_all_ship_avalible']			= 'Not all ships present.';
 $LNG['fl_no_expedition_slot']				= "You can't start more expeditions!";

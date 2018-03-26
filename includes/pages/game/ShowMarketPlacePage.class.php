@@ -237,7 +237,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 			':fleet_start_time' => $fleetStartTime,
 			':fleet_end_stay' => $fleetStayTime,
 			':fleet_end_time' => $fleetEndTime,
-			':fleet_mission' => 3,
+			':fleet_mission' => $fleetResult['transaction_type'] == 0 ? 3 : 17,
 			':fleet_no_m_return' => 1,
 			':fleet_mess'=> 0,
 		);
@@ -354,6 +354,11 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$TO_HC_SPEED		= FleetFunctions::GetFleetMaxSpeed(array(203 =>1), $USER);
 			$TO_HC_DUR			= FleetFunctions::GetMissionDuration(10, $TO_HC_SPEED, $TO_Distance, $SpeedFactor, $USER);
 
+			$fleet_str = '';
+			foreach($FROM_fleet as $name => $amount) {
+				$fleet_str .= $LNG['shortNames'][$name].' x'.$amount."\n";
+			}
+
 			//Level 5 - enemies
 			//Level 0 - 3 alliance
 			$buy = $this->checkBuyable($fleetsRow['filter_visibility'], $fleetsRow['level'], $fleetsRow['ally_id'], $USER['ally_id']);
@@ -362,12 +367,14 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$FlyingFleetList[]	= array(
 				'id'			=> $fleetsRow['fleet_id'],
 				'username'			=> $fleetsRow['username'],
+				'type' => $fleetsRow['transaction_type'],
 
 				'fleet_resource_metal'		=> $fleetsRow['fleet_resource_metal'],
 				'fleet_resource_crystal'			=> $fleetsRow['fleet_resource_crystal'],
 				'fleet_resource_deuterium'			=> $fleetsRow['fleet_resource_deuterium'],
 				'total' => $total,
 				'ratio' => round($total / $fleetsRow['ex_resource_amount'], 1),
+				'fleet'		=> $fleet_str,
 				'diplo' => $fleetsRow['level'],
 				'possible_to_buy' => $buy['buyable'],
 				'reason' => $buy['reason'],

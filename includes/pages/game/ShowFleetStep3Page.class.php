@@ -38,7 +38,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 		$TransportDeuterium		= max(0, round(HTTP::_GP('deuterium', 0.0)));
 		$WantedResourceType		= HTTP::_GP('resEx', 0);
 		$WantedResourceAmount		= max(0, round(HTTP::_GP('exchange', 0.0)));
-
+		$markettype		= HTTP::_GP('markettype', 0);
 		$visibility		= HTTP::_GP('visibility', 0);
 		$maxFlightTime		= HTTP::_GP('maxFlightTime', 0);
 		$stayTime 				= HTTP::_GP('staytime', 0);
@@ -91,9 +91,18 @@ class ShowFleetStep3Page extends AbstractGamePage
 			)));
 		}
 
-		if (($targetMission == 3 || $targetMission == 16)&& $TransportMetal + $TransportCrystal + $TransportDeuterium < 1)
+		// Transport and market type 0 have to contain resources
+		if (($targetMission == 3 || ($targetMission == 16 && $markettype == 0))&& $TransportMetal + $TransportCrystal + $TransportDeuterium < 1)
 		{
 			$this->printMessage($LNG['fl_no_noresource'], array(array(
+				'label'	=> $LNG['sys_back'],
+				'url'	=> 'game.php?page=fleetStep2'
+			)));
+		}
+		// Market typ 1 cannot contain resources
+		if($targetMission == 16 && $markettype == 1 && $TransportMetal + $TransportCrystal + $TransportDeuterium != 0)
+		{
+			$this->printMessage($LNG['fl_resources'], array(array(
 				'label'	=> $LNG['sys_back'],
 				'url'	=> 'game.php?page=fleetStep2'
 			)));
@@ -419,6 +428,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 
 		if($targetMission == 16) {
 			$sql	= 'INSERT INTO %%TRADES%% SET
+				transaction_type			= :transaction,
 				seller_fleet_id				= :sellerFleet,
 				filter_visibility			= :visibility,
 				filter_flighttime			= :flightTime,
@@ -426,6 +436,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 				ex_resource_amount		= :resAmount;';
 
 				$db->insert($sql, array(
+					':transaction'			=> $markettype,
 					':sellerFleet'			=> $fleet_id,
 					':resType'					=> $WantedResourceType,
 					':resAmount'				=> $WantedResourceAmount,

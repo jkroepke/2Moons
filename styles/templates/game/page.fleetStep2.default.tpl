@@ -86,6 +86,17 @@
 						</select>
 					</td>
 				</tr>
+				<tr class="no-border">
+					<td>
+						{$LNG.fl_market_type}
+					</td>
+					<td>
+						<select name="markettype">
+							<option value="0" selected>{$LNG.fl_mt_resources}</option>
+							<option value="1">{$LNG.fl_mt_fleet}</option>
+						</select>
+					</td>
+				</tr>
 			</table>
 			<!--
 			Max flight time (0 = unlimited):
