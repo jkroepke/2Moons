@@ -16,6 +16,7 @@
 
 // Translated into English by QwataKayean . All rights reversed (C) 2012
 // 2Moons - Copyright (C) 2010-2012 Slaver
+// Grammar Pedantry fixes @etaletai 2018
 
 
 
@@ -28,7 +29,7 @@ $LNG['ready']								= 'Ready';
 
 $LNG['loading']								= 'Loading ...';
 
-$LNG['invalid_action']						= 'Action Invalidated!!';
+$LNG['invalid_action']						= 'Action Invalid!';
 
 $LNG['type_mission_1']  					= 'Attack';
 $LNG['type_mission_2']  					= 'ACS - Attack on cooperation';
