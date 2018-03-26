@@ -41,7 +41,7 @@ $LNG['type_mission_7']  					= 'Colonize';
 $LNG['type_mission_8']  					= 'Recycle';
 $LNG['type_mission_9']  					= 'Destroy';
 $LNG['type_mission_10']  					= 'Missile attack';
-$LNG['type_mission_11']  					= 'Research of Dark matter ';
+$LNG['type_mission_11']  					= 'Research Dark matter ';
 $LNG['type_mission_15'] 					= 'Expedition';
 $LNG['type_mission_16'] 					= 'Trade';
 
