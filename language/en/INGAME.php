@@ -1152,7 +1152,7 @@ $LNG['ti_read']								= 'Ticket to read';
 $LNG['ti_answer']							= 'Respond';
 $LNG['ti_create']							= 'Ticket created on ';
 $LNG['ti_responded']							= 'Ticket replied on ';
-$LNG['ti_not_exist']						= 'The ticket #%d dont exist!';
+$LNG['ti_not_exist']						= 'Ticket #%d not found.';
 $LNG['ti_from']								= 'by';
 $LNG['ti_re']								= 'FW:';
 $LNG['ti_error_no_subject']					= 'You must enter a subject!';
@@ -1169,9 +1169,9 @@ $LNG['rec_last_update_on']		   			= 'Last update on ';
 //----------------------------------------------------------------------------//
 // Simulador de Batalha
 
-$LNG['bs_derbis_raport']   					= "Required for recycling the debris: %s %s or %s %s. ";
-$LNG['bs_steal_raport']   					= "Required to capture the resources: %s %s or %s %s or %s %s.";
-$LNG['bs_names']   							= "Shipname";
+$LNG['bs_derbis_raport']   					= "Required for recycling debris: %s %s or %s %s. ";
+$LNG['bs_steal_raport']   					= "Required to capture resources: %s %s or %s %s or %s %s.";
+$LNG['bs_names']   							= "Ship Name";
 $LNG['bs_atter']   							= "Attacker";
 $LNG['bs_deffer']   						= "Defender";
 $LNG['bs_steal']   							= "The defenders resources:";
@@ -1196,9 +1196,9 @@ $LNG['ft_empty']							= 'Empty';
 //----------------------------------------------------------------------------//
 // Logout
 $LNG['lo_title']							= 'Successfully logged out';
-$LNG['lo_logout']							= 'Your session was terminated. Hopefully voltes';
+$LNG['lo_logout']							= 'Your session was terminated. Hopefully on purpose.';
 $LNG['lo_redirect']							= 'Redirect';
 $LNG['lo_notify']							= 'Will be redirected in <span id="seconds">5</span> seconds';
-$LNG['lo_continue']							= 'Click here not to wait';
+$LNG['lo_continue']							= 'Click to continue.';
 
 //----------------------------------------------------------------------------//
