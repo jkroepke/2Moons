@@ -8,7 +8,7 @@ steem.api.getDiscussionsByCreated({"tag": "steemnova", "limit": 3}, function(err
 			$('#feed_'+i).css('display', '');
 			$('#created_'+i).text(discussion['created'].replace("T", " "));
 			$('#title_'+i).text(discussion['title']);
-			$('#url_'+i).attr('href', 'https://chainbb.com' + discussion['url']);
+			$('#url_'+i).attr('href', 'https://busy.org' + discussion['url']);
 			$('#author_'+i).text(' by @' + discussion['author']);
 		}
 	} else {
