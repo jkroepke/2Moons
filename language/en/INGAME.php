@@ -16,6 +16,7 @@
 
 // Translated into English by QwataKayean . All rights reversed (C) 2012
 // 2Moons - Copyright (C) 2010-2012 Slaver
+// Grammar Pedantry fixes @etaletai 2018
 
 
 
@@ -28,7 +29,7 @@ $LNG['ready']								= 'Ready';
 
 $LNG['loading']								= 'Loading ...';
 
-$LNG['invalid_action']						= 'Action Invalidated!!';
+$LNG['invalid_action']						= 'Action Invalid!';
 
 $LNG['type_mission_1']  					= 'Attack';
 $LNG['type_mission_2']  					= 'ACS - Attack on cooperation';
@@ -40,7 +41,7 @@ $LNG['type_mission_7']  					= 'Colonize';
 $LNG['type_mission_8']  					= 'Recycle';
 $LNG['type_mission_9']  					= 'Destroy';
 $LNG['type_mission_10']  					= 'Missile attack';
-$LNG['type_mission_11']  					= 'Research of Dark matter ';
+$LNG['type_mission_11']  					= 'Research Dark matter ';
 $LNG['type_mission_15'] 					= 'Expedition';
 $LNG['type_mission_16'] 					= 'Trade';
 
@@ -56,9 +57,9 @@ $LNG['user_level_3']                        = 'Administrator';
 
 $LNG['page_doesnt_exist']					= 'This page does not exist';
 $LNG['bad_forum_url']				    	= 'The Forum link is incorrect!';
-$LNG['admin_access_1']				    	= 'Players have access temporarily s administrative functions!';
+$LNG['admin_access_1']				    	= 'Players have temporary administrative permissions.';
 $LNG['admin_access_link']				    = 'Disable this access';
-$LNG['admin_access_2']				    	= ", If you don't need any longer";
+$LNG['admin_access_2']				    	= ", If you don't need it any longer";
 
 
 //----------------------------------------------------------------------------//
@@ -1151,7 +1152,7 @@ $LNG['ti_read']								= 'Ticket to read';
 $LNG['ti_answer']							= 'Respond';
 $LNG['ti_create']							= 'Ticket created on ';
 $LNG['ti_responded']							= 'Ticket replied on ';
-$LNG['ti_not_exist']						= 'The ticket #%d dont exist!';
+$LNG['ti_not_exist']						= 'Ticket #%d not found.';
 $LNG['ti_from']								= 'by';
 $LNG['ti_re']								= 'FW:';
 $LNG['ti_error_no_subject']					= 'You must enter a subject!';
@@ -1168,9 +1169,9 @@ $LNG['rec_last_update_on']		   			= 'Last update on ';
 //----------------------------------------------------------------------------//
 // Simulador de Batalha
 
-$LNG['bs_derbis_raport']   					= "Required for recycling the debris: %s %s or %s %s. ";
-$LNG['bs_steal_raport']   					= "Required to capture the resources: %s %s or %s %s or %s %s.";
-$LNG['bs_names']   							= "Shipname";
+$LNG['bs_derbis_raport']   					= "Required for recycling debris: %s %s or %s %s. ";
+$LNG['bs_steal_raport']   					= "Required to capture resources: %s %s or %s %s or %s %s.";
+$LNG['bs_names']   							= "Ship Name";
 $LNG['bs_atter']   							= "Attacker";
 $LNG['bs_deffer']   						= "Defender";
 $LNG['bs_steal']   							= "The defenders resources:";
@@ -1195,9 +1196,9 @@ $LNG['ft_empty']							= 'Empty';
 //----------------------------------------------------------------------------//
 // Logout
 $LNG['lo_title']							= 'Successfully logged out';
-$LNG['lo_logout']							= 'Your session was terminated. Hopefully voltes';
+$LNG['lo_logout']							= 'Your session was terminated. Hopefully on purpose.';
 $LNG['lo_redirect']							= 'Redirect';
 $LNG['lo_notify']							= 'Will be redirected in <span id="seconds">5</span> seconds';
-$LNG['lo_continue']							= 'Click here not to wait';
+$LNG['lo_continue']							= 'Click to continue.';
 
 //----------------------------------------------------------------------------//
