@@ -131,12 +131,10 @@
 		<tr>
 			<th>ID</th>
 			<th>{$LNG.tkb_datum}</th>
-			<th>{$LNG['gl_player']}</th>
 			<th>{$LNG['tech'][901]}</th>
 			<th>{$LNG['tech'][902]}</th>
 			<th>{$LNG['tech'][903]}</th>
 			<th  class="no-background no-border center">-></th>
-			<th>{$LNG['gl_player']}</th>
 			<th>{$LNG.market_p_cost_amount}</th>
 		</tr>
 	</thead>
@@ -145,7 +143,6 @@
 		<tr>
 			<td>{$smarty.foreach.History.iteration}</td>
 			<td>{$row.time}</td>
-			<td>{$row.seller}</td>
 			<td>{$row.metal}</td>
 			<td>{$row.crystal}</td>
 			<td>{$row.deuterium}</td>
@@ -153,7 +150,6 @@
 				{if $row.type == 1}<img src="./styles/theme/nova/images/metal.gif"/>
 				{elseif $row.type == 2}<img src="./styles/theme/nova/images/crystal.gif"/>
 				{elseif $row.type == 3}<img src="./styles/theme/nova/images/deuterium.gif"/>{/if}</td>
-			<td>{$row.buyer}</td>
 			<td>{$row.amount}</td>
 		</tr>
 		{/foreach}
