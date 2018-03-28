@@ -56,16 +56,40 @@
 		</tr>
 		{if $Exchange}
 		<tr style="height:20px;">
-			<th>{$LNG.exchange}</th>
+			<th>{$LNG.fl_exchange}</th>
 		</tr>
 		<tr style="height:20px;">
 			<td>
-				<select name="resEx">
-					<option value="1">{$LNG.tech.901}</option>
-					<option value="2">{$LNG.tech.902}</option>
-					<option value="3">{$LNG.tech.903}</option>
-				</select>
-			<input name="exchange" size="10" type="text">
+				<table>
+				<tr class="no-border">
+					<td >
+						<select name="resEx">
+							<option value="1">{$LNG.tech.901}</option>
+							<option value="2">{$LNG.tech.902}</option>
+							<option value="3">{$LNG.tech.903}</option>
+						</select>
+					</td>
+					<td>
+						<input name="exchange" size="10" type="text">
+					</td>
+				</tr>
+				<tr class="no-border">
+					<td>
+						{$LNG.fl_visibility}
+					</td>
+					<td>
+						<select name="visibility">
+							<option value="2" selected>{$LNG.fl_visibility_no_enemies}</option>
+							<option value="1">{$LNG.fl_visibility_alliance}</option>
+							<option value="0">{$LNG.fl_visibility_all}</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<!--
+			Max flight time (0 = unlimited):
+			<input name="maxFlightTime" size="10" type="text" value="0"> hours<br/>
+			-->
 			</td>
 		</tr>
 		{/if}
