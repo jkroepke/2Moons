@@ -83,7 +83,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 			return $checkResult['message'];
 		}
 		//Get trade fleet
-		$sql = "SELECT * FROM %%FLEETS%% JOIN %%TRADES%% ON fleet_id = seller_fleet_id WHERE fleet_id = :fleet_id AND fleet_mess = 2;";
+		$sql = "SELECT * FROM %%FLEETS%% JOIN %%TRADES%% ON fleet_id = seller_fleet_id JOIN %%USERS%% ON fleet_owner = id WHERE fleet_id = :fleet_id AND fleet_mess = 2;";
 		$fleetResult = $db->select($sql, array(
 			':fleet_id' => $FleetID,
 		));
@@ -93,7 +93,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 			return $LNG['market_p_msg_not_found'];
 		}
 
-		if($fleetResult[0]['filter_visibility'] != 0) {
+		if($fleetResult[0]['filter_visibility'] != 0 && $USER['id'] != $fleetResult[0]['id']) {
 			//Check packts
 			$sql = "SELECT * FROM %%DIPLO%% WHERE (owner_1 = :ow AND owner_2 = :ow2) OR (owner_2 = :ow AND owner_1 = :ow2) AND accept = 1;";
 			$res = $db->select($sql, array(
