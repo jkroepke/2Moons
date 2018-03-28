@@ -182,7 +182,7 @@ $LNG['tech'] = array(
 	706 => 'Research Upgrade',
 	707 => 'Fleet Upgrade',
 
-	900 => 'Ressources',
+	900 => 'Resources',
 	901 => 'Metal',
 	902 => 'Crystal',
 	903 => 'Deuterium',
@@ -290,7 +290,7 @@ $LNG['shortDescription'] = array(
 706 => 'Shortens research time',
 707 => 'Shortens flying time. Does not affect Expeditions.',
 	
-	900 => 'Ressources',
+	900 => 'Resources',
 	901 => 'Metal',
 	902 => 'Crystal',
 	903 => 'Deuterium',
@@ -399,10 +399,10 @@ $LNG['longDescription'] = array(
 706 => 'Shortens research time',
 707 => 'Shortens flying time. Does not affect Expeditions.',
 	
-	900 => 'Ressources',
-	901 => 'Metal',
-	902 => 'Crystal',
-	903 => 'Deuterium',
-	911 => 'Energy',
-	921 => 'Dark Matter',
+	900 => 'Resources',
+	901 => 'Metal is the main resource for Buildings and Ships. It is the cheapest resource, but it is needed the most as well. Producing Metal is the least energy expensive. The bigger the mines are, the deeper they dig into the earth.',
+	902 => 'Crystals are the main resource used to build electronic circuits and form certain alloy compounds.',
+	903 => 'Deuterium is found in the deepest sea. It belongs to the rarest resources in the Universe. Because you have to get to the ground of the sea in order to get Deuterium, it is the most expensive resource.',
+	911 => 'Energy is needed for the production of every resource.',
+	921 => 'Dark Matter is a very mysterious resource. Nobody really knows where it comes from. Sometimes it just appears out of nowhere. You can use Dark Matter to hire the most experienced officers in the universe.',
 );
