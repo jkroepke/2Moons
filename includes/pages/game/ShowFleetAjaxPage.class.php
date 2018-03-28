@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -97,8 +97,9 @@ class ShowFleetAjaxPage extends AbstractGamePage
 
 				foreach($recElementIDs as $elementID)
 				{
-					$shipsNeed 		= min(ceil($totalDebris / $pricelist[$elementID]['capacity']), $PLANET[$resource[$elementID]]);
-					$totalDebris	-= ($shipsNeed * $pricelist[$elementID]['capacity']);
+					$a = $pricelist[$elementID]['capacity'] * (1 + $USER['factor']['ShipStorage']);
+					$shipsNeed 		= min(ceil($totalDebris / $a), $PLANET[$resource[$elementID]]);
+					$totalDebris	-= ($shipsNeed * $a);
 
 					$fleetArray[$elementID]	= $shipsNeed;
 					$this->returnData['ships'][$elementID]	= $PLANET[$resource[$elementID]] - $shipsNeed;
