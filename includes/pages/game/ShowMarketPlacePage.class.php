@@ -47,6 +47,29 @@ class ShowMarketPlacePage extends AbstractGamePage
 			'reason' => '');
 	}
 
+	private function getTradeHistory() {
+		$db = Database::get();
+		$sql = 'SELECT
+			seller_u.username as seller,
+			buyer_u.username as buyer,
+			buy_time as time,
+			ex_resource_type as type,
+			ex_resource_amount as amount,
+			seller.fleet_resource_metal as metal,
+			seller.fleet_resource_crystal as crystal,
+			seller.fleet_resource_deuterium as deuterium
+			FROM %%TRADES%%
+			JOIN %%LOG_FLEETS%% seller ON seller.fleet_id = seller_fleet_id
+			JOIN %%LOG_FLEETS%% buyer ON buyer.fleet_id = buyer_fleet_id
+			JOIN %%USERS%% buyer_u ON buyer_u.id = buyer.fleet_owner
+			JOIN %%USERS%% seller_u ON seller_u.id = seller.fleet_owner
+			WHERE transaction_type = 0 ORDER BY time DESC LIMIT 40;';
+		$trades = $db->select($sql, array(
+			//TODO LIMIT
+		));
+		return $trades;
+	}
+
 	private function doBuy() {
 		global $USER, $PLANET, $reslist, $resource, $LNG, $pricelist;
 		$FleetID			= HTTP::_GP('fleetID', 0);
@@ -331,6 +354,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 			//Level 0 - 3 alliance
 			$buy = $this->checkBuyable($fleetsRow['filter_visibility'], $fleetsRow['level'], $fleetsRow['ally_id'], $USER['ally_id']);
 
+			$total = $fleetsRow['fleet_resource_metal'] + $fleetsRow['fleet_resource_crystal'] + $fleetsRow['fleet_resource_deuterium'];
 			$FlyingFleetList[]	= array(
 				'id'			=> $fleetsRow['fleet_id'],
 				'username'			=> $fleetsRow['username'],
@@ -338,8 +362,8 @@ class ShowMarketPlacePage extends AbstractGamePage
 				'fleet_resource_metal'		=> $fleetsRow['fleet_resource_metal'],
 				'fleet_resource_crystal'			=> $fleetsRow['fleet_resource_crystal'],
 				'fleet_resource_deuterium'			=> $fleetsRow['fleet_resource_deuterium'],
-
-				'total' => $fleetsRow['fleet_resource_metal'] + $fleetsRow['fleet_resource_crystal'] + $fleetsRow['fleet_resource_deuterium'],
+				'total' => $total,
+				'ratio' => round($total / $fleetsRow['ex_resource_amount'], 1),
 				'diplo' => $fleetsRow['level'],
 				'possible_to_buy' => $buy['buyable'],
 				'reason' => $buy['reason'],
@@ -356,10 +380,10 @@ class ShowMarketPlacePage extends AbstractGamePage
 			);
 		}
 
-
 		$this->assign(array(
 			'message' => $message,
 			'FlyingFleetList'		=> $FlyingFleetList,
+			'history' => $this->getTradeHistory(),
 		));
 		$this->tplObj->loadscript('marketplace.js');
 		$this->display('page.marketPlace.default.tpl');
