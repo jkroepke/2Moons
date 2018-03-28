@@ -31,27 +31,36 @@
 		<td>{$LNG.ov_server_time}</td>
 		<td colspan="2" class="servertime">{$servertime}</td>
 	</tr>
-	{if $is_news}
+	<!-- {if $is_news}
 	<tr>
 		<td>{$LNG.ov_news}</td><td colspan="2">{$news}</td>
 	</tr>
-	{/if}
-	<tr>
+	{/if} -->
+	<!-- <tr>
 		<td style="white-space: nowrap;">{$LNG.ov_admins_online}</td>
 		<td colspan="2">{foreach $AdminsOnline as $ID => $Name}{if !$Name@first}&nbsp;&bull;&nbsp;{/if}<a href="#" onclick="return Dialog.PM({$ID})">{$Name}</a>{foreachelse}{$LNG.ov_no_admins_online}{/foreach}</td>
-	</tr>
-	{if !empty($chatOnline)}
+	</tr> -->
+	<!-- {if !empty($chatOnline)}
 	<tr>
 		<td style="white-space: nowrap;">{$LNG.ov_chat_online}</td>
 		<td colspan="2">{foreach $chatOnline as $Name}{if !$Name@first},&nbsp;{/if}<a href="?page=chat">{$Name}</a>{/foreach}</td>
 	</tr>
-	{/if}
-	{if $teamspeakData !== false}
+	{/if} -->
+	<!-- {if $teamspeakData !== false}
 	<tr>
 		<td>{$LNG.ov_teamspeak}</td>
 		<td colspan="3">{if $teamspeakData.error}{$teamspeakData.error}{else}<a href="{$teamspeakData.url}">{$LNG.ov_teamspeak_connect}</a> &bull; {$LNG.ov_teamspeak_online}: {$teamspeakData.current}/{$teamspeakData.max}{/if}</td>
 	</tr>
-	{/if}
+	{/if} -->
+	<tr>
+		<td>{$LNG.ov_online}</td>
+		<td>
+			<a style="color:lime">{$usersOnline}</a> {$LNG.ov_players}
+		</td>
+		<td>
+			<a style="color:lime">{$fleetsOnline}</a> {$LNG.ov_moving_fleets}
+		</td>
+	</tr>
 	<tr>
 		<th colspan="3">{$LNG.ov_events}</th>
 	</tr>
