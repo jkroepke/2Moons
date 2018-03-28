@@ -28,7 +28,11 @@
 								</tr>
 								<tr>
 									{foreach $resourceTable as $resourceID => $resourceData}
-									<td class="res_name">{$LNG.tech.$resourceID}</td>
+									<td class="res_name">
+										<a href="#" onclick="return Dialog.info({$resourceID});">
+										{$LNG.tech.$resourceID}
+										</a>
+									</td>
 									{/foreach}
 								</tr>
 								{if $shortlyNumber}
