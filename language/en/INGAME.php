@@ -134,6 +134,7 @@ $LNG['ov_temp_unit']						= '°C';
 $LNG['ov_to']								= 'to';
 $LNG['ov_position']							= 'Position';
 $LNG['ov_points']							= 'Points';
+$LNG['ov_online']							= 'Online';
 $LNG['ov_security_request']					= 'Security question';
 $LNG['ov_security_confirm']					= 'Please confirm if you want to destroy the planet %s .';
 $LNG['ov_password']							= 'Password';
@@ -156,6 +157,8 @@ $LNG['ov_closed']							= 'The universe is currently disabled';
 $LNG['ov_reflink']							= 'Recruits';
 $LNG['ov_noreflink']						= 'You have not recruited any players yet';
 $LNG['ov_chat_online']						= 'Players in chat:';
+$LNG['ov_players']							= 'Players';
+$LNG['ov_moving_fleets']					= 'Moving fleets';
 
 //----------------------------------------------------------------------------//
 // Galaxy

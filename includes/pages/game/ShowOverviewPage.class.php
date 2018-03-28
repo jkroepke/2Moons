@@ -263,10 +263,22 @@ class ShowOverviewPage extends AbstractGamePage
 				$statData['total_rank'], $statData['total_rank'], $LNG['ov_of'], $config->users_amount);
 		}
 		
+		$usersOnline = Database::get()->selectSingle(
+			'SELECT COUNT(*)
+			FROM %%USERS%% WHERE onlinetime >= UNIX_TIMESTAMP(NOW() - INTERVAL 15 MINUTE)'
+		)['COUNT(*)'];
+
+		$fleetsOnline = Database::get()->selectSingle(
+			'SELECT COUNT(*)
+			FROM %%FLEETS%%'
+		)['COUNT(*)'];
+
 		$this->assign(array(
 			'rankInfo'					=> $rankInfo,
 			'is_news'					=> $config->OverviewNewsFrame,
 			'news'						=> makebr($config->OverviewNewsText),
+			'usersOnline'				=> $usersOnline,
+			'fleetsOnline'				=> $fleetsOnline,
 			'planetname'				=> $PLANET['name'],
 			'planetimage'				=> $PLANET['image'],
 			'galaxy'					=> $PLANET['galaxy'],
