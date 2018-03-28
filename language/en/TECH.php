@@ -289,6 +289,13 @@ $LNG['shortDescription'] = array(
 705 => 'Increases energy production',
 706 => 'Shortens research time',
 707 => 'Shortens flying time. Does not affect Expeditions.',
+	
+	900 => 'Ressources',
+	901 => 'Metal',
+	902 => 'Crystal',
+	903 => 'Deuterium',
+	911 => 'Energy',
+	921 => 'Dark Matter',
 );
 
 $LNG['longDescription'] = array(
@@ -391,4 +398,11 @@ $LNG['longDescription'] = array(
 705 => 'Increases energy production',
 706 => 'Shortens research time',
 707 => 'Shortens flying time. Does not affect Expeditions.',
+	
+	900 => 'Ressources',
+	901 => 'Metal',
+	902 => 'Crystal',
+	903 => 'Deuterium',
+	911 => 'Energy',
+	921 => 'Dark Matter',
 );
