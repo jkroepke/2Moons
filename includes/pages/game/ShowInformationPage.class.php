@@ -352,10 +352,16 @@ class ShowInformationPage extends AbstractGamePage
 			'productionTable'	=> $productionTable,
 			'CurrentLevel'		=> $CurrentLevel,
 			'MissileList'		=> $MissileList,
-			'Bonus'				=> BuildFunctions::getAvalibleBonus($elementID),
 			'FleetInfo'			=> $FleetInfo,
 			'gateData'			=> $gateData,
 		));
+		
+        	if($elementID <= 900 || $elementID >=930)
+        	{
+            	$this->assign(array(
+                	'Bonus'             => BuildFunctions::getAvalibleBonus($elementID),
+            	));
+        	}
 
 		$this->display('page.information.default.tpl');
 	}
