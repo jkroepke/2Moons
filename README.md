@@ -53,7 +53,7 @@ SteemNova expansion goes as follows:
 ## Local installation
 
 - Clone the repo: `git clone https://github.com/steemnova/steemnova`
-- Install components: `apt-get install apache2 php7.0 php7.0-gd php7.0-fpm php7.0-mysql libapache2-mod mysql-server`
+- Install components: `apt-get install apache2 php7.0 php7.0-gd php7.0-fpm php7.0-mysql php7.0-curl libapache2-mod mysql-server`
 - Install [php-ds extension](https://github.com/php-ds/extension)
     - `apt-get install php-pear php7.0-dev`
 	- pecl install ds
