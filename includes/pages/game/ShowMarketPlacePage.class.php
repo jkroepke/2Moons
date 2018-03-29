@@ -100,7 +100,11 @@ class ShowMarketPlacePage extends AbstractGamePage
 				':ow' => $USER['ally_id'],
 				':ow2' => $fleetResult[0]['ally_id'],
 			));
-			$buy = $this->checkBuyable($fleetResult[0]['filter_visibility'], $res[0]['level'], $fleetResult[0]['ally_id'], $USER['ally_id']);
+			$level = null;
+			if ($db->rowCount() != 0) {
+				$level = $res[0]['level'];
+			}
+			$buy = $this->checkBuyable($fleetResult[0]['filter_visibility'], $level, $fleetResult[0]['ally_id'], $USER['ally_id']);
 			if(!$buy['buyable']) {
 				return $buy['reason'];
 			}
