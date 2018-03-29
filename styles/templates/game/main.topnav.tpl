@@ -19,12 +19,20 @@
 							<tbody>
 								<tr>
 									{foreach $resourceTable as $resourceID => $resourceData}
-									<td><img src="{$dpath}images/{$resourceData.name}.gif" alt=""></td>
+									<td>
+										<a href="#" onclick="return Dialog.info({$resourceID});">
+											<img src="{$dpath}images/{$resourceData.name}.gif" alt="">
+										</a>
+									</td>
 									{/foreach}
 								</tr>
 								<tr>
 									{foreach $resourceTable as $resourceID => $resourceData}
-									<td class="res_name">{$LNG.tech.$resourceID}</td>
+									<td class="res_name">
+										<a href="#" onclick="return Dialog.info({$resourceID});">
+										{$LNG.tech.$resourceID}
+										</a>
+									</td>
 									{/foreach}
 								</tr>
 								{if $shortlyNumber}

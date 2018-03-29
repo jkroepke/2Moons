@@ -9,10 +9,10 @@
 </tr>
 <tr style="height:22px">
 	<td style="width:40%">&nbsp;</td>
-	<td style="width:10%">{$LNG.tech.901}</td>
-	<td style="width:10%">{$LNG.tech.902}</td>
-	<td style="width:10%">{$LNG.tech.903}</td>
-	<td style="width:10%">{$LNG.tech.911}</td>
+	<td style="width:10%"><a href="#" onclick="return Dialog.info(901);">{$LNG.tech.901}</td>
+	<td style="width:10%"><a href="#" onclick="return Dialog.info(902);">{$LNG.tech.902}</td>
+	<td style="width:10%"><a href="#" onclick="return Dialog.info(903);">{$LNG.tech.903}</td>
+	<td style="width:10%"><a href="#" onclick="return Dialog.info(911);">{$LNG.tech.911}</td>
 </tr>
 <tr style="height:22px">
 	<td>{$LNG.rs_basic_income}</td>
@@ -23,7 +23,7 @@
 </tr>
 {foreach $productionList as $productionID => $productionRow}
 <tr style="height:22px">
-	<td>{$LNG.tech.$productionID } ({if $productionID  > 200}{$LNG.rs_amount}{else}{$LNG.rs_lvl}{/if} {$productionRow.elementLevel})</td>
+	<td><a href="#" onclick="return Dialog.info({$productionID});">{$LNG.tech.$productionID }</a> ({if $productionID  > 200}{$LNG.rs_amount}{else}{$LNG.rs_lvl}{/if} {$productionRow.elementLevel})</td>
 	<td><span style="color:{if $productionRow.production.901 > 0}lime{elseif $productionRow.production.901 < 0}red{else}white{/if}">{$productionRow.production.901|number}</span></td>
 	<td><span style="color:{if $productionRow.production.902 > 0}lime{elseif $productionRow.production.902 < 0}red{else}white{/if}">{$productionRow.production.902|number}</span></td>
 	<td><span style="color:{if $productionRow.production.903 > 0}lime{elseif $productionRow.production.903 < 0}red{else}white{/if}">{$productionRow.production.903|number}</span></td>
