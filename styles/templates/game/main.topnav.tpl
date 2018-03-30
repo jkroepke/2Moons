@@ -30,7 +30,9 @@
 									{foreach $resourceTable as $resourceID => $resourceData}
 									<td class="res_name">
 										<a href="#" onclick="return Dialog.info({$resourceID});">
-										{$LNG.tech.$resourceID}
+											<span style="color:red">
+											{$LNG.tech.$resourceID}
+											</span>
 										</a>
 									</td>
 									{/foreach}
