@@ -19,7 +19,7 @@
 	</tr>
 	<tr>
 		<td>{$LNG.al_ally_info_members}</td>
-		<td>{$ally_max_members} / {$ally_members}{if $rights.MEMBERLIST} (<a href="?page=alliance&amp;mode=memberList">{$LNG.al_user_list}</a>){/if}</td>
+		<td>{$ally_members} / {$ally_max_members}{if $rights.MEMBERLIST} (<a href="?page=alliance&amp;mode=memberList">{$LNG.al_user_list}</a>){/if}</td>
 	</tr>
 	<tr>
 		<td>{$LNG.al_rank}</td>
