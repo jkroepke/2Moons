@@ -149,7 +149,7 @@ function handleErr(errMessage, url, line)
 
 var Dialog	= {	
 	info: function(ID){
-		return Dialog.open('game.php?page=information&id='+ID, 590, (ID > 600 && ID < 800) ? 210 : ((ID > 100 && ID < 200) ? 300 : 620));
+		return Dialog.open('game.php?page=information&id='+ID, 590, (ID > 600 && ID < 800 || ID > 900 && ID < 930) ? 210 : ((ID > 100 && ID < 200) ? 300 : 620));
 	},
 	
 	alert: function(msg, callback){
