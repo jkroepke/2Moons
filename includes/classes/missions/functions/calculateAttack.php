@@ -303,7 +303,11 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 				$TRES['defender'] -= $pricelist[$element]['cost'][902] * $amount ;
 
 				$lost = $STARTDEF[$element] - $amount;
-				$giveback = round($lost * (rand(56, 84) / 100));
+				$giveback = 0;
+				for ($i = 0; $i < $lost; $i++) {
+					if (rand(1, 100) <= 70)
+						$giveback += 1;
+				}
 				$defenders[$fleetID]['unit'][$element] += $giveback;
 				$DRESDefs['metal'] 	 += $pricelist[$element]['cost'][901] * ($lost - $giveback) ;
 				$DRESDefs['crystal'] += $pricelist[$element]['cost'][902] * ($lost - $giveback) ;
