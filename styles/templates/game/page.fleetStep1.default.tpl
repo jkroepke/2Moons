@@ -85,7 +85,7 @@
 				</div>
 				<div class="shortcut-edit">
 					<input type="text" class="shortcut-input" name="shortcut[{$shortcutID}][name]" value="{$shortcutRow.name}">
-					<div class="shortcut-delete" title="{$LNG.fl_dlte_shortcut}"></div>
+					<div class="shortcut-delete" title="{$LNG.fl_dlte_shortcut}">x</div>
 				</div>
 				<div class="shortcut-edit">
 					<input type="text" class="shortcut-input" name="shortcut[{$shortcutID}][galaxy]" value="{$shortcutRow.galaxy}" size="3" maxlength="2">:<input type="text" class="shortcut-input" name="shortcut[{$shortcutID}][system]" value="{$shortcutRow.system}" size="3" maxlength="3">:<input type="text" class="shortcut-input" name="shortcut[{$shortcutID}][planet]" value="{$shortcutRow.planet}" size="3" maxlength="2">
@@ -113,7 +113,7 @@
 				</div>
 				<div class="shortcut-edit">
 					<input type="text" class="shortcut-input" name="shortcut[][name]" placeholder="{$LNG.fl_shortcut_name}">
-					<div class="shortcut-delete" title="{$LNG.fl_dlte_shortcut}"></div>
+					<div class="shortcut-delete" title="{$LNG.fl_dlte_shortcut}">x</div>
 				</div>
 				<div class="shortcut-edit">
 					<input type="text" class="shortcut-input" name="shortcut[][galaxy]" value="" size="3" maxlength="2" placeholder="G" pattern="[0-9]*">:<input type="text" class="shortcut-input" name="shortcut[][system]" value="" size="3" maxlength="3" placeholder="S" pattern="[0-9]*">:<input type="text" class="shortcut-input" name="shortcut[][planet]" value="" size="3" maxlength="2" placeholder="P" pattern="[0-9]*">
