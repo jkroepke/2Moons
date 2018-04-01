@@ -58,6 +58,8 @@ SteemNova expansion goes as follows:
     - `apt-get install php-pear php7.0-dev`
 	- pecl install ds
 	- create file `30-ds.ini` with content `extension=ds.so` and put in `/etc/php/7.0/apache2/conf.d/` [source](https://github.com/php-ds/extension/issues/2#issuecomment-181855047)
+- Install HTML_BBCodeParser2
+    - `pear install HTML_BBCodeParser2-0.1.0`
 - Setup mysql: `create user USER identified by PASSWORD; create database DB; grant all privileges on DB.* to USER;`
 - Set write privileges to dirs: `cache/`, `includes/`
 - Run wizard: `127.0.0.1/install/install.php`

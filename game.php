@@ -17,7 +17,8 @@
 
 define('MODE', 'INGAME');
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
-set_include_path(ROOT_PATH);
+require_once('HTML/BBCodeParser2.php');
+set_include_path(ROOT_PATH.':'.get_include_path());
 
 require 'includes/pages/game/AbstractGamePage.class.php';
 require 'includes/pages/game/ShowErrorPage.class.php';
