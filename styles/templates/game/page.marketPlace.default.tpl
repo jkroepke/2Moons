@@ -8,12 +8,21 @@
 		</th>
 	</tr>
 	<tr>
+		<td>
+			<button id="resourceMBtn" class="marketOption selected">Resource market</button>
+		</td>
+		<td>
+			<button id="fleetMBtn" class="marketOption">Fleet market</button>
+		</td>
+	</tr>
+	<tr>
 		<td colspan="2">
 			<p>
 				{$LNG.market_info_description}
 			</p>
 		</td>
 	</tr>
+
 	<tr>
 		<td>
 			{$LNG.market_ship_as_first}
@@ -40,8 +49,10 @@
 		</td>
 	</tr>
 </table>
-<br/><br/>
 {/if}
+
+<br/><br/>
+<div id="resourceMarketBox" style="display:none">
 <table id="tradeList" style="width:50%;white-space: nowrap;" class="tablesorter">
 	<thead>
 		<tr class="no-background no-border center">
@@ -129,7 +140,7 @@
 </table>
 <hr>
 
-<table id="historyList" style="width:50%;white-space: nowrap;" class="tablesorter">
+<table id="resourceHistoryList" style="width:50%;white-space: nowrap;" class="tablesorter">
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -142,7 +153,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		{foreach name=History item=row from=$history}
+		{foreach name=History item=row from=$resourceHistory}
 		<tr>
 			<td>{$smarty.foreach.History.iteration}</td>
 			<td>{$row.time}</td>
@@ -150,23 +161,23 @@
 			<td>{$row.crystal}</td>
 			<td>{$row.deuterium}</td>
 			<td class="no-background no-border center">
-				{if $row.type == 1}<img src="./styles/theme/nova/images/metal.gif"/>
-				{elseif $row.type == 2}<img src="./styles/theme/nova/images/crystal.gif"/>
-				{elseif $row.type == 3}<img src="./styles/theme/nova/images/deuterium.gif"/>{/if}</td>
+				{if $row.res_type == 1}<img src="./styles/theme/nova/images/metal.gif"/>
+				{elseif $row.res_type == 2}<img src="./styles/theme/nova/images/crystal.gif"/>
+				{elseif $row.res_type == 3}<img src="./styles/theme/nova/images/deuterium.gif"/>{/if}</td>
 			<td>{$row.amount}</td>
 		</tr>
 		{/foreach}
 	</tbody>
 </table>
 
-<br/><br/>
-
+</div>
+<div id="fleetMarketBox"  style="display:none">
 <table id="tradeFleetList" style="width:50%;white-space: nowrap;" class="tablesorter">
 	<thead>
 		<tr>
 			<th>ID</th>
 			<th>{$LNG['gl_player']}</th>
-			<th>{$LNG['fleet']}</th>
+			<th>{$LNG['market_fleet']}</th>
 			<th>{$LNG.market_p_end}</th>
 			<th  class="no-background no-border center">-></th>
 			<th>{$LNG.market_p_cost_type}</th>
@@ -222,12 +233,71 @@
 	{/foreach}
 	</tbody>
 </table>
+<hr/>
 
+<table id="fleetHistoryList" style="width:50%;white-space: nowrap;" class="tablesorter">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>{$LNG.tkb_datum}</th>
+			<th>{$LNG['market_fleet']}</th>
+			<th  class="no-background no-border center">-></th>
+			<th>{$LNG.market_p_cost_amount}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{foreach name=History item=row from=$fleetHistory}
+		<tr>
+			<td>{$smarty.foreach.History.iteration}</td>
+			<td>{$row.time}</td>
+			<td>{$row.fleet_str}</td>
+			<td class="no-background no-border center">
+				{if $row.res_type == 1}<img src="./styles/theme/nova/images/metal.gif"/>
+				{elseif $row.res_type == 2}<img src="./styles/theme/nova/images/crystal.gif"/>
+				{elseif $row.res_type == 3}<img src="./styles/theme/nova/images/deuterium.gif"/>{/if}</td>
+			<td>{$row.amount}</td>
+		</tr>
+		{/foreach}
+	</tbody>
+</table>
+
+</div>
 {/block}
 {block name="script" append}
 <script src="scripts/base/jquery.tablesorter.js"></script>
-<script>$(function() {
+<script>
+function reloadMarketBox() {
+	var cl = $("#resourceMBtn").attr("class");
+	var resB = $("#resourceMarketBox");
+	if(cl !=null && cl.indexOf("selected") != -1)
+		resB.attr("style","display: inline");
+	else
+		resB.attr("style","display: none");
+
+	cl = $("#fleetMBtn").attr("class");
+	var fleetB = $("#fleetMarketBox");
+	if(cl !=null && cl.indexOf("selected") != -1)
+		fleetB.attr("style","display: inline");
+	else
+		fleetB.attr("style","display: none");
+}
+
+$(function() {
+// Set the default
+reloadMarketBox();
+//
+$("#resourceMBtn, #fleetMBtn").on("click", function(){
+	$(".marketOption").removeClass("selected");
+	$(this).addClass("selected");
+	reloadMarketBox();
+});
+
 $("#tradeList").tablesorter({
+	headers: {},
+	debug: false
+});
+
+$("#tradeFleetList").tablesorter({
 	headers: {},
 	debug: false
 });

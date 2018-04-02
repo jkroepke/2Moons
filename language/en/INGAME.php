@@ -388,6 +388,9 @@ $LNG['fl_visibility'] = 'Visibility';
 $LNG['fl_visibility_all'] = 'All';
 $LNG['fl_visibility_alliance'] = 'Allies and trading partners';
 $LNG['fl_visibility_no_enemies'] = 'All except enemies';
+$LNG['fl_market_type'] = 'Market type';
+$LNG['fl_mt_fleet'] = 'Fleet market';
+$LNG['fl_mt_resources'] = 'Resource market';
 //----------------------------------------------------------------------------//
 // Buildings
 $LNG['bd_dismantle']						= 'Demolish';
@@ -1028,6 +1031,7 @@ $LNG['market_ship_as_first'] = 'Ship type as first';
 $LNG['market_confirm_are_you_sure'] = 'Are you sure?';
 $LNG['market_info_header'] = "Marketplace";
 $LNG['market_info_description'] = "Left side - sale offers | Right side - buy amount<br><br>&bull; Bought offers cannot be canceled &bull;<br>&bull; Players are allowed to trade for any exchange rate (ratio) &bull;";
+$LNG['market_fleet']  = 'Fleet';
 
 $LNG['market_p_msg_not_found']  = 'Offer not found.';
 $LNG['market_p_msg_more_ships_is_needed']  = 'More ships required.';
