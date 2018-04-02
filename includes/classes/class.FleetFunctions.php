@@ -478,6 +478,15 @@ class FleetFunctions
 	public static function CheckBash($Target)
 	{
 		global $USER;
+		
+		$Inactivity = Database::get()->selectSingle('SELECT onlinetime FROM %%USERS%% where id = :id', array(
+			':id'		=> $Target,
+		), 'onlinetime');
+				
+		if($Inactivity < TIMESTAMP - INACTIVE)
+		{
+			return false;
+		}
 
 		if(!BASH_ON)
 		{
