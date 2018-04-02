@@ -479,9 +479,14 @@ class FleetFunctions
 	{
 		global $USER;
 		
-		$Inactivity = Database::get()->selectSingle('SELECT onlinetime FROM %%USERS%% where id = :id', array(
+		
+		$PlanetOwner = Database::get()->selectSingle('SELECT id_owner FROM %%PLANETS%% where id = :id', array(
 			':id'		=> $Target,
-		), 'onlinetime');
+		), 'id_owner');
+				
+		$Inactivity = Database::get()->selectSingle('SELECT onlinetime FROM %%USERS%% where id = :id', array(
+			':id'		=> $PlanetOwner,
+		) 'onlinetime');
 				
 		if($Inactivity < TIMESTAMP - INACTIVE)
 		{
