@@ -478,6 +478,20 @@ class FleetFunctions
 	public static function CheckBash($Target)
 	{
 		global $USER;
+		
+		
+		$PlanetOwner = Database::get()->selectSingle('SELECT id_owner FROM %%PLANETS%% where id = :id', array(
+			':id'		=> $Target,
+		), 'id_owner');
+				
+		$Inactivity = Database::get()->selectSingle('SELECT onlinetime FROM %%USERS%% where id = :id', array(
+			':id'		=> $PlanetOwner,
+		), 'onlinetime');
+				
+		if($Inactivity < TIMESTAMP - INACTIVE)
+		{
+			return false;
+		}
 
 		if(!BASH_ON)
 		{
