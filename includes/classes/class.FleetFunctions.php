@@ -486,7 +486,7 @@ class FleetFunctions
 				
 		$Inactivity = Database::get()->selectSingle('SELECT onlinetime FROM %%USERS%% where id = :id', array(
 			':id'		=> $PlanetOwner,
-		) 'onlinetime');
+		), 'onlinetime');
 				
 		if($Inactivity < TIMESTAMP - INACTIVE)
 		{
