@@ -243,8 +243,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 		} elseif($myPlanet) {
 			$targetPlayerData	= $USER;
 		} elseif(!empty($targetPlanetData['id_owner'])) {
-            $sql = "SELECT user.id, user.onlinetime, user.ally_id, user.urlaubs_modus, user.banaday, user.authattack,
-                stat.total_points
+            $sql = "SELECT user.*
                 FROM %%USERS%% as user
                 LEFT JOIN %%STATPOINTS%% as stat ON stat.id_owner = user.id AND stat.stat_type = '1'
                 WHERE user.id = :ownerID;";
@@ -396,6 +395,26 @@ class ShowFleetStep3Page extends AbstractGamePage
 				'label'	=> $LNG['sys_back'],
 				'url'	=> 'game.php?page=fleetTable'
 			)));
+		}
+
+
+		if ($targetMission == 17) {
+			$attack = $USER[$resource[109]] * 10 + $USER['factor']['Attack'] * 100;
+			$defensive = $USER[$resource[110]] * 10 + $USER['factor']['Defensive'] * 100;
+			$shield = $USER[$resource[111]] * 10 + $USER['factor']['Shield'] * 100;
+
+			$targetPlayerData['factor']		= getFactors($targetPlayerData);
+
+			$attack_targ = $targetPlayerData[$resource[109]] * 10 + $targetPlayerData['factor']['Attack'] * 100;
+			$defensive_targ = $targetPlayerData[$resource[110]] * 10 + $targetPlayerData['factor']['Defensive'] * 100;
+			$shield_targ = $targetPlayerData[$resource[111]] * 10 + $targetPlayerData['factor']['Shield'] * 100;
+
+			if($attack < $attack_targ || $defensive < $defensive_targ || $shield < $shield_targ) {
+				$this->printMessage($LNG['fl_stronger_techs'], array(array(
+					'label'	=> $LNG['sys_back'],
+					'url'	=> 'game.php?page=fleetTable'
+				)));
+			}
 		}
 
 		$PLANET[$resource[901]]	-= $fleetResource[901];

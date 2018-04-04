@@ -27,7 +27,30 @@ class ShowMarketPlacePage extends AbstractGamePage
 		return array('result' => 0);
 	}
 
-	private function checkBuyable($visibility, $level, $seller_ally, $ally) {
+	private function checkTechs($SELLER){
+		global $USER, $resource, $LNG;
+
+		$attack = $USER[$resource[109]] * 10 + $USER['factor']['Attack'] * 100;
+		$defensive = $USER[$resource[110]] * 10 + $USER['factor']['Defensive'] * 100;
+		$shield = $USER[$resource[111]] * 10 + $USER['factor']['Shield'] * 100;
+
+		$SELLER['factor']		= getFactors($SELLER);
+		$attack_targ = $SELLER[$resource[109]] * 10 + $SELLER['factor']['Attack'] * 100;
+		$defensive_targ = $SELLER[$resource[110]] * 10 + $SELLER['factor']['Defensive'] * 100;
+		$shield_targ = $SELLER[$resource[111]] * 10 + $SELLER['factor']['Shield'] * 100;
+
+		if($attack > $attack_targ || $defensive > $defensive_targ || $shield > $shield_targ) {
+			return array(
+				'buyable' => false,
+				'reason' => $LNG['market_buyable_no_tech']
+			);
+		}
+
+		return array("buyable" => true,
+			'reason' => '');
+	}
+
+	private function checkDiplo($visibility, $level, $seller_ally, $ally) {
 		global $LNG;
 		if($visibility == 2 && $level == 5 ) {
 			return array(
@@ -126,7 +149,14 @@ class ShowMarketPlacePage extends AbstractGamePage
 			if ($db->rowCount() != 0) {
 				$level = $res[0]['level'];
 			}
-			$buy = $this->checkBuyable($fleetResult[0]['filter_visibility'], $level, $fleetResult[0]['ally_id'], $USER['ally_id']);
+			$buy = $this->checkDiplo($fleetResult[0]['filter_visibility'], $level, $fleetResult[0]['ally_id'], $USER['ally_id']);
+			if(!$buy['buyable']) {
+				return $buy['reason'];
+			}
+		}
+
+		if($fleetResult[0]['transaction_type'] == 1) {
+			$buy = $this->checkTechs($fleetResult[0]);
 			if(!$buy['buyable']) {
 				return $buy['reason'];
 			}
@@ -383,7 +413,11 @@ class ShowMarketPlacePage extends AbstractGamePage
 
 			//Level 5 - enemies
 			//Level 0 - 3 alliance
-			$buy = $this->checkBuyable($fleetsRow['filter_visibility'], $fleetsRow['level'], $fleetsRow['ally_id'], $USER['ally_id']);
+			$buy = $this->checkDiplo($fleetsRow['filter_visibility'], $fleetsRow['level'], $fleetsRow['ally_id'], $USER['ally_id']);
+			//Fleet market
+			if($buy['buyable'] && $fleetsRow['transaction_type'] == 1)
+				$buy = $this->checkTechs($fleetsRow);
+
 
 			$total = $fleetsRow['fleet_resource_metal'] + $fleetsRow['fleet_resource_crystal'] + $fleetsRow['fleet_resource_deuterium'];
 			$FlyingFleetList[]	= array(

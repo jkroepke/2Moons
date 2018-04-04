@@ -447,6 +447,7 @@ class FleetFunctions
 					$availableMissions[]	= 7;
 			} else {
 				if(isModuleAvailable(MODULE_MISSION_TRANSPORT)) {
+					$MissionInfo['planet'];
 					$availableMissions[]	= 3;
 				}
 
@@ -454,8 +455,9 @@ class FleetFunctions
 					$availableMissions[]	= 6;
 
 				if (!$YourPlanet) {
-					if(isModuleAvailable(MODULE_MISSION_TRANSFER))
+					if(isModuleAvailable(MODULE_MISSION_TRANSFER)) {
 						$availableMissions[]	= 17;
+					}
 
 					if(isModuleAvailable(MODULE_MISSION_ATTACK))
 						$availableMissions[]	= 1;

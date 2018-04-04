@@ -391,6 +391,7 @@ $LNG['fl_visibility_no_enemies'] = 'All except enemies';
 $LNG['fl_market_type'] = 'Market type';
 $LNG['fl_mt_fleet'] = 'Fleet market';
 $LNG['fl_mt_resources'] = 'Resource market';
+$LNG['fl_stronger_techs'] = 'Your attack/defensive/shield are too low.';
 //----------------------------------------------------------------------------//
 // Buildings
 $LNG['bd_dismantle']						= 'Demolish';
@@ -1045,6 +1046,7 @@ $LNG['market_msg_trade_sold'] 					= 'Your fleet is flying to %s with %s %s, %s 
 
 $LNG['market_buyable_only_trade_partners'] 					= 'Only partners';
 $LNG['market_buyable_no_enemies'] 					= 'No enemies';
+$LNG['market_buyable_no_tech'] 					= 'Too weak';
 //----------------------------------------------------------------------------//
 // Relatório de Combate
 $LNG['cr_lost_contact']                     = 'Lost touch with your fleet.';
