@@ -95,8 +95,7 @@
 	{if $FlyingFleetRow.type == 0}
 	<tr class='{if {$FlyingFleetRow.diplo} == 5}
 	 trade-enemy
-	  {elseif {$FlyingFleetRow.diplo} == NULL}
-		{elseif {$FlyingFleetRow.diplo} <= 3}}
+		{elseif ({$FlyingFleetRow.diplo} != NULL && {$FlyingFleetRow.diplo} <= 3) || {$FlyingFleetRow.from_alliance} == 1}
 		 trade-ally
 		  {/if}
 	{if $FlyingFleetRow.possible_to_buy != true} trade-disallowed {/if}'>
@@ -194,8 +193,7 @@
 	{if $FlyingFleetRow.type == 1}
 	<tr class='{if {$FlyingFleetRow.diplo} == 5}
 	 trade-enemy
-	  {elseif {$FlyingFleetRow.diplo} == NULL}
-		{elseif {$FlyingFleetRow.diplo} <= 3}}
+		{elseif ({$FlyingFleetRow.diplo} != NULL && {$FlyingFleetRow.diplo} <= 3) || {$FlyingFleetRow.from_alliance} == 1}
 		 trade-ally
 		  {/if}
 	{if $FlyingFleetRow.possible_to_buy != true} trade-disallowed {/if}'>

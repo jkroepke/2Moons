@@ -432,6 +432,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 				'ratio' => round($total / $fleetsRow['ex_resource_amount'], 1),
 				'fleet'		=> $fleet_str,
 				'diplo' => $fleetsRow['level'],
+				'from_alliance' => $fleetsRow['ally_id'] == $USER['ally_id'],
 				'possible_to_buy' => $buy['buyable'],
 				'reason' => $buy['reason'],
 				'fleet_wanted_resource'	=> $resourceN,
