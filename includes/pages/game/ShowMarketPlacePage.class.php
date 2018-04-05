@@ -27,7 +27,30 @@ class ShowMarketPlacePage extends AbstractGamePage
 		return array('result' => 0);
 	}
 
-	private function checkBuyable($visibility, $level, $seller_ally, $ally) {
+	private function checkTechs($SELLER){
+		global $USER, $resource, $LNG;
+
+		$attack = $USER[$resource[109]] * 10 + $USER['factor']['Attack'] * 100;
+		$defensive = $USER[$resource[110]] * 10 + $USER['factor']['Defensive'] * 100;
+		$shield = $USER[$resource[111]] * 10 + $USER['factor']['Shield'] * 100;
+
+		$SELLER['factor']		= getFactors($SELLER);
+		$attack_targ = $SELLER[$resource[109]] * 10 + $SELLER['factor']['Attack'] * 100;
+		$defensive_targ = $SELLER[$resource[110]] * 10 + $SELLER['factor']['Defensive'] * 100;
+		$shield_targ = $SELLER[$resource[111]] * 10 + $SELLER['factor']['Shield'] * 100;
+
+		if($attack > $attack_targ || $defensive > $defensive_targ || $shield > $shield_targ) {
+			return array(
+				'buyable' => false,
+				'reason' => $LNG['market_buyable_no_tech']
+			);
+		}
+
+		return array("buyable" => true,
+			'reason' => '');
+	}
+
+	private function checkDiplo($visibility, $level, $seller_ally, $ally) {
 		global $LNG;
 		if($visibility == 2 && $level == 5 ) {
 			return array(
@@ -47,13 +70,11 @@ class ShowMarketPlacePage extends AbstractGamePage
 			'reason' => '');
 	}
 
-	private function getTradeHistory() {
+	private function getResourceTradeHistory() {
 		$db = Database::get();
 		$sql = 'SELECT
-			seller_u.username as seller,
-			buyer_u.username as buyer,
 			buy_time as time,
-			ex_resource_type as type,
+			ex_resource_type as res_type,
 			ex_resource_amount as amount,
 			seller.fleet_resource_metal as metal,
 			seller.fleet_resource_crystal as crystal,
@@ -61,12 +82,36 @@ class ShowMarketPlacePage extends AbstractGamePage
 			FROM %%TRADES%%
 			JOIN %%LOG_FLEETS%% seller ON seller.fleet_id = seller_fleet_id
 			JOIN %%LOG_FLEETS%% buyer ON buyer.fleet_id = buyer_fleet_id
-			JOIN %%USERS%% buyer_u ON buyer_u.id = buyer.fleet_owner
-			JOIN %%USERS%% seller_u ON seller_u.id = seller.fleet_owner
 			WHERE transaction_type = 0 ORDER BY time DESC LIMIT 40;';
 		$trades = $db->select($sql, array(
 			//TODO LIMIT
 		));
+		return $trades;
+	}
+
+	private function getFleetTradeHistory() {
+		global $LNG;
+		$db = Database::get();
+		$sql = 'SELECT
+			seller.fleet_array as fleet,
+			buy_time as time,
+			ex_resource_type as res_type,
+			ex_resource_amount as amount
+			FROM %%TRADES%%
+			JOIN %%LOG_FLEETS%% seller ON seller.fleet_id = seller_fleet_id
+			JOIN %%LOG_FLEETS%% buyer ON buyer.fleet_id = buyer_fleet_id
+			WHERE transaction_type = 1 ORDER BY time DESC LIMIT 40;';
+		$trades = $db->select($sql, array(
+			//TODO LIMIT
+		));
+		for($i =0; $i< count($trades);$i++){
+			$fleet =  FleetFunctions::unserialize($trades[$i]['fleet']);
+			$fleet_str = '';
+			foreach($fleet as $name => $amount) {
+				$fleet_str .= $LNG['shortNames'][$name].' x'.$amount."\n";
+			}
+			$trades[$i]['fleet_str'] = $fleet_str;
+		}
 		return $trades;
 	}
 
@@ -104,7 +149,14 @@ class ShowMarketPlacePage extends AbstractGamePage
 			if ($db->rowCount() != 0) {
 				$level = $res[0]['level'];
 			}
-			$buy = $this->checkBuyable($fleetResult[0]['filter_visibility'], $level, $fleetResult[0]['ally_id'], $USER['ally_id']);
+			$buy = $this->checkDiplo($fleetResult[0]['filter_visibility'], $level, $fleetResult[0]['ally_id'], $USER['ally_id']);
+			if(!$buy['buyable']) {
+				return $buy['reason'];
+			}
+		}
+
+		if($fleetResult[0]['transaction_type'] == 1) {
+			$buy = $this->checkTechs($fleetResult[0]);
 			if(!$buy['buyable']) {
 				return $buy['reason'];
 			}
@@ -237,7 +289,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 			':fleet_start_time' => $fleetStartTime,
 			':fleet_end_stay' => $fleetStayTime,
 			':fleet_end_time' => $fleetEndTime,
-			':fleet_mission' => 3,
+			':fleet_mission' => $fleetResult['transaction_type'] == 0 ? 3 : 17,
 			':fleet_no_m_return' => 1,
 			':fleet_mess'=> 0,
 		);
@@ -354,21 +406,33 @@ class ShowMarketPlacePage extends AbstractGamePage
 			$TO_HC_SPEED		= FleetFunctions::GetFleetMaxSpeed(array(203 =>1), $USER);
 			$TO_HC_DUR			= FleetFunctions::GetMissionDuration(10, $TO_HC_SPEED, $TO_Distance, $SpeedFactor, $USER);
 
+			$fleet_str = '';
+			foreach($FROM_fleet as $name => $amount) {
+				$fleet_str .= $LNG['shortNames'][$name].' x'.$amount."\n";
+			}
+
 			//Level 5 - enemies
 			//Level 0 - 3 alliance
-			$buy = $this->checkBuyable($fleetsRow['filter_visibility'], $fleetsRow['level'], $fleetsRow['ally_id'], $USER['ally_id']);
+			$buy = $this->checkDiplo($fleetsRow['filter_visibility'], $fleetsRow['level'], $fleetsRow['ally_id'], $USER['ally_id']);
+			//Fleet market
+			if($buy['buyable'] && $fleetsRow['transaction_type'] == 1)
+				$buy = $this->checkTechs($fleetsRow);
+
 
 			$total = $fleetsRow['fleet_resource_metal'] + $fleetsRow['fleet_resource_crystal'] + $fleetsRow['fleet_resource_deuterium'];
 			$FlyingFleetList[]	= array(
 				'id'			=> $fleetsRow['fleet_id'],
 				'username'			=> $fleetsRow['username'],
+				'type' => $fleetsRow['transaction_type'],
 
 				'fleet_resource_metal'		=> $fleetsRow['fleet_resource_metal'],
 				'fleet_resource_crystal'			=> $fleetsRow['fleet_resource_crystal'],
 				'fleet_resource_deuterium'			=> $fleetsRow['fleet_resource_deuterium'],
 				'total' => $total,
 				'ratio' => round($total / $fleetsRow['ex_resource_amount'], 1),
+				'fleet'		=> $fleet_str,
 				'diplo' => $fleetsRow['level'],
+				'from_alliance' => $fleetsRow['ally_id'] == $USER['ally_id'],
 				'possible_to_buy' => $buy['buyable'],
 				'reason' => $buy['reason'],
 				'fleet_wanted_resource'	=> $resourceN,
@@ -387,7 +451,8 @@ class ShowMarketPlacePage extends AbstractGamePage
 		$this->assign(array(
 			'message' => $message,
 			'FlyingFleetList'		=> $FlyingFleetList,
-			'history' => $this->getTradeHistory(),
+			'resourceHistory' => $this->getResourceTradeHistory(),
+			'fleetHistory' => $this->getFleetTradeHistory(),
 		));
 		$this->tplObj->loadscript('marketplace.js');
 		$this->display('page.marketPlace.default.tpl');

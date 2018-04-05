@@ -35,7 +35,7 @@ $LNG['type_mission_1']  					= 'Attack';
 $LNG['type_mission_2']  					= 'ACS - Attack on cooperation';
 $LNG['type_mission_3']  					= 'Transport';
 $LNG['type_mission_4']  					= 'Deploy';
-$LNG['type_mission_5']  					= 'Transfer';
+$LNG['type_mission_5']  					= 'Hold';
 $LNG['type_mission_6']  					= 'Spying';
 $LNG['type_mission_7']  					= 'Colonize';
 $LNG['type_mission_8']  					= 'Recycle';
@@ -44,6 +44,7 @@ $LNG['type_mission_10']  					= 'Missile attack';
 $LNG['type_mission_11']  					= 'Research Dark matter ';
 $LNG['type_mission_15'] 					= 'Expedition';
 $LNG['type_mission_16'] 					= 'Trade';
+$LNG['type_mission_17'] 					= 'Transfer';
 
 $LNG['type_planet_1']  					= 'Planet';
 $LNG['type_planet_2']  					= 'Debris Field';
@@ -320,6 +321,7 @@ $LNG['fl_resources_left']				    = 'Capacity avaliable';
 $LNG['fl_all_resources']			        = 'All resources';
 $LNG['fl_multi_alarm']						= 'Multi alarm!';
 $LNG['fl_empty_target']						= 'No mission available (does this planet exist?)';
+$LNG['fl_transfer_alert_message']		    = 'Attention! Your fleet will be transferred to different user!';
 $LNG['fl_expedition_alert_message']		    = 'Attention! Explorations are dangerous missions, you can lose your fleet!';
 $LNG['fl_dm_alert_message']                 = 'Beware, if in %s %s was found, destroyed the fleets!';
 $LNG['fl_vacation_mode_active']			    = 'Vacation mode active';
@@ -362,6 +364,7 @@ $LNG['fl_error_no_moon']					= 'No moon found at these coordinates!';
 $LNG['fl_error_same_planet']				= 'Start and destination planet are identical!';
 $LNG['fl_invalid_target']					= 'No valid target';
 $LNG['fl_no_noresource']					= 'No raw materials loaded!';
+$LNG['fl_resources']					= 'Raw materials loaded!';
 $LNG['fl_no_target']						= 'No available target planet';
 $LNG['fl_not_all_ship_avalible']			= 'Not all ships present.';
 $LNG['fl_no_expedition_slot']				= "You can't start more expeditions!";
@@ -385,6 +388,10 @@ $LNG['fl_visibility'] = 'Visibility';
 $LNG['fl_visibility_all'] = 'All';
 $LNG['fl_visibility_alliance'] = 'Allies and trading partners';
 $LNG['fl_visibility_no_enemies'] = 'All except enemies';
+$LNG['fl_market_type'] = 'Market type';
+$LNG['fl_mt_fleet'] = 'Fleet market';
+$LNG['fl_mt_resources'] = 'Resource market';
+$LNG['fl_stronger_techs'] = 'Your attack/defensive/shield are too low.';
 //----------------------------------------------------------------------------//
 // Buildings
 $LNG['bd_dismantle']						= 'Demolish';
@@ -1025,6 +1032,7 @@ $LNG['market_ship_as_first'] = 'Ship type as first';
 $LNG['market_confirm_are_you_sure'] = 'Are you sure?';
 $LNG['market_info_header'] = "Marketplace";
 $LNG['market_info_description'] = "Left side - sale offers | Right side - buy amount<br><br>&bull; Bought offers cannot be canceled &bull;<br>&bull; Players are allowed to trade for any exchange rate (ratio) &bull;";
+$LNG['market_fleet']  = 'Fleet';
 
 $LNG['market_p_msg_not_found']  = 'Offer not found.';
 $LNG['market_p_msg_more_ships_is_needed']  = 'More ships required.';
@@ -1038,6 +1046,7 @@ $LNG['market_msg_trade_sold'] 					= 'Your fleet is flying to %s with %s %s, %s 
 
 $LNG['market_buyable_only_trade_partners'] 					= 'Only partners';
 $LNG['market_buyable_no_enemies'] 					= 'No enemies';
+$LNG['market_buyable_no_tech'] 					= 'Too weak';
 //----------------------------------------------------------------------------//
 // Relatório de Combate
 $LNG['cr_lost_contact']                     = 'Lost touch with your fleet.';

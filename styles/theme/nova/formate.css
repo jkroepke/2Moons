@@ -47,6 +47,10 @@ input, select, textarea, #userpic, input, button{
 	border:1px solid #1C1F23;
 }
 
+button.selected{
+	border:1px solid #1C1FD3;
+}
+
 td, th input, .tip {
 	border:1px solid #000;
 }

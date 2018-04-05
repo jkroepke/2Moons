@@ -94,7 +94,7 @@ class FlyingFleetsTable
 				$FleetData[$fleetRow['fleet_start_time'].$fleetRow['fleet_id']] = $this->BuildFleetEventTable($fleetRow, 0);
 			}
 
-			if ($fleetRow['fleet_mission'] == 10 || ($fleetRow['fleet_mission'] == 4 && $fleetRow['fleet_mess'] == 0))
+			if ($fleetRow['fleet_mission'] == 10 || $fleetRow['fleet_mission'] == 17 || ($fleetRow['fleet_mission'] == 4 && $fleetRow['fleet_mess'] == 0))
 				continue;
 
 			if ($fleetRow['fleet_end_stay'] != $fleetRow['fleet_start_time'] && $fleetRow['fleet_end_stay'] > TIMESTAMP && ($this->IsPhalanx && $fleetRow['fleet_end_id'] == $this->planetId))
@@ -166,6 +166,7 @@ class FlyingFleetsTable
 			11 => 'transport',
 			15 => 'transport',
 			16 => 'transport',
+			17 => 'transport',
 		);
 
 	    $GoodMissions	= array(3, 5);

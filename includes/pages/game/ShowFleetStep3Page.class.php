@@ -38,7 +38,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 		$TransportDeuterium		= max(0, round(HTTP::_GP('deuterium', 0.0)));
 		$WantedResourceType		= HTTP::_GP('resEx', 0);
 		$WantedResourceAmount		= max(0, round(HTTP::_GP('exchange', 0.0)));
-
+		$markettype		= HTTP::_GP('markettype', 0);
 		$visibility		= HTTP::_GP('visibility', 0);
 		$maxFlightTime		= HTTP::_GP('maxFlightTime', 0);
 		$stayTime 				= HTTP::_GP('staytime', 0);
@@ -91,9 +91,18 @@ class ShowFleetStep3Page extends AbstractGamePage
 			)));
 		}
 
-		if (($targetMission == 3 || $targetMission == 16)&& $TransportMetal + $TransportCrystal + $TransportDeuterium < 1)
+		// Transport and market type 0 have to contain resources
+		if (($targetMission == 3 || ($targetMission == 16 && $markettype == 0))&& $TransportMetal + $TransportCrystal + $TransportDeuterium < 1)
 		{
 			$this->printMessage($LNG['fl_no_noresource'], array(array(
+				'label'	=> $LNG['sys_back'],
+				'url'	=> 'game.php?page=fleetStep2'
+			)));
+		}
+		// Market typ 1 cannot contain resources
+		if($targetMission == 16 && $markettype == 1 && $TransportMetal + $TransportCrystal + $TransportDeuterium != 0)
+		{
+			$this->printMessage($LNG['fl_resources'], array(array(
 				'label'	=> $LNG['sys_back'],
 				'url'	=> 'game.php?page=fleetStep2'
 			)));
@@ -234,8 +243,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 		} elseif($myPlanet) {
 			$targetPlayerData	= $USER;
 		} elseif(!empty($targetPlanetData['id_owner'])) {
-            $sql = "SELECT user.id, user.onlinetime, user.ally_id, user.urlaubs_modus, user.banaday, user.authattack,
-                stat.total_points
+            $sql = "SELECT user.*
                 FROM %%USERS%% as user
                 LEFT JOIN %%STATPOINTS%% as stat ON stat.id_owner = user.id AND stat.stat_type = '1'
                 WHERE user.id = :ownerID;";
@@ -389,6 +397,26 @@ class ShowFleetStep3Page extends AbstractGamePage
 			)));
 		}
 
+
+		if ($targetMission == 17) {
+			$attack = $USER[$resource[109]] * 10 + $USER['factor']['Attack'] * 100;
+			$defensive = $USER[$resource[110]] * 10 + $USER['factor']['Defensive'] * 100;
+			$shield = $USER[$resource[111]] * 10 + $USER['factor']['Shield'] * 100;
+
+			$targetPlayerData['factor']		= getFactors($targetPlayerData);
+
+			$attack_targ = $targetPlayerData[$resource[109]] * 10 + $targetPlayerData['factor']['Attack'] * 100;
+			$defensive_targ = $targetPlayerData[$resource[110]] * 10 + $targetPlayerData['factor']['Defensive'] * 100;
+			$shield_targ = $targetPlayerData[$resource[111]] * 10 + $targetPlayerData['factor']['Shield'] * 100;
+
+			if($attack < $attack_targ || $defensive < $defensive_targ || $shield < $shield_targ) {
+				$this->printMessage($LNG['fl_stronger_techs'], array(array(
+					'label'	=> $LNG['sys_back'],
+					'url'	=> 'game.php?page=fleetTable'
+				)));
+			}
+		}
+
 		$PLANET[$resource[901]]	-= $fleetResource[901];
 		$PLANET[$resource[902]]	-= $fleetResource[902];
 		$PLANET[$resource[903]]	-= $fleetResource[903] + $consumption;
@@ -419,6 +447,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 
 		if($targetMission == 16) {
 			$sql	= 'INSERT INTO %%TRADES%% SET
+				transaction_type			= :transaction,
 				seller_fleet_id				= :sellerFleet,
 				filter_visibility			= :visibility,
 				filter_flighttime			= :flightTime,
@@ -426,6 +455,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 				ex_resource_amount		= :resAmount;';
 
 				$db->insert($sql, array(
+					':transaction'			=> $markettype,
 					':sellerFleet'			=> $fleet_id,
 					':resType'					=> $WantedResourceType,
 					':resAmount'				=> $WantedResourceAmount,

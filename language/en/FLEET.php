@@ -163,6 +163,9 @@ $LNG['sys_expe_back_home_with_dm']			= 'Your fleet has returned from the expedit
 $LNG['sys_mess_transport'] 					= 'Transportmessage';
 $LNG['sys_tran_mess_owner']		 			= 'One of your fleets reaches the planet %s %s and delivers %s %s, %s %s and %s %s.';
 $LNG['sys_tran_mess_user'] 		 			= 'A peaceful fleet of %s %s reached %s %s and delivers %s %s, %s %s and %s %s.';
+$LNG['sys_transfer_mess_owner']		 			= 'One of your fleets reaches the planet %s %s and delivers %s %s, %s %s and %s %s. ';
+$LNG['sys_transfer_mess_user'] 		 			= 'A peaceful fleet of %s %s reached %s %s and delivers %s %s, %s %s and %s %s. ';
+
 $LNG['sys_mess_fleetback'] 					= 'Fleet return';
 $LNG['sys_tran_mess_back'] 					= 'One of your fleets returns from the planet %s %s.';
 $LNG['sys_trade_mess_back'] 					= 'One of your trading fleets returns to the planet %s %s without success.';
@@ -206,6 +209,7 @@ $LNG['type_mission_9']  					= 'Destroy';
 $LNG['type_mission_11']  					= 'DM Investigation';
 $LNG['type_mission_15'] 					= 'Expedition';
 $LNG['type_mission_16'] 					= 'Trade';
+$LNG['type_mission_17'] 					= 'Transfer';
 
 $LNG['type_planet_short_1']  				= 'P';
 $LNG['type_planet_short_2']  				= 'D';
