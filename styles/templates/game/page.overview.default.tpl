@@ -31,11 +31,11 @@
 		<td>{$LNG.ov_server_time}</td>
 		<td colspan="2" class="servertime">{$servertime}</td>
 	</tr>
-	<!-- {if $is_news}
+	{if $is_news}
 	<tr>
 		<td>{$LNG.ov_news}</td><td colspan="2">{$news}</td>
 	</tr>
-	{/if} -->
+	{/if}
 	<!-- <tr>
 		<td style="white-space: nowrap;">{$LNG.ov_admins_online}</td>
 		<td colspan="2">{foreach $AdminsOnline as $ID => $Name}{if !$Name@first}&nbsp;&bull;&nbsp;{/if}<a href="#" onclick="return Dialog.PM({$ID})">{$Name}</a>{foreachelse}{$LNG.ov_no_admins_online}{/foreach}</td>
