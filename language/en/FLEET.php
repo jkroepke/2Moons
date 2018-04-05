@@ -209,7 +209,7 @@ $LNG['type_mission_9']  					= 'Destroy';
 $LNG['type_mission_11']  					= 'DM Investigation';
 $LNG['type_mission_15'] 					= 'Expedition';
 $LNG['type_mission_16'] 					= 'Trade';
-$LNG['type_mission_16'] 					= 'Transfer';
+$LNG['type_mission_17'] 					= 'Transfer';
 
 $LNG['type_planet_short_1']  				= 'P';
 $LNG['type_planet_short_2']  				= 'D';
