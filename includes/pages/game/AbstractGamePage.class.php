@@ -150,7 +150,9 @@ abstract class AbstractGamePage
 		$avatar = 'styles/resource/images/user.png';
 		if (Session::load()->data !== null)
 		{
-			$avatar = json_decode(Session::load()->data->account->json_metadata)->profile->profile_image;
+			try{
+				$avatar = json_decode(Session::load()->data->account->json_metadata)->profile->profile_image;
+			}catch(Exception $e){}
 		}
 
 		$this->assign(array(
