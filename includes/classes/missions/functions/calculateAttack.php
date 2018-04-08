@@ -78,13 +78,24 @@ function shoot(&$attackers, $fleetID, $element, $unit, &$defenders, &$ad)
 {
 	// SHOOT
 	global $CombatCaps;
-	// right now each ACS fleet has equal chance to be hit! TODO later
-	$victimFleetId = array_rand($defenders); // rand(0, count($defenders)-1); 
-	while (count($defenders[$victimFleetId]['units']) == 0)
-		$victimFleetId = array_rand($defenders); // randomize until hit non-empty fleet
-	$victimFleet = &$defenders[$victimFleetId];
-	$victimShipId = rand(0, count($victimFleet['units'])-1);
-	$victimShip = &$victimFleet['units'][$victimShipId];
+	$count = 0;
+	foreach ($defenders as $fleetID => &$defender)
+	{
+		$count += count($defender['units']);
+	}
+	$ran = rand(0, $count-1);
+	$count = 0;
+	$victimShip;
+	foreach ($defenders as $fleetID => &$defender)
+	{
+		$count += count($defender['units']);
+		if ($ran < $count)
+		{
+			$victimShipId = rand(0, count($defender['units'])-1);
+			$victimShip = &$defender['units'][$victimShipId];
+			break;
+		}
+	}
 	
 	$ad['attack'] += $unit['att'];
 	if ($unit['att'] * 100 > $victimShip['shield'])
