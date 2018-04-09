@@ -340,7 +340,7 @@ function isModuleAvailable($ID)
 		$modules[$ID] = 1;
 	}
 
-	return $modules[$ID] == 1 || (isset($USER['authlevel']) && $USER['authlevel'] > AUTH_USR);
+	return $modules[$ID] == 1; // || (isset($USER['authlevel']) && $USER['authlevel'] > AUTH_USR);
 }
 
 function ClearCache()
