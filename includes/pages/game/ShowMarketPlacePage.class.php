@@ -257,7 +257,7 @@ class ShowMarketPlacePage extends AbstractGamePage
 		$buyerfleet = FleetFunctions::sendFleet($fleetArray, 3/*Transport*/, $USER['id'], $PLANET['id'], $PLANET['galaxy'],
 			$PLANET['system'], $PLANET['planet'], $PLANET['planet_type'], $fleetResult['fleet_owner'], $fleetResult['fleet_start_id'],
 			$fleetResult['fleet_start_galaxy'], $fleetResult['fleet_start_system'], $fleetResult['fleet_start_planet'], $fleetResult['fleet_start_type'],
-			$fleetResource, $fleetStartTime, $fleetStayTime, $fleetEndTime,0,0,0,0,1);
+			$fleetResource, $fleetStartTime, $fleetStayTime, $fleetEndTime,0,0,1);
 
 
 
