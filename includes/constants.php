@@ -52,6 +52,8 @@ if(!defined('CACHE_PATH')) {
 	define('CACHE_PATH', ROOT_PATH.'cache/');
 }
 
+define('DISCORD_URL'				, 'https://discord.gg/HwAwdKw');
+
 define('COMBAT_ENGINE'				, 'xnova');
 
 // For Fatal Errors!
