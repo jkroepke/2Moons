@@ -243,7 +243,7 @@ class ShowFleetStep3Page extends AbstractGamePage
 		} elseif($myPlanet) {
 			$targetPlayerData	= $USER;
 		} elseif(!empty($targetPlanetData['id_owner'])) {
-            $sql = "SELECT user.*
+            $sql = "SELECT user.*, stat.total_points
                 FROM %%USERS%% as user
                 LEFT JOIN %%STATPOINTS%% as stat ON stat.id_owner = user.id AND stat.stat_type = '1'
                 WHERE user.id = :ownerID;";
