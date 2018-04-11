@@ -963,7 +963,7 @@ $LNG['cff_mission_own_recy_0']				= 'Una %s de %s %s %s se dirige al campo de es
 $LNG['cff_mission_own_recy_1']				= 'Una %s vuelve del campo de escombros en la posici&oacute;n %s hacia %s %s %s. Misi&oacute;n: %s';
 $LNG['cff_mission_target_bad']				= 'Una %s hostil del jugador %s de %s %s %s espia la posici&oacute;n %s %s %s. Misi&oacute;n: %s';
 $LNG['cff_mission_target_good']				= 'Una %s hostil del jugador %s de %s %s %s espia la posici&oacute;n %s %s %s. Misi&oacute;n: %s';
-$LNG['cff_mission_target_stay']				= 'Una %s pac&iacute;fica del jugador %s de %s %s %s esta en orbita en %s %s %s %s. Misi&oacute;n: %s';
+$LNG['cff_mission_target_stay']				= 'Una %s pac&iacute;fica del jugador %s de %s %s %s esta en orbita en %s %s %s. Misi&oacute;n: %s';
 $LNG['cff_mission_target_mip']				= 'Ataque con Misiles (%d) del jugador %s de %s %s %s a la posici&oacute;n %s %s %s.';
 
 //----------------------------------------------------------------------------//
