@@ -383,17 +383,6 @@ class ShowMessagesPage extends AbstractGamePage
         $Total			= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
         $UnRead			= array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 15 => 0, 50 => 0, 99 => 0, 100 => 0, 999 => 0);
 
-        $sql = "SELECT username, email FROM %%USERS%% WHERE universe = :universe AND authlevel != :authlevel ORDER BY username ASC;";
-        $OperatorResult = $db->select($sql, array(
-            ':universe'     => Universe::current(),
-            ':authlevel'    => AUTH_USR
-        ));
-
-        foreach($OperatorResult as $OperatorRow)
-        {
-            $OperatorList[$OperatorRow['username']]	= $OperatorRow['email'];
-        }
-
         $sql = "SELECT message_type, SUM(message_unread) as message_unread, COUNT(*) as count FROM %%MESSAGES%% WHERE message_owner = :userID AND message_deleted IS NULL GROUP BY message_type;";
         $CategoryResult = $db->select($sql, array(
             ':userID'   => $USER['id']
@@ -422,7 +411,6 @@ class ShowMessagesPage extends AbstractGamePage
         $this->tplObj->loadscript('message.js');
         $this->assign(array(
             'CategoryList'	=> $CategoryList,
-            'OperatorList'	=> $OperatorList,
             'category'		=> $category,
             'side'			=> $side,
         ));

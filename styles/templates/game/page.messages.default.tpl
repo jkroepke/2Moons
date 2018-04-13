@@ -13,16 +13,6 @@
 		{if $CategoryRow@last || ($CategoryRow@iteration % 6) === 0}</tr>{/if}
 		{/foreach}
 </table>
-<table style="width:760px;table-layout:fixed;">
-	<tr>
-		<th>{$LNG.mg_game_operators}</th>
-	</tr>
-	{foreach $OperatorList as $OperatorName => $OperatorEmail}
-	<tr>
-		<td>{$OperatorName}<a href="mailto:{$OperatorEmail}" title="{$LNG.mg_write_mail_to_ops} {{$OperatorName}}"><img src="{$dpath}img/m.gif" alt=""></a></td>
-	</tr>
-	{/foreach}
-</table>
 {/block}
 {block name="script" append}
 {if !empty($category)}
