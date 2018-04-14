@@ -236,6 +236,7 @@ class ShowFleetTablePage extends AbstractGamePage
 				'mission'		=> $fleetsRow['fleet_mission'],
 				'state'			=> $fleetsRow['fleet_mess'],
 				'no_returnable'			=> $fleetsRow['fleet_no_m_return'],
+				'no_returnable'	=> $fleetsRow['fleet_no_m_return'],
 				'startGalaxy'	=> $fleetsRow['fleet_start_galaxy'],
 				'startSystem'	=> $fleetsRow['fleet_start_system'],
 				'startPlanet'	=> $fleetsRow['fleet_start_planet'],

@@ -101,7 +101,6 @@ class ShowGalaxyPage extends AbstractGamePage
 			'maxfleetcount'				=> FleetFunctions::GetCurrentFleets($USER['id']),
 			'fleetmax'					=> FleetFunctions::GetMaxFleetSlots($USER),
 			'currentmip'				=> $PLANET[$resource[503]],
-			'grecyclers'   				=> $PLANET[$resource[219]],
 			'recyclers'   				=> $PLANET[$resource[209]],
 			'spyprobes'   				=> $PLANET[$resource[210]],
 			'missile_count'				=> sprintf($LNG['gl_missil_to_launch'], $PLANET[$resource[503]]),

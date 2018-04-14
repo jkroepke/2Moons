@@ -1126,8 +1126,8 @@ $LNG['rec_last_update_on']   				= 'La última actualización fue: %s';
 //----------------------------------------------------------------------------//
 // BattleSimulator
 
-$LNG['bs_derbis_raport']					= "Necesitas %s %s o %s %s para el campo de escombros.";
-$LNG['bs_steal_raport']						= "Necesitas robar  %s %s o %s %s o %s %s .";
+$LNG['bs_derbis_raport']					= "Necesitas %s %s para el campo de escombros.";
+$LNG['bs_steal_raport']						= "Necesitas robar  %s %s o %s %s.";
 $LNG['bs_names']							= "Nave";
 $LNG['bs_atter']							= "Agresor";
 $LNG['bs_deffer']							= "Defensor";
