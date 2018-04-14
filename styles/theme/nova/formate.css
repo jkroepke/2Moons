@@ -347,6 +347,7 @@ select {
 
 .mes_unread td {
 	font-weight:700;
+	background-color:#212428;
 }
 
 a {
