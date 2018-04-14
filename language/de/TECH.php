@@ -288,12 +288,11 @@ $LNG['shortDescription'] = array(
 	706 => 'Der Bonus ist nur temporär.',
 	707 => 'Der Bonus ist nur temporär.',
 	
-	900 => 'Rohstoffe',
-	901 => 'Hauptrohstoff für den Bau tragender Strukturen von Bauwerken und Schiffen. Metall ist der billigste Rohstoff, dafür wird er mehr benötigt als die anderen. Metall braucht zur Herstellung am wenigsten Energie. Je größer die Minen ausgebaut sind, desto tiefer sind sie. Bei den meisten Planeten befindet sich das Metall in großer Tiefe, durch diese tieferen Minen können mehr Metalle abgebaut werden, die Produktion steigt. Trotz seiner Häufigkeit ist Metall eine der gefragtesten Ressourcen im Universum.',
+	901 => 'Hauptrohstoff für den Bau tragender Strukturen von Bauwerken und Schiffen. Metall ist der billigste Rohstoff, dafür wird er mehr benötigt als die anderen. Metall braucht zur Herstellung am wenigsten Energie.',
 	902 => 'Kristall wird für die Herstellung feinelektronischer Komponente benötigt, und wird in Minen unter der Erde abgebaut.',
 	903 => 'Deuterium ist schwerer Wasserstoff. Die größten Vorräte sind am Grund des Meeres. Deshalb werden für die Gewinnung von Deuterium großen Mengen Energie benötigt. Deuterium wird als Treibstoff für Raumschiffe, für fast alle Forschungen, für einen Blick in die Galaxie sowie für den Sensorphalanx-Scan benötigt.',
 	911 => 'Energie wird für das gewinnnen jeglicher Rohstoffe benötigt.',
-	921 => 'Dunkle Materie ist die geheimnisvollste, seltenste und kostbarste Ressource im ganzen Universum. Mit ihr können unter anderem legendäre Offiziere vergangener Zeiten angeworben oder gierige Händler gerufen werden. Anders als die herkömmlichen Ressourcen kann dunkle Materie (noch) nicht abgebaut werden und ist interplanetar verfügbar, niemand weiß warum. Ebenfalls weiß man nicht, woher Dunkle Materie kommt und wie man sie hersellt, doch Wissenschaftler sollen beobachtet haben, dass hin und wieder eine bestimmte Menge dieser einfach so auftaucht. Mysteriös...',
+	921 => 'Dunkle Materie ist die geheimnisvollste, seltenste und kostbarste Ressource im ganzen Universum. Mit ihr können unter anderem legendäre Offiziere vergangener Zeiten angeworben oder gierige Händler gerufen werden.',
 );
 
 $LNG['longDescription'] = array(
@@ -394,11 +393,10 @@ $LNG['longDescription'] = array(
 	705 => 'Der Bonus ist nur temporär.',
 	706 => 'Der Bonus ist nur temporär.',
 	707 => 'Der Bonus ist nur temporär.',
-	
-	900 => 'Rohstoffe',
+
 	901 => 'Hauptrohstoff für den Bau tragender Strukturen von Bauwerken und Schiffen. Metall ist der billigste Rohstoff, dafür wird er mehr benötigt als die anderen. Metall braucht zur Herstellung am wenigsten Energie. Je größer die Minen ausgebaut sind, desto tiefer sind sie. Bei den meisten Planeten befindet sich das Metall in großer Tiefe, durch diese tieferen Minen können mehr Metalle abgebaut werden, die Produktion steigt. Trotz seiner Häufigkeit ist Metall eine der gefragtesten Ressourcen im Universum.',
 	902 => 'Kristall wird für die Herstellung feinelektronischer Komponente benötigt, und wird in Minen unter der Erde abgebaut.',
 	903 => 'Deuterium ist schwerer Wasserstoff. Die größten Vorräte sind am Grund des Meeres. Deshalb werden für die Gewinnung von Deuterium großen Mengen Energie benötigt. Deuterium wird als Treibstoff für Raumschiffe, für fast alle Forschungen, für einen Blick in die Galaxie sowie für den Sensorphalanx-Scan benötigt.',
-	911 => 'Energie wird für das gewinnnen jeglicher Rohstoffe benötigt.',
+	911 => 'Energie wird für das gewinnnen jeglicher Rohstoffe benötigt. Man sagt, man könne mit unmengen an Energie, die Gravitation beeinflussen und dadurch zerstörerische Waffen bauen. Allerdings ist dies bis heute noch kaum jemanden gelungen.',
 	921 => 'Dunkle Materie ist die geheimnisvollste, seltenste und kostbarste Ressource im ganzen Universum. Mit ihr können unter anderem legendäre Offiziere vergangener Zeiten angeworben oder gierige Händler gerufen werden. Anders als die herkömmlichen Ressourcen kann dunkle Materie (noch) nicht abgebaut werden und ist interplanetar verfügbar, niemand weiß warum. Ebenfalls weiß man nicht, woher Dunkle Materie kommt und wie man sie hersellt, doch Wissenschaftler sollen beobachtet haben, dass hin und wieder eine bestimmte Menge dieser einfach so auftaucht. Mysteriös...',
 );
