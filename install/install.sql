@@ -376,7 +376,7 @@ CREATE TABLE `%PREFIX%trades` (
 	`filter_flighttime` mediumint unsigned NOT NULL DEFAULT 0,
 	`ex_resource_type` tinyint(1) unsigned NOT NULL DEFAULT 0,
 	`ex_resource_amount` double(50,0) unsigned NOT NULL DEFAULT '0',
-	PRIMARY KEY (`seller_fleet_id`),
+	PRIMARY KEY (`seller_fleet_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE `%PREFIX%fleet_event` (
