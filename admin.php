@@ -19,6 +19,8 @@ define('MODE', 'ADMIN');
 define('DATABASE_VERSION', 'OLD');
 
 define('ROOT_PATH', str_replace('\\', '/',dirname(__FILE__)).'/');
+require_once('HTML/BBCodeParser2.php');
+set_include_path(ROOT_PATH.':'.get_include_path());
 
 require 'includes/common.php';
 require 'includes/classes/class.Log.php';
