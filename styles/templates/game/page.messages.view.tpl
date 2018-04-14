@@ -1,3 +1,4 @@
+<!-- unused due to page.messages.default.tpl -->
 {block name="content"}
 <form action="game.php?page=messages" method="post">
 <input type="hidden" name="mode" value="action">
