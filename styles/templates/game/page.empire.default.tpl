@@ -86,7 +86,7 @@
 		</tr>
 		{foreach $planetList.defense as $elementID => $fleetArray}
 		<tr>
-			<td>{$LNG.tech.$elementID}</td>
+			<td><a class='tooltip_sticky' data-tooltip-content="<table><tr><th><a href='#' onclick='return Dialog.info({$elementID})'>{$LNG.tech.{$elementID}}</a></th></tr><tr><table><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
 			<td>{array_sum($fleetArray)|number}</td>
 			{foreach $fleetArray as $planetID => $fleet}
 				<td>{$fleet|number}</td>
