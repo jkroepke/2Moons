@@ -289,13 +289,12 @@ $LNG['shortDescription'] = array(
 706 => 'Skraca na jakiś czas długość badań.',
 707 => 'Skraca czas lotu floty. Bonus działa tylko przez pewien okres i nie ma wpływu na ekspedycję!',
 
-//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
-901 => 'Metal is the main resource for Buildings and Ships. It is the cheapest resource, but it is needed the most as well. Producing Metal is the least energy expensive. The bigger the mines are, the deeper they dig into the earth.',
-902 => 'Crystals are the main resource used to build electronic circuits and form certain alloy compounds.',
-903 => 'Deuterium is found in the deepest sea. It belongs to the rarest resources in the Universe. Because you have to get to the ground of the sea in order to get Deuterium, it is the most expensive resource.',
-911 => 'Energy is needed for the production of every resource.',
-921 => 'Dark Matter is a very mysterious resource. Nobody really knows where it comes from. Sometimes it just appears out of nowhere. You can use Dark Matter to hire the most experienced officers in the universe.',
-//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
+901 => 'Główny surowiec do budowy konstrukcji nośnych budynków i statków kosmicznych.',
+902 => 'Główny surowiec do budowy elementów elektronicznych i stopów metali.',
+903 => 'Deuter jest izotopem wodoru, paliwo dla statków kosmicznych, nawigatorów i naukowców.',
+911 => 'Czysta energia napędzająca przemysł wydobywczy.',
+921 => 'Czarna Materia jest rzadką substancją niewiadomego pochodzenia.',
+
 );
 
 $LNG['longDescription'] = array(
@@ -397,13 +396,11 @@ $LNG['longDescription'] = array(
 	706 => 'Bonus jest tymczasowy!',
 	707 => 'Bonus jest tymczasowy!',	
 
-//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
-    901 => 'Metal is the main resource for Buildings and Ships. It is the cheapest resource, but it is needed the most as well. Producing Metal is the least energy expensive. The bigger the mines are, the deeper they dig into the earth.',
-    902 => 'Crystals are the main resource used to build electronic circuits and form certain alloy compounds. It gets produced in mines under the ground, where the raw material instantly is made into cicuits.',
-    903 => 'Deuterium is found in the deepest sea. It belongs to the rarest resources in the Universe. Because you have to get to the ground of the sea in order to get Deuterium, it is the most expensive resource.',
-    911 => 'Energy is needed for the production of every resource.',
-    921 => 'Dark Matter is a very mysterious resource. Nobody really knows where it comes from. Sometimes it just appears out of nowhere and sometimes it is even found in old ships. Some even say that it doesn\'t exist, but it has been proven otherwise. You can use Dark Matter to hire the most experienced officers in the universe.',
-//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
+901 => 'Główny surowiec do budowy konstrukcji nośnych budynków i statków kosmicznych. Metal jest najtańszym surowcem mineralnym, dlatego jest częściej wykorzystywany niż inne.',
+902 => 'Główny surowiec do budowy elementów elektronicznych i stopów metali. Kryształy wykorzystywane są we wszystkich statkach kosmicznych i budynkach. Najczęściej używane w przemyśle stoczniowym kryształy są jednak bardzo rzadkie i podobnie jak metale znajdują się w większych ilościach w głębokich warstwach.',
+903 => 'Deuter jest izotopem wodoru. Jego separacja z wody jest procesem zużywającym duże ilości energii. Deuter jest wykorzystywany jako paliwo dla statków kosmicznych, dla prawie wszystkich badań naukowych, do podglądu galaktyki jak i skanowania z wykorzystaniem falangi czujników.',
+911 => 'Czysta energia napędzająca przemysł wydobywczy. Aby zapewnić zaopatrzenie kopalń i ekstraktorów, wymagane są ogromne ilości czystej energii. Prawie wszystkie budynki potrzebują energii do ich eksploatacji. Energia jest niewymienialna.',
+921 => 'Czarna Materia jest rzadką substancją niewiadomego pochodzenia. Pojawia się w przypadkowych miejscach Uniwersum. Jest wykorzystywana do opłacania najznakomitszych oficerów we wszechświecie.',
 );
 
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012
