@@ -1172,8 +1172,8 @@ $LNG['rec_last_update_on']		   			= 'Letztes Update um';
 //----------------------------------------------------------------------------//
 // BattleSimulator
 
-$LNG['bs_derbis_raport']					= 'Es werden %s %s oder %s %s für das Trümmerfeld benötigt.';
-$LNG['bs_steal_raport']						= 'Für die Beute werden %s %s oder %s %s oder %s %s benötigt.';
+$LNG['bs_derbis_raport']					= 'Es werden %s %s für das Trümmerfeld benötigt.';
+$LNG['bs_steal_raport']						= 'Für die Beute werden %s %s oder %s %s benötigt.';
 $LNG['bs_names']						= 'Schiffname';
 $LNG['bs_atter']						= 'Angreifer';
 $LNG['bs_deffer']						= 'Verteidiger';

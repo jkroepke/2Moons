@@ -519,7 +519,7 @@ $LNG['in_jump_gate_wait_time']              = 'Next jump possible in:';
 $LNG['in_jump_gate_jump']					= 'Jump';
 $LNG['in_destroy']     						= 'Destroy:';
 $LNG['in_needed']      						= 'Requires';
-$LNG['in_dest_durati'] 			            = 'Time to the destruction';
+$LNG['in_dest_durati'] 			            = 'Effect duration';
 $LNG['in_missilestype']   					= 'Missile type';
 $LNG['in_missilesamount']    				= 'Number of Missiles avaliable';
 $LNG['in_engine'] 							= 'Engine';
@@ -1191,8 +1191,8 @@ $LNG['rec_last_update_on']		   			= 'Last update on ';
 //----------------------------------------------------------------------------//
 // Simulador de Batalha
 
-$LNG['bs_derbis_raport']   					= "Required for recycling debris: %s %s or %s %s. ";
-$LNG['bs_steal_raport']   					= "Required to capture resources: %s %s or %s %s or %s %s.";
+$LNG['bs_derbis_raport']   					= "Required for recycling debris: %s %s.";
+$LNG['bs_steal_raport']   					= "Required to capture resources: %s %s or %s %s.";
 $LNG['bs_names']   							= "Ship Name";
 $LNG['bs_atter']   							= "Attacker";
 $LNG['bs_deffer']   						= "Defender";
