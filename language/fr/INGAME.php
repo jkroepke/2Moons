@@ -1122,7 +1122,7 @@ $LNG['rec_last_update_on']   				= 'Dernière mise à jour : %s';
 //----------------------------------------------------------------------------//
 // BattleSimulator
 
-$LNG['bs_derbis_raport']					= "Le champs de débris se compose de %s %s et %s %s. ";
+$LNG['bs_derbis_raport']					= "Le champs de débris se compose de %s %s. ";
 $LNG['bs_steal_raport']						= "Le butin de la bataille se compose de %s %s et de %s %s.";
 $LNG['bs_names']							= "Noms des vaisseaux";
 $LNG['bs_atter']							= "Attaquant";
