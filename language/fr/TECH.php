@@ -277,13 +277,11 @@ $LNG['shortDescription'] = array(
 706 => 'Réduit le temps de recherche par %s%%. Le bonus n\'est que temporaire.',
 707 => 'Réduit le temps de vol des flottes par %s%%. Le bonus n\'est que temporaire. N\'affecte pas les expéditions.',
 
-//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
-901 => 'Metal is the main resource for Buildings and Ships. It is the cheapest resource, but it is needed the most as well. Producing Metal is the least energy expensive. The bigger the mines are, the deeper they dig into the earth.',
-902 => 'Crystals are the main resource used to build electronic circuits and form certain alloy compounds.',
-903 => 'Deuterium is found in the deepest sea. It belongs to the rarest resources in the Universe. Because you have to get to the ground of the sea in order to get Deuterium, it is the most expensive resource.',
-911 => 'Energy is needed for the production of every resource.',
-921 => 'Dark Matter is a very mysterious resource. Nobody really knows where it comes from. Sometimes it just appears out of nowhere. You can use Dark Matter to hire the most experienced officers in the universe.',
-//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
+901 => 'Le métal est la principale ressource nécessaire à la construction des bâtiments et des vaisseaux. C\'est la ressource la moins coûteuse en énergie mais c\'est aussi la plus utilisée. Plus le niveau de la mine augmente, plus la mine est profonde et prend de la place sur la planète.',
+902 => 'Le cristal est la ressource principale dans la fabrication des circuits électroniques et de certains alliages.',
+903 => 'Le deutérium est récupéré dans les profondeurs marines. C\'est la ressource la plus rare dans l\'univers car il faut creuser les fonds marins pour l\'obtenir, ce qui en fait également la ressource la plus coûteuse.',
+911 => 'De l\'énergie est nécessaire à la production de chacune des ressources.',
+921 => 'La matière noire est une ressource mystérieuse. Personne ne sait vraiment d\'où elle vient. Parfois elle apparaît simplement comme venue de nulle part. La matière noire peut être utilisé dans le recrutement des officiers les plus expérimentés de l\'univers.',
 );
 
 $LNG['longDescription'] = array(
@@ -387,13 +385,12 @@ $LNG['longDescription'] = array(
 706 => 'Réduit le temps de recherche',
 707 => 'Les temps de vol sont plus courts. Ne porte pas atteinte aux expéditions.',
 
-//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
-901 => 'Metal is the main resource for Buildings and Ships. It is the cheapest resource, but it is needed the most as well. Producing Metal is the least energy expensive. The bigger the mines are, the deeper they dig into the earth.',
-902 => 'Crystals are the main resource used to build electronic circuits and form certain alloy compounds. It gets produced in mines under the ground, where the raw material instantly is made into cicuits.',
-903 => 'Deuterium is found in the deepest sea. It belongs to the rarest resources in the Universe. Because you have to get to the ground of the sea in order to get Deuterium, it is the most expensive resource.',
-911 => 'Energy is needed for the production of every resource.',
-921 => 'Dark Matter is a very mysterious resource. Nobody really knows where it comes from. Sometimes it just appears out of nowhere and sometimes it is even found in old ships. Some even say that it doesn\'t exist, but it has been proven otherwise. You can use Dark Matter to hire the most experienced officers in the universe.',
-//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
+901 => 'Le métal est la principale ressource nécessaire à la construction des bâtiments et des vaisseaux. C\'est la ressource la moins coûteuse en énergie mais c\'est aussi la plus utilisée. Plus le niveau de la mine augmente, plus la mine est profonde et prend de la place sur la planète.',
+902 => 'Le cristal est la ressource principale dans la fabrication des circuits électroniques et de certains alliages.',
+903 => 'Le deutérium est récupéré dans les profondeurs marines. C\'est la ressource la plus rare dans l\'univers car il faut creuser les fonds marins pour l\'obtenir, ce qui en fait également la ressource la plus coûteuse.',
+911 => 'De l\'énergie est nécessaire à la production de chacune des ressources.
+',
+921 => 'La matière noire est une ressource mystérieuse. Personne ne sait vraiment d\'où elle vient. Parfois elle apparaît simplement comme venue de nulle part. La matière noire peut être utilisé dans le recrutement des officiers les plus expérimentés de l\'univers.',
 );
 
 ?>
