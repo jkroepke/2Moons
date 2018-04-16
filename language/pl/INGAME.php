@@ -1150,8 +1150,8 @@ $LNG['rec_last_update_on']		   			= 'Ostatnia aktualizacja o';
 //----------------------------------------------------------------------------//
 // BattleSimulator
 
-$LNG['bs_derbis_raport']					= "Potrzebujesz %s %s, by zebrać ten złom. "; //??
-$LNG['bs_steal_raport']						= "By zebrać wszystkie łupy, potrzebujesz %s %s albo %s %s transportowców."; //??
+$LNG['bs_derbis_raport']					= "Potrzebujesz %s %s, by zebrać ten złom.";
+$LNG['bs_steal_raport']						= "By zebrać wszystkie łupy, potrzebujesz %s %s albo %s %s.";
 $LNG['bs_names']							= "Nazwa statku";
 $LNG['bs_atter']							= "Agresor";
 $LNG['bs_deffer']							= "Obrońca";
