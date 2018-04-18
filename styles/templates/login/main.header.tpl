@@ -13,15 +13,13 @@
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" type="text/css">
 	<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon">
 	<title>{block name="title"} - {$gameName}{/block}</title>
-	<meta name="generator" content="2Moons {$VERSION}">
-	<!-- 
-		This website is powered by 2Moons {$VERSION}
-		2Moons is a free Space Browsergame initially created by Jan-Otto Kröpke and licensed under MIT.
-		2Moons is copyright 2009-2016 of Jan-Otto Kröpke. Extensions are copyright of their respective owners.
-		Information and contribution at https://github.com/jkroepke/2Moons/
-	-->
-	<meta name="keywords" content="Weltraum Browsergame, XNova, 2Moons, Space, Private, Server, Speed">
-	<meta name="description" content="2Moons Browsergame powerd by https://github.com/jkroepke/2Moons/"> <!-- Noob Check :) -->
+	<meta name="keywords" content="SteemNova, Steem, Browsergame, MMOSG, MMOG, Strategy, XNova, 2Moons, Space">
+	<meta name="description" content="Massively Multiplayer Online Strategy Game (MMOSG) for Steemians. Space Browsergame with competition between Alliances for Steem cryptocurrency. Free-to-play, win-to-pay style.">
+	<!-- open graph protocol -->
+	<meta property="og:title" content="SteemNova">
+	<meta property="og:type" content="website">
+	<meta property="og:description" content="Massively Multiplayer Online Strategy Game (MMOSG) for Steemians. Space Browsergame with competition between Alliances for Steem cryptocurrency. Free-to-play, win-to-pay style.">
+	<meta property="og:image" content="https://steemnova.intinte.org/styles/resource/images/meta.png">
 	<!--[if lt IE 9]>
 	<script src="scripts/base/html5.js"></script>
 	<![endif]-->
