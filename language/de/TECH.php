@@ -89,11 +89,11 @@ $LNG['tech'] = array(
 	 31 => 'Forschungslabor',
 	 33 => 'Terraformer',
 	 34 => 'Allianzdepot',
-	 44 => 'Raketensilo',
 	 40 => 'Mondgebäude',
 	 41 => 'Basisstützpunkt',
 	 42 => 'Sensorenphalax',
 	 43 => 'Sprungtor',
+     44 => 'Raketensilo',
 
 	100 => 'Forschungen',
 	106 => 'Spionagetechnik',
@@ -217,13 +217,13 @@ $LNG['shortDescription'] = array(
 	113 => 'Die Beherrschung der unterschiedlichen Arten von Energie ist für viele neue Technologien notwendig.',
 	114 => 'Durch die Einbindung der 4. und 5. Dimension ist es nun möglich einen neuartigen Antrieb zu erforschen, welcher sparsamer und leistungsfähiger ist.',
 	115 => 'Die Weiterentwicklung dieser Triebwerke macht einige Schiffe schneller, allerdings steigert jede Stufe die Geschwindigkeit nur um 10% des Grundwertes.',
-	117 => 'Das Impulstriebwerk basiert auf dem Rückstoßprinzip. Die Weiterentwicklung dieser Triebwerke macht einige Schiffe schneller, allerdings steigert jede Stufe die Geschwindigkeit nur um 20% des Grundwertes.',
+	117 => 'Das Impulstriebwerk basiert auf dem Rückstoßprinzip. Die Weiterentwicklung dieser Triebwerke macht einige Schiffe schneller und steigert jede Stufe die Geschwindigkeit um 20% des Grundwertes.',
 	118 => 'Krümmt den Raum um ein Schiff. Die Weiterentwicklung dieser Triebwerke macht einige Schiffe schneller, allerdings steigert jede Stufe die Geschwindigkeit nur um 30% des Grundwertes.',
 	120 => 'Durch Bündelung des Lichtes entsteht ein Strahl der beim Auftreffen auf ein Objekt Schaden anrichtet.',
 	121 => 'Wahrhaft tödlicher Richtstrahl aus beschleunigten Ionen. Diese richten beim Auftreffen auf ein Objekt einen riesigen Schaden an.',
 	122 => 'Eine Weiterentwicklung der Ionentechnik, die nicht Ionen beschleunigt, sondern hochenergetisches Plasma. Dieses hat eine verheerende Wirkung beim Auftreffen auf ein Objekt.',
 	123 => 'Forscher verschiedener Planeten kommunizieren über dieses Netzwerk miteinander. Durch das Zusammenschalten der Labore wird die Forschungszeit verkürzt, jede Stufe schaltet die Labore eines Planeten dazu.',
-	124 => 'Weitere Erkenntnisse in der Astrophysik ermöglichen den Bau von Laboren, mit denen immer mehr Schiffe ausgestattet werden können. Dadurch werden weite Expeditionsreisen in noch unerforschte Gebiete möglich. Zudem erlauben die Fortschritte die weitere Kolonisation des Weltraumes. Pro zwei Stufen dieser Technologie kann so ein weiterer Planet nutzbar gemacht werden.',
+	124 => 'Weitere Erkenntnisse in der Astrophysik ermöglichen den Bau von Laboren, mit denen immer mehr Schiffe ausgestattet werden können.',
 	131 => 'Erhöht die Produktion der Metallmine um 2%',
 	132 => 'Erhöht die Produktion der Kristallmine um 2%',
 	133 => 'Erhöht die Produktion der Deuteriumsynthetisierer um 2%',
@@ -288,12 +288,11 @@ $LNG['shortDescription'] = array(
 	706 => 'Der Bonus ist nur temporär.',
 	707 => 'Der Bonus ist nur temporär.',
 	
-	900 => 'Rohstoffe',
-	901 => 'Hauptrohstoff für den Bau tragender Strukturen von Bauwerken und Schiffen. Metall ist der billigste Rohstoff, dafür wird er mehr benötigt als die anderen. Metall braucht zur Herstellung am wenigsten Energie. Je größer die Minen ausgebaut sind, desto tiefer sind sie. Bei den meisten Planeten befindet sich das Metall in großer Tiefe, durch diese tieferen Minen können mehr Metalle abgebaut werden, die Produktion steigt. Trotz seiner Häufigkeit ist Metall eine der gefragtesten Ressourcen im Universum.',
+	901 => 'Hauptrohstoff für den Bau tragender Strukturen von Bauwerken und Schiffen. Metall ist der billigste Rohstoff, dafür wird er mehr benötigt als die anderen. Metall braucht zur Herstellung am wenigsten Energie.',
 	902 => 'Kristall wird für die Herstellung feinelektronischer Komponente benötigt, und wird in Minen unter der Erde abgebaut.',
-	903 => 'Deuterium ist schwerer Wasserstoff. Die größten Vorräte sind am Grund des Meeres. Deshalb werden für die Gewinnung von Deuterium großen Mengen Energie benötigt. Deuterium wird als Treibstoff für Raumschiffe, für fast alle Forschungen, für einen Blick in die Galaxie sowie für den Sensorphalanx-Scan benötigt.',
+	903 => 'Deuterium ist schwerer Wasserstoff. Für die Gewinnung von Deuterium großen Mengen Energie benötigt. Deuterium wird unter anderem als Treibstoff für Raumschiffe benötigt.',
 	911 => 'Energie wird für das gewinnnen jeglicher Rohstoffe benötigt.',
-	921 => 'Dunkle Materie ist die geheimnisvollste, seltenste und kostbarste Ressource im ganzen Universum. Mit ihr können unter anderem legendäre Offiziere vergangener Zeiten angeworben oder gierige Händler gerufen werden. Anders als die herkömmlichen Ressourcen kann dunkle Materie (noch) nicht abgebaut werden und ist interplanetar verfügbar, niemand weiß warum. Ebenfalls weiß man nicht, woher Dunkle Materie kommt und wie man sie hersellt, doch Wissenschaftler sollen beobachtet haben, dass hin und wieder eine bestimmte Menge dieser einfach so auftaucht. Mysteriös...',
+	921 => 'Dunkle Materie ist die geheimnisvollste, seltenste und kostbarste Ressource im ganzen Universum. Mit ihr können unter anderem legendäre Offiziere vergangener Zeiten angeworben oder gierige Händler gerufen werden.',
 );
 
 $LNG['longDescription'] = array(
@@ -394,11 +393,10 @@ $LNG['longDescription'] = array(
 	705 => 'Der Bonus ist nur temporär.',
 	706 => 'Der Bonus ist nur temporär.',
 	707 => 'Der Bonus ist nur temporär.',
-	
-	900 => 'Rohstoffe',
+
 	901 => 'Hauptrohstoff für den Bau tragender Strukturen von Bauwerken und Schiffen. Metall ist der billigste Rohstoff, dafür wird er mehr benötigt als die anderen. Metall braucht zur Herstellung am wenigsten Energie. Je größer die Minen ausgebaut sind, desto tiefer sind sie. Bei den meisten Planeten befindet sich das Metall in großer Tiefe, durch diese tieferen Minen können mehr Metalle abgebaut werden, die Produktion steigt. Trotz seiner Häufigkeit ist Metall eine der gefragtesten Ressourcen im Universum.',
 	902 => 'Kristall wird für die Herstellung feinelektronischer Komponente benötigt, und wird in Minen unter der Erde abgebaut.',
 	903 => 'Deuterium ist schwerer Wasserstoff. Die größten Vorräte sind am Grund des Meeres. Deshalb werden für die Gewinnung von Deuterium großen Mengen Energie benötigt. Deuterium wird als Treibstoff für Raumschiffe, für fast alle Forschungen, für einen Blick in die Galaxie sowie für den Sensorphalanx-Scan benötigt.',
-	911 => 'Energie wird für das gewinnnen jeglicher Rohstoffe benötigt.',
+	911 => 'Energie wird für das gewinnnen jeglicher Rohstoffe benötigt. Man sagt, man könne mit unmengen an Energie, die Gravitation beeinflussen und dadurch zerstörerische Waffen bauen. Allerdings ist dies bis heute noch kaum jemanden gelungen.',
 	921 => 'Dunkle Materie ist die geheimnisvollste, seltenste und kostbarste Ressource im ganzen Universum. Mit ihr können unter anderem legendäre Offiziere vergangener Zeiten angeworben oder gierige Händler gerufen werden. Anders als die herkömmlichen Ressourcen kann dunkle Materie (noch) nicht abgebaut werden und ist interplanetar verfügbar, niemand weiß warum. Ebenfalls weiß man nicht, woher Dunkle Materie kommt und wie man sie hersellt, doch Wissenschaftler sollen beobachtet haben, dass hin und wieder eine bestimmte Menge dieser einfach so auftaucht. Mysteriös...',
 );
