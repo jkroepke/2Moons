@@ -101,12 +101,13 @@ class CleanerCronjob implements CronjobTask
 			}
 		}
 
-		$sql	= 'DELETE FROM %%RW%% WHERE `time` < :time AND `rid` NOT IN (SELECT `rid` FROM %%TOPKB%%);';
-		Database::get()->delete($sql, array(
-			':time'	=> $del_before
-		));
+		// do not delete combat reports
+		// $sql	= 'DELETE FROM %%RW%% WHERE `time` < :time AND `rid` NOT IN (SELECT `rid` FROM %%TOPKB%%);';
+		// Database::get()->delete($sql, array(
+			// ':time'	=> $del_before
+		// ));
 
-		$sql	= 'DELETE FROM %%MESSAGES%% WHERE `messages_deleted` < :time;';
+		$sql	= 'DELETE FROM %%MESSAGES%% WHERE `message_deleted` < :time;';
 		Database::get()->delete($sql, array(
 			':time'	=> $del_messages
 		));
