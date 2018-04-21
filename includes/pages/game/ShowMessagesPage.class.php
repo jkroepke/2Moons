@@ -367,7 +367,7 @@ class ShowMessagesPage extends AbstractGamePage
     {
         global $LNG, $USER;
 
-        $MessCategory      	= HTTP::_GP('category', 100);
+        $MessCategory      	= HTTP::_GP('category', -1);
         $page			= HTTP::_GP('side', 1);
 
         $db = Database::get();
