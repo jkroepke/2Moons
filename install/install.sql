@@ -273,9 +273,9 @@ CREATE TABLE `%PREFIX%config` (
   `ref_bonus` int(11) unsigned NOT NULL DEFAULT '1000',
   `ref_minpoints` bigint(20) unsigned NOT NULL DEFAULT '2000',
   `ref_max_referals` tinyint(1) unsigned NOT NULL DEFAULT '5',
-  `del_oldstuff` tinyint(3) unsigned NOT NULL DEFAULT '3',
+  `del_oldstuff` tinyint(3) unsigned NOT NULL DEFAULT '30',
   `del_user_manually` tinyint(3) unsigned NOT NULL DEFAULT '7',
-  `del_user_automatic` tinyint(3) unsigned NOT NULL DEFAULT '30',
+  `del_user_automatic` tinyint(3) unsigned NOT NULL DEFAULT '90',
   `del_user_sendmail` tinyint(3) unsigned NOT NULL DEFAULT '21',
   `sendmail_inactive` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `silo_factor` tinyint(1) unsigned NOT NULL DEFAULT '1',
@@ -376,7 +376,7 @@ CREATE TABLE `%PREFIX%trades` (
 	`filter_flighttime` mediumint unsigned NOT NULL DEFAULT 0,
 	`ex_resource_type` tinyint(1) unsigned NOT NULL DEFAULT 0,
 	`ex_resource_amount` double(50,0) unsigned NOT NULL DEFAULT '0',
-	PRIMARY KEY (`seller_fleet_id`),
+	PRIMARY KEY (`seller_fleet_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
 
 CREATE TABLE `%PREFIX%fleet_event` (
