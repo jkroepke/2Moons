@@ -3,7 +3,7 @@
 {block name="content"}
 <table class="table519">
 	<tr id="feed" style="display:none">
-		<th colspan="3">Steem #steemnova feed</th>
+		<th colspan="3">Steem <a href="https://busy.org/created/steemnova">#steemnova</a> feed</th>
 	</tr>
 	<tr id="feed_0" style="display:none">
 		<td style="white-space: nowrap;"><span id="created_0"></span></td>
