@@ -273,9 +273,9 @@ CREATE TABLE `%PREFIX%config` (
   `ref_bonus` int(11) unsigned NOT NULL DEFAULT '1000',
   `ref_minpoints` bigint(20) unsigned NOT NULL DEFAULT '2000',
   `ref_max_referals` tinyint(1) unsigned NOT NULL DEFAULT '5',
-  `del_oldstuff` tinyint(3) unsigned NOT NULL DEFAULT '3',
+  `del_oldstuff` tinyint(3) unsigned NOT NULL DEFAULT '30',
   `del_user_manually` tinyint(3) unsigned NOT NULL DEFAULT '7',
-  `del_user_automatic` tinyint(3) unsigned NOT NULL DEFAULT '30',
+  `del_user_automatic` tinyint(3) unsigned NOT NULL DEFAULT '90',
   `del_user_sendmail` tinyint(3) unsigned NOT NULL DEFAULT '21',
   `sendmail_inactive` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `silo_factor` tinyint(1) unsigned NOT NULL DEFAULT '1',
@@ -943,7 +943,7 @@ CREATE TABLE `%PREFIX%vars_requriements` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `%PREFIX%config` (`uni`, `VERSION`, `uni_name`, `game_name`, `close_reason`, `OverviewNewsText`, `moduls`, `disclamerAddress`, `disclamerPhone`, `disclamerMail`, `disclamerNotice`) VALUES
-(1, '%VERSION%', '', '2Moons', '', '', '', '', '', '', '');
+(1, '%VERSION%', '', 'SteemNova', '', '', '', '', '', '', '');
 
 INSERT INTO `%PREFIX%cronjobs` (`cronjobID`, `name`, `isActive`, `min`, `hours`, `dom`, `month`, `dow`, `class`, `nextTime`, `lock`) VALUES
 (NULL, 'referral', 1, '0,30', '*', '*', '*', '*', 'ReferralCronjob', 0, NULL),

@@ -284,6 +284,18 @@ div#disclamer {
 	cursor: pointer;
 }
 
+.hoverinfo {
+    min-width: 150px;
+    max-width: 250px;
+    min-height: 20px;
+    max-height: 40px;
+}
+
+.hoverinfo img {
+    width: 84px;
+    height: 84px;
+}
+
 .trader_col {
 	margin:0 5px;
 	float:left;

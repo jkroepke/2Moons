@@ -288,6 +288,13 @@ $LNG['shortDescription'] = array(
 705 => 'Podnosi na jakiś czas produkcję energii.',
 706 => 'Skraca na jakiś czas długość badań.',
 707 => 'Skraca czas lotu floty. Bonus działa tylko przez pewien okres i nie ma wpływu na ekspedycję!',
+
+901 => 'Główny surowiec do budowy konstrukcji nośnych budynków i statków kosmicznych.',
+902 => 'Główny surowiec do budowy elementów elektronicznych i stopów metali.',
+903 => 'Deuter jest izotopem wodoru, paliwo dla statków kosmicznych, nawigatorów i naukowców.',
+911 => 'Czysta energia napędzająca przemysł wydobywczy.',
+921 => 'Czarna Materia jest rzadką substancją niewiadomego pochodzenia.',
+
 );
 
 $LNG['longDescription'] = array(
@@ -388,6 +395,12 @@ $LNG['longDescription'] = array(
 	705 => 'Bonus jest tymczasowy!',
 	706 => 'Bonus jest tymczasowy!',
 	707 => 'Bonus jest tymczasowy!',	
+
+901 => 'Główny surowiec do budowy konstrukcji nośnych budynków i statków kosmicznych. Metal jest najtańszym surowcem mineralnym, dlatego jest częściej wykorzystywany niż inne.',
+902 => 'Główny surowiec do budowy elementów elektronicznych i stopów metali. Kryształy wykorzystywane są we wszystkich statkach kosmicznych i budynkach. Najczęściej używane w przemyśle stoczniowym kryształy są jednak bardzo rzadkie i podobnie jak metale znajdują się w większych ilościach w głębokich warstwach.',
+903 => 'Deuter jest izotopem wodoru. Jego separacja z wody jest procesem zużywającym duże ilości energii. Deuter jest wykorzystywany jako paliwo dla statków kosmicznych, dla prawie wszystkich badań naukowych, do podglądu galaktyki jak i skanowania z wykorzystaniem falangi czujników.',
+911 => 'Czysta energia napędzająca przemysł wydobywczy. Aby zapewnić zaopatrzenie kopalń i ekstraktorów, wymagane są ogromne ilości czystej energii. Prawie wszystkie budynki potrzebują energii do ich eksploatacji. Energia jest niewymienialna.',
+921 => 'Czarna Materia jest rzadką substancją niewiadomego pochodzenia. Pojawia się w przypadkowych miejscach Uniwersum. Jest wykorzystywana do opłacania najznakomitszych oficerów we wszechświecie.',
 );
 
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012

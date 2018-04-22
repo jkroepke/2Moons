@@ -506,7 +506,7 @@ $LNG['in_jump_gate_jump']					= 'Skocz';
 $LNG['in_jump_gate_no_target']				= 'Musisz podać cel.';
 $LNG['in_destroy']     						= 'Zniszcz:';
 $LNG['in_needed']      						= 'Wymagania';
-$LNG['in_dest_durati'] 						= 'Czas niszczenia';
+$LNG['in_dest_durati'] 						= 'Czas trwania';
 $LNG['in_missilestype']   					= 'Rodzaj pocisków';
 $LNG['in_missilesamount']    				= 'Ilość pocisków';
 $LNG['in_engine'] 							= 'Napęd';
@@ -1150,8 +1150,8 @@ $LNG['rec_last_update_on']		   			= 'Ostatnia aktualizacja o';
 //----------------------------------------------------------------------------//
 // BattleSimulator
 
-$LNG['bs_derbis_raport']					= "Potrzebujesz %s %s albo %s %s, by zebrać ten złom. "; //??
-$LNG['bs_steal_raport']						= "By zebrać wszystkie łupy, potrzebujesz %s %s albo %s %s lub %s %s transportowców."; //??
+$LNG['bs_derbis_raport']					= "Potrzebujesz %s %s, by zebrać ten złom.";
+$LNG['bs_steal_raport']						= "By zebrać wszystkie łupy, potrzebujesz %s %s albo %s %s.";
 $LNG['bs_names']							= "Nazwa statku";
 $LNG['bs_atter']							= "Agresor";
 $LNG['bs_deffer']							= "Obrońca";

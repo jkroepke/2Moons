@@ -1139,8 +1139,8 @@ $LNG['rec_last_update_on']		   			= 'Ultima atualização em ';
 //----------------------------------------------------------------------------//
 // Simulador de Batalha
 
-$LNG['bs_derbis_raport']	                = "Precisas de %s %s ou %s %s para recolheres o campo de destroços.";
-$LNG['bs_steal_raport']	                    = "Precisas de %s %s ou %s %s ou %s %s para os recursos que se encontram no planeta.";
+$LNG['bs_derbis_raport']	                = "Precisas de %s %s para recolheres o campo de destroços.";
+$LNG['bs_steal_raport']	                    = "Precisas de %s %s ou %s %s para os recursos que se encontram no planeta.";
 $LNG['bs_names']		                    = "Frota";
 $LNG['bs_atter']                            = "Atacante";
 $LNG['bs_deffer']                           = "Defensor";

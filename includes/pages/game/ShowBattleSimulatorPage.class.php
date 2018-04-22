@@ -162,8 +162,7 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 		
 		$sumSteal	= array_sum($stealResource);
 		
-		$stealResourceInformation	= sprintf($LNG['bs_derbis_raport'], 
-			pretty_number(ceil($debrisTotal / $pricelist[219]['capacity'])), $LNG['tech'][219],
+		$stealResourceInformation	= sprintf($LNG['bs_derbis_raport'],
 			pretty_number(ceil($debrisTotal / $pricelist[209]['capacity'])), $LNG['tech'][209]
 		);
 		
@@ -171,8 +170,7 @@ class ShowBattleSimulatorPage extends AbstractGamePage
 		
 		$stealResourceInformation	.= sprintf($LNG['bs_steal_raport'], 
 			pretty_number(ceil($sumSteal / $pricelist[202]['capacity'])), $LNG['tech'][202], 
-			pretty_number(ceil($sumSteal / $pricelist[203]['capacity'])), $LNG['tech'][203], 
-			pretty_number(ceil($sumSteal / $pricelist[217]['capacity'])), $LNG['tech'][217]
+			pretty_number(ceil($sumSteal / $pricelist[203]['capacity'])), $LNG['tech'][203]
 		);
 
 		$reportInfo	= array(

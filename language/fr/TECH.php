@@ -275,7 +275,13 @@ $LNG['shortDescription'] = array(
 704 => 'Augmente la production des ressources par %s%%. Le bonus n\'est que temporaire.',
 705 => 'Augente la production d\'énergie par %s%%. Le bonus n\'est que temporaire.',
 706 => 'Réduit le temps de recherche par %s%%. Le bonus n\'est que temporaire.',
-707 => 'Réduit le temps de vol des flottes par %s%%. Le bonus n\'est que temporaire. N\'affecte pas les expéditions.'
+707 => 'Réduit le temps de vol des flottes par %s%%. Le bonus n\'est que temporaire. N\'affecte pas les expéditions.',
+
+901 => 'Le métal est la principale ressource nécessaire à la construction des bâtiments et des vaisseaux. C\'est la ressource la moins coûteuse en énergie mais c\'est aussi la plus utilisée. Plus le niveau de la mine augmente, plus la mine est profonde et prend de la place sur la planète.',
+902 => 'Le cristal est la ressource principale dans la fabrication des circuits électroniques et de certains alliages.',
+903 => 'Le deutérium est récupéré dans les profondeurs marines. C\'est la ressource la plus rare dans l\'univers car il faut creuser les fonds marins pour l\'obtenir, ce qui en fait également la ressource la plus coûteuse.',
+911 => 'De l\'énergie est nécessaire à la production de chacune des ressources.',
+921 => 'La matière noire est une ressource mystérieuse. Personne ne sait vraiment d\'où elle vient. Parfois elle apparaît simplement comme venue de nulle part. La matière noire peut être utilisé dans le recrutement des officiers les plus expérimentés de l\'univers.',
 );
 
 $LNG['longDescription'] = array(
@@ -378,6 +384,13 @@ $LNG['longDescription'] = array(
 705 => 'Augmente la production d\'énergie',
 706 => 'Réduit le temps de recherche',
 707 => 'Les temps de vol sont plus courts. Ne porte pas atteinte aux expéditions.',
+
+901 => 'Le métal est la principale ressource nécessaire à la construction des bâtiments et des vaisseaux. C\'est la ressource la moins coûteuse en énergie mais c\'est aussi la plus utilisée. Plus le niveau de la mine augmente, plus la mine est profonde et prend de la place sur la planète.',
+902 => 'Le cristal est la ressource principale dans la fabrication des circuits électroniques et de certains alliages.',
+903 => 'Le deutérium est récupéré dans les profondeurs marines. C\'est la ressource la plus rare dans l\'univers car il faut creuser les fonds marins pour l\'obtenir, ce qui en fait également la ressource la plus coûteuse.',
+911 => 'De l\'énergie est nécessaire à la production de chacune des ressources.
+',
+921 => 'La matière noire est une ressource mystérieuse. Personne ne sait vraiment d\'où elle vient. Parfois elle apparaît simplement comme venue de nulle part. La matière noire peut être utilisé dans le recrutement des officiers les plus expérimentés de l\'univers.',
 );
 
 ?>
