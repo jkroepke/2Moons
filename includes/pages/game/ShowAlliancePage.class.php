@@ -1136,47 +1136,51 @@ class ShowAlliancePage extends AbstractGamePage
 			':applyID'	=> $applyID
 		), 'userId');
 
-		if ($answer == 'yes')
+		// only if alliance request still exist
+		if ($userId)
 		{
-			$sql = "DELETE FROM %%ALLIANCE_REQUEST%% WHERE applyID = :applyID";
-			$db->delete($sql, array(
-				':applyID'	=> $applyID
-			));
+			if ($answer == 'yes')
+			{
+				$sql = "DELETE FROM %%ALLIANCE_REQUEST%% WHERE applyID = :applyID";
+				$db->delete($sql, array(
+					':applyID'	=> $applyID
+				));
 
-			$sql = "UPDATE %%USERS%% SET ally_id = :allianceId, ally_register_time = :time, ally_rank_id = 0 WHERE id = :userId;";
-			$db->update($sql, array(
-				':allianceId'	=> $this->allianceData['id'],
-				':time'         => TIMESTAMP,
-				':userId'       => $userId
-			));
+				$sql = "UPDATE %%USERS%% SET ally_id = :allianceId, ally_register_time = :time, ally_rank_id = 0 WHERE id = :userId;";
+				$db->update($sql, array(
+					':allianceId'	=> $this->allianceData['id'],
+					':time'         => TIMESTAMP,
+					':userId'       => $userId
+				));
 
-			$sql = "UPDATE %%STATPOINTS%% SET id_ally = :allianceId WHERE id_owner = :userId AND stat_type = 1;";
-			$db->update($sql, array(
-				':allianceId'	=> $this->allianceData['id'],
-				':userId'       => $userId
-			));
+				$sql = "UPDATE %%STATPOINTS%% SET id_ally = :allianceId WHERE id_owner = :userId AND stat_type = 1;";
+				$db->update($sql, array(
+					':allianceId'	=> $this->allianceData['id'],
+					':userId'       => $userId
+				));
 
-			$sql = "UPDATE %%ALLIANCE%% SET ally_members = (SELECT COUNT(*) FROM %%USERS%% WHERE ally_id = :allianceId) WHERE id = :allianceId;";
-			$db->update($sql, array(
-				':allianceId'	=> $this->allianceData['id'],
-			));
+				$sql = "UPDATE %%ALLIANCE%% SET ally_members = (SELECT COUNT(*) FROM %%USERS%% WHERE ally_id = :allianceId) WHERE id = :allianceId;";
+				$db->update($sql, array(
+					':allianceId'	=> $this->allianceData['id'],
+				));
 
-			$text		= $LNG['al_hi_the_alliance'] . $this->allianceData['ally_name'] . $LNG['al_has_accepted'] . $text;
-			$subject	= $LNG['al_you_was_acceted'] . $this->allianceData['ally_name'];
+				$text		= $LNG['al_hi_the_alliance'] . $this->allianceData['ally_name'] . $LNG['al_has_accepted'] . $text;
+				$subject	= $LNG['al_you_was_acceted'] . $this->allianceData['ally_name'];
+			}
+			else
+			{
+				$sql = "DELETE FROM %%ALLIANCE_REQUEST%% WHERE applyID = :applyID";
+				$db->delete($sql, array(
+					':applyID'	=> $applyID
+				));
+
+				$text		= $LNG['al_hi_the_alliance'] . $this->allianceData['ally_name'] . $LNG['al_has_declined'] . $text;
+				$subject	= $LNG['al_you_was_declined'] . $this->allianceData['ally_name'];
+			}
+
+			$senderName	= $LNG['al_the_alliance'] . $this->allianceData['ally_name'] . ' ['.$this->allianceData['ally_tag'].']';
+			PlayerUtil::sendMessage($userId, $USER['id'], $senderName, 2, $subject, $text, TIMESTAMP);
 		}
-		else
-		{
-			$sql = "DELETE FROM %%ALLIANCE_REQUEST%% WHERE applyID = :applyID";
-			$db->delete($sql, array(
-				':applyID'	=> $applyID
-			));
-
-			$text		= $LNG['al_hi_the_alliance'] . $this->allianceData['ally_name'] . $LNG['al_has_declined'] . $text;
-			$subject	= $LNG['al_you_was_declined'] . $this->allianceData['ally_name'];
-		}
-
-		$senderName	= $LNG['al_the_alliance'] . $this->allianceData['ally_name'] . ' ['.$this->allianceData['ally_tag'].']';
-		PlayerUtil::sendMessage($userId, $USER['id'], $senderName, 2, $subject, $text, TIMESTAMP);
 		$this->redirectTo('game.php?page=alliance&mode=admin&action=mangeApply');
 	}
 
