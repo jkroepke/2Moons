@@ -117,6 +117,7 @@ $LNG['ov_planet_abandoned']					= 'The planet was destroyed!';
 $LNG['ov_principal_planet_cant_abanone']	= 'You can not delete the main planet!';
 $LNG['ov_abandon_planet_not_possible']		= 'Planets cannot be deleted during activities.';
 $LNG['ov_wrong_pass']						= 'Password incorrect!';
+$LNG['ov_wrong_name']						= 'Name incorrect!';
 $LNG['ov_have_new_message']					= 'You have a new message';
 $LNG['ov_have_new_messages']				= 'You have %d new messages';
 $LNG['ov_planetmenu']						= 'Rename or delete';
