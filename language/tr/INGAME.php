@@ -113,6 +113,7 @@ $LNG['ov_planet_abandoned']					= 'Gezegen basariyla terkedildi!';
 $LNG['ov_principal_planet_cant_abanone']	= 'Ana gezegen terkedilemez!';
 $LNG['ov_abandon_planet_not_possible']		= 'Hata: Gezegende filo, bina yada arastirma hareketi mevcut!';
 $LNG['ov_wrong_pass']						= 'Yanlis sifre girdiniz!';
+$LNG['ov_wrong_name']						= 'Yanlis isim girdiniz!';
 $LNG['ov_have_new_message']					= 'Yeni mesajiniz var';
 $LNG['ov_have_new_messages']				= ' <b>(%d)</b> Adet Yeni Mesajiniz Var';
 $LNG['ov_planetmenu']						= 'Yeniden Adlandir yada Sil';

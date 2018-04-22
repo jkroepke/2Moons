@@ -10,7 +10,7 @@
 		<center><input type="button" onclick="checkrename()" value="{$LNG.ov_planet_rename}"></center>
 	</div>
 	<div id="tabs-2"><h3 style="margin:0">{$LNG.ov_security_request}</h3>{$ov_security_confirm}<br>
-		<label for="password">{$LNG.ov_password}: </label><input class="left" type="password" name="password" id="password" size="25" maxlength="20" autocomplete="off"><br><br>
+		<label for="password">{$LNG.sh_planet_name}: </label><input class="left" name="password" id="password" size="25" maxlength="20" autocomplete="off"><br><br>
 		<center><input class="center" type="button" onclick="checkcancel()" value="{$LNG.ov_delete_planet}" autocomplete="off"></center>
 	</div>
 </div>
