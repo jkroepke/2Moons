@@ -105,7 +105,7 @@ class ShowFleetTablePage extends AbstractGamePage
 				$this->sendJSON($LNG['fl_acs_newname_alphanum']);
 			}
 
-			$sql = "UPDATE %%AKS%% SET name = acsName WHERE id = :acsID;";
+			$sql = "UPDATE %%AKS%% SET name = :acsName WHERE id = :acsID;";
             $db->update($sql, array(
                 ':acsName'  => $acsName,
                 ':acsID'    => $acsData['id']
