@@ -1,8 +1,10 @@
 var acstime = 0;
 	
-function updateVars()
+function updateVars($reset_acs = true)
 {
-	document.getElementsByName("fleet_group")[0].value = 0;
+	if ($reset_acs) {
+		document.getElementsByName("fleet_group")[0].value = 0;
+	}
 	dataFlyDistance = GetDistance();
 	dataFlyTime = GetDuration();
 	dataFlyConsumption = GetConsumption();
