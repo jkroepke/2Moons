@@ -57,6 +57,11 @@ class CleanerCronjob implements CronjobTask
 		$sql	= 'DELETE FROM %%FLEETS_EVENT%% WHERE fleetID NOT IN (SELECT fleet_id FROM %%FLEETS%%);';
 		Database::get()->delete($sql);
 
+		$sql	= 'DELETE FROM %%LOG_FLEETS%% WHERE `start_time` < :time;';
+		Database::get()->delete($sql, array(
+			':time'	=> $del_before
+		));
+
 		$sql	= 'UPDATE %%USERS%% SET `email_2` = `email` WHERE `setmail` < :time;';
 		Database::get()->update($sql, array(
 			':time'	=> TIMESTAMP
@@ -79,27 +84,28 @@ class CleanerCronjob implements CronjobTask
 			}	
 		}
 		
-		foreach($unis as $uni)
-		{
-			$sql	= 'SELECT units FROM %%TOPKB%% WHERE `universe` = :universe ORDER BY units DESC LIMIT 99,1;';
+		// do not delete hall of fame
+		// foreach($unis as $uni)
+		// {
+			// $sql	= 'SELECT units FROM %%TOPKB%% WHERE `universe` = :universe ORDER BY units DESC LIMIT 99,1;';
 
-			$battleHallLowest	= Database::get()->selectSingle($sql, array(
-				':universe'	=> $uni
-			),'units');
+			// $battleHallLowest	= Database::get()->selectSingle($sql, array(
+				// ':universe'	=> $uni
+			// ),'units');
 
-			if(!is_null($battleHallLowest))
-			{
-				$sql	= 'DELETE %%TOPKB%%, %%TOPKB_USERS%%
-				FROM %%TOPKB%%
-				INNER JOIN %%TOPKB_USERS%% USING (rid)
-				WHERE `universe` = :universe AND `units` < :battleHallLowest;';
+			// if(!is_null($battleHallLowest))
+			// {
+				// $sql	= 'DELETE %%TOPKB%%, %%TOPKB_USERS%%
+				// FROM %%TOPKB%%
+				// INNER JOIN %%TOPKB_USERS%% USING (rid)
+				// WHERE `universe` = :universe AND `units` < :battleHallLowest;';
 
-				Database::get()->delete($sql, array(
-					':universe'			=> $uni,
-					':battleHallLowest'	=> $battleHallLowest
-				));
-			}
-		}
+				// Database::get()->delete($sql, array(
+					// ':universe'			=> $uni,
+					// ':battleHallLowest'	=> $battleHallLowest
+				// ));
+			// }
+		// }
 
 		// do not delete combat reports
 		// $sql	= 'DELETE FROM %%RW%% WHERE `time` < :time AND `rid` NOT IN (SELECT `rid` FROM %%TOPKB%%);';
