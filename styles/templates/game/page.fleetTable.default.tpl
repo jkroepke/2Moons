@@ -21,7 +21,10 @@
 	{foreach name=FlyingFleets item=FlyingFleetRow from=$FlyingFleetList}
 	<tr>
 	<td>{$smarty.foreach.FlyingFleets.iteration}</td>
-	<td>{$LNG["type_mission_{$FlyingFleetRow.mission}"]}
+	<td>
+		<a data-tooltip-content="<table style='width:200px'><tr><td style='width:50%;color:white'>{$LNG['tech'][901]}</td><td style='width:50%;color:white'>{$FlyingFleetRow.metal}</td></tr><tr><td style='width:50%;color:white'>{$LNG['tech'][902]}</td><td style='width:50%;color:white'>{$FlyingFleetRow.crystal}</td></tr><tr><td style='width:50%;color:white'>{$LNG['tech'][903]}</td><td style='width:50%;color:white'>{$FlyingFleetRow.deuterium}</td></tr><tr><td style='width:50%;color:white'>{$LNG['tech'][921]}</td><td style='width:50%;color:white'>{$FlyingFleetRow.dm}</td></tr></table>" class="tooltip">
+			{$LNG["type_mission_{$FlyingFleetRow.mission}"]}
+		</a>
 	{if $FlyingFleetRow.state == 1}
 		<br><a title="{$LNG.fl_returning}">{$LNG.fl_r}</a>
 	{else}
