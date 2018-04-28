@@ -173,7 +173,7 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 			$this->UpdateFleet('fleet_resource_darkmatter', $this->_fleet['fleet_resource_darkmatter'] + $Size);
 		}
 		
-		// Find abandoned ships: 22%. Valuels from http://owiki.de/Expedition , took 80% data.
+		// Find abandoned ships: 22%. Values from http://owiki.de/Expedition
 		elseif ($GetEvent < 635)
 		{
 			$eventSize	= mt_rand(0, 100);
@@ -204,7 +204,6 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 				':universe'	=> $this->_fleet['fleet_universe']
 			), 'total');
 
-			//$MaxPoints 		= ($topPoints < 5000000) ? 4500 : 6000;
 			if($topPoints > 100000000)
 			{
 				$MaxPoints		= 12500;
@@ -242,110 +241,64 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 			
 			$FoundShipMess	= "";	
 			$NewFleetArray 	= "";
+					
+			$findableShips[210] = [210, 202]; # SS
+			$findableShips[202] = [210, 202, 204]; # light cargo
+			$findableShips[204] = [210, 202, 204, 203]; # light fighter
+			$findableShips[203] = [210, 202, 204, 203, 205]; # heavy cargo
+			$findableShips[205] = [210, 202, 204, 203, 205, 206]; # heavy fighter
+			$findableShips[206] = [210, 202, 204, 203, 205, 206, 207]; # cruiser
+			$findableShips[207] = [210, 202, 204, 203, 205, 206, 207, 215]; # battleship
+			$findableShips[215] = [210, 202, 204, 203, 205, 206, 207, 215, 211]; # battle cruiser
+			$findableShips[211] = [210, 202, 204, 203, 205, 206, 207, 215, 211, 213]; # planet bomber
+			$findableShips[213] = [210, 202, 204, 203, 205, 206, 207, 215, 211, 213]; # destroyer
+			
+			$highestShipId = 0;
+			if (array_key_exists(210, $fleetArray))
+				$highestShipId = 210;
+			if (array_key_exists(202, $fleetArray))
+				$highestShipId = 202;
+			if (array_key_exists(204, $fleetArray))
+				$highestShipId = 204;
+			if (array_key_exists(203, $fleetArray))
+				$highestShipId = 203;
+			if (array_key_exists(205, $fleetArray))
+				$highestShipId = 205;
+			if (array_key_exists(206, $fleetArray))
+				$highestShipId = 206;
+			if (array_key_exists(207, $fleetArray))
+				$highestShipId = 207;
+			if (array_key_exists(215, $fleetArray))
+				$highestShipId = 215;
+			if (array_key_exists(211, $fleetArray))
+				$highestShipId = 211;
+			if (array_key_exists(213, $fleetArray))
+				$highestShipId = 213;
 			
 			$Found			= array();
-			foreach($reslist['fleet'] as $ID) 
+			$upperValue = 3;
+			while($highestShipId > 0 && $upperValue > 0)
 			{
-				// not a colony ship/recycler/death star
-				if($ID == 208 || $ID == 209 || $ID == 214)
-					continue;
-					
-				$Findable = False;
-				foreach($fleetArray as $fleetID => $Count)
-				{
-					if ($fleetID == 210) # spy probe in a fleet
-					{
-						if ($ID == 210 || $ID == 202) # <- foundable
-						{
-							$Findable = True;
-							break;
-						}
-					}
-					elseif ($fleetID == 202) # light cargo
-					{
-						if ($ID == 210 || $ID == 202 || $ID == 204)
-						{
-							$Findable = True;
-							break;
-						}
-					}
-					elseif ($fleetID == 204) # light fighter
-					{
-						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203)
-						{
-							$Findable = True;
-							break;
-						}
-					}
-					elseif ($fleetID == 203) # heavy cargo
-					{
-						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203 || $ID == 205)
-						{
-							$Findable = True;
-							break;
-						}
-					}
-					elseif ($fleetID == 205) # heavy fighter
-					{
-						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203 || $ID == 205 || $ID == 206)
-						{
-							$Findable = True;
-							break;
-						}
-					}
-					elseif ($fleetID == 206) # cruiser
-					{
-						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203 || $ID == 205 || $ID == 206 || $ID == 207)
-						{
-							$Findable = True;
-							break;
-						}
-					}
-					elseif ($fleetID == 207) # battleship
-					{
-						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203 || $ID == 205 || $ID == 206 || $ID == 207 || $ID == 215)
-						{
-							$Findable = True;
-							break;
-						}
-					}
-					elseif ($fleetID == 215) # battle cruiser
-					{
-						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203 || $ID == 205 || $ID == 206 || $ID == 207 || $ID == 215 || $ID == 211)
-						{
-							$Findable = True;
-							break;
-						}
-					}
-					elseif ($fleetID == 211) # planet bomber
-					{
-						if ($ID == 210 || $ID == 202 || $ID == 204 || $ID == 203 || $ID == 205 || $ID == 206 || $ID == 207 || $ID == 215 || $ID == 211 || $ID == 213)
-						{
-							$Findable = True;
-							break;
-						}
-					}
-					elseif ($fleetID == 213) # destroyer
-					{
-						$Findable = True;
-						break;
-					}
-				}
-				
-				if (!$Findable)
-					continue;
-				
+				$ID = $findableShips[$highestShipId][rand(0, count($findableShips[$highestShipId])-1)];
 				$MaxFound			= floor($FoundShips / ($pricelist[$ID]['cost'][901] + $pricelist[$ID]['cost'][902]));
-				if($MaxFound <= 0) 
+				if($MaxFound <= 0)
+				{
+					$upperValue -= 1;
 					continue;
-					
+				}
+
 				$Count				= mt_rand(0, $MaxFound);
-				if($Count <= 0) 
+				if($Count <= 0)
+				{
+					$upperValue -= 1;
 					continue;
-					
-				$Found[$ID]			= $Count;
+				}
+
+				if(array_key_exists($ID, $Found))
+					$Found[$ID] += $Count;
+				else
+					$Found[$ID] = $Count;
 				$FoundShips	 		-= $Count * ($pricelist[$ID]['cost'][901] + $pricelist[$ID]['cost'][902]);
-				$FoundShipMess   	.= '<br>'.$LNG['tech'][$ID].': '.pretty_number($Count);
 				if($FoundShips <= 0)
 					break;
 			}
@@ -360,6 +313,7 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 				if(!empty($Found[$ID]))
 				{
 					$Count += $Found[$ID];
+					$FoundShipMess   	.= '<br>'.$LNG['tech'][$ID].': '.pretty_number($Count);
 				}
 				if(!empty($fleetArray[$ID]))
 				{
