@@ -35,7 +35,7 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 
 		$config	= Config::get($this->_fleet['fleet_universe']);
 
-        $expeditionPoints       = array();
+		$expeditionPoints       = array();
 
 		foreach($reslist['fleet'] as $shipId)
 		{
@@ -58,10 +58,10 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 		// Get Expeditions count in this system
 		$sql = "SELECT COUNT(*) AS total FROM %%LOG_FLEETS%% where `fleet_end_galaxy` = :fleet_end_galaxy and `fleet_end_system` = :fleet_end_system and `fleet_end_planet` = :fleet_end_planet and `fleet_end_stay` > UNIX_TIMESTAMP(NOW() - INTERVAL 1 DAY)";
 
-		$expeditionsCount	= Database::get()->selectSingle($sql, array(
-			'fleet_end_galaxy'	=> $this->_fleet['fleet_end_galaxy'],
-			'fleet_end_system'	=> $this->_fleet['fleet_end_system'],
-			'fleet_end_planet'	=> $this->_fleet['fleet_end_planet']
+		$expeditionsCount = Database::get()->selectSingle($sql, array(
+			'fleet_end_galaxy' => $this->_fleet['fleet_end_galaxy'],
+			'fleet_end_system' => $this->_fleet['fleet_end_system'],
+			'fleet_end_planet' => $this->_fleet['fleet_end_planet']
 		), 'total');
 		
 		// Hold time bonus
@@ -70,7 +70,7 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 		$GetEvent = mt_rand(0, 1000);
 		$GetEvent -= $holdTime * 10;
 
-        $Message        = $LNG['sys_expe_nothing_'.mt_rand(1,8)];
+        	$Message = $LNG['sys_expe_nothing_'.mt_rand(1,8)];
 		
 		// Depletion check
 		if ($expeditionsCount <= 10) {
@@ -85,7 +85,7 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 			$chanceDepleted = 50;
 			$logbook = $LNG['sys_expe_depleted_med_'.mt_rand(1,3)];
 		}
-        else {
+		else {
 			$chanceDepleted = 75;
 			$logbook = $LNG['sys_expe_depleted_max_'.mt_rand(1,3)];
 		}
@@ -320,14 +320,14 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 			while($highestShipId > 0 && $upperValue > 0)
 			{
 				$ID = $findableShips[$highestShipId][rand(0, count($findableShips[$highestShipId])-1)];
-				$MaxFound			= floor($FoundShips / ($pricelist[$ID]['cost'][901] + $pricelist[$ID]['cost'][902]));
+				$MaxFound = floor($FoundShips / ($pricelist[$ID]['cost'][901] + $pricelist[$ID]['cost'][902]));
 				if($MaxFound <= 0)
 				{
 					$upperValue -= 1;
 					continue;
 				}
 
-				$Count				= mt_rand(0, $MaxFound);
+				$Count = mt_rand(0, $MaxFound);
 				if($Count <= 0)
 				{
 					$upperValue -= 1;
@@ -338,7 +338,7 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 					$Found[$ID] += $Count;
 				else
 					$Found[$ID] = $Count;
-				$FoundShips	 		-= $Count * ($pricelist[$ID]['cost'][901] + $pricelist[$ID]['cost'][902]);
+				$FoundShips -= $Count * ($pricelist[$ID]['cost'][901] + $pricelist[$ID]['cost'][902]);
 				if($FoundShips <= 0)
 					break;
 			}
@@ -353,7 +353,7 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 				if(!empty($Found[$ID]))
 				{
 					$Count += $Found[$ID];
-					$FoundShipMess   	.= '<br>'.$LNG['tech'][$ID].': '.pretty_number($Count);
+					$FoundShipMess .= '<br>'.$LNG['tech'][$ID].': '.pretty_number($Count);
 				}
 				if(!empty($fleetArray[$ID]))
 				{
@@ -366,7 +366,7 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 				}
 			}
 			
-			$Message	.= $FoundShipMess;
+			$Message .= $FoundShipMess;
 						
 			$this->UpdateFleet('fleet_array', $NewFleetArray);
 			$this->UpdateFleet('fleet_amount', array_sum($fleetArray));
