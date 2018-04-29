@@ -70,8 +70,8 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 		$GetEvent = mt_rand(0, 1000);
 		$GetEvent -= $holdTime * 10;
 
-        	$Message = $LNG['sys_expe_nothing_'.mt_rand(1,8)];
-		
+		$Message = $LNG['sys_expe_nothing_'.mt_rand(1,8)];
+
 		// Depletion check
 		if ($expeditionsCount <= 10) {
 			$chanceDepleted = 0;
@@ -89,7 +89,7 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 			$chanceDepleted = 75;
 			$logbook = $LNG['sys_expe_depleted_max_'.mt_rand(1,3)];
 		}
-		
+
 		$depleted = mt_rand(0, 100);
 		if ($depleted < $chanceDepleted)
 			$GetEvent = 1000; // nothing happens
@@ -403,6 +403,7 @@ HTML;
 
 			$targetFleetData	= array();
 
+			// pirates
 			if($attackType == 1)
 			{
 				$techBonus		= -3;
@@ -428,7 +429,7 @@ HTML;
 					$targetFleetData[207]	= 2;
 				}
 			}
-			else
+			else // aliens
 			{
 				$techBonus		= 3;
 				$targetName		= $LNG['sys_expe_attackname_2'];
@@ -438,7 +439,7 @@ HTML;
 				{
 					$Message    			= $LNG['sys_expe_attack_1_1_5'];
 					$attackFactor			= (40 + mt_rand(-4, 4)) / 100;
-					$targetFleetData[204]	= 5;
+					$targetFleetData[205]	= 5;
 				}
 				elseif(0 < $eventSize && 10 >= $eventSize)
 				{
@@ -453,15 +454,15 @@ HTML;
 					$targetFleetData[213]	= 2;
 				}
 			}
-				
+
 			foreach($fleetArray as $shipId => $shipAmount)
 			{
-				if(isset($targetFleetData[$shipId]))
+				if(!isset($targetFleetData[$shipId]))
 				{
-					$targetFleetData[$shipId]	= 0;
+					$targetFleetData[$shipId] = 0;
 				}
 
-				$targetFleetData[$shipId]	= $roundFunction($shipAmount * $attackFactor);
+				$targetFleetData[$shipId] += $roundFunction($shipAmount * $attackFactor);
 			}
 
 			$targetFleetData	= array_filter($targetFleetData);
@@ -475,9 +476,9 @@ HTML;
 			$targetData	= array(
 				'id'			=> 0,
 				'username'		=> $targetName,
-				'military_tech'	=> min($senderData['military_tech'] + $techBonus, 0),
-				'defence_tech'	=> min($senderData['defence_tech'] + $techBonus, 0),
-				'shield_tech'	=> min($senderData['shield_tech'] + $techBonus, 0),
+				'military_tech'	=> max($senderData['military_tech'] + $techBonus, 0),
+				'defence_tech'	=> max($senderData['defence_tech'] + $techBonus, 0),
+				'shield_tech'	=> max($senderData['shield_tech'] + $techBonus, 0),
 				'rpg_amiral'	=> 0,
 				'dm_defensive'	=> 0,
 				'dm_attack' 	=> 0
@@ -533,6 +534,7 @@ HTML;
 			{
 				$this->UpdateFleet('fleet_array', substr($fleetArray, 0, -1));
 				$this->UpdateFleet('fleet_amount', $totalCount);
+				$fleetArray = FleetFunctions::unserialize($fleetArray);
 			}
 
 			require_once('includes/classes/missions/functions/GenerateReport.php');
