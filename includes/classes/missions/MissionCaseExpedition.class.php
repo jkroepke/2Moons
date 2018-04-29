@@ -55,9 +55,44 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 		$fleetCapacity  -= $this->_fleet['fleet_resource_metal'] + $this->_fleet['fleet_resource_crystal']
 			+ $this->_fleet['fleet_resource_deuterium'] + $this->_fleet['fleet_resource_darkmatter'];
 
+		// Get Expeditions count in this system
+		$sql = "SELECT COUNT(*) AS total FROM %%LOG_FLEETS%% where `fleet_end_galaxy` = :fleet_end_galaxy and `fleet_end_system` = :fleet_end_system and `fleet_end_planet` = :fleet_end_planet and `fleet_end_stay` > UNIX_TIMESTAMP(NOW() - INTERVAL 1 DAY)";
+
+		$expeditionsCount	= Database::get()->selectSingle($sql, array(
+			'fleet_end_galaxy'	=> $this->_fleet['fleet_end_galaxy'],
+			'fleet_end_system'	=> $this->_fleet['fleet_end_system'],
+			'fleet_end_planet'	=> $this->_fleet['fleet_end_planet']
+		), 'total');
+		
+		// Hold time bonus
+		$holdTime = ($this->_fleet['fleet_end_stay'] - $this->_fleet['fleet_start_time']) / 3600;
+
 		$GetEvent = mt_rand(0, 1000);
+		$GetEvent -= $holdTime * 10;
 
         $Message        = $LNG['sys_expe_nothing_'.mt_rand(1,8)];
+		
+		// Depletion check
+		if ($expeditionsCount <= 10) {
+			$chanceDepleted = 0;
+			$logbook = $LNG['sys_expe_depleted_not_'.mt_rand(1,2)];
+		}
+		else if ($expeditionsCount <= 25) {
+			$chanceDepleted = 25;
+			$logbook = $LNG['sys_expe_depleted_min_'.mt_rand(1,3)];
+		}
+		else if ($expeditionsCount <= 50) {
+			$chanceDepleted = 50;
+			$logbook = $LNG['sys_expe_depleted_med_'.mt_rand(1,3)];
+		}
+        else {
+			$chanceDepleted = 75;
+			$logbook = $LNG['sys_expe_depleted_max_'.mt_rand(1,3)];
+		}
+		
+		$depleted = mt_rand(0, 100);
+		if ($depleted < $chanceDepleted)
+			$GetEvent = 1000; // nothing happens
 
 		// Find resources: 32,5%. Values from http://owiki.de/Expedition
 		if ($GetEvent < 325)
@@ -141,8 +176,10 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 				$maxFactor		= 2400;
 			}
 
-			//$founded		= round(min($fleetCapacity,min($maxFactor, max(200, $factor)) * $fleetPoints));
 			$founded		= min($factor * max(min($fleetPoints, $maxFactor), 200), $fleetCapacity);
+
+			if ($fleetPoints < $maxFactor)
+				$logbook = $LNG['sys_expe_found_ress_logbook_'.mt_rand(1,4)].'<br>'.$logbook;
 
 			$fleetColName	= 'fleet_resource_'.$resource[$resourceId];
 			$this->UpdateFleet($fleetColName, $this->_fleet[$fleetColName] + $founded);
@@ -238,6 +275,9 @@ class MissionCaseExpedition extends MissionFunctions implements Mission
 			}
 
 			$FoundShips		= max(round($Size * min($fleetPoints, $MaxPoints)), 10000);
+
+			if ($fleetPoints < $MaxPoints)
+				$logbook = $LNG['sys_expe_found_ships_logbook_'.mt_rand(1,3)].'<br>'.$logbook;
 			
 			$FoundShipMess	= "";	
 			$NewFleetArray 	= "";
@@ -634,6 +674,9 @@ HTML;
 		
 		// else
 		// Find nothing: 18,8%...
+		
+		if(isset($fleetArray[210]))
+			$Message .= '<br><br>'.$logbook;
 
 		PlayerUtil::sendMessage($this->_fleet['fleet_owner'], 0, $LNG['sys_mess_tower'], 15,
 			$LNG['sys_expe_report'], $Message, $this->_fleet['fleet_end_stay'], NULL, 1, $this->_fleet['fleet_universe']);
