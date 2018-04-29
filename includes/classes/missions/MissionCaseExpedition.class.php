@@ -649,26 +649,22 @@ HTML;
 			$Wrapper[]	= 3;
 			$Wrapper[]	= 3;
 			$Wrapper[]	= 5;
-		
+
+			$normalBackTime	= $this->_fleet['fleet_end_time'] - $this->_fleet['fleet_end_stay'];
+			$stayTime		= $this->_fleet['fleet_end_stay'] - $this->_fleet['fleet_start_time'];
+			$factor			= $Wrapper[mt_rand(0, 9)];
+
 			if($chance < 75)
 			{
 				// More return time
-
-				$normalBackTime	= $this->_fleet['fleet_end_time'] - $this->_fleet['fleet_end_stay'];
-				$stayTime		= $this->_fleet['fleet_end_stay'] - $this->_fleet['fleet_start_time'];
-				$factor			= $Wrapper[mt_rand(0, 9)];
-
-				$endTime		= $this->_fleet['fleet_end_stay'] + $normalBackTime + $stayTime + $factor;
+				$endTime = $this->_fleet['fleet_end_stay'] + $normalBackTime + $stayTime * $factor;
 				$this->UpdateFleet('fleet_end_time', $endTime);
 				$Message = $LNG['sys_expe_time_slow_'.mt_rand(1,6)];
 			}
 			else
 			{
-				$normalBackTime	= $this->_fleet['fleet_end_time'] - $this->_fleet['fleet_end_stay'];
-				$stayTime		= $this->_fleet['fleet_end_stay'] - $this->_fleet['fleet_start_time'];
-				$factor			= $Wrapper[mt_rand(0, 9)];
-
-				$endTime		= max(1, $normalBackTime - $stayTime / 3 * $factor);
+				// Less return time
+				$endTime = $this->_fleet['fleet_end_stay'] + max(1, $normalBackTime - $stayTime / 3 * $factor);
 				$this->UpdateFleet('fleet_end_time', $endTime);
 				$Message = $LNG['sys_expe_time_fast_'.mt_rand(1,3)];
 			}
