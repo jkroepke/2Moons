@@ -38,7 +38,7 @@
 		</tr>
 		{foreach $planetList.resource as $elementID => $resourceArray}
 		<tr>
-			<td><a href='#' onclick='return Dialog.info({§elementID});' class='tooltip' data-tooltip-content="<table><tr><th>{$LNG.tech.{$elementID}}</th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
+			<td><a href='#' onclick='return Dialog.info({$elementID});' class='tooltip' data-tooltip-content="<table><tr><th>{$LNG.tech.{$elementID}}</th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
 			<td>{array_sum($resourceArray)|number}</td>
 			{foreach $resourceArray as $planetID => $resource}
 				<td>{$resource|number}</td>
