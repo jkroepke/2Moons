@@ -366,7 +366,6 @@ class ShowOverviewPage extends AbstractGamePage
 		if ($USER['b_tech_planet'] == $PLANET['id'] && !empty($USER['b_tech_queue'])) {
 			$TechQueue = unserialize($USER['b_tech_queue']);
 			$NewCurrentQueue = array();
-			$ActualCount = count($TechQueue);
 			foreach($TechQueue as $ID => $ListIDArray) {
 				if ($ListIDArray[4] == $PLANET['id']) {
 					$ListIDArray[4] = $USER['id_planet'];
