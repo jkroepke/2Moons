@@ -89,7 +89,7 @@ class ShowStatisticsPage extends AbstractGamePage
                 $start = max(floor(($range - 1) / 100) * 100, 0);
 
 				if ($config->stat == 2) {
-					$sql = "SELECT DISTINCT s.*, u.id, u.username, u.ally_id, a.ally_name FROM %%STATPOINTS%% as s
+					$sql = "SELECT DISTINCT s.*, u.id, u.username, u.ally_id, a.ally_name, (a.ally_owner=u.id) as is_leader, a.ally_owner_range FROM %%STATPOINTS%% as s
 					INNER JOIN %%USERS%% as u ON u.id = s.id_owner
 					LEFT JOIN %%ALLIANCE%% as a ON a.id = s.id_ally
 					WHERE s.universe = :universe AND s.stat_type = 1 AND u.authlevel < :authLevel
@@ -101,7 +101,7 @@ class ShowStatisticsPage extends AbstractGamePage
 						':limit'	=> 100,
 					));
 				} else {
-					$sql = "SELECT DISTINCT s.*, u.id, u.username, u.ally_id, a.ally_name FROM %%STATPOINTS%% as s
+					$sql = "SELECT DISTINCT s.*, u.id, u.username, u.ally_id, a.ally_name, (a.ally_owner=u.id) as is_leader, a.ally_owner_range FROM %%STATPOINTS%% as s
 					INNER JOIN %%USERS%% as u ON u.id = s.id_owner
 					LEFT JOIN %%ALLIANCE%% as a ON a.id = s.id_ally
 					WHERE s.universe = :universe AND s.stat_type = 1
@@ -120,6 +120,8 @@ class ShowStatisticsPage extends AbstractGamePage
                     $RangeList[]	= array(
                         'id'		=> $StatRow['id'],
                         'name'		=> $StatRow['username'],
+                        'is_leader'	=> $StatRow['is_leader'],
+                        'ally_owner_range'	=> $StatRow['ally_owner_range'],
                         'points'	=> pretty_number($StatRow[$Points]),
                         'allyid'	=> $StatRow['ally_id'],
                         'rank'		=> $StatRow[$Rank],
