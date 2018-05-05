@@ -70,12 +70,12 @@
 					{if $Element.maxLevel == $Element.levelToBuild}
 						<span style="color:red">{$LNG.bd_maxlevel}</span>
 					{elseif $IsLabinBuild || $IsFullQueue || !$Element.buyable}
-						<span style="color:red">{if $Element.level == 0}{$LNG.bd_tech}{else}{$LNG.bd_tech_next_level}{$Element.levelToBuild + 1}{/if}</span>
+						<span style="color:red">{if $Element.level == 0 && $Element.levelToBuild == 0}{$LNG.bd_tech}{else}{$LNG.bd_tech_next_level}{$Element.levelToBuild + 1}{/if}</span>
 					{else}
 						<form action="game.php?page=research" method="post" class="build_form">
 							<input type="hidden" name="cmd" value="insert">
 							<input type="hidden" name="tech" value="{$ID}">
-							<button type="submit" class="build_submit">{if $Element.level == 0}{$LNG.bd_tech}{else}{$LNG.bd_tech_next_level}{$Element.levelToBuild + 1}{/if}</button>
+							<button type="submit" class="build_submit">{if $Element.level == 0 && $Element.levelToBuild == 0}{$LNG.bd_tech}{else}{$LNG.bd_tech_next_level}{$Element.levelToBuild + 1}{/if}</button>
 						</form>
 					{/if}
 					</td>
