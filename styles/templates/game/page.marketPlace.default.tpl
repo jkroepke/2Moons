@@ -36,6 +36,15 @@
 	</tr>
 </table>
 
+<table style="width:50%">
+	<tr class="ratio">
+		<td>Reference ratio:</td>
+		<td>
+			<input type="number" name="ratio-metal" value="4" style="width: 30%"/>:<input type="number" name="ratio-cristal" value="2" style="width: 30%"/>:<input type="number"name="ratio-deuterium" value="1" style="width: 30%"/>
+		</td>
+	</tr>
+</table>
+
 {if $message}
 <table style="width:50%">
 	<tr>
@@ -104,8 +113,8 @@
 		<td class="resource_metal">{$FlyingFleetRow.fleet_resource_metal|number}</td>
 		<td class="resource_crystal">{$FlyingFleetRow.fleet_resource_crystal|number}</td>
 		<td class="resource_deuterium">{$FlyingFleetRow.fleet_resource_deuterium|number}</td>
-		<td>{$FlyingFleetRow.total|number}</td>
-		<td>{$FlyingFleetRow.ratio}</td>
+		<td class="total_value"></td>
+		<td class="ratio"></td>
 		<td data-time="{$FlyingFleetRow.end}">{pretty_fly_time({$FlyingFleetRow.end})}</td>
 		<td class="no-background no-border">
 			{if $FlyingFleetRow.fleet_wanted_resource_id == 1}

@@ -428,8 +428,6 @@ class ShowMarketPlacePage extends AbstractGamePage
 				'fleet_resource_metal'		=> $fleetsRow['fleet_resource_metal'],
 				'fleet_resource_crystal'			=> $fleetsRow['fleet_resource_crystal'],
 				'fleet_resource_deuterium'			=> $fleetsRow['fleet_resource_deuterium'],
-				'total' => $total,
-				'ratio' => round($total / $fleetsRow['ex_resource_amount'], 1),
 				'fleet'		=> $fleet_str,
 				'diplo' => $fleetsRow['level'],
 				'from_alliance' => $fleetsRow['ally_id'] == $USER['ally_id'],

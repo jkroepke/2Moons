@@ -116,6 +116,14 @@ class ShowFleetStep3Page extends AbstractGamePage
 			)));
 		}
 
+		if ($targetMission == 16 && $WantedResourceAmount > pow(10, 50))
+		{
+			$this->printMessage($LNG['fl_invalid_mission'], array(array(
+				'label'	=> $LNG['sys_back'],
+				'url'	=> 'game.php?page=fleetStep2'
+			)));
+		}
+
 		$ActualFleets		= FleetFunctions::GetCurrentFleets($USER['id']);
 
 		if (FleetFunctions::GetMaxFleetSlots($USER) <= $ActualFleets)

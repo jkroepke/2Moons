@@ -21,7 +21,10 @@
 	{foreach name=FlyingFleets item=FlyingFleetRow from=$FlyingFleetList}
 	<tr>
 	<td>{$smarty.foreach.FlyingFleets.iteration}</td>
-	<td>{$LNG["type_mission_{$FlyingFleetRow.mission}"]}
+	<td>
+		<a data-tooltip-content="<table style='width:200px'><tr><td style='width:50%;color:white'>{$LNG['tech'][901]}</td><td style='width:50%;color:white'>{$FlyingFleetRow.metal}</td></tr><tr><td style='width:50%;color:white'>{$LNG['tech'][902]}</td><td style='width:50%;color:white'>{$FlyingFleetRow.crystal}</td></tr><tr><td style='width:50%;color:white'>{$LNG['tech'][903]}</td><td style='width:50%;color:white'>{$FlyingFleetRow.deuterium}</td></tr><tr><td style='width:50%;color:white'>{$LNG['tech'][921]}</td><td style='width:50%;color:white'>{$FlyingFleetRow.dm}</td></tr></table>" class="tooltip">
+			{$LNG["type_mission_{$FlyingFleetRow.mission}"]}
+		</a>
 	{if $FlyingFleetRow.state == 1}
 		<br><a title="{$LNG.fl_returning}">{$LNG.fl_r}</a>
 	{else}
@@ -93,7 +96,7 @@
 	</tr>
 	{foreach $FleetsOnPlanet as $FleetRow}
 	<tr style="height:20px;">
-		<td>{if $FleetRow.speed != 0} <a title="{$LNG.fl_speed_title} {$FleetRow.speed}">{$LNG.tech.{$FleetRow.id}}</a>{else}{$LNG.tech.{$FleetRow.id}}{/if}</td>
+		<td>{if $FleetRow.speed != 0} <a class='tooltip' data-tooltip-content='<table><tr><td>{$LNG.fl_speed_title}</td><td>{$FleetRow.speed}</td></tr></table>'>{$LNG.tech.{$FleetRow.id}}</a>{else}{$LNG.tech.{$FleetRow.id}}{/if}</td>
 		<td id="ship{$FleetRow.id}_value">{$FleetRow.count|number}</td>
 		{if $FleetRow.speed != 0}
 		<td><a href="javascript:maxShip('ship{$FleetRow.id}');">{$LNG.fl_max}</a></td>

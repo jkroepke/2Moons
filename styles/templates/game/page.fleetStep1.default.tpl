@@ -22,7 +22,7 @@
 		<tr style="height:20px;">
 			<td>{$LNG.fl_fleet_speed}</td>
 			<td>
-				<select id="speed" name="speed" onChange="updateVars()">
+				<select id="speed" name="speed" onChange="updateVars(false)">
 					{html_options options=$speedSelect}
 				</select> %
 			</td>

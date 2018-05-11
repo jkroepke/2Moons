@@ -109,7 +109,7 @@ define('ENABLE_SIMULATOR_LINK'		, true);
 define('SESSION_LIFETIME'			, 43200);
 
 // ENABLE Mutlialert on sending fleets
-define('ENABLE_MULTIALERT'			, true);
+define('ENABLE_MULTIALERT'			, false);
 
 // UTF-8 support for names (required for non-english chars!)
 define('UTF8_SUPPORT'				, true);

@@ -105,7 +105,7 @@ class ShowFleetTablePage extends AbstractGamePage
 				$this->sendJSON($LNG['fl_acs_newname_alphanum']);
 			}
 
-			$sql = "UPDATE %%AKS%% SET name = acsName WHERE id = :acsID;";
+			$sql = "UPDATE %%AKS%% SET name = :acsName WHERE id = :acsID;";
             $db->update($sql, array(
                 ':acsName'  => $acsName,
                 ':acsID'    => $acsData['id']
@@ -243,6 +243,10 @@ class ShowFleetTablePage extends AbstractGamePage
 				'endGalaxy'		=> $fleetsRow['fleet_end_galaxy'],
 				'endSystem'		=> $fleetsRow['fleet_end_system'],
 				'endPlanet'		=> $fleetsRow['fleet_end_planet'],
+				'metal'		=> $fleetsRow['fleet_resource_metal'],
+				'crystal'		=> $fleetsRow['fleet_resource_crystal'],
+				'deuterium'		=> $fleetsRow['fleet_resource_deuterium'],
+				'dm'		=> $fleetsRow['fleet_resource_darkmatter'],
 				'endTime'		=> _date($LNG['php_tdformat'], $fleetsRow['fleet_end_time'], $USER['timezone']),
 				'amount'		=> pretty_number($fleetsRow['fleet_amount']),
 				'returntime'	=> $returnTime,
