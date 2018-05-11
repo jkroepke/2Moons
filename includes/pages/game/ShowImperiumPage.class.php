@@ -97,6 +97,9 @@ class ShowImperiumPage extends AbstractGamePage
 			foreach($reslist['defense'] as $elementID) {
 				$planetList['defense'][$elementID][$Planet['id']]	= $Planet[$resource[$elementID]];
 			}
+			
+			$planetList['missiles'][502][$Planet['id']]         = $Planet[$resource[502]];
+            		$planetList['missiles'][503][$Planet['id']]         = $Planet[$resource[503]];
 		}
 
 		foreach($reslist['tech'] as $elementID){
