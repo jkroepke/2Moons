@@ -92,6 +92,7 @@
 				<td>{$fleet|number}</td>
 			{/foreach}
 		</tr>
+		{/foreach}
 		<tr>
 		    <th colspan="{$colspan}">{$LNG.tech.500}</th>
 		</tr>
