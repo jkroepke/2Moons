@@ -77,7 +77,6 @@ HTML;
 		// return fleet if target planet deleted
 		if($targetPlanet == false)
 		{
-			error_log('DEBUG planet does not exist!');
 			$this->setState(FLEET_RETURN);
 			$this->SaveFleet();
 			return;
