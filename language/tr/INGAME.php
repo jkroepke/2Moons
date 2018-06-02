@@ -1151,8 +1151,8 @@ $LNG['rec_last_update_on']		   			= 'Son guncellendigi tarih ';
 //----------------------------------------------------------------------------//
 // Savas Simulatoru
 
-$LNG['bs_derbis_raport']   					= "Harabe alanı dönüşümü için gereken: %s %s yada %s %s. ";
-$LNG['bs_steal_raport']   					= "Kaynakları almak için gereken: %s %s yada %s %s yada %s %s.";
+$LNG['bs_derbis_raport']   					= "Harabe alanı dönüşümü için gereken: %s %s.";
+$LNG['bs_steal_raport']   					= "Kaynakları almak için gereken: %s %s yada %s %s.";
 $LNG['bs_names']   							= "Gemi ismi";
 $LNG['bs_atter']   							= "Saldiran";
 $LNG['bs_deffer']   						= "Savunan";

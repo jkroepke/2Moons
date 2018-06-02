@@ -38,7 +38,7 @@
 		</tr>
 		{foreach $planetList.resource as $elementID => $resourceArray}
 		<tr>
-			<td><a class='tooltip_sticky' data-tooltip-content="<table><tr><th><a href='#' onclick='return Dialog.info({$elementID})'>{$LNG.tech.{$elementID}}</a></th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
+			<td><a href='#' onclick='return Dialog.info({$elementID});' class='tooltip' data-tooltip-content="<table><tr><th>{$LNG.tech.{$elementID}}</th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
 			<td>{array_sum($resourceArray)|number}</td>
 			{foreach $resourceArray as $planetID => $resource}
 				<td>{$resource|number}</td>
@@ -50,7 +50,7 @@
 		</tr>
 		{foreach $planetList.build as $elementID => $buildArray}
 		<tr>
-			<td><a class='tooltip_sticky' data-tooltip-content="<table><tr><th><a href='#' onclick='return Dialog.info({$elementID})'>{$LNG.tech.{$elementID}}</a></th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
+			<td><a href='#' onclick='return Dialog.info({$elementID})' class='tooltip' data-tooltip-content="<table><tr><th>{$LNG.tech.{$elementID}}</th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
 			<td>{array_sum($buildArray)|number}</td>
 			{foreach $buildArray as $planetID => $build}
 				<td>{$build|number}</td>
@@ -62,7 +62,7 @@
 		</tr>
 		{foreach $planetList.tech as $elementID => $tech}
 		<tr>
-			<td><a class='tooltip_sticky' data-tooltip-content="<table><tr><th><a href='#' onclick='return Dialog.info({$elementID})'>{$LNG.tech.{$elementID}}</a></th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
+			<td><a href='#' onclick='return Dialog.info({$elementID})' class='tooltip' data-tooltip-content="<table><tr><th>{$LNG.tech.{$elementID}}</th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
 			<td>{$tech|number}</td>
 			{foreach $planetList.name as $name}
 				<td>{$tech|number}</td>
@@ -74,7 +74,7 @@
 		</tr>
 		{foreach $planetList.fleet as $elementID => $fleetArray}
 		<tr>
-			<td><a class='tooltip_sticky' data-tooltip-content="<table><tr><th><a href='#' onclick='return Dialog.info({$elementID})'>{$LNG.tech.{$elementID}}</a></th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
+			<td><a href='#' onclick='return Dialog.info({$elementID})' class='tooltip' data-tooltip-content="<table><tr><th>{$LNG.tech.{$elementID}}</th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
 			<td>{array_sum($fleetArray)|number}</td>
 			{foreach $fleetArray as $planetID => $fleet}
 				<td>{$fleet|number}</td>
@@ -86,7 +86,19 @@
 		</tr>
 		{foreach $planetList.defense as $elementID => $fleetArray}
 		<tr>
-			<td><a class='tooltip_sticky' data-tooltip-content="<table><tr><th><a href='#' onclick='return Dialog.info({$elementID})'>{$LNG.tech.{$elementID}}</a></th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
+			<td><a href='#' onclick='return Dialog.info({$elementID})' class='tooltip' data-tooltip-content="<table><tr><th>{$LNG.tech.{$elementID}}</th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
+			<td>{array_sum($fleetArray)|number}</td>
+			{foreach $fleetArray as $planetID => $fleet}
+				<td>{$fleet|number}</td>
+			{/foreach}
+		</tr>
+		{/foreach}
+		<tr>
+		    <th colspan="{$colspan}">{$LNG.tech.500}</th>
+		</tr>
+		{foreach $planetList.missiles as $elementID => $fleetArray}
+		<tr>
+			<td><a href='#' onclick='return Dialog.info({$elementID})' class='tooltip' data-tooltip-content="<table><tr><th>{$LNG.tech.{$elementID}}</th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$elementID}.{if $elementID >=600 && $elementID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$elementID}</td></tr></table></tr></table>">{$LNG.tech.$elementID}</a></td>
 			<td>{array_sum($fleetArray)|number}</td>
 			{foreach $fleetArray as $planetID => $fleet}
 				<td>{$fleet|number}</td>

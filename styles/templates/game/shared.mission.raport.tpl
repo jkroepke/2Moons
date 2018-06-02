@@ -70,7 +70,6 @@
 		{/foreach}
 	</tr>
 </table>
-<br><br>
 <table class="auto">
 	<tr>
 		{foreach $RoundInfo.defender as $Player}
@@ -130,7 +129,7 @@
 </table>
 {if !$RoundInfo@last}
 {$LNG.fleet_attack_1} {$RoundInfo.info[0]|number} {$LNG.fleet_attack_2} {$RoundInfo.info[3]|number} {$LNG.damage}<br>
-{$LNG.fleet_defs_1} {$RoundInfo.info[2]|number} {$LNG.fleet_defs_2} {$RoundInfo.info[1]|number} {$LNG.damage}<br><br>
+{$LNG.fleet_defs_1} {$RoundInfo.info[2]|number} {$LNG.fleet_defs_2} {$RoundInfo.info[1]|number} {$LNG.damage}<br><hr>
 {/if}
 {/foreach}
 <br><br>
