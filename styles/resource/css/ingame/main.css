@@ -1,3 +1,118 @@
+* {
+	box-sizing: border-box;
+	/* margin: 0; */
+	padding: 0;
+}
+
+/* GRID */
+  
+.wrapper {
+	display: grid;
+	/* width: 100vw;
+	height: 100vh; */
+	grid-template-columns: 1fr 180px auto 250px 1fr;
+	grid-template-rows: 100px 1fr auto;
+}
+
+top {
+	grid-column: 1 span;
+	grid-row: 1;
+}
+
+top .fixed {
+	position: fixed;
+	width: 100%;
+	height: 100px;
+	background: rgba(13, 16, 20, 0.95);
+    border-bottom: 1px solid black;
+	z-index: 2;
+}
+
+logo {
+	grid-column: 2;
+	grid-row: 1;
+}
+
+logo .fixed {
+	display: flex;
+	justify-content: center;
+	position: fixed;
+	width: 180px;
+	height: 100px;
+	z-index: 2;
+}
+
+logo a img {
+	width: 180px;
+	height: 98px;
+}
+
+header {
+	grid-column: 3/5;
+}
+
+header .fixed {
+	display: flex;
+	align-items: center;
+	/* justify-content: space-between; */
+	position: fixed;
+	top: 0px;
+	width: calc(100% - 180px);
+	max-width: 950px;
+	height: 100px;
+	z-index: 2;
+	padding: 0 0 0 16px;
+}
+
+menu {
+	grid-column: 2;
+	font-size: 14px;
+	z-index: 1;
+}
+
+menu .fixed {
+	list-style: none;
+	position: fixed;
+	top: 100px;
+	width: 180px;
+}
+
+menu li {
+	border-bottom: 1px solid black;
+}
+
+content {
+	grid-column: 3;
+	max-width: 700px;
+	min-height: 700px;
+	overflow: auto;
+	padding: 16px;
+}
+
+aside {
+	grid-column: 4
+}
+
+aside .fixed {
+	padding: 1px 16px 0 0;
+	margin-top: 2px;
+	position: fixed;
+	top: 100px;
+	width: 250px;
+}
+
+aside .fold {
+	font-size: 15px;
+	text-align: end;
+	padding: 0 4px 0 0;
+}
+
+footer {
+	grid-row: 3; 
+}
+
+/* GLOBALS */
+
 html, body {
 	min-height:100%;
 	min-width:100%;
@@ -14,11 +129,6 @@ body.popup {
 	min-width:0;
 }
 
-body,input,button,select,textarea,td,th,tr,table,button {
-	font-family:verdana;
-	font-size:10px;
-}
-
 :focus {
 	outline:none
 }
@@ -33,17 +143,27 @@ input[type="submit"],input[type="button"],button {
 }
 
 table {
+	width: 100%;
+	/* display: block; */
+	overflow: auto;
 	border-collapse: separate;
 	border-spacing: 2px;
-	empty-cells:show
+	empty-cells:show;
+	margin:0 auto;
+	align-self: center;
+}
+
+table.auto {
+	width: unset;
+}
+
+/* hack to expand full width */
+table.hack {
+	table-layout: fixed;
 }
 
 table table,img {
 	border:0
-}
-
-table {
-	margin:0 auto
 }
 
 td {
@@ -62,6 +182,39 @@ th input {
 th {
 	height: 14px;
 	padding:4px 6px;
+}
+
+/* CARD */
+
+.card {
+	padding-bottom: 16px;
+}
+
+.card .title {
+	padding: 4px 6px;
+	margin-bottom: 2px;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.card .content {
+	padding: 4px;
+	margin-bottom: 2px;
+}
+
+.article .text {
+	margin: 2px;
+}
+
+.article .payouts {
+	display: flex;
+	justify-content: space-between;
+	margin: 2px;
+	margin-bottom: 0px;
+}
+
+.article img {
+	width: 100%;
 }
 
 textarea {
@@ -102,13 +255,13 @@ textarea.tinymce{
 }
 
 .table519{
-	min-width:519px !important;
-	width:519px !important
+	/* min-width:519px !important; */
+	/* width:519px !important */
 }
 
 .table569{
-	min-width:569px !important;
-	width:569px !important
+	/* min-width:569px !important; */
+	/* width:569px !important */
 }
 
 .build_submit {
@@ -159,25 +312,54 @@ textarea.tinymce{
 }
 
 #planetSelectorWrapper {
-	width:145px;
+	flex-grow: 1;
 }
 
 #planetSelector {
-	float:left;
-	height:16px;
-	margin:6px 10px;
-	/* width:145px; */
+	position: absolute;
+	top: 66px;
+	width: 150px;
 }
 
-#planetImage{
-	width:50px;
+.planetImage{
+	/* width:50px; */
+	text-align: center;
+	flex-grow: 1;
 }
 
-#planetImage > img{
+.planetImage > img{
 	width:50px;
 	height:50px;
 	border-radius:50%;
 	background-color:#DDD;
+}
+
+#resources_mobile { /* new */
+	display: flex;
+	justify-content: space-evenly;
+	flex-grow: 10;
+}
+
+#resource, #resource_mobile { /* new */
+	display: flex;
+	text-align: center;
+	align-items: center;
+}
+
+.resource_name {
+	color: red;
+	font-weight: bold;
+}
+
+.planetSelectorWrapper { /* new */
+	/* height: 48px; */
+	/* width: 48px; */
+	/* margin: 0px 6px; */
+	width: 120px;
+}
+
+.planetSelectorName { /* new */
+	text-align: center;
 }
 
 #resourceWrapper{
@@ -205,10 +387,10 @@ textarea.tinymce{
 
 /** MENU **/
 
-#leftmenu {
+/* #leftmenu {
 	width:200px;
 	float:left;
-}
+} */
 
 #menu {
 	list-style:none;
@@ -216,31 +398,21 @@ textarea.tinymce{
 	padding:0;
 }
 
-#menu li {
-	margin:0;
-	padding:0;
-}
-
 #menu a {
 	display:block;
 	margin:0;
-	padding:4px 20px;
+	padding:4px 24px;
 }
 
 div#disclamer {
-	position: relative;
-	top: -24px;
-	width: 100%;
 	text-align: center;
-	font-size: 9px;
+	font-size: 11px;
+	margin-top: 4px;
+	margin-bottom: 16px;
 }
 
-.menu-head {
-	height:78px;
-}
-
-.menucat1-head, .menucat2-head, .menucat3-head, .menu-footer{
-	height:30px;
+.menu-separator {
+	min-height: 8px;
 }
 
 #options select {
@@ -258,10 +430,11 @@ div#disclamer {
 	padding:10px 10px 5px 10px;
 }
 
-.full #content > table, .full form > table {
+/* unused? */
+/* .full #content > table, .full form > table {
 	max-width:95%;
 	width:80%;
-}
+} */
 
 .left{
 	text-align:left
@@ -303,10 +476,12 @@ div#disclamer {
 }
 
 .globalWarning {
+	/* position: fixed; */
+	z-index: 1;
 	background-color: #FFFFDD;
 	border: 1px solid #F7DF92;
 	color: #000000;
-	margin: 0;
+	margin: 3px;
 	padding: 5px;
 	text-align: center;	
 }
@@ -336,11 +511,6 @@ div#disclamer {
 	position:fixed;
 	top:200px;
 	padding:20px;
-}
-
-.ui-widget, .ui-widget td{
-	font-family:Verdana;
-	font-size:10px
 }
 
 .ui-progressbar {
@@ -447,5 +617,126 @@ table.tablesorter thead tr .headerSortDown {
 	
 	#resourceTable td{
 		min-width: 100px;
+	}
+}
+
+
+/* HELPERS */
+
+.mobile{
+	display: none;
+}
+
+.hamburger {
+	cursor: pointer;
+	font-size: 48px;
+	padding: 0px 8px;
+	display: none;
+}
+
+/*Hide checkbox*/
+input[type=checkbox]{
+	display: none;
+}
+
+/* MEDIA */
+
+@media screen and (min-width: 700px) and (max-width: 959px) {
+	.wrapper {
+		grid-template-columns: 180px auto;
+		grid-template-rows: 100px 1fr auto;
+	}
+	top {
+		grid-column: 1/2;
+	}
+	logo {
+		grid-column: 1
+	}
+	header {
+		grid-column: 2/4;
+	}
+	menu {
+		grid-column: 1;
+	}
+	content {
+		grid-column: 2;
+	}
+	aside {
+		display: none;
+	}
+	.planetImage{
+		display: none;
+	}
+	#planetSelector{
+		max-width: 120px;
+	}
+}
+
+@media screen and (max-width: 699px) {
+	.wrapper {
+		grid-template-columns: 200px 1fr;
+		grid-template-rows: 56px 1fr auto;
+	}
+	top {
+		display: none
+	}
+	logo {
+		display: none;
+	}
+	header {
+		grid-column: 1/2;
+	}
+	header .fixed {
+		height: 56px;
+		width: 100vw;
+		padding: 0;
+	}
+	content{
+		grid-column: 1 / 2;
+		grid-row: 2;
+		width: 100vw;
+		padding: 0;
+	}
+	.mobile{
+		display: initial;
+	}
+	aside {
+		display: none;
+	}
+	#planetSelector {
+		top: 44px;
+	}
+	menu {
+		grid-column: 1;
+		grid-row: 2;
+	}
+	menu .fixed {
+		position: unset;
+		width: 200px;
+	}
+	menu li {
+		margin: initial;
+		border-right: 1px solid black;
+	}
+	#menu a {
+		padding: 16px;
+	}
+	.planetSelectorWrapper{
+		width: initial;
+	}
+	.planetSelectorWrapper > img{
+		width: 42px;
+		height: 42px;
+	}
+	.no-mobile{
+		display: none;
+	}
+
+	/*Show menu when invisible checkbox is checked*/
+	input[type=checkbox]:not(:checked) ~ menu{
+		display: none;
+	}
+	.hamburger{
+		display: unset;
 	}
 }
