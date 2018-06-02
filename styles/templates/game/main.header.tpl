@@ -57,6 +57,31 @@
 	{/foreach}
 	{block name="script"}{/block}
 	<script type="text/javascript">
+	$(window).scroll(function(){
+		// affix
+		windowHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+		lastScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+		
+		// menu
+		elementHeight = document.getElementsByTagName("menu")[0].getElementsByClassName("fixed")[0].clientHeight;
+		element = document.getElementsByTagName("menu")[0].getElementsByClassName("fixed")[0];
+		if (elementHeight > windowHeight - 100){
+			a = 100 - lastScroll;
+			b = windowHeight - elementHeight;
+			scrollTo = Math.max(a, b);
+			element.style.top = scrollTo + 'px';
+		}
+		
+		// side
+		elementHeight = document.getElementsByTagName("aside")[0].getElementsByClassName("fixed")[0].clientHeight;
+		element = document.getElementsByTagName("aside")[0].getElementsByClassName("fixed")[0];
+		if (elementHeight > windowHeight - 100){
+			a = 100 - lastScroll;
+			b = windowHeight - elementHeight;
+			scrollTo = Math.max(a, b);
+			element.style.top = scrollTo + 'px';
+		}
+	});
 	$(function() {
 		{$execscript}
 	});
