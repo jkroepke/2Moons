@@ -4,7 +4,7 @@
 	</a>
 </div>
 
-{for $foo=0 to 3}
+{for $foo=0 to 2}
 <div class="article card" id="aside_card_{$foo}" style="display:none">
 	<a id="aside_url_{$foo}" target="_blank">
 		<div class="title"><span id="aside_author_{$foo}"></span><span id="aside_date_{$foo}" style="float:right"></span></div>
@@ -37,11 +37,16 @@ steem.api.getDiscussionsByCreated({ "tag": "steemnova-rewards", "limit": 1 }, fu
 steem.api.getDiscussionsByCreated({ "tag": "steemnova", "limit": 3 }, function(err, result) {
 	if (err === null) {
 		var i, len = result.length;
+		var plus = 1;
 		for (i = 0; i < len; i++) {
 			var discussion = result[i];
-			if (JSON.parse(discussion['json_metadata']).tags.indexOf('steemnova-rewards') > -1)
+			console.log(i);
+			console.log(discussion);
+			if (JSON.parse(discussion['json_metadata']).tags.indexOf('steemnova-rewards') > -1){
+				plus = 0;
 				continue;
-			showDiscussion(i+1, discussion);
+			}
+			showDiscussion(i+plus, discussion);
 		}
 	} else {
 		console.log(err);
