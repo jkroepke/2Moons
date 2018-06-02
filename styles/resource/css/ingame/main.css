@@ -635,7 +635,7 @@ table.tablesorter thead tr .headerSortDown {
 }
 
 /*Hide checkbox*/
-input[type=checkbox]{
+#toggle-menu input[type=checkbox]{
 	display: none;
 }
 
