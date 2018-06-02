@@ -51,7 +51,7 @@
 				</tr>
 				{foreach $events as $index => $fleet}
 				<tr>
-					<td id="fleettime_{$index}" class="fleets" data-fleet-end-time="{$fleet.returntime}" data-fleet-time="{$fleet.resttime}">-</td>
+					<td id="fleettime_{$index}">-</td>
 					<td colspan="2">{$fleet.text}</td>
 				</tr>
 				{/foreach}
