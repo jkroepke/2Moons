@@ -1,7 +1,7 @@
 {block name="title" prepend}{$pageTitle}{/block}
 {block name="content"}
 {if isset($Info)}
-<table style="width:100%">
+<table>
 	<tr>
 		<td class="transparent" style="width:40%;font-size:22px;font-weight:bold;padding:10px 0 30px;color:{if $Raport.result == "a"}lime{elseif $Raport.result == "r"}red{else}white{/if}">{$Info.0}</td>
 		<td class="transparent" style="font-size:22px;font-weight:bold;padding:10px 0 30px;">VS</td>
@@ -13,7 +13,7 @@
 {if $Raport.mode == 1}{$LNG.sys_destruc_title}{else}{$LNG.sys_attack_title}{/if} 
 {$Raport.time}:<br><br>
 {foreach $Raport.rounds as $Round => $RoundInfo}
-<table>
+<table class="auto">
 	<tr>
 		{foreach $RoundInfo.attacker as $Player}
 		{$PlayerInfo = $Raport.players[$Player.userID]}
@@ -23,7 +23,7 @@
 					<td>
 						{$LNG.sys_attack_attacker_pos} {$PlayerInfo.name} {if isset($Info)}([XX:XX:XX]){else}([{$PlayerInfo.koords[0]}:{$PlayerInfo.koords[1]}:{$PlayerInfo.koords[2]}]{if isset($PlayerInfo.koords[3])} ({$LNG["type_planet_short_{$PlayerInfo.koords[3]}"]}){/if}){/if}<br>
 						{$LNG.sys_ship_weapon} {$PlayerInfo.tech[0]}% - {$LNG.sys_ship_shield} {$PlayerInfo.tech[1]}% - {$LNG.sys_ship_armour} {$PlayerInfo.tech[2]}%
-						<table width="100%">
+						<table>
 						{if !empty($Player.ships)}
 							<tr>
 								<td class="transparent">{$LNG.sys_ship_type}</td>
@@ -70,8 +70,7 @@
 		{/foreach}
 	</tr>
 </table>
-vs
-<table>
+<table class="auto">
 	<tr>
 		{foreach $RoundInfo.defender as $Player}
 		{$PlayerInfo = $Raport.players[$Player.userID]}
@@ -81,7 +80,7 @@ vs
 					<td>
 						{$LNG.sys_attack_defender_pos} {$PlayerInfo.name} {if isset($Info)}([XX:XX:XX]){else}([{$PlayerInfo.koords[0]}:{$PlayerInfo.koords[1]}:{$PlayerInfo.koords[2]}]{if isset($PlayerInfo.koords[3])} ({$LNG.type_planet_short[$PlayerInfo.koords[3]]}){/if}){/if}<br>
 						{$LNG.sys_ship_weapon} {$PlayerInfo.tech[0]}% - {$LNG.sys_ship_shield} {$PlayerInfo.tech[1]}% - {$LNG.sys_ship_armour} {$PlayerInfo.tech[2]}%
-						<table width="100%">
+						<table>
 						{if !empty($Player.ships)}
 							<tr>
 								<td class="transparent">{$LNG.sys_ship_type}</td>

@@ -2,7 +2,7 @@
 {block name="content"}
 <form action="?page=resources" method="post">
 <input type="hidden" name="mode" value="send">
-<table style="width:760px;">
+<table>
 <tbody>
 <tr>
 	<th colspan="5">{$header}</th>

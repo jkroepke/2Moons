@@ -1,7 +1,7 @@
 {block name="title" prepend}{$LNG.lm_marketplace}{/block}
 {block name="content"}
 
-<table style="width:50%">
+<table style="width:80%">
 	<tr>
 		<th colspan="2">
 			{$LNG.market_info_header}
@@ -46,7 +46,7 @@
 </table>
 
 {if $message}
-<table style="width:50%">
+<table style="width:80%">
 	<tr>
 		<th>
 			{$LNG.fcm_info}
@@ -62,7 +62,7 @@
 
 <br/><br/>
 <div id="resourceMarketBox" style="display:none">
-<table id="tradeList" style="width:50%;white-space: nowrap;" class="tablesorter">
+<table id="tradeList" style="width:80%;white-space: nowrap;" class="tablesorter">
 	<thead>
 		<tr class="no-background no-border center">
 			<td></th>
@@ -148,7 +148,7 @@
 </table>
 <hr>
 
-<table id="resourceHistoryList" style="width:50%;white-space: nowrap;" class="tablesorter">
+<table id="resourceHistoryList" style="width:80%;white-space: nowrap;" class="tablesorter">
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -180,7 +180,7 @@
 
 </div>
 <div id="fleetMarketBox"  style="display:none">
-<table id="tradeFleetList" style="width:50%;white-space: nowrap;" class="tablesorter">
+<table id="tradeFleetList" style="width:80%;white-space: nowrap;" class="tablesorter">
 	<thead>
 		<tr>
 			<th>ID</th>
@@ -242,7 +242,7 @@
 </table>
 <hr/>
 
-<table id="fleetHistoryList" style="width:50%;white-space: nowrap;" class="tablesorter">
+<table id="fleetHistoryList" style="width:80%;white-space: nowrap;" class="tablesorter">
 	<thead>
 		<tr>
 			<th>ID</th>

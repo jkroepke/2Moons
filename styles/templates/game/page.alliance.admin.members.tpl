@@ -1,7 +1,7 @@
 {block name="title" prepend}{$LNG.lm_alliance}{/block}
 {block name="content"}
     <form action="game.php?page=alliance&amp;mode=admin&amp;action=membersSave" method="post">
-        <table id="memberList" style="width:760px;" class="tablesorter">
+        <table id="memberList" class="tablesorter">
             <thead>
             <tr>
                 <th colspan="9">{$al_users_list}</th>

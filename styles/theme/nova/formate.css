@@ -1,15 +1,21 @@
-/** Edit Color here **/
- *
-#.ui-widget-header{
-	background-color:#D20000;
-}
-.res_name{
-	color:#D20000;
+/* 
+$background: #040E1E url('/images/background.jpg');
+$foreground: #E6EBFB;
+$ui-background: #344566; 
+*/
+
+html {
+	background:url("img/bkd_page.jpg") no-repeat fixed center center #0d0d0d;
+	background-size: cover;
 }
 
 body {
-	background:url("img/bkd_page.jpg") no-repeat fixed center center #0d0d0d;
-	background-size: cover;
+	/* background: rgba(13, 16, 20, 0.50); */
+	/* color: #E6EBFB; */
+
+	font-size: 12px;
+	font-family: Verdana, Geneva, Tahoma, sans-serif;
+	/* font-family: Whitney,Source Sans Pro,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif; */
 }
 
 body,input,select,button,textarea,a,td,th,tr,table,a:visited{
@@ -26,8 +32,20 @@ input[type="radio"] {
 }
 
 
-#menu li:first-child, #menu li:last-child{
+/* #menu li:first-child, #menu li:last-child{
 	background-color:transparent;
+} */
+
+.card .title {
+	background-image: url("img/bkd_title.png");
+	border: 1px solid #000;
+	color: #FFF;
+	font-weight: bold;
+}
+
+.card .content {
+	background: rgba(13, 16, 20, 0.95);
+	border: 1px solid #000;
 }
 
 a:hover {
@@ -99,7 +117,7 @@ th, .ui-widget-header {
 	border:0px;
 }
 
-th a:hover, .ui-widget-header a:hover, #menu a:hover  {
+th a:hover, .ui-widget-header a:hover, menu a:hover, .article a:hover {
 	color:#FFF;
 }
 
@@ -263,12 +281,21 @@ select {
     color: #DDD;
 }
 
-/** HEADER **/
+/** LOGO **/
 
-#header {
+.logo .fixed {
 	background: #0D1014;
 	background: rgba(13, 16, 20, 0.95);
-	border: 1px solid black;
+	border-bottom: 1px solid black;
+}
+
+/** HEADER **/
+
+header .fixed {
+	background: #0D1014;
+	background: rgba(13, 16, 20, 0.95);
+	/* border: 1px solid black; */
+	border-bottom: 1px solid black;
 }
 
 #resourcesdiv{
@@ -277,41 +304,20 @@ select {
 
 /** MENU **/
 
-#menu a {
-	background: #0D1014;
+.menu-separator {
+	background-image: url(img/bkd_title.png);
+    /* color: #FFF; */
+    /* border: 1px solid black; */
+}
+
+menu a {
 	background: rgba(13, 16, 20, 0.95);
 	border-top:1px solid black;
 }
 
-#menu a:hover {
-	background: #212428;
-}
-
-.menu-head a{
-	height:78px;
-	background:none !important;
-	padding:0 !important;
-	text-indent: -1000em;
-}
-
-.menu-head {
-	background: url('./img/menu-top.png') no-repeat scroll 0 -22px transparent;
-}
-
-.menucat1-head {
-	background-image: url('./img/menu_wirt.png');
-}
-
-.menucat2-head {
-	background-image: url('./img/menu_com.png');
-}
-
-.menucat3-head {
-	background-image: url('./img/menu_acc.png');
-}
-
-.menu-footer{
-	background-image: url('./img/menu-foot.png');
+div#disclamer a {
+	background: unset;
+	border-top: unset;
 }
 
 /* PLANETMENU */
@@ -335,11 +341,7 @@ select {
 	text-align:center
 }
 
-.top {
-	vertical-align:top
-}
-
-.transparent,#header td, .tip td, .tip th, .raportMessage td {
+.transparent,header td, .tip td, .tip th, .raportMessage td {
 	background: transparent;
 	border:none;
 	filter: none !important;
@@ -392,7 +394,8 @@ th a,.res_current{
 }
 
 .spyRaportContainerRow {
-	border-top:1px solid #DDD;
+	/* border-top:1px solid #DDD; */
+	height: 20px;
 }
 .spyRaportContainerHead + .spyRaportContainerRow {
 	border-top:0 none;

@@ -1,6 +1,6 @@
 {block name="title" prepend}{$LNG.lm_search}{/block}
 {block name="content"}
-<table style="width:760px">
+<table>
 	<tr>
 		<th>{$LNG.sh_search_in_the_universe} <span id="loading" style="display:none;">{$LNG.sh_loading}</span></th>
 	</tr>

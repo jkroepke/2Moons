@@ -2,7 +2,7 @@
 {block name="content"}
 <form action="game.php?page=ticket&mode=send" method="post" id="form">
 <input type="hidden" name="id" value="0">
-<table style="width:760px;">
+<table>
 	<tr>
 		<th colspan="2">{$LNG.ti_create_head}</th>
 	</tr>

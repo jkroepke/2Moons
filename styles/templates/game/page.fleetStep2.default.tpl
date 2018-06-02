@@ -12,7 +12,7 @@
         </tr>
 		<tr>
 			<td class="left top" style="width:50%;margin:0;padding:0;"{if $StaySelector} rowspan="5"{/if}>
-        		<table border="0" cellpadding="0" cellspacing="0" width="259" style="margin:0;padding:0;">
+        		<table border="0" cellpadding="0" cellspacing="0" style="margin:0;padding:0;">
         			{foreach $MissionSelector as $MissionID}
 					<tr style="height:20px;">
 						<td class="transparent left">
@@ -26,7 +26,7 @@
         		</table>
         	</td>
         	<td class="top">
-				<table border="0" cellpadding="0" cellspacing="0" width="259">
+				<table border="0" cellpadding="0" cellspacing="0">
                     <tr style="height:20px;">
         				<td class="transparent">{$LNG.tech.901}</td>
         				<td class="transparent"><a href="javascript:maxResource('metal');">{$LNG.fl_max}</a></th>
