@@ -40,8 +40,6 @@ steem.api.getDiscussionsByCreated({ "tag": "steemnova", "limit": 3 }, function(e
 		var plus = 1;
 		for (i = 0; i < len; i++) {
 			var discussion = result[i];
-			console.log(i);
-			console.log(discussion);
 			if (JSON.parse(discussion['json_metadata']).tags.indexOf('steemnova-rewards') > -1){
 				plus = 0;
 				continue;
