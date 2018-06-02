@@ -13,7 +13,7 @@
 			<a id="url_0" target="_blank">
 			<p id="title_0"></p>
 			</a>
-			<p>👍&nbsp;+<span id="votes_0"></span>&nbsp;&nbsp;💰&nbsp;~<span id="pending_payout_value_0"></span></p>
+			<p><i class="fas fa-chevron-circle-up"></i>&nbsp;+<span id="votes_0"></span>&nbsp;&nbsp;<i class="fas fa-dollar-sign"></i>&nbsp;~<span id="pending_payout_value_0"></span></p>
 			</td>
 		</tr>
 		<tr id="feed_margin" style="display:none; height: 4px;">
@@ -41,6 +41,5 @@
 </table>
 {/block}
 {block name="script" append}
-	<script src="scripts/base/steem.min.js"></script>
     <script src="scripts/game/statistics.js"></script>
 {/block}

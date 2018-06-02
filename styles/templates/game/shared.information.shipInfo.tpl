@@ -1,4 +1,4 @@
-<table style="width:100%;">
+<table>
 	<tbody>
 		{if !empty($FleetInfo.tech)}
 		<tr>

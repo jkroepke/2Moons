@@ -1,6 +1,6 @@
 {block name="title" prepend}{$LNG.lm_support}{/block}
 {block name="content"}
-<table style="width:760px;">
+<table>
 	<tr>
 		<th colspan="5">{$LNG.ti_header}</th>
 	</tr>

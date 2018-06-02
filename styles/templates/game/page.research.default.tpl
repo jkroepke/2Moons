@@ -2,7 +2,7 @@
 {block name="content"}
 {if !empty($Queue)}
 <div id="buildlist" class="buildlist">
-	<table style="width:760px">
+	<table>
 		{foreach $Queue as $List}
 		{$ID = $List.element}
 		<tr>
@@ -46,7 +46,7 @@
 </div>
 {/if}
 {if $IsLabinBuild}<table width="70%" id="infobox" style="border: 2px solid red; text-align:center;background:transparent"><tr><td>{$LNG.bd_building_lab}</td></tr></table><br><br>{/if}
-<table style="width:760px">
+<table>
 	{foreach $ResearchList as $ID => $Element}
 	<tr>
 		<td rowspan="2" style="width:120px;">
@@ -85,7 +85,7 @@
 	</tr>
 	<tr>
 		<td colspan="2" style="margin-bottom:10px;">  
-			<table style="width:100%">
+			<table>
 				<tr>
 					<td class="transparent left">
 						{$LNG.bd_remaining}<br>

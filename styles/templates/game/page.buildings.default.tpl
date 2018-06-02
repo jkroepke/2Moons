@@ -2,7 +2,7 @@
 {block name="content"}
 {if !empty($Queue)}
 <div id="buildlist" class="buildlist">
-	<table style="width:760px">
+	<table>
 		{foreach $Queue as $List}
 		{$ID = $List.element}
 		<tr>
@@ -40,7 +40,7 @@
 	</table>
 </div>
 {/if}
-<table style="width:760px">
+<table>
 	{foreach $BuildInfoList as $ID => $Element}
 	<tr>
 		<td rowspan="2" style="width:120px;">
@@ -54,7 +54,7 @@
 	</tr>
 	<tr>
 		<td>
-			<table style="width:100%">
+			<table>
 				<tr>
 					<td class="transparent left" style="width:90%;padding:10px;"><p>{$LNG.shortDescription.{$ID}}</p>
 					<p>{foreach $Element.costResources as $RessID => $RessAmount}
@@ -87,7 +87,7 @@
 	</tr>
 	<tr>
 		<td colspan="2" style="margin-bottom:10px;">  
-			<table style="width:100%">
+			<table>
 				<tr>
 					<td class="transparent left">
 						{$LNG.bd_remaining}<br>

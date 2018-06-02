@@ -2,7 +2,7 @@
 {block name="content"}
 {if !$NotBuilding}<table width="70%" id="infobox" style="border: 2px solid red; text-align:center;background:transparent"><tr><td>{$LNG.bd_building_shipyard}</td></tr></table><br><br>{/if}
 {if !empty($BuildList)}
-<table style="width:760px">
+<table>
 	<tr>
 		<td class="transparent">
 			<div id="bx" class="z"></div>
@@ -28,7 +28,7 @@
 <br>
 {/if}
 <form action="game.php?page=shipyard&amp;mode={$mode}" method="post">
-<table style="width:760px">
+<table>
 	{foreach $elementList as $ID => $Element}
 	<tr>
 		<td rowspan="2" style="width:120px;">
@@ -42,7 +42,7 @@
 	</tr>
 	<tr>
 		<td>
-			<table style="width:100%">
+			<table>
 				<tr>
 					<td class="transparent left" style="width:90%;padding:10px;"><p>{$LNG.shortDescription.{$ID}}</p><p>{foreach $Element.costResources as $RessID => $RessAmount}
 					<a class='tooltip_sticky' data-tooltip-content="<table><tr><th><a href='#' onclick='return Dialog.info({$RessID})'>{$LNG.tech.{$RessID}}</a></th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$RessID}.{if $RessID >=600 && $RessID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$RessID}</td></tr></table></tr></table>">{$LNG.tech.{$RessID}}</a>: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>
@@ -58,7 +58,7 @@
 	</tr>
 	<tr>
 		<td colspan="2" style="margin-bottom:10px;">  
-			<table style="width:100%">
+			<table>
 				<tr>
 					<td class="transparent left">
 						{$LNG.bd_remaining}<br>
