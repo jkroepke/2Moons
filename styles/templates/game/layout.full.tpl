@@ -43,12 +43,6 @@
 		{block name="content"}{/block}
 		<table class="hack"></table>
 	</content>
-	
-	<aside>
-		<div class="fixed">
-			{include file="main.side.tpl" nocache}
-		</div>
-	</aside>
 
 	<footer>
 		{foreach $cronjobs as $cronjob}<img src="cronjob.php?cronjobID={$cronjob}" alt="">{/foreach}

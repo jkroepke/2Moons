@@ -67,6 +67,7 @@ header .fixed {
 menu {
 	grid-column: 2;
 	font-size: 14px;
+	margin: 0px;
 	z-index: 1;
 }
 
@@ -82,10 +83,10 @@ menu li {
 }
 
 content {
-	grid-column: 3;
-	max-width: 700px;
+	grid-column: 3/5;
+	max-width: 950px;
 	min-height: 700px;
-	overflow: auto;
+	/* overflow: auto; */
 	padding: 16px;
 }
 
@@ -257,11 +258,13 @@ textarea.tinymce{
 .table519{
 	/* min-width:519px !important; */
 	/* width:519px !important */
+	max-width: 519px !important;
 }
 
 .table569{
 	/* min-width:569px !important; */
 	/* width:569px !important */
+	max-width: 569px !important;
 }
 
 .build_submit {
@@ -322,7 +325,6 @@ textarea.tinymce{
 }
 
 .planetImage{
-	/* width:50px; */
 	text-align: center;
 	flex-grow: 1;
 }
@@ -642,28 +644,6 @@ table.tablesorter thead tr .headerSortDown {
 /* MEDIA */
 
 @media screen and (min-width: 700px) and (max-width: 959px) {
-	.wrapper {
-		grid-template-columns: 180px auto;
-		grid-template-rows: 100px 1fr auto;
-	}
-	top {
-		grid-column: 1/2;
-	}
-	logo {
-		grid-column: 1
-	}
-	header {
-		grid-column: 2/4;
-	}
-	menu {
-		grid-column: 1;
-	}
-	content {
-		grid-column: 2;
-	}
-	aside {
-		display: none;
-	}
 	.planetImage{
 		display: none;
 	}
