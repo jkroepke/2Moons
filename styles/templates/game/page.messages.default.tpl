@@ -1,6 +1,6 @@
 {block name="title" prepend}{$LNG.lm_messages}{/block}
 {block name="content"}
-<table style="table-layout:fixed;">
+<table>
 	<tr>
 		<th colspan="6">{$LNG.mg_overview}<span id="loading" style="display:none;"> ({$LNG.loading})</span></th>
 	</tr>
