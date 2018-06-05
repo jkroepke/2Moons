@@ -68,7 +68,7 @@ $LNG['questions'][2][1]['body']		= <<<BODY
 <h3>Raid:</h3>
 <p>It is easier to make, but also way less popular to win.
 With the development of the destruction to "defeated" and how nobody can keep these in galaxa, is found and collected. The times is a great inconvenience for those who suffered the attack.</p>
-<h3>IntercepÃ § Ã £ o</h3>
+<h3>Intercept:</h3>
 <p>The contents of a life of Fleeter is build fleet and destroy. Since you can not always be around fleets, you sometimes, especially to get the good players, air you more effort. This usually is not so easy, because there are ways to protect yourself.</p>
 BODY;
 $LNG['questions'][2][2]['title']	= 'Fleetsave';
