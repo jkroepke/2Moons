@@ -13,13 +13,8 @@
  * @version 1.8.0
  * @link https://github.com/jkroepke/2Moons
  */
-
-
 // Translated into English by QwataKayean . All rights reversed (C) 2012
 // 2Moons - Copyright (C) 2010-2012 Slaver
-
-
-
 $LNG['faq_overview']	= "FAQ";
  
 $LNG['questions']					= array();
@@ -37,32 +32,31 @@ $LNG['questions'][1][1]['body']		= <<<BODY
 BODY;
 $LNG['questions'][1][2]['title']	= 'Step 2';
 $LNG['questions'][1][2]['body']		= <<<BODY
-<p>To expand your Empire and compete with other players or you need to interact with other buildings. Through the research and construction of a Hangar to begin construction of your fleet and the dwarf Planetary Defense. Details can be found here:</p>
+<p>To expand your Empire and compete with other players you need to interact with other buildings aswell. Through the research and construction of a Hangar to begin construction of your Fleet and Planetary Defense. Details can be found here:</p>
 <h3>The Hangar:</h3>
-<p>Here are all the ships that you have available in this game. Some ships will required a high amount of requirements so that they can be built. An overview of the ships or defence which has technical requirements can be found under the title "technology" in the menu. The higher the Hangar, faster can be constructed.</p>
-<h3>The laboratory of Research:</h3>
-<p>These are used to construct new buildings, ships and defense. Also the searches can be used to get some bonus. The search can be accelerated through the expansion of the laboratory of Research</p>
-<h3>Factory of Robots:</h3>
-<p>The factory of robots is an essential component. Through its expansion, the time of production of probes can be reduced, as well as the construction of buildings.</p>
+<p>Here are all the ships that you have available in the game. Some ships will have higher technological requirements to be built. An overview of the ships or defence which has technological requirements can be found under the title "technology" in the menu. Leveling up the Shipyard enables you faster construction of your ships and defences.</p>
+<h3>The Recearch Lab:</h3>
+<p>These are used to construct new buildings, ships and defenses. Also the researches can be used to get some bonuses. The research can be accelerated through the expansion of the Research Lab</p>
+<h3>Robot Factory:</h3>
+<p>The Robot Factory is an essential component. Through its expansion, construction time of buildings gets reduced.</p>
 BODY;
 $LNG['questions'][1][3]['title']	= 'Step 3';
 $LNG['questions'][1][3]['body']		= <<<BODY
-<p>This part of the tutorial is dedicated to defending the planet, as the first actions with your own fleet.</p>
-<h3>The Heartthrob's xia:</h3>
-<p>It is used to find other players. You will find s detailed information on other planets, and can also send a little of your fleet directly from this point of view. Besides, you can check at this point of view also, the contact with other players, or spy on another planet, if Espionage probes possuires</p>
+<p>This part of the tutorial is dedicated to defending the planet and first actions with your own fleet.</p>
+<h3>Galaxy view:</h3>
+<p>It is used to find other players. You will find detailed information on other planets, and also you can send your fleet directly from this point of view. Besides that, you can contact other players, or if you posses Spy Probes you can even spy their planets.</p>
 <h3>Sending Fleets:</h3>
-<p>Fleets can view the Heartthrob's xia, or are besides the point "fleet" sent. First, select the number of navess of a certain type of ship is scheduled to fly. It should be defined for the target (coordinates, which are obtained in vista Heartthrob ¡ xia), as well as the speed with which this should be done. Also, the type of mission as "Attack", "Colonize", "Transfer", "Destroy" or "Keep" positions is given.</p>
+<p>You can send your fleet directly from the Galaxy view or by going to "Fleets" tab. First step is to select a nuber of certain types of ships you wish to send on a mission. Second step is entering the coordinates (that you obtained from the Galaxy view) and selecting the speed at which your fleet will be flying. Last step is selecting an action you want to perform with your fleet, such as "Attack", "Colonize", "Transfer", "Transport" or "Deploy" etc.</p>
 <h3>The Defense:</h3>
-<p>To be able to protect your own planet with the construction of Hangar, is also the construction of defence. These offer some protection against the enemies with your own fleet at the moment of attack of your adervesÃ. In contrast to the fleet, 70% of existing on the planet defense continues</p>
+<p>To be able to protect your own planet besides your fleet you need to build some defense. These offer some protection against the enemies fleet at the moment of attack. In contrast to the fleet, 70% of destroyed defence gets repaired</p>
 BODY;
-
 $LNG['questions'][2]['category']	= 'Advanced Tips';
 $LNG['questions'][2][1]['title']	= 'Raid';
 $LNG['questions'][2][1]['body']		= <<<BODY
 <h3>Raid:</h3>
-<p>It is the attack against other players for taking possession of them. There are several types of attacks such as:</p>
+<p>It is the attack against other players for taking possession of their resources. There are several types of attacks such as:</p>
 <ul>
-	<li>"Farmar"</li>
+	<li>"Farmraid"</li>
 	<li>ACS</li>
 	<li>Raid (or war)</li>
 	<li>Intercept</li>
@@ -76,9 +70,7 @@ $LNG['questions'][2][1]['body']		= <<<BODY
 With the development of the destruction to "defeated" and how nobody can keep these in galaxa, is found and collected. The times is a great inconvenience for those who suffered the attack.</p>
 <h3>IntercepÃ § Ã £ o</h3>
 <p>The contents of a life of Fleeter is build fleet and destroy. Since you can not always be around fleets, you sometimes, especially to get the good players, air you more effort. This usually is not so easy, because there are ways to protect yourself.</p>
-
 BODY;
-
 $LNG['questions'][2][2]['title']	= 'Fleetsave';
 $LNG['questions'][2][2]['body']		= <<<BODY
 <h3>How can I protect myself</h3>
@@ -91,7 +83,6 @@ $LNG['questions'][2][2]['body']		= <<<BODY
 <p>A very common method of Fleetsave is sending a fleet and resources of a moon, and send to a destruction field services apart. This is not the account the amount of destruction, but if there is destruction. The naves are going and returning, with the destruction prices collected and with everything except</p>
 <p>Another method of making fleet easily, is to make the Moon fleetsave Moon, in which enemies can't make phalanx the moons (Because these is that have the sensor!)</p>
 BODY;
-
 $LNG['questions'][2][3]['title']	= 'Moons';
 $LNG['questions'][2][3]['body']		= <<<BODY
 <p>A moon can form when a field of debris has at least some 100,000 units, which is then a 1% chance opportunity moon. Maxsimum is only 20% chance no matter how big the debris field is.</p>
@@ -118,7 +109,6 @@ This order is only suggested if you are newbie, because of course the more exper
 <h3>Size of the Moon:</h3>
 <p>Destruction of 100000 units can render a 1% probability. The maximum probability is 20%.<p>
 BODY;
-
 $LNG['questions'][2][4]['title']	= 'Alliance';
 $LNG['questions'][2][4]['body']		= <<<BODY
 <h3>How do I form an Alliance</h3>
