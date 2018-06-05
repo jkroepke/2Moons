@@ -54,7 +54,7 @@ $LNG['questions'][2]['category']	= 'Advanced Tips';
 $LNG['questions'][2][1]['title']	= 'Raid';
 $LNG['questions'][2][1]['body']		= <<<BODY
 <h3>Raid:</h3>
-<p>It is the attack against other players for taking possession of their resources. There are several types of attacks such as:</p>
+<p>It is the attack against other players in attempt to steal their resources. There are several types of attacks such as:</p>
 <ul>
 	<li>"Farmraid"</li>
 	<li>ACS</li>
