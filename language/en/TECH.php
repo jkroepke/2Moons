@@ -311,11 +311,11 @@ $LNG['longDescription'] = array(
 23 => 'Provides storage for excess Crystal.',
 24 => 'Provides storage for excess Deuterium',
 31 => 'A research lab is required in order to conduct research into new technologies.',
-33 => 'The Terraformer increases the usable area on the planet. For each level of Terraformer you get 5 additional fields to use and one extra field every even level, one field is occupied by Terraformer itself.<br>To start building Terraformer you don't need the energy available, you just need to be capable to produce enough energy to start the building.',
+33 => 'The Terraformer increases the usable area on the planet. For each level of Terraformer you get 5 additional fields to use and one extra field every even level, one field is occupied by Terraformer itself.<br>To start building Terraformer you don\'t need the energy available, you just need to be capable to produce enough energy to start the building.',
 34 => 'With an Alliance Depot you can supply fuel to friendly fleets in orbit.',
 41 => 'The moon has no atmosphere therefore a lunar base must be built before the settlement of other buildings. Each level of Moon Base gives 3 extra fields. Once built, the Moon Base can never be deconstructed. ',
 42 => 'The sensor array allows you to monitor fleet movements. The higher the stage, the greater is the range of the Phalanx. One use requires 5.000 deuterium. Note that moons cannot be scanned with Phalanx due to their lack of the atmosphere',
-43 => 'Jump gates are huge transmitters that are able to send large fleets without loss of time through the universe. You can't transfer your resources this way. There is a sixty minute cooldown time on both Jumpgates that were used.',
+43 => 'Jump gates are huge transmitters that are able to send large fleets without loss of time through the universe. You can\'t transfer your resources this way. There is a sixty minute cooldown time on both Jumpgates that were used.',
 44 => 'Missile silos is used for storage of rockets. For each level of the missile silo an extra 10 slots are made available. An Interceptor missile occupies 1 slot, while an interplanetary missile occupies 2.',
 
 106 => 'Information about other planets and moons can be gained using this technology. At certain levels of Spy Technologies you get more information about foreign fleets on your Overview screen:<br> At level 0-1 you just see that the fleet is approaching your planet<br> At levels 2-3 you can see the number of ships approaching<br> At levels 4-7 you can see what type of ships are in the approaching fleet<br> At levels 8+ you can see how many of each type of ships is in the fleet',
