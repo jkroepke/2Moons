@@ -314,11 +314,11 @@ $LNG['longDescription'] = array(
 33 => 'The Terraformer increases the usable area on the planet. For each level of Terraformer you get 5 additional fields to use and one extra field every even level, one field is occupied by Terraformer itself.<br>To start building Terraformer you don\'t need the energy available, you just need to be capable to produce enough energy to start the building.',
 34 => 'With an Alliance Depot you can supply fuel to friendly fleets in orbit.',
 41 => 'The moon has no atmosphere therefore a lunar base must be built before the settlement of other buildings. Each level of Moon Base gives 3 extra fields. Once built, the Moon Base can never be deconstructed. ',
-42 => 'The sensor array allows you to monitor fleet movements. The higher the stage, the greater is the range of the Phalanx. One use requires 5.000 deuterium. Note that moons cannot be scanned with Phalanx due to their lack of the atmosphere',
+42 => 'The sensor array allows you to monitor fleet movements. The higher the stage, the greater is the range of the Phalanx. One use s 5.000 deuterium. Note that moons cannot be scanned with Phalanx due to their lack of the atmosphere<br><br>What Sensor Phalanx can see:<li>Attacking fleets (including ACS)</li><li>Trading fleets</li><li>Fleets on deployment mission</li><li>Spying fleets<li>Fleets with the mission hold (ACS)</li><br>If you scan the home planet of the fleet:<li>Fleets coming home from any mission (except Recalled deployment)</li><li>Fleets on a hold or expedition mission</li> ',
 43 => 'Jump gates are huge transmitters that are able to send large fleets without loss of time through the universe. You can\'t transfer your resources this way. There is a sixty minute cooldown time on both Jumpgates that were used.',
 44 => 'Missile silos is used for storage of rockets. For each level of the missile silo an extra 10 slots are made available. An Interceptor missile occupies 1 slot, while an interplanetary missile occupies 2.',
 
-106 => 'Information about other planets and moons can be gained using this technology. At certain levels of Spy Technologies you get more information about foreign fleets on your Overview screen:<br> At level 0-1 you just see that the fleet is approaching your planet<br> At levels 2-3 you can see the number of ships approaching<br> At levels 4-7 you can see what type of ships are in the approaching fleet<br> At levels 8+ you can see how many of each type of ships is in the fleet',
+106 => 'Information about other planets and moons can be gained using this technology. At certain levels of Spy Technologies you get more information about foreign fleets on your Overview screen:<br><br><li>At level 0-1 you just see that the fleet is approaching your planet</li><li>At levels 2-3 you can see the number of ships approaching</li><li>At levels 4-7 you can see what type of ships are in the approaching fleet</li><li>At levels 8+ you can see how many of each type of ships is in the fleet</li>',
 108 => 'More fleets can be commanded by increasing computer capacities. Each level of computer technology increases the maximum number of fleets by one.',
 109 => 'Weapons technology makes weapons systems more efficient. Each level of weapons technology increases the weapon strength of units by 10 % of the base value.',
 110 => 'Shielding technology makes the shields on ships and defensive facilities more efficient. Each level of shield technology increases the strength of the shields by 10 % of the base value.',
@@ -332,7 +332,7 @@ $LNG['longDescription'] = array(
 121 => 'A deadly beam of accelerated ions. This causes enormous damage when striking an object. Additonally, each level in Ion Technology will reduce Deconstruction costs by 4%',
 122 => 'A further development of ion technology which accelerates high-energy Plasma, a result of super-heating Ions. This has a devastating effect when striking an object.',
 123 => 'Researchers on different planets communicate via this network.',
-124 => 'With an astrophysics research module, ships can undertake long expeditions. Every second level of this technology will allow you to colonise an extra planet. You can also send one more expedition in deep space with every square level of the technology.',
+124 => 'With an astrophysics research module, ships can undertake long expeditions. Every second level of this technology will allow you to colonise an extra planet. You can also send one more expedition in deep space with every square level of this technology.',
 131 => 'Increases the production of Metal by 2%',
 132 => 'Increases the production of Crystal by 2%',
 133 => 'Increases the production of Deuterium by 2%',
@@ -371,7 +371,7 @@ $LNG['longDescription'] = array(
 411 => 'There is an immovable defensive platform. It has no direct power, and is held by Gravity in a stable orbit of the planet. The start of this process requires high masses of energy.',
 
 502 => 'Interceptor missiles are used to destroy attacking Interplanetary missiles. 1 Interceptor missile is required to destroy 1 Interplanetary missile',
-503 => 'Interplanetary missiles are used to destroy the opponents defenses. The range of Interplanetary missiles(in number of solar system) is determined by the level of your Impulse drive:<br> Range = (5 x Impusle Drive level) - 1',
+503 => 'Interplanetary missiles are used to destroy the opponents defenses. The range of Interplanetary missiles(in number of solar system) is determined by the level of your Impulse drive:<br>Range = (5 x Impusle Drive level) - 1',
 
 601 => 'The Geologist is a expert in astro-mineralogy and crystalography. He assists his teams in metallurgy and chemistry as he also takes care of the interplanetary communications optimising the use and refining of the raw material along the empire.',
 602 => 'The Admiral is an experienced veteran and a skillful strategist. The hardest battle is able to get an idea of the situation and contact their admirals subordinates. A wise emperor could rely on their help during the fighting.',
