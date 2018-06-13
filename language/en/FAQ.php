@@ -53,23 +53,25 @@ BODY;
 $LNG['questions'][2]['category']	= 'Advanced Tips';
 $LNG['questions'][2][1]['title']	= 'Raid';
 $LNG['questions'][2][1]['body']		= <<<BODY
-<h3>Raid:</h3>
-<p>It is the attack against other players in attempt to steal their resources. There are several types of attacks such as:</p>
+<h3>Raids:</h3>
+<p>A raid is an attack on another player's planet undertaken in order to acquire their resources. If an attack is successful, up to 50% of the resources on the target planet may be taken by the attacking fleet as plunder. There are several types of attacks such as</p>:
 <ul>
-	<li>"Farmraid"</li>
-	<li>ACS</li>
-	<li>Raid (or war)</li>
-	<li>Intercept</li>
+<li>Inactive Raids</li>
+<li>ACS(Alliance Combat System)</li>
+<li>Intercepting a fleet</li>
 </ul>
-<h3>Farmraid:</h3>
-<p>These are scanned for the planets to your surroundings, and sends fleets that have sufficient transport capacity and firepower to pave the way, so for a smaller loss and a larger profit (the sum stolen resources exceed the consumption)</p>
+<h3>Inactive Raids:</h3>
+<p>As a fleeter you basically want to make resources as fast and easy as possible. Sometimes won't be able to attack any active players around you as most of them 
+will be online or already fleet saving. However, you can raid inactive players as they are not likely to come online. Farming inactives is not as suspenseful as
+attacking active players however it is a good way of working around time consuming attacks</p>
 <h3>ACS:</h3>
-<p>The heyday of the Raid.<br>Here are the hunting enemy fleets servicesget specifically.<br>It is, therefore, the premier class, except as espionage and a good dose of luck and good team. If an enemy fleet saw for the first time this should only be captured and recycled. This in itself is not usually easy, once the fleets that bring profit really move many times outside their own recycling capacity. Then out of the own fleet, the recycler must have given to your destruction resources partners.</p>
-<h3>Raid:</h3>
-<p>It is easier to make, but also way less popular to win.
-With the development of the destruction to "defeated" and how nobody can keep these in galaxa, is found and collected. The times is a great inconvenience for those who suffered the attack.</p>
-<h3>Intercept:</h3>
-<p>The contents of a life of Fleeter is build fleet and destroy. Since you can not always be around fleets, you sometimes, especially to get the good players, air you more effort. This usually is not so easy, because there are ways to protect yourself.</p>
+<p>The Alliance Combat System (or ACS) allows for friends and alliance members to temporarily combine their fleets to attack or defend a target that either might not have been able to attack or defend alone. An Alliance Depot is not a prerequisite to attack or defend a planet with ACS</p>
+<h3>Intercepting a fleet:</h3>
+<p>This is where it gets tricky. How do I find possible targets? You basically try to find them like idling fleets, however every time you see that fleet you
+notice that the player is online. Before you can crash someone who is saving and watching his fleet you have to find out how, when and where the player is 
+saving his fleet. To do that you have to observe the player. If the player is saving without moons it's easier to intercept him as you can basically rely on 
+your phalanx alone. But when it comes to intercepting fleets saved from a moon it gets time consuming. Depending on how the player saves you have to destroy 
+his moon(s) to be able to phalanx his fleet.</p>
 BODY;
 $LNG['questions'][2][2]['title']	= 'Fleetsave';
 $LNG['questions'][2][2]['body']		= <<<BODY
