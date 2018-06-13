@@ -54,7 +54,7 @@ $LNG['questions'][2]['category']	= 'Advanced Tips';
 $LNG['questions'][2][1]['title']	= 'Raid';
 $LNG['questions'][2][1]['body']		= <<<BODY
 <h3>Raids:</h3>
-<p>A raid is an attack on another player's planet undertaken in order to acquire their resources. If an attack is successful, up to 50% of the resources on the target planet may be taken by the attacking fleet as plunder. There are several types of attacks such as</p>:
+<p>A raid is an attack on another players planet undertaken in order to acquire their resources. If an attack is successful, up to 50% of the resources on the target planet may be taken by the attacking fleet as plunder. There are several types of attacks such as</p>:
 <ul>
 <li>Inactive Raids</li>
 <li>ACS(Alliance Combat System)</li>
@@ -69,7 +69,7 @@ attacking active players however it is a good way of working around time consumi
 <h3>Intercepting a fleet:</h3>
 <p>This is where it gets tricky. How do I find possible targets? You basically try to find them like idling fleets, however every time you see that fleet you
 notice that the player is online. Before you can crash someone who is saving and watching his fleet you have to find out how, when and where the player is 
-saving his fleet. To do that you have to observe the player. If the player is saving without moons it's easier to intercept him as you can basically rely on 
+saving his fleet. To do that you have to observe the player. If the player is saving without moons its easier to intercept him as you can basically rely on 
 your phalanx alone. But when it comes to intercepting fleets saved from a moon it gets time consuming. Depending on how the player saves you have to destroy 
 his moon(s) to be able to phalanx his fleet.</p>
 BODY;
