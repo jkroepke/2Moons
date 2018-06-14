@@ -247,7 +247,7 @@ class FlyingFleetsTable
 	{
 		global $LNG;
 		$FleetTotalC  = $fleetRow['fleet_resource_metal'] + $fleetRow['fleet_resource_crystal'] + $fleetRow['fleet_resource_deuterium'] + $fleetRow['fleet_resource_darkmatter'];
-		if ($FleetTotalC != 0)
+		if ($FleetTotalC != 0 && !$this->IsPhalanx)
 		{
 			$textForBlind = $LNG['tech'][900].': ';
 			$textForBlind .= floatToString($fleetRow['fleet_resource_metal']).' '.$LNG['tech'][901];
