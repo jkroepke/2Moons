@@ -44,14 +44,14 @@ class FlyingFleetsTable
 	}
 
 	private function getFleets($acsID = false) {
-		if($this->IsPhalanx) {
+		/*if($this->IsPhalanx) {
 			$where = '(fleet_start_id = :planetId AND fleet_start_type = 1 AND fleet_mission != 4) OR
 					  (fleet_end_id = :planetId AND fleet_end_type = 1 AND fleet_mess IN (0, 2))';
 
 			$param = array(
 				':planetId'	  => $this->planetId
 			);
-		} elseif(!empty($acsID)) {
+		} else*/if(!empty($acsID)) {
 			$where	= 'fleet_group = :acsId';
 			$param = array(
 				':acsId'	=> $acsID
@@ -120,7 +120,7 @@ class FlyingFleetsTable
 		$Time	= 0;
 		$Rest	= 0;
 
-		if ($FleetState == 0 && !$this->IsPhalanx && $fleetRow['fleet_group'] != 0)
+		if ($FleetState == 0 && $fleetRow['fleet_group'] != 0)
 		{
 			$acsResult		= $this->getFleets($fleetRow['fleet_group']);
 			$EventString	= '';
