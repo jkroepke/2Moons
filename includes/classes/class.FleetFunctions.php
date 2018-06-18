@@ -150,11 +150,11 @@ class FleetFunctions
 
 	public static function GetFleetRoom($Fleet)
 	{
-		global $pricelist;
+		global $pricelist, $USER;
 		$FleetRoom 				= 0;
 		foreach ($Fleet as $ShipID => $amount)
 		{
-			$FleetRoom		   += $pricelist[$ShipID]['capacity'] * $amount;
+			$FleetRoom		   += $pricelist[$ShipID]['capacity'] * $amount * (1 + $USER['factor']['ShipStorage']);
 		}
 		return $FleetRoom;
 	}
