@@ -372,13 +372,9 @@ class ShowOverviewPage extends AbstractGamePage
 					$NewCurrentQueue[] = $ListIDArray;
 				}
 			}
-
-			$sql = "UPDATE %%USERS%% SET b_tech_planet = :b_tech_planet, b_tech_queue = :b_tech_queue WHERE id = :id;";
-			$db->update($sql, array(
-				':b_tech_planet' => $USER['id_planet'],
-				':b_tech_queue' => serialize($NewCurrentQueue) ,
-				':id' => $USER['id'],
-			));
+			
+			$USER['b_tech_planet'] = $USER['id_planet'];
+			$USER['b_tech_queue'] = serialize($NewCurrentQueue);
 		}
 
 			if ($IfFleets > 0) {
