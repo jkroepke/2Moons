@@ -82,7 +82,7 @@ class FleetFunctions
 
 	public static function getExpeditionLimit($USER)
 	{
-		return floor(sqrt($USER[$GLOBALS['resource'][124]]));
+		return floor(sqrt($USER[$GLOBALS['resource'][124]])) + $USER['factor']['Expedition'];
 	}
 
 	public static function getDMMissionLimit($USER)
