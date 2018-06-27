@@ -362,6 +362,20 @@ class ShowOverviewPage extends AbstractGamePage
                 ':planetID' => $PLANET['id'],
                 ':lunaID'   => $PLANET['id_luna']
             ), 'state');
+			
+		if ($USER['b_tech_planet'] == $PLANET['id'] && !empty($USER['b_tech_queue'])) {
+			$TechQueue = unserialize($USER['b_tech_queue']);
+			$NewCurrentQueue = array();
+			foreach($TechQueue as $ID => $ListIDArray) {
+				if ($ListIDArray[4] == $PLANET['id']) {
+					$ListIDArray[4] = $USER['id_planet'];
+					$NewCurrentQueue[] = $ListIDArray;
+				}
+			}
+			
+			$USER['b_tech_planet'] = $USER['id_planet'];
+			$USER['b_tech_queue'] = serialize($NewCurrentQueue);
+		}
 
 			if ($IfFleets > 0) {
 				$this->sendJSON(array('message' => $LNG['ov_abandon_planet_not_possible']));
