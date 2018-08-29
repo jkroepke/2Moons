@@ -383,7 +383,7 @@ $LNG['se_recaptcha_private'] = 'Private Key:';
 $LNG['se_recaptcha_active'] = 'reCAPTCHA aktivieren';
 $LNG['se_reg_closed'] = 'Registrierung schlie&szlig;en';
 $LNG['se_min_build_time'] = 'Mindest Bauzeit';
-$LNG['se_min_build_time_info'] = 'Hier stellst du die Mindestbauzeit für Gebäude, Forschungen sowie Flotten und Verteidigung ein. Standartmäßig ist dies auf 1 Sekunde gesetzt.<br>Wenn hier eine 0 eingetragen wird, wird dies deaktivert<br><font color=orange>Es entstehen Bugs, wenn diese deaktivert wird!</font>';
+$LNG['se_min_build_time_info'] = 'Hier stellst du die Mindestbauzeit für Gebäude, Forschungen sowie Flotten und Verteidigung ein. Standardmäßig ist dies auf 1 Sekunde gesetzt.<br>Wenn hier eine 0 eingetragen wird, wird dies deaktivert<br><font color=orange>Es entstehen Bugs, wenn diese deaktivert wird!</font>';
 $LNG['se_trader_head'] = 'Schrotthändler-Einstellungen';
 $LNG['se_trader_ships'] = 'Erlaubte Schiffe:';
 $LNG['se_trader_charge'] = 'Handlergebühr:';
@@ -411,7 +411,7 @@ $LNG['se_smtp_ssl_2'] = 'SSL';
 $LNG['se_smtp_ssl_3'] = 'TLS';
 $LNG['se_smtp_ssl_info'] = 'Hier kannst du auswählen, ob eine sichere Verbindung zwischen deinem Server und dem Webserver aufgebaut werden soll. Wird in den seltensten Fällen benötigt';
 $LNG['se_smtp_port'] = 'SMTP Port:';
-$LNG['se_smtp_port_info'] = 'Trage hier den Port deines SMTP-Servers ein.<br>Standart: 25';
+$LNG['se_smtp_port_info'] = 'Trage hier den Port deines SMTP-Servers ein.<br>Standard: 25';
 $LNG['se_smtp_user'] = 'SMTP Username:';
 $LNG['se_smtp_pass'] = 'SMTP Passwort:';
 $LNG['se_smtp_sendmail'] = 'Absender Adresse:';
@@ -1169,7 +1169,7 @@ $LNG['ch_allowcelmes'] = 'Eigende Nachrichten löschen';
 $LNG['ch_logmessage'] = 'Aktiviere Logmessages';
 $LNG['ch_nickchange'] = 'Erlaube Nickwechsel';
 $LNG['ch_botname'] = 'Botname';
-$LNG['ch_channelname'] = 'Standart Channelname';
+$LNG['ch_channelname'] = 'Standard Channelname';
 
 
 //Active Page
