@@ -56,7 +56,7 @@ $LNG['loginPassword']				= 'Passwort';
 $LNG['loginButton']					= 'Login';
 $LNG['loginInfo']					= 'Mit dem Login akzeptiere ich die %s.';
 $LNG['loginWelcome']				= 'Willkommen bei %s';
-$LNG['loginServerDesc']				= '%s ist ein Weltraum-Strategiespiel mit hunderten Spielern die erdumgreifend <strong>gleichzeitig</strong> versuchen der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein Standartwebbrowser.';
+$LNG['loginServerDesc']				= '%s ist ein Weltraum-Strategiespiel mit hunderten Spielern die erdumgreifend <strong>gleichzeitig</strong> versuchen der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein Standardwebbrowser.';
 
 // Register
 $LNG['registerFacebookAccount']		= 'Facebook-Account';
