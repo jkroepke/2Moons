@@ -70,7 +70,6 @@ $LNG['sys_mess_spy_control'] 			= "Controlador espacial";
 $LNG['sys_mess_spy_activity'] 			= "Atividade de espionagem";
 $LNG['sys_mess_spy_ennemyfleet'] 		= "Uma frota inimiga do planeta";
 $LNG['sys_mess_spy_seen_at'] 			= "Foi avistada perto do teu planeta";
-$LNG['sys_mess_spy_seen_at2']           = 'espionagem';
 $LNG['sys_mess_spy_destroyed']          = '<font color="red">As tua frota foi descoberta e destruida!</font>';
 $LNG['sys_adress_planet']               = '[%s:%s:%s]';
 
