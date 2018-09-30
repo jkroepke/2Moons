@@ -43,12 +43,12 @@ class Steemconnect
 
 	public static function getLoginUrl()
 	{
-		return 'https://v2.steemconnect.com/oauth2/authorize?client_id=' . self::$CLIENT_ID . '&redirect_uri=' . HTTP_PATH.'index.php&scope=' . self::$SCOPE;
+		return 'https://steemconnect.com/oauth2/authorize?client_id=' . self::$CLIENT_ID . '&redirect_uri=' . HTTP_PATH.'index.php&scope=' . self::$SCOPE;
 	}
 
 	public static function getAdminUrl()
 	{
-		return 'https://v2.steemconnect.com/oauth2/authorize?client_id=' . self::$CLIENT_ID . '&redirect_uri=' . HTTP_PATH.'admin.php&scope=' . self::$SCOPE;
+		return 'https://steemconnect.com/oauth2/authorize?client_id=' . self::$CLIENT_ID . '&redirect_uri=' . HTTP_PATH.'admin.php&scope=' . self::$SCOPE;
 	}
 
 	protected function login()
@@ -56,7 +56,7 @@ class Steemconnect
 		$authstr = "authorization: " . $this->access_token;
 		$check = curl_init();
 		curl_setopt_array($check, array(
-			CURLOPT_URL => "https://v2.steemconnect.com/api/me",
+			CURLOPT_URL => "https://steemconnect.com/api/me",
 			CURLOPT_RETURNTRANSFER => true,
 			CURLOPT_ENCODING => "",
 			CURLOPT_MAXREDIRS => 1,
@@ -104,7 +104,7 @@ class Steemconnect
 			$headers = array($authstr,"Content-Type: application/json");
 			$check = curl_init();
 			curl_setopt_array($check, array(
-				CURLOPT_URL => "https://v2.steemconnect.com/api/oauth2/token/revoke",
+				CURLOPT_URL => "https://steemconnect.com/api/oauth2/token/revoke",
 				CURLOPT_RETURNTRANSFER => true,
 				CURLOPT_ENCODING => "",
 				CURLOPT_MAXREDIRS => 1,
