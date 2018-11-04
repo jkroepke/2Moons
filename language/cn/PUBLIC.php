@@ -35,12 +35,7 @@ $LNG['buttonScreenshot']			= '截图';
 $LNG['buttonLostPassword']			= '忘记密码？';
 
 // Start
-$LNG['gameInformations']			= array(
-	'一个即时宇宙策略游戏。',
-	'与数百玩家同台竞技。',
-	'无需下载，只需要一个标准的浏览器。',
-	'免费注册。',
-);
+$LNG['gameInformations']			= "一个即时宇宙策略游戏。\n与数百玩家同台竞技。\n无需下载，只需要一个标准的浏览器。\n免费注册。";
 
 // Login
 $LNG['loginHeader']					= '登录';
