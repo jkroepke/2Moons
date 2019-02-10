@@ -125,19 +125,15 @@ class ShowTicketPage extends AbstractGamePage
 
 		$ticketID			= HTTP::_GP('id', 0);
 
-		$sql = "SELECT a.*, t.categoryID, t.status FROM %%TICKETS_ANSWER%% a INNER JOIN %%TICKETS%% t USING(ticketID) WHERE a.ticketID = :ticketID ORDER BY a.answerID;";
+		$sql = "SELECT a.*, t.categoryID, t.status FROM %%TICKETS_ANSWER%% a INNER JOIN %%TICKETS%% t USING(ticketID) WHERE a.ticketID = :ticketID AND t.ownerID = :ownerID ORDER BY a.answerID;";
 		$answerResult = $db->select($sql, array(
-			':ticketID'	=> $ticketID
+			':ticketID'	=> $ticketID,
+			':ownerID'	=> $USER['id']
 		));
 
 		$answerList			= array();
-		
-		
-		$ticketOwner = $db->selectSingle("SELECT ownerID FROM %%TICKETS%% WHERE ticketID = :ticketID;", array(
-			':ticketID'	=> $ticketID
-		))['ownerID'];
 
-		if(empty($answerResult) || $USER['id'] != $ticketOwner) {
+		if(empty($answerResult)) {
 			$this->printMessage(sprintf($LNG['ti_not_exist'], $ticketID), array(array(
 				'label'	=> $LNG['sys_back'],
 				'url'	=> 'game.php?page=ticket'
