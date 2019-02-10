@@ -131,8 +131,13 @@ class ShowTicketPage extends AbstractGamePage
 		));
 
 		$answerList			= array();
+		
+		
+		$ticketOwner = $db->selectSingle("SELECT ownerID FROM %%TICKETS%% WHERE ticketID = :ticketID;", array(
+			':ticketID'	=> $ticketID
+		))['ownerID'];
 
-		if(empty($answerResult)) {
+		if(empty($answerResult) || $USER['id'] != $ticketOwner) {
 			$this->printMessage(sprintf($LNG['ti_not_exist'], $ticketID), array(array(
 				'label'	=> $LNG['sys_back'],
 				'url'	=> 'game.php?page=ticket'
