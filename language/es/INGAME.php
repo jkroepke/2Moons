@@ -106,7 +106,8 @@ $LNG['ov_newname_done']						= 'Planeta renombrado con éxito!';
 $LNG['ov_planet_abandoned']					= 'Planeta fue abandonado con éxito.';
 $LNG['ov_principal_planet_cant_abanone']	= 'El planeta principal no puede ser abandonado.';
 $LNG['ov_abandon_planet_not_possible']		= 'No se puede abandonar la colonia si hay flota desplegada.';
-$LNG['ov_wrong_pass']						= 'Contraseña incorrecta. Intentalo de nuevo.';
+$LNG['ov_wrong_pass']						= 'Contraseña incorrecta. Intentalo de nuevo!';
+$LNG['ov_wrong_name']						= 'Nombre incorrecta. Intentalo de nuevo!';
 $LNG['ov_have_new_message']					= 'Tienes 1 mensaje nuevo';
 $LNG['ov_have_new_messages']				= 'Tienes %d mensajes nuevos';
 $LNG['ov_planetmenu']						= 'Cambiar Nombre/Eliminar';
@@ -961,9 +962,9 @@ $LNG['cff_mission_own_expo_1']				= 'Una %s Vuelve de %s  hacia %s %s %s. Misi&o
 $LNG['cff_mission_own_expo_2']				= 'Una %s de %s %s %s va de expedici&oacute;n m&aacute;s alla de la posici&oacute;n %s. Misi&oacute;n: %s';
 $LNG['cff_mission_own_recy_0']				= 'Una %s de %s %s %s se dirige al campo de escombros en la posici&oacute;n %s. Misi&oacute;n: %s';
 $LNG['cff_mission_own_recy_1']				= 'Una %s vuelve del campo de escombros en la posici&oacute;n %s hacia %s %s %s. Misi&oacute;n: %s';
-$LNG['cff_mission_target_bad']				= 'Una %s hostil del jugador %s de %s %s %s espia la posici&oacute;n %s %s %s %s. Misi&oacute;n: %s';
-$LNG['cff_mission_target_good']				= 'Una %s hostil del jugador %s de %s %s %s espia la posici&oacute;n %s %s %s %s. Misi&oacute;n: %s';
-$LNG['cff_mission_target_stay']				= 'Una %s pac&iacute;fica del jugador %s de %s %s %s esta en orbita en %s %s %s %s. Misi&oacute;n: %s';
+$LNG['cff_mission_target_bad']				= 'Una %s hostil del jugador %s de %s %s %s espia la posici&oacute;n %s %s %s. Misi&oacute;n: %s';
+$LNG['cff_mission_target_good']				= 'Una %s hostil del jugador %s de %s %s %s espia la posici&oacute;n %s %s %s. Misi&oacute;n: %s';
+$LNG['cff_mission_target_stay']				= 'Una %s pac&iacute;fica del jugador %s de %s %s %s esta en orbita en %s %s %s. Misi&oacute;n: %s';
 $LNG['cff_mission_target_mip']				= 'Ataque con Misiles (%d) del jugador %s de %s %s %s a la posici&oacute;n %s %s %s.';
 
 //----------------------------------------------------------------------------//
@@ -1126,8 +1127,8 @@ $LNG['rec_last_update_on']   				= 'La última actualización fue: %s';
 //----------------------------------------------------------------------------//
 // BattleSimulator
 
-$LNG['bs_derbis_raport']					= "Necesitas %s %s o %s %s para el campo de escombros.";
-$LNG['bs_steal_raport']						= "Necesitas robar  %s %s o %s %s o %s %s .";
+$LNG['bs_derbis_raport']					= "Necesitas %s %s para el campo de escombros.";
+$LNG['bs_steal_raport']						= "Necesitas robar  %s %s o %s %s.";
 $LNG['bs_names']							= "Nave";
 $LNG['bs_atter']							= "Agresor";
 $LNG['bs_deffer']							= "Defensor";

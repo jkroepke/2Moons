@@ -1,6 +1,6 @@
 {block name="title" prepend}{$LNG.lm_info}{/block}
 {block name="content"}
-<table style="width:100%;">
+<table>
 	<tbody>
 	<tr>
 		<th>{$LNG.tech.$elementID}</th>

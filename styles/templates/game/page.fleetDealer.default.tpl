@@ -2,7 +2,7 @@
 {block name="content"}
 <form action="game.php?page=fleetDealer" method="post">
 	<input type="hidden" name="mode" value="send">
-	<table style="width:760px;">
+	<table>
         <tr>
 			<th>{$LNG.ft_head}</th>
 		</tr>

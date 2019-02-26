@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -19,7 +19,7 @@
 //date_default_timezone_set('America/Chicago');
 
 //TEMPLATES DEFAULT SETTINGS
-define('DEFAULT_THEME'	 		    , 'gow');
+define('DEFAULT_THEME'	 		    , 'nova');
 define('HTTPS'						, isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"]  == 'on');
 define('PROTOCOL'					, HTTPS ? 'https://' : 'http://');
 if(PHP_SAPI === 'cli')
@@ -52,6 +52,8 @@ if(!defined('CACHE_PATH')) {
 	define('CACHE_PATH', ROOT_PATH.'cache/');
 }
 
+define('DISCORD_URL'				, 'https://discord.gg/HwAwdKw');
+
 define('COMBAT_ENGINE'				, 'xnova');
 
 // For Fatal Errors!
@@ -76,10 +78,10 @@ define('INACTIVE_LONG'				, 2419200);
 define('FACTOR_CANCEL_SHIPYARD'		, 0.6);
 
 // MINIMUM FLEET TIME
-define('MIN_FLEET_TIME'				, 5);	
+define('MIN_FLEET_TIME'				, 5);
 
 // PHALANX COST'S
-define('PHALANX_DEUTERIUM'			, 5000);	
+define('PHALANX_DEUTERIUM'			, 5000);
 
 // Time of changable nick after changing nick.
 define('USERNAME_CHANGETIME'		, 604800);
@@ -107,7 +109,7 @@ define('ENABLE_SIMULATOR_LINK'		, true);
 define('SESSION_LIFETIME'			, 43200);
 
 // ENABLE Mutlialert on sending fleets
-define('ENABLE_MULTIALERT'			, true);
+define('ENABLE_MULTIALERT'			, false);
 
 // UTF-8 support for names (required for non-english chars!)
 define('UTF8_SUPPORT'				, true);
@@ -118,7 +120,7 @@ define('UTF8_SUPPORT'				, true);
 		min amount of spies = -1 * (abs([Spy tech level of sender] - [Spy tech level of target]) * SPY_DIFFENCE_FACTOR) ^ 2;
 	else
 		min amount of spies = -1 * (abs([Spy tech level of sender] - [Spy tech level of target]) * SPY_DIFFENCE_FACTOR) ^ 2;
-	
+
 */
 define('SPY_DIFFENCE_FACTOR'		, 1);
 
@@ -134,21 +136,21 @@ define('SPY_DIFFENCE_FACTOR'		, 1);
 define('SPY_VIEW_FACTOR'			, 1);
 
 // Bash Settings
-define('BASH_ON'					, false);	
-define('BASH_COUNT'					, 6);	
-define('BASH_TIME'					, 86400);	
+define('BASH_ON'					, true);
+define('BASH_COUNT'					, 6);
+define('BASH_TIME'					, 86400);
 
 // Bash rule on wars:
 // 0 = NORMAL
 // 1 = ON WAR, BASH RULE IS DEACTIVE
-define('BASH_WAR'					, 0);
+define('BASH_WAR'					, 1);
 
 // MINIMUM FLEET TIME MUST HIGHER THEN BASH_TIME
-define('FLEETLOG_AGE'				, 86400);	
+define('FLEETLOG_AGE'				, 86400);
 
 // Root IDs
-define('ROOT_UNI'					, 1);	
-define('ROOT_USER'					, 1);	
+define('ROOT_UNI'					, 1);
+define('ROOT_USER'					, 1);
 
 // AUTHLEVEL
 define('AUTH_ADM'					, 3);
@@ -182,9 +184,11 @@ define('MODULE_MISSION_DESTROY'		, 29);
 define('MODULE_MISSION_EXPEDITION'	, 30);
 define('MODULE_MISSION_HOLD'		, 33);
 define('MODULE_MISSION_RECYCLE'		, 32);
+define('MODULE_MISSION_TRADE'		, 44);
 define('MODULE_MISSION_SPY'			, 24);
 define('MODULE_MISSION_STATION'		, 36);
 define('MODULE_MISSION_TRANSPORT'	, 34);
+define('MODULE_MISSION_TRANSFER'	, 45);
 define('MODULE_NOTICE'				, 17);
 define('MODULE_OFFICIER'			, 18);
 define('MODULE_PHALANX'				, 19);

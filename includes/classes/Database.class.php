@@ -1,6 +1,6 @@
 <?php
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -88,7 +88,7 @@ class Database
 	{
 		return $this->rowCount;
 	}
-	
+
 	protected function _query($qry, array $params, $type)
 	{
 		if (in_array($type, array("insert", "select", "update", "delete", "replace")) === false)
@@ -98,7 +98,7 @@ class Database
 
 		$this->lastInsertId = false;
 		$this->rowCount = false;
-		
+
 		$qry	= str_replace($this->dbTableNames['keys'], $this->dbTableNames['names'], $qry);
 
 		/** @var $stmt PDOStatement */
@@ -203,7 +203,7 @@ class Database
 		$res = $stmt->fetch(PDO::FETCH_ASSOC);
 		return ($field === false || is_null($res)) ? $res : $res[$field];
 	}
-	
+
 	/**
 	 * Lists column values of a table
 	 * with desired key from the
@@ -217,7 +217,7 @@ class Database
 	public function lists($table, $column, $key = null)
 	{
 		$selects = implode(', ', is_null($key) ? array($column) : array($column, $key));
-		
+
 		$qry = "SELECT {$selects} FROM %%{$table}%%;";
 		$stmt = $this->_query($qry, array(), 'select');
 

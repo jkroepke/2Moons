@@ -101,7 +101,8 @@ $LNG['ov_newname_done']                   = 'Планета переименов
 $LNG['ov_planet_abandoned']               = 'Планета удалена.';
 $LNG['ov_principal_planet_cant_abanone']  = 'Главную планету невозможно удалить.';
 $LNG['ov_abandon_planet_not_possible']    = 'Невозможно удалить планету, когда с неё или на неё летит флот.';
-$LNG['ov_wrong_pass']                     = 'Неправильный пароль, попробуйте ввести заново.';
+$LNG['ov_wrong_pass']                     = 'Неправильный пароль, попробуйте ввести заново!';
+$LNG['ov_wrong_name']                     = 'Неправильный название, попробуйте ввести заново!';
 $LNG['ov_have_new_message']               = 'Новых сообщений: 1';
 $LNG['ov_have_new_messages']              = 'Новых сообщений: %d';
 $LNG['ov_planetmenu']                     = 'Переименовать/удалить планету';
@@ -1089,8 +1090,8 @@ $LNG['rec_count']                         = 'Количество';
 $LNG['rec_last_update_on']                = 'Последнее обновление';
 
 // Симулятор боя
-$LNG['bs_derbis_raport']                  = 'Для сбора обломков понадобится: %s %s или %s %s.';
-$LNG['bs_steal_raport']                   = 'Для вывоза ресурсов понадобится: %s %s или %s %s или %s %s.';
+$LNG['bs_derbis_raport']                  = 'Для сбора обломков понадобится: %s %s.';
+$LNG['bs_steal_raport']                   = 'Для вывоза ресурсов понадобится: %s %s или %s %s.';
 $LNG['bs_names']                          = 'Корабль';
 $LNG['bs_atter']                          = 'Атакующий';
 $LNG['bs_deffer']                         = 'Обороняющийся';

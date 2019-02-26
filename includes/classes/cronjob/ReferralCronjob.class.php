@@ -30,8 +30,10 @@ class ReferralCronJob implements CronjobTask
 
 		$db	= Database::get();
 
-		$sql	= 'SELECT `username`, `ref_id`, `id`, `lang`, user.`universe`
+		$sql	= 'SELECT user.`username`, user.`ref_id`, user.`id`, ref_users.`lang`, user.`universe`
 		FROM %%USERS%% user
+		INNER JOIN %%USERS%% as ref_users
+		ON ref_users.`id` = user.`ref_id`
 		INNER JOIN %%STATPOINTS%% as stats
 		ON stats.`id_owner` = user.`id` AND stats.`stat_type` = :type AND stats.`total_points` >= :points
 		WHERE user.`ref_bonus` = 1;';
@@ -66,7 +68,7 @@ class ReferralCronJob implements CronjobTask
 			));
 
 			$Message	= sprintf($LNG['sys_refferal_text'], $user['username'], pretty_number($userConfig->ref_minpoints), pretty_number($userConfig->ref_bonus), $LNG['tech'][921]);
-			PlayerUtil::sendMessage($user['ref_id'], '', $LNG['sys_refferal_from'], 4, sprintf($LNG['sys_refferal_title'], $user['username']), $Message, TIMESTAMP);
+			PlayerUtil::sendMessage($user['ref_id'], 0, $LNG['sys_refferal_from'], 4, sprintf($LNG['sys_refferal_title'], $user['username']), $Message, TIMESTAMP);
 		}
 
 		return true;

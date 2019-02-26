@@ -87,6 +87,10 @@ class ShowGalaxyPage extends AbstractGamePage
 		$galaxyRows->setGalaxy($galaxy);
 		$galaxyRows->setSystem($system);
 		$Result	= $galaxyRows->getGalaxyData();
+		if (gettype($Result) == "NULL")
+		{
+			$Result = [];
+		}
 
         $this->tplObj->loadscript('galaxy.js');
         $this->assign(array(
@@ -101,7 +105,6 @@ class ShowGalaxyPage extends AbstractGamePage
 			'maxfleetcount'				=> FleetFunctions::GetCurrentFleets($USER['id']),
 			'fleetmax'					=> FleetFunctions::GetMaxFleetSlots($USER),
 			'currentmip'				=> $PLANET[$resource[503]],
-			'grecyclers'   				=> $PLANET[$resource[219]],
 			'recyclers'   				=> $PLANET[$resource[209]],
 			'spyprobes'   				=> $PLANET[$resource[210]],
 			'missile_count'				=> sprintf($LNG['gl_missil_to_launch'], $PLANET[$resource[503]]),

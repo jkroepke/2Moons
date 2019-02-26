@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -15,7 +15,7 @@
  * @link https://github.com/jkroepke/2Moons
  */
 
-define('DB_VERSION_REQUIRED', 4);
+define('DB_VERSION_REQUIRED', 7);
 define('DB_NAME'			, $database['databasename']);
 define('DB_PREFIX'			, $database['tableprefix']);
 
@@ -36,6 +36,7 @@ $dbTableNames	= array(
 	'CRONJOBS'			=> DB_PREFIX.'cronjobs',
 	'CRONJOBS_LOG'		=> DB_PREFIX.'cronjobs_log',
 	'DIPLO'				=> DB_PREFIX.'diplo',
+	'TRADES'			=> DB_PREFIX.'trades',
 	'FLEETS'			=> DB_PREFIX.'fleets',
 	'FLEETS_EVENT'		=> DB_PREFIX.'fleet_event',
 	'LOG'				=> DB_PREFIX.'log',

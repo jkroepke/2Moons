@@ -74,6 +74,7 @@ class ShowOverviewPage extends AbstractGamePage
 		return $fleetTableObj->renderTable();
 	}
 	
+	// unused?
 	function savePlanetAction()
 	{
 		global $USER, $PLANET, $LNG;
@@ -263,10 +264,22 @@ class ShowOverviewPage extends AbstractGamePage
 				$statData['total_rank'], $statData['total_rank'], $LNG['ov_of'], $config->users_amount);
 		}
 		
+		$usersOnline = Database::get()->selectSingle(
+			'SELECT COUNT(*)
+			FROM %%USERS%% WHERE onlinetime >= UNIX_TIMESTAMP(NOW() - INTERVAL 15 MINUTE)'
+		)['COUNT(*)'];
+
+		$fleetsOnline = Database::get()->selectSingle(
+			'SELECT COUNT(*)
+			FROM %%FLEETS%%'
+		)['COUNT(*)'];
+
 		$this->assign(array(
 			'rankInfo'					=> $rankInfo,
 			'is_news'					=> $config->OverviewNewsFrame,
 			'news'						=> makebr($config->OverviewNewsText),
+			'usersOnline'				=> $usersOnline,
+			'fleetsOnline'				=> $fleetsOnline,
 			'planetname'				=> $PLANET['name'],
 			'planetimage'				=> $PLANET['image'],
 			'galaxy'					=> $PLANET['galaxy'],
@@ -349,13 +362,28 @@ class ShowOverviewPage extends AbstractGamePage
                 ':planetID' => $PLANET['id'],
                 ':lunaID'   => $PLANET['id_luna']
             ), 'state');
+			
+		if ($USER['b_tech_planet'] == $PLANET['id'] && !empty($USER['b_tech_queue'])) {
+			$TechQueue = unserialize($USER['b_tech_queue']);
+			$NewCurrentQueue = array();
+			foreach($TechQueue as $ID => $ListIDArray) {
+				if ($ListIDArray[4] == $PLANET['id']) {
+					$ListIDArray[4] = $USER['id_planet'];
+					$NewCurrentQueue[] = $ListIDArray;
+				}
+			}
+			
+			$USER['b_tech_planet'] = $USER['id_planet'];
+			$USER['b_tech_queue'] = serialize($NewCurrentQueue);
+		}
 
 			if ($IfFleets > 0) {
 				$this->sendJSON(array('message' => $LNG['ov_abandon_planet_not_possible']));
 			} elseif ($USER['id_planet'] == $PLANET['id']) {
 				$this->sendJSON(array('message' => $LNG['ov_principal_planet_cant_abanone']));
-			} elseif (PlayerUtil::cryptPassword($password) != $USER['password']) {
-				$this->sendJSON(array('message' => $LNG['ov_wrong_pass']));
+			// } elseif (PlayerUtil::cryptPassword($password) != $USER['password']) {
+			} elseif ($password != $PLANET['name']) {
+				$this->sendJSON(array('message' => $LNG['ov_wrong_name']));
 			} else {
                 if($PLANET['planet_type'] == 1) {
                     $sql = "UPDATE %%PLANETS%% SET destruyed = :time WHERE id = :planetID;";

@@ -56,14 +56,14 @@ $LNG['loginPassword']				= 'Passwort';
 $LNG['loginButton']					= 'Login';
 $LNG['loginInfo']					= 'Mit dem Login akzeptiere ich die %s.';
 $LNG['loginWelcome']				= 'Willkommen bei %s';
-$LNG['loginServerDesc']				= '%s ist ein Weltraum-Strategiespiel mit hunderten Spielern die erdumgreifend <strong>gleichzeitig</strong> versuchen der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein Standartwebbrowser.';
+$LNG['loginServerDesc']				= '%s ist ein Weltraum-Strategiespiel mit hunderten Spielern die erdumgreifend <strong>gleichzeitig</strong> versuchen der/die Beste zu werden. Alles was ihr zum spielen braucht ist ein Standardwebbrowser.';
 
 // Register
 $LNG['registerFacebookAccount']		= 'Facebook-Account';
 $LNG['registerUsername']			= 'Nickname';
 $LNG['registerUsernameDesc']		= 'Der Nickname muss mindestens 3 und darf maximal 25 Zeichen und darf nur aus Zahlen, Buchstaben, Punkte, Binde- und Unterstriche und Leerzeichen bestehen';
 $LNG['registerPassword']			= 'Passwort';
-$LNG['registerPasswordDesc']		= 'Das Passwort muss mindestens 8 Zeichen lang sein.';
+$LNG['registerPasswordDesc']		= 'Das Passwort muss mindestens %s Zeichen lang sein.';
 $LNG['registerPasswordReplay']		= 'Passwort widerhohlen';
 $LNG['registerPasswordReplayDesc']	= 'Bitte wiederhole zur Sicherheit die Eingabe deines Paswortes!';
 $LNG['registerEmail']				= 'E-Mail';
@@ -85,7 +85,7 @@ $LNG['registerErrorUniClosed']		= 'Die Registrierung ist in diesem Universum ges
 $LNG['registerErrorUsernameEmpty']	= 'Du hast keinen Nicknamen eingeben!';
 $LNG['registerErrorUsernameChar']	= 'Im Nickname sind nur Zahlen, Buchstaben, Leerzeichen, _, -, . erlaubt!';
 $LNG['registerErrorUsernameExist']	= 'Der Nickname ist bereits vergeben!';
-$LNG['registerErrorPasswordLength']	= 'Das Passwort muss mindestens 6 Zeichen lang sein!';
+$LNG['registerErrorPasswordLength']	= 'Das Passwort muss mindestens %s Zeichen lang sein!';
 $LNG['registerErrorPasswordSame']	= 'Sie haben 2 unterschiedliche Passwörter eingegeben!';
 $LNG['registerErrorMailEmpty']		= 'Du musst eine E-Mail-Adresse angeben!';
 $LNG['registerErrorMailInvalid']	= 'Ungültige E-Mail-Adresse!';

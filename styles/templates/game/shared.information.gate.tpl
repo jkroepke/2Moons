@@ -1,4 +1,4 @@
-<table style="width:100%;">
+<table>
 	<tbody>
 		<tr style="height:20px;">
 			<th colspan="3" class="left">{$LNG.in_jump_gate_select_ships}</th>

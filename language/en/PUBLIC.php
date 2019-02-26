@@ -65,7 +65,7 @@ $LNG['registerFacebookAccount']		= 'Facebook Account';
 $LNG['registerUsername']			= 'Username';
 $LNG['registerUsernameDesc']		= 'The Username must be at least 3 and maximum of 25 characters and points, and may consist of numbers, letters, underscores and spaces';
 $LNG['registerPassword']			= 'Password';
-$LNG['registerPasswordDesc']		= 'The password must be at least 8 characters long.';
+$LNG['registerPasswordDesc']		= 'The password must be at least %s characters long.';
 $LNG['registerPasswordReplay']		= 'Repeat Password';
 $LNG['registerPasswordReplayDesc']	= 'Please enter the same password.';
 $LNG['registerEmail']				= 'E-Mail';
@@ -87,7 +87,7 @@ $LNG['registerErrorUniClosed']		= 'The registration is closed in this universe.!
 $LNG['registerErrorUsernameEmpty']	= 'You must enter a username!';
 $LNG['registerErrorUsernameChar']	= 'Your username must consist in numbers, Letters, Spaces, _, -, . only!';
 $LNG['registerErrorUsernameExist']	= 'The username is already taken!';
-$LNG['registerErrorPasswordLength']	= 'The password must be at least 6 characters long!';
+$LNG['registerErrorPasswordLength']	= 'The password must be at least %s characters long!';
 $LNG['registerErrorPasswordSame']	= 'Entering 2 different Passwords!';
 $LNG['registerErrorMailEmpty']		= 'You must specify an E-Mail address!';
 $LNG['registerErrorMailInvalid']	= 'Invalid E-Mail address!';
@@ -105,7 +105,7 @@ $LNG['registerSendComplete']		= 'Thank you for the registration. You must check 
 
 $LNG['registerWelcomePMSenderName']	= 'Administrator';
 $LNG['registerWelcomePMSubject']	= 'Welcome';
-$LNG['registerWelcomePMText']		= 'Welcome to %s! First build a solar power plant,because energy is needed for the production of raw materials. To build one, left click in the menu on "buildings". Then build the 4th Building from the top. </br> When you have energy, you can begin to build mines. Go to buildings on the menu and build a metal mine, followed by a crystal mine. </br></br>In order to be able to build ships you need to have a shipyard. To see what is needed to unlock that building you can take a look at "Technologies" at the left menu.</br>If you more questions you can look at the beginnersguide, our forum or open a support ticket. </br></br> The team wishes you much fun exploring the universe!';
+$LNG['registerWelcomePMText']		= 'Welcome to %s! First build a solar power plant, because energy is needed for the production of raw materials. To build one, left click in the menu on "buildings". Then build the 4th Building from the top. </br> When you have energy, you can begin to build mines. Go to buildings on the menu and build a metal mine, followed by a crystal mine. </br></br>In order to be able to build ships you need to have a shipyard. To see what is needed to unlock that building you can take a look at "Technologies" at the left menu.</br>If you more questions you can look at the beginnersguide, our forum or open a support ticket. </br></br> The team wishes you much fun exploring the universe!';
 
 //Vertify
 

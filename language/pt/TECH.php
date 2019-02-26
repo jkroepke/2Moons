@@ -171,8 +171,8 @@ $LNG['tech'] = array(
 	611 => 'Comandante',
 	612 => 'Destruidor',
 	613 => 'General',
-	614 => 'Imperador',
-	615 => 'Raider',
+	614 => 'Raider',
+	615 => 'Imperador',
 
 	700 => 'Optimizações Premium',
 	701 => 'Otimização de Armas',
@@ -282,8 +282,8 @@ $LNG['shortDescription'] = array(
 	611 => 'O comandante faz parte do exército imperial e especializou-se na arte de coordenar as frotas. O seu cérebro e capaz de calcular um grande número de trajectorias.',
 	612 => 'O destruidor é também um membro do exército imperial mas sem piedade. Desfaz tudo que se mete no seu caminho apenas por diversão.',
 	613 => 'O General é uma personagem que serviu durante muitos anos o exército imperial. Os trabalhadores tem uma produção de naves mais rápida na sua presença.',
-	614 => 'Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisível. O imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis.',
-	615 => 'Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto imperial',
+	614 => 'Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto imperial',
+	615 => 'Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisível. O imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis.',
 
 	701 => 'Este bonus aumenta o valor de ataque.',
 	702 => 'Este bonus aumenta o valor de escudos da defesa e das naves.',
@@ -292,6 +292,14 @@ $LNG['shortDescription'] = array(
 	705 => 'Este bonus aumenta a produção de energia.',
 	706 => 'Este bonus diminui o tempo de pesquisas.',
 	707 => 'Este bonus diminui o tempo de voo.',
+
+//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
+901 => 'Metal is the main resource for Buildings and Ships. It is the cheapest resource, but it is needed the most as well. Producing Metal is the least energy expensive. The bigger the mines are, the deeper they dig into the earth.',
+902 => 'Crystals are the main resource used to build electronic circuits and form certain alloy compounds.',
+903 => 'Deuterium is found in the deepest sea. It belongs to the rarest resources in the Universe. Because you have to get to the ground of the sea in order to get Deuterium, it is the most expensive resource.',
+911 => 'Energy is needed for the production of every resource.',
+921 => 'Dark Matter is a very mysterious resource. Nobody really knows where it comes from. Sometimes it just appears out of nowhere. You can use Dark Matter to hire the most experienced officers in the universe.',
+//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
 );
 
 // Longa Descrição
@@ -385,8 +393,8 @@ $LNG['longDescription'] = array(
 	611 => 'O comandante faz parte do exército imperial e especializou-se na arte de coordenar as frotas. O seu cérebro e capaz de calcular um grande número de trajectorias.',
 	612 => 'O destruidor é também um membro do exército imperial mas sem piedade. Desfaz tudo que se mete no seu caminho apenas por diversão.',
 	613 => 'O General é uma personagem que serviu durante muitos anos o exército imperial. Os trabalhadores tem uma produção de naves mais rápida na sua presença.',
-	614 => 'Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisível. O imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis.',
-	615 => 'Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto imperial',
+	614 => 'Esta personagem possui qualidades de conquista inigualáveis. Este sugere que tu te tornes um Raider. O Raider e o nivel mais alto imperial',
+	615 => 'Quando colocados sob o comando do imperador todos os oficiais do império, combinando suas habilidades para dominar o universo são capazes de se tornar num adversário quase invisível. O imperador colocado sob o seu comando disponíveis para todos os oficiais do império, combinando suas habilidades para dominar o universo e tornar-se um adversário quase invisíveis.',
 
 	701 => 'Este bonus aumenta o valor de ataque.',
 	702 => 'Este bonus aumenta o valor de escudos da defesa e das naves.',
@@ -395,4 +403,12 @@ $LNG['longDescription'] = array(
 	705 => 'Este bonus aumenta a produção de energia.',
 	706 => 'Este bonus diminui o tempo de pesquisas.',
 	707 => 'Este bonus diminui o tempo de voo.',
+
+//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
+    901 => 'Metal is the main resource for Buildings and Ships. It is the cheapest resource, but it is needed the most as well. Producing Metal is the least energy expensive. The bigger the mines are, the deeper they dig into the earth.',
+    902 => 'Crystals are the main resource used to build electronic circuits and form certain alloy compounds. It gets produced in mines under the ground, where the raw material instantly is made into cicuits.',
+    903 => 'Deuterium is found in the deepest sea. It belongs to the rarest resources in the Universe. Because you have to get to the ground of the sea in order to get Deuterium, it is the most expensive resource.',
+    911 => 'Energy is needed for the production of every resource.',
+    921 => 'Dark Matter is a very mysterious resource. Nobody really knows where it comes from. Sometimes it just appears out of nowhere and sometimes it is even found in old ships. Some even say that it doesn\'t exist, but it has been proven otherwise. You can use Dark Matter to hire the most experienced officers in the universe.',
+//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
 );

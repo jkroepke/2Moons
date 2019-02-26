@@ -1,10 +1,11 @@
+<!-- unused due to page.messages.default.tpl -->
 {block name="content"}
 <form action="game.php?page=messages" method="post">
 <input type="hidden" name="mode" value="action">
 <input type="hidden" name="ajax" value="1">
 <input type="hidden" name="messcat" value="{$MessID}">
 <input type="hidden" name="side" value="{$page}">
-<table id="messagestable" style="width:760px;">
+<table id="messagestable">
 	<tr>
 		<th colspan="4">{$LNG.mg_message_title}</th>
 	</tr>

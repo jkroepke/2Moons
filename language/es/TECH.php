@@ -179,12 +179,12 @@ $LNG['tech'] = array(
 706 => 'Optimizaci&oacute;n de investigaciones',
 707 => 'Coordinaci&oacute;n de flota',
 
-	900 => 'Recursos',
-	901 => 'Metal',
-	902 => 'Cristal',
-	903 => 'Deutério',
-	911 => 'Energía',
-	921 => 'Materia Oscura',
+900 => 'Recursos',
+901 => 'Metal',
+902 => 'Cristal',
+903 => 'Deutério',
+911 => 'Energía',
+921 => 'Materia Oscura',
 );
 
 $LNG['shortDescription'] = array(
@@ -263,21 +263,21 @@ $LNG['shortDescription'] = array(
 502 => "Los misiles de intercepci&oacute;n destruyen los misiles interplanetarios.",
 503 => "Los misiles interplanetarios destruyen los sistemas de defensa del enemigo.",
 
-	601 => 'El ge&oacute;logo es un experto en astrominerolog&iacute;a y astrocristalograf&iacute;a. Asiste a sus equipos en la metalurgia y qu&iacute;mica y tambi&eacute;n se encarga de las comunicaciones interplanetarias para optimizar el uso y refinamiento de la materia bruta a lo largo de todo el imperio.',
-	602 => 'El almirante es un veterano de guerra experimentado y un habilidoso estratega. En las batallas mas duras, es capaz de hacerse una idea de la situaci&oacute;n y contactar a sus almirantes subordinados. Un emperador sabio puede apoyarse en su ayuda durante los combates.',
-	603 => 'El Ingeniero es un especialista en la gesti&oacute;n de energ&iacute;a. En tiempos de paz, aumenta la energ&iacute;a de todas las colonias. En caso de ataque, garantiza el abastecimiento de energ&iacute;a a los ca&ntilde;ones, evitando una posible sobrecarga, lo que conduce a una reducci&oacute;n de defensas perdidas en batalla.',
-	604 => 'El gremio de los tecn&oacute;cratas est&aacute; compuesto de aut&eacute;nticos genios, y siempre los encontrar&aacute;s en ese peligroso borde donde todo explotar&iacute;a en mil pedazos antes de poder encontrar una explicaci&oacute;n tecnol&oacute;gica y racional. Ning&uacute;n ser humano normal tratar&iacute;a jam&aacute;s descifrar el c&oacute;digo de un tecn&oacute;crata, con su presencia, inspira a los investigadores del imperio.',
-	605 => 'El Constructor tiene alterado su ADN, uno solo de estos hombres puede construir una ciudad entera en poco tiempo.',
-	606 => 'Los cient&iacute;ficos forman parte de un gremio concurrente al de los tecn&oacute;cratas. Ellos se especializan en la mejora de las tecnolog&iacute;as.',
-	607 => 'El Maestro del Almacén ha dominado el almacenaje de elementos valiosos y las habilidades de clasificación. A través de técnicas sofisticadas de almacenamiento y  ajustes estructurales puede aumentar el volumen útil de un espacio de almacenamiento de manera significativa.',
-	608 => 'El defensor es un miembro del ej&eacute;rcito imperial. Abocarse en su trabajo le permite construir una formidable defensa en un breve periodo de tiempo.',
-	609 => 'El Protector ha realizado un impresionante trabajo para el Reino y por ello se le dio la oportunidad de ser Protector. El protector es el reconocimiento más importante dentro del Ejército Imperial en materia de Defensa.',
-	610 => 'El esp&iacute;a es una persona enigm&aacute;tica. Nadie nunca vio su verdadero rostro, la &uacute;nica forma ser&iacute;a asesinandol&oacute;.',
-	611 => 'El comandante forma parte del ej&eacute;rcito imperial ha dominado el arte del manejo de flotas. Su cerebro puede calcular las trayectorias de una gran cantidad de flotas.',
-	612 => 'El destructor es un miembro del ej&eacute;rcito imperial sin misericordia. Masacra todo lo que est&aacute; a su paso s&oacute;lo por placer. Actualmente est&aacute; desarrollando un nuevo m&eacute;todo de producci&oacute;n de las estrellas de la muerte.',
-	613 => 'El general es una persona que ha servido desde hace muchos a&ntilde;os al ej&eacute;rcito imperial. Los fabricantes de naves producen naves m&aacute;s r&aacute;pidas si el lo pide.',
-	614 => 'El Conquistador posee cualidades innegables de la conquista. Es parte de la armada imperial, siendo el más alto nivel de educación que se puede alcanzar. Conoce como comandar la Estrella Negra.',
-	615 => 'Ha demostrado ser el más grande conquistador del universo. El universo es tuyo, siempre que se mantenga haciendo lo que se debe hacer.',
+601 => 'El ge&oacute;logo es un experto en astrominerolog&iacute;a y astrocristalograf&iacute;a. Asiste a sus equipos en la metalurgia y qu&iacute;mica y tambi&eacute;n se encarga de las comunicaciones interplanetarias para optimizar el uso y refinamiento de la materia bruta a lo largo de todo el imperio.',
+602 => 'El almirante es un veterano de guerra experimentado y un habilidoso estratega. En las batallas mas duras, es capaz de hacerse una idea de la situaci&oacute;n y contactar a sus almirantes subordinados. Un emperador sabio puede apoyarse en su ayuda durante los combates.',
+603 => 'El Ingeniero es un especialista en la gesti&oacute;n de energ&iacute;a. En tiempos de paz, aumenta la energ&iacute;a de todas las colonias. En caso de ataque, garantiza el abastecimiento de energ&iacute;a a los ca&ntilde;ones, evitando una posible sobrecarga, lo que conduce a una reducci&oacute;n de defensas perdidas en batalla.',
+604 => 'El gremio de los tecn&oacute;cratas est&aacute; compuesto de aut&eacute;nticos genios, y siempre los encontrar&aacute;s en ese peligroso borde donde todo explotar&iacute;a en mil pedazos antes de poder encontrar una explicaci&oacute;n tecnol&oacute;gica y racional. Ning&uacute;n ser humano normal tratar&iacute;a jam&aacute;s descifrar el c&oacute;digo de un tecn&oacute;crata, con su presencia, inspira a los investigadores del imperio.',
+605 => 'El Constructor tiene alterado su ADN, uno solo de estos hombres puede construir una ciudad entera en poco tiempo.',
+606 => 'Los cient&iacute;ficos forman parte de un gremio concurrente al de los tecn&oacute;cratas. Ellos se especializan en la mejora de las tecnolog&iacute;as.',
+607 => 'El Maestro del Almacén ha dominado el almacenaje de elementos valiosos y las habilidades de clasificación. A través de técnicas sofisticadas de almacenamiento y  ajustes estructurales puede aumentar el volumen útil de un espacio de almacenamiento de manera significativa.',
+608 => 'El defensor es un miembro del ej&eacute;rcito imperial. Abocarse en su trabajo le permite construir una formidable defensa en un breve periodo de tiempo.',
+609 => 'El Protector ha realizado un impresionante trabajo para el Reino y por ello se le dio la oportunidad de ser Protector. El protector es el reconocimiento más importante dentro del Ejército Imperial en materia de Defensa.',
+610 => 'El esp&iacute;a es una persona enigm&aacute;tica. Nadie nunca vio su verdadero rostro, la &uacute;nica forma ser&iacute;a asesinandol&oacute;.',
+611 => 'El comandante forma parte del ej&eacute;rcito imperial ha dominado el arte del manejo de flotas. Su cerebro puede calcular las trayectorias de una gran cantidad de flotas.',
+612 => 'El destructor es un miembro del ej&eacute;rcito imperial sin misericordia. Masacra todo lo que est&aacute; a su paso s&oacute;lo por placer. Actualmente est&aacute; desarrollando un nuevo m&eacute;todo de producci&oacute;n de las estrellas de la muerte.',
+613 => 'El general es una persona que ha servido desde hace muchos a&ntilde;os al ej&eacute;rcito imperial. Los fabricantes de naves producen naves m&aacute;s r&aacute;pidas si el lo pide.',
+614 => 'El Conquistador posee cualidades innegables de la conquista. Es parte de la armada imperial, siendo el más alto nivel de educación que se puede alcanzar. Conoce como comandar la Estrella Negra.',
+615 => 'Ha demostrado ser el más grande conquistador del universo. El universo es tuyo, siempre que se mantenga haciendo lo que se debe hacer.',
 
 701 => 'El bono es s&oacute;lo temporal.',
 702 => 'El bono es s&oacute;lo temporal.',
@@ -286,6 +286,14 @@ $LNG['shortDescription'] = array(
 705 => 'El bono es s&oacute;lo temporal.',
 706 => 'El bono es s&oacute;lo temporal.',
 707 => 'El bono es s&oacute;lo temporal. No afecta a las expediciones.',
+
+//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
+901 => 'Metal is the main resource for Buildings and Ships. It is the cheapest resource, but it is needed the most as well. Producing Metal is the least energy expensive. The bigger the mines are, the deeper they dig into the earth.',
+902 => 'Crystals are the main resource used to build electronic circuits and form certain alloy compounds.',
+903 => 'Deuterium is found in the deepest sea. It belongs to the rarest resources in the Universe. Because you have to get to the ground of the sea in order to get Deuterium, it is the most expensive resource.',
+911 => 'Energy is needed for the production of every resource.',
+921 => 'Dark Matter is a very mysterious resource. Nobody really knows where it comes from. Sometimes it just appears out of nowhere. You can use Dark Matter to hire the most experienced officers in the universe.',
+//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
 );
 
 $LNG['longDescription'] = array(
@@ -386,4 +394,12 @@ $LNG['longDescription'] = array(
 	705 => 'El bono es s&oacute;lo temporal.',
 	706 => 'El bono es s&oacute;lo temporal.',
 	707 => 'El bono es s&oacute;lo temporal. No afecta a las expediciones.',
+
+//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
+901 => 'Metal is the main resource for Buildings and Ships. It is the cheapest resource, but it is needed the most as well. Producing Metal is the least energy expensive. The bigger the mines are, the deeper they dig into the earth.',
+902 => 'Crystals are the main resource used to build electronic circuits and form certain alloy compounds. It gets produced in mines under the ground, where the raw material instantly is made into cicuits.',
+903 => 'Deuterium is found in the deepest sea. It belongs to the rarest resources in the Universe. Because you have to get to the ground of the sea in order to get Deuterium, it is the most expensive resource.',
+911 => 'Energy is needed for the production of every resource.',
+921 => 'Dark Matter is a very mysterious resource. Nobody really knows where it comes from. Sometimes it just appears out of nowhere and sometimes it is even found in old ships. Some even say that it doesn\'t exist, but it has been proven otherwise. You can use Dark Matter to hire the most experienced officers in the universe.',
+//PLACEHOLDER MISSING TRANSLATION PREVENTING BUG
 );

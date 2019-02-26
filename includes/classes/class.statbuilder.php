@@ -106,7 +106,7 @@ class statbuilder
 		$Return['Fleets'] 	= $FlyingFleets;		
 		$Return['Planets']	= $database->select('SELECT SQL_BIG_RESULT DISTINCT '.$select_buildings.' p.id, p.universe, p.id_owner, u.authlevel, u.bana, u.username FROM %%PLANETS%% as p LEFT JOIN %%USERS%% as u ON u.id = p.id_owner;');
 		$Return['Users']	= $database->select('SELECT SQL_BIG_RESULT DISTINCT '.$selected_tech.$select_fleets.$select_defenses.' u.id, u.ally_id, u.authlevel, u.bana, u.universe, u.username, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM %%USERS%% as u LEFT JOIN %%STATPOINTS%% as s ON s.stat_type = 1 AND s.id_owner = u.id LEFT JOIN %%PLANETS%% as p ON u.id = p.id_owner GROUP BY s.id_owner, u.id, u.authlevel;');
-		$Return['Alliance']	= $database->select('SELECT SQL_BIG_RESULT DISTINCT a.id, a.ally_universe, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM %%ALLIANCE%% as a LEFT JOIN %%STATPOINTS%% as s ON s.stat_type = 2 AND s.id_owner = a.id;');
+		$Return['Alliance']	= $database->select('SELECT SQL_BIG_RESULT DISTINCT a.id, a.ally_universe, s.tech_rank AS old_tech_rank, s.build_rank AS old_build_rank, s.defs_rank AS old_defs_rank, s.fleet_rank AS old_fleet_rank, s.total_rank AS old_total_rank FROM %%ALLIANCE%% as a LEFT JOIN %%STATPOINTS%% as s ON s.stat_type = 2 AND s.id_owner = a.id GROUP BY a.id;');
 	
 		return $Return;
 	}
@@ -169,18 +169,11 @@ class statbuilder
 		{
 			if($USER[$resource[$Techno]] == 0) continue;
 
-            // Points = (All resources / PointsPerCost) * Factor * ( 2 * ( Factor ^ Level ) - Factor) + 1)
-            // PointsPerCot == Config::get()->stat_settings
+			// PointsPerCot == Config::get()->stat_settings
+			for ($i = 1; $i <= $USER[$resource[$Techno]]; $i++) {
+				$TechPoints += ($pricelist[$Techno]['cost'][901] + $pricelist[$Techno]['cost'][902] + $pricelist[$Techno]['cost'][903]) * pow($pricelist[$Techno]['factor'], $i - 1);
+			}
 			$TechCounts		+= $USER[$resource[$Techno]];
-            $TechPoints     +=
-                ($pricelist[$Techno]['cost'][901] + $pricelist[$Techno]['cost'][902] + $pricelist[$Techno]['cost'][903])
-                * $pricelist[$Techno]['factor']
-                * (
-                    2 * (
-                        pow($pricelist[$Techno]['factor'], $USER[$resource[$Techno]]) - $pricelist[$Techno]['factor']
-                    ) + 1
-                );
-
 
             $this->setRecords($USER['id'], $Techno, $USER[$resource[$Techno]]);
 		}
@@ -198,17 +191,10 @@ class statbuilder
 		{
 			if($PLANET[$resource[$Build]] == 0) continue;
 
-            // Points = (All resources / PointsPerCost) * Factor * ( 2 * ( Factor ^ Level ) - Factor) + 1)
-            // PointsPerCot == Config::get()->stat_settings
-            $BuildPoints     +=
-                ($pricelist[$Build]['cost'][901] + $pricelist[$Build]['cost'][902] + $pricelist[$Build]['cost'][903])
-                * $pricelist[$Build]['factor']
-                * (
-                    2 * (
-                        pow($pricelist[$Build]['factor'], $PLANET[$resource[$Build]]) - $pricelist[$Build]['factor']
-                    ) + 1
-                );
-			
+			// PointsPerCot == Config::get()->stat_settings
+			for ($i = 1; $i <= $PLANET[$resource[$Build]]; $i++) {
+				$BuildPoints += ($pricelist[$Build]['cost'][901] + $pricelist[$Build]['cost'][902] + $pricelist[$Build]['cost'][903]) * pow($pricelist[$Build]['factor'], $i - 1);
+			}
 			$BuildCounts	+= $PLANET[$resource[$Build]];
 			
 			$this->setRecords($PLANET['id_owner'], $Build, $PLANET[$resource[$Build]]);

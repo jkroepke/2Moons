@@ -14,12 +14,196 @@
  * @version 1.8.0
  * @link https://github.com/jkroepke/2Moons
  */
+ 
+function fight(&$attackers, &$defenders)
+{
+	$attack = new Ds\Map(['attack' => 0, 'shield' => 0]);
+	$defense = new Ds\Map(['attack' => 0, 'shield' => 0]);
+	// attackers shoot
+	foreach ($attackers as $fleetID => $attacker)
+	{
+		foreach ($attacker['units'] as $element => $unit)
+		{
+			shoot($attackers, $fleetID, $element, $unit, $defenders, $attack);
+		}
+	}
+	// defenders shoot
+	foreach ($defenders as $fleetID => $defender)
+	{
+		foreach ($defender['units'] as $element => $unit)
+		{
+			shoot($defenders, $fleetID, $element, $unit, $attackers, $defense);
+		}
+	}
+	return new Ds\Map(['attack' => $attack['attack'], 'defense' => $defense['attack'], 'attackShield' => $defense['shield'], 'defShield' => $attack['shield']]);
+}
 
+function explodeAndDestroy(&$attackers)
+{
+	global $pricelist;
+	foreach ($attackers as $fleetID => &$attacker)
+	{
+		$armorTech = (1 + (0.1 * $attacker['player']['shield_tech']) + $attacker['player']['factor']['Shield']);
+		// foreach ($attacker['units'] as $element => $unit)
+		for ($i = 0; $i < count($attacker['units']); $i++)
+		{
+			$unit = $attacker['units'][$i];
+			if ($unit['armor'] <= 0)
+			{
+				// destroy unit
+				$attacker['unit'][$unit['unit']] -= 1;
+				$attacker['units']->remove($i);
+				$i--;
+			}
+			else
+			{
+				$initialArmor = ($pricelist[$unit['unit']]['cost'][901] + $pricelist[$unit['unit']]['cost'][902]) / 10 * $armorTech;
+				if ($unit['armor'] < 0.7 * $initialArmor)
+				{
+					$ran = rand(0, $initialArmor);
+					if ($ran > $unit['armor'])
+					{
+						// explode unit
+						$attacker['unit'][$unit['unit']] -= 1;
+						$attacker['units']->remove($i);
+						$i--;
+					}
+				}
+			}
+		}
+	}
+}
 
+function shoot(&$attackers, $fleetID, $element, $unit, &$defenders, &$ad)
+{
+	// SHOOT
+	global $CombatCaps;
+	$count = 0;
+	foreach ($defenders as $fleetID => &$defender)
+	{
+		$count += count($defender['units']);
+	}
+	$ran = rand(0, $count-1);
+	$count = 0;
+	$victimShip;
+	foreach ($defenders as $fleetID => &$defender)
+	{
+		$count += count($defender['units']);
+		if ($ran < $count)
+		{
+			$victimShipId = rand(0, count($defender['units'])-1);
+			$victimShip = &$defender['units'][$victimShipId];
+			break;
+		}
+	}
+	
+	$ad['attack'] += $unit['att'];
+	if ($unit['att'] * 100 > $victimShip['shield'])
+	{
+		$penetration = $unit['att'] - $victimShip['shield'];
+		if ($penetration >= 0)
+		{
+			//+penetration
+			$ad['shield'] += $victimShip['shield'];
+			$victimShip['shield'] = 0;
+			$victimShip['armor'] -= $penetration; // shoot at armor
+		}
+		else
+		{
+			//-penetration
+			$ad['shield'] -= $penetration;
+			$victimShip['shield'] += $penetration; // shoot at shield
+		}
+	}
+	// else bounced hit (Weaponry of the shooting unit is less than 1% of the Shielding of the target unit)
+	
+	// Rapid fire
+	if (isset($CombatCaps[$unit['unit']]['sd']))
+	{
+		foreach ($CombatCaps[$unit['unit']]['sd'] as $sdId => $count)
+		{
+			if ($victimShip['unit'] == $sdId)
+			{
+				$ran = rand(0, $count);
+				if ($ran < $count)
+				{
+					shoot($attackers, $fleetID, $element, $unit, $defenders, $ad);
+				}
+			}
+		}
+	}
+} 
+
+function initCombatValues(&$fleets, $firstInit = false)
+{
+	// INIT COMBAT VALUES
+	global $CombatCaps, $pricelist;
+	$attackAmount  = array('total' => 0);
+	$attArray = array();
+	foreach ($fleets as $fleetID => $attacker)
+	{
+		$attackAmount[$fleetID] = 0;
+		
+		// init techs
+		$attTech	= (1 + (0.1 * $attacker['player']['military_tech']) + $attacker['player']['factor']['Attack']);
+		$shieldTech	= (1 + (0.1 * $attacker['player']['defence_tech']) + $attacker['player']['factor']['Defensive']);
+		$armorTech = (1 + (0.1 * $attacker['player']['shield_tech']) + $attacker['player']['factor']['Shield']);
+		
+		if ($firstInit)
+		{
+			$fleets[$fleetID]['techs'] = array($attTech, $shieldTech, $armorTech);
+			$fleets[$fleetID]['units'] = new Ds\Vector(); // array();
+		}
+
+		$iter = 0;
+		// init single ships
+		foreach ($attacker['unit'] as $element => $amount)
+		{
+			// dont randomize +/-20% of attack power. The random factor is high enough
+			$thisAtt	= ($CombatCaps[$element]['attack']) * $attTech; // * (rand(80, 120) / 100);
+			$thisShield	= ($CombatCaps[$element]['shield']) * $shieldTech;
+			$thisArmor	= ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]) / 10 * $armorTech;
+			
+			$attArray[$fleetID][$element]['def'] = 0;
+			$attArray[$fleetID][$element]['shield'] = 0;
+			$attArray[$fleetID][$element]['att'] = 0;
+			for ($ship = 0; $ship < $amount; $ship++, $iter++)
+			{
+				if ($firstInit)
+				{
+					// create new array for EACH ship
+					$fleets[$fleetID]['units'][] = array('unit' => $element, 'shield' => $thisShield, 'armor' => $thisArmor, 'att' => $thisAtt);
+				}
+				$attArray[$fleetID][$element]['def'] += $thisShield;
+				$attArray[$fleetID][$element]['shield'] += $fleets[$fleetID]['units'][$iter]['armor'];
+				$attArray[$fleetID][$element]['att'] += $thisAtt;
+			}
+			
+			$attackAmount[$fleetID] += $amount;
+			$attackAmount['total'] += $amount;
+		}
+	}
+	
+	return array('attackAmount' => $attackAmount, 'attArray' => $attArray);
+}
+
+function restoreShields(&$fleets)
+{
+	global $CombatCaps;
+	foreach ($fleets as $fleetID => $attacker)
+	{
+		$shieldTech	= (1 + (0.1 * $attacker['player']['defence_tech']) + $attacker['player']['factor']['Defensive']);
+		foreach ($attacker['units'] as $element => $unit)
+		{
+			$fleets[$fleetID]['units'][$element]['shield'] = ($CombatCaps[$unit['unit']]['shield']) * $shieldTech;
+		}
+	}
+}
+ 
 function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 {
 	global $pricelist, $CombatCaps, $resource;
-
+	
 	$TRES 	= array('attacker' => 0, 'defender' => 0);
 	$ARES 	= $DRES = array('metal' => 0, 'crystal' => 0);
 	$ROUND	= array();
@@ -27,8 +211,11 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 
 	$attackAmount = array();
 	$defenseAmount = array();
+	
+	// $STARTDEF - snapshot of defense amount. Needed for 70% restore
 	$STARTDEF = array();
 
+	// calculate attackers fleet metal+crystal value
 	foreach ($attackers as $fleetID => $attacker) 
 	{
 		foreach ($attacker['unit'] as $element => $amount) 
@@ -37,227 +224,64 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 			$ARES['crystal'] 	+= $pricelist[$element]['cost'][902] * $amount;
 		}
 	}
-
-	foreach($CombatCaps as $e => $arr) {
-		if(!isset($arr['sd'])) continue;
-		
-		foreach($arr['sd'] as $t => $sd) {
-			if($sd == 0) continue;
-			$RF[$t][$e] = $sd;
-		}
-	}
-	
 	$TRES['attacker']	= $ARES['metal'] + $ARES['crystal'];
 
+	//calculate defenders fleet metal+crystal value
 	foreach ($defenders as $fleetID => $defender) 
 	{
 		foreach ($defender['unit'] as $element => $amount)
 		{
 			if ($element < 300) {
+				// ships
 				$DRES['metal'] 		+= $pricelist[$element]['cost'][901] * $amount;
 				$DRES['crystal'] 	+= $pricelist[$element]['cost'][902] * $amount ;
-
-				$TRES['defender'] 	+= $pricelist[$element]['cost'][901] * $amount;
-				$TRES['defender'] 	+= $pricelist[$element]['cost'][902] * $amount;
 			} else {
+				// defense
 				if (!isset($STARTDEF[$element])) 
 					$STARTDEF[$element] = 0;
-				
+					
 				$STARTDEF[$element] += $amount;
-
-				$TRES['defender']	+= $pricelist[$element]['cost'][901] * $amount;
-				$TRES['defender']	+= $pricelist[$element]['cost'][902] * $amount;
 			}
+			$TRES['defender']	+= $pricelist[$element]['cost'][901] * $amount;
+			$TRES['defender']	+= $pricelist[$element]['cost'][902] * $amount;
 		}
 	}
 	
 	for ($ROUNDC = 0; $ROUNDC <= MAX_ATTACK_ROUNDS; $ROUNDC++) 
 	{
-		$attackDamage  = array('total' => 0);
-		$attackShield  = array('total' => 0);
-		$attackAmount  = array('total' => 0);
-		$defenseDamage = array('total' => 0);
-		$defenseShield = array('total' => 0);
-		$defenseAmount = array('total' => 0);
 		$attArray = array();
 		$defArray = array();
-
-		foreach ($attackers as $fleetID => $attacker) {
-			$attackDamage[$fleetID] = 0;
-			$attackShield[$fleetID] = 0;
-			$attackAmount[$fleetID] = 0;
-
-			$attTech	= (1 + (0.1 * $attacker['player']['military_tech']) + $attacker['player']['factor']['Attack']); //attaque
-			$defTech	= (1 + (0.1 * $attacker['player']['defence_tech']) + $attacker['player']['factor']['Defensive']); //bouclier
-			$shieldTech = (1 + (0.1 * $attacker['player']['shield_tech']) + $attacker['player']['factor']['Shield']); //coque
-			$attackers[$fleetID]['techs'] = array($attTech, $defTech, $shieldTech);
-				
-			foreach ($attacker['unit'] as $element => $amount) {
-				$thisAtt	= $amount * ($CombatCaps[$element]['attack']) * $attTech * (rand(80, 120) / 100); //attaque
-				$thisDef	= $amount * ($CombatCaps[$element]['shield']) * $defTech ; //bouclier
-				$thisShield	= $amount * ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]) / 10 * $shieldTech; //coque
-
-				$attArray[$fleetID][$element] = array('def' => $thisDef, 'shield' => $thisShield, 'att' => $thisAtt);
-
-				$attackDamage[$fleetID] += $thisAtt;
-				$attackDamage['total'] += $thisAtt;
-				$attackShield[$fleetID] += $thisDef;
-				$attackShield['total'] += $thisDef;
-				$attackAmount[$fleetID] += $amount;
-				$attackAmount['total'] += $amount;
-			}
-		}
-
-		foreach ($defenders as $fleetID => $defender) {
-			$defenseDamage[$fleetID] = 0;
-			$defenseShield[$fleetID] = 0;
-			$defenseAmount[$fleetID] = 0;
-
-			$attTech	= (1 + (0.1 * $defender['player']['military_tech']) + $defender['player']['factor']['Attack']); //attaquue
-			$defTech	= (1 + (0.1 * $defender['player']['defence_tech']) + $defender['player']['factor']['Defensive']); //bouclier
-			$shieldTech = (1 + (0.1 * $defender['player']['shield_tech']) + $defender['player']['factor']['Shield']); //coque
-			$defenders[$fleetID]['techs'] = array($attTech, $defTech, $shieldTech);
-
-			foreach ($defender['unit'] as $element => $amount) {
-				$thisAtt	= $amount * ($CombatCaps[$element]['attack']) * $attTech * (rand(80, 120) / 100); //attaque
-				$thisDef	= $amount * ($CombatCaps[$element]['shield']) * $defTech ; //bouclier
-				$thisShield	= $amount * ($pricelist[$element]['cost'][901] + $pricelist[$element]['cost'][902]) / 10 * $shieldTech; //coque
-
-				if ($element == 407 || $element == 408 || $element == 409) $thisAtt = 0;
-
-				$defArray[$fleetID][$element] = array('def' => $thisDef, 'shield' => $thisShield, 'att' => $thisAtt);
-
-				$defenseDamage[$fleetID] += $thisAtt;
-				$defenseDamage['total'] += $thisAtt;
-				$defenseShield[$fleetID] += $thisDef;
-				$defenseShield['total'] += $thisDef;
-				$defenseAmount[$fleetID] += $amount;
-				$defenseAmount['total'] += $amount;
-			}
-		}
-
-		$ROUND[$ROUNDC] = array('attackers' => $attackers, 'defenders' => $defenders, 'attackA' => $attackAmount, 'defenseA' => $defenseAmount, 'infoA' => $attArray, 'infoD' => $defArray);
-
-		if ($ROUNDC >= MAX_ATTACK_ROUNDS || $defenseAmount['total'] <= 0 || $attackAmount['total'] <= 0) {
-			break;
-		}
-
-		// Calculate hit percentages (ACS only but ok)
-		$attackPct = array();
-		foreach ($attackAmount as $fleetID => $amount) {
-			if (!is_numeric($fleetID)) continue;
-				$attackPct[$fleetID] = $amount / $attackAmount['total'];
-		}
-
-		$defensePct = array();
-		foreach ($defenseAmount as $fleetID => $amount) {
-			if (!is_numeric($fleetID)) continue;
-				$defensePct[$fleetID] = $amount / $defenseAmount['total'];
-		}
-
-		// CALCUL DES PERTES !!!
-		$attacker_n = array();
-		$attacker_shield = 0;
-		$defenderAttack	= 0;
-		foreach ($attackers as $fleetID => $attacker) {
-			$attacker_n[$fleetID] = array();
-
-			foreach($attacker['unit'] as $element => $amount) {
-				if ($amount <= 0) {
-					$attacker_n[$fleetID][$element] = 0;
-					continue;
-				}
-
-				$defender_moc = $amount * ($defenseDamage['total'] * $attackPct[$fleetID]) / $attackAmount[$fleetID];
-			
-				if(isset($RF[$element])) {
-					foreach($RF[$element] as $shooter => $shots) {
-						foreach($defArray as $fID => $rfdef) {
-							if(empty($rfdef[$shooter]['att']) || $attackAmount[$fleetID] <= 0) continue;
-
-							$defender_moc += $rfdef[$shooter]['att'] * $shots / ($amount / $attackAmount[$fleetID] * $attackPct[$fleetID]);
-							$defenseAmount['total'] += $defenders[$fID]['unit'][$shooter] * $shots;
-						}
-					}
-				}
-				
-				$defenderAttack	+= $defender_moc;
-				
-				if (($attArray[$fleetID][$element]['def'] / $amount) >= $defender_moc) {
-					$attacker_n[$fleetID][$element] = round($amount);
-					$attacker_shield += $defender_moc;
-					continue;
-				}
-
-				$max_removePoints = floor($amount * $defenseAmount['total'] / $attackAmount[$fleetID] * $attackPct[$fleetID]);
-
-				$attacker_shield += min($attArray[$fleetID][$element]['def'], $defender_moc);
-				$defender_moc 	 -= min($attArray[$fleetID][$element]['def'], $defender_moc);
-
-				$ile_removePoints = max(min($max_removePoints, $amount * min($defender_moc / $attArray[$fleetID][$element]['shield'] * (rand(0, 200) / 100), 1)), 0);
-
-				$attacker_n[$fleetID][$element] = max(ceil($amount - $ile_removePoints), 0);
-			}
-		}
-
-		$defender_n = array();
-		$defender_shield = 0;
-		$attackerAttack	= 0;
-		foreach ($defenders as $fleetID => $defender) {
-			$defender_n[$fleetID] = array();
-
-			foreach($defender['unit'] as $element => $amount) {
-				if ($amount <= 0) {
-					$defender_n[$fleetID][$element] = 0;
-					continue;
-				}
-
-				$attacker_moc = $amount * ($attackDamage['total'] * $defensePct[$fleetID]) / $defenseAmount[$fleetID];
-				if (isset($RF[$element])) {
-					foreach($RF[$element] as $shooter => $shots) {
-						foreach($attArray as $fID => $rfatt) {
-							if (empty($rfatt[$shooter]['att']) || $defenseAmount[$fleetID] <= 0 ) continue;
-
-							$attacker_moc += $rfatt[$shooter]['att'] * $shots / ($amount / $defenseAmount[$fleetID] * $defensePct[$fleetID]);
-							$attackAmount['total'] += $attackers[$fID]['unit'][$shooter] * $shots;
-						}
-					}
-				}
-				
-				$attackerAttack	+= $attacker_moc;
-				
-				if (($defArray[$fleetID][$element]['def'] / $amount) >= $attacker_moc) {
-					$defender_n[$fleetID][$element] = round($amount);
-					$defender_shield += $attacker_moc;
-					continue;
-				}
 	
-				$max_removePoints = floor($amount * $attackAmount['total'] / $defenseAmount[$fleetID] * $defensePct[$fleetID]);
-				$defender_shield += min($defArray[$fleetID][$element]['def'], $attacker_moc);
-				$attacker_moc 	 -= min($defArray[$fleetID][$element]['def'], $attacker_moc);
-				
-				$ile_removePoints = max(min($max_removePoints, $amount * min($attacker_moc / $defArray[$fleetID][$element]['shield'] * (rand(0, 200) / 100), 1)), 0);
-
-				$defender_n[$fleetID][$element] = max(ceil($amount - $ile_removePoints), 0);
-			}
-		}
+		$att = initCombatValues($attackers, $ROUNDC == 0);
+		$def = initCombatValues($defenders, $ROUNDC == 0);
 		
-		$ROUND[$ROUNDC]['attack'] 		= $attackerAttack;
-		$ROUND[$ROUNDC]['defense'] 		= $defenderAttack;
-		$ROUND[$ROUNDC]['attackShield'] = $attacker_shield;
-		$ROUND[$ROUNDC]['defShield'] 	= $defender_shield;
-		foreach ($attackers as $fleetID => $attacker) {
-			$attackers[$fleetID]['unit'] = array_map('round', $attacker_n[$fleetID]);
-		}
+		$ROUND[$ROUNDC] = array('attackers' => $attackers, 'defenders' => $defenders, 'attackA' => $att['attackAmount'], 'defenseA' => $def['attackAmount'], 'infoA' => $att['attArray'], 'infoD' => $def['attArray']);
+		
+		if ($att['attackAmount']['total'] > 0 && $def['attackAmount']['total'] > 0)
+		{
+			// FIGHT
+			$fightResults = fight($attackers, $defenders);
+			
+			explodeAndDestroy($attackers);
+			explodeAndDestroy($defenders);
 
-		foreach ($defenders as $fleetID => $defender) {
-			$defenders[$fleetID]['unit'] = array_map('round', $defender_n[$fleetID]);
+			restoreShields($attackers);
+			restoreShields($defenders);
+			
+			$ROUND[$ROUNDC]['attack'] 		= $fightResults['attack'];
+			$ROUND[$ROUNDC]['defense'] 		= $fightResults['defense'];
+			$ROUND[$ROUNDC]['attackShield'] = $fightResults['attackShield'];
+			$ROUND[$ROUNDC]['defShield'] 	= $fightResults['defShield'];
+		}
+		else
+		{
+			break;
 		}
 	}
 	
-	if ($attackAmount['total'] <= 0 && $defenseAmount['total'] > 0) {
+	if ($att['attackAmount']['total'] <= 0 && $def['attackAmount']['total'] > 0) {
 		$won = "r"; // defender
-	} elseif ($attackAmount['total'] > 0 && $defenseAmount['total'] <= 0) {
+	} elseif ($att['attackAmount']['total'] > 0 && $def['attackAmount']['total'] <= 0) {
 		$won = "a"; // attacker
 	} else {
 		$won = "w"; // draw
@@ -276,6 +300,7 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 
 	$DRESDefs = array('metal' => 0, 'crystal' => 0);
 
+	// restore defense (70% +/- 20%)
 	foreach ($defenders as $fleetID => $defender) {
 		foreach ($defender['unit'] as $element => $amount) {
 			if ($element < 300) {							// flotte defenseur en CDR
@@ -289,7 +314,11 @@ function calculateAttack(&$attackers, &$defenders, $FleetTF, $DefTF)
 				$TRES['defender'] -= $pricelist[$element]['cost'][902] * $amount ;
 
 				$lost = $STARTDEF[$element] - $amount;
-				$giveback = round($lost * (rand(56, 84) / 100));
+				$giveback = 0;
+				for ($i = 0; $i < $lost; $i++) {
+					if (rand(1, 100) <= 70)
+						$giveback += 1;
+				}
 				$defenders[$fleetID]['unit'][$element] += $giveback;
 				$DRESDefs['metal'] 	 += $pricelist[$element]['cost'][901] * ($lost - $giveback) ;
 				$DRESDefs['crystal'] += $pricelist[$element]['cost'][902] * ($lost - $giveback) ;

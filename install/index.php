@@ -1,7 +1,7 @@
 <?php
 
 /**
- *  2Moons 
+ *  2Moons
  *   by Jan-Otto Kröpke 2009-2016
  *
  * For the full copyright and license information, please view the LICENSE
@@ -227,7 +227,13 @@ switch ($mode) {
                         $queries	= array_filter($queries);
                         foreach($queries as $query)
                         {
-                            Database::get()->nativeQuery(trim($query));
+							try {
+								// alter table IF NOT EXISTS
+								Database::get()->nativeQuery(trim($query));
+							}
+							catch (Exception $e) {
+								error_log('Query: [' . $query . '] failed. Error: ' . $e->getMessage() . '. Skipped');
+							}
                         }
                     }
                     catch (Exception $e) {

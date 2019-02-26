@@ -88,7 +88,7 @@ class ShowBuildingsPage extends AbstractGamePage
 			return $this->CancelBuildingFromQueue();
         }
 
-        if ($QueueID - $ActualCount >= 2) {
+        if ($QueueID - $ActualCount >= 1) {
             // Avoid race conditions
             return;
         }

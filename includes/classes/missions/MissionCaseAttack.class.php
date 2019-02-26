@@ -74,6 +74,14 @@ HTML;
 			':planetId'	=> $this->_fleet['fleet_end_id']
 		));
 
+		// return fleet if target planet deleted
+		if($targetPlanet == false)
+		{
+			$this->setState(FLEET_RETURN);
+			$this->SaveFleet();
+			return;
+		}
+
 		$sql			= "SELECT * FROM %%USERS%% WHERE id = :userId;";
 		$targetUser		= $db->selectSingle($sql, array(
 			':userId'	=> $targetPlanet['id_owner']
@@ -327,7 +335,8 @@ HTML;
 			$targetDebris	= $db->selectSingle($sql, array(
 				':moonId'	=> $this->_fleet['fleet_end_id']
 			));
-			$targetPlanet 	+= $targetDebris;
+			$targetPlanet['der_metal'] += $targetDebris['der_metal'];
+			$targetPlanet['der_crystal'] += $targetDebris['der_crystal'];
 		}
 		
 		foreach($debrisResource as $elementID)

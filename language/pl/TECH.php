@@ -44,7 +44,7 @@ $LNG['shortNames'] = array (
 	403 => 'C. Laser',
 	404 => 'Działo Gaussa',
 	405 => 'Działo Jonowe',
-	406 => 'Działo Plazmowe',
+	406 => 'Wyrzutnia Plazmy',
 	407 => 'M. Osłona',
 	408 => 'D. Osłona',
 	409 => 'Giga Osłona',
@@ -144,7 +144,7 @@ $LNG['tech'] = array(
 403 => 'Ciężki Laser',
 404 => 'Działo Gauss',
 405 => 'Działo Jonowe',
-406 => 'Działo Plazmowe',
+406 => 'Wyrzutnia Plazmy',
 407 => 'Mała Osłona',
 408 => 'Duża Osłona',
 409 => 'Atmospheric Shield',
@@ -255,7 +255,7 @@ $LNG['shortDescription'] = array(
 403 => 'Ciężki laser to ulepszona wersja lekkiego.',
 404 => 'Działo Gaussa strzela ogromnymi metalowymi pociskami, siejącymi straszne zniszczenia.',
 405 => 'Działo jonowe strzela skoncentrowaną wiązką jonów naładowanych dodatnio lub ujemnie.',
-406 => 'Działo plazmowe, z powodu jego zapotrzebowania na energię, jest zasilane dużym reaktorem jądrowym.',
+406 => 'Wyrzutnia plazmy, z powodu jego zapotrzebowania na energię, jest zasilane dużym reaktorem jądrowym.',
 407 => 'Mała osłona roztacza nad planetą zabezpieczenie, które pochłania część obrażeń.',
 408 => 'Jest to silniejsza wersja małej osłony, niestety wymaga również więcej zasobów energii.',
 409 => 'Szczyt badań nad osłonami. Jest dużo bardziej wytrzymała niż duża, ale jej zapotrzebowanie na energię też jest duże!.',
@@ -288,6 +288,13 @@ $LNG['shortDescription'] = array(
 705 => 'Podnosi na jakiś czas produkcję energii.',
 706 => 'Skraca na jakiś czas długość badań.',
 707 => 'Skraca czas lotu floty. Bonus działa tylko przez pewien okres i nie ma wpływu na ekspedycję!',
+
+901 => 'Główny surowiec do budowy konstrukcji nośnych budynków i statków kosmicznych.',
+902 => 'Główny surowiec do budowy elementów elektronicznych i stopów metali.',
+903 => 'Deuter jest izotopem wodoru, paliwo dla statków kosmicznych, nawigatorów i naukowców.',
+911 => 'Czysta energia napędzająca przemysł wydobywczy.',
+921 => 'Czarna Materia jest rzadką substancją niewiadomego pochodzenia.',
+
 );
 
 $LNG['longDescription'] = array(
@@ -356,7 +363,7 @@ $LNG['longDescription'] = array(
 	403 => 'Ciężki laser to ulepszona wersja lekkiego. Po walce i zniszczeniu jest 70% szans, że zostanie naprawiona.',
 	404 => 'Działo gaussa strzela ogromnymi metalowymi pociskami, siejącymi straszne zniszczenia. Po walce i zniszczeniu istnieje 70% szans, że zostanie naprawione.',
 	405 => 'Działo jonowe strzela skoncentrowaną wiązką jonów naładowanych dodatnio lub ujemnie. Po walce i zniszczeniu istnieje 70% szans, że zostanie naprawione.',
-	406 => 'Działo plazmowe. Z powodu jego zapotrzebowania na energię jest zasilane dużym reaktorem jądrowym. Po walce i zniszczeniu istnieje 70% szans, że zostanie naprawione.',
+	406 => 'Wyrzutnia plazmy. Z powodu jego zapotrzebowania na energię jest zasilane dużym reaktorem jądrowym. Po walce i zniszczeniu istnieje 70% szans, że zostanie naprawione.',
 	407 => 'Mała osłona roztacza nad planetą ochronę, która pochłania cześć obrażeń. Po walce i zniszczeniu istnieje 70% szans, że zostanie naprawiona.',
 	408 => 'Duża osłona to wynik wielu lat rozwoju małej osłony. Jest w stanie wytrzymać dużo wiekszy ostrzał wroga. Po walce i zniszczeniu istnieje 70% szans, że zostanie naprawiona.',
 	409 => 'Szczyt badań nad osłonami. Jest dużo bardziej wytrzymała niż duża, ale jej zapotrzebowanie na energię też jest duże! Po walce i zniszczeniu istnieje 70% szans, że zostanie naprawiona.',
@@ -388,6 +395,12 @@ $LNG['longDescription'] = array(
 	705 => 'Bonus jest tymczasowy!',
 	706 => 'Bonus jest tymczasowy!',
 	707 => 'Bonus jest tymczasowy!',	
+
+901 => 'Główny surowiec do budowy konstrukcji nośnych budynków i statków kosmicznych. Metal jest najtańszym surowcem mineralnym, dlatego jest częściej wykorzystywany niż inne.',
+902 => 'Główny surowiec do budowy elementów elektronicznych i stopów metali. Kryształy wykorzystywane są we wszystkich statkach kosmicznych i budynkach. Najczęściej używane w przemyśle stoczniowym kryształy są jednak bardzo rzadkie i podobnie jak metale znajdują się w większych ilościach w głębokich warstwach.',
+903 => 'Deuter jest izotopem wodoru. Jego separacja z wody jest procesem zużywającym duże ilości energii. Deuter jest wykorzystywany jako paliwo dla statków kosmicznych, dla prawie wszystkich badań naukowych, do podglądu galaktyki jak i skanowania z wykorzystaniem falangi czujników.',
+911 => 'Czysta energia napędzająca przemysł wydobywczy. Aby zapewnić zaopatrzenie kopalń i ekstraktorów, wymagane są ogromne ilości czystej energii. Prawie wszystkie budynki potrzebują energii do ich eksploatacji. Energia jest niewymienialna.',
+921 => 'Czarna Materia jest rzadką substancją niewiadomego pochodzenia. Pojawia się w przypadkowych miejscach Uniwersum. Jest wykorzystywana do opłacania najznakomitszych oficerów we wszechświecie.',
 );
 
 // Translated into Polish by Sirgomo . All rights reversed (C) 2012

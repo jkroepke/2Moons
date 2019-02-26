@@ -22,7 +22,7 @@
 		<tr style="height:20px;">
 			<td>{$LNG.fl_fleet_speed}</td>
 			<td>
-				<select id="speed" name="speed" onChange="updateVars()">
+				<select id="speed" name="speed" onChange="updateVars(false)">
 					{html_options options=$speedSelect}
 				</select> %
 			</td>
@@ -56,20 +56,36 @@
 			<td id="storage">-</td>
 		</tr>
 	</table>
+
+<table class="table519" style="table-layout: fixed;">
+	<tr style="height:20px;">
+		<th colspan="2">{$LNG.fl_system_places}</th>
+	</tr>
+	<tr style="height:20px;">
+		<td>
+			<a href="javascript:setTarget({$galaxy},{$system},16,1);updateVars();">{$LNG.type_mission_15}[{$galaxy}:{$system}:16]</a>
+		</td>
+		<td>
+			<a href="javascript:setTarget({$galaxy},{$system},17,1);updateVars();">{$LNG.type_mission_16}[{$galaxy}:{$system}:17]</a>
+		</td>
+	</tr>
+</table>
+
 	{if isModuleAvailable($smarty.const.MODULE_SHORTCUTS)}
 	<table class="table519 shortcut" style="table-layout: fixed;">
 		<tr style="height:20px;">
 			<th colspan="{$themeSettings.SHORTCUT_ROWS_ON_FLEET1}">{$LNG.fl_shortcut} (<a href="#" onclick="EditShortcuts();return false" class="shortcut-link-edit shortcut-link">{$LNG.fl_shortcut_edition}</a><a href="#" onclick="SaveShortcuts();return false" class="shortcut-edit">{$LNG.fl_shortcut_save}</a>)</th>
 		</tr>
+
 		{foreach $shortcutList as $shortcutID => $shortcutRow}
-			{if ($shortcutRow@iteration % $themeSettings.SHORTCUT_ROWS_ON_FLEET1) === 1}<tr style="height:20px;" class="shortcut-row">{/if}			
+			{if ($shortcutRow@iteration % $themeSettings.SHORTCUT_ROWS_ON_FLEET1) === 1}<tr style="height:20px;" class="shortcut-row">{/if}
 			<td style="width:{100 / $themeSettings.SHORTCUT_ROWS_ON_FLEET1}%" class="shortcut-colum shortcut-isset">
 				<div class="shortcut-link">
 					<a href="javascript:setTarget({$shortcutRow.galaxy},{$shortcutRow.system},{$shortcutRow.planet},{$shortcutRow.type});updateVars();">{$shortcutRow.name}{if $shortcutRow.type == 1}{$LNG.fl_planet_shortcut}{elseif $shortcutRow.type == 2}{$LNG.fl_debris_shortcut}{elseif $shortcutRow.type == 3}{$LNG.fl_moon_shortcut}{/if} [{$shortcutRow.galaxy}:{$shortcutRow.system}:{$shortcutRow.planet}]</a>
 				</div>
 				<div class="shortcut-edit">
 					<input type="text" class="shortcut-input" name="shortcut[{$shortcutID}][name]" value="{$shortcutRow.name}">
-					<div class="shortcut-delete" title="{$LNG.fl_dlte_shortcut}"></div>
+					<div class="shortcut-delete" title="{$LNG.fl_dlte_shortcut}">x</div>
 				</div>
 				<div class="shortcut-edit">
 					<input type="text" class="shortcut-input" name="shortcut[{$shortcutID}][galaxy]" value="{$shortcutRow.galaxy}" size="3" maxlength="2">:<input type="text" class="shortcut-input" name="shortcut[{$shortcutID}][system]" value="{$shortcutRow.system}" size="3" maxlength="3">:<input type="text" class="shortcut-input" name="shortcut[{$shortcutID}][planet]" value="{$shortcutRow.planet}" size="3" maxlength="2">
@@ -93,11 +109,11 @@
 		<tr style="height:20px;" class="shortcut-edit shortcut-new">
 			<td>
 				<div class="shortcut-link">
-					
+
 				</div>
 				<div class="shortcut-edit">
 					<input type="text" class="shortcut-input" name="shortcut[][name]" placeholder="{$LNG.fl_shortcut_name}">
-					<div class="shortcut-delete" title="{$LNG.fl_dlte_shortcut}"></div>
+					<div class="shortcut-delete" title="{$LNG.fl_dlte_shortcut}">x</div>
 				</div>
 				<div class="shortcut-edit">
 					<input type="text" class="shortcut-input" name="shortcut[][galaxy]" value="" size="3" maxlength="2" placeholder="G" pattern="[0-9]*">:<input type="text" class="shortcut-input" name="shortcut[][system]" value="" size="3" maxlength="3" placeholder="S" pattern="[0-9]*">:<input type="text" class="shortcut-input" name="shortcut[][planet]" value="" size="3" maxlength="2" placeholder="P" pattern="[0-9]*">
@@ -111,7 +127,7 @@
 			<td colspan="{$themeSettings.SHORTCUT_ROWS_ON_FLEET1}">
 				<a href="#" onclick="AddShortcuts();return false">{$LNG.fl_shortcut_add}</a>
 			</td>
-		</tr>		
+		</tr>
 	</table>
 	{/if}
 	<table class="table519" style="table-layout: fixed;">
@@ -132,7 +148,7 @@
 		<tr style="height:20px;">
 			<td colspan="{$themeSettings.COLONY_ROWS_ON_FLEET1}">{$LNG.fl_no_colony}</td>
 		</tr>
-		{/foreach}	
+		{/foreach}
 	</table>
 	{if $ACSList}
 	<table class="table519" style="table-layout: fixed;">

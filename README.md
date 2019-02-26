@@ -47,13 +47,19 @@ SteemNova expansion goes as follows:
 3. Game manual and tips & tricks for newbies.
 4. ~~Specify detailed explanation how the reward system will work~~. (https://steemit.com/steemnova/@steemnova/steemnova-weekly-sbd-reward-scheme-for-members-of-the-best-alliances)
 5. Announce bug bounties, artwork contests and utopian-io task requests for contributors (mobile UI, visual bugs etc.).
-6. Steem accounts integration.
+6. ~~Steem accounts integration.~~ (https://github.com/steemnova/steemnova/pull/67)
 
 
 ## Local installation
 
 - Clone the repo: `git clone https://github.com/steemnova/steemnova`
-- Install components: `apt-get install apache2 php7.0 php7.0-gd php7.0-fpm php7.0-mysql libapache2-mod mysql-server`
+- Install components: `apt-get install apache2 php7.0 php7.0-gd php7.0-fpm php7.0-mysql php7.0-curl libapache2-mod mysql-server`
+- Install [php-ds extension](https://github.com/php-ds/extension)
+    - `apt-get install php-pear php7.0-dev`
+	- pecl install ds
+	- create file `30-ds.ini` with content `extension=ds.so` and put in `/etc/php/7.0/apache2/conf.d/` [source](https://github.com/php-ds/extension/issues/2#issuecomment-181855047)
+- Install HTML_BBCodeParser2
+    - `pear install HTML_BBCodeParser2-0.1.0`
 - Setup mysql: `create user USER identified by PASSWORD; create database DB; grant all privileges on DB.* to USER;`
 - Set write privileges to dirs: `cache/`, `includes/`
 - Run wizard: `127.0.0.1/install/install.php`

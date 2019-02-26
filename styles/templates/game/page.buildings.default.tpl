@@ -2,7 +2,7 @@
 {block name="content"}
 {if !empty($Queue)}
 <div id="buildlist" class="buildlist">
-	<table style="width:760px">
+	<table>
 		{foreach $Queue as $List}
 		{$ID = $List.element}
 		<tr>
@@ -40,7 +40,7 @@
 	</table>
 </div>
 {/if}
-<table style="width:760px">
+<table>
 	{foreach $BuildInfoList as $ID => $Element}
 	<tr>
 		<td rowspan="2" style="width:120px;">
@@ -54,11 +54,11 @@
 	</tr>
 	<tr>
 		<td>
-			<table style="width:100%">
+			<table>
 				<tr>
 					<td class="transparent left" style="width:90%;padding:10px;"><p>{$LNG.shortDescription.{$ID}}</p>
 					<p>{foreach $Element.costResources as $RessID => $RessAmount}
-					{$LNG.tech.{$RessID}}: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>
+					<a href='#' onclick="return Dialog.info({$RessID});" class='tooltip' data-tooltip-content="<table><tr><th>{$LNG.tech.{$RessID}}</th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$RessID}.{if $RessID >=600 && $RessID <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$RessID}</td></tr></table></tr></table>">{$LNG.tech.{$RessID}}</a>: <b><span style="color:{if $Element.costOverflow[$RessID] == 0}lime{else}red{/if}">{$RessAmount|number}</span></b>
 					{/foreach}</p></td>
 					<td class="transparent" style="vertical-align:middle;width:100px">
 					{if $Element.maxLevel == $Element.levelToBuild}
@@ -71,10 +71,10 @@
 							<form action="game.php?page=buildings" method="post" class="build_form">
 								<input type="hidden" name="cmd" value="insert">
 								<input type="hidden" name="building" value="{$ID}">
-								<button type="submit" class="build_submit">{if $Element.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$Element.levelToBuild + 1}{/if}</button>
+								<button type="submit" class="build_submit">{if $Element.level == 0 && $Element.levelToBuild == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$Element.levelToBuild + 1}{/if}</button>
 							</form>
 							{else}
-							<span style="color:red">{if $Element.level == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$Element.levelToBuild + 1}{/if}</span>
+							<span style="color:red">{if $Element.level == 0 && $Element.levelToBuild == 0}{$LNG.bd_build}{else}{$LNG.bd_build_next_level}{$Element.levelToBuild + 1}{/if}</span>
 							{/if}
 						{else}
 						<span style="color:red">{$LNG.bd_no_more_fields}</span>
@@ -87,12 +87,12 @@
 	</tr>
 	<tr>
 		<td colspan="2" style="margin-bottom:10px;">  
-			<table style="width:100%">
+			<table>
 				<tr>
 					<td class="transparent left">
 						{$LNG.bd_remaining}<br>
 						{foreach $Element.costOverflow as $ResType => $ResCount}
-						{$LNG.tech.{$ResType}}: <span style="font-weight:700">{$ResCount|number}</span><br>
+						<a href='#' onclick="return Dialog.info({$ResType});" class='tooltip' data-tooltip-content="<table><tr><th>{$LNG.tech.{$ResType}}</th></tr><tr><table class='hoverinfo'><tr><td><img src='{$dpath}gebaeude/{$ResType}.{if $ResType >=600 && $ResType <= 699}jpg{else}gif{/if}'></td><td>{$LNG.shortDescription.$ResType}</td></tr></table></tr></table>">{$LNG.tech.{$ResType}}</a>: <span style="font-weight:700">{$ResCount|number}</span><br>
 						{/foreach}
 						<br>
 					</td>

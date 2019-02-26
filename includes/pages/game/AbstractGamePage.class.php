@@ -139,20 +139,41 @@ abstract class AbstractGamePage
 
 		$themeSettings	= $THEME->getStyleSettings();
 
+		$commit = '';
+		$commitShort = '';
+		if(file_exists('.git/FETCH_HEAD'))
+		{
+			$commit = explode('	', file_get_contents('.git/FETCH_HEAD'))[0];
+			$commitShort = substr($commit, 0, 7);
+		}
+
+		$avatar = 'styles/resource/images/user.png';
+		if (Session::load()->data !== null)
+		{
+			try{
+				$avatar = json_decode(Session::load()->data->account->json_metadata)->profile->profile_image;
+			}catch(Exception $e){}
+		}
+
 		$this->assign(array(
 			'PlanetSelect'		=> $PlanetSelect,
 			'new_message' 		=> $USER['messages'],
+			'commit'			=> $commit,
+			'commitShort'		=> $commitShort,
 			'vacation'			=> $USER['urlaubs_modus'] ? _date($LNG['php_tdformat'], $USER['urlaubs_until'], $USER['timezone']) : false,
 			'delete'			=> $USER['db_deaktjava'] ? sprintf($LNG['tn_delete_mode'], _date($LNG['php_tdformat'], $USER['db_deaktjava'] + ($config->del_user_manually * 86400)), $USER['timezone']) : false,
 			'darkmatter'		=> $USER['darkmatter'],
 			'current_pid'		=> $PLANET['id'],
 			'image'				=> $PLANET['image'],
+			'username'			=> $USER['username'],
+			'avatar'			=> $avatar,
 			'resourceTable'		=> $resourceTable,
 			'shortlyNumber'		=> $themeSettings['TOPNAV_SHORTLY_NUMBER'],
 			'closed'			=> !$config->game_disable,
 			'hasBoard'			=> filter_var($config->forum_url, FILTER_VALIDATE_URL, FILTER_FLAG_SCHEME_REQUIRED),
 			'hasAdminAccess'	=> !empty(Session::load()->adminAccess),
-			'hasGate'			=> $PLANET[$resource[43]] > 0
+			'hasGate'			=> $PLANET[$resource[43]] > 0,
+			'discordUrl'		=> DISCORD_URL,
 		));
 	}
 

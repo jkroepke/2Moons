@@ -111,6 +111,7 @@ $LNG['ov_planet_abandoned']					= 'O planeta foi destruido!';
 $LNG['ov_principal_planet_cant_abanone']	= 'Não podes apagar o planeta principal!';
 $LNG['ov_abandon_planet_not_possible']		= 'O planeta não pode ser apagado, por ter actividades existentes!';
 $LNG['ov_wrong_pass']						= 'Password incorreta!';
+$LNG['ov_wrong_name']						= 'Nome incorreta!';
 $LNG['ov_have_new_message']					= 'Possuis uma nova mensagem';
 $LNG['ov_have_new_messages']				= 'Possuis %d novas mensagens';
 $LNG['ov_planetmenu']						= 'Alterar nome ou excluir';
@@ -386,7 +387,7 @@ $LNG['bd_lab_required']					    = 'Primeiro tens de construir um laboratorio de 
 $LNG['bd_building_lab']					    = 'Não se pode fazer pesquisas quando se esta a subir o laboratório de nível';
 $LNG['bd_max_lvl']                          = 'Nível Max.:';
 $LNG['bd_lvl']								= 'Nível';
-$$LNG['bd_research']						= 'Pesquisa para';
+$LNG['bd_research']						= 'Pesquisa para';
 $LNG['bd_shipyard_required']				= 'Terás de construir um hangar primeiro!';
 $LNG['bd_building_shipyard']				= 'Não podes construir naves enquanto estiveres a subir o hangar de nível';
 $LNG['bd_available']						= 'Disponível: ';
@@ -1139,8 +1140,8 @@ $LNG['rec_last_update_on']		   			= 'Ultima atualização em ';
 //----------------------------------------------------------------------------//
 // Simulador de Batalha
 
-$LNG['bs_derbis_raport']	                = "Precisas de %s %s ou %s %s para recolheres o campo de destroços.";
-$LNG['bs_steal_raport']	                    = "Precisas de %s %s ou %s %s ou %s %s para os recursos que se encontram no planeta.";
+$LNG['bs_derbis_raport']	                = "Precisas de %s %s para recolheres o campo de destroços.";
+$LNG['bs_steal_raport']	                    = "Precisas de %s %s ou %s %s para os recursos que se encontram no planeta.";
 $LNG['bs_names']		                    = "Frota";
 $LNG['bs_atter']                            = "Atacante";
 $LNG['bs_deffer']                           = "Defensor";

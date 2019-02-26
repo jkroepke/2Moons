@@ -56,11 +56,15 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 		$planetUpdater 						= new ResourceUpdate();
 		list($targetUser, $targetPlanet)	= $planetUpdater->CalcResource($targetUser, $targetPlanet, true, $this->_fleet['fleet_start_time']);
 
-		$sql	= 'SELECT * FROM %%FLEETS%% WHERE fleet_end_id = :planetId AND fleet_mission = 5 AND fleet_end_stay > :time;';
+		$sql	= 'SELECT * FROM %%FLEETS%%
+		WHERE fleet_end_id 		= :planetId
+		AND fleet_mission 		= 5
+		AND fleet_start_time 	<= :time
+		AND fleet_end_stay 		>= :time;';
 
 		$targetStayFleets	= $db->select($sql, array(
 			':planetId'	=> $this->_fleet['fleet_end_id'],
-			':time'		=> $this->_fleet['fleet_start_time'],
+			':time'		=> TIMESTAMP,
 		));
 
 		foreach($targetStayFleets as $fleetRow)
@@ -169,7 +173,7 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 		}
 
 		$text	= '<a href="game.php?page=galaxy&amp;galaxy=%1$s&amp;system=%2$s">[%1$s:%2$s:%3$s]</a> %7$s
-		%8$s <a href="game.php?page=galaxy&amp;galaxy=%4$s&amp;system=%5$s">[%4$s:%5$s:%6$s]</a> %9$s';
+		%8$s <a href="game.php?page=galaxy&amp;galaxy=%4$s&amp;system=%5$s">[%4$s:%5$s:%6$s]</a>';
 
 		$targetMessage .= sprintf($text,
 			$this->_fleet['fleet_start_galaxy'],
@@ -179,8 +183,7 @@ class MissionCaseSpy extends MissionFunctions implements Mission
 			$this->_fleet['fleet_end_system'],
 			$this->_fleet['fleet_end_planet'],
 			$LNG['sys_mess_spy_seen_at'],
-			$targetPlanet['name'],
-			$LNG['sys_mess_spy_seen_at2']
+			$targetPlanet['name']
 		);
 
 

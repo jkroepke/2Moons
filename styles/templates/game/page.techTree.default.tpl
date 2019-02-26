@@ -14,7 +14,7 @@
 	<td>
 	{if $requireList}
 		{foreach $requireList as $requireID => $NeedLevel}
-			<a href="#" onclick="return Dialog.info({$elementID})"><span style="color:{if $NeedLevel.own < $NeedLevel.count}red{else}lime{/if};">{$LNG.tech.$requireID} ({$LNG.tt_lvl} {min($NeedLevel.count, $NeedLevel.own)}/{$NeedLevel.count})</span></a>{if !$NeedLevel@last}<br>{/if}
+			<a href="#" onclick="return Dialog.info({$requireID})"><span style="color:{if $NeedLevel.own < $NeedLevel.count}red{else}lime{/if};">{$LNG.tech.$requireID} ({$LNG.tt_lvl} {$NeedLevel.own}/{$NeedLevel.count})</span></a>{if !$NeedLevel@last}<br>{/if}
 		{/foreach}
 	{/if}
 	</td>

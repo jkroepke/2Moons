@@ -96,7 +96,8 @@ $LNG['ov_newname_done']						= 'Le nouveau nom a été entré!';
 $LNG['ov_planet_abandoned']					= 'La planète a été détruite!';
 $LNG['ov_principal_planet_cant_abanone']	= 'Vous ne pouvez pas abandonner votre Planète Mère !';
 $LNG['ov_abandon_planet_not_possible']		= 'Une Colonie ne peut être abandonnée si il y a des mouvements de flotte depuis ou vers elle !';
-$LNG['ov_wrong_pass']						= 'Mot de passe incorrect. Essayez à nouveau !';
+$LNG['ov_wrong_pass']						= 'Mot de passe incorrect. Essayez à nouveau!';
+$LNG['ov_wrong_name']						= 'Mot de nom incorrect. Essayez à nouveau!';
 $LNG['ov_have_new_message']					= 'Vous avez un nouveau message';
 $LNG['ov_have_new_messages']				= 'Vous avez %d nouveaux messages';
 $LNG['ov_planetmenu']						= 'Nom Modifier/Abandonner';
@@ -1122,8 +1123,8 @@ $LNG['rec_last_update_on']   				= 'Dernière mise à jour : %s';
 //----------------------------------------------------------------------------//
 // BattleSimulator
 
-$LNG['bs_derbis_raport']					= "Le champs de débris se compose de %s %s et %s %s. ";
-$LNG['bs_steal_raport']						= "Le butin de la bataille se compose de %s %s de %s %s et de %s %s.";
+$LNG['bs_derbis_raport']					= "Le champs de débris se compose de %s %s. ";
+$LNG['bs_steal_raport']						= "Le butin de la bataille se compose de %s %s et de %s %s.";
 $LNG['bs_names']							= "Noms des vaisseaux";
 $LNG['bs_atter']							= "Attaquant";
 $LNG['bs_deffer']							= "Défenseur";

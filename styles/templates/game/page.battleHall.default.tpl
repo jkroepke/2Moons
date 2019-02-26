@@ -11,8 +11,8 @@
 <tr>
     <td>{$LNG.tkb_platz}</td>
 	<td>{$LNG.tkb_owners}</td>
-    <td><a href="game.php?page=battleHall&order=date&sort={if $sort == "ASC"}DESC{else}ASC{/if}"{if $order == "date"} style="font-weight:bold;"{/if}>{$LNG.tkb_datum}</a></td>
-	<td><a href="game.php?page=battleHall&order=units&sort={if $sort == "ASC"}DESC{else}ASC{/if}"{if $order == "units"} style="font-weight:bold;"{/if}>{$LNG.tkb_units}</a></td>
+    <td>{$LNG.tkb_datum}</td>
+	<td>{$LNG.tkb_units}</td>
 </tr>
 {foreach $TopKBList as $row}
     <tr class="day{floor($row.date / 86400)} week{floor($row.date / 604800)}">

@@ -340,7 +340,7 @@ function isModuleAvailable($ID)
 		$modules[$ID] = 1;
 	}
 
-	return $modules[$ID] == 1 || (isset($USER['authlevel']) && $USER['authlevel'] > AUTH_USR);
+	return $modules[$ID] == 1; // || (isset($USER['authlevel']) && $USER['authlevel'] > AUTH_USR);
 }
 
 function ClearCache()
@@ -504,13 +504,6 @@ function exceptionHandler($exception)
 <!--[if (gt IE 9)|!(IE)]><!--> <html lang="de" class="no-js"> <!--<![endif]-->
 <head>
 	<title>'.$gameName.' - '.$errorType[$errno].'</title>
-	<meta name="generator" content="2Moons '.$VERSION.'">
-	<!-- 
-		This website is powered by 2Moons '.$VERSION.'
-		2Moons is a free Space Browsergame initially created by Jan Kröpke and licensed under GNU/GPL.
-		2Moons is copyright 2009-2013 of Jan Kröpke. Extensions are copyright of their respective owners.
-		Information and contribution at http://2moons.cc/
-	-->
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/base/boilerplate.css?v='.$VERSION.'">
 	<link rel="stylesheet" type="text/css" href="'.$DIR.'/styles/resource/css/ingame/main.css?v='.$VERSION.'">

@@ -100,7 +100,7 @@ function GenerateReport($combatResult, $reportInfo)
 			foreach($player['unit'] as $ShipID => $Amount)
 			{
 				if ($Amount <= 0) {
-					$Destroy['def']++;
+					// $Destroy['def']++;
 					continue;
 				}
 					
