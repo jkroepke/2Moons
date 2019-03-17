@@ -15,7 +15,7 @@
 	<td>{$LNG.tkb_units}</td>
 </tr>
 {foreach $TopKBList as $row}
-    <tr class="day{floor($row.date / 86400)} week{floor($row.date / 604800)}">
+    <tr>
         <td>{$row@iteration}</td>
         <td><a href="game.php?page=raport&amp;mode=battlehall&amp;raport={$row.rid}" target="_blank">
         {if $row.result == "a"}
