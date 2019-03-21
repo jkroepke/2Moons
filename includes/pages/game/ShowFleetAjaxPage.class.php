@@ -189,6 +189,11 @@ class ShowFleetAjaxPage extends AbstractGamePage
 		if($UserDeuterium < 0) {
 			$this->sendData(613, $LNG['fa_not_enough_fuel']);
 		}
+		
+ 		$PlanetRess = new ResourceUpdate();
+		$PlanetRess->CalcResource($USER, $PLANET, true);
+		$PLANET[$resource[903]] -= $consumption;
+		$PlanetRess->SavePlanetToDB($USER, $PLANET);
 
 		if($consumption > FleetFunctions::GetFleetRoom($fleetArray)) {
 			$this->sendData(613, $LNG['fa_no_fleetroom']);
