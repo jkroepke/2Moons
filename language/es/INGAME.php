@@ -951,7 +951,7 @@ $LNG['cff_no_fleet_data']					= 'No hay datos de la flota';
 $LNG['cff_acs_fleet']						= 'flota sac';
 $LNG['cff_fleet_own']						= 'Flota';
 $LNG['cff_fleet_target']					= 'Flota';
-$LNG['cff_mission_acs']						= 'Una  %s de %s %s %s se dirige a %s %s %s %s. Misi&oacute;n: %s';
+$LNG['cff_mission_acs']						= 'Una  %s de %s %s %s se dirige a %s %s %s. Misi&oacute;n: %s';
 $LNG['cff_mission_own_0']					= 'Una  %s de %s %s %s se dirige a %s %s %s. Misi&oacute;n: %s.';
 $LNG['cff_mission_own_1']					= 'Tu %s Vuelve de %s %s %s a %s %s %s. Misi&oacute;n: %s.';
 $LNG['cff_mission_own_2']					= 'Una  %s de %s %s %s esta en Orbita de %s %s %s. Misi&oacute;n: %s';
@@ -961,9 +961,9 @@ $LNG['cff_mission_own_expo_1']				= 'Una %s Vuelve de %s  hacia %s %s %s. Misi&o
 $LNG['cff_mission_own_expo_2']				= 'Una %s de %s %s %s va de expedici&oacute;n m&aacute;s alla de la posici&oacute;n %s. Misi&oacute;n: %s';
 $LNG['cff_mission_own_recy_0']				= 'Una %s de %s %s %s se dirige al campo de escombros en la posici&oacute;n %s. Misi&oacute;n: %s';
 $LNG['cff_mission_own_recy_1']				= 'Una %s vuelve del campo de escombros en la posici&oacute;n %s hacia %s %s %s. Misi&oacute;n: %s';
-$LNG['cff_mission_target_bad']				= 'Una %s hostil del jugador %s de %s %s %s espia la posici&oacute;n %s %s %s %s. Misi&oacute;n: %s';
-$LNG['cff_mission_target_good']				= 'Una %s hostil del jugador %s de %s %s %s espia la posici&oacute;n %s %s %s %s. Misi&oacute;n: %s';
-$LNG['cff_mission_target_stay']				= 'Una %s pac&iacute;fica del jugador %s de %s %s %s esta en orbita en %s %s %s %s. Misi&oacute;n: %s';
+$LNG['cff_mission_target_bad']				= 'Una %s hostil del jugador %s de %s %s %s espia la posici&oacute;n %s %s %s. Misi&oacute;n: %s';
+$LNG['cff_mission_target_good']				= 'Una %s hostil del jugador %s de %s %s %s espia la posici&oacute;n %s %s %s. Misi&oacute;n: %s';
+$LNG['cff_mission_target_stay']				= 'Una %s pac&iacute;fica del jugador %s de %s %s %s esta en orbita en %s %s %s. Misi&oacute;n: %s';
 $LNG['cff_mission_target_mip']				= 'Ataque con Misiles (%d) del jugador %s de %s %s %s a la posici&oacute;n %s %s %s.';
 
 //----------------------------------------------------------------------------//
