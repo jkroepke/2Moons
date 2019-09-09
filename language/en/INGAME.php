@@ -151,7 +151,7 @@ $LNG['ov_teamspeak_connect']				= 'Connect';
 $LNG['ov_teamspeak_online']					= 'Online';
 $LNG['ov_closed']							= 'The universe is currently disabled';
 $LNG['ov_reflink']							= 'Recruits';
-$LNG['ov_noreflink']						= 'At the moment, you did not recruited any player.';
+$LNG['ov_noreflink']						= 'You have not recruited any players yet';
 $LNG['ov_chat_online']						= 'Players in chat:';
 
 //----------------------------------------------------------------------------//
@@ -175,7 +175,7 @@ $LNG['gl_short_ban']						= 'B';
 $LNG['gl_short_inactive']					= 'i';
 $LNG['gl_short_long_inactive']				= 'I';
 $LNG['gl_populed_planets']					= '%d Existing planets';
-$LNG['gl_out_space']						= 'Deep area of galaxy';
+$LNG['gl_out_space']						= 'Deep galaxy';
 $LNG['gl_avaible_missiles']					= 'Available Missiles';
 $LNG['gl_fleets']							= 'Fleet Slots';
 $LNG['gl_avaible_grecyclers']				= 'Giga Recycler';
