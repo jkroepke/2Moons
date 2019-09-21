@@ -1,31 +1,44 @@
 ---
-dist: trusty
 sudo: false
 language: php
-addons:
-  chrome: stable
-services:
-  - mysql
-before_script:
-  - '! find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
-  - php -S 0.0.0.0:8000
-  - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost:8000s &
-  - mysql -e 'CREATE DATABASE 2moons;'
-php:
-  - '7.0'
-install:
-  - composer install
-env:
-  - DB_HOST: localhost
-  - DB_USER: travis
-  - DB_PASSWORD:
-  - DB_NAME: 2moons
-  - ADMIN_NAME: admin
-  - ADMIN_PASSWORD: admin
-  - ADMIN_MAIL: mail@example.com
-
 cache:
   directories:
     - $HOME/.composer/cache/files
 
-script: '! find . -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
+services:
+  - mysql
+
+env:
+  global:
+    - TEST_BASE_URI=http://localhost:8888
+    - DB_HOST=localhost
+    - DB_USER=travis
+    - DB_PASSWORD=""
+    - DB_NAME=2moons
+    - ADMIN_NAME=admin
+    - ADMIN_PASSWORD=admin
+    - ADMIN_MAIL=mail@example.com
+
+php:
+  - '7.0'
+
+matrix:
+  fast_finish: true
+
+install:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS 2moons;' -uroot
+  - composer install
+
+before_script:
+  - phpenv config-rm xdebug.ini
+  - '! find . ! -path "./includes/libs/*" ! -path "./vendor/*" -type f -name "*.php" -exec php -d error_reporting=32767 -l {} \; 2>&1 >&- | grep "^"'
+  # Start a web server on port 8888, run in the background; wait for
+  # initialization.
+  - nohup php -d variables_order=EGPCS -S localhost:8888 > /dev/null 2>&1 &
+
+script:
+  - 'vendor/bin/phpunit'
+# - phpdbg -qrr phpunit
+
+notifications:
+  email: false
