@@ -97,14 +97,7 @@ function ShowUniversePage() {
 			$universeCount = count(Universe::availableUniverses());
 			// Check Multiuniverse Support
 			$ch	= curl_init();
-			if($universeCount == 1)
-			{
-				curl_setopt($ch, CURLOPT_URL, PROTOCOL.HTTP_HOST.HTTP_BASE."uni".ROOT_UNI."/");
-			}
-			else
-			{
-				curl_setopt($ch, CURLOPT_URL, PROTOCOL.HTTP_HOST.HTTP_BASE);
-			}
+			curl_setopt($ch, CURLOPT_URL, PROTOCOL.HTTP_HOST.HTTP_BASE."uni".($universeCount + 1)."/");
 			curl_setopt($ch, CURLOPT_HTTPGET, true);
 			curl_setopt($ch, CURLOPT_AUTOREFERER, true);
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, false);
