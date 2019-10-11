@@ -112,7 +112,8 @@ class ShowTraderPage extends AbstractGamePage
 			
 			if(isset($PLANET[$resource[$resourceID]]))
 			{
-				$usedResources	= $tradeAmount * self::$Charge[$resourceID][$tradeRessID];
+				$usedResources	= min($PLANET[$resource[$resourceID]],($tradeAmount * self::$Charge[$resourceID][$tradeRessID]));
+				$tradeAmount 	= min($PLANET[$resource[$resourceID]] * self::$Charge[$tradeRessID][$resourceID],$tradeAmount);
 				
 				if($usedResources > $PLANET[$resource[$resourceID]])
 				{
